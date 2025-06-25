@@ -25,6 +25,15 @@
     <Filter Include="01. Managers\03. InputMgr">
       <UniqueIdentifier>{063ce3c7-c16c-400f-a6b1-406c24dfa47d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components">
+      <UniqueIdentifier>{8cec6fd9-0f1a-4158-813c-0d11dad5498c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\00. VIBuffer">
+      <UniqueIdentifier>{cd20bd71-f491-414d-acb8-344bb536359b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject">
+      <UniqueIdentifier>{e1f04626-2236-4c63-967c-04d55aeeee95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -63,6 +72,12 @@
     <ClInclude Include="..\Header\CInputMgr.h">
       <Filter>01. Managers\03. InputMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CGameObject.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CComponent.h">
+      <Filter>02. Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -82,6 +97,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CInputMgr.cpp">
       <Filter>01. Managers\03. InputMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CGameObject.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CComponent.cpp">
+      <Filter>02. Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

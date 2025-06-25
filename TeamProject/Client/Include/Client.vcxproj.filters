@@ -14,6 +14,12 @@
     <Filter Include="02. MainApp">
       <UniqueIdentifier>{9c5040e7-00aa-46e9-975c-7a1b9dace7a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObjects">
+      <UniqueIdentifier>{ab7604f5-dc2e-4079-a511-01ca857fdab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObjects\TestPlayer">
+      <UniqueIdentifier>{59dd0850-c33f-45f5-8a15-5279976fcc02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
