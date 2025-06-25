@@ -22,6 +22,10 @@
 #include <typeindex> //타입으로 해시
 #include <process.h>//쓰레드
 
+#include <windows.h>
+#include <fstream>
+#include <strsafe.h>
+
 //--Define 헤더--//
 #include "Engine_Enum.h"
 #include "Engine_Function.h"
@@ -32,6 +36,7 @@
 //---Define -- //
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+
 #pragma execution_character_set("utf-8")
 
 #pragma warning(disable :4251) //맵 컨테이너 경고 무시
@@ -47,7 +52,8 @@
 
 #endif // ! DBG_NEW
 #endif // _DEBUG
-#endif
 
 using namespace std;
 using namespace Engine;
+
+#endif // Engine_Define_h__

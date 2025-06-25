@@ -34,6 +34,12 @@
     <Filter Include="03. GameObject">
       <UniqueIdentifier>{e1f04626-2236-4c63-967c-04d55aeeee95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\00. VIBuffer\CubeTex">
+      <UniqueIdentifier>{738e58d6-8342-4d2d-b5af-432ffd7e53ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\04. RenderMgr">
+      <UniqueIdentifier>{18559706-1ee1-46df-a5d7-66ea8a749a62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -78,6 +84,15 @@
     <ClInclude Include="..\Header\CComponent.h">
       <Filter>02. Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CVIBuffer.h">
+      <Filter>02. Components\00. VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCubeTex.h">
+      <Filter>02. Components\00. VIBuffer\CubeTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRenderMgr.h">
+      <Filter>01. Managers\04. RenderMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -103,6 +118,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CComponent.cpp">
       <Filter>02. Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVIBuffer.cpp">
+      <Filter>02. Components\00. VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCubeTex.cpp">
+      <Filter>02. Components\00. VIBuffer\CubeTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRenderMgr.cpp">
+      <Filter>01. Managers\04. RenderMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

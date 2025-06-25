@@ -1,12 +1,19 @@
 #pragma once
+#ifndef Engine_Macro_h__
+#define Engine_Macro_h__
 
-namespace Engine {
+namespace Engine
+{
 #define WINCX 800
 #define WINCY 600
 
+#define	VTXCNTX		129
+#define	VTXCNTZ		129
+#define VTXITV		1
 
-#ifndef			MSG_BOX
-#define			MSG_BOX(_message)			MessageBox(NULL, TEXT(_message), L"System Message", MB_OK)
+
+#ifndef MSG_BOX
+#define MSG_BOX(_message) MessageBox(NULL, TEXT(_message), TEXT("System Message"), MB_OK)
 #endif
 
 #define			BEGIN(NAMESPACE)		namespace NAMESPACE {
@@ -65,3 +72,5 @@ public:																					\
 		}																											  \
 	}		
 }
+
+#endif // Engine_Macro_h__

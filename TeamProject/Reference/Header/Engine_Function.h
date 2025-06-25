@@ -44,26 +44,26 @@ namespace Engine
 	}
 
 
-	// Functor
-	//class CTag_Finder
-	//{
-	//public:
-	//	explicit CTag_Finder(const _tchar* pTag) : m_pTargetTag(pTag) {}
-	//	~CTag_Finder(void) {}
+	//Functor
+	class CTag_Finder
+	{
+	public:
+		explicit CTag_Finder(const _tchar* pTag) : m_pTargetTag(pTag) {}
+		~CTag_Finder(void) {}
 
-	//public:
-	//	template<typename T>
-	//	_bool		operator()(const T& pair)
-	//	{
-	//		if (0 == lstrcmpW(m_pTargetTag, pair.first))
-	//			return true;
+	public:
+		template<typename T>
+		_bool		operator()(const T& pair)
+		{
+			if (0 == lstrcmpW(m_pTargetTag, pair.first))
+				return true;
 
-	//		return false;
-	//	}
+			return false;
+		}
 
-	//private:
-	//	const _tchar* m_pTargetTag = nullptr;
-	//};
+	private:
+		const _tchar* m_pTargetTag = nullptr;
+	};
 
 	class CDeleteObj
 	{
