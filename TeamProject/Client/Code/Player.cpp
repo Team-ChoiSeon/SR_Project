@@ -18,7 +18,8 @@ Player::Player(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev), m_pVB(
 
 Player::~Player()
 {
-
+	Safe_Release(m_pVB);
+	Safe_Release(m_pIB);
 }
 
 HRESULT Player::Ready_GameObject()
@@ -109,12 +110,12 @@ HRESULT Player::Ready_GameObject()
 
 
 	D3DXMATRIX matView, matProj;
-	_vec3 eye = { 0.f, 10.f, 0.f };
+	_vec3 eye = { 0.f, 20.f, 0.f };
 	_vec3 at = { 0.f, 0.f, 0.f };
 	_vec3 up = { 0.f, 0.f, 1.f };
 
-	float fov = D3DXToRadian(90.f / 2.f);
-	float aspect = WINCX / WINCY;
+	float fov = (D3DX_PI * 0.25f);
+	float aspect = WINCX / (WINCY * 1.f);
 	float zn = 0.1f;
 	float zf = 1000.f;
 	D3DXMatrixLookAtLH(&matView, &eye, &at, &up);
@@ -147,8 +148,7 @@ void Player::Render_GameObject()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwVtxCnt, 0, m_dwTriCnt);
 
-	Safe_Release(m_pVB);
-	Safe_Release(m_pIB);
+
 }
 
 void Player::ComputeWorldMatirx()
@@ -162,6 +162,13 @@ void Player::ComputeWorldMatirx()
 
 void Player::KeyInput(const _float& fTimeDelta)
 {
+	if (CInputMgr::GetInstance()->Key_Hold(DIK_LSHIFT)) {
+		m_fMoveSpeed = 50.f;
+	}
+	if (CInputMgr::GetInstance()->Key_Away(DIK_LSHIFT))
+	{
+		m_fMoveSpeed = 5.f;
+	}
 	if (CInputMgr::GetInstance()->Key_Down(DIK_W)) {
 		m_vTranslation.z += m_fMoveSpeed * fTimeDelta;
 	}
