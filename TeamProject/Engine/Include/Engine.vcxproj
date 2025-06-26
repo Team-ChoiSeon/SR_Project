@@ -161,9 +161,13 @@
     <ClInclude Include="..\Header\CGameObject.h" />
     <ClInclude Include="..\Header\CGraphicDev.h" />
     <ClInclude Include="..\Header\CInputMgr.h" />
+    <ClInclude Include="..\Header\CLayer.h" />
     <ClInclude Include="..\Header\CRenderMgr.h" />
+    <ClInclude Include="..\Header\CScene.h" />
+    <ClInclude Include="..\Header\CSceneMgr.h" />
     <ClInclude Include="..\Header\CTimeMgr.h" />
     <ClInclude Include="..\Header\CTimer.h" />
+    <ClInclude Include="..\Header\CTransform.h" />
     <ClInclude Include="..\Header\CVIBuffer.h" />
     <ClInclude Include="..\Header\Engine_Define.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
@@ -180,9 +184,13 @@
     <ClCompile Include="..\Code\CGameObject.cpp" />
     <ClCompile Include="..\Code\CGraphicDev.cpp" />
     <ClCompile Include="..\Code\CInputMgr.cpp" />
+    <ClCompile Include="..\Code\CLayer.cpp" />
     <ClCompile Include="..\Code\CRenderMgr.cpp" />
+    <ClCompile Include="..\Code\CScene.cpp" />
+    <ClCompile Include="..\Code\CSceneMgr.cpp" />
     <ClCompile Include="..\Code\CTimeMgr.cpp" />
     <ClCompile Include="..\Code\CTimer.cpp" />
+    <ClCompile Include="..\Code\CTransform.cpp" />
     <ClCompile Include="..\Code\CVIBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

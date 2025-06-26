@@ -20,10 +20,10 @@ CMainApp::~CMainApp()
 
 HRESULT CMainApp::Ready_MainApp()
 {
-	if (FAILED(CGraphicDev::GetInstance()->Ready_GraphicDev(g_hWnd, MODE_WIN, WINCX, WINCY, &m_pDeviceClass)))
+	if (FAILED(CGraphicDev::Get_Instance()->Ready_GraphicDev(g_hWnd, MODE_WIN, WINCX, WINCY, &m_pDeviceClass)))
 		return E_FAIL;
 
-	if (FAILED(CInputMgr::GetInstance()->Ready_InputDev(g_HInst, g_hWnd)))
+	if (FAILED(CInputMgr::Get_Instance()->Ready_InputDev(g_HInst, g_hWnd)))
 		return E_FAIL;
 
 	m_pDeviceClass->AddRef();
@@ -36,14 +36,14 @@ HRESULT CMainApp::Ready_MainApp()
 
 int CMainApp::Update_MainApp(_float& fTimeDelta)
 {
-	CInputMgr::GetInstance()->Update_InputDev();
+	CInputMgr::Get_Instance()->Update_InputDev();
 
 	return 0;
 }
 
 void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 {
-	CInputMgr::GetInstance()->LateUpdate_InputDev();
+	CInputMgr::Get_Instance()->LateUpdate_InputDev();
 }
 
 
@@ -69,9 +69,9 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
-	CTimeMgr::GetInstance()->DestroyInstance();
-	CFrameMgr::GetInstance()->DestroyInstance();
-	CInputMgr::GetInstance()->DestroyInstance();
+	CTimeMgr::Get_Instance()->Destroy_Instance();
+	CFrameMgr::Get_Instance()->Destroy_Instance();
+	CInputMgr::Get_Instance()->Destroy_Instance();
 
-	CGraphicDev::GetInstance()->DestroyInstance(); 
+	CGraphicDev::Get_Instance()->Destroy_Instance(); 
 }

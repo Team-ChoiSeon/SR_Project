@@ -37,8 +37,8 @@ namespace Engine
 private:																					\
 	static CLASSNAME* m_pInstance;						\
 public:																					\
-	static CLASSNAME* GetInstance(void);			\
-	static void DestroyInstance(void);						
+	static CLASSNAME* Get_Instance(void);			\
+	static void Destroy_Instance(void);						
 
 	
 #define NO_COPY(CLASSNAME)								\
@@ -51,12 +51,12 @@ public:																					\
 		private:										\
 		static CLASSNAME*	m_pInstance;				\
 		public:											\
-		static CLASSNAME*	GetInstance( void );		\
-		static void DestroyInstance( void );			
+		static CLASSNAME*	Get_Instance( void );		\
+		static void Destroy_Instance( void );			
 
 #define IMPLEMENT_SINGLETON(CLASSNAME)					\
 	CLASSNAME* CLASSNAME::m_pInstance = nullptr;		\
-	CLASSNAME* CLASSNAME::GetInstance(void)				   \
+	CLASSNAME* CLASSNAME::Get_Instance(void)				   \
 	{																											   \
 		if (nullptr == m_pInstance) {													 \
 			m_pInstance = new CLASSNAME;								   \
@@ -64,7 +64,7 @@ public:																					\
 		return m_pInstance;																	  \
 	}																											   \
 																													\
-	void CLASSNAME::DestroyInstance(void)							\
+	void CLASSNAME::Destroy_Instance(void)							\
 	{																											   \
 		if (nullptr != m_pInstance) {													  \
 			delete m_pInstance;																 \

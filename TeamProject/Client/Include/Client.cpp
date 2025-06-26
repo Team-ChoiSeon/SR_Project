@@ -49,13 +49,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (nullptr == pMainApp)
         return FALSE;
     
-    if (FAILED(CTimeMgr::GetInstance()->Ready_Timer(L"Timer_Immediate")))
+    if (FAILED(CTimeMgr::Get_Instance()->Ready_Timer(L"Timer_Immediate")))
         return FALSE;
     
-    if (FAILED(CTimeMgr::GetInstance()->Ready_Timer(L"Timer_FPS")))
+    if (FAILED(CTimeMgr::Get_Instance()->Ready_Timer(L"Timer_FPS")))
         return FALSE;
     
-    if (FAILED(CFrameMgr::GetInstance()->Ready_Frame(L"Frame60", 60.f)))
+    if (FAILED(CFrameMgr::Get_Instance()->Ready_Frame(L"Frame60", 60.f)))
         return FALSE;
 
     while (true)
@@ -72,13 +72,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             }
         }
         else {
-            CTimeMgr::GetInstance()->Set_TimeDelta(L"Timer_Immediate");
-            _float fTimerImmediate = CTimeMgr::GetInstance()->Get_TimeDelta(L"Timer_Immediate");
+            CTimeMgr::Get_Instance()->Set_TimeDelta(L"Timer_Immediate");
+            _float fTimerImmediate = CTimeMgr::Get_Instance()->Get_TimeDelta(L"Timer_Immediate");
             
-            if (CFrameMgr::GetInstance()->IsPermit_Call(L"Frame60", fTimerImmediate));
+            if (CFrameMgr::Get_Instance()->IsPermit_Call(L"Frame60", fTimerImmediate));
             {
-                CTimeMgr::GetInstance()->Set_TimeDelta(L"Timer_FPS");
-                _float fTimer_FPS = CTimeMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS");
+                CTimeMgr::Get_Instance()->Set_TimeDelta(L"Timer_FPS");
+                _float fTimer_FPS = CTimeMgr::Get_Instance()->Get_TimeDelta(L"Timer_FPS");
             
                 pMainApp->Update_MainApp(fTimer_FPS);
                 pMainApp->LateUpdate_MainApp(fTimer_FPS);

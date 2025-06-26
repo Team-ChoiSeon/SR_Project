@@ -40,6 +40,18 @@
     <Filter Include="01. Managers\04. RenderMgr">
       <UniqueIdentifier>{18559706-1ee1-46df-a5d7-66ea8a749a62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Managers\00. SceneMgr">
+      <UniqueIdentifier>{ee1069c3-90b9-40c7-9b4a-c8d3400b40a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Layer">
+      <UniqueIdentifier>{21e2a293-a525-43c2-8b72-80039c83bdec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Scene">
+      <UniqueIdentifier>{133f03db-7042-4626-8b56-a5724d470c1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\01. Transform">
+      <UniqueIdentifier>{2c38a7cf-3a4d-466d-9bda-a1f17c13d105}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -93,6 +105,18 @@
     <ClInclude Include="..\Header\CRenderMgr.h">
       <Filter>01. Managers\04. RenderMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CScene.h">
+      <Filter>05. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLayer.h">
+      <Filter>04. Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSceneMgr.h">
+      <Filter>01. Managers\00. SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTransform.h">
+      <Filter>02. Components\01. Transform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -127,6 +151,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRenderMgr.cpp">
       <Filter>01. Managers\04. RenderMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CScene.cpp">
+      <Filter>05. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLayer.cpp">
+      <Filter>04. Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSceneMgr.cpp">
+      <Filter>01. Managers\00. SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTransform.cpp">
+      <Filter>02. Components\01. Transform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
