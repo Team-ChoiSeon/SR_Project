@@ -167,7 +167,7 @@ void Player::KeyInput(const _float& fTimeDelta)
 	}
 	if (CInputMgr::GetInstance()->Key_Away(DIK_LSHIFT))
 	{
-		m_fMoveSpeed = 5.f;
+		m_fMoveSpeed = 10.f;
 	}
 	if (CInputMgr::GetInstance()->Key_Down(DIK_W)) {
 		m_vTranslation.z += m_fMoveSpeed * fTimeDelta;
