@@ -52,6 +52,12 @@
     <Filter Include="02. Components\01. Transform">
       <UniqueIdentifier>{2c38a7cf-3a4d-466d-9bda-a1f17c13d105}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\02. Camera">
+      <UniqueIdentifier>{5810b33a-5f21-45d0-8341-3f2205c15949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\05.CameraMgr">
+      <UniqueIdentifier>{7018b58f-1551-48ac-8e9d-2e58568c357d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -117,6 +123,12 @@
     <ClInclude Include="..\Header\CTransform.h">
       <Filter>02. Components\01. Transform</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCameraMgr.h">
+      <Filter>01. Managers\05.CameraMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCameraCom.h">
+      <Filter>02. Components\02. Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -163,6 +175,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTransform.cpp">
       <Filter>02. Components\01. Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCameraMgr.cpp">
+      <Filter>01. Managers\05.CameraMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCameraCom.cpp">
+      <Filter>02. Components\02. Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #pragma once
 #include "CGameObject.h"
 #include "CVIBuffer.h"
+#include "CTransform.h"
 
 class Player : public CGameObject
 {
@@ -15,7 +16,7 @@ public:
 
 
 public:		//GetSet
-	_vec3 GetVScale() { return m_vScale; }
+	_vec3 GetVScale() { return m_pTransformCom->Get_Scale(); }
 	void SetVScale(_vec3 scale) { m_vScale = scale; }
 	void SetVScale(float x, float y, float z) { m_vScale = { x, y, z }; }
 	_vec3 GetVRotation() { return m_vRotation; }
@@ -34,6 +35,7 @@ protected:
 
 private:
 	CVIBuffer* m_pVIBuffer;
+	CTransform* m_pTransformCom;
 
 	_vec3 m_vScale;
 	_vec3 m_vRotation;
