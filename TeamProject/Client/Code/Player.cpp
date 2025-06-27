@@ -162,23 +162,23 @@ void Player::ComputeWorldMatirx()
 
 void Player::KeyInput(const _float& fTimeDelta)
 {
-	if (CInputMgr::GetInstance()->Key_Hold(DIK_LSHIFT)) {
+	if (CInputMgr::Get_Instance()->Key_Hold(DIK_LSHIFT)) {
 		m_fMoveSpeed = 50.f;
 	}
-	if (CInputMgr::GetInstance()->Key_Away(DIK_LSHIFT))
+	if (CInputMgr::Get_Instance()->Key_Away(DIK_LSHIFT))
 	{
 		m_fMoveSpeed = 10.f;
 	}
-	if (CInputMgr::GetInstance()->Key_Down(DIK_W)) {
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_W)) {
 		m_vTranslation.z += m_fMoveSpeed * fTimeDelta;
 	}
-	if (CInputMgr::GetInstance()->Key_Down(DIK_S)) {
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_S)) {
 		m_vTranslation.z -= m_fMoveSpeed * fTimeDelta;
 	}
-	if (CInputMgr::GetInstance()->Key_Down(DIK_D)) {
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_D)) {
 		m_vTranslation.x += m_fMoveSpeed * fTimeDelta;
 	}
-	if (CInputMgr::GetInstance()->Key_Down(DIK_A)) {
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_A)) {
 		m_vTranslation.x -= m_fMoveSpeed * fTimeDelta;
 	}
 }

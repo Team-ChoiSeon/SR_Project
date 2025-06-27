@@ -57,7 +57,7 @@ HRESULT CMainApp::Ready_MainApp()
 
 int CMainApp::Update_MainApp(_float& fTimeDelta)
 {
-	CInputMgr::GetInstance()->Update_InputDev();
+	CInputMgr::Get_Instance()->Update_InputDev();
 	m_pPlayer->Update_GameObject(fTimeDelta);
 
 	return 0;
@@ -65,7 +65,7 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 
 void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 {
-	CInputMgr::GetInstance()->LateUpdate_InputDev();
+	CInputMgr::Get_Instance()->LateUpdate_InputDev();
 	m_pPlayer->LateUpdate_GameObject(fTimeDelta);
 }
 
