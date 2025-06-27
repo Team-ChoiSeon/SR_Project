@@ -52,7 +52,7 @@ public:
 private:
     virtual void	Free();
 
-public:
+private:
     _vec3       m_vScale;
     _vec3       m_vAngle;
     _vec3       m_vPosition;

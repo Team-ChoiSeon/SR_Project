@@ -38,7 +38,6 @@ T* CLayer::Get_GameObject(const wstring& wObjTag)
 		return nullptr;
 	}
 
-
 	return dynamic_cast<T*>(iter->second);  // 자동 캐스팅
 }
 
