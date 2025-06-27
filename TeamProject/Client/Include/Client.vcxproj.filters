@@ -40,6 +40,9 @@
     <ClInclude Include="..\Header\CMainApp.h">
       <Filter>02. MainApp</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player.h">
+      <Filter>03. GameObjects\TestPlayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMainApp.cpp">
       <Filter>02. MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player.cpp">
+      <Filter>03. GameObjects\TestPlayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
