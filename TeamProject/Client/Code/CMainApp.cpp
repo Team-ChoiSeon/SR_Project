@@ -21,10 +21,10 @@ CMainApp::~CMainApp()
 
 HRESULT CMainApp::Ready_MainApp()
 {
-	if (FAILED(CGraphicDev::GetInstance()->Ready_GraphicDev(g_hWnd, MODE_WIN, WINCX, WINCY, &m_pDeviceClass)))
+	if (FAILED(CGraphicDev::Get_Instance()->Ready_GraphicDev(g_hWnd, MODE_WIN, WINCX, WINCY, &m_pDeviceClass)))
 		return E_FAIL;
 
-	if (FAILED(CInputMgr::GetInstance()->Ready_InputDev(g_HInst, g_hWnd)))
+	if (FAILED(CInputMgr::Get_Instance()->Ready_InputDev(g_HInst, g_hWnd)))
 		return E_FAIL;
 
 	m_pDeviceClass->AddRef();
@@ -38,14 +38,14 @@ HRESULT CMainApp::Ready_MainApp()
 
 	if (FAILED(D3DXCreateFont(
 		m_pGraphicDev,    // D3D device
-		20, 0,             // ³ôÀÌ, Æø(0=ºñ·Ê)
-		FW_NORMAL,         // µÎ²²
+		20, 0,             // ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½(0=ï¿½ï¿½ï¿½)
+		FW_NORMAL,         // ï¿½Î²ï¿½
 		1, FALSE,          // MipLevels, Italic
 		DEFAULT_CHARSET,   // CharSet
 		OUT_DEFAULT_PRECIS,
 		ANTIALIASED_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE,
-		L"±¼¸²",           // ÆùÆ® ÀÌ¸§
+		L"ï¿½ï¿½ï¿½ï¿½",           // ï¿½ï¿½Æ® ï¿½Ì¸ï¿½
 		&m_pFont)))
 	{
 		return E_FAIL;
@@ -83,9 +83,9 @@ void CMainApp::Render_MainApp()
 	RECT rc = { 10, 10, 500, 30 };
 
 	m_pFont->DrawTextW(
-		nullptr,      // sprite (nullptr °¡´É)
-		buf,          // Ãâ·ÂÇÒ ¹®ÀÚ¿­
-		-1,           // ¹®ÀÚ¿­ ±æÀÌ(-1ÀÌ¸é ³ÎÁ¾·á±îÁö)
+		nullptr,      // sprite (nullptr ï¿½ï¿½ï¿½ï¿½)
+		buf,          // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
+		-1,           // ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½(-1ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 		&rc,
 		DT_LEFT | DT_TOP,
 		D3DCOLOR_ARGB(255, 255, 255, 255)
@@ -112,9 +112,9 @@ void CMainApp::Free()
 	//Safe_Release(m_pPlayer);
 
 
-	CTimeMgr::GetInstance()->DestroyInstance();
-	CFrameMgr::GetInstance()->DestroyInstance();
-	CInputMgr::GetInstance()->DestroyInstance();
+	CTimeMgr::Get_Instance()->Destroy_Instance();
+	CFrameMgr::Get_Instance()->Destroy_Instance();
+	CInputMgr::Get_Instance()->Destroy_Instance();
 
-	CGraphicDev::GetInstance()->DestroyInstance(); 
+	CGraphicDev::Get_Instance()->Destroy_Instance(); 
 }

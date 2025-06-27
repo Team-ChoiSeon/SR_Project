@@ -12,7 +12,21 @@ protected:
 	virtual ~CGameObject();
 
 public:
-	CComponent* Get_Component(COMPONENTID eID, const wstring& pComponentTag);
+	// 사용 예시
+	// CRenderer* pRenderer = pGameObject->Get_Component<CRenderer>(L"Renderer");
+	template<typename T = CComponent>
+	T* Get_Component(const wstring& pComponentTag);
+
+	// 사용 예시
+	/*
+		CTransform* pTransform = new CTransform(...);
+		pGameObject->Add_Component(L"Transform", pTransform);  // ID_DYNAMIC으로 자동 등록
+		
+		CRenderer* pRenderer = new CRenderer(...);
+		pGameObject->Add_Component(L"Renderer", pRenderer, ID_STATIC);  // 명시적으로 ID 지정도 가능
+	*/
+	template<typename T, typename... Args>
+	void Add_Component(const wstring& pComponentTag, COMPONENTID eID, Args&&... args);
 
 public:
 	virtual			HRESULT		Ready_GameObject();
@@ -21,11 +35,8 @@ public:
 	virtual			void		Render_GameObject() = 0;
 
 protected:
-	map<wstring, CComponent*>			m_mapComponent[ID_END];
+	unordered_map<wstring, CComponent*>			m_umComponent[ID_END];
 	LPDIRECT3DDEVICE9						m_pGraphicDev;
-
-private:
-	CComponent* Find_Component(COMPONENTID eID, const wstring& pComponentTag);
 
 protected:
 	virtual		void		Free();

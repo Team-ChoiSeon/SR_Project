@@ -1,0 +1,41 @@
+#pragma once
+#include "CBase.h"
+#include "CGameObject.h"
+
+BEGIN(Engine)
+
+class ENGINE_DLL CLayer : public CBase
+{
+private:
+	explicit CLayer();
+	virtual ~CLayer();
+
+public:
+
+	// 사용 예시
+	// CSkyBox* pSkyBox = pLayer->Get_GameObject<CSkyBox>(L"SkyBox");
+	template <typename T = CGameObject>
+	T*		Get_GameObject(const wstring& wObjTag);
+
+	// 사용 예시 
+	// pLayer->Add_GameObject(L"SkyBox", pSkyBoxObj);
+	void	Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject);
+	
+
+public:
+	HRESULT			Ready_Layer();
+	_int			Update_Layer(const _float& fTimeDelta);
+	void			LateUpdate_Layer(const _float& fTimeDelta);
+	void			Render_Layer();
+
+private:
+	unordered_map<wstring, CGameObject*>			m_umObject;
+
+public:
+	static CLayer* Create();
+
+private:
+	virtual void	Free();
+};
+
+END
