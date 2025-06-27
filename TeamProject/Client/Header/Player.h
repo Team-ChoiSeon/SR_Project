@@ -21,23 +21,7 @@ public:
 
 
 public:		//GetSet
-	_vec3 GetVScale() { return Get_Component<CTransform>(L"Transform")->Get_Scale(); }
-	//void SetVScale(_vec3 scale) { m_vScale = scale; }
-	//void SetVScale(float x, float y, float z) { m_vScale = { x, y, z }; }
-	//_vec3 GetVRotation() { return m_vRotation; }
-	//void SetVRotation(_vec3 rot) { m_vRotation = rot; }
-	//void SetVRotation(float x, float y, float z) { m_vRotation = { x, y, z }; }
-	//_vec3 GetVTranslation() { return m_vTranslation; }
-	//void SetVTranslation(_vec3 pos) { m_vTranslation = pos; }
-	//void SetVTranslation(float x, float y, float z) { m_vTranslation = { x, y, z }; }
 	_vec3 GetPos() { return Get_Component<CTransform>(L"Transform")->Get_Pos(); }
-	//void SetPos(_vec3 pos) { m_vTranslation = pos; }
-	//void SetPos(float x, float y, float z) { m_vTranslation = { x, y, z }; }
-
-	//temp
-	const _matrix* GetWorldMat() { return m_mWorld; }
-	float GetWidth() { return m_fWidth; }
-	float GetDepth() { return m_fDepth; }	
 
 
 protected:
@@ -46,14 +30,6 @@ protected:
 private:
 	CVIBuffer* m_pVIBuffer;
 	CTransform* m_pTransformCom;
-
-	//_vec3 m_vScale;
-	//_vec3 m_vRotation;
-	//_vec3 m_vTranslation;
-
-	//_matrix m_mScale;
-	//_matrix m_mRotation;
-	//_matrix m_mTranslation;
 
 	const _matrix* m_mWorld;
 

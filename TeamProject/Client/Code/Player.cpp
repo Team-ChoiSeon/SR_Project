@@ -135,7 +135,6 @@ int Player::Update_GameObject(const _float& fTimeDelta)
 	KeyInput(fTimeDelta);
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
-	//m_fWidth =  vertecies[1].vPosition.x - vertecies[0].vPosition.x ;
 	return int();
 }
 
