@@ -9,7 +9,7 @@ Player::Player(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev), m_pVB(
 	m_vScale = { 1.f, 1.f, 1.f };
 	m_vRotation = { 0.f, 0.f, 0.f };
 	m_vTranslation = { 0.f, 0.f, 0.f };
-	m_fMoveSpeed = 5.f;
+	m_fMoveSpeed = 10.f;
 
 	D3DXMatrixIdentity(&m_mScale);
 	D3DXMatrixIdentity(&m_mRotation);
