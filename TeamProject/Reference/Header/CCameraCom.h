@@ -17,10 +17,6 @@ public:
 	virtual void LateUpdate_Camera();
 
 public:			//GetSet
-	void 
-
-
-
 };
 
 END

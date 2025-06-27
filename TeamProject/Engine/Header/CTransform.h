@@ -5,7 +5,7 @@ BEGIN(Engine)
 
 class ENGINE_DLL CTransform : public CComponent
 {
-private:
+public:
 	explicit CTransform();
 	explicit CTransform(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CTransform(const CTransform& rhs);

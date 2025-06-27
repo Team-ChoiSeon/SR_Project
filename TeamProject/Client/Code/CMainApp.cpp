@@ -8,6 +8,7 @@
 #include "CFrameMgr.h"
 #include "CInputMgr.h"
 #include "Player.h"
+#include "CTransform.h"
 
 CMainApp::CMainApp()
 	:m_pDeviceClass(nullptr)
@@ -33,19 +34,18 @@ HRESULT CMainApp::Ready_MainApp()
 	m_pGraphicDev->AddRef();
 
 	m_pPlayer = new Player(m_pGraphicDev);
-	//m_pPlayer->AddRef();
 	m_pPlayer->Ready_GameObject();
 
 	if (FAILED(D3DXCreateFont(
-		m_pGraphicDev,    // D3D device
-		20, 0,             // ����, ��(0=���)
-		FW_NORMAL,         // �β�
-		1, FALSE,          // MipLevels, Italic
-		DEFAULT_CHARSET,   // CharSet
+		m_pGraphicDev,   
+		20, 0,           
+		FW_NORMAL,       
+		1, FALSE,        
+		DEFAULT_CHARSET, 
 		OUT_DEFAULT_PRECIS,
 		ANTIALIASED_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE,
-		L"����",           // ��Ʈ �̸�
+		L"굴림",           // font name
 		&m_pFont)))
 	{
 		return E_FAIL;
@@ -72,23 +72,47 @@ void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 
 void CMainApp::Render_MainApp()
 {
-	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
+	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
 
 	m_pPlayer->Render_GameObject();
 
 	_vec3 v_playpos = m_pPlayer->GetPos();
 	wchar_t buf[64];
-	swprintf_s(buf, L"position : %.3f    %.3f    %.3f", v_playpos.x, v_playpos.y, v_playpos.z);
+	wchar_t buf2[64];
+	wchar_t buf3[64];
+	swprintf_s(buf, L"position : x: %.3f y: %.3f  z: %.3f", v_playpos.x, v_playpos.y, v_playpos.z);
+	swprintf_s(buf2, L"");
+	swprintf_s(buf3, L"");
+
 
 	RECT rc = { 10, 10, 500, 30 };
+	RECT rc2 = { 10, 30, 500, 50 };
+	RECT rc3 = { 10, 50, 500, 70 };
 
 	m_pFont->DrawTextW(
-		nullptr,      // sprite (nullptr ����)
-		buf,          // ����� ���ڿ�
-		-1,           // ���ڿ� ����(-1�̸� ���������)
+		nullptr,     
+		buf,         
+		-1,          
 		&rc,
 		DT_LEFT | DT_TOP,
-		D3DCOLOR_ARGB(255, 255, 255, 255)
+		D3DCOLOR_ARGB(255, 255, 0, 0)
+	);
+
+	m_pFont->DrawTextW(
+		nullptr,
+		buf2,
+		-1,
+		&rc2,
+		DT_LEFT | DT_TOP,
+		D3DCOLOR_ARGB(255, 255, 0, 0)
+	);
+	m_pFont->DrawTextW(
+		nullptr,
+		buf3,
+		-1,
+		&rc3,
+		DT_LEFT | DT_TOP,
+		D3DCOLOR_ARGB(255, 255, 0, 0)
 	);
 
 
@@ -109,8 +133,7 @@ void CMainApp::Free()
 {
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
-	//Safe_Release(m_pPlayer);
-
+	Safe_Release(m_pPlayer);
 
 	CTimeMgr::Get_Instance()->Destroy_Instance();
 	CFrameMgr::Get_Instance()->Destroy_Instance();
