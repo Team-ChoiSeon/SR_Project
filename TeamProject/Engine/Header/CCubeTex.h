@@ -9,6 +9,7 @@ private:
 	explicit CCubeTex();
 	explicit CCubeTex(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CCubeTex(const CCubeTex& rhs);
+public:
 	virtual ~CCubeTex();
 
 public:

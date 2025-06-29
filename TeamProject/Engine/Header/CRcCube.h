@@ -9,6 +9,7 @@ private:
 	explicit CRcCube();
 	explicit CRcCube(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CRcCube(const CRcCube& rhs);
+public:
 	virtual ~CRcCube();
 
 public:
