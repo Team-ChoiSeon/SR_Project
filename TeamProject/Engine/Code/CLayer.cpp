@@ -13,9 +13,9 @@ void CLayer::Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject)
 	if (pGameObject == nullptr)
 	{
 		MSG_BOX("[Layer] Add_GameObject 실패 : nullptr 전달됨");
-		return ;
+		return;
 	}
-		
+
 	// 이미 동일 태그가 존재하는 경우 덮어쓰지 않기
 	if (m_umObject.find(wObjTag) != m_umObject.end())
 	{
@@ -25,20 +25,7 @@ void CLayer::Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject)
 
 	m_umObject.emplace(wObjTag, pGameObject);
 
-	return ;
-}
-
-template <typename T>
-T* CLayer::Get_GameObject(const wstring& wObjTag)
-{
-	auto iter = m_umObject.find(wObjTag);
-	if (iter == m_umObject.end())
-	{
-		MSG_BOX("[Layer] Get_GameObjectt 실패: nullptr 전달됨");
-		return nullptr;
-	}
-
-	return dynamic_cast<T*>(iter->second);  // 자동 캐스팅
+	return;
 }
 
 HRESULT CLayer::Ready_Layer()
@@ -98,3 +85,5 @@ void CLayer::Free()
 		Safe_Release(object.second);
 	m_umObject.clear();
 }
+
+

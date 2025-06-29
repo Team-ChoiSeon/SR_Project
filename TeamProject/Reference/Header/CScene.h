@@ -13,6 +13,15 @@ protected:
 
 public:
 	virtual			HRESULT		Ready_Scene();
+
+	// enum LAYERID {LAYER_TILE, LAYER_OBJECT, LAYER_PLAYER, LAYER_END};
+	// 모든 레이어를 추가합니다.
+	virtual			void		Create_Layer();
+	// LAYERID에 해당하는 레이어를 추가합니다.
+	virtual			void		Add_Layer(LAYERID eID);
+	// LAYERID에 해당하는 레이어를 제거합니다.
+	virtual			void		Remove_Layer(LAYERID eID);
+
 	virtual			_int		Update_Scene(const _float& fTimeDelta);
 	virtual			void		LateUpdate_Scene(const _float& fTimeDelta);
 	virtual			void		Render_Scene();

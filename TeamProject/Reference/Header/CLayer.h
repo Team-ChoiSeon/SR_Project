@@ -39,3 +39,18 @@ private:
 };
 
 END
+
+
+template <typename T>
+T* CLayer::Get_GameObject(const wstring& wObjTag)
+{
+	auto iter = m_umObject.find(wObjTag);
+	if (iter == m_umObject.end())
+	{
+		MSG_BOX("[Layer] Get_GameObjectt 실패: nullptr 전달됨");
+		return nullptr;
+	}
+
+	return dynamic_cast<T*>(iter->second);  // 자동 캐스팅
+}
+
