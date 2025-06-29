@@ -5,10 +5,12 @@ BEGIN(Engine)
 
 class ENGINE_DLL CTransform : public CComponent
 {
-public:
+private:
 	explicit CTransform();
 	explicit CTransform(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CTransform(const CTransform& rhs);
+
+public:
 	virtual ~CTransform();
 
 public:

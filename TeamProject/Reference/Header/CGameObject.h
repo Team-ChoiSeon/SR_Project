@@ -58,8 +58,7 @@ T* CGameObject::Get_Component(const wstring& pComponentTag)
 template<typename T, typename... Args>
 void CGameObject::Add_Component(const wstring& pComponentTag, COMPONENTID eID, Args&&... args)
 {
-	//std::unique_ptr<T> pComp = std::make_unique<T>(std::forward<Args>(args)...);
-	std::unique_ptr<T> pComp = std::make_unique<T>();
+	unique_ptr<T> pComp (T::Create(forward<Args>(args)...));
 	if (pComp == nullptr)
 	{
 		MSG_BOX("[GameObject] Add_Component 실패 : 생성 실패");
@@ -74,9 +73,8 @@ void CGameObject::Add_Component(const wstring& pComponentTag, COMPONENTID eID, A
 	}
 
 	m_umComponent[eID].emplace(pComponentTag, pComp.release());
-	//T* raptr = pComp.get();
-	//
-	//m_umComponent[eID].emplace(pComponentTag, raptr);
 }
+
+
 
 END

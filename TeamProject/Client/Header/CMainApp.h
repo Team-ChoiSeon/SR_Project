@@ -2,8 +2,10 @@
 #include "CBase.h"
 
 class Player;
+class TestFollowingCam;
 namespace Engine {
 	class CGraphicDev;
+	class CCameraObject;
 }
 
 class CMainApp : public CBase
@@ -24,6 +26,7 @@ private:
 
 	Player* m_pPlayer;	
 	ID3DXFont* m_pFont;
+	TestFollowingCam* m_pFFCam;
 
 public:
 	static CMainApp* Create();

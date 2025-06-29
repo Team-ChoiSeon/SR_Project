@@ -9,6 +9,8 @@
 #include "CInputMgr.h"
 #include "Player.h"
 #include "CTransform.h"
+#include "TestFollowingCam.h"
+#include "CCameraObject.h"
 
 CMainApp::CMainApp()
 	:m_pDeviceClass(nullptr)
@@ -36,6 +38,9 @@ HRESULT CMainApp::Ready_MainApp()
 	m_pPlayer = new Player(m_pGraphicDev);
 	m_pPlayer->Ready_GameObject();
 
+	m_pFFCam = TestFollowingCam::Create(m_pGraphicDev, m_pPlayer, {0.f, 3.f, -3.f});
+	m_pFFCam->Ready_Fcam();
+
 	if (FAILED(D3DXCreateFont(
 		m_pGraphicDev,   
 		20, 0,           
@@ -59,6 +64,7 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->Update_InputDev();
 	m_pPlayer->Update_GameObject(fTimeDelta);
+	m_pFFCam->Update_FCam(fTimeDelta);
 
 	return 0;
 }
@@ -67,6 +73,7 @@ void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->LateUpdate_InputDev();
 	m_pPlayer->LateUpdate_GameObject(fTimeDelta);
+	m_pFFCam->LateUpdate_FCam();
 }
 
 
@@ -75,13 +82,15 @@ void CMainApp::Render_MainApp()
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
 
 	m_pPlayer->Render_GameObject();
+	m_pFFCam->Render_FCam();
 
 	_vec3 v_playpos = m_pPlayer->GetPos();
+	_vec3 v_camerapos = m_pFFCam->Get_Component<CTransform>(L"Transform")->Get_Pos();
 	wchar_t buf[64];
 	wchar_t buf2[64];
 	wchar_t buf3[64];
 	swprintf_s(buf, L"position : x: %.3f y: %.3f  z: %.3f", v_playpos.x, v_playpos.y, v_playpos.z);
-	swprintf_s(buf2, L"");
+	swprintf_s(buf2, L"cam position : x: %.3f y: %.3f  z: %.3f", v_camerapos.x, v_camerapos.y, v_camerapos.z);
 	swprintf_s(buf3, L"");
 
 

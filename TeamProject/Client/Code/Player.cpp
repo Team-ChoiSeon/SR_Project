@@ -7,8 +7,8 @@
 
 Player::Player(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev), m_pVB(nullptr), m_pIB(nullptr)
 {
+	//m_pTransformCom->Create(pGraphicDev);
 	Add_Component<CTransform>(L"Transform", ID_DYNAMIC, pGraphicDev);
-	//create 하지 않아도 됨
 
 	m_fMoveSpeed = 10.f;
 }
@@ -113,19 +113,19 @@ HRESULT Player::Ready_GameObject()
 
 	m_pIB->Unlock();
 
-	D3DXMATRIX matView, matProj;
-	_vec3 eye = { 0.f, 40.f, 0.f };
-	_vec3 at = { 0.f, 0.f, 0.f };
-	_vec3 up = { 0.f,0.f, 1.f };
+	//D3DXMATRIX matView, matProj;
+	//_vec3 eye = { 0.f, 40.f, 0.f };
+	//_vec3 at = { 0.f, 0.f, 0.f };
+	//_vec3 up = { 0.f,0.f, 1.f };
 
-	float fov = (D3DX_PI * 0.25f);
-	float aspect = WINCX / (WINCY * 1.f);
-	float zn = 0.1f;
-	float zf = 1000.f;
-	D3DXMatrixLookAtLH(&matView, &eye, &at, &up);
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
-	D3DXMatrixPerspectiveFovLH(&matProj, fov, aspect, zn, zf);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
+	//float fov = (D3DX_PI * 0.5f);
+	//float aspect = WINCX / (WINCY * 1.f);
+	//float zn = 0.1f;
+	//float zf = 1000.f;
+	//D3DXMatrixLookAtLH(&matView, &eye, &at, &up);
+	//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
+	//D3DXMatrixPerspectiveFovLH(&matProj, fov, aspect, zn, zf);
+	//m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
 
 	return S_OK;
 }
@@ -135,7 +135,7 @@ int Player::Update_GameObject(const _float& fTimeDelta)
 	KeyInput(fTimeDelta);
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
-	return int();
+	return S_OK;
 }
 
 void Player::LateUpdate_GameObject(const _float& fTimeDelta)

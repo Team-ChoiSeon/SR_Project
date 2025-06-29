@@ -9,6 +9,8 @@ private:
 	explicit CCamera();
 	explicit CCamera(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CCamera(const CCamera& rhs);
+
+public:
 	virtual ~CCamera();
 
 public:
@@ -22,8 +24,8 @@ public:
 	void ComputeProjMatrix();
 
 	//Create, Release
-	//virtual CComponent* Clone();
-	//static CCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual CComponent* Clone();
+	static CCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 	virtual void Free();
 
@@ -66,6 +68,8 @@ private:
 
 	_matrix		m_mView;
 	_matrix		m_mProj;
+
+private:
 };
 
 END
