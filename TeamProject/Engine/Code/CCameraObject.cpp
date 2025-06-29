@@ -1,6 +1,7 @@
 #include "CCameraObject.h"
 #include "CTransform.h"
 #include "CCamera.h"
+#include "CInputMgr.h"
 
 CCameraObject::~CCameraObject()
 {
@@ -39,6 +40,16 @@ void CCameraObject::Render_CameraObject()
 
 void CCameraObject::Render_GameObject()
 {
+}
+
+void CCameraObject::Key_Input()
+{
+	Rotate_ByCursor();
+}
+
+void CCameraObject::Rotate_ByCursor()
+{
+
 }
 
 CCameraObject* CCameraObject::Clone()

@@ -13,7 +13,6 @@ private:
 public:
 	virtual ~CCamera();
 
-public:
 	HRESULT		Ready_Camera();
 	virtual void Update_Camera(const _float& fTimeDelta);
 	virtual void LateUpdate_Camera();

@@ -18,6 +18,9 @@ public:
 	virtual void		Render_CameraObject();
 	void				Render_GameObject() override;
 
+	void				Key_Input();
+	void				Rotate_ByCursor();
+
 	virtual CCameraObject* Clone();
 	static CGameObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
