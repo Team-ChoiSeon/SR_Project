@@ -162,6 +162,7 @@
     <ClInclude Include="..\Header\CGraphicDev.h" />
     <ClInclude Include="..\Header\CInputMgr.h" />
     <ClInclude Include="..\Header\CLayer.h" />
+    <ClInclude Include="..\Header\CRcCube.h" />
     <ClInclude Include="..\Header\CRenderMgr.h" />
     <ClInclude Include="..\Header\CScene.h" />
     <ClInclude Include="..\Header\CSceneMgr.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="..\Code\CGraphicDev.cpp" />
     <ClCompile Include="..\Code\CInputMgr.cpp" />
     <ClCompile Include="..\Code\CLayer.cpp" />
+    <ClCompile Include="..\Code\CRcCube.cpp" />
     <ClCompile Include="..\Code\CRenderMgr.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSceneMgr.cpp" />
