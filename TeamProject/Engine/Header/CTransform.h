@@ -19,8 +19,17 @@ public:
 public:
     // ¼³Á¤
     void Set_Pos(const _vec3& vPos) { m_vPosition = vPos; }
+    void Set_PosX(_float x) { m_vPosition.x = x; }
+    void Set_PosY(_float y) { m_vPosition.y = y; }
+    void Set_PosZ(_float z) { m_vPosition.z = z; }
     void Set_Scale(const _vec3& vScale) { m_vScale = vScale; }
+    void Set_ScaleX(_float x) { m_vScale.x = x; }
+    void Set_ScaleY(_float y) { m_vScale.y = y; }
+    void Set_ScaleZ(_float z) { m_vScale.z = z; }
     void Set_Angle(const _vec3& vAngle) { m_vAngle = vAngle; }
+    void Set_AngleX(_float x) { m_vAngle.x = x; }
+    void Set_AngleY(_float y) { m_vAngle.y = y; }
+    void Set_AngleZ(_float z) { m_vAngle.z = z; }
     void Set_ParentMatrix(const _matrix* pMat) { m_matParent = *pMat; }
     void Set_OrbitMatrix(const _matrix* pMat) { m_matOrbit = *pMat; }
 
@@ -46,7 +55,6 @@ public:
     }
 
 public:
-    virtual CComponent* Clone();
     static CTransform* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:

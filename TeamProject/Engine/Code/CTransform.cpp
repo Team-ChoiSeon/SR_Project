@@ -74,11 +74,6 @@ void CTransform::LateUpdate_Component()
 
 }
 
-CComponent* CTransform::Clone()
-{
-	return new CTransform(*this);
-}
-
 CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CTransform* pTransform = new CTransform(pGraphicDev);

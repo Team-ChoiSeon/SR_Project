@@ -115,11 +115,6 @@ void CCubeTex::Render_Buffer()
 	CVIBuffer::Render_Buffer();
 }
 
-CComponent* CCubeTex::Clone()
-{
-	return new CCubeTex(*this);
-}
-
 CCubeTex* CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CCubeTex* pCubeTex = new CCubeTex(pGraphicDev);

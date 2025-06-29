@@ -42,7 +42,9 @@ void CGameObject::Free()
     {
         for (auto& [tag, comp] : m_umComponent[i])
             Safe_Release(comp);
+        m_umComponent[i].clear();
     }
+    
 
     Safe_Release(m_pGraphicDev);
 }

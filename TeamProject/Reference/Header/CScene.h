@@ -18,14 +18,11 @@ public:
 	virtual			void		Render_Scene();
 
 protected:
-	unordered_map<wstring, CLayer*>			m_umLayer;
+	unordered_map<LAYERID, CLayer*>			m_umLayer;
 	LPDIRECT3DDEVICE9						m_pGraphicDev;
 
 protected:
 	virtual void			Free();
-
-protected:
-	int m_iTileNum = 0;
 
 };
 

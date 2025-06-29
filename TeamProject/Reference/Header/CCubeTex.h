@@ -16,7 +16,6 @@ public:
 	virtual void	Render_Buffer();
 
 public:
-	virtual CComponent* Clone() override;
 	static CCubeTex* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:

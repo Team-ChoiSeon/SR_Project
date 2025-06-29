@@ -19,62 +19,75 @@ public:
 
 public:
 	// 사용 예시
-	// CRenderer* pRenderer = pGameObject->Get_Component<CRenderer>(L"Renderer");
-	template<typename T = CComponent>
-	T* Get_Component(const wstring& pComponentTag);
+	// CTransform* pTransform = Get_Component<CTransform>();
+	template<typename T>
+	T* Get_Component();
 
 	// 사용 예시
 	/*
-		CTransform* pTransform = new CTransform(...);
-		pGameObject->Add_Component(L"Transform", pTransform);  // ID_DYNAMIC으로 자동 등록
-		
-		CRenderer* pRenderer = new CRenderer(...);
-		pGameObject->Add_Component(L"Renderer", pRenderer, ID_STATIC);  // 명시적으로 ID 지정도 가능
+	*	ID_DYNAMIC 이 default 
+	*	Add_Component<CTransform>(m_pGraphicDev); 
+	*	Add_Component<CRenderer>(ID_STATIC, m_pGraphicDev);
 	*/
 	template<typename T, typename... Args>
-	void Add_Component(const wstring& pComponentTag, COMPONENTID eID = ID_DYNAMIC, Args&&... args);
+	void Add_Component(COMPONENTID eID = ID_DYNAMIC, Args&&... args);
+
+	template<typename T>
+	bool Has_Component();
 
 protected:
 	virtual		void		Free();
 
 protected:
-	unordered_map<wstring, CComponent*>			m_umComponent[ID_END];
+	unordered_map<type_index, CComponent*>			m_umComponent[ID_END];
 	LPDIRECT3DDEVICE9								m_pGraphicDev;
 
 };
 
 template<typename T>
-T* CGameObject::Get_Component(const wstring& pComponentTag)
+T* CGameObject::Get_Component()
 {
 	for (_uint i = 0; i < ID_END; ++i)
 	{
-		auto iter = m_umComponent[i].find(pComponentTag);
+		auto iter = m_umComponent[i].find(typeid(T));
 		if (iter != m_umComponent[i].end())
-			return dynamic_cast<T*>(iter->second);
+			return static_cast<T*>(iter->second);
 	}
 
-	MSG_BOX("[CGameObject] Get_Component 실패 : nullptr 전달됨");
+	MSG_BOX((std::string("[GameObject] Get_Component 실패 : ") + typeid(T).name()).c_str());
 	return nullptr;
 }
 
 template<typename T, typename... Args>
-void CGameObject::Add_Component(const wstring& pComponentTag, COMPONENTID eID, Args&&... args)
+void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 {
-	std::unique_ptr<T> pComp = std::make_unique<T>(std::forward<Args>(args)...);
+	const std::type_index tag = typeid(T);
+	if (m_umComponent[eID].find(tag) != m_umComponent[eID].end())
+	{
+		MSG_BOX((std::string("[GameObject] Add_Component 중복 : ") + typeid(T).name()).c_str());
+		return;
+	}
+
+	T* pComp = T::Create(std::forward<Args>(args)...);
 	if (pComp == nullptr)
 	{
-		MSG_BOX("[GameObject] Add_Component 실패 : 생성 실패");
+		MSG_BOX((std::string("[GameObject] Add_Component 실패 : ") + typeid(T).name()).c_str());
 		return;
 	}
 
-
-	if (m_umComponent[eID].find(pComponentTag) != m_umComponent[eID].end())
-	{
-		MSG_BOX("[GameObject] Add_Component 실패: 중복 태그");
-		return;
-	}
-
-	m_umComponent[eID].emplace(pComponentTag, pComp.release());
+	m_umComponent[eID].emplace(tag, pComp);
 }
+
+template<typename T>
+bool CGameObject::Has_Component()
+{
+	for (_uint i = 0; i < ID_END; ++i)
+	{
+		if (m_umComponent[i].find(typeid(T)) != m_umComponent[i].end())
+			return true;
+	}
+	return false;
+}
+
 
 END
