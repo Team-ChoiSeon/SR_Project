@@ -61,9 +61,6 @@
     <Filter Include="01. Managers\05.CameraMgr">
       <UniqueIdentifier>{7018b58f-1551-48ac-8e9d-2e58568c357d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\CameraObject">
-      <UniqueIdentifier>{d3faa3b3-da03-4f28-a0b2-978316ee6ca3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Components\05. Picking">
       <UniqueIdentifier>{255825e1-bb19-4766-b01d-b959ba12ff06}</UniqueIdentifier>
     </Filter>
@@ -144,9 +141,6 @@
     <ClInclude Include="..\Header\CCamera.h">
       <Filter>02. Components\02. Camera</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CCameraObject.h">
-      <Filter>03. GameObject\CameraObject</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CPicking.h">
       <Filter>02. Components\05. Picking</Filter>
     </ClInclude>
@@ -209,11 +203,9 @@
     <ClCompile Include="..\Code\CCamera.cpp">
       <Filter>02. Components\02. Camera</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CCameraObject.cpp">
-      <Filter>03. GameObject\CameraObject</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CPicking.cpp">
       <Filter>02. Components\05. Picking</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CRcCube.cpp">
       <Filter>02. Components\00. VIBuffer\RcCube</Filter>
     </ClCompile>

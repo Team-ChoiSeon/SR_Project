@@ -75,5 +75,4 @@ _uint CLight::GetLightIndex() const
 
 void CLight::Free()
 {
-	CComponent::Free();
 }

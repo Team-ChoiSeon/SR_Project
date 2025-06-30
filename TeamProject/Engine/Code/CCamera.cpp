@@ -83,5 +83,4 @@ CCamera* CCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CCamera::Free()
 {
-	CComponent::Free();
 }
