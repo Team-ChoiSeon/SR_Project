@@ -9,6 +9,7 @@ private:
 	explicit CTransform();
 	explicit CTransform(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CTransform(const CTransform& rhs);
+
 public:
 	virtual ~CTransform();
 
@@ -18,7 +19,7 @@ public:
 	virtual void	LateUpdate_Component();
 
 public:
-    // ¼³Á¤
+    // Â¼Â³ÃÂ¤
     void Set_Pos(const _vec3& vPos) { m_vPosition = vPos; }
     void Set_PosX(_float x) { m_vPosition.x = x; }
     void Set_PosY(_float y) { m_vPosition.y = y; }
@@ -38,7 +39,7 @@ public:
     void Set_Look(const _vec3& vLook) { m_vInfo[INFO_LOOK] = vLook; }
     
 
-    // Á¶È¸
+    // ÃÂ¶ÃˆÂ¸
     const _vec3& Get_Pos() const { return m_vPosition; }
     const _vec3& Get_Scale() const { return m_vScale; }
     const _vec3& Get_Angle() const { return m_vAngle; }
@@ -48,7 +49,7 @@ public:
     const _matrix* Get_ParentMatrix() const { return &m_matParent; }
     const _matrix* Get_OrbitMatrix() const { return &m_matOrbit; }
 
-    // ÀÌµ¿/È¸Àü
+    // Ã€ÃŒÂµÂ¿/ÃˆÂ¸Ã€Ã¼
     void Move_Pos(const _vec3* pDir, const _float& fSpeed, const _float& fDelta)
     {
         m_vPosition += *pDir * fSpeed * fDelta;

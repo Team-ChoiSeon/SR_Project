@@ -56,7 +56,7 @@ void CTransform::Update_Component(const _float& fTimeDelta)
 	D3DXMatrixRotationX(&matRotX, m_vAngle.x);
 	D3DXMatrixRotationY(&matRotY, m_vAngle.y);
 	D3DXMatrixRotationZ(&matRotZ, m_vAngle.z);
-	matRot = matRotY * matRotX * matRotZ;
+	matRot = matRotX * matRotY * matRotZ;
 	
 	// ¿Ãµø
 	D3DXMatrixTranslation(&matTrans, m_vPosition.x, m_vPosition.y, m_vPosition.z);

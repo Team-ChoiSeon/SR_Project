@@ -20,6 +20,9 @@
     <Filter Include="03. GameObjects\TestPlayer">
       <UniqueIdentifier>{59dd0850-c33f-45f5-8a15-5279976fcc02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObjects\TestCamera">
+      <UniqueIdentifier>{faac4596-d2fc-44e4-8613-5f76bee7bef4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -40,6 +43,12 @@
     <ClInclude Include="..\Header\CMainApp.h">
       <Filter>02. MainApp</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player.h">
+      <Filter>03. GameObjects\TestPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TestFollowingCam.h">
+      <Filter>03. GameObjects\TestCamera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -50,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMainApp.cpp">
       <Filter>02. MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player.cpp">
+      <Filter>03. GameObjects\TestPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TestFollowingCam.cpp">
+      <Filter>03. GameObjects\TestCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

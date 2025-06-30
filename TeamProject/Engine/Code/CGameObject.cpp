@@ -17,6 +17,7 @@ CGameObject::~CGameObject()
 }
 
 
+
 HRESULT CGameObject::Ready_GameObject()
 {
     return S_OK;
