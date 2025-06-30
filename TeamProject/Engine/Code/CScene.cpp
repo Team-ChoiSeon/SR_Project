@@ -12,6 +12,7 @@ CScene::~CScene()
 
 HRESULT CScene::Ready_Scene()
 {
+
     return S_OK;
 }
 
