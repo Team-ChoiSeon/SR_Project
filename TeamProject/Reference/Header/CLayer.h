@@ -43,7 +43,8 @@ private:
 
 
 private:
-	// 오브젝트 리스트를 담기 위한 벡터입니다. 
+	// 오브젝트 리스트를 담기 위한 벡터입니다.
+	// 이후 최적화 고려시에 vector -> unordered_map으로 변경
 	vector<OBJINFO>			m_vObject;
 };
 
