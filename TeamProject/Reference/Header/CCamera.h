@@ -13,6 +13,7 @@ private:
 public:
 	virtual ~CCamera();
 
+	//Basic Function
 	HRESULT		Ready_Camera();
 	virtual void Update_Camera(const _float& fTimeDelta);
 	virtual void LateUpdate_Camera();
@@ -25,8 +26,10 @@ public:
 	//Create, Release
 	virtual CComponent* Clone();
 	static CCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-
 	virtual void Free();
+
+	//Optional Function
+	void CursorRotation();
 
 public:			//Getter, Setter
 	const _vec3 Get_Eye() const { return m_vEye; }

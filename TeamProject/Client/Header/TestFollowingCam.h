@@ -15,6 +15,8 @@ public:
 	void		Render_FCam();
 	void		ComputeCamera();
 
+	void		CursorRotate();
+
 
 	virtual TestFollowingCam* Clone() override;
 	static TestFollowingCam* Create(LPDIRECT3DDEVICE9 pGraphicDev,CGameObject* target,_vec3 distance);
@@ -25,4 +27,5 @@ private:
 
 	CGameObject*			m_pFollowingTarget;
 	_vec3					m_vTargetDistance;
+	_vec3					m_vLook;
 };

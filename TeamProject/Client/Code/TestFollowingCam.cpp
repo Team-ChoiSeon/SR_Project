@@ -4,6 +4,7 @@
 #include "CCameraObject.h"
 #include "CTransform.h"
 #include "CCamera.h"
+#include "CInputMgr.h"
 
 TestFollowingCam::TestFollowingCam(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target, _vec3 distance)
 	: CCameraObject(pGraphicDev), m_pFollowingTarget(target), m_vTargetDistance(distance)
@@ -87,11 +88,17 @@ void TestFollowingCam::Update_FCam(const _float& fTimeDelta)
 	auto cam = Get_Component<CCamera>(L"Camera");
 	auto transform = Get_Component<CTransform>(L"Transform");
 
+	CursorRotate();
+
 	if (m_pFollowingTarget != nullptr)
 	{
 		auto tar_transform = m_pFollowingTarget->Get_Component<CTransform>(L"Transform");
 		transform->Set_Pos(tar_transform->Get_Pos() + m_vTargetDistance);
 		cam->Set_At(tar_transform->Get_Pos());
+	}
+	else
+	{
+		cam->Set_At(transform->Get_Pos() + m_vLook);
 	}
 	cam->Set_Eye(transform->Get_Pos());
 	cam->Update_Camera(fTimeDelta);
@@ -111,5 +118,20 @@ void TestFollowingCam::Render_FCam()
 
 void TestFollowingCam::ComputeCamera()
 {
+}
+
+void TestFollowingCam::CursorRotate()
+{
+	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X);
+	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y);
+
+	auto transform = Get_Component<CTransform>(L"Transform");
+
+	float rx, ry;
+	float temp  = 1.f;
+	rx = dx / temp;
+	ry = dx / temp;
+
+	transform->Set_Angle({ ry, rx, 0 });
 }
 
