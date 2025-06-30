@@ -25,8 +25,10 @@ HRESULT CPicking::Ready_Picking()
 
 void CPicking::Update_Picking(const float& fTimeDelta)
 {
-	//POINT cursor;
-	//GetCursorPos(&cursor);
+
+
+
+
 }
 
 void CPicking::LateUpdate_Picking()
@@ -60,4 +62,15 @@ void CPicking::Free()
 
 void CPicking::ComputeRay()
 {
+}
+
+_vec2 CPicking::GetCursorVec()
+{
+	return _vec2();
+}
+
+void CPicking::SetCursorVec(_vec2* cursor)
+{
+
+
 }

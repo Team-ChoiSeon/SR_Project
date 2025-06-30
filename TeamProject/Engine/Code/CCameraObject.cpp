@@ -70,3 +70,8 @@ CGameObject* CCameraObject::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	return pCameraObj;
 }
+
+void CCameraObject::Free()
+{
+	CGameObject::Free();
+}

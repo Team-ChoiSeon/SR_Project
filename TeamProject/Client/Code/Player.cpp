@@ -113,20 +113,6 @@ HRESULT Player::Ready_GameObject()
 
 	m_pIB->Unlock();
 
-	//D3DXMATRIX matView, matProj;
-	//_vec3 eye = { 0.f, 40.f, 0.f };
-	//_vec3 at = { 0.f, 0.f, 0.f };
-	//_vec3 up = { 0.f,0.f, 1.f };
-
-	//float fov = (D3DX_PI * 0.5f);
-	//float aspect = WINCX / (WINCY * 1.f);
-	//float zn = 0.1f;
-	//float zf = 1000.f;
-	//D3DXMatrixLookAtLH(&matView, &eye, &at, &up);
-	//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
-	//D3DXMatrixPerspectiveFovLH(&matProj, fov, aspect, zn, zf);
-	//m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
-
 	return S_OK;
 }
 

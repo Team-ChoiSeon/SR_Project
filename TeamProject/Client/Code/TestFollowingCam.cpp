@@ -8,7 +8,6 @@
 TestFollowingCam::TestFollowingCam(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target, _vec3 distance)
 	: CCameraObject(pGraphicDev), m_pFollowingTarget(target), m_vTargetDistance(distance)
 {
-	CCameraObject::Create(pGraphicDev);
 	auto transform = Get_Component<CTransform>(L"Transform");
 	auto cam = Get_Component<CCamera>(L"Camera");
 
@@ -28,7 +27,6 @@ TestFollowingCam::TestFollowingCam(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* t
 TestFollowingCam::TestFollowingCam(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCameraObject(pGraphicDev), m_pFollowingTarget(nullptr), m_vTargetDistance({ 0.f, 0.f, 0.f })
 {
-	CCameraObject::Create(pGraphicDev);
 	auto transform = Get_Component<CTransform>(L"Transform");
 	auto cam = Get_Component<CCamera>(L"Camera");
 

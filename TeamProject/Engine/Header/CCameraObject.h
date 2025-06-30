@@ -23,6 +23,7 @@ public:
 
 	virtual CCameraObject* Clone();
 	static CGameObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	void	Free();
 
 protected:
 

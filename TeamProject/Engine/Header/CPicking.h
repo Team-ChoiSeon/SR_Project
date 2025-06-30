@@ -28,10 +28,10 @@ public:
 
 public:			
 	//Getter
-	_vec2			Get_CursorPos() { return m_vCursorPos; }
+	_vec2			GetCursorVec();
 
 	//Setter
-	void			Set_CursorPos(_vec2 cusor) { m_vCursorPos = cusor; }
+	void			SetCursorVec(_vec2* cursor);
 
 protected:
 
