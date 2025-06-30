@@ -18,13 +18,9 @@ public:
 
 protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDev;
-	_bool						m_bClone;
-
-public:
-	virtual CComponent* Clone()	PURE;
 
 protected:
-	virtual void				Free();
+	virtual void				Free()PURE;
 };
 
 END

@@ -1,28 +1,28 @@
-#include "CCubeTex.h"
+#include "CRcCube.h"
 
-CCubeTex::CCubeTex()
+CRcCube::CRcCube()
 {
 }
 
-CCubeTex::CCubeTex(LPDIRECT3DDEVICE9 pGraphicDev)
+CRcCube::CRcCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CVIBuffer(pGraphicDev)
 {
 }
 
-CCubeTex::CCubeTex(const CCubeTex& rhs)
+CRcCube::CRcCube(const CRcCube& rhs)
 	: CVIBuffer(rhs)
 {
 }
 
-CCubeTex::~CCubeTex()
+CRcCube::~CRcCube()
 {
 }
 
-HRESULT CCubeTex::Ready_Buffer()
+HRESULT CRcCube::Ready_Buffer()
 {
 	m_dwTriCnt = 12;
 	m_dwVtxCnt = 8;
-	m_dwVtxSize = sizeof(VTXCUBE);
+	m_dwVtxSize = sizeof(VTXCOL);
 	m_dwFVF = FVF_CUBE;
 
 	m_dwIdxSize = sizeof(INDEX32);
@@ -31,36 +31,28 @@ HRESULT CCubeTex::Ready_Buffer()
 	if (FAILED(CVIBuffer::Ready_Buffer()))
 		return E_FAIL;
 
-	VTXCUBE* pVertex = NULL;
+	VTXCOL* pVertex = NULL;
 
 	// 버텍스 버퍼에 보관된 정점 중 첫 번째 정점의 주소를 얻어오는 매개 변수
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
 	// 전면
 	pVertex[0].vPosition = { -1.f, 1.f, -1.f };
-	pVertex[0].vTexUV = pVertex[0].vPosition;
 
 	pVertex[1].vPosition = { 1.f, 1.f, -1.f };
-	pVertex[1].vTexUV = pVertex[1].vPosition;
 
 	pVertex[2].vPosition = { 1.f, -1.f, -1.f };
-	pVertex[2].vTexUV = pVertex[2].vPosition;
 
 	pVertex[3].vPosition = { -1.f, -1.f, -1.f };
-	pVertex[3].vTexUV = pVertex[3].vPosition;
 
 	// 후면
 	pVertex[4].vPosition = { -1.f, 1.f, 1.f };
-	pVertex[4].vTexUV = pVertex[4].vPosition;
 
 	pVertex[5].vPosition = { 1.f, 1.f, 1.f };
-	pVertex[5].vTexUV = pVertex[5].vPosition;
 
 	pVertex[6].vPosition = { 1.f, -1.f, 1.f };
-	pVertex[6].vTexUV = pVertex[6].vPosition;
 
 	pVertex[7].vPosition = { -1.f, -1.f, 1.f };
-	pVertex[7].vTexUV = pVertex[7].vPosition;
 
 	m_pVB->Unlock();
 
@@ -91,7 +83,7 @@ HRESULT CCubeTex::Ready_Buffer()
 	pIndex[6] = { 3,2,6 };
 	// 왼쪽 아래
 	pIndex[7] = { 3,6,7 };
-	
+
 	// Z+
 	// 오른쪽 위
 	pIndex[8] = { 7,6,5 };
@@ -110,26 +102,26 @@ HRESULT CCubeTex::Ready_Buffer()
 	return S_OK;
 }
 
-void CCubeTex::Render_Buffer()
+void CRcCube::Render_Buffer()
 {
 	CVIBuffer::Render_Buffer();
 }
 
-CCubeTex* CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CRcCube* CRcCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CCubeTex* pCubeTex = new CCubeTex(pGraphicDev);
+	CRcCube* pRcCube = new CRcCube(pGraphicDev);
 
-	if (FAILED(pCubeTex->Ready_Buffer()))
+	if (FAILED(pRcCube->Ready_Buffer()))
 	{
-		Safe_Release(pCubeTex);
-		MSG_BOX("CubeTex Create Failed");
+		Safe_Release(pRcCube);
+		MSG_BOX("pRcCube Create Failed");
 		return nullptr;
 	}
 
-	return pCubeTex;
+	return pRcCube;
 }
 
-void CCubeTex::Free()
+void CRcCube::Free()
 {
 	CVIBuffer::Free();
 }

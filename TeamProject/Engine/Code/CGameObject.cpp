@@ -16,39 +16,7 @@ CGameObject::~CGameObject()
 {
 }
 
-template<typename T>
-T* CGameObject::Get_Component(const wstring& pComponentTag)
-{
-    for (_uint i = 0; i < ID_END; ++i)
-    {
-        auto iter = m_umComponent[i].find(pComponentTag);
-        if (iter != m_umComponent[i].end())
-            return dynamic_cast<T*>(iter->second);
-    }
 
-    MSG_BOX("[CGameObject] Get_Component 실패 : nullptr 전달됨");
-    return nullptr;
-}
-
-template<typename T, typename... Args>
-void CGameObject::Add_Component(const wstring& pComponentTag, COMPONENTID eID, Args&&... args)
-{
-    std::unique_ptr<T> pComp = std::make_unique<T>(std::forward<Args>(args)...);
-    if (pComp == nullptr)
-    {
-        MSG_BOX("[GameObject] Add_Component 실패 : 생성 실패");
-        return;
-    }
-
-
-    if (m_umComponent[eID].find(pComponentTag) != m_umComponent[eID].end())
-    {
-        MSG_BOX("[GameObject] Add_Component 실패: 중복 태그");
-        return;
-    }
-
-    m_umComponent[eID].emplace(pComponentTag, pComp.release());
-}
 
 HRESULT CGameObject::Ready_GameObject()
 {
@@ -75,7 +43,9 @@ void CGameObject::Free()
     {
         for (auto& [tag, comp] : m_umComponent[i])
             Safe_Release(comp);
+        m_umComponent[i].clear();
     }
+    
 
     Safe_Release(m_pGraphicDev);
 }
