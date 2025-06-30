@@ -9,6 +9,7 @@ protected:
 	explicit CVIBuffer();
 	explicit CVIBuffer(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CVIBuffer(const CVIBuffer& rhs);
+public:
 	virtual ~CVIBuffer();
 
 public:
@@ -34,7 +35,7 @@ protected:
 
 
 public:
-	virtual void Free();
+	virtual void Free()override;
 };
 
 END

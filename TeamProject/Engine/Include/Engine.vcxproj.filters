@@ -63,6 +63,8 @@
     </Filter>
     <Filter Include="02. Components\05. Picking">
       <UniqueIdentifier>{255825e1-bb19-4766-b01d-b959ba12ff06}</UniqueIdentifier>
+    <Filter Include="02. Components\00. VIBuffer\RcCube">
+      <UniqueIdentifier>{42934f10-1f30-4e1a-bc98-a16cbc2eb09f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +142,8 @@
     </ClInclude>
     <ClInclude Include="..\Header\CPicking.h">
       <Filter>02. Components\05. Picking</Filter>
+    <ClInclude Include="..\Header\CRcCube.h">
+      <Filter>02. Components\00. VIBuffer\RcCube</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +203,8 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPicking.cpp">
       <Filter>02. Components\05. Picking</Filter>
+    <ClCompile Include="..\Code\CRcCube.cpp">
+      <Filter>02. Components\00. VIBuffer\RcCube</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
