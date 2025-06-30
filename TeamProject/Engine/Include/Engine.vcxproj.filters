@@ -52,6 +52,9 @@
     <Filter Include="02. Components\01. Transform">
       <UniqueIdentifier>{2c38a7cf-3a4d-466d-9bda-a1f17c13d105}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\03. Light">
+      <UniqueIdentifier>{8d7800f6-9aa1-4a3c-9260-005c2bc3b402}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -117,6 +120,9 @@
     <ClInclude Include="..\Header\CTransform.h">
       <Filter>02. Components\01. Transform</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLight.h">
+      <Filter>02. Components\03. Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -163,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTransform.cpp">
       <Filter>02. Components\01. Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLight.cpp">
+      <Filter>02. Components\03. Light</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
