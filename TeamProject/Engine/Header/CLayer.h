@@ -4,6 +4,13 @@
 
 BEGIN(Engine)
 
+typedef struct OBJECTINFO {
+
+	wstring		 szName;
+	CGameObject* pObj;
+
+}OBJINFO;
+
 class ENGINE_DLL CLayer : public CBase
 {
 private:
@@ -28,14 +35,16 @@ public:
 	void			LateUpdate_Layer(const _float& fTimeDelta);
 	void			Render_Layer();
 
-private:
-	unordered_map<wstring, CGameObject*>			m_umObject;
-
 public:
 	static CLayer* Create();
 
 private:
 	virtual void	Free();
+
+
+private:
+	// 오브젝트 리스트를 담기 위한 벡터입니다. 
+	vector<OBJINFO>			m_vObject;
 };
 
 END
@@ -44,13 +53,11 @@ END
 template <typename T>
 T* CLayer::Get_GameObject(const wstring& wObjTag)
 {
-	auto iter = m_umObject.find(wObjTag);
-	if (iter == m_umObject.end())
-	{
-		MSG_BOX("[Layer] Get_GameObjectt 실패: nullptr 전달됨");
-		return nullptr;
-	}
+	auto iter = find_if(m_vObject.begin(), m_vObject.end(),
+		[&](const OBJINFO& info) {
+			return info.szName == wObjTag;
+		});
 
-	return dynamic_cast<T*>(iter->second);  // 자동 캐스팅
+	return dynamic_cast<T*>(iter->pObj);  // 자동 캐스팅
 }
 

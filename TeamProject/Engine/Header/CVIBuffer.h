@@ -35,7 +35,7 @@ protected:
 
 
 public:
-	virtual void Free();
+	virtual void Free()override;
 };
 
 END

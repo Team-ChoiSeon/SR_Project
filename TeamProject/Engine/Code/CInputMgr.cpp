@@ -57,6 +57,7 @@ HRESULT CInputMgr::Ready_InputDev(HINSTANCE hInst, HWND hWnd)
 void CInputMgr::Update_InputDev()
 {
 	memcpy(m_PrevByKeyState, m_CurByKeyState, sizeof(BYTE) * 256); //이전 프레임 값 복사
+	memcpy(&m_PreMouseState, &m_tMouseState, sizeof(DIMOUSESTATE)); //이전 프레임 값 복사
 	m_pKeyBoard->GetDeviceState(256, m_CurByKeyState);
 	m_pMouse->GetDeviceState(sizeof(m_tMouseState), &m_tMouseState);
 }

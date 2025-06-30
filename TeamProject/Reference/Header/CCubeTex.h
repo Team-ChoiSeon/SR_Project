@@ -20,7 +20,7 @@ public:
 	static CCubeTex* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-	virtual void		Free();
+	virtual void		Free()override;
 
 };
 

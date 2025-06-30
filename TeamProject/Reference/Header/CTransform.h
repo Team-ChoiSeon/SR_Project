@@ -33,6 +33,10 @@ public:
     void Set_AngleZ(_float z) { m_vAngle.z = z; }
     void Set_ParentMatrix(const _matrix* pMat) { m_matParent = *pMat; }
     void Set_OrbitMatrix(const _matrix* pMat) { m_matOrbit = *pMat; }
+    void Set_Right(const _vec3& vRight) { m_vInfo[INFO_RIGHT] = vRight; }
+    void Set_Up(const _vec3& vUp) { m_vInfo[INFO_UP] = vUp; }
+    void Set_Look(const _vec3& vLook) { m_vInfo[INFO_LOOK] = vLook; }
+    
 
     // Á¶È¸
     const _vec3& Get_Pos() const { return m_vPosition; }
@@ -59,7 +63,7 @@ public:
     static CTransform* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-    virtual void	Free();
+    virtual void	Free()override;
 
 private:
     _vec3       m_vScale;

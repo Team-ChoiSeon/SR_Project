@@ -20,8 +20,3 @@ CComponent::CComponent(const CComponent& rhs)
 CComponent::~CComponent()
 {
 }
-
-void CComponent::Free()
-{
-    Safe_Release(m_pGraphicDev);
-}

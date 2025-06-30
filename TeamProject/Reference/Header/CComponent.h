@@ -20,7 +20,7 @@ protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDev;
 
 protected:
-	virtual void				Free();
+	virtual void				Free()PURE;
 };
 
 END
