@@ -5,12 +5,12 @@ CRcCube::CRcCube()
 }
 
 CRcCube::CRcCube(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CMesh(pGraphicDev)
+	: CVIBuffer(pGraphicDev)
 {
 }
 
 CRcCube::CRcCube(const CRcCube& rhs)
-	: CMesh(rhs)
+	: CVIBuffer(rhs)
 {
 }
 
@@ -28,38 +28,39 @@ HRESULT CRcCube::Ready_Buffer()
 	m_dwIdxSize = sizeof(INDEX32);
 	m_IdxFmt = D3DFMT_INDEX32;
 
-	if (FAILED(CMesh::Ready_Buffer()))
+	if (FAILED(CVIBuffer::Ready_Buffer()))
 		return E_FAIL;
 
 	VTXCOL* pVertex = NULL;
 
-	// ë²„í…ìŠ¤ ë²„í¼ì— ë³´ê´€ëœ ì •ì  ì¤‘ ì²« ë²ˆì§¸ ì •ì ì˜ ì£¼ì†Œë¥¼ ì–»ì–´ì˜¤ëŠ” ë§¤ê°œ ë³€ìˆ˜
+	// ¹öÅØ½º ¹öÆÛ¿¡ º¸°üµÈ Á¤Á¡ Áß Ã¹ ¹øÂ° Á¤Á¡ÀÇ ÁÖ¼Ò¸¦ ¾ò¾î¿À´Â ¸Å°³ º¯¼ö
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
-	// ì „ë©´
+	// Àü¸é
 	pVertex[0].vPosition = { -1.f, 1.f, -1.f };
-	pVertex[0].dwColor = D3DCOLOR_ARGB(255, 255, 0, 255);  // Magenta
-	
+	pVertex[0].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+
 	pVertex[1].vPosition = { 1.f, 1.f, -1.f };
-	pVertex[1].dwColor = D3DCOLOR_ARGB(255, 255, 0, 255);  // Magenta
-	
+	pVertex[1].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+
 	pVertex[2].vPosition = { 1.f, -1.f, -1.f };
-	pVertex[2].dwColor = D3DCOLOR_ARGB(255, 255, 255, 0);  // Yellow
-	
+	pVertex[2].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+
 	pVertex[3].vPosition = { -1.f, -1.f, -1.f };
-	pVertex[3].dwColor = D3DCOLOR_ARGB(255, 255, 255, 0);  // Yellow
-	// í›„ë©´
+	pVertex[3].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+
+	// ÈÄ¸é
 	pVertex[4].vPosition = { -1.f, 1.f, 1.f };
-	pVertex[4].dwColor = D3DCOLOR_ARGB(255, 0, 255, 255);  // Cyan
+	pVertex[4].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	pVertex[5].vPosition = { 1.f, 1.f, 1.f };
-	pVertex[5].dwColor = D3DCOLOR_ARGB(255, 255, 0, 0);    // Red
+	pVertex[5].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	pVertex[6].vPosition = { 1.f, -1.f, 1.f };
-	pVertex[6].dwColor = D3DCOLOR_ARGB(255, 0, 255, 0);    // Green
+	pVertex[6].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	pVertex[7].vPosition = { -1.f, -1.f, 1.f };
-	pVertex[7].dwColor = D3DCOLOR_ARGB(255, 0, 0, 255);    // Blue
+	pVertex[7].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	m_pVB->Unlock();
 
@@ -68,39 +69,39 @@ HRESULT CRcCube::Ready_Buffer()
 	m_pIB->Lock(0, 0, (void**)&pIndex, 0);
 
 	// X+
-	// ì˜¤ë¥¸ìª½ ìœ„
+	// ¿À¸¥ÂÊ À§
 	pIndex[0] = { 1,5,6 };
-	// ì™¼ìª½ ì•„ëž˜
+	// ¿ÞÂÊ ¾Æ·¡
 	pIndex[1] = { 1,6,2 };
 
 	// X-
-	// ì˜¤ë¥¸ìª½ ìœ„
+	// ¿À¸¥ÂÊ À§
 	pIndex[2] = { 4,0,3 };
-	// ì™¼ìª½ ì•„ëž˜
+	// ¿ÞÂÊ ¾Æ·¡
 	pIndex[3] = { 4,3,7 };
 
 	// Y+
-	// ì˜¤ë¥¸ìª½ ìœ„
+	// ¿À¸¥ÂÊ À§
 	pIndex[4] = { 4,5,1 };
-	// ì™¼ìª½ ì•„ëž˜
+	// ¿ÞÂÊ ¾Æ·¡
 	pIndex[5] = { 4,1,0 };
 
 	// Y-
-	// ì˜¤ë¥¸ìª½ ìœ„
+	// ¿À¸¥ÂÊ À§
 	pIndex[6] = { 3,2,6 };
-	// ì™¼ìª½ ì•„ëž˜
+	// ¿ÞÂÊ ¾Æ·¡
 	pIndex[7] = { 3,6,7 };
 
 	// Z+
-	// ì˜¤ë¥¸ìª½ ìœ„
+	// ¿À¸¥ÂÊ À§
 	pIndex[8] = { 7,6,5 };
-	// ì™¼ìª½ ì•„ëž˜
+	// ¿ÞÂÊ ¾Æ·¡
 	pIndex[9] = { 7,5,4 };
 
 	// Z-
-	// ì˜¤ë¥¸ìª½ ìœ„
+	// ¿À¸¥ÂÊ À§
 	pIndex[10] = { 0,1,2 };
-	// ì™¼ìª½ ì•„ëž˜
+	// ¿ÞÂÊ ¾Æ·¡
 	pIndex[11] = { 0,2,3 };
 
 	m_pIB->Unlock();
@@ -111,7 +112,7 @@ HRESULT CRcCube::Ready_Buffer()
 
 void CRcCube::Render_Buffer()
 {
-	CMesh::Render_Buffer();
+	CVIBuffer::Render_Buffer();
 }
 
 CRcCube* CRcCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -130,5 +131,5 @@ CRcCube* CRcCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CRcCube::Free()
 {
-	CMesh::Free();
+	CVIBuffer::Free();
 }
