@@ -46,11 +46,11 @@
     <ClInclude Include="..\Header\CMainApp.h">
       <Filter>02. MainApp</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CLightObject.h">
-      <Filter>03. GameObjects\TestLight</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Player.h">
       <Filter>03. GameObjects\TestPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLightObject.h">
+      <Filter>03. GameObjects\TestLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -63,11 +63,11 @@
     <ClCompile Include="..\Code\CMainApp.cpp">
       <Filter>02. MainApp</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CLightObject.cpp">
-      <Filter>03. GameObjects\TestLight</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Player.cpp">
       <Filter>03. GameObjects\TestPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLightObject.cpp">
+      <Filter>03. GameObjects\TestLight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -67,6 +67,9 @@
     <Filter Include="02. Components\00. VIBuffer\RcCube">
       <UniqueIdentifier>{42934f10-1f30-4e1a-bc98-a16cbc2eb09f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Managers\06. LightMgr">
+      <UniqueIdentifier>{7f1edc1e-dfbd-414e-910a-437f11394b20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="..\Header\CRcCube.h">
       <Filter>02. Components\00. VIBuffer\RcCube</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLightMgr.h">
+      <Filter>01. Managers\06. LightMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -208,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRcCube.cpp">
       <Filter>02. Components\00. VIBuffer\RcCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLightMgr.cpp">
+      <Filter>01. Managers\06. LightMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
