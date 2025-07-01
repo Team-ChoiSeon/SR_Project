@@ -1,16 +1,15 @@
 #pragma once
-#include "CComponent.h"
-
+#include "CResource.h"
 BEGIN(Engine)
-
-class ENGINE_DLL CVIBuffer : public CComponent
+class ENGINE_DLL CMesh : public CResource
 {
 protected:
-	explicit CVIBuffer();
-	explicit CVIBuffer(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CVIBuffer(const CVIBuffer& rhs);
+	explicit CMesh();
+	explicit CMesh(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CMesh(const CMesh& rhs);
+
 public:
-	virtual ~CVIBuffer();
+	virtual ~CMesh();
 
 public:
 	virtual HRESULT		Ready_Buffer();
@@ -19,6 +18,9 @@ public:
 public:
 	virtual LPDIRECT3DVERTEXBUFFER9 Get_VertexBuffer() const { return m_pVB; };
 	virtual LPDIRECT3DINDEXBUFFER9 Get_IndexBuffer() const { return m_pIB; };
+
+public:
+	virtual void Free();
 
 protected:
 	LPDIRECT3DVERTEXBUFFER9		m_pVB;
@@ -33,10 +35,5 @@ protected:
 	D3DFORMAT					m_IdxFmt;		// ¿Œµ¶Ω∫ º”º∫
 
 
-
-public:
-	virtual void Free()override;
 };
-
 END
-

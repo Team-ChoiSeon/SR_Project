@@ -1,9 +1,9 @@
 #pragma once
-#include "CVIBuffer.h"
+#include "CMesh.h"
 
 BEGIN(Engine)
 
-class ENGINE_DLL CRcCube : public CVIBuffer
+class ENGINE_DLL CRcCube : public CMesh
 {
 private:
 	explicit CRcCube();
