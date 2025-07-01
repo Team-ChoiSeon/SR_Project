@@ -58,9 +58,6 @@
     <Filter Include="02. Components\02. Camera">
       <UniqueIdentifier>{5810b33a-5f21-45d0-8341-3f2205c15949}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Managers\05.CameraMgr">
-      <UniqueIdentifier>{7018b58f-1551-48ac-8e9d-2e58568c357d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Components\05. Picking">
       <UniqueIdentifier>{255825e1-bb19-4766-b01d-b959ba12ff06}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,12 @@
     </Filter>
     <Filter Include="06. Resources\Material">
       <UniqueIdentifier>{885d3104-51a4-472b-aaea-7c46fb269d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\05. CameraMgr">
+      <UniqueIdentifier>{7018b58f-1551-48ac-8e9d-2e58568c357d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\06. ResourceMgr">
+      <UniqueIdentifier>{21d00574-e921-4614-b50f-1df4f246936b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -151,7 +154,7 @@
       <Filter>02. Components\03. Light</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCameraMgr.h">
-      <Filter>01. Managers\05.CameraMgr</Filter>
+      <Filter>01. Managers\05. CameraMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCamera.h">
       <Filter>02. Components\02. Camera</Filter>
@@ -173,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTexture.h">
       <Filter>06. Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CResourceMgr.h">
+      <Filter>01. Managers\06. ResourceMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -225,7 +231,7 @@
       <Filter>02. Components\03. Light</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCameraMgr.cpp">
-      <Filter>01. Managers\05.CameraMgr</Filter>
+      <Filter>01. Managers\05. CameraMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCamera.cpp">
       <Filter>02. Components\02. Camera</Filter>
@@ -247,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="CResource.cpp">
       <Filter>06. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CResourceMgr.cpp">
+      <Filter>01. Managers\06. ResourceMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

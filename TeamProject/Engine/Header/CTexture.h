@@ -22,6 +22,12 @@ public:
 
         return m_vecTexture[iIndex];
     }
+
+public:
+    static CTexture* Create(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& filePath, TEXTUREID eType, _uint iCnt);
+    
+    HRESULT Ready_Texture(const wstring& filePath, TEXTUREID eType, _uint iCnt);
+    
     virtual void Free() override;
 
 
