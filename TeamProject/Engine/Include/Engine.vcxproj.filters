@@ -82,6 +82,9 @@
     <Filter Include="02. Components\00. Model">
       <UniqueIdentifier>{9a72de3d-94a8-440e-b113-e9223479dffd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Managers\06. LightMgr">
+      <UniqueIdentifier>{7f1edc1e-dfbd-414e-910a-437f11394b20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -180,6 +183,9 @@
     <ClInclude Include="..\Header\CModel.h">
       <Filter>02. Components\00. Model</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLightMgr.h">
+      <Filter>01. Managers\06. LightMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -256,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CResource.cpp">
       <Filter>06. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLightMgr.cpp">
+      <Filter>01. Managers\06. LightMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
