@@ -73,6 +73,9 @@
     <ClInclude Include="..\Header\SceneHW.h">
       <Filter>03. Scene\SceneHW</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLightObject.h">
+      <Filter>03. GameObjects\TestLight</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -98,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\SceneHW.cpp">
       <Filter>03. Scene\SceneHW</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLightObject.cpp">
+      <Filter>03. GameObjects\TestLight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

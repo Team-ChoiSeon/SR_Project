@@ -12,7 +12,7 @@ void CLayer::Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject)
 {
 	if (pGameObject == nullptr)
 	{
-		MSG_BOX("[Layer] Add_GameObject 실패 : nullptr 전달됨");
+		MSG_BOX("[Layer] Add_GameObject : nullptr ");
 		return;
 	}
 
@@ -23,7 +23,7 @@ void CLayer::Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject)
 		});
 	if (it != m_vObject.end())
 	{
-		MSG_BOX("[Layer] Add_GameObject 실패: 중복 태그");
+		MSG_BOX("[Layer] Add_GameObject : tag");
 		return;
 	}
 

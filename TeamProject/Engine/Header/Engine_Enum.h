@@ -16,15 +16,15 @@ namespace Engine {
 	
 	enum class RENDER_PASS
 	{
-		RP_SKYBOX,        // // ½ºÄ«ÀÌ¹Ú½º (Z-write ²¨Áü, °¡Àå ¸ÕÀú)
-		RP_SHADOW,        // ±×¸²ÀÚ ¸ÊÀ» »ý¼ºÇÏ´Â ÆÐ½º (¿¹: Depth-Only ·»´õ¸µ ¡æ ShadowMap »ý¼º¿ë)
-		RP_OPAQUE,        // ºÒÅõ¸í ¿ÀºêÁ§Æ® ·»´õ¸µ (Z-Buffer »ç¿ë, ÀÏ¹ÝÀûÀÎ Meshµé)
-		RP_STENCIL,   // ¹ÝÅõ¸í ¿ÀºêÁ§Æ® ·»´õ¸µ (Z-Buffer Á¤·Ä ÇÊ¿ä, ¾ËÆÄ ºí·»µù »ç¿ë)
-		RP_TRANSPARENT,   // ¹ÝÅõ¸í ¿ÀºêÁ§Æ® ·»´õ¸µ (Z-Buffer Á¤·Ä ÇÊ¿ä, ¾ËÆÄ ºí·»µù »ç¿ë)
-		RP_UI,            // 2D UI ¿ä¼Ò ·»´õ¸µ (HUD, ÅØ½ºÆ® µî, º¸Åë Á¤ÇØÁø ¼ø¼­´ë·Î Ãâ·Â)
-		RP_POSTPROCESS,   // ÈÄÃ³¸® ´Ü°è (Bloom, Blur, Color Correction µî ¡æ FullScreen Quad ±â¹Ý)
-		RP_DEBUG,   // µð¹ö±×¿ë Ãâ·Â Ç¥½Ãµé
-		RP_END            // enum ³¡ Ç¥½Ã (¹è¿­ Å©±â ÁöÁ¤ µî ·çÇÁ ¿ëµµ)
+		RP_SKYBOX,        // // ìŠ¤ì¹´ì´ë°•ìŠ¤ (Z-write êº¼ì§, ê°€ìž¥ ë¨¼ì €)
+		RP_SHADOW,        // ê·¸ë¦¼ìž ë§µì„ ìƒì„±í•˜ëŠ” íŒ¨ìŠ¤ (ì˜ˆ: Depth-Only ë Œë”ë§ â†’ ShadowMap ìƒì„±ìš©)
+		RP_OPAQUE,        // ë¶ˆíˆ¬ëª… ì˜¤ë¸Œì íŠ¸ ë Œë”ë§ (Z-Buffer ì‚¬ìš©, ì¼ë°˜ì ì¸ Meshë“¤)
+		RP_STENCIL,   // ë°˜íˆ¬ëª… ì˜¤ë¸Œì íŠ¸ ë Œë”ë§ (Z-Buffer ì •ë ¬ í•„ìš”, ì•ŒíŒŒ ë¸”ë Œë”© ì‚¬ìš©)
+		RP_TRANSPARENT,   // ë°˜íˆ¬ëª… ì˜¤ë¸Œì íŠ¸ ë Œë”ë§ (Z-Buffer ì •ë ¬ í•„ìš”, ì•ŒíŒŒ ë¸”ë Œë”© ì‚¬ìš©)
+		RP_UI,            // 2D UI ìš”ì†Œ ë Œë”ë§ (HUD, í…ìŠ¤íŠ¸ ë“±, ë³´í†µ ì •í•´ì§„ ìˆœì„œëŒ€ë¡œ ì¶œë ¥)
+		RP_POSTPROCESS,   // í›„ì²˜ë¦¬ ë‹¨ê³„ (Bloom, Blur, Color Correction ë“± â†’ FullScreen Quad ê¸°ë°˜)
+		RP_DEBUG,   // ë””ë²„ê·¸ìš© ì¶œë ¥ í‘œì‹œë“¤
+		RP_END            // enum ë í‘œì‹œ (ë°°ì—´ í¬ê¸° ì§€ì • ë“± ë£¨í”„ ìš©ë„)
 	};
 
 }

@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="..\Header\CCameraObject.h" />
     <ClInclude Include="..\Header\CFirstviewFollowingCamera.h" />
+    <ClInclude Include="..\Header\CLightObject.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\DummyCube.h" />
     <ClInclude Include="..\Header\Player.h" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="..\Code\CCameraObject.cpp" />
     <ClCompile Include="..\Code\CFirstviewFollowingCamera.cpp" />
+    <ClCompile Include="..\Code\CLightObject.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\DummyCube.cpp" />
     <ClCompile Include="..\Code\Player.cpp" />
