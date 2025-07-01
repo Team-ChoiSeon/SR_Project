@@ -28,7 +28,7 @@ public:
 	// pLayer->Add_GameObject(L"SkyBox", pSkyBoxObj);
 	void	Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject);
 
-	vector<OBJINFO>* Get_ObjVec() { return &m_vObject; }
+	const vector<OBJINFO>& Get_ObjVec() const { return m_vObject; }
 	
 
 public:
