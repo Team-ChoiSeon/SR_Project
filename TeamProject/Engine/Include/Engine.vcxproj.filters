@@ -245,9 +245,6 @@
     <ClCompile Include="..\Code\CTexture.cpp">
       <Filter>06. Resources\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="CResource.cpp">
-      <Filter>06. Resources</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CResourceMgr.cpp">
       <Filter>01. Managers\06. ResourceMgr</Filter>
     </ClCompile>
@@ -256,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CModel.cpp">
       <Filter>02. Components\00. Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CResource.cpp">
+      <Filter>06. Resources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

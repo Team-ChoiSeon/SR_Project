@@ -24,6 +24,8 @@ HRESULT CResourceMgr::Ready_Resource()
 
 void CResourceMgr::Register(const wstring& key, CResource* pResource)
 {
+	if (!pResource) return;
+
 	if (m_umResource.contains(key))
 		Safe_Release(m_umResource[key]);
 

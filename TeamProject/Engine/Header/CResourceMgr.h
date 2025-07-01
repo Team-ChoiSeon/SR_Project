@@ -35,6 +35,11 @@ public:
 	template <typename T>
 	T* GetAs(const wstring& key);
 
+	// [Mesh Load & Auto Register]
+	// example: CResourceMgr::Get_Instance()->Load_Mesh<CRcCube>(pDevice, L"CubeMesh");
+	template <typename MeshT>
+	HRESULT Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key);
+
 	// [Texture Load & Auto Register]
 	// example: CResourceMgr::Get_Instance()->Load_Texture(L"../Textures/brick.jpg", TEX_NORMAL, 1);
 	HRESULT Load_Texture(const wstring& filePath, TEXTUREID eType = TEX_CUBE, _uint iCnt = 6);
@@ -60,4 +65,27 @@ template<typename T>
 inline T* CResourceMgr::GetAs(const wstring& key)
 {
 	return dynamic_cast<T*>(Get(key));
+}
+
+template<typename MeshType>
+inline HRESULT CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
+{
+	if (!std::is_base_of<CMesh, MeshType>::value)
+	{
+		//"MeshT must be derived from CMesh"
+		return E_FAIL;
+	}
+
+	if (m_umResource.find(key) != m_umResource.end())
+		return S_OK; // Already loaded
+
+	MeshType* pMesh = MeshType::Create(pDevice);
+	if (FAILED(pMesh->Ready_Buffer()))
+	{
+		Safe_Release(pMesh);
+		return E_FAIL;
+	}
+
+	Register(key, pMesh);
+	return S_OK;
 }

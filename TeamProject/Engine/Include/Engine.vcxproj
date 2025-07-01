@@ -205,6 +205,7 @@
     <ClCompile Include="..\Code\CPicking.cpp" />
     <ClCompile Include="..\Code\CRcCube.cpp" />
     <ClCompile Include="..\Code\CRenderMgr.cpp" />
+    <ClCompile Include="..\Code\CResource.cpp" />
     <ClCompile Include="..\Code\CResourceMgr.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSceneMgr.cpp" />
@@ -212,7 +213,6 @@
     <ClCompile Include="..\Code\CTimeMgr.cpp" />
     <ClCompile Include="..\Code\CTimer.cpp" />
     <ClCompile Include="..\Code\CTransform.cpp" />
-    <ClCompile Include="CResource.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
