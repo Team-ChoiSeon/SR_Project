@@ -139,6 +139,9 @@ void SceneHW::Render_Scene()
 
 void SceneHW::Free()
 {
+	Safe_Release(m_pCameraLayer);
+	Safe_Release(m_pPlayerLayer);
+	Safe_Release(m_pObjectLayer);
 	Safe_Release(m_pPlayer);
 	Safe_Release(m_pDummy);
 	Safe_Release(m_pFFCam);

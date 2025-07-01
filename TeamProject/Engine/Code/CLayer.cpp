@@ -21,7 +21,7 @@ void CLayer::Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject)
 		[&](const OBJINFO& info) {
 			return info.szName == wObjTag;
 		});
-	if (it == m_vObject.end())
+	if (it != m_vObject.end())
 	{
 		MSG_BOX("[Layer] Add_GameObject 실패: 중복 태그");
 		return;
