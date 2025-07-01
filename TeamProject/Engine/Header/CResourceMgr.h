@@ -19,23 +19,31 @@ private:
 	virtual ~CResourceMgr();
 
 public:
+	// [Initialize]
+	// example: CResourceMgr::Get_Instance()->Ready_Resource();
 	HRESULT Ready_Resource();
 
+	// [Register]
 	void Register(const wstring& key, CResource* pResource);
 
+	// [Get]
+	// example: CTexture* pTex = dynamic_cast<CTexture*>(CResourceMgr::Get_Instance()->Get(L"SkyTex"));
 	CResource* Get(const wstring& key);
 
+	// [Get - Template]
+	// example: CTexture* pTex = CResourceMgr::Get_Instance()->GetAs<CTexture>(L"SkyTex");
 	template <typename T>
 	T* GetAs(const wstring& key);
 
-	// 텍스처 로딩 (파일명 기반 등록)
+	// [Texture Load & Auto Register]
+	// example: CResourceMgr::Get_Instance()->Load_Texture(L"../Textures/brick.jpg", TEX_NORMAL, 1);
 	HRESULT Load_Texture(const wstring& filePath, TEXTUREID eType = TEX_CUBE, _uint iCnt = 6);
 
-	// TODO: 추후 머터리얼 로딩 추가 예정
+	// [TODO : ]
 	HRESULT Load_Material(const D3DMATERIAL9& mtrl);
 
 private:
-	// 경로에서 파일 이름 추출
+	// Extract FileName From FilePath
 	wstring Get_FileName(const wstring& filePath);
 
 private:
