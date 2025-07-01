@@ -5,12 +5,12 @@ CCubeTex::CCubeTex()
 }
 
 CCubeTex::CCubeTex(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CVIBuffer(pGraphicDev)
+	: CMesh(pGraphicDev)
 {
 }
 
 CCubeTex::CCubeTex(const CCubeTex& rhs)
-	: CVIBuffer(rhs)
+	: CMesh(rhs)
 {
 }
 
@@ -28,7 +28,7 @@ HRESULT CCubeTex::Ready_Buffer()
 	m_dwIdxSize = sizeof(INDEX32);
 	m_IdxFmt = D3DFMT_INDEX32;
 
-	if (FAILED(CVIBuffer::Ready_Buffer()))
+	if (FAILED(CMesh::Ready_Buffer()))
 		return E_FAIL;
 
 	VTXCUBE* pVertex = NULL;
@@ -112,7 +112,7 @@ HRESULT CCubeTex::Ready_Buffer()
 
 void CCubeTex::Render_Buffer()
 {
-	CVIBuffer::Render_Buffer();
+	CMesh::Render_Buffer();
 }
 
 CCubeTex* CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -131,5 +131,5 @@ CCubeTex* CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CCubeTex::Free()
 {
-	CVIBuffer::Free();
+	CMesh::Free();
 }
