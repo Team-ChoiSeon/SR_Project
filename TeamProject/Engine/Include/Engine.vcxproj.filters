@@ -70,8 +70,17 @@
     <Filter Include="06. Resources">
       <UniqueIdentifier>{dea1e113-086d-4d67-99bd-120fc20a0e6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Resources\RcCube">
+    <Filter Include="06. Resources\Mesh">
+      <UniqueIdentifier>{12cd1b22-32fe-464b-8da7-c7728fbfa03a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\Mesh\RcCube">
       <UniqueIdentifier>{a7372762-75c5-40a1-9905-94c0858d735d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\Texture">
+      <UniqueIdentifier>{8c6db012-e783-454a-a97e-e5dfff8ab944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\Material">
+      <UniqueIdentifier>{885d3104-51a4-472b-aaea-7c46fb269d9e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -153,11 +162,17 @@
     <ClInclude Include="..\Header\CResource.h">
       <Filter>06. Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CMesh.h">
-      <Filter>06. Resources</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CRcCube.h">
-      <Filter>06. Resources\RcCube</Filter>
+      <Filter>06. Resources\Mesh\RcCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMesh.h">
+      <Filter>06. Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMaterial.h">
+      <Filter>06. Resources\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTexture.h">
+      <Filter>06. Resources\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,11 +233,17 @@
     <ClCompile Include="..\Code\CPicking.cpp">
       <Filter>02. Components\05. Picking</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CMesh.cpp">
-      <Filter>06. Resources</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CRcCube.cpp">
-      <Filter>06. Resources\RcCube</Filter>
+      <Filter>06. Resources\Mesh\RcCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMesh.cpp">
+      <Filter>06. Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMaterial.cpp">
+      <Filter>06. Resources\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTexture.cpp">
+      <Filter>06. Resources\Texture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
