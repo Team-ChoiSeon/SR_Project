@@ -8,7 +8,7 @@ namespace Engine
 	class CCubeTex;
 	class CVIBuffer;
 }
-class Player : public CGameObject
+class Player : public Engine::CGameObject
 {
 public:
 	Player(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -21,7 +21,7 @@ public:
 
 
 public:		//GetSet
-	_vec3 GetPos() { return Get_Component<CTransform>(L"Transform")->Get_Pos(); }
+	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
 
 
 protected:

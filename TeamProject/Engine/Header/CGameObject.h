@@ -44,42 +44,6 @@ protected:
 
 };
 template<typename T>
-T* CGameObject::Get_Component(const wstring& pComponentTag)
-{
-	for (_uint i = 0; i < ID_END; ++i)
-	{
-		auto iter = m_umComponent[i].find(pComponentTag);
-		if (iter != m_umComponent[i].end())
-			return dynamic_cast<T*>(iter->second);
-	}
-
-	MSG_BOX("[CGameObject] Get_Component 실패 : nullptr 전달됨");
-	return nullptr;
-}
-
-template<typename T, typename... Args>
-void CGameObject::Add_Component(const wstring& pComponentTag, COMPONENTID eID, Args&&... args)
-{
-	unique_ptr<T> pComp (T::Create(forward<Args>(args)...));
-	if (pComp == nullptr)
-	{
-		MSG_BOX("[GameObject] Add_Component 실패 : 생성 실패");
-		return;
-	}
-
-
-	if (m_umComponent[eID].find(pComponentTag) != m_umComponent[eID].end())
-	{
-		MSG_BOX("[GameObject] Add_Component 실패: 중복 태그");
-		return;
-	}
-
-	m_umComponent[eID].emplace(pComponentTag, pComp.release());
-}
-
-
-
-template<typename T>
 T* CGameObject::Get_Component()
 {
 	for (_uint i = 0; i < ID_END; ++i)
@@ -89,7 +53,7 @@ T* CGameObject::Get_Component()
 			return static_cast<T*>(iter->second);
 	}
 
-	MSG_BOX((std::string("[GameObject] Get_Component 실패 : ") + typeid(T).name()).c_str());
+	//MSG_BOX((std::string("[GameObject] Get_Component 실패 : ") + typeid(T).name()).c_str());
 	return nullptr;
 }
 
@@ -99,14 +63,14 @@ void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 	const std::type_index tag = typeid(T);
 	if (m_umComponent[eID].find(tag) != m_umComponent[eID].end())
 	{
-		MSG_BOX((std::string("[GameObject] Add_Component 중복 : ") + typeid(T).name()).c_str());
+		//MSG_BOX((std::string("[GameObject] Add_Component 중복 : ") + typeid(T).name()).c_str());
 		return;
 	}
 
 	T* pComp = T::Create(std::forward<Args>(args)...);
 	if (pComp == nullptr)
 	{
-		MSG_BOX((std::string("[GameObject] Add_Component 실패 : ") + typeid(T).name()).c_str());
+		//MSG_BOX((std::string("[GameObject] Add_Component 실패 : ") + typeid(T).name()).c_str());
 		return;
 	}
 
@@ -123,6 +87,4 @@ bool CGameObject::Has_Component()
 	}
 	return false;
 }
-
-
 END

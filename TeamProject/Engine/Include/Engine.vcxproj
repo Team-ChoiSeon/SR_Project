@@ -156,7 +156,6 @@
   <ItemGroup>
     <ClInclude Include="..\Header\CCamera.h" />
     <ClInclude Include="..\Header\CCameraMgr.h" />
-    <ClInclude Include="..\Header\CCameraObject.h" />
     <ClInclude Include="..\Header\CComponent.h" />
     <ClInclude Include="..\Header\CCubeTex.h" />
     <ClInclude Include="..\Header\CFrame.h" />
@@ -166,6 +165,7 @@
     <ClInclude Include="..\Header\CInputMgr.h" />
     <ClInclude Include="..\Header\CLayer.h" />
     <ClInclude Include="..\Header\CLight.h" />
+    <ClInclude Include="..\Header\CLightMgr.h" />
     <ClInclude Include="..\Header\CPicking.h" />
     <ClInclude Include="..\Header\CRcCube.h" />
     <ClInclude Include="..\Header\CRenderMgr.h" />
@@ -185,7 +185,6 @@
   <ItemGroup>
     <ClCompile Include="..\Code\CCamera.cpp" />
     <ClCompile Include="..\Code\CCameraMgr.cpp" />
-    <ClCompile Include="..\Code\CCameraObject.cpp" />
     <ClCompile Include="..\Code\CComponent.cpp" />
     <ClCompile Include="..\Code\CCubeTex.cpp" />
     <ClCompile Include="..\Code\CFrame.cpp" />
@@ -195,6 +194,7 @@
     <ClCompile Include="..\Code\CInputMgr.cpp" />
     <ClCompile Include="..\Code\CLayer.cpp" />
     <ClCompile Include="..\Code\CLight.cpp" />
+    <ClCompile Include="..\Code\CLightMgr.cpp" />
     <ClCompile Include="..\Code\CPicking.cpp" />
     <ClCompile Include="..\Code\CRcCube.cpp" />
     <ClCompile Include="..\Code\CRenderMgr.cpp" />

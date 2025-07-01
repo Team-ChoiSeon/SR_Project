@@ -1,118 +1,58 @@
 #include "pch.h"
 #include "CLightObject.h"
-#include "CTransform.h"
 
 CLightObject::CLightObject(LPDIRECT3DDEVICE9 pGraphicDev)
-    : Engine::CGameObject(pGraphicDev), m_pTransformCom(nullptr), m_pLightCom(nullptr)
+	: CGameObject(pGraphicDev), m_pLightCom(nullptr), m_pTransformCom(nullptr), m_fIntensity(1.0f), m_LightColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))
 {
-}
-
-CLightObject::CLightObject(const CLightObject& rhs)
-    : Engine::CGameObject(rhs), m_pTransformCom(nullptr), m_pLightCom(nullptr)
-{
+	Add_Component<CTransform>(ID_DYNAMIC, pGraphicDev);
+	Add_Component<CLight>(ID_DYNAMIC, pGraphicDev);
 }
 
 CLightObject::~CLightObject()
 {
-    Free();
 }
 
 HRESULT CLightObject::Ready_GameObject()
 {
-    if (FAILED(Add_Component()))
+    Get_Component<CTransform>()->Ready_Transform();
+
+    D3DLIGHT9 lightInfo = {};
+    lightInfo.Type = D3DLIGHT_POINT;
+    lightInfo.Diffuse = m_LightColor;
+    lightInfo.Ambient = m_LightColor * 0.5f;
+    lightInfo.Specular = m_LightColor * 0.7f;
+    lightInfo.Position = Get_Component<CTransform>()->Get_Pos();
+    lightInfo.Range = 10.0f;
+    lightInfo.Attenuation0 = 1.0f;
+
+    if (FAILED(Get_Component<CLight>()->Ready_Light(&lightInfo, CLight::POINT_LIGHT))) {
         return E_FAIL;
+    }
+
+    Get_Component<CLight>()->Set_LightColor(m_LightColor);
 
     return S_OK;
 }
 
-_int CLightObject::Update_GameObject(const _float& fTimeDelta)
+int CLightObject::Update_GameObject(const _float& fTimeDelta)
 {
-    Engine::CGameObject::Update_GameObject(fTimeDelta);
+	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
+		pComponent.second->Update_Component(fTimeDelta);
 
-    if (m_pTransformCom)
-        m_pTransformCom->Update_Component(fTimeDelta);
-
-    return 0;
+	return CGameObject::Update_GameObject(fTimeDelta);
 }
 
 void CLightObject::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-    Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
+		pComponent.second->LateUpdate_Component();
 
-    //if (m_pLightCom)
-    //    m_pLightCom->LateUpdate_Component();
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CLightObject::Render_GameObject()
 {
-    if (m_pGraphicDev && m_pTransformCom)
-    {
-        m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-    }
+	m_mWorld = Get_Component<CTransform>()->Get_WorldMatrix();
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_mWorld);
 }
 
-void CLightObject::Set_Light(const D3DLIGHT9& tLightData)
-{
-    // if (m_pLightCom)
-    //     m_pLightCom->SetLightInfo(tLightData);
-}
-
-Engine::CLight* CLightObject::Get_LightComponent()
-{
-    return m_pLightCom;
-}
-
-HRESULT CLightObject::Add_Component()
-{
-    // CComponent* pComponent = nullptr;
-    // Add_Component<CTransform>()
-
-
-     
-    // pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
-    // if (nullptr == pComponent)
-    //     return E_FAIL;
-    // m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-
-    // m_pTransformCom = new Engine::CTransform(m_pGraphicDev);
-    // if (!m_pTransformCom || FAILED(m_pTransformCom->Ready_Transform()))
-    // {
-    //     MSG_BOX("Failed to create Transform Component");
-    //     return E_FAIL;
-    // }
-    // m_umComponent[ID_DYNAMIC].insert({ L"Com_Transform", m_pTransformCom });
-
-    // m_pLightCom = new Engine::CLight(m_pGraphicDev);
-    // if (!m_pLightCom || FAILED(m_pLightCom->Ready_Light(nullptr)))
-    // {
-    //     MSG_BOX("Failed to create Light Component");
-    //     return E_FAIL;
-    // }
-    // m_umComponent[ID_DYNAMIC].insert({ L"Com_Light", m_pLightCom });
-
-    return S_OK;
-}
-
-CLightObject* CLightObject::Create(LPDIRECT3DDEVICE9 pGraphicDev)
-{
-    CLightObject* LightObj = new CLightObject(pGraphicDev);
-
-    if (FAILED(LightObj->Ready_GameObject()))
-    {
-        MSG_BOX("CLightObject Create Failed");
-        Safe_Release(LightObj);
-    }
-
-    return LightObj;
-}
-
-void CLightObject::Free()
-{
-    // for (auto& component : m_umComponent[ID_DYNAMIC])
-    // {
-    //     Safe_Release(component.second);
-    // }
-    // m_umComponent[ID_DYNAMIC].clear();
-
-    Engine::CGameObject::Free();
-}

@@ -1,39 +1,41 @@
 #pragma once
 #include "CGameObject.h"
-#include "Engine_Define.h"
+#include "CLight.h"
+#include "CTransform.h"
 
 namespace Engine
 {
-    class CTransform;
-    class CLight;
+	//class CLight;
+	class CTransform;
 }
 
 class CLightObject : public Engine::CGameObject
 {
-private:
-    explicit CLightObject(LPDIRECT3DDEVICE9 pGraphicDev);
-    explicit CLightObject(const CGameObject& rhs);
-    virtual ~CLightObject();
-
 public:
-    virtual HRESULT Ready_GameObject();
-    virtual _int Update_GameObject(const _float& fTimeDelta);
-    virtual void LateUpdate_GameObject(const _float& fTimeDelta);
-    virtual void Render_GameObject();
+	CLightObject(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CLightObject();
 
-    void Set_Light(const D3DLIGHT9& tLightData);
-    CLight* Get_LightComponent();
+	HRESULT Ready_GameObject();
+	int Update_GameObject(const _float& fTimeDelta) override;
+	void LateUpdate_GameObject(const _float& fTimeDelta) override;
+	void Render_GameObject() override;
 
-private:
-    HRESULT Add_Component();
+public:		// GetSet
+	const D3DLIGHT9& GetLightInfo() const { return m_pLightCom->Get_LightInfo(); }
+	CLight::LIGHTTYPE GetLightType() const { return m_pLightCom->Get_LightType(); }
 
-public:
-    static CLightObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-
-private:
-    Engine::CTransform* m_pTransformCom;
-    Engine::CLight* m_pLightCom;
 
 private:
-    virtual void Free();
+	CLight* m_pLightCom;
+	CTransform* m_pTransformCom;
+
+	const _matrix* m_mWorld;
+
+	D3DLIGHT9 m_tLightInfo;
+	CLight::LIGHTTYPE m_eLightType;
+
+	float m_fIntensity;
+	D3DXCOLOR m_LightColor;
+
 };
+

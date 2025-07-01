@@ -8,7 +8,7 @@
 Player::Player(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev), m_pVB(nullptr), m_pIB(nullptr)
 {
 	//m_pTransformCom->Create(pGraphicDev);
-	Add_Component<CTransform>(L"Transform", ID_DYNAMIC, pGraphicDev);
+	Add_Component<CTransform>(ID_DYNAMIC,pGraphicDev);
 
 	m_fMoveSpeed = 10.f;
 }
@@ -20,7 +20,7 @@ Player::~Player()
 
 HRESULT Player::Ready_GameObject()
 {
-	Get_Component<CTransform>(L"Transform")->Ready_Transform();
+	Get_Component<CTransform>()->Ready_Transform();
 	
 	//Get_Component<CTransform>(L"Transform")->Set_Scale({ 50.f, 50.f, 50.f });
 
@@ -132,7 +132,7 @@ void Player::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void Player::Render_GameObject()
 {
-	m_mWorld = Get_Component<CTransform>(L"Transform")->Get_WorldMatrix();
+	m_mWorld = Get_Component<CTransform>()->Get_WorldMatrix();
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_mWorld);
 
 	//m_pVIBuffer->Render_Buffer();
@@ -154,27 +154,27 @@ void Player::KeyInput(const _float& fTimeDelta)
 		m_fMoveSpeed = 10.f;
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_W)) {
-		Get_Component<CTransform>(L"Transform")->Set_Pos({
-			Get_Component<CTransform>(L"Transform")->Get_Pos().x,
-			Get_Component<CTransform>(L"Transform")->Get_Pos().y,
-			Get_Component<CTransform>(L"Transform")->Get_Pos().z + m_fMoveSpeed * fTimeDelta });
+		Get_Component<CTransform>()->Set_Pos({
+			Get_Component<CTransform>()->Get_Pos().x,
+			Get_Component<CTransform>()->Get_Pos().y,
+			Get_Component<CTransform>()->Get_Pos().z + m_fMoveSpeed * fTimeDelta });
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_S)) {
-		Get_Component<CTransform>(L"Transform")->Set_Pos({
-			Get_Component<CTransform>(L"Transform")->Get_Pos().x,
-			Get_Component<CTransform>(L"Transform")->Get_Pos().y,
-			Get_Component<CTransform>(L"Transform")->Get_Pos().z - m_fMoveSpeed * fTimeDelta });
+		Get_Component<CTransform>()->Set_Pos({
+			Get_Component<CTransform>()->Get_Pos().x,
+			Get_Component<CTransform>()->Get_Pos().y,
+			Get_Component<CTransform>()->Get_Pos().z - m_fMoveSpeed * fTimeDelta });
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_D)) {
-		Get_Component<CTransform>(L"Transform")->Set_Pos({
-			Get_Component<CTransform>(L"Transform")->Get_Pos().x + m_fMoveSpeed * fTimeDelta ,
-			Get_Component<CTransform>(L"Transform")->Get_Pos().y,
-			Get_Component<CTransform>(L"Transform")->Get_Pos().z });
+		Get_Component<CTransform>()->Set_Pos({
+			Get_Component<CTransform>()->Get_Pos().x + m_fMoveSpeed * fTimeDelta ,
+			Get_Component<CTransform>()->Get_Pos().y,
+			Get_Component<CTransform>()->Get_Pos().z });
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_A)) {
-		Get_Component<CTransform>(L"Transform")->Set_Pos({
-			Get_Component<CTransform>(L"Transform")->Get_Pos().x - m_fMoveSpeed * fTimeDelta ,
-			Get_Component<CTransform>(L"Transform")->Get_Pos().y,
-			Get_Component<CTransform>(L"Transform")->Get_Pos().z});
+		Get_Component<CTransform>()->Set_Pos({
+			Get_Component<CTransform>()->Get_Pos().x - m_fMoveSpeed * fTimeDelta ,
+			Get_Component<CTransform>()->Get_Pos().y,
+			Get_Component<CTransform>()->Get_Pos().z});
 	}
 }
