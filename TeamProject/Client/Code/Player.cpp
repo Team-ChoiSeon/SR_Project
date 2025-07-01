@@ -164,6 +164,7 @@ void Player::Free()
 {
 	Safe_Release(m_pVB);
 	Safe_Release(m_pIB);
+	Safe_Release(m_pTransform);
 
 }
 

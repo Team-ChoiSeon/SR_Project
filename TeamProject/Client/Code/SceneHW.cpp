@@ -67,6 +67,22 @@ SceneHW* SceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 int SceneHW::Update_Scene(const _float& fTimeDelta)
 {
+	//for (auto& pLayer : m_umLayer) {
+	//	if (pLayer.first == LAYER_CAMERA) {
+	//		for (auto& pCamera : pLayer.second->m_vObject)
+	//		{
+	//			if (dynamic_cast<CCameraObject*>(pCamera.pObj)->Get_Active())
+	//				pCamera.pObj->Update_GameObject(fTimeDelta);
+	//			else
+	//				continue;
+	//		}
+	//	}
+	//	else {
+	//		pLayer.second->Update_Layer(fTimeDelta);
+
+	//	}
+	//}
+
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
 

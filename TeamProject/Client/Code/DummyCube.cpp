@@ -12,6 +12,7 @@ DummyCube::DummyCube(LPDIRECT3DDEVICE9 pGrpahicDev) : CGameObject(pGrpahicDev)
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	
 	m_pCube = Get_Component<CRcCube>();
+	m_pTransform = Get_Component<CTransform>();
 
 }
 
@@ -63,4 +64,5 @@ DummyCube* DummyCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void DummyCube::Free()
 {
 	Safe_Release(m_pCube);
+	Safe_Release(m_pTransform);
 }

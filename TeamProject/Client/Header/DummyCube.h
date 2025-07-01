@@ -25,8 +25,8 @@ public:
 private:
 	LPDIRECT3DDEVICE9	m_pGraphicDev;
 	CRcCube*			m_pCube;
-	const _matrix*				m_mWorld;
-	//CTransform*			m_pTransform;
+	const _matrix*		m_mWorld;
+	CTransform*			m_pTransform;
 
 };
 
