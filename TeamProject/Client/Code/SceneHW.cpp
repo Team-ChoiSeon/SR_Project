@@ -94,17 +94,20 @@ void SceneHW::Render_Scene()
 	_vec3 v_playpos = m_pPlayer->GetPos();
 	_vec3 v_campos = m_pFFcam->Get_Component<CTransform>()->Get_Pos();
 	_vec3 camlook = m_pFFcam->Get_Component<CCamera>()->Get_Look();
+	_vec3 camrot = m_pFFcam->Get_Component<CTransform>()->Get_Angle();
 	wchar_t buf[64];
 	wchar_t buf2[64];
 	wchar_t buf3[64];
+	wchar_t buf4[64];
 	swprintf_s(buf, L"position : x: %.3f y: %.3f  z: %.3f", v_playpos.x, v_playpos.y, v_playpos.z);
 	swprintf_s(buf2, L"cam position: x: %.3f y: %.3f z: %.3f ", v_campos.x, v_campos.y, v_campos.z);
 	swprintf_s(buf3, L"cam look: x: %.3f y: %.3f z: %.3f", camlook.x, camlook.y, camlook.z);
-
+	swprintf_s(buf4, L"cam rot: x: %.3f y: %.3f z: %.3f", camrot.x, camrot.y, camrot.z);
 
 	RECT rc = { 10, 10, 500, 30 };
 	RECT rc2 = { 10, 30, 500, 50 };
 	RECT rc3 = { 10, 50, 500, 70 };
+	RECT rc4 = { 10, 70, 500, 90 };
 
 	m_pFont->DrawTextW(
 		nullptr,
@@ -128,6 +131,14 @@ void SceneHW::Render_Scene()
 		buf3,
 		-1,
 		&rc3,
+		DT_LEFT | DT_TOP,
+		D3DCOLOR_ARGB(255, 255, 0, 0)
+	);
+	m_pFont->DrawTextW(
+		nullptr,
+		buf4,
+		-1,
+		&rc4,
 		DT_LEFT | DT_TOP,
 		D3DCOLOR_ARGB(255, 255, 0, 0)
 	);

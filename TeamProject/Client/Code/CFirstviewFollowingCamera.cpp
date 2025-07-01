@@ -72,14 +72,13 @@ void CFirstviewFollowingCamera::Update_FFCam(const float& fTimeDelta)
 		else
 			m_bCursorMove = true;
 	}
-
-	if (!m_bCursorMove)
-		CursorRotate();
-
 	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
 	m_pTransform->Set_Pos(target_transform->Get_Pos());
 	m_pTransform->Set_Angle(target_transform->Get_Angle());
+	AngleClamping();
 
+	if (!m_bCursorMove)
+		CursorRotate();
 
 	m_pCamera->Set_Eye(m_pTransform->Get_Pos());
 	m_pCamera->Set_At(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_LOOK));
@@ -130,11 +129,25 @@ void CFirstviewFollowingCamera::CursorRotate()
 	target_transform->Set_Angle(target_transform->Get_Angle() + _vec3{ ry, rx, 0.f });
 
 }
-//
-//void CFirstviewFollowingCamera::AngleClamping()
-//{
-//	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
-//
-//	if (target_transform->Get_Angle().x < 0.f)
-//		target_transform->Set_Angle(target_transform->Get_Angle() + {360.f, 0.f, 0.f});
-//}
+
+void CFirstviewFollowingCamera::AngleClamping()
+{
+	float pi = D3DX_PI;
+	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
+	float fxlowGap = -pi * 0.5f - target_transform->Get_Angle().x;
+	float fxhighGap = target_transform->Get_Angle().x - pi * 0.5f;
+	if (fxlowGap > 0.f) {
+		target_transform->Set_Angle(target_transform->Get_Angle() + _vec3{ fxlowGap, 0.f, 0.f});
+	}
+	else if (fxhighGap > 0.f) {
+		target_transform->Set_Angle(target_transform->Get_Angle() - _vec3{ fxhighGap, 0.f, 0.f });
+	}
+
+	if (target_transform->Get_Angle().y > pi * 2.f) {
+		target_transform->Set_Angle(target_transform->Get_Angle() - _vec3{ 0.f, pi * 2.f, 0.f });
+	}
+	else if (target_transform->Get_Angle().y < 0.f) {
+		target_transform->Set_Angle(target_transform->Get_Angle() + _vec3{ 0.f, pi * 2.f, 0.f });
+	}
+		
+}
