@@ -245,5 +245,8 @@
     <ClCompile Include="..\Code\CTexture.cpp">
       <Filter>06. Resources\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="CResource.cpp">
+      <Filter>06. Resources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

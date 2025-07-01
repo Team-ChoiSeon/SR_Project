@@ -34,9 +34,6 @@ protected:
 	_ulong						m_dwTriCnt;		// 삼각형 개수
 	D3DFORMAT					m_IdxFmt;		// 인덱스 속성
 
-	LPDIRECT3DDEVICE9			m_pGraphicDev;
-
-
 
 };
 END
