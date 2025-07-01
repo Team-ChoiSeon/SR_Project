@@ -79,6 +79,9 @@
     <Filter Include="06. Resources\Mesh\CubeTex">
       <UniqueIdentifier>{aca1a845-0ff9-4805-906f-10ef59f0988d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\00. Model">
+      <UniqueIdentifier>{9a72de3d-94a8-440e-b113-e9223479dffd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -171,6 +174,12 @@
     <ClInclude Include="..\Header\CCubeTex.h">
       <Filter>06. Resources\Mesh\CubeTex</Filter>
     </ClInclude>
+    <ClInclude Include="Engine_Model.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CModel.h">
+      <Filter>02. Components\00. Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -244,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCubeTex.cpp">
       <Filter>06. Resources\Mesh\CubeTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CModel.cpp">
+      <Filter>02. Components\00. Model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -167,6 +167,7 @@
     <ClInclude Include="..\Header\CLight.h" />
     <ClInclude Include="..\Header\CMaterial.h" />
     <ClInclude Include="..\Header\CMesh.h" />
+    <ClInclude Include="..\Header\CModel.h" />
     <ClInclude Include="..\Header\CPicking.h" />
     <ClInclude Include="..\Header\CRcCube.h" />
     <ClInclude Include="..\Header\CRenderMgr.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="..\Header\Engine_Macro.h" />
     <ClInclude Include="..\Header\Engine_Struct.h" />
     <ClInclude Include="..\Header\Engine_Typedef.h" />
+    <ClInclude Include="Engine_Model.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CCamera.cpp" />
@@ -199,6 +201,7 @@
     <ClCompile Include="..\Code\CLight.cpp" />
     <ClCompile Include="..\Code\CMaterial.cpp" />
     <ClCompile Include="..\Code\CMesh.cpp" />
+    <ClCompile Include="..\Code\CModel.cpp" />
     <ClCompile Include="..\Code\CPicking.cpp" />
     <ClCompile Include="..\Code\CRcCube.cpp" />
     <ClCompile Include="..\Code\CRenderMgr.cpp" />
