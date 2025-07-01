@@ -14,17 +14,29 @@
     <Filter Include="02. MainApp">
       <UniqueIdentifier>{9c5040e7-00aa-46e9-975c-7a1b9dace7a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObjects">
+    <Filter Include="04. GameObjects">
       <UniqueIdentifier>{ab7604f5-dc2e-4079-a511-01ca857fdab1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObjects\TestPlayer">
+    <Filter Include="04. GameObjects\TestPlayer">
       <UniqueIdentifier>{59dd0850-c33f-45f5-8a15-5279976fcc02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObjects\TestLight">
+    <Filter Include="04. GameObjects\TestLight">
       <UniqueIdentifier>{f0f59b2f-0432-4248-b0e8-e754b52cb41f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObjects\TestCamera">
+    <Filter Include="04. GameObjects\CameraObejct">
       <UniqueIdentifier>{faac4596-d2fc-44e4-8613-5f76bee7bef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\CameraObejct\FirstviewFollowingCam">
+      <UniqueIdentifier>{960fb8c3-bd33-453d-bf13-a8b55eaf28df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene">
+      <UniqueIdentifier>{7a1af6c0-b0d1-400e-ab0e-b9bbea314936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneHW">
+      <UniqueIdentifier>{8ee7b265-de06-42fa-b2df-530547d8c75a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestObject">
+      <UniqueIdentifier>{2a140a9a-97a3-471c-9b0b-edf3b173ce36}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,11 +58,20 @@
     <ClInclude Include="..\Header\CMainApp.h">
       <Filter>02. MainApp</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CLightObject.h">
-      <Filter>03. GameObjects\TestLight</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Player.h">
-      <Filter>03. GameObjects\TestPlayer</Filter>
+      <Filter>04. GameObjects\TestPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCameraObject.h">
+      <Filter>04. GameObjects\CameraObejct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFirstviewFollowingCamera.h">
+      <Filter>04. GameObjects\CameraObejct\FirstviewFollowingCam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\DummyCube.h">
+      <Filter>04. GameObjects\TestObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneHW.h">
+      <Filter>03. Scene\SceneHW</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -63,11 +84,20 @@
     <ClCompile Include="..\Code\CMainApp.cpp">
       <Filter>02. MainApp</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CLightObject.cpp">
-      <Filter>03. GameObjects\TestLight</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Player.cpp">
-      <Filter>03. GameObjects\TestPlayer</Filter>
+      <Filter>04. GameObjects\TestPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCameraObject.cpp">
+      <Filter>04. GameObjects\CameraObejct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFirstviewFollowingCamera.cpp">
+      <Filter>04. GameObjects\CameraObejct\FirstviewFollowingCam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\DummyCube.cpp">
+      <Filter>04. GameObjects\TestObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneHW.cpp">
+      <Filter>03. Scene\SceneHW</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

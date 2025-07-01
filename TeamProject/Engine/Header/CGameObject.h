@@ -53,7 +53,7 @@ T* CGameObject::Get_Component()
 			return static_cast<T*>(iter->second);
 	}
 
-	MSG_BOX((std::string("[GameObject] Get_Component 실패 : ") + typeid(T).name()).c_str());
+	MSG_BOX("[GameObject] Get_Component 실패 : ");
 	return nullptr;
 }
 
@@ -63,14 +63,14 @@ void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 	const std::type_index tag = typeid(T);
 	if (m_umComponent[eID].find(tag) != m_umComponent[eID].end())
 	{
-		MSG_BOX((std::string("[GameObject] Add_Component 중복 : ") + typeid(T).name()).c_str());
+		MSG_BOX("[GameObject] Add_Component 중복 : ");
 		return;
 	}
 
 	T* pComp = T::Create(std::forward<Args>(args)...);
 	if (pComp == nullptr)
 	{
-		MSG_BOX((std::string("[GameObject] Add_Component 실패 : ") + typeid(T).name()).c_str());
+		MSG_BOX("[GameObject] Add_Component 실패 : ");
 		return;
 	}
 

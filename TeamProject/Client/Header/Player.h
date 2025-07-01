@@ -29,7 +29,7 @@ protected:
 
 private:
 	CVIBuffer* m_pVIBuffer;
-	CTransform* m_pTransformCom;
+	CTransform* m_pTransform;
 
 	const _matrix* m_mWorld;
 
