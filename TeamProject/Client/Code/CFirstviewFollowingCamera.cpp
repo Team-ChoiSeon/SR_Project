@@ -40,30 +40,12 @@ CFirstviewFollowingCamera::~CFirstviewFollowingCamera()
 {
 }
 
-CFirstviewFollowingCamera* CFirstviewFollowingCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target)
-{
-	auto pCam = new CFirstviewFollowingCamera(pGraphicDev, target);
-	if (FAILED(pCam->Ready_FFCam())) {
-		Safe_Release(pCam);
-		return nullptr;
-	}
-	return pCam;
-}
-void CFirstviewFollowingCamera::Free()
-{
-	Safe_Release(m_pFollowingTarget);
-	Safe_Release(m_pCamera);
-	Safe_Release(m_pTransform);
-	Safe_Release(m_pGraphicDev);
-}
-
-
-HRESULT CFirstviewFollowingCamera::Ready_FFCam()
+HRESULT CFirstviewFollowingCamera::Ready_GameObject()
 {
 	return S_OK;
 }
 
-void CFirstviewFollowingCamera::Update_FFCam(const float& fTimeDelta)
+int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 {
 	if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB))
 	{
@@ -91,20 +73,36 @@ void CFirstviewFollowingCamera::Update_FFCam(const float& fTimeDelta)
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 
+	return 0;
 }
 
-void CFirstviewFollowingCamera::LateUpdate_FFCam()
+void CFirstviewFollowingCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->LateUpdate_Component();
 }
 
-void CFirstviewFollowingCamera::Render_FFCam()
+void CFirstviewFollowingCamera::Render_GameObject()
 {
 	const _matrix* world = m_pTransform->Get_WorldMatrix();
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, world);
+}
 
-
+CFirstviewFollowingCamera* CFirstviewFollowingCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target)
+{
+	auto pCam = new CFirstviewFollowingCamera(pGraphicDev, target);
+	if (FAILED(pCam->Ready_GameObject())) {
+		Safe_Release(pCam);
+		return nullptr;
+	}
+	return pCam;
+}
+void CFirstviewFollowingCamera::Free()
+{
+	Safe_Release(m_pFollowingTarget);
+	Safe_Release(m_pCamera);
+	Safe_Release(m_pTransform);
+	Safe_Release(m_pGraphicDev);
 }
 
 void CFirstviewFollowingCamera::CursorRotate()

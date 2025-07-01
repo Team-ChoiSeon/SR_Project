@@ -12,12 +12,13 @@ private :
 	virtual ~DummyCube();
 
 public:
-	HRESULT Ready_Dummy();
-	int		Update_Dummy(const float& fTimeDelta);
-	void	LateUpdate_Dummy(const float& fTimeDelta);
-	void	Render_GameObject();
+	HRESULT Ready_GameObject();
+	int Update_GameObject(const _float& fTimeDelta) override;
+	void LateUpdate_GameObject(const _float& fTimeDelta) override;
+	void Render_GameObject() override;
 
-	static DummyCube* Create_Dummy(LPDIRECT3DDEVICE9 pGraphicDev);
+
+	static DummyCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
 

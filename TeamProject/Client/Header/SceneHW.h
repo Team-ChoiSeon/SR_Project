@@ -4,6 +4,10 @@
 class Player;
 class DummyCube;
 class CFirstviewFollowingCamera;
+
+namespace Engine {
+	class CLayer;
+}
 class SceneHW : public CScene
 {
 public:
@@ -22,10 +26,13 @@ public:
 	void	Free();
 
 private:
-	LPDIRECT3DDEVICE9	m_pGraphicDev;
-	Player*				m_pPlayer;
-	ID3DXFont*			m_pFont;
-	CFirstviewFollowingCamera* m_pFFcam;
-	DummyCube*			m_pDummy;
+	LPDIRECT3DDEVICE9			m_pGraphicDev;
+	CLayer*						m_pPlayerLayer;
+	CLayer*						m_pObjectLayer;
+	CLayer*						m_pCameraLayer;
+	Player*						m_pPlayer;
+	ID3DXFont*					m_pFont;
+	CFirstviewFollowingCamera*	m_pFFCam;
+	DummyCube*					m_pDummy;
 };
 

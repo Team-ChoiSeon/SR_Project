@@ -10,7 +10,16 @@
 
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) : CScene(pGraphicDev)
 {
-	m_pGraphicDev = pGraphicDev;
+	m_pGraphicDev = pGraphicDev; 
+	Add_Layer(LAYER_PLAYER);
+	Add_Layer(LAYER_OBJECT);
+	Add_Layer(LAYER_CAMERA);
+	m_pPlayerLayer = Get_Layer(LAYER_PLAYER);
+	m_pObjectLayer = Get_Layer(LAYER_OBJECT);
+	m_pCameraLayer = Get_Layer(LAYER_CAMERA);
+	m_pPlayer = Player::Create(m_pGraphicDev);
+	m_pDummy = DummyCube::Create(m_pGraphicDev);
+	m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pPlayer);
 }
 
 SceneHW::~SceneHW()
@@ -19,14 +28,9 @@ SceneHW::~SceneHW()
 
 HRESULT SceneHW::Ready_Scene()
 {
-	m_pPlayer = new Player(m_pGraphicDev);
-	m_pPlayer->Ready_GameObject();
-
-	m_pDummy = DummyCube::Create_Dummy(m_pGraphicDev);
-	m_pDummy->Ready_Dummy();
-
-	m_pFFcam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pPlayer);
-
+	m_pPlayerLayer->Add_GameObject(L"Player", dynamic_cast<CGameObject*>(m_pPlayer));
+	m_pObjectLayer->Add_GameObject(L"Dummy", dynamic_cast<CGameObject*>(m_pDummy));
+	m_pCameraLayer->Add_GameObject(L"FFCam", dynamic_cast<CGameObject*>(m_pFFCam));
 
 	if (FAILED(D3DXCreateFont(
 		m_pGraphicDev,
@@ -66,10 +70,6 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
 
-	m_pPlayer->Update_GameObject(fTimeDelta);
-	m_pDummy->Update_Dummy(fTimeDelta);
-	m_pFFcam->Update_FFCam(fTimeDelta);
-
 	return 0;
 }
 
@@ -77,9 +77,6 @@ void SceneHW::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->LateUpdate_Layer(fTimeDelta);
-	m_pPlayer->LateUpdate_GameObject(fTimeDelta);
-	m_pDummy->LateUpdate_Dummy(fTimeDelta);
-	m_pFFcam->LateUpdate_FFCam();
 }
 
 void SceneHW::Render_Scene()
@@ -87,14 +84,10 @@ void SceneHW::Render_Scene()
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Render_Layer();
 
-	m_pPlayer->Render_GameObject();
-	m_pDummy->Render_GameObject();
-	m_pFFcam->Render_FFCam();
-
 	_vec3 v_playpos = m_pPlayer->GetPos();
-	_vec3 v_campos = m_pFFcam->Get_Component<CTransform>()->Get_Pos();
-	_vec3 camlook = m_pFFcam->Get_Component<CCamera>()->Get_Look();
-	_vec3 camrot = m_pFFcam->Get_Component<CTransform>()->Get_Angle();
+	_vec3 v_campos = m_pFFCam->Get_Component<CTransform>()->Get_Pos();
+	_vec3 camlook = m_pFFCam->Get_Component<CCamera>()->Get_Look();
+	_vec3 camrot = m_pFFCam->Get_Component<CTransform>()->Get_Angle();
 	wchar_t buf[64];
 	wchar_t buf2[64];
 	wchar_t buf3[64];
@@ -148,7 +141,7 @@ void SceneHW::Free()
 {
 	Safe_Release(m_pPlayer);
 	Safe_Release(m_pDummy);
-	Safe_Release(m_pFFcam);
+	Safe_Release(m_pFFCam);
 	Safe_Release(m_pFont);
 	Safe_Release(m_pGraphicDev);
 

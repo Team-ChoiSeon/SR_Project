@@ -19,7 +19,7 @@ DummyCube::~DummyCube()
 {
 }
 
-HRESULT DummyCube::Ready_Dummy()
+HRESULT DummyCube::Ready_GameObject()
 {
 	auto transform = Get_Component<CTransform>();
 	auto cube = Get_Component<CRcCube>();
@@ -30,12 +30,12 @@ HRESULT DummyCube::Ready_Dummy()
 	return S_OK;
 }
 
-int DummyCube::Update_Dummy(const float& fTimeDelta)
+int DummyCube::Update_GameObject(const _float& fTimeDelta)
 {
 	return 0;
 }
 
-void DummyCube::LateUpdate_Dummy(const float& fTimeDelta)
+void DummyCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 }
 
@@ -46,11 +46,11 @@ void DummyCube::Render_GameObject()
 	Get_Component<CRcCube>()->Render_Buffer();
 }
 
-DummyCube* DummyCube::Create_Dummy(LPDIRECT3DDEVICE9 pGraphicDev)
+DummyCube* DummyCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	DummyCube* pDummy = new DummyCube(pGraphicDev);
 
-	if (FAILED(pDummy->Ready_Dummy()))
+	if (FAILED(pDummy->Ready_GameObject()))
 	{
 		Safe_Release(pDummy);
 		MSG_BOX("Dummy Create Failed");

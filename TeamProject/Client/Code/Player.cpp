@@ -15,8 +15,6 @@ Player::Player(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev), m_pVB(
 }
 Player::~Player()
 {
-	Safe_Release(m_pVB);
-	Safe_Release(m_pIB);
 }
 
 HRESULT Player::Ready_GameObject()
@@ -140,13 +138,32 @@ void Player::Render_GameObject()
 	m_mWorld = Get_Component<CTransform>()->Get_WorldMatrix();
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_mWorld);
 
-	//m_pVIBuffer->Render_Buffer();
 	m_pGraphicDev->SetStreamSource(0, m_pVB, 0, m_dwVtxSize);
 	m_pGraphicDev->SetFVF(m_dwFVF);
 	m_pGraphicDev->SetIndices(m_pIB);
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	m_pGraphicDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwVtxCnt, 0, m_dwTriCnt);
+}
+
+Player* Player::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	Player* pPlayer = new Player(pGraphicDev);
+
+	if (FAILED(pPlayer->Ready_GameObject()))
+	{
+		Safe_Release(pPlayer);
+		MSG_BOX("Player Create Failed");
+		return nullptr;
+	}
+
+	return pPlayer;
+}
+
+void Player::Free()
+{
+	Safe_Release(m_pVB);
+	Safe_Release(m_pIB);
 }
 
 void Player::KeyInput(const _float& fTimeDelta)

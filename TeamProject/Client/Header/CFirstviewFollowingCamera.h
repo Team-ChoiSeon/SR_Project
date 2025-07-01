@@ -8,17 +8,20 @@ namespace Engine {
 }
 typedef class CFirstviewFollowingCamera : public CCameraObject
 {
-public:
+private:
 	explicit CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target);
 	explicit CFirstviewFollowingCamera(const CFirstviewFollowingCamera& rhs);
 	virtual ~CFirstviewFollowingCamera();
 
-	HRESULT		Ready_FFCam();
-	void		Update_FFCam(const float& fTimeDelta);
-	void		LateUpdate_FFCam();
-	void		Render_FFCam();
+public:
+	HRESULT Ready_GameObject();
+	int Update_GameObject(const _float& fTimeDelta) override;
+	void LateUpdate_GameObject(const _float& fTimeDelta) override;
+	void Render_GameObject() override;
+
 	void		CursorRotate();
 	void		AngleClamping();
+
 	static CFirstviewFollowingCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target);
 	void		Free();
 
