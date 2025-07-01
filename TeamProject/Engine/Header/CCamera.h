@@ -29,7 +29,6 @@ public:
 	virtual void Free();
 
 	//Optional Function
-	void CursorRotation();
 
 public:			//Getter, Setter
 	const _vec3 Get_Eye() const { return m_vEye; }

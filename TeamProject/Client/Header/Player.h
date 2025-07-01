@@ -10,15 +10,18 @@ namespace Engine
 }
 class Player : public Engine::CGameObject
 {
-public:
+private:
 	Player(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~Player();
 
+public:
 	HRESULT Ready_GameObject();
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 	void Render_GameObject() override;
 
+	static Player* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	void Free();
 
 public:		//GetSet
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
@@ -29,7 +32,7 @@ protected:
 
 private:
 	CVIBuffer* m_pVIBuffer;
-	CTransform* m_pTransformCom;
+	CTransform* m_pTransform;
 
 	const _matrix* m_mWorld;
 

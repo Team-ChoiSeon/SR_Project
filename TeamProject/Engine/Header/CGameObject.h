@@ -18,14 +18,14 @@ public:
 	virtual			void		Render_GameObject() = 0;
 
 public:
-	// »ç¿ë ¿¹½Ã
+	// ì‚¬ìš© ì˜ˆì‹œ
 	// CTransform* pTransform = Get_Component<CTransform>();
 	template<typename T>
 	T* Get_Component();
 
-	// »ç¿ë ¿¹½Ã
+	// ì‚¬ìš© ì˜ˆì‹œ
 	/*
-	*	ID_DYNAMIC ÀÌ default 
+	*	ID_DYNAMIC ì´ default 
 	*	Add_Component<CTransform>(m_pGraphicDev); 
 	*	Add_Component<CRenderer>(ID_STATIC, m_pGraphicDev);
 	*/
@@ -52,8 +52,7 @@ T* CGameObject::Get_Component()
 		if (iter != m_umComponent[i].end())
 			return static_cast<T*>(iter->second);
 	}
-
-	//MSG_BOX((std::string("[GameObject] Get_Component ½ÇÆĞ : ") + typeid(T).name()).c_str());
+	MSG_BOX("[GameObject] Get_Component ì‹¤íŒ¨ : ");
 	return nullptr;
 }
 
@@ -63,14 +62,14 @@ void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 	const std::type_index tag = typeid(T);
 	if (m_umComponent[eID].find(tag) != m_umComponent[eID].end())
 	{
-		//MSG_BOX((std::string("[GameObject] Add_Component Áßº¹ : ") + typeid(T).name()).c_str());
+		MSG_BOX("[GameObject] Add_Component ì¤‘ë³µ : ");
 		return;
 	}
 
 	T* pComp = T::Create(std::forward<Args>(args)...);
 	if (pComp == nullptr)
 	{
-		//MSG_BOX((std::string("[GameObject] Add_Component ½ÇÆĞ : ") + typeid(T).name()).c_str());
+		MSG_BOX("[GameObject] Add_Component ì‹¤íŒ¨ : ");
 		return;
 	}
 
