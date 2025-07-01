@@ -62,4 +62,5 @@ DummyCube* DummyCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void DummyCube::Free()
 {
+	Safe_Release(m_pCube);
 }

@@ -27,6 +27,8 @@ public:
 	// 사용 예시 
 	// pLayer->Add_GameObject(L"SkyBox", pSkyBoxObj);
 	void	Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject);
+
+	vector<OBJINFO>* Get_ObjVec() { return &m_vObject; }
 	
 
 public:
