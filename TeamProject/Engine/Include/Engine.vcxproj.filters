@@ -67,6 +67,12 @@
     <Filter Include="02. Components\00. VIBuffer\RcCube">
       <UniqueIdentifier>{42934f10-1f30-4e1a-bc98-a16cbc2eb09f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Resources">
+      <UniqueIdentifier>{dea1e113-086d-4d67-99bd-120fc20a0e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\RcCube">
+      <UniqueIdentifier>{a7372762-75c5-40a1-9905-94c0858d735d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -144,8 +150,14 @@
     <ClInclude Include="..\Header\CPicking.h">
       <Filter>02. Components\05. Picking</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CResource.h">
+      <Filter>06. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMesh.h">
+      <Filter>06. Resources</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CRcCube.h">
-      <Filter>02. Components\00. VIBuffer\RcCube</Filter>
+      <Filter>06. Resources\RcCube</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,8 +218,11 @@
     <ClCompile Include="..\Code\CPicking.cpp">
       <Filter>02. Components\05. Picking</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CMesh.cpp">
+      <Filter>06. Resources</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CRcCube.cpp">
-      <Filter>02. Components\00. VIBuffer\RcCube</Filter>
+      <Filter>06. Resources\RcCube</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
