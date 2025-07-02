@@ -15,7 +15,7 @@ public:
 	virtual			HRESULT		Ready_GameObject();
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
-	virtual			void		Render_GameObject() = 0;
+	virtual			void		Render_GameObject() {};
 
 public:
 	// 사용 예시

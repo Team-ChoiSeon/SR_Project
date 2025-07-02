@@ -38,6 +38,21 @@
     <Filter Include="04. GameObjects\TestObject">
       <UniqueIdentifier>{2a140a9a-97a3-471c-9b0b-edf3b173ce36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene\SceneBG">
+      <UniqueIdentifier>{c74caa5e-84d0-4710-867f-b83dd80b2fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneSB">
+      <UniqueIdentifier>{a78f37b4-b766-4b5b-b73e-e4dc44afd86b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneHS">
+      <UniqueIdentifier>{7f201cda-42bf-44b8-ab2a-bcbfba2287c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneDH">
+      <UniqueIdentifier>{58c69da1-fbb4-48b5-8347-2f12d35ab13c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\Logo">
+      <UniqueIdentifier>{11859b5b-3fe4-42a7-bffa-734c123776a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -70,11 +85,24 @@
     <ClInclude Include="..\Header\DummyCube.h">
       <Filter>04. GameObjects\TestObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLightObject.h" />
+    <ClInclude Include="..\Header\Logo.h">
+      <Filter>03. Scene\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneBG.h">
+      <Filter>03. Scene\SceneBG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneDH.h">
+      <Filter>03. Scene\SceneDH</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\SceneHW.h">
       <Filter>03. Scene\SceneHW</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CLightObject.h">
-      <Filter>03. GameObjects\TestLight</Filter>
+    <ClInclude Include="..\Header\SceneHS.h">
+      <Filter>03. Scene\SceneHS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneSB.h">
+      <Filter>03. Scene\SceneSB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -99,11 +127,24 @@
     <ClCompile Include="..\Code\DummyCube.cpp">
       <Filter>04. GameObjects\TestObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CLightObject.cpp" />
+    <ClCompile Include="..\Code\Logo.cpp">
+      <Filter>03. Scene\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneBG.cpp">
+      <Filter>03. Scene\SceneBG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneDH.cpp">
+      <Filter>03. Scene\SceneDH</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\SceneHW.cpp">
       <Filter>03. Scene\SceneHW</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CLightObject.cpp">
-      <Filter>03. GameObjects\TestLight</Filter>
+    <ClCompile Include="..\Code\SceneHS.cpp">
+      <Filter>03. Scene\SceneHS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneSB.cpp">
+      <Filter>03. Scene\SceneSB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

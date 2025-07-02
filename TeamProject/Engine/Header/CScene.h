@@ -16,7 +16,7 @@ public:
 
 	// enum LAYERID {LAYER_TILE, LAYER_OBJECT, LAYER_PLAYER, LAYER_END};
 	// 모든 레이어를 추가합니다.
-	virtual			void		Create_Layer();
+	virtual			void		Init_Layers();
 	// LAYERID에 해당하는 레이어를 추가합니다.
 	virtual			void		Add_Layer(LAYERID eID);
 	// LAYERID에 해당하는 레이어를 제거합니다.
