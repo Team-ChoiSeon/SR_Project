@@ -35,7 +35,7 @@ HRESULT CTexture::Load(LPDIRECT3DDEVICE9 pDevice, const wstring& filePath)
         return E_FAIL;
     }
     m_pTexture = pTexture;
-
+    m_wKey = filePath;
     return S_OK;
 }
 

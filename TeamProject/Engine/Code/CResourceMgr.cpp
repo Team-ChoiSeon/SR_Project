@@ -34,7 +34,7 @@ HRESULT CResourceMgr::Load_Texture(const wstring& texturePath)
 
 	CTexture* tex = CTexture::Create();
 
-	if (FAILED(tex->Load(m_pGraphicDev, texturePath))) {
+	if (FAILED(tex->Load(m_pGraphicDev, filePath))) {
 		Safe_Release(tex);
 		return E_FAIL;
 	}
@@ -45,23 +45,23 @@ HRESULT CResourceMgr::Load_Texture(const wstring& texturePath)
 
 HRESULT CResourceMgr::Load_Material(const wstring& mtlPath)
 {
-	// 이미 로드된 머티리얼이 있다면
+	// Already exist
 	auto iter = m_umMaterial.find(mtlPath);
 	if (iter != m_umMaterial.end())
 		return E_FAIL;
 
-	// 텍스처 기준 루트 경로 설정 ( 텍스처 파일 경로 조합용)
+	// Set Path
 	wstring BasePath = L"../Bin/Resource/Material/";
 	wstring filePath = BasePath + mtlPath;
 
-	// .mtl 파일 열기
+	// Open .mtl file 
 	wifstream in(filePath);
 	if (!in.is_open()) {
 		MSG_BOX("ResourceMgr::File Open Failed");
 		return E_FAIL;
 	}
 
-	// .mtl 파일 파싱 준비
+	// Ready .mtl parsing
 	wstring line;
 	wstring matName;
 	wstring texturePath;
@@ -94,7 +94,7 @@ HRESULT CResourceMgr::Load_Material(const wstring& mtlPath)
 
 	// 텍스처 로드 시 경로 조합 (※ 실제 경로 구조에 따라 수정 가능)
 	Load_Texture(texturePath);
-	CTexture* tex = Get_Texture(texturePath);  // 경로 수정 필요
+	CTexture* tex = Get_Texture(texturePath);
 	if (!tex) return E_FAIL;
 
 	// 머티리얼 객체 생성 및 텍스처 설정
