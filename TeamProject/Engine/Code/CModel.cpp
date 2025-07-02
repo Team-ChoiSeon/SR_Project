@@ -1,4 +1,5 @@
 #include "CModel.h"
+#include "CRenderMgr.h"
 
 CModel::CModel(LPDIRECT3DDEVICE9 pDevice)
 	: m_pDevice(pDevice)
@@ -11,7 +12,12 @@ CModel::~CModel()
 {
 }
 
-void CModel::Render()
+void CModel::LateUpdate_Component()
+{
+	CRenderMgr::Get_Instance()->Add_Model(this);
+}
+
+void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 {
 	// SetTransform
 	

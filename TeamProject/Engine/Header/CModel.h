@@ -22,13 +22,15 @@ public:
     template <typename ModelT, typename... Args>
     static CModel* Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args);
 
-    void Render();
+    virtual void LateUpdate_Component()override;
+    void Render(LPDIRECT3DDEVICE9 pDevice);
 
     void Set_Mesh(CMesh* pMesh) { m_pMesh = pMesh; }
     void Set_Texture(CTexture* pTexture) { m_pTexture = pTexture; }
     void Set_Material(CMaterial* pMaterial) { m_pMaterial = pMaterial; }
 
 public:
+    RENDER_PASS Get_RenderPass() { return RENDER_PASS::RP_OPAQUE; };
     virtual void Free()override;
 
 private:
@@ -47,9 +49,9 @@ static CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args)
     ModelT model;
     // 인자들을 하나씩 처리    
     (ApplyArg(model, std::forward<Args>(args)), ...);
-    auto pMesh = CResourceMgr::Get_Instance()->GetAs<CMesh>(model.meshKey);
-    auto pTexture = CResourceMgr::Get_Instance()->GetAs<CTexture>(model.textureKey);
-    auto pMaterial = CResourceMgr::Get_Instance()->GetAs<CMaterial>(model.materialKey);
+    auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
+    auto pTexture = CResourceMgr::Get_Instance()->Get_Texture(model.textureKey);
+    auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
     
 
     if (!pMesh || !pTexture || !pMaterial) {

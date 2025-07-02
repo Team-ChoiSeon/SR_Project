@@ -1,10 +1,11 @@
 #pragma once
 #include "CBase.h"
 #include "CGameObject.h"
-#include "CComponent.h"
+#include "CModel.h"
 
-class CRenderMgr :
-    public CBase
+BEGIN(Engine)
+
+class ENGINE_DLL CRenderMgr : public CBase
 {
 	DECLARE_SINGLETON(CRenderMgr)
 
@@ -24,9 +25,10 @@ public:
 private:
 	unordered_map<RENDER_PASS, list<CModel*>> m_Modellist;
 
-
 private:
 	virtual void Free() override;
 
 };
+
+END
 
