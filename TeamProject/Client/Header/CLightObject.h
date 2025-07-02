@@ -21,21 +21,17 @@ public:
 	void Render_GameObject() override;
 
 public:		// GetSet
-	const D3DLIGHT9& GetLightInfo() const { return m_pLightCom->Get_LightInfo(); }
-	CLight::LIGHTTYPE GetLightType() const { return m_pLightCom->Get_LightType(); }
+	const D3DLIGHT9& GetLightInfo() ;
+	CLight::LIGHTTYPE GetLightType() ;
 
 
 private:
-	CLight* m_pLightCom;
-	CTransform* m_pTransformCom;
 
 	const _matrix* m_mWorld;
 
-	D3DLIGHT9 m_tLightInfo;
-	CLight::LIGHTTYPE m_eLightType;
 
 	float m_fIntensity;
-	D3DXCOLOR m_LightColor;
+	D3DXCOLOR m_LightColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 };
 

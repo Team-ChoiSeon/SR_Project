@@ -2,6 +2,9 @@
 #include "CBase.h"
 
 class Player;
+class CLightObject;
+class CTestLightMeshObject;
+
 namespace Engine {
 	class CGraphicDev;
 	class CCameraObject;
@@ -25,6 +28,9 @@ private:
 
 	Player* m_pPlayer;	
 	ID3DXFont* m_pFont;
+
+	CLightObject* m_pLightObject;
+	CTestLightMeshObject* m_pTestLightMesh;
 
 public:
 	static CMainApp* Create();

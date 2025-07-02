@@ -29,11 +29,14 @@ public:
 	void			Set_LightType(LIGHTTYPE type);
 	void			Set_LightColor(const D3DXCOLOR& color);
 
-	const D3DLIGHT9& Get_LightInfo();
+	const D3DLIGHT9& Get_LightInfo() const;
 	const D3DXMATRIX& Get_ViewProjectionMatrix() const;
 	_uint			 Get_LightIndex() const;
 	LIGHTTYPE		 Get_LightType() const;
 	const D3DXCOLOR& Get_LightColor() const;
+
+private:
+	void Update_ViewProjectionMatrix();
 
 public:
 	static CLight* Create(LPDIRECT3DDEVICE9 pGraphicDev);

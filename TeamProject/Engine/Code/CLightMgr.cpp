@@ -1,6 +1,8 @@
 #pragma once
+#include "Engine_Define.h"
 #include "CLightMgr.h"
 
+IMPLEMENT_SINGLETON(CLightMgr)
 
 CLightMgr::CLightMgr()
 {
@@ -18,21 +20,37 @@ void CLightMgr::AddLight(CLight* pLight)
 
 void CLightMgr::UpdateLights(const D3DXVECTOR3& cameraPos)
 {
-    m_LightList.remove_if([](CLight* light) {
-        return light->Get_LightType() == CLight::DIRECTIONAL_LIGHT;
-        });
-
-    // m_LightList.sort([&](CLight* a, CLight* b) {
-    //     float distA = D3DXVec3Length(&(cameraPos - a->Get_LightInfo().Position));
-    //     float distB = D3DXVec3Length(&(cameraPos - b->Get_LightInfo().Position));
+    //std::list<CLight*> sortedLights(m_LightList);
+    //
+    //sortedLights.remove_if([](CLight* light) {
+    //    return light->Get_LightType() == CLight::DIRECTIONAL_LIGHT;
+    //    });
+    //
+    // sortedLights.sort([&](CLight* a, CLight* b) {
+    //     D3DXVECTOR3 posA = a->Get_LightInfo().Position;
+    //     D3DXVECTOR3 posB = b->Get_LightInfo().Position;
+    //
+    //     D3DXVECTOR3 vecA = cameraPos - posA;
+    //     D3DXVECTOR3 vecB = cameraPos - posB;
+    //
+    //     float distA = D3DXVec3Length(&vecA);
+    //     float distB = D3DXVec3Length(&vecB);
+    //
     //     return distA < distB;
     //     });
 
     int index = 0;
     for (auto light : m_LightList) {
-        light->EnableLight(index < 7);
-        ++index;
+        light->EnableLight(true);
+        light->LateUpdate_Component();
     }
+    // for (auto light : sortedLights) {
+    //     if (index >= 7) 
+    //         break;
+    //     light->EnableLight(true);
+    //     ++index;
+    // }
+
 }
 
 void CLightMgr::Free()

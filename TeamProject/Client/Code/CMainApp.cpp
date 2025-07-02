@@ -10,6 +10,9 @@
 #include "Player.h"
 #include "CTransform.h"
 
+#include "CLightMgr.h"
+#include "CLightObject.h"
+#include "CTestLightMeshObject.h"
 
 CMainApp::CMainApp()
 	:m_pDeviceClass(nullptr)
@@ -37,7 +40,13 @@ HRESULT CMainApp::Ready_MainApp()
 	m_pPlayer = new Player(m_pGraphicDev);
 	m_pPlayer->Ready_GameObject();
 
+	m_pLightObject = new CLightObject(m_pGraphicDev);
+	if (FAILED(m_pLightObject->Ready_GameObject()))
+		return E_FAIL;
 
+	m_pTestLightMesh = new CTestLightMeshObject(m_pGraphicDev);
+	if (FAILED(m_pTestLightMesh->Ready_GameObject()))
+		return E_FAIL;
 
 	if (FAILED(D3DXCreateFont(
 		m_pGraphicDev,   
@@ -63,6 +72,9 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 	CInputMgr::Get_Instance()->Update_InputDev();
 	m_pPlayer->Update_GameObject(fTimeDelta);
 
+	m_pLightObject->Update_GameObject(fTimeDelta);
+	m_pTestLightMesh->Update_GameObject(fTimeDelta);
+
 	return 0;
 }
 
@@ -70,6 +82,11 @@ void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->LateUpdate_InputDev();
 	m_pPlayer->LateUpdate_GameObject(fTimeDelta);
+
+	m_pLightObject->LateUpdate_GameObject(fTimeDelta);
+	m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
+
+	Engine::CLightMgr::Get_Instance()->UpdateLights(m_pPlayer->GetPos());
 }
 
 
@@ -78,6 +95,9 @@ void CMainApp::Render_MainApp()
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
 
 	m_pPlayer->Render_GameObject();
+
+	m_pLightObject->Render_GameObject();
+	m_pTestLightMesh->Render_GameObject();
 
 	_vec3 v_playpos = m_pPlayer->GetPos();
 	wchar_t buf[64];
@@ -138,9 +158,14 @@ void CMainApp::Free()
 	Safe_Release(m_pDeviceClass);
 	Safe_Release(m_pPlayer);
 
+	Safe_Release(m_pLightObject);
+	Safe_Release(m_pTestLightMesh);
+
 	CTimeMgr::Get_Instance()->Destroy_Instance();
 	CFrameMgr::Get_Instance()->Destroy_Instance();
 	CInputMgr::Get_Instance()->Destroy_Instance();
 
-	CGraphicDev::Get_Instance()->Destroy_Instance(); 
+	CGraphicDev::Get_Instance()->Destroy_Instance();
+
+	CLightMgr::Get_Instance()->Destroy_Instance();
 }

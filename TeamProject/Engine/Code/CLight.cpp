@@ -29,31 +29,38 @@ HRESULT CLight::Ready_Light(const D3DLIGHT9* pLightInfo, LIGHTTYPE type)
 {
     memcpy(&m_tLightInfo, pLightInfo, sizeof(D3DLIGHT9));
     m_eLightType = type;
-    if (m_eLightType == DIRECTIONAL_LIGHT) {
-        // D3DXVec3Normalize(&m_tLightInfo.Direction, &m_tLightInfo.Direction);
-    }
-    else if (m_eLightType == POINT_LIGHT || m_eLightType == SPOT_LIGHT) {
-        m_tLightInfo.Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    }
+    // Update_ViewProjectionMatrix();
+    
+    // if (m_eLightType == DIRECTIONAL_LIGHT) {
+    //     // D3DXVec3Normalize(&m_tLightInfo.Direction, &m_tLightInfo.Direction);
+    // }
+    // else if (m_eLightType == POINT_LIGHT || m_eLightType == SPOT_LIGHT) {
+    //     m_tLightInfo.Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    // }
     return S_OK;
 }
 
 void CLight::Update_Component(const _float& fTimeDelta)
 {
-
+    Update_ViewProjectionMatrix();
 }
 
 void CLight::LateUpdate_Component()
 {
-    if (m_bEnabled)
-    {
-        m_pGraphicDev->SetLight(m_iLightIndex, &m_tLightInfo);
-        m_pGraphicDev->LightEnable(m_iLightIndex, TRUE);
-    }
-    else
-    {
-        m_pGraphicDev->LightEnable(m_iLightIndex, FALSE);
-    }
+    if (!m_pGraphicDev)
+        return;
+    m_pGraphicDev->SetLight(m_iLightIndex, &m_tLightInfo);
+    m_pGraphicDev->LightEnable(m_iLightIndex, m_bEnabled);
+
+    // if (m_bEnabled)
+    // {
+    //     m_pGraphicDev->SetLight(m_iLightIndex, &m_tLightInfo);
+    //     m_pGraphicDev->LightEnable(m_iLightIndex, TRUE);
+    // }
+    // else
+    // {
+    //     m_pGraphicDev->LightEnable(m_iLightIndex, FALSE);
+    // }
 }
 
 void CLight::EnableLight(_bool bEnable)
@@ -64,6 +71,7 @@ void CLight::EnableLight(_bool bEnable)
 void CLight::Set_LightInfo(const D3DLIGHT9& lightInfo)
 {
     m_tLightInfo = lightInfo;
+    Update_ViewProjectionMatrix();
 }
 
 void CLight::Set_LightIndex(_uint index)
@@ -86,9 +94,10 @@ void CLight::Set_LightColor(const D3DXCOLOR& color)
     m_LightColor = color;
     m_tLightInfo.Diffuse = color;
     m_tLightInfo.Ambient = color * 0.5f;
+    m_tLightInfo.Specular = color * 0.7f;
 }
 
-const D3DLIGHT9& CLight::Get_LightInfo()
+const D3DLIGHT9& CLight::Get_LightInfo() const
 {
     return m_tLightInfo;
 }
@@ -117,7 +126,7 @@ CLight* CLight::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CLight* pLight = new CLight(pGraphicDev);
 
-    // if (FAILED(pLight->Ready_Buffer()))
+    // if (FAILED(pLight->Ready_Light()))
     // {
     //     Safe_Release(pLight);
     //     MSG_BOX("CubeTex Create Failed");
@@ -126,6 +135,23 @@ CLight* CLight::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
     return pLight;
 }
+
+void CLight::Update_ViewProjectionMatrix()
+{
+    if (m_eLightType != SPOT_LIGHT && m_eLightType != DIRECTIONAL_LIGHT)
+        return;
+
+    D3DXVECTOR3 vEye = m_tLightInfo.Position;
+    D3DXVECTOR3 vAt = vEye + m_tLightInfo.Direction;
+    D3DXVECTOR3 vUp = D3DXVECTOR3(0.f, 1.f, 0.f);
+
+    D3DXMATRIX matView, matProj;
+    D3DXMatrixLookAtLH(&matView, &vEye, &vAt, &vUp);
+    D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(90.f), 1.f, 1.f, 100.f);
+
+    m_matViewProj = matView * matProj;
+}
+
 
 void CLight::Free()
 {
