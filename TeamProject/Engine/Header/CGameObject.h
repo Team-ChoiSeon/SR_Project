@@ -72,7 +72,7 @@ void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 		MSG_BOX("[GameObject] Add_Component : ");
 		return;
 	}
-
+	pComp->m_pOwner = this;
 	m_umComponent[eID].emplace(tag, pComp);
 }
 
