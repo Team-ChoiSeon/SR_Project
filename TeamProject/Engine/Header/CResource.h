@@ -9,6 +9,8 @@ protected:
 	explicit CResource();
 	explicit CResource(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CResource(const CResource& rhs);
+
+public:
 	virtual ~CResource();
 
 public:

@@ -26,4 +26,7 @@ void CModel::Render()
 void CModel::Free()
 {
 	Safe_Release(m_pDevice);
+	Safe_Release(m_pMesh);
+	Safe_Release(m_pMaterial);
+	Safe_Release(m_pTexture);
 }

@@ -4,6 +4,8 @@ class CTexture : public CResource
 {
 protected:
     explicit CTexture(LPDIRECT3DDEVICE9 pGraphicDev);
+
+public:
     virtual ~CTexture();
 
 public:

@@ -1,16 +1,16 @@
 #pragma once
 #include "CComponent.h"
 #include "CMesh.h"
-#include "CTexture.h"
 #include "CMaterial.h"
+#include "CTexture.h"
 #include "CResourceMgr.h"
 
 
 BEGIN(Engine)
 
-class CMesh;
-class CTexture;
-class CMaterial;
+//class CMesh;
+//class CTexture;
+//class CMaterial;
 
 class ENGINE_DLL CModel : public CComponent
 {
@@ -53,7 +53,7 @@ static CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args)
     
 
     if (!pMesh || !pTexture || !pMaterial) {
-        MSG_BOX("CModel::Create - 리소스 누락");
+        MSG_BOX("CModel::Create - Resource");
         return nullptr;
     }
 

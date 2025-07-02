@@ -29,7 +29,7 @@ void CScene::Add_Layer(LAYERID eID)
 {
     if (m_umLayer.find(eID) != m_umLayer.end())
     {
-        MSG_BOX("[CScene] LAYERID ม฿บน ");
+        MSG_BOX("[CScene] LAYERID ");
         return;
     }
     CLayer* pLayer = CLayer::Create();
