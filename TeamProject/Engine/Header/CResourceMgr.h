@@ -45,7 +45,8 @@ public:
 	HRESULT Load_Texture(const wstring& filePath, TEXTUREID eType = TEX_CUBE, _uint iCnt = 6);
 
 	// [TODO : ]
-	HRESULT Load_Material(const D3DMATERIAL9& mtrl);
+	// example : Load_Material("DirtObj.mtl");
+	HRESULT Load_Material(const wstring& mtlPath);
 
 private:
 	// Extract FileName From FilePath
@@ -55,7 +56,11 @@ private:
 	virtual void Free();
 
 private:
-	unordered_map<wstring, CResource*> m_umResource;
+	// »ç¿ë X
+	// unordered_map<wstring, CResource*> m_umResource;
+	unordered_map<wstring, CMaterial*> m_umMaterial;
+	unordered_map<wstring, CTexture*> m_umTexture;
+
 	LPDIRECT3DDEVICE9 m_pGraphicDev = nullptr;
 };
 

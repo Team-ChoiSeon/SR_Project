@@ -1,7 +1,6 @@
 #include "CTexture.h"
 
-CTexture::CTexture(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CResource(pGraphicDev)
+CTexture::CTexture()
 {
 }
 
@@ -9,10 +8,10 @@ CTexture::~CTexture()
 {
 }
 
-CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& filePath, TEXTUREID eType, _uint iCnt)
+CTexture* CTexture::Create()
 {
-    CTexture* pTex = new CTexture(pGraphicDev);
-    if (FAILED(pTex->Ready_Texture(filePath, eType, iCnt)))
+    CTexture* pTex = new CTexture();
+    if (FAILED(pTex->Ready_Texture()))
     {
         Safe_Release(pTex);
         return nullptr;
@@ -20,30 +19,41 @@ CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& filePat
     return pTex;
 }
 
-HRESULT CTexture::Ready_Texture(const wstring& filePath, TEXTUREID eType, _uint iCnt)
+HRESULT CTexture::Ready_Texture()
 {
-    m_vecTexture.reserve(iCnt);
+    return S_OK;
+}
 
-    for (_uint i = 0; i < iCnt; ++i)
+HRESULT CTexture::Load(LPDIRECT3DDEVICE9 pDevice, const wstring& filePath)
+{
+    if (!pDevice) return E_FAIL;
+
+    LPDIRECT3DTEXTURE9 pTexture = nullptr;
+    if (FAILED(D3DXCreateTextureFromFileW(pDevice, filePath.c_str(), &pTexture)))
     {
-        LPDIRECT3DBASETEXTURE9 pTexture = nullptr;
-
-        if (eType == TEX_NORMAL)
-        {
-            if (FAILED(D3DXCreateTextureFromFileW(m_pGraphicDev, filePath.c_str(), (LPDIRECT3DTEXTURE9*)&pTexture)))
-                return E_FAIL;
-        }
-        else if (eType == TEX_CUBE)
-        {
-            if (FAILED(D3DXCreateCubeTextureFromFileW(m_pGraphicDev, filePath.c_str(), (LPDIRECT3DCUBETEXTURE9*)&pTexture)))
-                return E_FAIL;
-        }
-
-        m_vecTexture.push_back(pTexture);
-
+        MSG_BOX("CTexture::Load Failed : CreateTextureFromFile");
+        return E_FAIL;
     }
+    m_pTexture = pTexture;
 
     return S_OK;
+}
+
+void CTexture::Bind(LPDIRECT3DDEVICE9 pDevice, _uint stage)
+{
+    if (m_pTexture == nullptr)
+    {
+        MSG_BOX("CTexture::Bind Fail : m_pTexture == nullptr");
+        return;
+    }
+
+    if (pDevice == nullptr)
+    {
+        MSG_BOX("CTexture::Bind Fail : pDevice == nullptr");
+        return;
+    }
+
+    pDevice->SetTexture(stage, m_pTexture);
 }
 
 void CTexture::Free()

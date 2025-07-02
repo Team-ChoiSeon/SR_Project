@@ -13,6 +13,8 @@ CModel::~CModel()
 
 void CModel::Render()
 {
+	// SetTransform
+	
 	//if (m_pMaterial)
 	//	m_pMaterial->Apply(m_pDevice); 
 

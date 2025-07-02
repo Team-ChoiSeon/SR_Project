@@ -16,6 +16,7 @@
 #include <queue>
 
 #include <string>
+#include <sstream>
 #include <algorithm>
 #include <functional>
 #include <memory>
