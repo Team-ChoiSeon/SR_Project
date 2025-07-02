@@ -8,13 +8,14 @@
 
 struct DefaultCubeModel
 {
+	// ¿¹½Ã
 	wstring meshKey = L"CCubeTex";
-	wstring textureKey = L"brick.png";
-	wstring materialKey = L"metal";
+	// wstring textureKey = L"texture.jpg";
+	wstring materialKey = L"brick.mtl";
 };
 
 struct MeshKey { const wstring& value; };
-struct TextureKey { const wstring& value; };
+// struct TextureKey { const wstring& value; };
 struct MaterialKey { const wstring& value; };
 
 template <typename TArg>
@@ -29,11 +30,11 @@ void ApplyArg(DefaultCubeModel & model, MeshKey arg)
 	model.meshKey = arg.value;
 }
 
-template <>
-void ApplyArg(DefaultCubeModel & model, TextureKey arg)
-{
-	model.textureKey = arg.value;
-}
+//template <>
+//void ApplyArg(DefaultCubeModel & model, TextureKey arg)
+//{
+//	model.textureKey = arg.value;
+//}
 
 template <>
 void ApplyArg(DefaultCubeModel & model, MaterialKey arg)

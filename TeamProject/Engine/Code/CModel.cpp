@@ -21,14 +21,11 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 {
 	// SetTransform
 	
-	//if (m_pMaterial)
-	//	m_pMaterial->Apply(m_pDevice); 
+	if (m_pMaterial)
+		m_pMaterial->Apply(m_pDevice); // 내부에서 텍스처를 Bind
 
-	//if (m_pTexture)
-	//	m_pTexture->Bind(m_pDevice); 
-
-	//if (m_pMesh)
-	//	m_pMesh->Render(m_pDevice);
+	if (m_pMesh)
+		m_pMesh->Render_Buffer();
 }
 
 void CModel::Free()
@@ -36,5 +33,5 @@ void CModel::Free()
 	Safe_Release(m_pDevice);
 	Safe_Release(m_pMesh);
 	Safe_Release(m_pMaterial);
-	Safe_Release(m_pTexture);
+	// Safe_Release(m_pTexture);
 }
