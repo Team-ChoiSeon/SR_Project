@@ -17,12 +17,13 @@ public:
 	HRESULT Ready_Scene();
 
 public:
-	static SceneHW* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-
+	//Basic Function
 	int		Update_Scene(const _float& fTimeDelta);
 	void	LateUpdate_Scene(const _float& fTimeDelta);
 	void	Render_Scene();
 
+	//Create, Release Function
+	static SceneHW* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void	Free();
 
 private:

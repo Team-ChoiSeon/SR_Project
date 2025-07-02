@@ -12,15 +12,19 @@ private :
 	virtual ~DummyCube();
 
 public:
+	//Basic Function
 	HRESULT Ready_GameObject();
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 	void Render_GameObject() override;
 
-
+	//Create, Release Function
 	static DummyCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
+	//Optional Function
+	void Key_Input(const float& fTimeDelta);
+	void Key_Rotate();
 
 private:
 	LPDIRECT3DDEVICE9	m_pGraphicDev;

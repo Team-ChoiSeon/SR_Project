@@ -4,6 +4,7 @@
 #include "CGameObject.h"
 #include "CRcCube.h"
 #include "CTransform.h"
+#include "CInputMgr.h"
 
 DummyCube::DummyCube(LPDIRECT3DDEVICE9 pGrpahicDev) : CGameObject(pGrpahicDev)
 {
@@ -35,9 +36,9 @@ HRESULT DummyCube::Ready_GameObject()
 
 int DummyCube::Update_GameObject(const _float& fTimeDelta)
 {
+	Key_Input(fTimeDelta);
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
-
 
 	return 0;
 }
@@ -74,3 +75,21 @@ void DummyCube::Free()
 	Safe_Release(m_pCube);
 	Safe_Release(m_pTransform);
 }
+
+void DummyCube::Key_Input(const float& fTimeDelta)
+{
+	float fAngleSpeed = 5.f;
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_UP)) {
+		m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ -fAngleSpeed * fTimeDelta, 0.f, 0.f });
+	}
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_DOWN)) {
+		m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ fAngleSpeed * fTimeDelta, 0.f, 0.f });
+	}
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT)) {
+		m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ 0.f, fAngleSpeed * fTimeDelta, 0.f });
+	}
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT)) {
+		m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ 0.f, -fAngleSpeed * fTimeDelta, 0.f });
+	}
+}
+

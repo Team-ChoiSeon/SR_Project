@@ -76,8 +76,9 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 {
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
-	CCameraMgr::Get_Instance()->Update_Camera(fTimeDelta);
-	if (CInputMgr::Get_Instance()->Key_Away(DIK_T))
+
+
+	if (CInputMgr::Get_Instance()->Key_Away(DIK_C))
 	{
 		if (m_bCamPlayer)
 			m_bCamPlayer = false;
@@ -89,6 +90,9 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 		CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 	else
 		CCameraMgr::Get_Instance()->Set_MainCamera(m_pdummycam);
+
+
+	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
 
 	return 0;
 }
@@ -115,8 +119,8 @@ void SceneHW::Render_Scene()
 	wchar_t buf4[64];
 	swprintf_s(buf, L"position : x: %.3f y: %.3f  z: %.3f", v_playpos.x, v_playpos.y, v_playpos.z);
 	swprintf_s(buf2, L"cam position: x: %.3f y: %.3f z: %.3f ", v_campos.x, v_campos.y, v_campos.z);
-	swprintf_s(buf3, L"dummy look: x: %.3f y: %.3f z: %.3f");
-	swprintf_s(buf4, L"cam look: x: %.3f y: %.3f z: %.3f");
+	swprintf_s(buf3, L"");
+	swprintf_s(buf4, L"");
 
 	RECT rc = { 10, 10, 500, 30 };
 	RECT rc2 = { 10, 30, 500, 50 };

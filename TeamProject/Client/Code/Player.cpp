@@ -170,6 +170,17 @@ void Player::Free()
 
 void Player::KeyInput(const _float& fTimeDelta)
 {
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB))
+	{
+		if (m_bCursorMove)
+			m_bCursorMove = false;
+		else
+			m_bCursorMove = true;
+	}
+
+	if (!m_bCursorMove)
+		CursorRotate();
+
 	if (CInputMgr::Get_Instance()->Key_Hold(DIK_LSHIFT)) {
 		m_fMoveSpeed = 30.f;
 	}
@@ -195,4 +206,26 @@ void Player::KeyInput(const _float& fTimeDelta)
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_E)) {
 		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
 	}
+}
+
+void Player::CursorRotate()
+{
+	//커서 고정
+	ShowCursor(false);
+	float cx = WINCX / 2.f;
+	float cy = WINCY / 2.f;
+	POINT cursor = { cx, cy };
+	ClientToScreen(g_hWnd, &cursor);
+	SetCursorPos(cursor.x, cursor.y);
+
+	//화면 회전
+	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X);
+	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y);
+
+	float sensitivity = 300.f;
+	float rx = dx / sensitivity;
+	float ry = dy / sensitivity;
+
+	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ ry, rx, 0.f });
+
 }

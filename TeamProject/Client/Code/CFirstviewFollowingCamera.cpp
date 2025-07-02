@@ -26,7 +26,7 @@ CFirstviewFollowingCamera::CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicD
 	m_pCamera->Set_Look(m_pTransform->Get_Info(INFO_LOOK));
 	m_pCamera->Set_Right(m_pTransform->Get_Info(INFO_RIGHT));
 	m_pCamera->Set_Fov(D3DX_PI * 0.5f);
-	m_pCamera->Set_Aspect(WINCX / WINCY * 1.f);
+	m_pCamera->Set_Aspect(WINCX / (WINCY * 1.f));
 	m_pCamera->Set_Near(0.1f);
 	m_pCamera->Set_Far(1000.f);
 }
@@ -48,16 +48,16 @@ HRESULT CFirstviewFollowingCamera::Ready_GameObject()
 
 int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 {
-	if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB))
-	{
-		if (m_bCursorMove)
-			m_bCursorMove = false;
-		else
-			m_bCursorMove = true;
-	}
+	//if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB))
+	//{
+	//	if (m_bCursorMove)
+	//		m_bCursorMove = false;
+	//	else
+	//		m_bCursorMove = true;
+	//}
 
-	if (!m_bCursorMove)
-		CursorRotate();
+	//if (!m_bCursorMove)
+	//	CursorRotate();
 
 	//Get and Change Target Angle, Set transform same as target
 	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
@@ -75,9 +75,6 @@ int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
-
-	ApplyViewMatrix();
-	ApplyProjectionMatrix();
 
 
 	return 0;

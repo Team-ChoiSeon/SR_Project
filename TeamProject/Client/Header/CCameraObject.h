@@ -22,10 +22,6 @@ public:
 	//Create, Release Function
 	virtual	void		Free();
 	
-	//Optional Function
-	void			ApplyViewMatrix();
-	void			ApplyProjectionMatrix();
-
 	//Getter, Setter Function
 	_matrix	Get_ViewMatrix() { return *m_pCamera->Get_ViewMatrix(); }
 	_matrix	Get_ProjectionMatrix() { return *m_pCamera->Get_ProjectionMatrix(); }

@@ -43,14 +43,3 @@ void CCameraObject::Free()
 {
 }
 
-void CCameraObject::ApplyViewMatrix()
-{
-	auto camera = Get_Component<CCamera>();
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, camera->Get_ViewMatrix());
-}
-
-void CCameraObject::ApplyProjectionMatrix()
-{
-	auto camera = Get_Component<CCamera>();
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, camera->Get_ProjectionMatrix());
-}
