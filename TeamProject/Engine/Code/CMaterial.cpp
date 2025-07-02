@@ -7,6 +7,13 @@ CMaterial::CMaterial()
 
 CMaterial::~CMaterial()
 {
+
+}
+
+void CMaterial::Apply(LPDIRECT3DDEVICE9 pDevice)
+{
+    if (m_pDiffuse)
+        m_pDiffuse->Bind(pDevice, 0);
 }
 
 HRESULT CMaterial::Ready_Material()
@@ -20,6 +27,17 @@ HRESULT CMaterial::Ready_Material()
     m_tMaterial.Power = 10.f;
 
     return S_OK;
+}
+
+CMaterial* CMaterial::Create()
+{
+    CMaterial* pTex = new CMaterial();
+    if (FAILED(pTex->Ready_Material()))
+    {
+        Safe_Release(pTex);
+        return nullptr;
+    }
+    return pTex;
 }
 
 void CMaterial::Free()

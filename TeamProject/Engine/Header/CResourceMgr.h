@@ -23,29 +23,47 @@ public:
 	// example: CResourceMgr::Get_Instance()->Ready_Resource();
 	HRESULT Ready_Resource();
 
-	// [Register]
-	void Register(const wstring& key, CResource* pResource);
-
-	// [Get]
-	// example: CTexture* pTex = dynamic_cast<CTexture*>(CResourceMgr::Get_Instance()->Get(L"SkyTex"));
-	CResource* Get(const wstring& key);
-
-	// [Get - Template]
-	// example: CTexture* pTex = CResourceMgr::Get_Instance()->GetAs<CTexture>(L"SkyTex");
-	template <typename T>
-	T* GetAs(const wstring& key);
-
-	// [Mesh Load & Auto Register]
-	// example: CResourceMgr::Get_Instance()->Load_Mesh<CRcCube>(pDevice, L"CubeMesh");
+	// [Mesh Register]
+	// 
 	template <typename MeshT>
 	HRESULT Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key);
 
-	// [Texture Load & Auto Register]
-	// example: CResourceMgr::Get_Instance()->Load_Texture(L"../Textures/brick.jpg", TEX_NORMAL, 1);
-	HRESULT Load_Texture(const wstring& filePath, TEXTUREID eType = TEX_CUBE, _uint iCnt = 6);
+	// [Material Register]
+	// 
+	HRESULT Load_Material(const wstring& mtlPath);
 
-	// [TODO : ]
-	HRESULT Load_Material(const D3DMATERIAL9& mtrl);
+	// [Texture Register]
+	// 
+	HRESULT Load_Texture(const wstring& filePath);
+
+
+
+	// 이름 기반 조회
+	CMesh* Get_Mesh(const wstring& key)
+	{
+		auto iter = m_umMesh.find(key);
+		if (iter != m_umMesh.end()) {
+			return iter->second;
+		}
+		return nullptr;
+	}
+	CMaterial* Get_Material(const wstring& key)
+	{
+		auto iter = m_umMaterial.find(key);
+		if (iter != m_umMaterial.end()) {
+			return iter->second;
+		}
+		return nullptr;
+	}
+	CTexture* Get_Texture(const wstring& key)
+	{
+		auto iter = m_umTexture.find(key);
+		if (iter != m_umTexture.end()) {
+			return iter->second;
+		}
+		return nullptr;
+	}
+	
 
 private:
 	// Extract FileName From FilePath
@@ -55,17 +73,16 @@ private:
 	virtual void Free();
 
 private:
-	unordered_map<wstring, CResource*> m_umResource;
+	// 사용 X
+	// unordered_map<wstring, CResource*> m_umResource;
+	unordered_map<wstring, CMesh*> m_umMesh;
+	unordered_map<wstring, CMaterial*> m_umMaterial;
+	unordered_map<wstring, CTexture*> m_umTexture;
+
 	LPDIRECT3DDEVICE9 m_pGraphicDev = nullptr;
 };
 
 END
-
-template<typename T>
-inline T* CResourceMgr::GetAs(const wstring& key)
-{
-	return dynamic_cast<T*>(Get(key));
-}
 
 template<typename MeshType>
 inline HRESULT CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
@@ -76,7 +93,7 @@ inline HRESULT CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring&
 		return E_FAIL;
 	}
 
-	if (m_umResource.find(key) != m_umResource.end())
+	if (m_umMesh.find(key) != m_umMesh.end())
 		return S_OK; // Already loaded
 
 	MeshType* pMesh = MeshType::Create(pDevice);
@@ -86,6 +103,6 @@ inline HRESULT CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring&
 		return E_FAIL;
 	}
 
-	Register(key, pMesh);
+	m_umMesh[key] = pMesh;
 	return S_OK;
 }

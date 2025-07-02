@@ -3,37 +3,27 @@
 class CTexture : public CResource
 {
 protected:
-    explicit CTexture(LPDIRECT3DDEVICE9 pGraphicDev);
+    explicit CTexture();
 
 public:
     virtual ~CTexture();
 
 public:
-    CResource* Get_TextureResource(_uint iIndex = 0) const
-    {
-        if (iIndex >= m_vecTexture.size())
-            return nullptr;
-
-        return const_cast<CTexture*>(this); // this를 CResource*로 반환
-    }
-
-    LPDIRECT3DBASETEXTURE9 Get_Texture(_uint iIndex = 0) const
-    {
-        if (iIndex >= m_vecTexture.size())
-            return nullptr;
-
-        return m_vecTexture[iIndex];
-    }
+    static CTexture* Create();
 
 public:
-    static CTexture* Create(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& filePath, TEXTUREID eType, _uint iCnt);
-    
-    HRESULT Ready_Texture(const wstring& filePath, TEXTUREID eType, _uint iCnt);
-    
+    const wstring Get_Key() const { return m_wKey; }
+    LPDIRECT3DBASETEXTURE9 Get_Texture(_uint iIndex = 0) const { return m_pTexture; }
+
+    HRESULT Ready_Texture();
+    HRESULT Load(LPDIRECT3DDEVICE9 pDevice, const wstring& filePath); // 경로 기반 로드
+    void Bind(LPDIRECT3DDEVICE9 pDevice, _uint stage = 0);
+
     virtual void Free() override;
 
 
 private:
-    vector<LPDIRECT3DBASETEXTURE9> m_vecTexture;
+    LPDIRECT3DBASETEXTURE9 m_pTexture = nullptr;
+    wstring m_wKey;
 };
 
