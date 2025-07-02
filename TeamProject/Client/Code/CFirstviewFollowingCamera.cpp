@@ -16,7 +16,7 @@ CFirstviewFollowingCamera::CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicD
 	m_pTransform->Set_Pos(target_transform->Get_Pos());
 	m_pTransform->Set_Angle({0.f, 0.f, 0.f});
 	m_pTransform->Set_Scale({1.f, 1.f, 1.f});
-	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
+	m_pTransform->Set_Look({0.f, 0.f, 1.f});
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 
@@ -42,6 +42,7 @@ CFirstviewFollowingCamera::~CFirstviewFollowingCamera()
 
 HRESULT CFirstviewFollowingCamera::Ready_GameObject()
 {
+
 	return S_OK;
 }
 
@@ -54,24 +55,30 @@ int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 		else
 			m_bCursorMove = true;
 	}
-	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
-	m_pTransform->Set_Pos(target_transform->Get_Pos());
-	m_pTransform->Set_Angle(target_transform->Get_Angle());
-	AngleClamping();
 
 	if (!m_bCursorMove)
 		CursorRotate();
 
-	m_pCamera->Set_Eye(m_pTransform->Get_Pos());
-	m_pCamera->Set_At(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_LOOK));
+	//Get and Change Target Angle, Set transform same as target
+	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
+	m_pTransform->Set_Pos(target_transform->Get_Pos());
+	m_pTransform->Set_Angle(target_transform->Get_Angle());
+	m_pTransform->Set_Look(target_transform->Get_Info(INFO_LOOK));
+	AngleClamping();
+
+	//Set camera com 
+	m_pCamera->Set_Eye(m_pTransform->Get_Pos()); 
 	m_pCamera->Set_Up(m_pTransform->Get_Info(INFO_UP));
 	m_pCamera->Set_Look(m_pTransform->Get_Info(INFO_LOOK));
 	m_pCamera->Set_Right(m_pTransform->Get_Info(INFO_RIGHT));
-
-	m_pCamera->Update_Camera(fTimeDelta);
+	m_pCamera->Set_At(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_LOOK));
 
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
+
+	ApplyViewMatrix();
+	ApplyProjectionMatrix();
+
 
 	return 0;
 }
@@ -132,8 +139,9 @@ void CFirstviewFollowingCamera::AngleClamping()
 {
 	float pi = D3DX_PI;
 	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
-	float fxlowGap = -pi * 0.5f - target_transform->Get_Angle().x;
-	float fxhighGap = target_transform->Get_Angle().x - pi * 0.5f;
+	float fxlowGap = (-pi * 0.5f + 0.1f) - target_transform->Get_Angle().x;
+	float fxhighGap = target_transform->Get_Angle().x - (pi * 0.5f - 0.1f);
+
 	if (fxlowGap > 0.f) {
 		target_transform->Set_Angle(target_transform->Get_Angle() + _vec3{ fxlowGap, 0.f, 0.f});
 	}

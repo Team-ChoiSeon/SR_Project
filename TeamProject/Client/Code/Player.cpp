@@ -62,28 +62,28 @@ HRESULT Player::Ready_GameObject()
 	m_pVB->Lock(0, 0, (void**)&vertecies, 0);
 
 	vertecies[0].vPosition = { -0.5f, 0.5f, -0.5f };
-	vertecies[0].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[0].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[1].vPosition = { 0.5f, 0.5f, -0.5f };
-	vertecies[1].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[1].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[2].vPosition = { 0.5f, -0.5f, -0.5f };
-	vertecies[2].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[2].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[3].vPosition = { -0.5f, -0.5f, -0.5f };
-	vertecies[3].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[3].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[4].vPosition = { -0.5f, 0.5f, 0.5f };
-	vertecies[4].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[4].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[5].vPosition = { 0.5f, 0.5f, 0.5f };
-	vertecies[5].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[5].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[6].vPosition = { 0.5f, -0.5f, 0.5f };
-	vertecies[6].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[6].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[7].vPosition = { -0.5f, -0.5f, 0.5f };
-	vertecies[7].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[7].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 
 	m_pVB->Unlock();
@@ -103,8 +103,8 @@ HRESULT Player::Ready_GameObject()
 	indecies[5] = { 4, 3, 7 };
 
 	//우측면
-	indecies[6] = { 2, 5, 6 };
-	indecies[7] = { 2, 6, 3 };
+	indecies[6] = { 1, 5, 6 };
+	indecies[7] = { 1, 6, 2 };
 
 	//윗면
 	indecies[8] = { 4, 5, 1 };

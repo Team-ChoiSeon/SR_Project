@@ -6,11 +6,20 @@
 #include "DummyCube.h""
 #include "CCamera.h"
 #include "CTimeMgr.h"
-#include "CFrameMgr.h"
+#include "CCameraMgr.h"
+#include "CInputMgr.h"
 
-SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) : CScene(pGraphicDev)
+SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) : CScene(pGraphicDev), m_pGraphicDev(pGraphicDev)
 {
-	m_pGraphicDev = pGraphicDev; 
+
+}
+
+SceneHW::~SceneHW()
+{
+}
+
+HRESULT SceneHW::Ready_Scene()
+{
 	Add_Layer(LAYER_PLAYER);
 	Add_Layer(LAYER_OBJECT);
 	Add_Layer(LAYER_CAMERA);
@@ -20,17 +29,13 @@ SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) : CScene(pGraphicDev)
 	m_pPlayer = Player::Create(m_pGraphicDev);
 	m_pDummy = DummyCube::Create(m_pGraphicDev);
 	m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pPlayer);
-}
+	m_pdummycam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pDummy);
+	m_pPlayerLayer->Add_GameObject(L"Player", (m_pPlayer));
+	m_pObjectLayer->Add_GameObject(L"Dummy", (m_pDummy));
+	m_pCameraLayer->Add_GameObject(L"FFCam", (m_pFFCam));
+	m_pCameraLayer->Add_GameObject(L"dummycam", m_pdummycam);
 
-SceneHW::~SceneHW()
-{
-}
-
-HRESULT SceneHW::Ready_Scene()
-{
-	m_pPlayerLayer->Add_GameObject(L"Player", dynamic_cast<CGameObject*>(m_pPlayer));
-	m_pObjectLayer->Add_GameObject(L"Dummy", dynamic_cast<CGameObject*>(m_pDummy));
-	m_pCameraLayer->Add_GameObject(L"FFCam", dynamic_cast<CGameObject*>(m_pFFCam));
+	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 
 	if (FAILED(D3DXCreateFont(
 		m_pGraphicDev,
@@ -47,6 +52,8 @@ HRESULT SceneHW::Ready_Scene()
 		return E_FAIL;
 	}
 
+	for (auto& pLayer : m_umLayer)
+		pLayer.second->Ready_Layer();
 	
 	return S_OK;
 }
@@ -67,24 +74,21 @@ SceneHW* SceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 int SceneHW::Update_Scene(const _float& fTimeDelta)
 {
-	//for (auto& pLayer : m_umLayer) {
-	//	if (pLayer.first == LAYER_CAMERA) {
-	//		for (auto& pCamera : pLayer.second->m_vObject)
-	//		{
-	//			if (dynamic_cast<CCameraObject*>(pCamera.pObj)->Get_Active())
-	//				pCamera.pObj->Update_GameObject(fTimeDelta);
-	//			else
-	//				continue;
-	//		}
-	//	}
-	//	else {
-	//		pLayer.second->Update_Layer(fTimeDelta);
-
-	//	}
-	//}
-
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
+	CCameraMgr::Get_Instance()->Update_Camera(fTimeDelta);
+	if (CInputMgr::Get_Instance()->Key_Away(DIK_T))
+	{
+		if (m_bCamPlayer)
+			m_bCamPlayer = false;
+		else
+			m_bCamPlayer = true;
+	}
+
+	if (m_bCamPlayer)
+		CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
+	else
+		CCameraMgr::Get_Instance()->Set_MainCamera(m_pdummycam);
 
 	return 0;
 }
@@ -93,6 +97,7 @@ void SceneHW::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->LateUpdate_Layer(fTimeDelta);
+	CCameraMgr::Get_Instance()->LateUpdate_Camera(fTimeDelta);
 }
 
 void SceneHW::Render_Scene()
@@ -101,17 +106,17 @@ void SceneHW::Render_Scene()
 		pLayer.second->Render_Layer();
 
 	_vec3 v_playpos = m_pPlayer->GetPos();
-	_vec3 v_campos = m_pFFCam->Get_Component<CTransform>()->Get_Pos();
-	_vec3 camlook = m_pFFCam->Get_Component<CCamera>()->Get_Look();
-	_vec3 camrot = m_pFFCam->Get_Component<CTransform>()->Get_Angle();
+	_vec3 v_campos = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>()->Get_Pos();
+	//_vec3 dummylook = m_pDummy->Get_Component<CTransform>()->Get_Info(INFO_LOOK);
+	//_vec3 camlook = m_pdummycam->Get_Component<CTransform>()->Get_Info(INFO_LOOK);
 	wchar_t buf[64];
 	wchar_t buf2[64];
 	wchar_t buf3[64];
 	wchar_t buf4[64];
 	swprintf_s(buf, L"position : x: %.3f y: %.3f  z: %.3f", v_playpos.x, v_playpos.y, v_playpos.z);
 	swprintf_s(buf2, L"cam position: x: %.3f y: %.3f z: %.3f ", v_campos.x, v_campos.y, v_campos.z);
-	swprintf_s(buf3, L"cam look: x: %.3f y: %.3f z: %.3f", camlook.x, camlook.y, camlook.z);
-	swprintf_s(buf4, L"cam rot: x: %.3f y: %.3f z: %.3f", camrot.x, camrot.y, camrot.z);
+	swprintf_s(buf3, L"dummy look: x: %.3f y: %.3f z: %.3f");
+	swprintf_s(buf4, L"cam look: x: %.3f y: %.3f z: %.3f");
 
 	RECT rc = { 10, 10, 500, 30 };
 	RECT rc2 = { 10, 30, 500, 50 };
@@ -163,6 +168,8 @@ void SceneHW::Free()
 	Safe_Release(m_pFFCam);
 	Safe_Release(m_pFont);
 	Safe_Release(m_pGraphicDev);
+	
+	CCameraMgr::Destroy_Instance();
 
 }
 

@@ -33,6 +33,9 @@ private:
 	Player*						m_pPlayer;
 	ID3DXFont*					m_pFont;
 	CFirstviewFollowingCamera*	m_pFFCam;
+	CFirstviewFollowingCamera*	m_pdummycam;
 	DummyCube*					m_pDummy;
+
+	bool						m_bCamPlayer;
 };
 

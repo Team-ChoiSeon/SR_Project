@@ -10,9 +10,6 @@ DummyCube::DummyCube(LPDIRECT3DDEVICE9 pGrpahicDev) : CGameObject(pGrpahicDev)
 	m_pGraphicDev = pGrpahicDev;
 	Add_Component<CRcCube>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-	
-	m_pCube = Get_Component<CRcCube>();
-	m_pTransform = Get_Component<CTransform>();
 
 }
 
@@ -22,22 +19,33 @@ DummyCube::~DummyCube()
 
 HRESULT DummyCube::Ready_GameObject()
 {
-	auto transform = Get_Component<CTransform>();
-	auto cube = Get_Component<CRcCube>();
+	m_pCube = Get_Component<CRcCube>();
+	m_pTransform = Get_Component<CTransform>();
 
-	transform->Ready_Transform();
-	transform->Set_Pos({ 0.f, 0.f, 10.f });
-	cube->Ready_Buffer();
+	m_pTransform->Ready_Transform();
+	m_pTransform->Set_Pos({ 0.f, 0.f, 10.f });
+	m_pTransform->Set_Look({ 0.f, 0.f, -1.f });
+	m_pTransform->Set_Right({ -1.f, 0.f, 0.f });
+	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
+	m_pTransform->Set_Angle({ 0.f, D3DX_PI, 0.f });
+	m_pCube->Ready_Buffer();
+
 	return S_OK;
 }
 
 int DummyCube::Update_GameObject(const _float& fTimeDelta)
 {
+	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
+		pComponent.second->Update_Component(fTimeDelta);
+
+
 	return 0;
 }
 
 void DummyCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
+		pComponent.second->LateUpdate_Component();
 }
 
 void DummyCube::Render_GameObject()

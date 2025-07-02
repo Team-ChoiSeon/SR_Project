@@ -20,22 +20,20 @@ CCamera::CCamera(const CCamera& rhs) : CComponent(rhs.m_pGraphicDev)
 
 CCamera::~CCamera()
 {
-	
 }
 
-HRESULT CCamera::Ready_Camera()
+HRESULT CCamera::Ready_Component()
 {
     return S_OK;
 }
 
-void CCamera::Update_Camera(const _float& fTimeDelta)
+void CCamera::Update_Component(const _float& fTimeDelta)
 {
-	ComputeLookRightUpVectors();
 	ComputeViewMatrix();
 	ComputeProjMatrix();
 }
 
-void CCamera::LateUpdate_Camera()
+void CCamera::LateUpdate_Component()
 {
 }
 
@@ -53,25 +51,18 @@ void CCamera::ComputeLookRightUpVectors()
 void CCamera::ComputeViewMatrix()
 {
 	D3DXMatrixLookAtLH(&m_mView, &m_vEye, &m_vAt, &m_vUp);
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_mView);
 }
 
 void CCamera::ComputeProjMatrix()
 {
 	D3DXMatrixPerspectiveFovLH(&m_mProj, m_fFov, m_fAspect, m_fNear, m_fFar);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_mProj);
-}
-
-CComponent* CCamera::Clone()
-{
-    return new CCamera(*this);
 }
 
 CCamera* CCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CCamera* pCamera = new CCamera(pGraphicDev);
 
-	if (FAILED(pCamera->Ready_Camera()))
+	if (FAILED(pCamera->Ready_Component()))
 	{
 		Safe_Release(pCamera);
 		MSG_BOX("Camera Component Create Failed");
@@ -83,4 +74,5 @@ CCamera* CCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CCamera::Free()
 {
+	Safe_Release(m_pGraphicDev);
 }

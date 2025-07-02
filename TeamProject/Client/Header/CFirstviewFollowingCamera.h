@@ -14,16 +14,19 @@ private:
 	virtual ~CFirstviewFollowingCamera();
 
 public:
-	HRESULT Ready_GameObject();
-	int Update_GameObject(const _float& fTimeDelta) override;
-	void LateUpdate_GameObject(const _float& fTimeDelta) override;
-	void Render_GameObject() override;
+	//Basic Function
+	HRESULT		Ready_GameObject() override;
+	int			Update_GameObject(const _float& fTimeDelta) override;
+	void		LateUpdate_GameObject(const _float& fTimeDelta) override;
+	void		Render_GameObject() override;
 
+	//Create, Release Function
+	static		CFirstviewFollowingCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target);
+	void		Free();
+
+	//Optional Function
 	void		CursorRotate();
 	void		AngleClamping();
-
-	static CFirstviewFollowingCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target);
-	void		Free();
 
 protected:
 
