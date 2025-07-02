@@ -9,7 +9,7 @@
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
 #include "CScene.h"
-#include "SceneHW.h"
+#include "Logo.h"
 
 CMainApp::CMainApp()
 	:m_pDeviceClass(nullptr)
@@ -34,7 +34,7 @@ HRESULT CMainApp::Ready_MainApp()
 	m_pGraphicDev = m_pDeviceClass->Get_GraphicDev();
 	m_pGraphicDev->AddRef();
 
-	m_pScene = SceneHW::Create(m_pGraphicDev);
+	m_pScene = Logo::Create(m_pGraphicDev);
 	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
 
 	return S_OK;
@@ -77,7 +77,6 @@ void CMainApp::Free()
 {
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
-	Safe_Release(m_pScene);
 
 	CTimeMgr::Get_Instance()->Destroy_Instance();
 	CFrameMgr::Get_Instance()->Destroy_Instance();

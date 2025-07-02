@@ -16,7 +16,7 @@ HRESULT CScene::Ready_Scene()
     return S_OK;
 }
 
-void CScene::Create_Layer()
+void CScene::Init_Layers()
 {
     for (auto i = 0; i < LAYER_END; i++)
     {
