@@ -43,7 +43,6 @@ HRESULT CMainApp::Ready_MainApp()
 int CMainApp::Update_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->Update_InputDev();
-	//m_pScene->Update_Scene(fTimeDelta);
 	CSceneMgr::Get_Instance()->Update_Scene(fTimeDelta);
 
 	return 0;
@@ -53,7 +52,6 @@ void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->LateUpdate_InputDev();
 	CSceneMgr::Get_Instance()->LateUpdate_Scene(fTimeDelta);
-	//m_pScene->LateUpdate_Scene(fTimeDelta);
 }
 
 
@@ -61,7 +59,6 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
 	CSceneMgr::Get_Instance()->Render_Scene();
-	//m_pScene->Render_Scene();
 
 	m_pDeviceClass->Render_End();
 }
