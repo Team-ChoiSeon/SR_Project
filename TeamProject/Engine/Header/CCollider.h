@@ -13,11 +13,14 @@ public:
 
 public:
 	static CCollider* Create(AABB aabb);
+	const AABB& Get_AABB() { return m_tAABB; }
 
 public:
 	virtual void Update_Component(const _float& fTimeDelta) override;
 	virtual void LateUpdate_Component() override;
 	void Render(LPDIRECT3DDEVICE9 pDevice);
+	// ex) change color, set flag
+	void On_Collision(CCollider* pCollider) {};
 	virtual void Free();
 
 private:

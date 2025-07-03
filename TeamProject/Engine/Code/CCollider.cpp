@@ -1,6 +1,7 @@
 #include "CCollider.h"
 #include "CRenderMgr.h"
 #include "CTransform.h"
+#include "CCollisionMgr.h"
 
 CCollider::CCollider(AABB aabb)
 	: m_tAABB(aabb)
@@ -23,7 +24,7 @@ CCollider* CCollider::Create(AABB aabb)
 }
 void CCollider::Update_Component(const _float& fTimeDelta)
 {
-
+	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
 void CCollider::LateUpdate_Component()

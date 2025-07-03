@@ -91,6 +91,9 @@
     <Filter Include="02. Components\06. Collision">
       <UniqueIdentifier>{418e3a76-78ba-4589-92aa-eea2bf16b1d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Managers\07. CollisionMgr">
+      <UniqueIdentifier>{a3cd5416-e581-46a5-9c80-04c90ced8a15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -198,6 +201,9 @@
     <ClInclude Include="..\Header\CCollider.h">
       <Filter>02. Components\06. Collision</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCollisionMgr.h">
+      <Filter>01. Managers\07. CollisionMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -283,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCollider.cpp">
       <Filter>02. Components\06. Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollisionMgr.cpp">
+      <Filter>01. Managers\07. CollisionMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

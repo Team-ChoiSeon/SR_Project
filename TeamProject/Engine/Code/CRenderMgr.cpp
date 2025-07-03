@@ -1,4 +1,5 @@
 #include "CRenderMgr.h"
+#include "CCollisionMgr.h"
 
 IMPLEMENT_SINGLETON(CRenderMgr)
 
@@ -89,6 +90,7 @@ void CRenderMgr::Remove_Model(CModel* model)
 	}
 }
 
+
 void CRenderMgr::Add_Collider(CCollider* collider)
 {
 	auto iter = find_if(m_vCol.begin(), m_vCol.end(),
@@ -112,11 +114,14 @@ void CRenderMgr::Remove_Collider(CCollider* collider)
 	}
 }
 
+
 void CRenderMgr::Clear()
 {
 	m_vModellist.clear();
 	m_vCol.clear();
 }
+
+
 
 void CRenderMgr::Free()
 {
