@@ -34,10 +34,7 @@ void CLayer::Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject)
 
 HRESULT CLayer::Ready_Layer()
 {
-	for (auto& pObj : m_vObject)
-	{
-		pObj.pObj->Ready_GameObject();
-	}
+
 	return S_OK;
 }
 
