@@ -8,6 +8,8 @@
 #include "CFrameMgr.h"
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
+#include "CRenderMgr.h"
+#include "CCollisionMgr.h"
 #include "CScene.h"
 #include "Logo.h"
 
@@ -60,6 +62,8 @@ void CMainApp::Render_MainApp()
 	CSceneMgr::Get_Instance()->Render_Scene();
   
 	m_pDeviceClass->Render_End();
+
+
 }
 
 CMainApp* CMainApp::Create()
@@ -81,6 +85,8 @@ void CMainApp::Free()
 	CFrameMgr::Get_Instance()->Destroy_Instance();
 	CInputMgr::Get_Instance()->Destroy_Instance();
 	CSceneMgr::Get_Instance()->Destroy_Instance();
+	CCollisionMgr::Get_Instance()->Destroy_Instance();
+	CRenderMgr::Get_Instance()->Destroy_Instance();
 
 	CGraphicDev::Get_Instance()->Destroy_Instance();
 }

@@ -6,13 +6,14 @@ BEGIN(Engine)
 class ENGINE_DLL CCollider : public CComponent
 {
 protected:
-	explicit CCollider(AABB aabb);
+	explicit CCollider(LPDIRECT3DDEVICE9 pGraphicDev, const AABB& aabb);
 
 public:
 	virtual  ~CCollider();
 
 public:
-	static CCollider* Create(AABB aabb);
+	static CCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev, const AABB& aabb);
+	
 	const AABB& Get_AABBW() { return m_tAABBWorld; }
 
 public:
@@ -21,7 +22,7 @@ public:
 	void Render(LPDIRECT3DDEVICE9 pDevice);
 	// pCollider : other
 	// ex) change color, set flag
-	void On_Collision(CCollider* pCollider) {};
+	void On_Collision(CCollider* pCollider) { MSG_BOX("CCollider:: Collision!"); }
 	virtual void Free();
 
 private:

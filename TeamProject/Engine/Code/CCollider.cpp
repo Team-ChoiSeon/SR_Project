@@ -3,8 +3,8 @@
 #include "CTransform.h"
 #include "CCollisionMgr.h"
 
-CCollider::CCollider(AABB aabb)
-	: m_tAABB(aabb)
+CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev, const AABB& aabb)
+	:m_tAABB(aabb)
 {
 }
 
@@ -12,9 +12,10 @@ CCollider::~CCollider()
 {
 }
 
-CCollider* CCollider::Create(AABB aabb)
+CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, const AABB& aabb)
 {
-	CCollider* pCollider = new CCollider(aabb);
+	CCollider* pCollider = new CCollider(pGraphicDev, aabb);
+	
 	if (pCollider == nullptr)
 	{
 		MSG_BOX("CCollider Create Failed");
