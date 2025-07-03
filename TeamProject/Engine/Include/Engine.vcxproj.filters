@@ -88,6 +88,9 @@
     <Filter Include="02. Components\04. VIBuffer\RcCube">
       <UniqueIdentifier>{f347242a-8b77-44c1-a4c2-d0b4053c20c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\06. Collision">
+      <UniqueIdentifier>{418e3a76-78ba-4589-92aa-eea2bf16b1d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -192,6 +195,9 @@
     <ClInclude Include="..\Header\CRcCube.h">
       <Filter>02. Components\04. VIBuffer\RcCube</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCollider.h">
+      <Filter>02. Components\06. Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -274,6 +280,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRcCube.cpp">
       <Filter>02. Components\04. VIBuffer\RcCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollider.cpp">
+      <Filter>02. Components\06. Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
