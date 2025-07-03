@@ -13,7 +13,7 @@
 
 CMainApp::CMainApp()
 	:m_pDeviceClass(nullptr)
-	,m_pGraphicDev(nullptr)
+	, m_pGraphicDev(nullptr)
 {
 }
 
@@ -33,10 +33,9 @@ HRESULT CMainApp::Ready_MainApp()
 
 	m_pGraphicDev = m_pDeviceClass->Get_GraphicDev();
 	m_pGraphicDev->AddRef();
-
+  
 	m_pScene = Logo::Create(m_pGraphicDev);
 	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
-
 	return S_OK;
 }
 
@@ -59,7 +58,7 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
 	CSceneMgr::Get_Instance()->Render_Scene();
-
+  
 	m_pDeviceClass->Render_End();
 }
 
@@ -83,5 +82,5 @@ void CMainApp::Free()
 	CInputMgr::Get_Instance()->Destroy_Instance();
 	CSceneMgr::Get_Instance()->Destroy_Instance();
 
-	CGraphicDev::Get_Instance()->Destroy_Instance(); 
+	CGraphicDev::Get_Instance()->Destroy_Instance();
 }

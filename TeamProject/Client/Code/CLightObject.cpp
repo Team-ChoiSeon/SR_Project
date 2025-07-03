@@ -2,7 +2,7 @@
 #include "CLightObject.h"
 
 CLightObject::CLightObject(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CGameObject(pGraphicDev), m_pLightCom(nullptr), m_pTransformCom(nullptr), m_fIntensity(1.0f), m_LightColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))
+	: CGameObject(pGraphicDev), m_fIntensity(1.0f), m_LightColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))
 {
 	Add_Component<CTransform>(ID_DYNAMIC, pGraphicDev);
 	Add_Component<CLight>(ID_DYNAMIC, pGraphicDev);
@@ -56,3 +56,13 @@ void CLightObject::Render_GameObject()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_mWorld);
 }
 
+
+const D3DLIGHT9& CLightObject::GetLightInfo() 
+{
+    return Get_Component<CLight>()->Get_LightInfo();
+}
+
+CLight::LIGHTTYPE CLightObject::GetLightType() 
+{
+    return Get_Component<CLight>()->Get_LightType();
+}
