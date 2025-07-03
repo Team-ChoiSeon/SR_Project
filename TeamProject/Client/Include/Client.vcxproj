@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CCameraObject.h" />
+    <ClInclude Include="..\Header\CCrosshairUIObject.h" />
     <ClInclude Include="..\Header\CFirstviewFollowingCamera.h" />
     <ClInclude Include="..\Header\CLightObject.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CCameraObject.cpp" />
+    <ClCompile Include="..\Code\CCrosshairUIObject.cpp" />
     <ClCompile Include="..\Code\CFirstviewFollowingCamera.cpp" />
     <ClCompile Include="..\Code\CLightObject.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
