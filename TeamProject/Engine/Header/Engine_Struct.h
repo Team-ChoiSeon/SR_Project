@@ -48,4 +48,18 @@ namespace Engine {
 		_vec3 _position;
 		_vec3 _direction;
 	};
+
+	typedef struct Ray_HitInfo {
+		CGameObject*	_hittedobject;
+		LAYERID			_objectlayer;
+		float			_distance;
+		_vec2			_hitteduv;
+		_vec3			_hittedcoord;
+		_vec3			_hittedcoordnormal;
+	}Ray_Hit;
+
+	typedef struct Ray_BoundTri {
+		_vec3 _v0, _v1,_v2;
+		_vec3 _nv0, _nv1, _nv2;
+	}Ray_Tri;
 }
