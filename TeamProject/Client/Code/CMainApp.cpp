@@ -10,13 +10,10 @@
 #include "Player.h"
 #include "CTransform.h"
 
-#include "CLightMgr.h"
-#include "CLightObject.h"
-#include "CTestLightMeshObject.h"
 
 CMainApp::CMainApp()
 	:m_pDeviceClass(nullptr)
-	,m_pGraphicDev(nullptr)
+	, m_pGraphicDev(nullptr)
 {
 }
 
@@ -40,20 +37,14 @@ HRESULT CMainApp::Ready_MainApp()
 	m_pPlayer = new Player(m_pGraphicDev);
 	m_pPlayer->Ready_GameObject();
 
-	m_pLightObject = new CLightObject(m_pGraphicDev);
-	if (FAILED(m_pLightObject->Ready_GameObject()))
-		return E_FAIL;
 
-	m_pTestLightMesh = new CTestLightMeshObject(m_pGraphicDev);
-	if (FAILED(m_pTestLightMesh->Ready_GameObject()))
-		return E_FAIL;
 
 	if (FAILED(D3DXCreateFont(
-		m_pGraphicDev,   
-		20, 0,           
-		FW_NORMAL,       
-		1, FALSE,        
-		DEFAULT_CHARSET, 
+		m_pGraphicDev,
+		20, 0,
+		FW_NORMAL,
+		1, FALSE,
+		DEFAULT_CHARSET,
 		OUT_DEFAULT_PRECIS,
 		ANTIALIASED_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE,
@@ -72,9 +63,6 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 	CInputMgr::Get_Instance()->Update_InputDev();
 	m_pPlayer->Update_GameObject(fTimeDelta);
 
-	m_pLightObject->Update_GameObject(fTimeDelta);
-	m_pTestLightMesh->Update_GameObject(fTimeDelta);
-
 	return 0;
 }
 
@@ -82,22 +70,14 @@ void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->LateUpdate_InputDev();
 	m_pPlayer->LateUpdate_GameObject(fTimeDelta);
-
-	m_pLightObject->LateUpdate_GameObject(fTimeDelta);
-	m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
-
-	Engine::CLightMgr::Get_Instance()->UpdateLights(m_pPlayer->GetPos());
 }
 
 
 void CMainApp::Render_MainApp()
 {
-	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
+	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 
 	m_pPlayer->Render_GameObject();
-
-	m_pLightObject->Render_GameObject();
-	m_pTestLightMesh->Render_GameObject();
 
 	_vec3 v_playpos = m_pPlayer->GetPos();
 	wchar_t buf[64];
@@ -113,9 +93,9 @@ void CMainApp::Render_MainApp()
 	RECT rc3 = { 10, 50, 500, 70 };
 
 	m_pFont->DrawTextW(
-		nullptr,     
-		buf,         
-		-1,          
+		nullptr,
+		buf,
+		-1,
 		&rc,
 		DT_LEFT | DT_TOP,
 		D3DCOLOR_ARGB(255, 255, 0, 0)
@@ -158,14 +138,9 @@ void CMainApp::Free()
 	Safe_Release(m_pDeviceClass);
 	Safe_Release(m_pPlayer);
 
-	Safe_Release(m_pLightObject);
-	Safe_Release(m_pTestLightMesh);
-
 	CTimeMgr::Get_Instance()->Destroy_Instance();
 	CFrameMgr::Get_Instance()->Destroy_Instance();
 	CInputMgr::Get_Instance()->Destroy_Instance();
 
 	CGraphicDev::Get_Instance()->Destroy_Instance();
-
-	CLightMgr::Get_Instance()->Destroy_Instance();
 }
