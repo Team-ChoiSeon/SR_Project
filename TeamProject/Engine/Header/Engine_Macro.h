@@ -12,8 +12,13 @@ namespace Engine
 #define VTXITV		1
 
 
+inline void ShowMsgBox(const std::string& msg) {
+	std::wstring wmsg(msg.begin(), msg.end());
+	MessageBoxW(NULL, wmsg.c_str(), L"System Message", MB_OK);
+}
+
 #ifndef MSG_BOX
-#define MSG_BOX(_message) MessageBox(NULL, TEXT(_message), TEXT("System Message"), MB_OK)
+#define MSG_BOX(msg) ShowMsgBox(msg)
 #endif
 
 #define			BEGIN(NAMESPACE)		namespace NAMESPACE {

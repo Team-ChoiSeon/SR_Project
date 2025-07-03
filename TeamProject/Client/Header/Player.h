@@ -10,26 +10,33 @@ namespace Engine
 }
 class Player : public Engine::CGameObject
 {
-public:
+private:
 	Player(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~Player();
 
+public:
+	//Basic Function
 	HRESULT Ready_GameObject();
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 	void Render_GameObject() override;
 
+	//Create, Release Function
+	static Player* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	void Free();
 
-public:		//GetSet
+	//Gettter, Setter Function
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
 
 
 protected:
+	//Utility Function
 	void KeyInput(const _float& fTimeDelta);
+	void CursorRotate();
 
 private:
 	CVIBuffer* m_pVIBuffer;
-	CTransform* m_pTransformCom;
+	CTransform* m_pTransform;
 
 	const _matrix* m_mWorld;
 
@@ -53,5 +60,6 @@ private:
 
 	float m_fWidth;
 	float m_fDepth;
+
+	bool m_bCursorMove;
 };
-//일단 얘 왜 free가 없음? 이거 순수가상아닌가?

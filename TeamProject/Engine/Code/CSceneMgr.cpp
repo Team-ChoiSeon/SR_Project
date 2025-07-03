@@ -38,7 +38,7 @@ void CSceneMgr::LateUpdate_Scene(const _float& fTimeDelta)
     m_pScene->LateUpdate_Scene(fTimeDelta);
 }
 
-void CSceneMgr::Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
+void CSceneMgr::Render_Scene()
 {
     m_pScene->Render_Scene();
 }

@@ -16,7 +16,7 @@ HRESULT CScene::Ready_Scene()
     return S_OK;
 }
 
-void CScene::Create_Layer()
+void CScene::Init_Layers()
 {
     for (auto i = 0; i < LAYER_END; i++)
     {
@@ -29,7 +29,7 @@ void CScene::Add_Layer(LAYERID eID)
 {
     if (m_umLayer.find(eID) != m_umLayer.end())
     {
-        MSG_BOX("[CScene] LAYERID ม฿บน ");
+        MSG_BOX("[CScene] LAYERID ");
         return;
     }
     CLayer* pLayer = CLayer::Create();

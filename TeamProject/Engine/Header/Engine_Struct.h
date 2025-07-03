@@ -44,4 +44,8 @@ namespace Engine {
 
 	}INDEX32;
 
+	struct Ray {
+		_vec3 _position;
+		_vec3 _direction;
+	};
 }

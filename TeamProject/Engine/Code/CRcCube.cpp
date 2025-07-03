@@ -38,21 +38,29 @@ HRESULT CRcCube::Ready_Buffer()
 
 	// 전면
 	pVertex[0].vPosition = { -1.f, 1.f, -1.f };
+	pVertex[0].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	pVertex[1].vPosition = { 1.f, 1.f, -1.f };
+	pVertex[1].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	pVertex[2].vPosition = { 1.f, -1.f, -1.f };
+	pVertex[2].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	pVertex[3].vPosition = { -1.f, -1.f, -1.f };
+	pVertex[3].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	// 후면
 	pVertex[4].vPosition = { -1.f, 1.f, 1.f };
+	pVertex[4].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	pVertex[5].vPosition = { 1.f, 1.f, 1.f };
+	pVertex[5].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	pVertex[6].vPosition = { 1.f, -1.f, 1.f };
+	pVertex[6].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	pVertex[7].vPosition = { -1.f, -1.f, 1.f };
+	pVertex[7].dwColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 
 	m_pVB->Unlock();
 

@@ -4,6 +4,8 @@
 
 BEGIN(Engine)
 
+class CGameObject;
+
 class ENGINE_DLL CComponent : public CBase
 {
 protected:
@@ -21,6 +23,9 @@ protected:
 
 protected:
 	virtual void				Free()PURE;
+
+public:
+	CGameObject* m_pOwner = nullptr;
 };
 
 END

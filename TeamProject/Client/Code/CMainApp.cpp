@@ -7,9 +7,9 @@
 #include "CTimeMgr.h"
 #include "CFrameMgr.h"
 #include "CInputMgr.h"
-#include "Player.h"
-#include "CTransform.h"
-
+#include "CSceneMgr.h"
+#include "CScene.h"
+#include "Logo.h"
 
 CMainApp::CMainApp()
 	:m_pDeviceClass(nullptr)
@@ -33,35 +33,16 @@ HRESULT CMainApp::Ready_MainApp()
 
 	m_pGraphicDev = m_pDeviceClass->Get_GraphicDev();
 	m_pGraphicDev->AddRef();
-
-	m_pPlayer = new Player(m_pGraphicDev);
-	m_pPlayer->Ready_GameObject();
-
-
-
-	if (FAILED(D3DXCreateFont(
-		m_pGraphicDev,
-		20, 0,
-		FW_NORMAL,
-		1, FALSE,
-		DEFAULT_CHARSET,
-		OUT_DEFAULT_PRECIS,
-		ANTIALIASED_QUALITY,
-		DEFAULT_PITCH | FF_DONTCARE,
-		L"굴림",           // font name
-		&m_pFont)))
-	{
-		return E_FAIL;
-	}
-
-
+  
+	m_pScene = Logo::Create(m_pGraphicDev);
+	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
 	return S_OK;
 }
 
 int CMainApp::Update_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->Update_InputDev();
-	m_pPlayer->Update_GameObject(fTimeDelta);
+	CSceneMgr::Get_Instance()->Update_Scene(fTimeDelta);
 
 	return 0;
 }
@@ -69,56 +50,15 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->LateUpdate_InputDev();
-	m_pPlayer->LateUpdate_GameObject(fTimeDelta);
+	CSceneMgr::Get_Instance()->LateUpdate_Scene(fTimeDelta);
 }
 
 
 void CMainApp::Render_MainApp()
 {
-	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
-
-	m_pPlayer->Render_GameObject();
-
-	_vec3 v_playpos = m_pPlayer->GetPos();
-	wchar_t buf[64];
-	wchar_t buf2[64];
-	wchar_t buf3[64];
-	swprintf_s(buf, L"position : x: %.3f y: %.3f  z: %.3f", v_playpos.x, v_playpos.y, v_playpos.z);
-	swprintf_s(buf2, L"");
-	swprintf_s(buf3, L"");
-
-
-	RECT rc = { 10, 10, 500, 30 };
-	RECT rc2 = { 10, 30, 500, 50 };
-	RECT rc3 = { 10, 50, 500, 70 };
-
-	m_pFont->DrawTextW(
-		nullptr,
-		buf,
-		-1,
-		&rc,
-		DT_LEFT | DT_TOP,
-		D3DCOLOR_ARGB(255, 255, 0, 0)
-	);
-
-	m_pFont->DrawTextW(
-		nullptr,
-		buf2,
-		-1,
-		&rc2,
-		DT_LEFT | DT_TOP,
-		D3DCOLOR_ARGB(255, 255, 0, 0)
-	);
-	m_pFont->DrawTextW(
-		nullptr,
-		buf3,
-		-1,
-		&rc3,
-		DT_LEFT | DT_TOP,
-		D3DCOLOR_ARGB(255, 255, 0, 0)
-	);
-
-
+	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
+	CSceneMgr::Get_Instance()->Render_Scene();
+  
 	m_pDeviceClass->Render_End();
 }
 
@@ -136,11 +76,11 @@ void CMainApp::Free()
 {
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
-	Safe_Release(m_pPlayer);
 
 	CTimeMgr::Get_Instance()->Destroy_Instance();
 	CFrameMgr::Get_Instance()->Destroy_Instance();
 	CInputMgr::Get_Instance()->Destroy_Instance();
+	CSceneMgr::Get_Instance()->Destroy_Instance();
 
 	CGraphicDev::Get_Instance()->Destroy_Instance();
 }

@@ -7,21 +7,24 @@
 
 Player::Player(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev), m_pVB(nullptr), m_pIB(nullptr)
 {
-	//m_pTransformCom->Create(pGraphicDev);
 	Add_Component<CTransform>(ID_DYNAMIC,pGraphicDev);
+	m_pTransform = Get_Component<CTransform>();
 
 	m_fMoveSpeed = 10.f;
+	
 }
 Player::~Player()
 {
-	Safe_Release(m_pVB);
-	Safe_Release(m_pIB);
 }
 
 HRESULT Player::Ready_GameObject()
 {
-	Get_Component<CTransform>()->Ready_Transform();
-	
+	auto transform = Get_Component<CTransform>();
+	transform->Ready_Transform();
+	transform->Set_Pos({ 0.f, 0.f, -10.f });
+	transform->Set_Look({ 0.f, 0.f, 1.f });
+	transform->Set_Up({ 0.f, 1.f, 0.f });
+	transform->Set_Right({ 1.f, 0.f, 0.f });
 	//Get_Component<CTransform>(L"Transform")->Set_Scale({ 50.f, 50.f, 50.f });
 
 
@@ -59,28 +62,28 @@ HRESULT Player::Ready_GameObject()
 	m_pVB->Lock(0, 0, (void**)&vertecies, 0);
 
 	vertecies[0].vPosition = { -0.5f, 0.5f, -0.5f };
-	vertecies[0].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[0].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[1].vPosition = { 0.5f, 0.5f, -0.5f };
-	vertecies[1].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[1].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[2].vPosition = { 0.5f, -0.5f, -0.5f };
-	vertecies[2].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[2].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[3].vPosition = { -0.5f, -0.5f, -0.5f };
-	vertecies[3].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[3].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[4].vPosition = { -0.5f, 0.5f, 0.5f };
-	vertecies[4].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[4].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[5].vPosition = { 0.5f, 0.5f, 0.5f };
-	vertecies[5].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[5].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[6].vPosition = { 0.5f, -0.5f, 0.5f };
-	vertecies[6].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[6].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 	vertecies[7].vPosition = { -0.5f, -0.5f, 0.5f };
-	vertecies[7].dwColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	vertecies[7].dwColor = D3DCOLOR_RGBA(255, 0, 0, 255);
 
 
 	m_pVB->Unlock();
@@ -100,8 +103,8 @@ HRESULT Player::Ready_GameObject()
 	indecies[5] = { 4, 3, 7 };
 
 	//우측면
-	indecies[6] = { 2, 5, 6 };
-	indecies[7] = { 2, 6, 3 };
+	indecies[6] = { 1, 5, 6 };
+	indecies[7] = { 1, 6, 2 };
 
 	//윗면
 	indecies[8] = { 4, 5, 1 };
@@ -135,17 +138,49 @@ void Player::Render_GameObject()
 	m_mWorld = Get_Component<CTransform>()->Get_WorldMatrix();
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_mWorld);
 
-	//m_pVIBuffer->Render_Buffer();
 	m_pGraphicDev->SetStreamSource(0, m_pVB, 0, m_dwVtxSize);
 	m_pGraphicDev->SetFVF(m_dwFVF);
 	m_pGraphicDev->SetIndices(m_pIB);
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	m_pGraphicDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_dwVtxCnt, 0, m_dwTriCnt);
+}
+
+Player* Player::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	Player* pPlayer = new Player(pGraphicDev);
+
+	if (FAILED(pPlayer->Ready_GameObject()))
+	{
+		Safe_Release(pPlayer);
+		MSG_BOX("Player Create Failed");
+		return nullptr;
+	}
+
+	return pPlayer;
+}
+
+void Player::Free()
+{
+	Safe_Release(m_pVB);
+	Safe_Release(m_pIB);
+	Safe_Release(m_pTransform);
+
 }
 
 void Player::KeyInput(const _float& fTimeDelta)
 {
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB))
+	{
+		if (m_bCursorMove)
+			m_bCursorMove = false;
+		else
+			m_bCursorMove = true;
+	}
+
+	if (!m_bCursorMove)
+		CursorRotate();
+
 	if (CInputMgr::Get_Instance()->Key_Hold(DIK_LSHIFT)) {
 		m_fMoveSpeed = 30.f;
 	}
@@ -154,27 +189,43 @@ void Player::KeyInput(const _float& fTimeDelta)
 		m_fMoveSpeed = 10.f;
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_W)) {
-		Get_Component<CTransform>()->Set_Pos({
-			Get_Component<CTransform>()->Get_Pos().x,
-			Get_Component<CTransform>()->Get_Pos().y,
-			Get_Component<CTransform>()->Get_Pos().z + m_fMoveSpeed * fTimeDelta });
+		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_LOOK) * m_fMoveSpeed * fTimeDelta);
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_S)) {
-		Get_Component<CTransform>()->Set_Pos({
-			Get_Component<CTransform>()->Get_Pos().x,
-			Get_Component<CTransform>()->Get_Pos().y,
-			Get_Component<CTransform>()->Get_Pos().z - m_fMoveSpeed * fTimeDelta });
+		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_LOOK) * m_fMoveSpeed * fTimeDelta);
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_D)) {
-		Get_Component<CTransform>()->Set_Pos({
-			Get_Component<CTransform>()->Get_Pos().x + m_fMoveSpeed * fTimeDelta ,
-			Get_Component<CTransform>()->Get_Pos().y,
-			Get_Component<CTransform>()->Get_Pos().z });
+		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_RIGHT) * m_fMoveSpeed * fTimeDelta);
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_A)) {
-		Get_Component<CTransform>()->Set_Pos({
-			Get_Component<CTransform>()->Get_Pos().x - m_fMoveSpeed * fTimeDelta ,
-			Get_Component<CTransform>()->Get_Pos().y,
-			Get_Component<CTransform>()->Get_Pos().z});
+		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_RIGHT) * m_fMoveSpeed * fTimeDelta);
 	}
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q)) {
+		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
+	}
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_E)) {
+		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
+	}
+}
+
+void Player::CursorRotate()
+{
+	//커서 고정
+	ShowCursor(false);
+	float cx = WINCX / 2.f;
+	float cy = WINCY / 2.f;
+	POINT cursor = { cx, cy };
+	ClientToScreen(g_hWnd, &cursor);
+	SetCursorPos(cursor.x, cursor.y);
+
+	//화면 회전
+	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X);
+	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y);
+
+	float sensitivity = 300.f;
+	float rx = dx / sensitivity;
+	float ry = dy / sensitivity;
+
+	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ ry, rx, 0.f });
+
 }

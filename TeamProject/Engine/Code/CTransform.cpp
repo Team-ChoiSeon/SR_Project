@@ -90,5 +90,5 @@ CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CTransform::Free()
 {
-
+	Safe_Release(m_pGraphicDev);
 }

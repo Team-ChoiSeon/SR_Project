@@ -28,14 +28,8 @@
     <Filter Include="02. Components">
       <UniqueIdentifier>{8cec6fd9-0f1a-4158-813c-0d11dad5498c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Components\00. VIBuffer">
-      <UniqueIdentifier>{cd20bd71-f491-414d-acb8-344bb536359b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. GameObject">
       <UniqueIdentifier>{e1f04626-2236-4c63-967c-04d55aeeee95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Components\00. VIBuffer\CubeTex">
-      <UniqueIdentifier>{738e58d6-8342-4d2d-b5af-432ffd7e53ef}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Managers\04. RenderMgr">
       <UniqueIdentifier>{18559706-1ee1-46df-a5d7-66ea8a749a62}</UniqueIdentifier>
@@ -58,17 +52,41 @@
     <Filter Include="02. Components\02. Camera">
       <UniqueIdentifier>{5810b33a-5f21-45d0-8341-3f2205c15949}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Managers\05.CameraMgr">
-      <UniqueIdentifier>{7018b58f-1551-48ac-8e9d-2e58568c357d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Components\05. Picking">
       <UniqueIdentifier>{255825e1-bb19-4766-b01d-b959ba12ff06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Components\00. VIBuffer\RcCube">
-      <UniqueIdentifier>{42934f10-1f30-4e1a-bc98-a16cbc2eb09f}</UniqueIdentifier>
+    <Filter Include="06. Resources">
+      <UniqueIdentifier>{dea1e113-086d-4d67-99bd-120fc20a0e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\Mesh">
+      <UniqueIdentifier>{12cd1b22-32fe-464b-8da7-c7728fbfa03a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\Texture">
+      <UniqueIdentifier>{8c6db012-e783-454a-a97e-e5dfff8ab944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\Material">
+      <UniqueIdentifier>{885d3104-51a4-472b-aaea-7c46fb269d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\05. CameraMgr">
+      <UniqueIdentifier>{7018b58f-1551-48ac-8e9d-2e58568c357d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\06. ResourceMgr">
+      <UniqueIdentifier>{21d00574-e921-4614-b50f-1df4f246936b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\Mesh\CubeTex">
+      <UniqueIdentifier>{aca1a845-0ff9-4805-906f-10ef59f0988d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\00. Model">
+      <UniqueIdentifier>{9a72de3d-94a8-440e-b113-e9223479dffd}</UniqueIdentifier>
     </Filter>
     <Filter Include="01. Managers\06. LightMgr">
       <UniqueIdentifier>{7f1edc1e-dfbd-414e-910a-437f11394b20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\04. VIBuffer">
+      <UniqueIdentifier>{672cc0da-ee03-40e7-bc52-90a8724ea674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\04. VIBuffer\RcCube">
+      <UniqueIdentifier>{f347242a-8b77-44c1-a4c2-d0b4053c20c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -114,12 +132,6 @@
     <ClInclude Include="..\Header\CComponent.h">
       <Filter>02. Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CVIBuffer.h">
-      <Filter>02. Components\00. VIBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CCubeTex.h">
-      <Filter>02. Components\00. VIBuffer\CubeTex</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CRenderMgr.h">
       <Filter>01. Managers\04. RenderMgr</Filter>
     </ClInclude>
@@ -139,7 +151,7 @@
       <Filter>02. Components\03. Light</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCameraMgr.h">
-      <Filter>01. Managers\05.CameraMgr</Filter>
+      <Filter>01. Managers\05. CameraMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCamera.h">
       <Filter>02. Components\02. Camera</Filter>
@@ -147,11 +159,38 @@
     <ClInclude Include="..\Header\CPicking.h">
       <Filter>02. Components\05. Picking</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CRcCube.h">
-      <Filter>02. Components\00. VIBuffer\RcCube</Filter>
+    <ClInclude Include="..\Header\CResource.h">
+      <Filter>06. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMesh.h">
+      <Filter>06. Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMaterial.h">
+      <Filter>06. Resources\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTexture.h">
+      <Filter>06. Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CResourceMgr.h">
+      <Filter>01. Managers\06. ResourceMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCubeTex.h">
+      <Filter>06. Resources\Mesh\CubeTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CModel.h">
+      <Filter>02. Components\00. Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CLightMgr.h">
       <Filter>01. Managers\06. LightMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Model.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CVIBuffer.h">
+      <Filter>02. Components\04. VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRcCube.h">
+      <Filter>02. Components\04. VIBuffer\RcCube</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,12 +218,6 @@
     <ClCompile Include="..\Code\CComponent.cpp">
       <Filter>02. Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CVIBuffer.cpp">
-      <Filter>02. Components\00. VIBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CCubeTex.cpp">
-      <Filter>02. Components\00. VIBuffer\CubeTex</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CRenderMgr.cpp">
       <Filter>01. Managers\04. RenderMgr</Filter>
     </ClCompile>
@@ -204,7 +237,7 @@
       <Filter>02. Components\03. Light</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCameraMgr.cpp">
-      <Filter>01. Managers\05.CameraMgr</Filter>
+      <Filter>01. Managers\05. CameraMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCamera.cpp">
       <Filter>02. Components\02. Camera</Filter>
@@ -212,11 +245,35 @@
     <ClCompile Include="..\Code\CPicking.cpp">
       <Filter>02. Components\05. Picking</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CRcCube.cpp">
-      <Filter>02. Components\00. VIBuffer\RcCube</Filter>
+    <ClCompile Include="..\Code\CMesh.cpp">
+      <Filter>06. Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMaterial.cpp">
+      <Filter>06. Resources\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTexture.cpp">
+      <Filter>06. Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CResourceMgr.cpp">
+      <Filter>01. Managers\06. ResourceMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCubeTex.cpp">
+      <Filter>06. Resources\Mesh\CubeTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CModel.cpp">
+      <Filter>02. Components\00. Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CResource.cpp">
+      <Filter>06. Resources</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CLightMgr.cpp">
       <Filter>01. Managers\06. LightMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVIBuffer.cpp">
+      <Filter>02. Components\04. VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRcCube.cpp">
+      <Filter>02. Components\04. VIBuffer\RcCube</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

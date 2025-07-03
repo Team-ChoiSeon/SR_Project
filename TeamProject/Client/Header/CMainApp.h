@@ -1,11 +1,10 @@
 ﻿#pragma once
 #include "CBase.h"
 
-class Player;
-
 namespace Engine {
 	class CGraphicDev;
 	class CCameraObject;
+	class CScene;
 }
 
 class CMainApp : public CBase
@@ -24,8 +23,7 @@ private:
 	CGraphicDev* m_pDeviceClass;
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
 
-	Player* m_pPlayer;	
-	ID3DXFont* m_pFont;
+	CScene* m_pScene;
 
 public:
 	static CMainApp* Create();
