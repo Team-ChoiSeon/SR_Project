@@ -13,7 +13,7 @@ public:
 
 public:
 	static CCollider* Create(AABB aabb);
-	const AABB& Get_AABB() { return m_tAABB; }
+	const AABB& Get_AABBW() { return m_tAABBWorld; }
 
 public:
 	virtual void Update_Component(const _float& fTimeDelta) override;
@@ -26,6 +26,7 @@ public:
 
 private:
 	AABB m_tAABB;
+	AABB m_tAABBWorld;
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVB = nullptr;
 	LPDIRECT3DINDEXBUFFER9  m_pIB = nullptr;

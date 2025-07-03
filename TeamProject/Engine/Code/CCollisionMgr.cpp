@@ -19,7 +19,7 @@ void CCollisionMgr::Update_Collision()
 			CCollider* pA = m_vCol[i];
 			CCollider* pB = m_vCol[j];
 
-			if (Is_Colliding(pA->Get_AABB(), pB->Get_AABB()))
+			if (Is_Colliding(pA->Get_AABBW(), pB->Get_AABBW()))
 			{
 				pA->On_Collision(pB);
 				pB->On_Collision(pA);

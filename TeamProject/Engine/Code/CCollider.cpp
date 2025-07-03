@@ -24,6 +24,12 @@ CCollider* CCollider::Create(AABB aabb)
 }
 void CCollider::Update_Component(const _float& fTimeDelta)
 {
+	CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
+	if (!pTransform) return;
+
+	
+	D3DXVec3TransformCoord(&m_tAABBWorld.vMin, &m_tAABB.vMin, pTransform->Get_WorldMatrix());
+	D3DXVec3TransformCoord(&m_tAABBWorld.vMax, &m_tAABB.vMax, pTransform->Get_WorldMatrix());
 	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
