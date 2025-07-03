@@ -26,8 +26,9 @@
     <Filter Include="04. GameObjects\CameraObejct">
       <UniqueIdentifier>{faac4596-d2fc-44e4-8613-5f76bee7bef4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObjects\TestLight\testLightMeshObject">
-      <UniqueIdentifier>{2033b103-4cb6-4ccd-8a10-f8152872f1ed}</UniqueIdentifier>
+	<Filter Include="03. GameObjects\TestLight\testLightMeshObject">
+		  <UniqueIdentifier>{2033b103-4cb6-4ccd-8a10-f8152872f1ed}</UniqueIdentifier>
+	</Filter>
     <Filter Include="04. GameObjects\CameraObejct\FirstviewFollowingCam">
       <UniqueIdentifier>{960fb8c3-bd33-453d-bf13-a8b55eaf28df}</UniqueIdentifier>
     </Filter>
