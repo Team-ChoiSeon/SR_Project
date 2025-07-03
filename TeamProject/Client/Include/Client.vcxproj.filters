@@ -26,9 +26,6 @@
     <Filter Include="04. GameObjects\CameraObejct">
       <UniqueIdentifier>{faac4596-d2fc-44e4-8613-5f76bee7bef4}</UniqueIdentifier>
     </Filter>
-	<Filter Include="03. GameObjects\TestLight\testLightMeshObject">
-		  <UniqueIdentifier>{2033b103-4cb6-4ccd-8a10-f8152872f1ed}</UniqueIdentifier>
-	</Filter>
     <Filter Include="04. GameObjects\CameraObejct\FirstviewFollowingCam">
       <UniqueIdentifier>{960fb8c3-bd33-453d-bf13-a8b55eaf28df}</UniqueIdentifier>
     </Filter>
@@ -55,6 +52,12 @@
     </Filter>
     <Filter Include="03. Scene\Logo">
       <UniqueIdentifier>{11859b5b-3fe4-42a7-bffa-734c123776a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI">
+      <UniqueIdentifier>{484eb73b-8f04-4925-aa39-3d1a9fded025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\TestCrooshair">
+      <UniqueIdentifier>{f826ebc1-8818-4990-b515-07c043e6a79c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,7 +91,6 @@
     <ClInclude Include="..\Header\DummyCube.h">
       <Filter>04. GameObjects\TestObject</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CLightObject.h" />
     <ClInclude Include="..\Header\Logo.h">
       <Filter>03. Scene\Logo</Filter>
     </ClInclude>
@@ -107,8 +109,14 @@
     <ClInclude Include="..\Header\SceneSB.h">
       <Filter>03. Scene\SceneSB</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLightObject.h">
+      <Filter>04. GameObjects\TestLight</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CTestLightMeshObject.h">
-      <Filter>03. GameObjects\TestLight\testLightMeshObject</Filter>
+      <Filter>04. GameObjects\TestLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCrosshairUIObject.h">
+      <Filter>04. GameObjects\TestUI\TestCrooshair</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +141,6 @@
     <ClCompile Include="..\Code\DummyCube.cpp">
       <Filter>04. GameObjects\TestObject</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CLightObject.cpp" />
     <ClCompile Include="..\Code\Logo.cpp">
       <Filter>03. Scene\Logo</Filter>
     </ClCompile>
@@ -152,8 +159,14 @@
     <ClCompile Include="..\Code\SceneSB.cpp">
       <Filter>03. Scene\SceneSB</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CLightObject.cpp">
+      <Filter>04. GameObjects\TestLight</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp">
-      <Filter>03. GameObjects\TestLight\testLightMeshObject</Filter>
+      <Filter>04. GameObjects\TestLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCrosshairUIObject.cpp">
+      <Filter>04. GameObjects\TestUI\TestCrooshair</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -79,14 +79,23 @@
     <Filter Include="02. Components\00. Model">
       <UniqueIdentifier>{9a72de3d-94a8-440e-b113-e9223479dffd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Managers\06. LightMgr">
-      <UniqueIdentifier>{7f1edc1e-dfbd-414e-910a-437f11394b20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Components\04. VIBuffer">
       <UniqueIdentifier>{672cc0da-ee03-40e7-bc52-90a8724ea674}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Components\04. VIBuffer\RcCube">
       <UniqueIdentifier>{f347242a-8b77-44c1-a4c2-d0b4053c20c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\07. LightMgr">
+      <UniqueIdentifier>{7f1edc1e-dfbd-414e-910a-437f11394b20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\08. UiMgr">
+      <UniqueIdentifier>{f66a90ec-cbd0-48b0-a0d8-3e8ebf9863f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\06. UI">
+      <UniqueIdentifier>{6b0c3fdc-6583-4af4-8bdc-d3c5667cc13f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\06. UI\UiImage">
+      <UniqueIdentifier>{e7921c4e-df8f-415f-aa29-e0193ed3effc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +190,7 @@
       <Filter>02. Components\00. Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CLightMgr.h">
-      <Filter>01. Managers\06. LightMgr</Filter>
+      <Filter>01. Managers\07. LightMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Engine_Model.h">
       <Filter>99. Header</Filter>
@@ -191,6 +200,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\CRcCube.h">
       <Filter>02. Components\04. VIBuffer\RcCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUiMgr.h">
+      <Filter>01. Managers\08. UiMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUI.h">
+      <Filter>02. Components\06. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUiImage.h">
+      <Filter>02. Components\06. UI\UiImage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -267,13 +285,22 @@
       <Filter>06. Resources</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CLightMgr.cpp">
-      <Filter>01. Managers\06. LightMgr</Filter>
+      <Filter>01. Managers\07. LightMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CVIBuffer.cpp">
       <Filter>02. Components\04. VIBuffer</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CRcCube.cpp">
       <Filter>02. Components\04. VIBuffer\RcCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUiMgr.cpp">
+      <Filter>01. Managers\08. UiMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUI.cpp">
+      <Filter>02. Components\06. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUiImage.cpp">
+      <Filter>02. Components\06. UI\UiImage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

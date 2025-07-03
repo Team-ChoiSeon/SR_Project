@@ -68,6 +68,7 @@ void CTestLightMeshObject::Render_GameObject()
     m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     m_pGraphicDev->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
     m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
+    m_pGraphicDev->SetRenderState(D3DRS_ZENABLE, TRUE);
 
     const _matrix* matWorld = Get_Component<CTransform>()->Get_WorldMatrix();
     m_pGraphicDev->SetTransform(D3DTS_WORLD, matWorld);

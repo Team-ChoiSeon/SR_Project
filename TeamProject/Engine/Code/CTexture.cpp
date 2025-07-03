@@ -29,6 +29,10 @@ HRESULT CTexture::Load(LPDIRECT3DDEVICE9 pDevice, const wstring& filePath)
     if (!pDevice) return E_FAIL;
 
     LPDIRECT3DTEXTURE9 pTexture = nullptr;
+
+    std::wstring debugMessage = L"[Texture Load Failed] Path: " + filePath + L"\n";
+    OutputDebugStringW(debugMessage.c_str());
+
     if (FAILED(D3DXCreateTextureFromFileW(pDevice, filePath.c_str(), &pTexture)))
     {
         MSG_BOX("CTexture::Load Failed : CreateTextureFromFile");

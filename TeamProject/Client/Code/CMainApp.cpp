@@ -8,6 +8,8 @@
 #include "CFrameMgr.h"
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
+#include "CLightMgr.h"
+
 #include "CScene.h"
 #include "Logo.h"
 
@@ -81,6 +83,7 @@ void CMainApp::Free()
 	CFrameMgr::Get_Instance()->Destroy_Instance();
 	CInputMgr::Get_Instance()->Destroy_Instance();
 	CSceneMgr::Get_Instance()->Destroy_Instance();
+	CLightMgr::Get_Instance()->Destroy_Instance();
 
 	CGraphicDev::Get_Instance()->Destroy_Instance();
 }
