@@ -19,6 +19,7 @@ public:
 	virtual void Update_Component(const _float& fTimeDelta) override;
 	virtual void LateUpdate_Component() override;
 	void Render(LPDIRECT3DDEVICE9 pDevice);
+	// pCollider : other
 	// ex) change color, set flag
 	void On_Collision(CCollider* pCollider) {};
 	virtual void Free();
