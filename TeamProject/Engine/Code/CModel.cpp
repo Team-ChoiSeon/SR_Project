@@ -3,10 +3,10 @@
 #include "CTransform.h"
 
 CModel::CModel(LPDIRECT3DDEVICE9 pDevice)
-	: m_pDevice(pDevice)
+	: CComponent(pDevice)
 {
-	if (m_pDevice)
-		m_pDevice->AddRef();
+	if (m_pGraphicDev)
+		m_pGraphicDev->AddRef();
 }
 
 CModel::~CModel()
@@ -37,7 +37,7 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 
 void CModel::Free()
 {
-	Safe_Release(m_pDevice);
+	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pMesh);
 	Safe_Release(m_pMaterial);
 	// Safe_Release(m_pTexture);
