@@ -34,7 +34,8 @@ public:
     virtual void Free()override;
 
 private:
-    LPDIRECT3DDEVICE9 m_pDevice = nullptr;
+    // CComponent
+    // LPDIRECT3DDEVICE9 m_pGraphicDev = nullptr;
 
     CMesh* m_pMesh = nullptr;
     // CTexture* m_pTexture = nullptr;

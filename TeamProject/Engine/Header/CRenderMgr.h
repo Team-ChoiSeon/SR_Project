@@ -2,6 +2,7 @@
 #include "CBase.h"
 #include "CGameObject.h"
 #include "CModel.h"
+#include "CCollider.h"
 
 BEGIN(Engine)
 
@@ -20,10 +21,13 @@ public:
 public:
 	void Add_Model(CModel* model);
 	void Remove_Model(CModel* model);
+	void Add_Collider(CCollider* collider);
+	void Remove_Collider(CCollider* collider);
 	void Clear();
 
 private:
-	unordered_map<RENDER_PASS, list<CModel*>> m_Modellist;
+	vector<list<CModel*>> m_vModellist;
+	vector<CCollider*> m_vCol;
 
 private:
 	virtual void Free() override;
