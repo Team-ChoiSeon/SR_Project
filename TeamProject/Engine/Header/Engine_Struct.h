@@ -57,6 +57,7 @@ namespace Engine {
 		_vec3 _direction;
 	};
 
+	class CGameObject;
 	typedef struct Ray_HitInfo {
 		CGameObject*	_hittedobject;
 		LAYERID			_objectlayer;

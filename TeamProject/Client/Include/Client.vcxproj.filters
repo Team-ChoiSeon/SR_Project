@@ -58,6 +58,7 @@
     </Filter>
     <Filter Include="04. GameObjects\TestUI\TestCrooshair">
       <UniqueIdentifier>{f826ebc1-8818-4990-b515-07c043e6a79c}</UniqueIdentifier>
+	</Filter>
     <Filter Include="04. GameObjects\TestLight\TestLightObject">
     </Filter>
   </ItemGroup>

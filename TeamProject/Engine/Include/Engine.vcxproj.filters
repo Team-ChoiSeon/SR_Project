@@ -97,6 +97,12 @@
     <Filter Include="02. Components\06. UI\UiImage">
       <UniqueIdentifier>{e7921c4e-df8f-415f-aa29-e0193ed3effc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\07. Collider">
+      <UniqueIdentifier>{c2d7cbf6-0812-47e6-a416-c0592a52a5db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\09. CollisionMgr">
+      <UniqueIdentifier>{303bca43-dd84-4700-bc16-2fc5d5310384}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -210,6 +216,12 @@
     <ClInclude Include="..\Header\CUiImage.h">
       <Filter>02. Components\06. UI\UiImage</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCollider.h">
+      <Filter>02. Components\07. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCollisionMgr.h">
+      <Filter>01. Managers\09. CollisionMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -301,6 +313,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CUiImage.cpp">
       <Filter>02. Components\06. UI\UiImage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollider.cpp">
+      <Filter>02. Components\07. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollisionMgr.cpp">
+      <Filter>01. Managers\09. CollisionMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
