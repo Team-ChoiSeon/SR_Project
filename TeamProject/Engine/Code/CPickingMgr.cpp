@@ -1,29 +1,24 @@
-#include "PickingMgr.h"
+#include "CPickingMgr.h"
 #include "CGameObject.h"
 #include "CPickTarget.h"
 #include "CScene.h"
 
-PickingMgr::PickingMgr()
+IMPLEMENT_SINGLETON(CPickingMgr);
+CPickingMgr::CPickingMgr()
 {
 }
 
-PickingMgr::~PickingMgr()
+CPickingMgr::~CPickingMgr()
 {
 }
 
-void PickingMgr::Ready_Picking(LPDIRECT3DDEVICE9 GraphicDev, POINT* cursor)
+void CPickingMgr::Ready_Picking(LPDIRECT3DDEVICE9 GraphicDev)
 {
 	m_pGraphicDev = GraphicDev;
 	m_pGraphicDev->AddRef();
-
-
-	m_pCursor = cursor; 
-	
-	
-	
 }
 
-HRESULT PickingMgr::Update_Picking(const float& fTimeDelta)
+HRESULT CPickingMgr::Update_Picking(const float& fTimeDelta)
 {
 	if(!m_vecHit.empty())
 		m_vecHit.clear();
@@ -34,12 +29,12 @@ HRESULT PickingMgr::Update_Picking(const float& fTimeDelta)
 	return S_OK;
 }
 
-_int PickingMgr::LateUpdate_Picking(const float& fTimeDelta)
+_int CPickingMgr::LateUpdate_Picking(const float& fTimeDelta)
 {
 	return _int();
 }
 
-void PickingMgr::Check_CollisionWorld()
+void CPickingMgr::Check_CollisionWorld()
 {
 	//Ray_Hit hitinfo = {};
 	//for (auto& iter : m_vecPickable)
@@ -83,12 +78,12 @@ void PickingMgr::Check_CollisionWorld()
 	//}
 }
 
-void PickingMgr::Free()
+void CPickingMgr::Free()
 {
 	Safe_Release(m_pGraphicDev);
 }
 
-CGameObject* PickingMgr::Get_HitTarget()
+CGameObject* CPickingMgr::Get_HitTarget()
 {
 	auto pFirstObject = min_element(m_vecHit.begin(), m_vecHit.end(), [](const Ray_Hit* a, const Ray_Hit* b) {return a->_distance < b->_distance; });
 	if (pFirstObject == m_vecHit.end())
@@ -97,7 +92,7 @@ CGameObject* PickingMgr::Get_HitTarget()
 		return m_vecHit.front()->_hittedobject;
 }
 
-void PickingMgr::Make_Ray(float x, float y)
+void CPickingMgr::Make_Ray(float x, float y)
 {
 	float px = 0.f;
 	float py = 0.f;	
@@ -114,7 +109,7 @@ void PickingMgr::Make_Ray(float x, float y)
 	return;
 }
 
-void PickingMgr::TransformRayIntoWorld()
+void CPickingMgr::TransformRayIntoWorld()
 {
 	_matrix view, inverseview;
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &view);
@@ -133,12 +128,12 @@ void PickingMgr::TransformRayIntoWorld()
 //	D3DXMatrixInverse(&inverseworld, 0, &world);
 //}
 
-void PickingMgr::SortHitVectorASC()
+void CPickingMgr::SortHitVectorASC()
 {
 	sort(m_vecHit.begin(), m_vecHit.end(), [](const Ray_Hit* a, const Ray_Hit* b) {return a->_distance < b->_distance; });
 }
 
-void PickingMgr::SortHitVectorDESC()
+void CPickingMgr::SortHitVectorDESC()
 {
 	sort(m_vecHit.begin(), m_vecHit.end(), [](const Ray_Hit* a, const Ray_Hit* b) {return a->_distance > b->_distance; });
 
