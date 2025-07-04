@@ -172,6 +172,7 @@
     <ClInclude Include="..\Header\CModel.h" />
     <ClInclude Include="..\Header\CLightMgr.h" />
     <ClInclude Include="..\Header\CPicking.h" />
+    <ClInclude Include="..\Header\CPickTarget.h" />
     <ClInclude Include="..\Header\CRcCube.h" />
     <ClInclude Include="..\Header\CRenderMgr.h" />
     <ClInclude Include="..\Header\CResource.h" />
@@ -190,6 +191,8 @@
     <ClInclude Include="..\Header\Engine_Model.h" />
     <ClInclude Include="..\Header\Engine_Struct.h" />
     <ClInclude Include="..\Header\Engine_Typedef.h" />
+    <ClInclude Include="..\Header\CPickingMgr.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CCamera.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="..\Code\CModel.cpp" />
     <ClCompile Include="..\Code\CLightMgr.cpp" />
     <ClCompile Include="..\Code\CPicking.cpp" />
+    <ClCompile Include="..\Code\CPickTarget.cpp" />
     <ClCompile Include="..\Code\CRcCube.cpp" />
     <ClCompile Include="..\Code\CRenderMgr.cpp" />
     <ClCompile Include="..\Code\CResource.cpp" />
@@ -221,6 +225,10 @@
     <ClCompile Include="..\Code\CTimer.cpp" />
     <ClCompile Include="..\Code\CTransform.cpp" />
     <ClCompile Include="..\Code\CVIBuffer.cpp" />
+    <ClCompile Include="..\Code\CPickingMgr.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
