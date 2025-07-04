@@ -100,24 +100,24 @@ void CPlayer::KeyInput(const _float& fTimeDelta)
 	{
 		m_fSpeed = 10.f;
 	}
-	if (CInputMgr::Get_Instance()->Key_Down(DIK_W)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_LOOK) * m_fSpeed * fTimeDelta);
-	}
-	if (CInputMgr::Get_Instance()->Key_Down(DIK_S)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_LOOK) * m_fSpeed * fTimeDelta);
-	}
-	if (CInputMgr::Get_Instance()->Key_Down(DIK_D)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_RIGHT) * m_fSpeed * fTimeDelta);
-	}
-	if (CInputMgr::Get_Instance()->Key_Down(DIK_A)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_RIGHT) * m_fSpeed * fTimeDelta);
-	}
-	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_UP) * m_fSpeed * fTimeDelta);
-	}
-	if (CInputMgr::Get_Instance()->Key_Down(DIK_E)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_UP) * m_fSpeed * fTimeDelta);
-	}
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_W))
+		m_pTransform->Move(DIR_FORWARD, m_fSpeed, fTimeDelta);
+	
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_S))
+		m_pTransform->Move(DIR_BACKWARD, m_fSpeed, fTimeDelta);
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_D))
+		m_pTransform->Move(DIR_RIGHT, m_fSpeed, fTimeDelta);
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_A))
+		m_pTransform->Move(DIR_LEFT, m_fSpeed, fTimeDelta);
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q))
+		m_pTransform->Move(DIR_UP, m_fSpeed, fTimeDelta);
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_E))
+		m_pTransform->Move(DIR_DOWN, m_fSpeed, fTimeDelta);
 }
 
 void CPlayer::CursorRotate()

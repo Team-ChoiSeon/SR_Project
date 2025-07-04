@@ -19,7 +19,6 @@ public:
 	virtual void	LateUpdate_Component();
 
 public:
-    // ¼³Á¤
     void Set_Pos(const _vec3& vPos) { m_vPosition = vPos; }
     void Set_PosX(_float x) { m_vPosition.x = x; }
     void Set_PosY(_float y) { m_vPosition.y = y; }
@@ -39,7 +38,6 @@ public:
     void Set_Look(const _vec3& vLook) { m_vInfo[INFO_LOOK] = vLook; }
     
 
-    // Á¶È¸
     const _vec3& Get_Pos() const { return m_vPosition; }
     const _vec3& Get_Scale() const { return m_vScale; }
     const _vec3& Get_Angle() const { return m_vAngle; }
@@ -49,11 +47,26 @@ public:
     const _matrix* Get_ParentMatrix() const { return &m_matParent; }
     const _matrix* Get_OrbitMatrix() const { return &m_matOrbit; }
 
-    // ÀÌµ¿/È¸Àü
+    void Move(DIRECTION eDir, _float fSpeed, _float fDeltaTime)
+    {
+        _vec3 dir{};
+        switch (eDir)
+        {
+        case DIR_FORWARD:  dir = m_vInfo[INFO_LOOK]; break;
+        case DIR_BACKWARD: dir = -m_vInfo[INFO_LOOK]; break;
+        case DIR_LEFT:     dir = -m_vInfo[INFO_RIGHT]; break;
+        case DIR_RIGHT:    dir = m_vInfo[INFO_RIGHT]; break;
+        case DIR_UP:       dir = m_vInfo[INFO_UP]; break;
+        case DIR_DOWN:     dir = -m_vInfo[INFO_UP]; break;
+        }
+        m_vPosition += dir * fSpeed * fDeltaTime;
+    }
+
     void Move_Pos(const _vec3* pDir, const _float& fSpeed, const _float& fDelta)
     {
         m_vPosition += *pDir * fSpeed * fDelta;
     }
+
 
     void Rotate(ROTATION eType, const _float& fAngle)
     {
