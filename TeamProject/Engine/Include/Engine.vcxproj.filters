@@ -106,6 +106,9 @@
     <Filter Include="02. Components\05. PickTarget">
       <UniqueIdentifier>{255825e1-bb19-4766-b01d-b959ba12ff06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\Factory">
+      <UniqueIdentifier>{fc73e630-1d87-4355-9880-fb1f4a2ce1f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -231,6 +234,9 @@
     <ClInclude Include="..\Header\CPickTarget.h">
       <Filter>02. Components\05. PickTarget</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CFactory.h">
+      <Filter>03. GameObject\Factory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -334,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPickTarget.cpp">
       <Filter>02. Components\05. PickTarget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFactory.cpp">
+      <Filter>03. GameObject\Factory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
