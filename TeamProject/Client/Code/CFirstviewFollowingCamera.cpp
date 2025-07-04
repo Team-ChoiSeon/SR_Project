@@ -6,14 +6,13 @@
 #include "CCamera.h"
 #include "CInputMgr.h"
 
-CFirstviewFollowingCamera::CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target)
-	: CCameraObject(pGraphicDev), m_pFollowingTarget(target)
+CFirstviewFollowingCamera::CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicDev)
+	: CCameraObject(pGraphicDev)
 {
 	m_pTransform = Get_Component<CTransform>();
 	m_pCamera = Get_Component<CCamera>();
-	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
 
-	m_pTransform->Set_Pos(target_transform->Get_Pos());
+	m_pTransform->Set_Pos({0.f, 0.f, 0.f});
 	m_pTransform->Set_Angle({0.f, 0.f, 0.f});
 	m_pTransform->Set_Scale({1.f, 1.f, 1.f});
 	m_pTransform->Set_Look({0.f, 0.f, 1.f});
@@ -32,7 +31,7 @@ CFirstviewFollowingCamera::CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicD
 }
 
 CFirstviewFollowingCamera::CFirstviewFollowingCamera(const CFirstviewFollowingCamera& rhs)
-	: CCameraObject(rhs), m_pFollowingTarget(rhs.m_pFollowingTarget)
+	: CCameraObject(rhs)
 {
 }
 
@@ -48,30 +47,13 @@ HRESULT CFirstviewFollowingCamera::Ready_GameObject()
 
 int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 {
-	//if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB))
-	//{
-	//	if (m_bCursorMove)
-	//		m_bCursorMove = false;
-	//	else
-	//		m_bCursorMove = true;
-	//}
-
-	//if (!m_bCursorMove)
-	//	CursorRotate();
-
 	//Get and Change Target Angle, Set transform same as target
-	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
-	m_pTransform->Set_Pos(target_transform->Get_Pos());
-	m_pTransform->Set_Angle(target_transform->Get_Angle());
-	m_pTransform->Set_Look(target_transform->Get_Info(INFO_LOOK));
-	AngleClamping();
+	m_pTransform->Set_Pos(m_pTargetTransform->Get_Pos());
+	m_pTransform->Set_Angle(m_pTargetTransform->Get_Angle());
+	m_pTransform->Set_Look(m_pTargetTransform->Get_Info(INFO_LOOK));
 
-	//Set camera com 
-	m_pCamera->Set_Eye(m_pTransform->Get_Pos()); 
-	m_pCamera->Set_Up(m_pTransform->Get_Info(INFO_UP));
-	m_pCamera->Set_Look(m_pTransform->Get_Info(INFO_LOOK));
-	m_pCamera->Set_Right(m_pTransform->Get_Info(INFO_RIGHT));
-	m_pCamera->Set_At(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_LOOK));
+	m_pCamera->AngleClamping();
+
 
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
@@ -90,9 +72,9 @@ void CFirstviewFollowingCamera::Render_GameObject()
 {
 }
 
-CFirstviewFollowingCamera* CFirstviewFollowingCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target)
+CFirstviewFollowingCamera* CFirstviewFollowingCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	auto pCam = new CFirstviewFollowingCamera(pGraphicDev, target);
+	auto pCam = new CFirstviewFollowingCamera(pGraphicDev);
 	if (FAILED(pCam->Ready_GameObject())) {
 		Safe_Release(pCam);
 		return nullptr;
@@ -101,54 +83,8 @@ CFirstviewFollowingCamera* CFirstviewFollowingCamera::Create(LPDIRECT3DDEVICE9 p
 }
 void CFirstviewFollowingCamera::Free()
 {
-	Safe_Release(m_pFollowingTarget);
 	Safe_Release(m_pCamera);
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pGraphicDev);
 }
 
-void CFirstviewFollowingCamera::CursorRotate()
-{
-	//커서 고정
-	ShowCursor(false);
-	float cx = WINCX / 2.f;
-	float cy = WINCY / 2.f;
-	POINT cursor = { cx, cy };
-	ClientToScreen(g_hWnd, &cursor);
-	SetCursorPos(cursor.x, cursor.y);
-
-	//화면 회전
-	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X);
-	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y);
-
-	float sensitivity = 300.f;
-	float rx = dx / sensitivity;
-	float ry = dy / sensitivity;
-
-	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
-	target_transform->Set_Angle(target_transform->Get_Angle() + _vec3{ ry, rx, 0.f });
-
-}
-
-void CFirstviewFollowingCamera::AngleClamping()
-{
-	float pi = D3DX_PI;
-	auto target_transform = m_pFollowingTarget->Get_Component<CTransform>();
-	float fxlowGap = (-pi * 0.5f + 0.1f) - target_transform->Get_Angle().x;
-	float fxhighGap = target_transform->Get_Angle().x - (pi * 0.5f - 0.1f);
-
-	if (fxlowGap > 0.f) {
-		target_transform->Set_Angle(target_transform->Get_Angle() + _vec3{ fxlowGap, 0.f, 0.f});
-	}
-	else if (fxhighGap > 0.f) {
-		target_transform->Set_Angle(target_transform->Get_Angle() - _vec3{ fxhighGap, 0.f, 0.f });
-	}
-
-	if (target_transform->Get_Angle().y > pi * 2.f) {
-		target_transform->Set_Angle(target_transform->Get_Angle() - _vec3{ 0.f, pi * 2.f, 0.f });
-	}
-	else if (target_transform->Get_Angle().y < 0.f) {
-		target_transform->Set_Angle(target_transform->Get_Angle() + _vec3{ 0.f, pi * 2.f, 0.f });
-	}
-		
-}

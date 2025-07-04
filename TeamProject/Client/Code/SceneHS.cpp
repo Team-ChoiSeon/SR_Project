@@ -52,7 +52,7 @@ HRESULT SceneHS::Ready_Scene()
 	CUiMgr::Get_Instance()->AddUI(m_pCrosshair);
 
 	//m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pPlayer);
-	m_pdummycam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pDummy);
+	m_pdummycam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pdummycam);
 
 

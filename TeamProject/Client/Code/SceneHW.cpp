@@ -26,8 +26,10 @@ HRESULT SceneHW::Ready_Scene()
 	Init_Layers();
 	m_pPlayer = Player::Create(m_pGraphicDev);
 	m_pDummy = DummyCube::Create(m_pGraphicDev);
-	m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pPlayer);
-	m_pdummycam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pDummy);
+	m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
+	m_pFFCam->Set_Target(m_pPlayer);
+	m_pdummycam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
+	m_pdummycam->Set_Target(m_pDummy);
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"hwPlayer", m_pPlayer);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwdummy", m_pDummy);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"hwffcam", m_pFFCam);
