@@ -14,7 +14,7 @@ private:
 
 public:
 	//Basic Function
-	void		Ready_Picking(LPDIRECT3DDEVICE9 GrahphicDev);
+	void		Ready_Picking(LPDIRECT3DDEVICE9 GrahphicDev, HWND hWnd);
 	HRESULT		Update_Picking(const float& fTimeDelta);
 	_int		LateUpdate_Picking(const float& fTimeDelta);
 	void		Check_CollisionWorld();
@@ -27,10 +27,11 @@ public:
 	CGameObject*		Get_HitTarget();
 	vector<Ray_Hit*>*	Get_HitTargetList() { SortHitVectorASC();  return &m_vecHit; }
 
-	void Set_CursorPos	(POINT* cursor) { m_pCursor = cursor; }
+	void				Add_HitInfo(Ray_Hit* hitinfo) { m_vecHit.push_back(hitinfo); }
 
 private:
 	//Compute Function
+	void ComputeCursor();
 	void Make_Ray(float x, float y);
 	void TransformRayIntoWorld();
 	void SortHitVectorASC();
@@ -38,9 +39,10 @@ private:
 
 	//Variables
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
-	POINT*					m_pCursor;
+	HWND					m_hWnd;
 	Ray*					m_pRay;
 	vector<Ray_Hit*>		m_vecHit;
+	POINT					m_Cursor;
 
 	D3DVIEWPORT9			m_vp;
 	_matrix					m_mProj;

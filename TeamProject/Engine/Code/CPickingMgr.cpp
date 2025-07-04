@@ -13,10 +13,12 @@ CPickingMgr::~CPickingMgr()
 {
 }
 
-void CPickingMgr::Ready_Picking(LPDIRECT3DDEVICE9 GraphicDev)
+void CPickingMgr::Ready_Picking(LPDIRECT3DDEVICE9 GraphicDev, HWND hWnd)
 {
 	m_pGraphicDev = GraphicDev;
 	m_pGraphicDev->AddRef();
+
+	m_hWnd = hWnd;
 }
 
 HRESULT CPickingMgr::Update_Picking(const float& fTimeDelta)
@@ -24,7 +26,8 @@ HRESULT CPickingMgr::Update_Picking(const float& fTimeDelta)
 	if(!m_vecHit.empty())
 		m_vecHit.clear();
 
-	Make_Ray(m_pCursor->x, m_pCursor->y);		//ray 생성
+	ComputeCursor();
+	Make_Ray(m_Cursor.x, m_Cursor.y);		//ray 생성
 	TransformRayIntoWorld();					//ray를 월드공간으로 변화
 	//Check_CollisionWorld();
 	return S_OK;
@@ -91,6 +94,12 @@ CGameObject* CPickingMgr::Get_HitTarget()
 		return nullptr;
 	else
 		return m_vecHit.front()->_hittedobject;
+}
+
+void CPickingMgr::ComputeCursor()
+{
+	GetCursorPos(&m_Cursor);
+	ScreenToClient(m_hWnd, &m_Cursor);
 }
 
 void CPickingMgr::Make_Ray(float x, float y)
