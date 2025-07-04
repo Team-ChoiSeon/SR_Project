@@ -17,6 +17,7 @@ public:
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject() {};
+	/*virtual			void		Deserialize(const json& j);*/
 
 public:
 	// 사용 예시
