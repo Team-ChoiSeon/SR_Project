@@ -1,18 +1,16 @@
 #pragma once
 #include "CBase.h"
-#include "Engine_Define.h"
-#include "Engine_Struct.h"
 
 BEGIN(Engine)
 class CGameObject;
 class CScene;
 class CLayer;
-class ENGINE_DLL PickingMgr : public CBase
+class ENGINE_DLL CPickingMgr : public CBase
 {
-	DECLARE_SINGLETON(PickingMgr)
+	DECLARE_SINGLETON(CPickingMgr)
 private:
-	explicit PickingMgr();
-	virtual ~PickingMgr();
+	explicit CPickingMgr();
+	virtual ~CPickingMgr();
 
 public:
 	//Basic Function
