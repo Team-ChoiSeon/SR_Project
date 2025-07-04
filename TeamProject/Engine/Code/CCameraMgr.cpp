@@ -27,6 +27,9 @@ _int CCameraMgr::Update_Camera(LPDIRECT3DDEVICE9 pGraphicDev,  const _float& fTi
 	if (m_pMainCam == nullptr)
 		return -1;
 
+	m_matView = *m_pMainCam->Get_Component<CCamera>()->Get_ViewMatrix();
+	m_matProjection = *m_pMainCam->Get_Component<CCamera>()->Get_ProjectionMatrix();
+
 	pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 	pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProjection);
 	return 0;

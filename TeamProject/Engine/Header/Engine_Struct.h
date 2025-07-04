@@ -2,7 +2,7 @@
 #include "Engine_Typedef.h"
 
 namespace Engine {
-	class CGameObject;
+
 	typedef struct tagVertexColor
 	{
 		_vec3 vPosition;
@@ -60,6 +60,7 @@ namespace Engine {
 	class CGameObject;
 	typedef struct Ray_HitInfo {
 		CGameObject*	_hittedobject;
+		LAYERID			_objectlayer;
 		float			_distance;
 		_vec2			_hitteduv;
 		_vec3			_hittedcoord;

@@ -7,16 +7,16 @@ BEGIN(Engine)
 class CGameObject;
 class CScene;
 class CLayer;
-class ENGINE_DLL CPickingMgr : public CBase
+class ENGINE_DLL PickingMgr : public CBase
 {
-	DECLARE_SINGLETON(CPickingMgr)
+	DECLARE_SINGLETON(PickingMgr)
 private:
-	explicit CPickingMgr();
-	virtual ~CPickingMgr();
+	explicit PickingMgr();
+	virtual ~PickingMgr();
 
 public:
 	//Basic Function
-	void		Ready_Picking(LPDIRECT3DDEVICE9 GrahphicDev, HWND hWnd);
+	void		Ready_Picking(LPDIRECT3DDEVICE9 GrahphicDev);
 	HRESULT		Update_Picking(const float& fTimeDelta);
 	_int		LateUpdate_Picking(const float& fTimeDelta);
 	void		Check_CollisionWorld();
@@ -25,13 +25,14 @@ public:
 	void		Free();
 
 	//Getter, Setter Function
-	Ray					Get_Ray(){ return m_Ray; }
+	Ray*				Get_Ray(){ return m_pRay; }
 	CGameObject*		Get_HitTarget();
-	vector<Ray_Hit>*	Get_HitTargetList() { SortHitVectorASC();  return &m_vecHit; }
+	vector<Ray_Hit*>*	Get_HitTargetList() { SortHitVectorASC();  return &m_vecHit; }
+
+	void Set_CursorPos	(POINT* cursor) { m_pCursor = cursor; }
 
 private:
 	//Compute Function
-	void ComputeCursor();
 	void Make_Ray(float x, float y);
 	void TransformRayIntoWorld();
 	void SortHitVectorASC();
@@ -39,10 +40,9 @@ private:
 
 	//Variables
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
-	HWND					m_hWnd;
-	POINT					m_pCursor;
-	Ray						m_Ray;
-	vector<Ray_Hit>			m_vecHit;
+	POINT*					m_pCursor;
+	Ray*					m_pRay;
+	vector<Ray_Hit*>		m_vecHit;
 
 	D3DVIEWPORT9			m_vp;
 	_matrix					m_mProj;
