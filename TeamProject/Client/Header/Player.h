@@ -2,13 +2,11 @@
 #include "CGameObject.h"
 #include "CTransform.h"
 
-
-namespace Engine
-{
-	class CCubeTex;
-	class CVIBuffer;
+namespace Engine {
+	class CModel;
+	class CCollider;
 }
-class Player : public Engine::CGameObject
+class Player : public CGameObject
 {
 private:
 	Player(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -19,7 +17,6 @@ public:
 	HRESULT Ready_GameObject();
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
-	void Render_GameObject() override;
 
 	//Create, Release Function
 	static Player* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -35,28 +32,11 @@ protected:
 	void CursorRotate();
 
 private:
-	CVIBuffer* m_pVIBuffer;
 	CTransform* m_pTransform;
-
-	const _matrix* m_mWorld;
+	CModel* m_pModel;
+	CCollider* m_pCollider;
 
 	float m_fMoveSpeed;
-
-
-	VTXCOL*		vertecies;
-	INDEX32*	indecies;
-
-	//temp
-	LPDIRECT3DVERTEXBUFFER9		m_pVB;
-	LPDIRECT3DINDEXBUFFER9		m_pIB;
-
-
-	DWORD			m_dwVtxCnt;
-	DWORD			m_dwVtxSize;
-	DWORD			m_dwFVF;
-	DWORD			m_dwTriCnt;
-	DWORD			m_dwIdxSize;
-	D3DFORMAT		m_IdxFmt;
 
 	float m_fWidth;
 	float m_fDepth;

@@ -9,7 +9,7 @@ namespace Engine {
 typedef class CFirstviewFollowingCamera : public CCameraObject
 {
 private:
-	explicit CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target);
+	explicit CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CFirstviewFollowingCamera(const CFirstviewFollowingCamera& rhs);
 	virtual ~CFirstviewFollowingCamera();
 
@@ -21,18 +21,20 @@ public:
 	void		Render_GameObject() override;
 
 	//Create, Release Function
-	static		CFirstviewFollowingCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target);
+	static		CFirstviewFollowingCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void		Free();
 
-	//Optional Function
-	void		CursorRotate();
-	void		AngleClamping();
+	//Getter, Setter Function
+	void		Set_Target(CGameObject* target) { 
+		m_pCamera->Set_Target(target);
+		m_pTargetTransform = m_pCamera->Get_Target()->Get_Component<CTransform>();
+	}
 
 protected:
 
 private:
-	CGameObject*			m_pFollowingTarget;
 	CTransform*				m_pTransform;
+	CTransform*				m_pTargetTransform;
 	CCamera*				m_pCamera;
 
 	bool					m_bCursorMove = false;
