@@ -36,6 +36,8 @@ public:
 	// 
 	HRESULT Load_Texture(const wstring& filePath);
 
+	HRESULT Load_GameObject(const wstring& filePath);
+
 
 
 	// 이름 기반 조회
@@ -66,6 +68,7 @@ public:
 	
 	string ToString(const wstring& wstr);
 	wstring ToWString(const string& str);
+	LAYERID ToLayer(const wstring& wstr);
 
 private:
 	// Extract FileName From FilePath

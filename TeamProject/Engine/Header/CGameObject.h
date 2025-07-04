@@ -17,6 +17,7 @@ public:
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject() {};
+	/*virtual			void		Deserialize(const json& j);*/
 
 public:
 	// 사용 예시
@@ -67,12 +68,15 @@ void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 		MSG_BOX("[GameObject] Add_Component : ");
 		return;
 	}
+  
+  
 	T* pComp = T::Create(std::forward<Args>(args)...);
 	if (pComp == nullptr)
 	{
 		MSG_BOX("[GameObject] Add_Component : ");
 		return;
 	}
+  
 	pComp->m_pOwner = this;
 	m_umComponent[eID].emplace(tag, pComp);
 }
