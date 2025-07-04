@@ -32,10 +32,6 @@ void SceneBG::LateUpdate_Scene(const _float& fTimeDelta)
 		pLayer.second->LateUpdate_Layer(fTimeDelta);
 }
 
-void SceneBG::Render_Scene()
-{
-}
-
 SceneBG* SceneBG::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneBG* pScene = new SceneBG(pGraphicDev);

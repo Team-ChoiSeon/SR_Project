@@ -28,8 +28,6 @@ CMesh::~CMesh()
 
 HRESULT CMesh::Ready_Buffer()
 {
-    if (!m_pVB || !m_pIB)
-        return E_FAIL;
 
     if (FAILED(m_pGraphicDev->CreateVertexBuffer(m_dwVtxCnt * m_dwVtxSize, // 버텍스 버퍼 크기
         0,      // 버퍼 속성(0인 경우 정적 버퍼)
@@ -38,6 +36,7 @@ HRESULT CMesh::Ready_Buffer()
         &m_pVB, // 생성한 버텍스 버퍼를 정보를 저장할 객체 주소
         NULL)))
     {
+        MSG_BOX("VertexBuffer 생성 실패");
         return E_FAIL;
     }
 
@@ -48,6 +47,7 @@ HRESULT CMesh::Ready_Buffer()
         &m_pIB, // 생성한 인덱스 버퍼를 정보를 저장할 객체 주소
         NULL)))
     {
+        MSG_BOX("IndexBuffer 생성 실패");
         return E_FAIL;
     }
 

@@ -60,11 +60,6 @@ void CScene::LateUpdate_Scene(const _float& fTimeDelta)
         pLayer.second->LateUpdate_Layer(fTimeDelta);
 }
 
-void CScene::Render_Scene()
-{
-    for (const auto& pLayer : m_umLayer)
-        pLayer.second->Render_Layer();
-}
 
 void CScene::Free()
 {

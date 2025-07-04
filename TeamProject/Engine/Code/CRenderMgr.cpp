@@ -12,13 +12,20 @@ CRenderMgr::~CRenderMgr()
 	Free();
 }
 
-HRESULT CRenderMgr::Ready_RenderMgr(LPDIRECT3DDEVICE9 pDevice)
+HRESULT CRenderMgr::Ready_RenderMgr()
 {
+	m_vModellist.resize(static_cast<int>(RENDER_PASS::RP_END));
+	Clear();
 	return S_OK;
 }
 
 void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 {
+	//OutputDebugString("[RenderMgr] Render Start\n");
+	/*wchar_t buffer[64];
+	swprintf_s(buffer, L"OPAQUE ¸ðµ¨ ¼ö: %d\n", m_vModellist[static_cast<int>(RENDER_PASS::RP_OPAQUE)].size());
+	OutputDebugStringW(buffer);*/
+
 	//·»´õ ½ºÅ×ÀÌÆ® ¼³Á¤
 	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
@@ -42,8 +49,10 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 		renderer->Render(pDevice);
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_OPAQUE)])
+	{
 		renderer->Render(pDevice);
-
+	}
+		
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_STENCIL)])
 		renderer->Render(pDevice);
 
@@ -65,6 +74,7 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 
 void CRenderMgr::Add_Model(CModel* model)
 {
+	OutputDebugString("[RenderMgr] Add_Model È£ÃâµÊ\n");
 	auto pass = static_cast<int>(model->Get_RenderPass());
 
 	auto iter = find_if(m_vModellist[pass].begin(), m_vModellist[pass].end(),
@@ -74,6 +84,7 @@ void CRenderMgr::Add_Model(CModel* model)
 
 	if (iter == m_vModellist[pass].end())
 		m_vModellist[pass].push_back(model);
+	OutputDebugString("[CRenderMgr] ¸ðµ¨ Ãß°¡µÊ\n");
 }
 
 void CRenderMgr::Remove_Model(CModel* model)
@@ -117,7 +128,9 @@ void CRenderMgr::Remove_Collider(CCollider* collider)
 
 void CRenderMgr::Clear()
 {
-	m_vModellist.clear();
+	for (auto& list : m_vModellist)
+		list.clear();
+
 	m_vCol.clear();
 }
 

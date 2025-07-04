@@ -56,7 +56,9 @@ _int CLayer::Update_Layer(const _float& fTimeDelta)
 void CLayer::LateUpdate_Layer(const _float& fTimeDelta)
 {
 	for (auto& pObj : m_vObject)
+	{
 		pObj.pObj->LateUpdate_GameObject(fTimeDelta);
+	}
 }
 
 void CLayer::Render_Layer()

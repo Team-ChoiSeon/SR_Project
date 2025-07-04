@@ -34,7 +34,9 @@ _int CGameObject::Update_GameObject(const _float& fTimeDelta)
 void CGameObject::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     for (auto& pComponent : m_umComponent[ID_DYNAMIC])
+    {
         pComponent.second->LateUpdate_Component();
+    }
 }
 
 void CGameObject::Free()
