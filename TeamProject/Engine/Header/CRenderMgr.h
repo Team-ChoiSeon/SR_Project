@@ -15,7 +15,7 @@ private:
 	virtual ~CRenderMgr();
 
 public:
-	HRESULT Ready_RenderMgr(LPDIRECT3DDEVICE9 pDevice);
+	HRESULT Ready_RenderMgr();
 	void Render(LPDIRECT3DDEVICE9 pDevice);
 
 public:

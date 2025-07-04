@@ -120,6 +120,12 @@
     <ClInclude Include="..\Header\CTestLightMeshObject.h">
       <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CPlayer.h">
+      <Filter>04. GameObjects\TestPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMonster.h">
+      <Filter>04. GameObjects\TestObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -169,6 +175,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp">
       <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayer.cpp">
+      <Filter>04. GameObjects\TestPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonster.cpp">
+      <Filter>04. GameObjects\TestObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

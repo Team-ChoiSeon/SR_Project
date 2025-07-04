@@ -101,6 +101,5 @@ namespace Engine
 				Pair.second = NULL;
 		}
 	};
-
 }
 

@@ -160,6 +160,7 @@
     <ClInclude Include="..\Header\CCollisionMgr.h" />
     <ClInclude Include="..\Header\CComponent.h" />
     <ClInclude Include="..\Header\CCubeTex.h" />
+    <ClInclude Include="..\Header\CFactory.h" />
     <ClInclude Include="..\Header\CFrame.h" />
     <ClInclude Include="..\Header\CFrameMgr.h" />
     <ClInclude Include="..\Header\CGameObject.h" />
@@ -171,7 +172,8 @@
     <ClInclude Include="..\Header\CMesh.h" />
     <ClInclude Include="..\Header\CModel.h" />
     <ClInclude Include="..\Header\CLightMgr.h" />
-    <ClInclude Include="..\Header\CPicking.h" />
+    <ClInclude Include="..\Header\CPickingMgr.h" />
+    <ClInclude Include="..\Header\CPickTarget.h" />
     <ClInclude Include="..\Header\CRcCube.h" />
     <ClInclude Include="..\Header\CRenderMgr.h" />
     <ClInclude Include="..\Header\CResource.h" />
@@ -201,6 +203,7 @@
     <ClCompile Include="..\Code\CCollisionMgr.cpp" />
     <ClCompile Include="..\Code\CComponent.cpp" />
     <ClCompile Include="..\Code\CCubeTex.cpp" />
+    <ClCompile Include="..\Code\CFactory.cpp" />
     <ClCompile Include="..\Code\CFrame.cpp" />
     <ClCompile Include="..\Code\CFrameMgr.cpp" />
     <ClCompile Include="..\Code\CGameObject.cpp" />
@@ -212,7 +215,8 @@
     <ClCompile Include="..\Code\CMesh.cpp" />
     <ClCompile Include="..\Code\CModel.cpp" />
     <ClCompile Include="..\Code\CLightMgr.cpp" />
-    <ClCompile Include="..\Code\CPicking.cpp" />
+    <ClCompile Include="..\Code\CPickingMgr.cpp" />
+    <ClCompile Include="..\Code\CPickTarget.cpp" />
     <ClCompile Include="..\Code\CRcCube.cpp" />
     <ClCompile Include="..\Code\CRenderMgr.cpp" />
     <ClCompile Include="..\Code\CResource.cpp" />

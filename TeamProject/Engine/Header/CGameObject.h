@@ -1,6 +1,7 @@
 #pragma once
 #include "CBase.h"
 #include "CComponent.h"
+#include "CModel.h"
 
 BEGIN(Engine)
 
@@ -16,6 +17,7 @@ public:
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject() {};
+	/*virtual			void		Deserialize(const json& j);*/
 
 public:
 	// 사용 예시
@@ -43,6 +45,7 @@ protected:
 	LPDIRECT3DDEVICE9								m_pGraphicDev;
 
 };
+
 template<typename T>
 T* CGameObject::Get_Component()
 {
@@ -65,16 +68,19 @@ void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 		MSG_BOX("[GameObject] Add_Component : ");
 		return;
 	}
-
+  
+  
 	T* pComp = T::Create(std::forward<Args>(args)...);
 	if (pComp == nullptr)
 	{
 		MSG_BOX("[GameObject] Add_Component : ");
 		return;
 	}
+  
 	pComp->m_pOwner = this;
 	m_umComponent[eID].emplace(tag, pComp);
 }
+
 
 template<typename T>
 bool CGameObject::Has_Component()

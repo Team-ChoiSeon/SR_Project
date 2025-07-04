@@ -2,7 +2,8 @@
 #include "CComponent.h"
 
 BEGIN(Engine)
-
+class CGameObject;
+class CTransform;
 class ENGINE_DLL CCamera : public CComponent
 {
 private:
@@ -23,6 +24,7 @@ public:
 
 	//Optional Function
 	void ComputeLookRightUpVectors();
+	void AngleClamping();
 
 	//Getter, Setter Function
 	const _vec3 Get_Eye()					const { return m_vEye; }
@@ -35,8 +37,9 @@ public:
 	const float Get_Aspect()				const { return m_fAspect; }
 	const float Get_Near()					const { return m_fNear; }
 	const float Get_Far()					const { return m_fFar; }
-	const _matrix* Get_ViewMatrix()			const { return &m_mView; }
-	const _matrix* Get_ProjectionMatrix()	const { return &m_mProj; }
+	const _matrix*	Get_ViewMatrix()		const { return &m_mView; }
+	const _matrix*	Get_ProjectionMatrix()	const { return &m_mProj; }
+	CGameObject* Get_Target()					  { return m_pTarget; }
 
 	void Set_Eye				(const _vec3& vEye) { m_vEye = vEye; }
 	void Set_Eye				(const float& x, const float& y, const float& z) { m_vEye = { x, y, z }; }
@@ -56,13 +59,15 @@ public:
 	void Set_ViewMatrix			(const _vec3& vEye, const _vec3& vAt, const _vec3& vUp) { m_vEye = vEye; m_vAt = vAt; m_vUp = vUp; }
 	void Set_ProjectionMatrix	(const _matrix* mProj) { m_mProj = *mProj; }
 	void Set_ProjectionMatrix	(const float& fFov, const float& fAspect, const float& fNear, const float& fFar) { m_fFov = fFov; m_fAspect = fAspect; m_fNear = fNear; m_fFar = fFar; }
-
+	void Set_Target				(CGameObject* target) { m_pTarget = target; }
 private:
 	//Computing Functions
+	void Set_LRUbyTransform();
 	void ComputeViewMatrix();
 	void ComputeProjMatrix();
 
 	//Variables, Structs
+	CGameObject* m_pTarget;
 	_matrix		m_mView;
 	_matrix		m_mProj;
 

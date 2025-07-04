@@ -1,5 +1,8 @@
 #include "CResourceMgr.h"
 #include "CGraphicDev.h"
+#include "CCubeTex.h"
+#include "CFactory.h"
+#include "CSceneMgr.h"
 
 
 IMPLEMENT_SINGLETON(CResourceMgr)
@@ -19,7 +22,8 @@ HRESULT CResourceMgr::Ready_Resource()
 	m_pGraphicDev = CGraphicDev::Get_Instance()->Get_GraphicDev();
 	if (!m_pGraphicDev)
 		return E_FAIL;
-
+	Load_Material(L"DirtObj.mtl");
+	Load_Mesh <CCubeTex>(m_pGraphicDev, L"CCubeTex");
 	m_pGraphicDev->AddRef();
 }
 
@@ -43,70 +47,129 @@ HRESULT CResourceMgr::Load_Texture(const wstring& texturePath)
 	return S_OK;
 }
 
+HRESULT CResourceMgr::Load_GameObject(const wstring& filePath)
+{
+	//HANDLE hFile = ::CreateFileW(
+	//	path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+	//if (hFile == INVALID_HANDLE_VALUE) {
+	//	MessageBoxW(nullptr, L"파일 열기 실패", L"Error", MB_OK);
+	//	return;
+	//}
+
+	//DWORD fileSize = GetFileSize(hFile, NULL);
+	//std::string jsonText(fileSize, '\0');
+	//DWORD bytesRead = 0;
+	//ReadFile(hFile, jsonText.data(), fileSize, &bytesRead, NULL);
+	//CloseHandle(hFile);
+
+	//json jScene = json::parse(jsonText);
+
+	//for (const auto& jObj : jScene["objects"])
+	//{
+	//	string className = jObj["class"];
+	//	string instanceName = jObj["name"];
+	//	string layerName = jObj["Layer"];
+
+	//	CGameObject* pObj = CFactory::Create(ToWString(className), m_pGraphicDev);
+	//	if (!pObj) continue;
+
+	//	pObj->Deserialize(jObj);
+
+	//	CScene* pScene = CSceneMgr::Get_Instance()->Get_Scene();
+	//	// 예: Layer 등록 -> d
+	//	LAYERID id = ToLayer(ToWString(jObj["Layer"]));
+	//	pScene->Get_Layer(id)->Add_GameObject(ToWString(instanceName), pObj);
+	//}
+
+	return S_OK;
+}
+
 HRESULT CResourceMgr::Load_Material(const wstring& mtlPath)
 {
-	// Already exist
-	auto iter = m_umMaterial.find(mtlPath);
-	if (iter != m_umMaterial.end())
-		return E_FAIL;
+	// 이미 로드되어 있으면 종료
+	if (m_umMaterial.find(mtlPath) != m_umMaterial.end())
+		return S_OK;
 
-	// Set Path
-	wstring BasePath = L"../Bin/Resource/Material/";
-	wstring filePath = BasePath + mtlPath;
+	// 경로 조합
+	wstring basePath = L"../Bin/Resource/Material/";
+	wstring fullPath = basePath + mtlPath;
 
-	// Open .mtl file 
-	wifstream in(filePath);
+	// UTF-8 바이너리로 읽기
+	ifstream in(fullPath, ios::binary);
 	if (!in.is_open()) {
 		MSG_BOX("ResourceMgr::File Open Failed");
 		return E_FAIL;
 	}
 
-	// Ready .mtl parsing
-	wstring line;
+	string utf8Line;
 	wstring matName;
 	wstring texturePath;
 
-	// 한 줄씩 읽으면서 파싱
-	while (std::getline(in, line))//한줄씩
+	while (getline(in, utf8Line))
 	{
-		wistringstream iss(line);
+		wstring wline = ToWString(utf8Line); // UTF-8 → wide string
+		wistringstream iss(wline);
 		wstring token;
-		iss >> token; //line 문자열을 띄어쓰기(공백) 기준으로 토큰 단위로 분리
+		iss >> token;
 
-		// 머티리얼 이름 저장
 		if (token == L"newmtl") {
-			iss >> matName;//newmtl이 나오면 그다음은 머티리얼 네임
+			iss >> matName;
 		}
-		// 디퓨즈 텍스처 경로 추출
 		else if (token == L"map_Kd") {
-			iss >> texturePath;//map_Kd이 나오면 다음은 텍스쳐
+			iss >> texturePath;
 
-			// 경로 문자열에서 마지막 슬래시(/ 또는 \)의 위치를 찾음
-			// 예: "C:/folder/texture.jpg" → 마지막 '/'는 index 11
+			// 슬래시 잘라내기
 			size_t pos = texturePath.find_last_of(L"/\\");
-
-			// 찾았다면 (npos가 아니라면) → 파일명만 추출
-			// 예: substr(12) → "texture.jpg"
 			if (pos != wstring::npos)
 				texturePath = texturePath.substr(pos + 1);
 		}
 	}
 
-	// 텍스처 로드 시 경로 조합 (※ 실제 경로 구조에 따라 수정 가능)
-	Load_Texture(texturePath);
+	// 텍스처 로드
+	if (FAILED(Load_Texture(texturePath)))
+		return E_FAIL;
+
 	CTexture* tex = Get_Texture(texturePath);
 	if (!tex) return E_FAIL;
 
-	// 머티리얼 객체 생성 및 텍스처 설정
+	// 머티리얼 생성 및 등록
 	CMaterial* mat = CMaterial::Create();
 	mat->Set_Diffuse(tex);
-
-	// 머티리얼 맵에 등록 (이름으로 저장)
 	m_umMaterial[mtlPath] = mat;
 
 	return S_OK;
 }
 
+
+string CResourceMgr::ToString(const wstring& wstr)
+{
+	if (wstr.empty()) return {};
+	int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr.data(), (int)wstr.size(), nullptr, 0, nullptr, nullptr);
+	std::string result(size_needed, 0);
+	WideCharToMultiByte(CP_UTF8, 0, wstr.data(), (int)wstr.size(), &result[0], size_needed, nullptr, nullptr);
+	return result;
+}
+
+wstring CResourceMgr::ToWString(const string& str)
+{
+	if (str.empty()) return {};
+	int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.data(), (int)str.size(), nullptr, 0);
+	std::wstring result(size_needed, 0);
+	MultiByteToWideChar(CP_UTF8, 0, str.data(), (int)str.size(), &result[0], size_needed);
+	return result;
+}
+
+// enum LAYERID { LAYER_TILE, LAYER_OBJECT, LAYER_PLAYER, LAYER_CAMERA, LAYER_END };
+LAYERID CResourceMgr::ToLayer(const wstring& wstr)
+{
+	if (wstr == L"CAMERA")  return LAYERID::LAYER_CAMERA;
+	if (wstr == L"PLAYER")  return LAYERID::LAYER_PLAYER;
+	if (wstr == L"OBJECT")  return LAYERID::LAYER_OBJECT;
+	if (wstr == L"TILE")    return LAYERID::LAYER_TILE;
+
+	return LAYERID::LAYER_END; // 또는 예외 처리용 L_INVALID이 있으면 더 좋음
+}
 
 wstring CResourceMgr::Get_FileName(const wstring& filePath)
 {

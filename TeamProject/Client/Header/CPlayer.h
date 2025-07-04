@@ -1,16 +1,16 @@
 #pragma once
 #include "CGameObject.h"
-#include "CTransform.h"
 
-namespace Engine {
-	class CModel;
-	class CCollider;
-}
-class Player : public CGameObject
+#include "CTransform.h"
+#include "CModel.h"
+#include "CCollider.h"
+
+
+class CPlayer : public Engine::CGameObject
 {
 private:
-	Player(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~Player();
+	CPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CPlayer();
 
 public:
 	//Basic Function
@@ -19,7 +19,7 @@ public:
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
 	//Create, Release Function
-	static Player* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
 	//Gettter, Setter Function
@@ -36,7 +36,9 @@ private:
 	CModel* m_pModel;
 	CCollider* m_pCollider;
 
-	float m_fMoveSpeed;
+	const _matrix* m_mWorld;
+
+	float m_fSpeed;
 
 	float m_fWidth;
 	float m_fDepth;

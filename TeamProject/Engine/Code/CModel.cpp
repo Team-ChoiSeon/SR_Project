@@ -13,13 +13,42 @@ CModel::~CModel()
 {
 }
 
+CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, const DefaultCubeModel& model)
+{
+	auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
+	auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
+
+	if (!pMesh || !pMaterial) {
+		MSG_BOX("CModel::Create - Resource Missing");
+		return nullptr;
+	}
+	auto pModel = new CModel(pDevice);
+	pModel->Set_Mesh(pMesh);
+	pModel->Set_Material(pMaterial);
+	OutputDebugString("[CModel] Create È£ÃâµÊ\n");
+	return pModel;
+}
+
 void CModel::LateUpdate_Component()
 {
+	OutputDebugString("[CModel] LateUpdate_Component È£ÃâµÊ\n");
 	CRenderMgr::Get_Instance()->Add_Model(this);
+	OutputDebugString("[CModel] µî·ÏµÊ\n");
 }
 
 void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 {
+	if (!m_pMesh)
+	{
+		OutputDebugString("[CModel] m_pMesh is nullptr\n");
+		return;
+	}
+	if (!m_pMaterial)
+	{
+		OutputDebugString("[CModel] m_pMaterial is nullptr\n");
+		return;
+	}
+
 	CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
 	if (pTransform == nullptr)
 	{

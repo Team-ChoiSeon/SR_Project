@@ -2,16 +2,18 @@
 #include "pch.h"
 #include "DummyCube.h"
 #include "CGameObject.h"
-#include "CRcCube.h"
 #include "CTransform.h"
+#include "CCollider.h"
+#include "CCollisionMgr.h"
+#include "CModel.h"
 #include "CInputMgr.h"
+#include "Engine_Model.h"
+#include "CPickTarget.h"
+#include "CPickingMgr.h"
 
-DummyCube::DummyCube(LPDIRECT3DDEVICE9 pGrpahicDev) : CGameObject(pGrpahicDev)
-{
-	m_pGraphicDev = pGrpahicDev;
-	Add_Component<CRcCube>(ID_DYNAMIC, m_pGraphicDev);
-	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-
+DummyCube::DummyCube(LPDIRECT3DDEVICE9 pGraphicDev) 
+	: CGameObject(pGraphicDev)
+{ 
 }
 
 DummyCube::~DummyCube()
@@ -20,16 +22,23 @@ DummyCube::~DummyCube()
 
 HRESULT DummyCube::Ready_GameObject()
 {
-	m_pCube = Get_Component<CRcCube>();
-	m_pTransform = Get_Component<CTransform>();
+	DefaultCubeModel tModel;
+	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
+	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
+	Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
 
-	m_pTransform->Ready_Transform();
+	m_pModel = Get_Component<CModel>();
+	m_pCollider = Get_Component<CCollider>();
+	m_pTransform = Get_Component<CTransform>();
+	m_pPick = Get_Component<CPickTarget>();
+
 	m_pTransform->Set_Pos({ 0.f, 0.f, 10.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, -1.f });
 	m_pTransform->Set_Right({ -1.f, 0.f, 0.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Angle({ 0.f, D3DX_PI, 0.f });
-	m_pCube->Ready_Buffer();
+
 
 	return S_OK;
 }
@@ -49,13 +58,6 @@ void DummyCube::LateUpdate_GameObject(const _float& fTimeDelta)
 		pComponent.second->LateUpdate_Component();
 }
 
-void DummyCube::Render_GameObject()
-{
-	m_mWorld = Get_Component<CTransform>()->Get_WorldMatrix();
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_mWorld);
-	Get_Component<CRcCube>()->Render_Buffer();
-}
-
 DummyCube* DummyCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	DummyCube* pDummy = new DummyCube(pGraphicDev);
@@ -72,8 +74,10 @@ DummyCube* DummyCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void DummyCube::Free()
 {
-	Safe_Release(m_pCube);
+	Safe_Release(m_pModel);
+	Safe_Release(m_pCollider);
 	Safe_Release(m_pTransform);
+	Safe_Release(m_pPick);
 }
 
 void DummyCube::Key_Input(const float& fTimeDelta)

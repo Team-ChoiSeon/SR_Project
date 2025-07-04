@@ -23,6 +23,9 @@
 #include <typeindex> //타입으로 해시
 #include <process.h>//쓰레드
 
+#include <codecvt>
+#include <locale>
+
 #include <windows.h>
 #include <fstream>
 #include <strsafe.h>

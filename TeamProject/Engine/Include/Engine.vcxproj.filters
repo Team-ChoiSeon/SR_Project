@@ -52,9 +52,6 @@
     <Filter Include="02. Components\02. Camera">
       <UniqueIdentifier>{5810b33a-5f21-45d0-8341-3f2205c15949}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Components\05. Picking">
-      <UniqueIdentifier>{255825e1-bb19-4766-b01d-b959ba12ff06}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06. Resources">
       <UniqueIdentifier>{dea1e113-086d-4d67-99bd-120fc20a0e6c}</UniqueIdentifier>
     </Filter>
@@ -102,6 +99,15 @@
     </Filter>
     <Filter Include="01. Managers\09. CollisionMgr">
       <UniqueIdentifier>{303bca43-dd84-4700-bc16-2fc5d5310384}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\10. PickingMgr">
+      <UniqueIdentifier>{f89fc16b-e64f-4dc6-89f4-7896d22ec2f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\05. PickTarget">
+      <UniqueIdentifier>{255825e1-bb19-4766-b01d-b959ba12ff06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\Factory">
+      <UniqueIdentifier>{fc73e630-1d87-4355-9880-fb1f4a2ce1f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +177,6 @@
     <ClInclude Include="..\Header\CCamera.h">
       <Filter>02. Components\02. Camera</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CPicking.h">
-      <Filter>02. Components\05. Picking</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CResource.h">
       <Filter>06. Resources</Filter>
     </ClInclude>
@@ -221,6 +224,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\CCollisionMgr.h">
       <Filter>01. Managers\09. CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPickingMgr.h">
+      <Filter>01. Managers\10. PickingMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPickTarget.h">
+      <Filter>02. Components\05. PickTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFactory.h">
+      <Filter>03. GameObject\Factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +284,6 @@
     <ClCompile Include="..\Code\CCamera.cpp">
       <Filter>02. Components\02. Camera</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CPicking.cpp">
-      <Filter>02. Components\05. Picking</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CMesh.cpp">
       <Filter>06. Resources\Mesh</Filter>
     </ClCompile>
@@ -319,6 +328,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCollisionMgr.cpp">
       <Filter>01. Managers\09. CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPickingMgr.cpp">
+      <Filter>01. Managers\10. PickingMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPickTarget.cpp">
+      <Filter>02. Components\05. PickTarget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFactory.cpp">
+      <Filter>03. GameObject\Factory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

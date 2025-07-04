@@ -1,11 +1,14 @@
 #pragma once
 #include "CComponent.h"
+#include "CCollider.h"
 
-class CPickTarget : public CComponent
+BEGIN(Engine)
+//class CCollider;
+class ENGINE_DLL CPickTarget : public CComponent
 {
 private:
 	explicit CPickTarget();
-	explicit CPickTarget(HWND hwnd, LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE boundtype);
+	explicit CPickTarget(LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE boundtype);
 	explicit CPickTarget(const CPickTarget& rhs);
 	virtual ~CPickTarget();
 
@@ -17,25 +20,33 @@ public:
 
 
 	//Create, Release Function
-	static CPickTarget* Create(HWND hwnd, LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE boundtype);
+	static CPickTarget* Create(LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE boundtype);
 	void				Free();
 
 	//Core Function
-	void Check_Collision();
+	bool Check_Collision();
 	void Add_HitInfo();
 
 	//Optional Function
 	
 	//Getter,Setter Function
-
+	void Set_RayCheckType(RAYCHECKTYPE eRayCheckType) { m_eRayCheckType = eRayCheckType; }
+	//void Set_RayBoundTri(Ray_Tri* boundtri) { m_pRayTri = boundtri; }
 
 private:
+	//Compute Function
+	void TranslationIntoLocal();
+	bool CheckAABB();
+	bool CheckOBB();
+	bool CheckSPHERE();
+	bool CheckTRI();
+
 	//Variables
-	HWND					m_HWND;
-	_vec2					m_vCursorPos;
+	Ray*					m_pRay;
 	RAYCHECKTYPE			m_eRayCheckType;
-	Ray_Hit					m_pRayHitInfo;
-	POINT					m_pCursr;
+	Ray_Hit					m_RayHitInfo;
+	CCollider*				m_pCollider = nullptr;
 
 };
 
+END

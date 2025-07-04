@@ -21,7 +21,8 @@ HRESULT CSceneMgr::Set_Scene(CScene* pScene)
     Safe_Release(m_pScene);
     //CRenderMgr::GetInstance()->Clear_RenderGroup();
     m_pScene = pScene;
-
+    //m_pScene->Ready_Scene();
+    OutputDebugString("Set_Scene\n");
     return S_OK;
 }
 
@@ -38,10 +39,7 @@ void CSceneMgr::LateUpdate_Scene(const _float& fTimeDelta)
     m_pScene->LateUpdate_Scene(fTimeDelta);
 }
 
-void CSceneMgr::Render_Scene()
-{
-    m_pScene->Render_Scene();
-}
+
 
 void CSceneMgr::Free()
 {
