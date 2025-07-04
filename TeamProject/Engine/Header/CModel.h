@@ -4,6 +4,7 @@
 #include "CMaterial.h"
 #include "CTexture.h"
 #include "CResourceMgr.h"
+#include "Engine_Model.h"
 
 
 BEGIN(Engine)
@@ -19,9 +20,13 @@ public:
     virtual ~CModel();
 
 public:
-    template <typename ModelT, typename... Args>
-    static CModel* Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args);
-
+    /*template <typename ModelT, typename... Args>
+    static CModel* Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args);*/
+    //static CModel* Create(LPDIRECT3DDEVICE9 pDevice)
+    //{
+    //    return Create<DefaultCubeModel>(pDevice);
+    //}
+    static CModel* Create(LPDIRECT3DDEVICE9 pDevice, const DefaultCubeModel& model);
     virtual void LateUpdate_Component()override;
     void Render(LPDIRECT3DDEVICE9 pDevice);
 
@@ -44,28 +49,28 @@ private:
 };
 
 
-template <typename ModelT, typename... Args>
-static CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args)
-{
-    ModelT model;
-    // 인자들을 하나씩 처리    
-    (ApplyArg(model, std::forward<Args>(args)), ...);
-    auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
-    // auto pTexture = CResourceMgr::Get_Instance()->Get_Texture(model.textureKey);
-    auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
-    
-
-    if (!pMesh || !pMaterial) {
-        MSG_BOX("CModel::Create - Resource Missing");
-        return nullptr;
-    }
-
-    auto pModel = new CModel(pDevice);
-    pModel->Set_Mesh(pMesh);
-    // pModel->Set_Texture(pTexture);
-    pModel->Set_Material(pMaterial);
-
-    return pModel;
-};
+//template <typename ModelT, typename... Args>
+//static CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args)
+//{
+//    ModelT model;
+//    // 인자들을 하나씩 처리    
+//    (ApplyArg(model, std::forward<Args>(args)), ...);
+//    auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
+//    // auto pTexture = CResourceMgr::Get_Instance()->Get_Texture(model.textureKey);
+//    auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
+//    
+//
+//    if (!pMesh || !pMaterial) {
+//        MSG_BOX("CModel::Create - Resource Missing");
+//        return nullptr;
+//    }
+//
+//    auto pModel = new CModel(pDevice);
+//    pModel->Set_Mesh(pMesh);
+//    // pModel->Set_Texture(pTexture);
+//    pModel->Set_Material(pMaterial);
+//
+//    return pModel;
+//};
 
 END

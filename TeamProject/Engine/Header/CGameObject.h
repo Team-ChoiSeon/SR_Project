@@ -1,6 +1,7 @@
 #pragma once
 #include "CBase.h"
 #include "CComponent.h"
+#include "CModel.h"
 
 BEGIN(Engine)
 
@@ -43,6 +44,7 @@ protected:
 	LPDIRECT3DDEVICE9								m_pGraphicDev;
 
 };
+
 template<typename T>
 T* CGameObject::Get_Component()
 {
@@ -65,16 +67,18 @@ void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 		MSG_BOX("[GameObject] Add_Component : ");
 		return;
 	}
-
+	OutputDebugString("[Add_Component<CModel>] called\n");
 	T* pComp = T::Create(std::forward<Args>(args)...);
 	if (pComp == nullptr)
 	{
 		MSG_BOX("[GameObject] Add_Component : ");
 		return;
 	}
+	OutputDebugString("[Add_Component<CModel>] pComp created\n");
 	pComp->m_pOwner = this;
 	m_umComponent[eID].emplace(tag, pComp);
 }
+
 
 template<typename T>
 bool CGameObject::Has_Component()

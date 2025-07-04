@@ -32,9 +32,6 @@ void SceneDH::LateUpdate_Scene(const _float& fTimeDelta)
 		pLayer.second->LateUpdate_Layer(fTimeDelta);
 }
 
-void SceneDH::Render_Scene()
-{
-}
 
 SceneDH* SceneDH::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

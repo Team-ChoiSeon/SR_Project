@@ -67,9 +67,6 @@ void Logo::LateUpdate_Scene(const _float& fTimeDelta)
 		pLayer.second->LateUpdate_Layer(fTimeDelta);
 }
 
-void Logo::Render_Scene()
-{
-}
 
 Logo* Logo::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

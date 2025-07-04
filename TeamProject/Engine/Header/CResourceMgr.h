@@ -64,10 +64,13 @@ public:
 		return nullptr;
 	}
 	
+	string ToString(const wstring& wstr);
+	wstring ToWString(const string& str);
 
 private:
 	// Extract FileName From FilePath
 	wstring Get_FileName(const wstring& filePath);
+
 
 private:
 	virtual void Free();

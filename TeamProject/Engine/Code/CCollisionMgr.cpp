@@ -21,6 +21,7 @@ void CCollisionMgr::Update_Collision()
 
 			if (Is_Colliding(pA->Get_AABBW(), pB->Get_AABBW()))
 			{
+				MSG_BOX("CCollider:: Collision!");
 				pA->On_Collision(pB);
 				pB->On_Collision(pA);
 			}

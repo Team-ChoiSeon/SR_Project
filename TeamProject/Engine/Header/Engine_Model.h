@@ -1,44 +1,40 @@
 #pragma once
 #include "Engine_Define.h"
+/*
 #include "CResourceMgr.h"
 #include "CMesh.h"
 #include "CTexture.h"
 #include "CMaterial.h"
 #include "CModel.h"
+*/
 
-struct DefaultCubeModel
+BEGIN(Engine)
+
+struct ENGINE_DLL DefaultCubeModel
 {
-	// 예시
-	wstring meshKey = L"CCubeTex";
-	// wstring textureKey = L"texture.jpg";
-	wstring materialKey = L"brick.mtl";
+    std::wstring meshKey = L"CCubeTex";
+    std::wstring materialKey = L"DirtObj.mtl";
 };
 
-struct MeshKey { const wstring& value; };
-// struct TextureKey { const wstring& value; };
-struct MaterialKey { const wstring& value; };
+struct ENGINE_DLL MeshKey { const std::wstring& value; };
+struct ENGINE_DLL MaterialKey { const std::wstring& value; };
 
 template <typename TArg>
-void ApplyArg(DefaultCubeModel& model, TArg arg)
-{    
-	// 기본은 아무 것도 하지 않음 
+inline void ApplyArg(DefaultCubeModel& model, TArg arg)
+{
+    // 기본적으로 아무 작업 없음
 }
 
 template <>
-void ApplyArg(DefaultCubeModel & model, MeshKey arg)
+inline void ApplyArg(DefaultCubeModel& model, MeshKey arg)
 {
-	model.meshKey = arg.value;
+    model.meshKey = arg.value;
 }
-
-//template <>
-//void ApplyArg(DefaultCubeModel & model, TextureKey arg)
-//{
-//	model.textureKey = arg.value;
-//}
 
 template <>
-void ApplyArg(DefaultCubeModel & model, MaterialKey arg)
+inline void ApplyArg(DefaultCubeModel& model, MaterialKey arg)
 {
-	model.materialKey = arg.value;
+    model.materialKey = arg.value;
 }
 
+END

@@ -37,6 +37,8 @@ HRESULT CMainApp::Ready_MainApp()
 	m_pGraphicDev = m_pDeviceClass->Get_GraphicDev();
 	m_pGraphicDev->AddRef();
   
+	CResourceMgr::Get_Instance()->Ready_Resource();
+	CRenderMgr::Get_Instance()->Ready_RenderMgr();
 	m_pScene = Logo::Create(m_pGraphicDev);
 	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
 	return S_OK;
@@ -60,7 +62,7 @@ void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
-	CSceneMgr::Get_Instance()->Render_Scene();
+	CRenderMgr::Get_Instance()->Render(m_pGraphicDev);
   
 	m_pDeviceClass->Render_End();
 
@@ -91,4 +93,5 @@ void CMainApp::Free()
 	CRenderMgr::Get_Instance()->Destroy_Instance();
 
 	CGraphicDev::Get_Instance()->Destroy_Instance();
+	CResourceMgr::Get_Instance()->Destroy_Instance();
 }
