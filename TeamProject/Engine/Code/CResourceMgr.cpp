@@ -1,6 +1,8 @@
 #include "CResourceMgr.h"
 #include "CGraphicDev.h"
 #include "CCubeTex.h"
+#include "CFactory.h"
+#include "CSceneMgr.h"
 
 
 IMPLEMENT_SINGLETON(CResourceMgr)
@@ -42,6 +44,44 @@ HRESULT CResourceMgr::Load_Texture(const wstring& texturePath)
 	}
 
 	m_umTexture[texturePath] = tex;
+	return S_OK;
+}
+
+HRESULT CResourceMgr::Load_GameObject(const wstring& filePath)
+{
+	//HANDLE hFile = ::CreateFileW(
+	//	path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+	//if (hFile == INVALID_HANDLE_VALUE) {
+	//	MessageBoxW(nullptr, L"파일 열기 실패", L"Error", MB_OK);
+	//	return;
+	//}
+
+	//DWORD fileSize = GetFileSize(hFile, NULL);
+	//std::string jsonText(fileSize, '\0');
+	//DWORD bytesRead = 0;
+	//ReadFile(hFile, jsonText.data(), fileSize, &bytesRead, NULL);
+	//CloseHandle(hFile);
+
+	//json jScene = json::parse(jsonText);
+
+	//for (const auto& jObj : jScene["objects"])
+	//{
+	//	string className = jObj["class"];
+	//	string instanceName = jObj["name"];
+	//	string layerName = jObj["Layer"];
+
+	//	CGameObject* pObj = CFactory::Create(ToWString(className), m_pGraphicDev);
+	//	if (!pObj) continue;
+
+	//	pObj->Deserialize(jObj);
+
+	//	CScene* pScene = CSceneMgr::Get_Instance()->Get_Scene();
+	//	// 예: Layer 등록 -> d
+	//	LAYERID id = ToLayer(ToWString(jObj["Layer"]));
+	//	pScene->Get_Layer(id)->Add_GameObject(ToWString(instanceName), pObj);
+	//}
+
 	return S_OK;
 }
 
@@ -118,6 +158,17 @@ wstring CResourceMgr::ToWString(const string& str)
 	std::wstring result(size_needed, 0);
 	MultiByteToWideChar(CP_UTF8, 0, str.data(), (int)str.size(), &result[0], size_needed);
 	return result;
+}
+
+// enum LAYERID { LAYER_TILE, LAYER_OBJECT, LAYER_PLAYER, LAYER_CAMERA, LAYER_END };
+LAYERID CResourceMgr::ToLayer(const wstring& wstr)
+{
+	if (wstr == L"CAMERA")  return LAYERID::LAYER_CAMERA;
+	if (wstr == L"PLAYER")  return LAYERID::LAYER_PLAYER;
+	if (wstr == L"OBJECT")  return LAYERID::LAYER_OBJECT;
+	if (wstr == L"TILE")    return LAYERID::LAYER_TILE;
+
+	return LAYERID::LAYER_END; // 또는 예외 처리용 L_INVALID이 있으면 더 좋음
 }
 
 wstring CResourceMgr::Get_FileName(const wstring& filePath)

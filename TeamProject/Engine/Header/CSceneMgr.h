@@ -15,6 +15,7 @@ private:
 
 public:
 	HRESULT			Set_Scene(CScene* pScene);
+	CScene*			Get_Scene() { return m_pScene; }
 	_int			Update_Scene(const _float& fTimeDelta);
 	void			LateUpdate_Scene(const _float& fTimeDelta);
 

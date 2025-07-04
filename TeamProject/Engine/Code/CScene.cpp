@@ -46,6 +46,15 @@ void CScene::Remove_Layer(LAYERID eID)
     m_umLayer.erase(iter);
 }
 
+void CScene::Clear_Layers()
+{
+    for (auto& scene : m_umLayer)
+    {
+        Safe_Release(scene.second);
+    }
+    m_umLayer.clear();
+}
+
 _int CScene::Update_Scene(const _float& fTimeDelta)
 {
     for (auto& pLayer : m_umLayer)
