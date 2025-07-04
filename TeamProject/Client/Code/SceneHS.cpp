@@ -8,7 +8,9 @@
 #include "CCameraMgr.h"
 #include "CUiMgr.h"
 #include "CResourceMgr.h"
+#include "CPickingMgr.h"
 
+#include "CPlayer.h"
 #include "CLightObject.h"
 #include "CTestLightMeshObject.h"
 #include "CCrosshairUIObject.h"
@@ -30,53 +32,41 @@ SceneHS::~SceneHS()
 
 HRESULT SceneHS::Ready_Scene()
 {
-	//Init_Layers();
 	CUiMgr::Get_Instance()->Ready_UiMgr();
 
-	Add_Layer(LAYER_OBJECT);
-	Add_Layer(LAYER_CAMERA);
+	Init_Layers();
 
-	m_pObjectLayer = Get_Layer(LAYER_OBJECT);;
-	m_pCameraLayer = Get_Layer(LAYER_CAMERA);
-
+	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
+	m_pLightObject = CLightObject::Create(m_pGraphicDev);
+	m_pTestLightMesh = CTestLightMeshObject::Create(m_pGraphicDev);
+	m_pCrosshair = CCrosshairUIObject::Create(m_pGraphicDev);
 	m_pDummy = DummyCube::Create(m_pGraphicDev);
 
+	CFirstviewFollowingCamera* m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
+	m_pFFCam->Set_Target(pPlayer);
 
-	m_pLightObject = new CLightObject(m_pGraphicDev);
-	if (FAILED(m_pLightObject->Ready_GameObject()))
-		return E_FAIL;
+	m_pdummycam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
+	m_pdummycam->Set_Target(m_pDummy);
 
-	m_pTestLightMesh = new CTestLightMeshObject(m_pGraphicDev);
-	if (FAILED(m_pTestLightMesh->Ready_GameObject()))
-		return E_FAIL;
-
-	m_pCrosshair = CCrosshairUIObject::Create(m_pGraphicDev);
+	//m_pObjectLayer = Get_Layer(LAYER_OBJECT);
+	//m_pCameraLayer = Get_Layer(LAYER_CAMERA);
 
 	CUiMgr::Get_Instance()->AddUI(m_pCrosshair);
 
-	//m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pPlayer);
-	m_pdummycam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
-	CCameraMgr::Get_Instance()->Set_MainCamera(m_pdummycam);
+	//m_pObjectLayer->Add_GameObject(L"Dummy", (m_pDummy));
+	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
 
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Dummy", (m_pDummy));
+	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"TestLightMesh", (m_pTestLightMesh));
+	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"LightObject", (m_pLightObject));
+	
+	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", (m_pCrosshair));
 
-	m_pObjectLayer->Add_GameObject(L"Dummy", (m_pDummy));
-	m_pObjectLayer->Add_GameObject(L"TestLightMesh", (m_pTestLightMesh));
-	m_pCameraLayer->Add_GameObject(L"dummycam", m_pdummycam);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"ffcam", m_pFFCam);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"dummycam", m_pdummycam);
 
-	if (FAILED(D3DXCreateFont(
-		m_pGraphicDev,
-		20, 0,
-		FW_NORMAL,
-		1, FALSE,
-		DEFAULT_CHARSET,
-		OUT_DEFAULT_PRECIS,
-		ANTIALIASED_QUALITY,
-		DEFAULT_PITCH | FF_DONTCARE,
-		L"굴림",           // font name
-		&m_pFont)))
-	{
-		return E_FAIL;
-	}
+	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
+	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Ready_Layer();
@@ -86,16 +76,29 @@ HRESULT SceneHS::Ready_Scene()
 
 _int SceneHS::Update_Scene(const _float& fTimeDelta)
 {
+	CPickingMgr::Get_Instance()->Update_Picking(fTimeDelta);
+
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
-
-	m_pLightObject->Update_GameObject(fTimeDelta);
-	m_pTestLightMesh->Update_GameObject(fTimeDelta);
-
-	if (m_pCrosshair)
-		m_pCrosshair->Update_GameObject(fTimeDelta);
+	if (CPickingMgr::Get_Instance()->Get_HitTarget() == m_pDummy)
+	{
+		// 피킹 처리시 일어나는 부분
+		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+		OutputDebugStringW(L"[Debug] Hit!	\n");
+	}
+	else {
+		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+	}
 
 	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
+
+	// m_pLightObject->Update_GameObject(fTimeDelta);
+	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
+	// 
+	// if (m_pCrosshair)
+	// 	m_pCrosshair->Update_GameObject(fTimeDelta);
+
+	// CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
 
 	return 0;
 }
@@ -105,12 +108,14 @@ void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->LateUpdate_Layer(fTimeDelta);
 
-	m_pLightObject->LateUpdate_GameObject(fTimeDelta);
-	m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
+	CLightMgr::Get_Instance()->UpdateLights(CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>()->Get_Pos());
+	CCameraMgr::Get_Instance()->LateUpdate_Camera(fTimeDelta);
+
+	// m_pLightObject->LateUpdate_GameObject(fTimeDelta);
+	// m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
 	
 	//Engine::CLightMgr::Get_Instance()->UpdateLights({ 0.f, 0.f, -10.f });
-	Engine::CLightMgr::Get_Instance()->UpdateLights(CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>()->Get_Pos());
-	CCameraMgr::Get_Instance()->LateUpdate_Camera(fTimeDelta);
+	// CCameraMgr::Get_Instance()->LateUpdate_Camera(fTimeDelta);
 }
 
 void SceneHS::Render_Scene()
@@ -170,6 +175,7 @@ void SceneHS::Free()
 	Remove_Layer(LAYER_CAMERA);
 
 	CCameraMgr::Destroy_Instance();
+	CPickingMgr::Destroy_Instance();
 	CUiMgr::Destroy_Instance();
 	CResourceMgr::Destroy_Instance();
 

@@ -11,26 +11,24 @@ namespace Engine
 
 class CLightObject : public Engine::CGameObject
 {
-public:
+private:
 	CLightObject(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CLightObject();
 
+public:
 	HRESULT Ready_GameObject();
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 	void Render_GameObject() override;
 
-public:		// GetSet
 	const D3DLIGHT9& GetLightInfo() ;
 	CLight::LIGHTTYPE GetLightType() ;
 
-private:
+	static CLightObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
 private:
-
 	const _matrix* m_mWorld;
-
 
 	float m_fIntensity;
 	D3DXCOLOR m_LightColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);

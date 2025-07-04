@@ -78,6 +78,20 @@ void CTestLightMeshObject::Render_GameObject()
         m_pMesh->DrawSubset(0);
 }
 
+CTestLightMeshObject* CTestLightMeshObject::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CTestLightMeshObject* pTestLightMeshObject = new CTestLightMeshObject(pGraphicDev);
+
+    if (FAILED(pTestLightMeshObject->Ready_GameObject()))
+    {
+        Safe_Release(pTestLightMeshObject);
+        MSG_BOX("TestLightMeshObject Create Failed");
+        return nullptr;
+    }
+
+    return pTestLightMeshObject;
+}
+
 void CTestLightMeshObject::Free()
 {
     Safe_Release(m_pMesh);

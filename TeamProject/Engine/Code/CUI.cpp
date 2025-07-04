@@ -45,7 +45,7 @@ void CUI::LateUpdate_Component()
 
 }
 
-void CUI::Render_Component()
+void CUI::Render(LPDIRECT3DDEVICE9 pDevice)
 {
 	if (!m_bVisible || !m_pSprite)
 		return;

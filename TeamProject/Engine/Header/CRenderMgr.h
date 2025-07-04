@@ -3,6 +3,7 @@
 #include "CGameObject.h"
 #include "CModel.h"
 #include "CCollider.h"
+#include "CUI.h"
 
 BEGIN(Engine)
 
@@ -23,11 +24,14 @@ public:
 	void Remove_Model(CModel* model);
 	void Add_Collider(CCollider* collider);
 	void Remove_Collider(CCollider* collider);
+	void Add_UI(CUI* ui);
+	void Remove_UI(CUI* ui);
 	void Clear();
 
 private:
 	vector<list<CModel*>> m_vModellist;
 	vector<CCollider*> m_vCol;
+	vector<CUI*> m_vUI;
 
 private:
 	virtual void Free() override;
