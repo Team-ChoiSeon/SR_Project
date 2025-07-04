@@ -1,13 +1,14 @@
 #pragma once
 #include "CComponent.h"
+#include "CCollider.h"
 
 BEGIN(Engine)
-class CCollider;
+//class CCollider;
 class ENGINE_DLL CPickTarget : public CComponent
 {
 private:
 	explicit CPickTarget();
-	explicit CPickTarget(RAYCHECKTYPE boundtype);
+	explicit CPickTarget(LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE boundtype);
 	explicit CPickTarget(const CPickTarget& rhs);
 	virtual ~CPickTarget();
 
@@ -19,7 +20,7 @@ public:
 
 
 	//Create, Release Function
-	static CPickTarget* Create(RAYCHECKTYPE boundtype);
+	static CPickTarget* Create(LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE boundtype);
 	void				Free();
 
 	//Core Function
@@ -44,7 +45,7 @@ private:
 	Ray*					m_pRay;
 	RAYCHECKTYPE			m_eRayCheckType;
 	Ray_Hit					m_RayHitInfo;
-	CCollider*				m_pCollider;
+	CCollider*				m_pCollider = nullptr;
 
 };
 

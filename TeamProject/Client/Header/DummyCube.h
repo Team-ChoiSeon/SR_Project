@@ -1,9 +1,12 @@
 #pragma once
 #include "CGameObject.h"
+#include "CCollider.h"
 
 namespace Engine {
-	class CRcCube;
 	class CTransform;
+	class CModel;
+	class CPickTarget;
+	class CCollider;
 }
 class DummyCube : public CGameObject
 {
@@ -16,7 +19,6 @@ public:
 	HRESULT Ready_GameObject();
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
-	void Render_GameObject() override;
 
 	//Create, Release Function
 	static DummyCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -24,13 +26,13 @@ public:
 
 	//Optional Function
 	void Key_Input(const float& fTimeDelta);
-	void Key_Rotate();
 
 private:
-	LPDIRECT3DDEVICE9	m_pGraphicDev;
-	CRcCube*			m_pCube;
-	const _matrix*		m_mWorld;
 	CTransform*			m_pTransform;
+	CModel*				m_pModel;
+	CPickTarget*		m_pPick;
+	CCollider*			m_pCollider;
+
 
 };
 

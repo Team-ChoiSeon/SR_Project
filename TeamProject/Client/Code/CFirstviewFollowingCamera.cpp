@@ -88,8 +88,6 @@ void CFirstviewFollowingCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CFirstviewFollowingCamera::Render_GameObject()
 {
-	const _matrix* world = m_pTransform->Get_WorldMatrix();
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, world);
 }
 
 CFirstviewFollowingCamera* CFirstviewFollowingCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* target)

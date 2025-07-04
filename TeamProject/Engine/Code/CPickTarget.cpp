@@ -1,3 +1,4 @@
+#pragma once
 #include "CPickTarget.h"
 #include "CPickingMgr.h"
 #include "CTransform.h"
@@ -8,7 +9,7 @@ CPickTarget::CPickTarget()
 {
 }
 
-CPickTarget::CPickTarget(RAYCHECKTYPE boundtype)
+CPickTarget::CPickTarget(LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE boundtype)
 	: m_eRayCheckType(boundtype)
 {
 }
@@ -28,7 +29,6 @@ HRESULT CPickTarget::Ready_Component()
 
 void CPickTarget::Update_Component(const float& fTimeDelta)
 {
-
 	if (Check_Collision())
 		Add_HitInfo();
 }
@@ -37,9 +37,9 @@ void CPickTarget::LateUpdate_Component(const float& fTimeDelta)
 {
 }
 
-CPickTarget* CPickTarget::Create(RAYCHECKTYPE boundtype)
+CPickTarget* CPickTarget::Create(LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE boundtype)
 {
-	CPickTarget* pPickCom = new CPickTarget(boundtype);
+	CPickTarget* pPickCom = new CPickTarget(pGraphicDev, boundtype);
 
 	if (FAILED(pPickCom->Ready_Component()))
 	{
@@ -53,6 +53,7 @@ CPickTarget* CPickTarget::Create(RAYCHECKTYPE boundtype)
 
 void CPickTarget::Free()
 {
+	Safe_Release(m_pCollider);
 }
 
 bool CPickTarget::Check_Collision()
@@ -76,13 +77,13 @@ bool CPickTarget::Check_Collision()
 
 void CPickTarget::Add_HitInfo()
 {
-	auto it = std::find_if(CPickingMgr::Get_Instance()->Get_HitTargetList()->begin(), CPickingMgr::Get_Instance()->Get_HitTargetList()->end(),
-		[&]( Ray_Hit* h) { return h->_hittedobject == m_RayHitInfo._hittedobject; });			//이미 hit 되어있는 경우
-	if (it != CPickingMgr::Get_Instance()->Get_HitTargetList()->end()) {
-		*it = &m_RayHitInfo;
+	auto it = std::find_if(CPickingMgr::Get_Instance()->Get_HitTargetList().begin(), CPickingMgr::Get_Instance()->Get_HitTargetList().end(),
+		[&]( Ray_Hit& h) { return h._hittedobject == m_RayHitInfo._hittedobject; });			//이미 hit 되어있는 경우
+	if (it != CPickingMgr::Get_Instance()->Get_HitTargetList().end()) {
+		*it = m_RayHitInfo;
 	}
 	else {
-		CPickingMgr::Get_Instance()->Add_HitInfo(&m_RayHitInfo);
+		CPickingMgr::Get_Instance()->Add_HitInfo(m_RayHitInfo);
 	}
 	//CPickingMgr::Get_Instance()->Add_HitInfo(&m_RayHitInfo);
 }
@@ -98,20 +99,23 @@ void CPickTarget::TranslationIntoLocal()
 
 bool CPickTarget::CheckAABB()
 {
-	Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
+	m_pRay = CPickingMgr::Get_Instance()->Get_Ray();
+	m_pCollider = m_pOwner->Get_Component<CCollider>();
+	// m_pCollider 가 유효한지 재확인
+	if (!m_pCollider) return false;
+
 	const AABB& box = m_pCollider->Get_AABBW();
 
-	const float EPSILON = 1e-6f;
+	const float EPS = 1e-6f;
 	float tMin = -FLT_MAX, tMax = FLT_MAX;
 
 	for (int i = 0; i < 3; ++i) {
-		float origin = ((&pRay->_position.x)[i]);
-		float direction = ((&pRay->_direction.x)[i]);
-		float minB = ((&box.vMin.x)[i]);
-		float maxB = ((&box.vMax.x)[i]);
+		float origin = (i == 0 ? m_pRay->_position.x : i == 1 ? m_pRay->_position.y : m_pRay->_position.z);
+		float direction = (i == 0 ? m_pRay->_direction.x : i == 1 ? m_pRay->_direction.y : m_pRay->_direction.z);
+		float minB = (i == 0 ? box.vMin.x : i == 1 ? box.vMin.y : box.vMin.z);
+		float maxB = (i == 0 ? box.vMax.x : i == 1 ? box.vMax.y : box.vMax.z);
 
-		if (fabs(direction) < EPSILON) {
-			// 레이가 이 축에 평행하면, origin이 박스 안에 있어야 교차
+		if (fabsf(direction) < EPS) {
 			if (origin < minB || origin > maxB)
 				return false;
 		}
@@ -119,6 +123,7 @@ bool CPickTarget::CheckAABB()
 			float t1 = (minB - origin) / direction;
 			float t2 = (maxB - origin) / direction;
 			if (t1 > t2) std::swap(t1, t2);
+
 			tMin = max(tMin, t1);
 			tMax = min(tMax, t2);
 			if (tMin > tMax)
@@ -126,17 +131,13 @@ bool CPickTarget::CheckAABB()
 		}
 	}
 
-	// tMax >= tMin 이고 tMax > 0 이면 교차
 	if (tMax < 0.0f)
-		return false;  // 박스 뒤쪽만 교차
+		return false;
 
-	// 교차 지점 거리 (ray origin 앞쪽)
 	float distance = (tMin >= 0.0f) ? tMin : tMax;
 	m_RayHitInfo._distance = distance;
 	m_RayHitInfo._hittedobject = m_pOwner;
-
-	// 히트 좌표
-	m_RayHitInfo._hittedcoord = pRay->_position + pRay->_direction * distance;
+	//m_RayHitInfo._hittedcoord = m_pRay->_position + m_pRay->_direction * distance;
 
 	return true;
 }

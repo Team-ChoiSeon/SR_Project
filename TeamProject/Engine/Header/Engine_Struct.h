@@ -60,11 +60,7 @@ namespace Engine {
 	class CGameObject;
 	typedef struct Ray_HitInfo {
 		CGameObject*	_hittedobject;
-		LAYERID			_objectlayer;
 		float			_distance;
-		_vec2			_hitteduv;
-		_vec3			_hittedcoord;
-		_vec3			_hittedcoordnormal;
 	}Ray_Hit;
 
 	typedef struct Ray_BoundTri {
