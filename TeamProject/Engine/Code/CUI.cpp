@@ -5,7 +5,7 @@ CUI::CUI() : m_pSprite(nullptr), m_vPosition(0.f, 0.f), m_vScale(1.f, 1.f), m_bV
 	D3DXMatrixIdentity(&m_matOrtho);
 }
 
-CUI::CUI(LPDIRECT3DDEVICE9 pGraphicDev) : m_pSprite(nullptr), m_vPosition(0.f, 0.f), m_vScale(1.f, 1.f), m_bVisible(true)
+CUI::CUI(LPDIRECT3DDEVICE9 pGraphicDev) : CComponent(pGraphicDev), m_pSprite(nullptr), m_vPosition(0.f, 0.f), m_vScale(1.f, 1.f), m_bVisible(true)
 {
 	D3DXMatrixIdentity(&m_matOrtho);
 }
@@ -23,19 +23,14 @@ CUI::~CUI()
 
 HRESULT CUI::Ready_UI()
 {
-	if (!m_pGraphicDev)
-	{
-		OutputDebugString(_T("m_pGraphicDev is NULL in Ready_UI()\n"));
-		return E_FAIL;
-	}
+	// if (!m_pGraphicDev)
+	// {
+	// 	OutputDebugString(_T("m_pGraphicDev is NULL in Ready_UI()\n"));
+	// 	return E_FAIL;
+	// }
 
-	if (FAILED(D3DXCreateSprite(m_pGraphicDev, &m_pSprite)))
-	{
-		OutputDebugString(_T("D3DXCreateSprite failed in Ready_UI()\n"));
-		return E_FAIL;
-	}
 
-	OutputDebugString(_T("D3DXCreateSprite succeeded in Ready_UI()\n"));
+	//	OutputDebugString(_T("D3DXCreateSprite succeeded in Ready_UI()\n"));
 
 	return S_OK;
 }
@@ -64,5 +59,4 @@ void CUI::Render_Component()
 void CUI::Free()
 {
 	Safe_Release(m_pSprite);
-	// CComponent::Free();
 }

@@ -24,6 +24,8 @@ public:		// GetSet
 	const D3DLIGHT9& GetLightInfo() ;
 	CLight::LIGHTTYPE GetLightType() ;
 
+private:
+	void Free() override;
 
 private:
 

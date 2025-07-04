@@ -7,6 +7,7 @@
 #include "CLightMgr.h"
 #include "CCameraMgr.h"
 #include "CUiMgr.h"
+#include "CResourceMgr.h"
 
 #include "CLightObject.h"
 #include "CTestLightMeshObject.h"
@@ -15,6 +16,7 @@
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
+
 
 SceneHS::SceneHS(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev), m_pGraphicDev(pGraphicDev)
@@ -29,6 +31,8 @@ SceneHS::~SceneHS()
 HRESULT SceneHS::Ready_Scene()
 {
 	//Init_Layers();
+	CUiMgr::Get_Instance()->Ready_UiMgr();
+
 	Add_Layer(LAYER_OBJECT);
 	Add_Layer(LAYER_CAMERA);
 
@@ -46,9 +50,8 @@ HRESULT SceneHS::Ready_Scene()
 	if (FAILED(m_pTestLightMesh->Ready_GameObject()))
 		return E_FAIL;
 
-	m_pCrosshair = new CCrosshairUIObject(m_pGraphicDev);
-	if (FAILED(m_pCrosshair->Ready_GameObject()))
-		return E_FAIL;
+	m_pCrosshair = CCrosshairUIObject::Create(m_pGraphicDev);
+
 	CUiMgr::Get_Instance()->AddUI(m_pCrosshair);
 
 	//m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev, m_pPlayer);
@@ -121,9 +124,6 @@ void SceneHS::Render_Scene()
 
 	CUiMgr::Get_Instance()->RenderUI();
 
-	//if (m_pCrosshair)
-	//	m_pCrosshair->Render_GameObject();
-
 	wchar_t buf[64];
 	swprintf_s(buf, L"test : HS");
 
@@ -164,8 +164,14 @@ void SceneHS::Free()
 	Safe_Release(m_pdummycam);
 	Safe_Release(m_pCrosshair);
 	
+	
+
+	Remove_Layer(LAYER_OBJECT);
+	Remove_Layer(LAYER_CAMERA);
+
 	CCameraMgr::Destroy_Instance();
 	CUiMgr::Destroy_Instance();
+	CResourceMgr::Destroy_Instance();
 
 	CScene::Free();
 }

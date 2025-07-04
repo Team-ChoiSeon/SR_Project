@@ -66,3 +66,9 @@ CLight::LIGHTTYPE CLightObject::GetLightType()
 {
     return Get_Component<CLight>()->Get_LightType();
 }
+
+
+void CLightObject::Free()
+{
+    CGameObject::Free();
+}
