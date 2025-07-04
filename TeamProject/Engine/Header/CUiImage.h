@@ -15,18 +15,19 @@ public:
 	virtual ~CUiImage();
 
 public:
-	HRESULT Ready_Image(CTexture* pTex);
+	HRESULT Ready_Image();
 	virtual void Update_Component(const _float& fTimeDelta) override;
 	virtual void LateUpdate_Component() override;
 	virtual void Render_Component() override;
 
-	void Set_Texture(CTexture* pTex) { m_pTexture = pTex; }
-	CTexture* Get_Texture() const { return m_pTexture; }
+	void Set_Texture(CTexture* pTex);
+	LPDIRECT3DTEXTURE9 Get_Texture() const;
 
 	static CUiImage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 protected:
-	CTexture* m_pTexture = nullptr;
+	
+	LPDIRECT3DTEXTURE9 m_Texture = nullptr;
 
 protected:
 	virtual void Free() override;

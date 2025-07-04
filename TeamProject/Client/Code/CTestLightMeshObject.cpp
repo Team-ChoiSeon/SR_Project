@@ -81,4 +81,6 @@ void CTestLightMeshObject::Render_GameObject()
 void CTestLightMeshObject::Free()
 {
     Safe_Release(m_pMesh);
+
+    CGameObject::Free();
 }

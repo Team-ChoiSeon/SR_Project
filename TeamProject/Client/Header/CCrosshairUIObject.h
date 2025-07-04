@@ -18,6 +18,10 @@ public:
 
 	void Set_State(CROSSHAIR_STATE eState);
 
+
+	static CCrosshairUIObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	void Free();
+
 private:
 	void Update_Texture_State();
 

@@ -58,7 +58,7 @@
     </Filter>
     <Filter Include="04. GameObjects\TestUI\TestCrooshair">
       <UniqueIdentifier>{f826ebc1-8818-4990-b515-07c043e6a79c}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="04. GameObjects\TestLight\TestLightObject">
     </Filter>
   </ItemGroup>
@@ -114,11 +114,11 @@
     <ClInclude Include="..\Header\CLightObject.h">
       <Filter>04. GameObjects\TestLight</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTestLightMeshObject.h">
-      <Filter>04. GameObjects\TestLight</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CCrosshairUIObject.h">
       <Filter>04. GameObjects\TestUI\TestCrooshair</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestLightMeshObject.h">
+      <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,11 +164,11 @@
     <ClCompile Include="..\Code\CLightObject.cpp">
       <Filter>04. GameObjects\TestLight</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTestLightMeshObject.cpp">
-      <Filter>04. GameObjects\TestLight</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CCrosshairUIObject.cpp">
       <Filter>04. GameObjects\TestUI\TestCrooshair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestLightMeshObject.cpp">
+      <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
