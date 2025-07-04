@@ -4,7 +4,7 @@
 
 BEGIN(Engine)
 class CGameObject;
-class  ENGINE_DLL CCameraMgr
+class  ENGINE_DLL CCameraMgr : public CBase
 {
 	DECLARE_SINGLETON(CCameraMgr)
 private:
@@ -24,11 +24,6 @@ public:
 
 
 	//Optional Function
-	//void Add_Camera(const wstring& wCamTag, CGameObject* pCamera);
-
-	////template <typename T = CGameObject>
-	//CGameObject* Get_Camera(const wstring& wCamTag);
-
 	const _matrix* Get_CamViewMatrix(CGameObject* pCamera);
 	const _matrix* Get_CamProjectionMatrix(CGameObject* pCamera);
 

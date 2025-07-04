@@ -52,9 +52,6 @@
     <Filter Include="02. Components\02. Camera">
       <UniqueIdentifier>{5810b33a-5f21-45d0-8341-3f2205c15949}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Components\05. Picking">
-      <UniqueIdentifier>{255825e1-bb19-4766-b01d-b959ba12ff06}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06. Resources">
       <UniqueIdentifier>{dea1e113-086d-4d67-99bd-120fc20a0e6c}</UniqueIdentifier>
     </Filter>
@@ -85,6 +82,12 @@
     <Filter Include="02. Components\04. VIBuffer\RcCube">
       <UniqueIdentifier>{f347242a-8b77-44c1-a4c2-d0b4053c20c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\05. PickTarget">
+      <UniqueIdentifier>{255825e1-bb19-4766-b01d-b959ba12ff06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\06. Collision">
+      <UniqueIdentifier>{418e3a76-78ba-4589-92aa-eea2bf16b1d5}</UniqueIdentifier>
+  </Filter>
     <Filter Include="01. Managers\07. LightMgr">
       <UniqueIdentifier>{7f1edc1e-dfbd-414e-910a-437f11394b20}</UniqueIdentifier>
     </Filter>
@@ -102,6 +105,12 @@
     </Filter>
     <Filter Include="01. Managers\09. CollisionMgr">
       <UniqueIdentifier>{303bca43-dd84-4700-bc16-2fc5d5310384}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\08. LightMgr">
+      <UniqueIdentifier>{7f1edc1e-dfbd-414e-910a-437f11394b20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\09. PickingMgr">
+      <UniqueIdentifier>{8e87369d-06eb-4ab1-8010-53d954842eed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +181,7 @@
       <Filter>02. Components\02. Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CPicking.h">
-      <Filter>02. Components\05. Picking</Filter>
+      <Filter>02. Components\05. PickTarget</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CResource.h">
       <Filter>06. Resources</Filter>
@@ -196,7 +205,7 @@
       <Filter>02. Components\00. Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CLightMgr.h">
-      <Filter>01. Managers\07. LightMgr</Filter>
+      <Filter>01. Managers\08. LightMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Engine_Model.h">
       <Filter>99. Header</Filter>
@@ -207,6 +216,13 @@
     <ClInclude Include="..\Header\CRcCube.h">
       <Filter>02. Components\04. VIBuffer\RcCube</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\Header\CPickingMgr.h">
+      <Filter>01. Managers\09. PickingMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPickTarget.h">
+      <Filter>02. Components\05. PickTarget</Filter>
+     </ClInclude>
     <ClInclude Include="..\Header\CUiMgr.h">
       <Filter>01. Managers\08. UiMgr</Filter>
     </ClInclude>
@@ -273,7 +289,7 @@
       <Filter>02. Components\02. Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CPicking.cpp">
-      <Filter>02. Components\05. Picking</Filter>
+      <Filter>02. Components\05. PickTarget</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMesh.cpp">
       <Filter>06. Resources\Mesh</Filter>
@@ -297,6 +313,7 @@
       <Filter>06. Resources</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CLightMgr.cpp">
+      <Filter>01. Managers\08. LightMgr</Filter>
       <Filter>01. Managers\07. LightMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CVIBuffer.cpp">
@@ -305,6 +322,12 @@
     <ClCompile Include="..\Code\CRcCube.cpp">
       <Filter>02. Components\04. VIBuffer\RcCube</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CPickingMgr.cpp">
+      <Filter>01. Managers\09. PickingMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPickTarget.cpp">
+      <Filter>02. Components\05. PickTarget</Filter>
+    </ClCompile>      
     <ClCompile Include="..\Code\CUiMgr.cpp">
       <Filter>01. Managers\08. UiMgr</Filter>
     </ClCompile>
@@ -320,5 +343,8 @@
     <ClCompile Include="..\Code\CCollisionMgr.cpp">
       <Filter>01. Managers\09. CollisionMgr</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
 </Project>
