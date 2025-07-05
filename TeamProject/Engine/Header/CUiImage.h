@@ -18,7 +18,7 @@ public:
 	HRESULT Ready_Image();
 	virtual void Update_Component(const _float& fTimeDelta) override;
 	virtual void LateUpdate_Component() override;
-	virtual void Render_Component() override;
+	virtual void Render(LPDIRECT3DDEVICE9 pDevice) override;
 
 	void Set_Texture(CTexture* pTex);
 	LPDIRECT3DTEXTURE9 Get_Texture() const;

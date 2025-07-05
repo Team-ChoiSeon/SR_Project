@@ -17,7 +17,7 @@ public:
 	HRESULT			Ready_UI();
 	virtual void	Update_Component(const _float& fTimeDelta) = 0;
 	virtual void	LateUpdate_Component() = 0;
-	virtual void	Render_Component() = 0;
+	virtual void	Render(LPDIRECT3DDEVICE9 pDevice) = 0;
 
 
 

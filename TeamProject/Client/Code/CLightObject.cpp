@@ -67,6 +67,19 @@ CLight::LIGHTTYPE CLightObject::GetLightType()
     return Get_Component<CLight>()->Get_LightType();
 }
 
+CLightObject* CLightObject::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	CLightObject* pLightObject = new CLightObject(pGraphicDev);
+
+	if (FAILED(pLightObject->Ready_GameObject()))
+	{
+		Safe_Release(pLightObject);
+		MSG_BOX("LightObject Create Failed");
+		return nullptr;
+	}
+
+	return pLightObject;
+}
 
 void CLightObject::Free()
 {

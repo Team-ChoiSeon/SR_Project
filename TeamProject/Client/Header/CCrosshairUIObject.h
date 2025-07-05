@@ -2,10 +2,14 @@
 #include "CGameObject.h"
 #include "CUiImage.h"
 
+namespace Engine {
+	class CTransform;
+	class CModel;
+}
 class CCrosshairUIObject : public Engine::CGameObject
 {
 public:
-	enum class CROSSHAIR_STATE { CROSS_DEFAULT, CROSS_HOVER, CROSS_HOLD };
+	enum class CROSSHAIR_STATE { CROSS_DEFAULT = 0, CROSS_HOVER, CROSS_HOLD };
 
 public:
 	CCrosshairUIObject(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -18,7 +22,6 @@ public:
 
 	void Set_State(CROSSHAIR_STATE eState);
 
-
 	static CCrosshairUIObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
@@ -27,6 +30,6 @@ private:
 
 private:
 	CROSSHAIR_STATE m_eState = CROSSHAIR_STATE::CROSS_DEFAULT;
-
+	//CModel* m_pModel;
 };
 

@@ -1,14 +1,16 @@
 #include "pch.h"
+#include "Engine_Model.h"
 #include "CCrosshairUIObject.h"
+
 #include "CUiImage.h"
-#include "CResourceMgr.h"
 #include "CTransform.h"
+#include "CModel.h"
+
+#include "CResourceMgr.h"
 
 CCrosshairUIObject::CCrosshairUIObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev)
 {
-    Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-    Add_Component<CUiImage>(ID_DYNAMIC, m_pGraphicDev);
 }
 
 CCrosshairUIObject::~CCrosshairUIObject()
@@ -18,6 +20,12 @@ CCrosshairUIObject::~CCrosshairUIObject()
 
 HRESULT CCrosshairUIObject::Ready_GameObject()
 {
+    DefaultCubeModel tModel;
+    
+    Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
+    Add_Component<CUiImage>(ID_DYNAMIC, m_pGraphicDev);
+    Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
+    
     Get_Component<CTransform>()->Ready_Transform();
 
     //Ready_Resource 되어있는곳이 없어서 임시 ( 나중에 지워도 됨)
@@ -26,7 +34,6 @@ HRESULT CCrosshairUIObject::Ready_GameObject()
     CResourceMgr::Get_Instance()->Load_Texture(L"CROSS_DEFAULT.png");
     CResourceMgr::Get_Instance()->Load_Texture(L"CROSS_HOVER.png");
 
-    //CTexture* pt = CResourceMgr::Get_Instance()->Get_Texture(L"CROSS_DEFAULT.png");
     Get_Component<CUiImage>()->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"CROSS_DEFAULT.png"));
     Get_Component<CUiImage>()->Set_Position(D3DXVECTOR2((WINCX * 0.5f)- 25, (WINCY * 0.5f)-25));
     Get_Component<CUiImage>()->Set_Scale(D3DXVECTOR2(1.f, 1.f));
@@ -36,12 +43,18 @@ HRESULT CCrosshairUIObject::Ready_GameObject()
 
 _int CCrosshairUIObject::Update_GameObject(const _float& fTimeDelta)
 {
+    for (auto& pComponent : m_umComponent[ID_DYNAMIC])
+        pComponent.second->Update_Component(fTimeDelta);
+
     return 0;
 }
 
 void CCrosshairUIObject::Render_GameObject()
 {
-    Get_Component<CUiImage>()->Render_Component();
+
+    for (auto& pComponent : m_umComponent[ID_DYNAMIC])
+        pComponent.second->LateUpdate_Component();
+    //Get_Component<CUiImage>()->Render_Component();
 }
 
 void CCrosshairUIObject::Set_State(CROSSHAIR_STATE eState)
@@ -64,10 +77,10 @@ void CCrosshairUIObject::Update_Texture_State()
     {
     case CROSSHAIR_STATE::CROSS_DEFAULT:
         //이곳에서 상태가 바뀐다.
-        // pImg->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"crosshair_default.png"));
-        //pTex = 
+        pImg->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"CROSS_DEFAULT.png"));
         break;
     case CROSSHAIR_STATE::CROSS_HOVER:
+        pImg->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"CROSS_HOVER.png"));
         break;
     case CROSSHAIR_STATE::CROSS_HOLD:
         break;

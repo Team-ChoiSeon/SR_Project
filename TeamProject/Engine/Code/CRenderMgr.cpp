@@ -62,6 +62,9 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_UI)])
 		renderer->Render(pDevice);
 
+	for (auto& renderer : m_vUI)
+		renderer->Render(pDevice);
+
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_POSTPROCESS)])
 		renderer->Render(pDevice);
 	
@@ -122,6 +125,29 @@ void CRenderMgr::Remove_Collider(CCollider* collider)
 
 	if (iter != m_vCol.end()) {
 		m_vCol.erase(iter, m_vCol.end());
+	}
+}
+
+void CRenderMgr::Add_UI(CUI* ui)
+{
+	auto iter = find_if(m_vUI.begin(), m_vUI.end(),
+		[&ui](CUI* data)->bool {
+			return data == ui;
+		});
+
+	if (iter == m_vUI.end())
+		m_vUI.push_back(ui);
+}
+
+void CRenderMgr::Remove_UI(CUI* ui)
+{
+	auto iter = remove_if(m_vUI.begin(), m_vUI.end(),
+		[&ui](CUI* data)->bool {
+			return data == ui;
+		});
+
+	if (iter != m_vUI.end()) {
+		m_vUI.erase(iter, m_vUI.end());
 	}
 }
 

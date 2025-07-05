@@ -1,4 +1,5 @@
 #include "CUiImage.h"
+#include "CRenderMgr.h"
 
 CUiImage::CUiImage()
 {
@@ -33,9 +34,10 @@ void CUiImage::Update_Component(const _float& fTimeDelta)
 
 void CUiImage::LateUpdate_Component() 
 {
+	CRenderMgr::Get_Instance()->Add_UI(this);
 }
 
-void CUiImage::Render_Component()
+void CUiImage::Render(LPDIRECT3DDEVICE9 pDevice)
 {
 
 	if (!m_bVisible || !m_pSprite || !m_Texture)
