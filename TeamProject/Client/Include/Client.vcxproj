@@ -156,11 +156,13 @@
     <ClInclude Include="..\Header\CCameraObject.h" />
     <ClInclude Include="..\Header\CCrosshairUIObject.h" />
     <ClInclude Include="..\Header\CFirstviewFollowingCamera.h" />
+    <ClInclude Include="..\Header\CFloatingCube.h" />
     <ClInclude Include="..\Header\CLightObject.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMonster.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CTestLightMeshObject.h" />
+    <ClInclude Include="..\Header\CCube.h" />
     <ClInclude Include="..\Header\DummyCube.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\Player.h" />
@@ -179,11 +181,13 @@
     <ClCompile Include="..\Code\CCameraObject.cpp" />
     <ClCompile Include="..\Code\CCrosshairUIObject.cpp" />
     <ClCompile Include="..\Code\CFirstviewFollowingCamera.cpp" />
+    <ClCompile Include="..\Code\CFloatingCube.cpp" />
     <ClCompile Include="..\Code\CLightObject.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp" />
+    <ClCompile Include="..\Code\CCube.cpp" />
     <ClCompile Include="..\Code\DummyCube.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\Player.cpp" />

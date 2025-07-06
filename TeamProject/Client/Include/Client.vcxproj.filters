@@ -61,6 +61,12 @@
     </Filter>
     <Filter Include="04. GameObjects\TestLight\TestLightObject">
     </Filter>
+    <Filter Include="04. GameObjects\Cube">
+      <UniqueIdentifier>{d64b5e19-4e88-43d6-a18d-4613c84aa671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\FloatingCube">
+      <UniqueIdentifier>{38bcb1ed-2e1e-4731-a023-f19abc60c621}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -126,6 +132,12 @@
     <ClInclude Include="..\Header\CMonster.h">
       <Filter>04. GameObjects\TestObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCube.h">
+      <Filter>04. GameObjects\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFloatingCube.h">
+      <Filter>04. GameObjects\Cube\FloatingCube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -181,6 +193,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMonster.cpp">
       <Filter>04. GameObjects\TestObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCube.cpp">
+      <Filter>04. GameObjects\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFloatingCube.cpp">
+      <Filter>04. GameObjects\Cube\FloatingCube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
