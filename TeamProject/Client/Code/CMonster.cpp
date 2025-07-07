@@ -25,6 +25,8 @@ HRESULT CMonster::Ready_GameObject()
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 
 	DefaultCubeModel tModel;
+	tModel.meshKey = L"DirtObj.obj";
+
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
 	m_pModel = Get_Component<CModel>();
 

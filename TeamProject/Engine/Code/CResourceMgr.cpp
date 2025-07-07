@@ -27,7 +27,7 @@ HRESULT CResourceMgr::Ready_Resource()
 	Load_Material(L"DirtObj.mtl");
 	Load_Material(L"BrickRoad.mtl");
 	Load_Mesh <CCubeTex>(m_pGraphicDev, L"CCubeTex");
-	
+	Load_Mesh<CCubeTex>(m_pGraphicDev,L"DirtObj.obj");
 	m_pGraphicDev->AddRef();
 }
 
@@ -144,7 +144,6 @@ HRESULT CResourceMgr::Load_Material(const wstring& mtlPath)
 
 	return S_OK;
 }
-
 
 string CResourceMgr::ToString(const wstring& wstr)
 {

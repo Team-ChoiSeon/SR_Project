@@ -112,6 +112,9 @@
     <Filter Include="02. Components\08. RigidBody">
       <UniqueIdentifier>{78f6ac5c-1c9f-4c6d-9dab-dc46bbbf4cbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Managers\11. ShaderMgr">
+      <UniqueIdentifier>{fa8a89c2-5d64-4e62-9fcd-817aeb3cde34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -243,6 +246,9 @@
     <ClInclude Include="..\..\ThirdParty\json.hpp">
       <Filter>03. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CShaderMgr.h">
+      <Filter>01. Managers\11. ShaderMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -349,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRigidBody.cpp">
       <Filter>02. Components\08. RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CShaderMgr.cpp">
+      <Filter>01. Managers\11. ShaderMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

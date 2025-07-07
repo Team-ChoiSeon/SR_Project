@@ -66,6 +66,7 @@ public:
 		return nullptr;
 	}
 	
+
 	string ToString(const wstring& wstr);
 	wstring ToWString(const string& str);
 	LAYERID ToLayer(const wstring& wstr);
@@ -103,11 +104,15 @@ inline HRESULT CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring&
 		return S_OK; // Already loaded
 
 	MeshType* pMesh = MeshType::Create(pDevice);
-	if (FAILED(pMesh->Ready_Buffer()))
-	{
-		Safe_Release(pMesh);
-		return E_FAIL;
-	}
+
+	//if (FAILED(pMesh->Ready_Buffer()))
+	//{
+	//	Safe_Release(pMesh);
+	//	return E_FAIL;
+	//}
+	wstring basePath = L"../Bin/Resource/Obj/";
+
+	pMesh->LoadOBJ(pDevice, basePath+key);
 
 	m_umMesh[key] = pMesh;
 	return S_OK;

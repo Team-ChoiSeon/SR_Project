@@ -1,4 +1,5 @@
 #include "CMaterial.h"
+#include "CShaderMgr.h"
 
 CMaterial::CMaterial()
 {
@@ -12,6 +13,15 @@ CMaterial::~CMaterial()
 
 void CMaterial::Apply(LPDIRECT3DDEVICE9 pDevice)
 {
+
+    if (m_pEffect)
+    {
+        // 셰이더 파라미터 바인딩
+        if (m_pDiffuse)  m_pEffect->SetTexture("g_DiffuseTex", m_pDiffuse->Get_Texture());
+        if (m_pNormal)   m_pEffect->SetTexture("g_NormalTex", m_pNormal->Get_Texture());
+        if (m_pRoughness)m_pEffect->SetTexture("g_RoughnessTex", m_pRoughness->Get_Texture());
+        return;
+    }
     if (m_pDiffuse)
         m_pDiffuse->Bind(pDevice, 0);
 }
@@ -38,6 +48,15 @@ CMaterial* CMaterial::Create()
         return nullptr;
     }
     return pTex;
+}
+
+void CMaterial::Set_Shader(const string& path)
+{
+    m_pEffect = CShaderMgr::Get_Instance()->GetShader(path);
+    if (m_pEffect)
+        m_strShaderPath = path;
+    else
+        m_strShaderPath.clear(); // 로딩 실패 시 키 제거
 }
 
 void CMaterial::Free()

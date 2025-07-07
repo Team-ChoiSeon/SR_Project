@@ -17,10 +17,13 @@ public:
     void Set_Diffuse(CTexture* tex)   { m_pDiffuse = tex; }
     void Set_Normal(CTexture* tex)    { m_pNormal = tex; }
     void Set_Roughness(CTexture* tex) { m_pRoughness = tex; }
+    void Set_Shader(const string& path); // ShaderMgr ø¨µø
 
     CTexture* Get_Diffuse() const { return m_pDiffuse; }
     CTexture* Get_Normal() const { return m_pNormal; }
     CTexture* Get_Roughness() const { return m_pRoughness; }
+    LPD3DXEFFECT Get_Effect() const { return m_pEffect; }
+    string& Get_ShaderKey() { return m_strShaderPath; }
 
     void Set_Material(const D3DMATERIAL9& tMtrl) { m_tMaterial = tMtrl; }
     CResource* Get_MaterialResource() const
@@ -39,5 +42,9 @@ private:
     CTexture* m_pDiffuse = nullptr;
     CTexture* m_pNormal = nullptr;
     CTexture* m_pRoughness = nullptr;
+
+
+    LPD3DXEFFECT m_pEffect = nullptr; // ºŒ¿Ã¥ı ∞¥√º
+    string m_strShaderPath; //ºŒ¿Ã¥ı ≈∞
 };
 END

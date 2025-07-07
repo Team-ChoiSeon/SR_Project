@@ -54,7 +54,6 @@ int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 
 	m_pCamera->AngleClamping();
 
-
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 
