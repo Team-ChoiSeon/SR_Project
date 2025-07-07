@@ -18,10 +18,15 @@ public:
 public:
     void Set_OnGround(bool bGround) { m_bGround = bGround; }
     void Set_UseGravity(bool bUse) { m_bGravity = bUse; }
+
     void Set_Mass(_float fMass) { m_fMass = fMass; }
+    void Set_Friction(_float fFric) { m_fFric = fFric; }
+    void Set_Bounce(_float fBnc) { m_fBnc = fBnc; }
+
     void Add_Force(const _vec3& vForce) { m_vEforce += vForce; }
     void Add_Torque(const _vec3& vTorque) { m_vTorque += vTorque; }
     void Add_Velocity(const _vec3& vVel) { m_vVel += vVel; }
+
     void Set_Force(const _vec3& vForce) { m_vEforce = vForce; }
     void Set_Torque(const _vec3& vTorque){m_vTorque = vTorque;}
     void Set_Velocity(const _vec3& vVel) { m_vVel = vVel; }
@@ -42,8 +47,8 @@ private:
 
 private:
     _float      m_fMass = 1.f;                          // 질량
-    _float      m_fFric = 0.9f;                     // 마찰 계수
-    _float      m_fBnc = 0.5f;                    // 탄성 계수
+    _float      m_fFric = 0.f;                     // 마찰 계수
+    _float      m_fBnc = 0.0f;                    // 탄성 계수
     
     _vec3       m_vVel = _vec3(0.f, 0.f, 0.f);     // 속도
     _vec3       m_vAcc = _vec3(0.f, 0.f, 0.f);        // 가속도
@@ -53,7 +58,7 @@ private:
     _vec3       m_vGforce = _vec3(0.f, 0.f, 0.f);       // 중력
     _vec3       m_vEforce = _vec3(0.f, 0.f, 0.f);       // 외부 힘
     _vec3       m_vTorque = _vec3(0.f, 0.f, 0.f);       // 회전 힘
-    _vec3       m_fInertia = _vec3(0.f, 0.f, 0.f);      // 관성모먼트
+    _vec3       m_fInertia = _vec3(1.f, 1.f, 1.f);      // 관성모먼트
 
     bool        m_bGravity = true;
     bool        m_bGround = false;

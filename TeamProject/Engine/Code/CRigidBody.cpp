@@ -1,6 +1,6 @@
 #include "CRigidbody.h"
 #include "CTransform.h"
-
+#include "CGameObject.h"
 
 CRigidbody::CRigidbody(LPDIRECT3DDEVICE9 pGraphicDev)
     : CComponent(pGraphicDev)
@@ -43,9 +43,13 @@ void CRigidbody::Update_Component(const _float& fDeltaTime)
 
     // 중력 적용
     if (m_bGravity && !m_bGround)
+    {
         m_vGforce = _vec3(0.f, -9.8f, 0.f) * m_fMass;
+    }
     else
+    {
         m_vGforce = _vec3(0.f, 0.f, 0.f);
+    }
 
     // 외력 + 중력
     _vec3 totalForce = m_vEforce + m_vGforce;
@@ -89,8 +93,23 @@ void CRigidbody::Update_Component(const _float& fDeltaTime)
     vPos += m_vVel * fDeltaTime;
     m_pTransform->Set_Pos(vPos);
 
-    //m_vAAcc = m_vTorque / m_fInertia;
+    m_vAAcc = { m_vTorque.x / m_fInertia.x ,m_vTorque.y / m_fInertia.y ,m_vTorque.z / m_fInertia.z};
     m_vAVel += m_vAAcc * fDeltaTime;
+
+    if (D3DXVec3LengthSq(&m_vAVel) > 0.f)
+    {
+        _vec3 axis = m_vAVel;
+        float angle = D3DXVec3Length(&axis) * fDeltaTime;
+
+        D3DXVec3Normalize(&axis, &axis);
+        m_pTransform->Rotate_Axis(axis, angle);
+    }
+
+    // 감쇠 및 초기화
+    m_vAVel *= 0.98f;
+    m_vTorque = _vec3(0.f, 0.f, 0.f);
+    m_vEforce = _vec3(0.f, 0.f, 0.f);
+
     // 힘 초기화
     m_vEforce = _vec3(0.f, 0.f, 0.f);
 
@@ -100,4 +119,6 @@ void CRigidbody::Free()
 {
     Safe_Release(m_pGraphicDev);
     m_pTransform = nullptr;
+
+    //Safe_Release(m_pOwner);
 }
