@@ -22,6 +22,8 @@ public:
 	static CFloatingCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
+	void SetTrigger(bool Trigger) { m_bOn = Trigger; }
+
 	//Getter, Setter Function
 	void Set_StartPos(const _vec3& vStartPos) { m_vStartPos = vStartPos; }
 	void Set_EndPos(const _vec3& vEndPos) { m_vEndPos = vEndPos; }
@@ -33,7 +35,7 @@ public:
 
 
 private:
-	//ComputeFunction
+	//Compute Function
 	void ComputeEndPos();
 	void Move(const _float& fTimeDelta);
 	void MoveBack(const _float& fTimeDelta);
