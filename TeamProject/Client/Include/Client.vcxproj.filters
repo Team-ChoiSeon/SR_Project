@@ -159,7 +159,9 @@
     <ClInclude Include="..\Header\CActiveTrigger.h">
       <Filter>04. GameObjects\Trigger</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CWeightButton.h" />
+    <ClInclude Include="..\Header\CWeightButton.h">
+      <Filter>04. GameObjects\Trigger\WeightButton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -231,7 +233,9 @@
     <ClCompile Include="..\Code\CActiveTrigger.cpp">
       <Filter>04. GameObjects\Trigger</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CWeightButton.cpp" />
+    <ClCompile Include="..\Code\CWeightButton.cpp">
+      <Filter>04. GameObjects\Trigger\WeightButton</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">

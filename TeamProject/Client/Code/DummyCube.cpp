@@ -39,7 +39,6 @@ HRESULT DummyCube::Ready_GameObject()
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Angle({ 0.f, D3DX_PI, 0.f });
 
-
 	return S_OK;
 }
 

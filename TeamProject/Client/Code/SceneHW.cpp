@@ -44,6 +44,9 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"hwffcam", m_pFFCam);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"hwdummycam", m_pdummycam);
 
+	m_pDummy->Get_Component<CTransform>()->Set_Scale({ 50.f, 1.f, 50.f });
+	m_pDummy->Get_Component<CTransform>()->Set_PosY(-20.f);
+
 	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwFloatingCube"))->Set_Info({ -20.f, -20.f, 20.f }, { 1.f, 1.f, 0.f }, 50.f ,20.f, 1.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Info({ 0.f, 10.f, 10.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Grab(true);
@@ -51,9 +54,15 @@ HRESULT SceneHW::Ready_Scene()
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwOnewayCube"))->Set_Info({ 0.f, -10.f, 10.f }, { 1.f, 0.f, 0.f }, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwOnewayCube"))->Set_Grab(true);
 	dynamic_cast<CWeightButton*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwWeightButton"))->Set_Info(10.f, -1.f);
-	
+		
 	dynamic_cast<CWeightButton*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwWeightButton"))->Set_Trigger(20.f);
 
+
+
+	m_pDummy->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
+	m_pDummy->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+	//m_pDummy->Get_Component<CRigidbody>()->Set_OnGround(true);
+	//m_pDummy->Get_Component<CRigidbody>()->Set_UseGravity(false);
 
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
@@ -131,7 +140,7 @@ void SceneHW::Free()
 {
 	CScene::Free();
 
-	CCameraMgr::Destroy_Instance();
+	//CCameraMgr::Destroy_Instance();
 	CPickingMgr::Destroy_Instance();
 }
 

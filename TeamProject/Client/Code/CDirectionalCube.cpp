@@ -2,6 +2,7 @@
 #include "CDirectionalCube.h"
 #include "CTransform.h"
 #include "CPickTarget.h"
+#include "CRigidbody.h"
 
 CDirectionalCube::CDirectionalCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -32,6 +33,9 @@ HRESULT CDirectionalCube::Ready_GameObject()
 
 	m_pModel = Get_Component<CModel>();
 	m_pPick = Get_Component<CPickTarget>();
+	m_pCollider = Get_Component<CCollider>();
+	m_pCollider->Set_ColTag(ColliderTag::NONE);
+	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 	return S_OK;
 }
 

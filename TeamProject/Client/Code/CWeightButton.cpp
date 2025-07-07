@@ -29,7 +29,7 @@ HRESULT CWeightButton::Ready_GameObject()
 	m_pModel = Get_Component<CModel>();
 	m_pCollider = Get_Component<CCollider>();
 
-    m_pTransform->Set_Pos({ -5.f, -5.f, 20.f });
+    m_pTransform->Set_Pos({ -5.f, 20.f, 20.f });
     m_pTransform->Set_Angle({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Scale({ 1.f, 0.3f, 1.f });
 
