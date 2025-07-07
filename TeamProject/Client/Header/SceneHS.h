@@ -6,6 +6,7 @@ class CTestLightMeshObject;
 class DummyCube;
 class CFirstviewFollowingCamera;
 class CCrosshairUIObject;
+class Player;
 
 namespace Engine {
 	class CLayer;
@@ -33,6 +34,7 @@ private:
 
 	ID3DXFont*			m_pFont = nullptr;
 
+	Player*				m_pPlayer = nullptr;
 	CLightObject*		m_pLightObject = nullptr;
 	CTestLightMeshObject* m_pTestLightMesh = nullptr;
 	//CFirstviewFollowingCamera* m_pFFCam;

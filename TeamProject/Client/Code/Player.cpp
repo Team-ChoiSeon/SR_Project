@@ -36,6 +36,11 @@ HRESULT Player::Ready_GameObject()
 int Player::Update_GameObject(const _float& fTimeDelta)
 {
 	KeyInput(fTimeDelta);
+
+	Player_Jump(fTimeDelta);
+
+	Set_GroundCheck();
+
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 	return S_OK;
@@ -80,6 +85,12 @@ void Player::KeyInput(const _float& fTimeDelta)
 	if (CInputMgr::Get_Instance()->Key_Hold(DIK_LSHIFT)) {
 		m_fMoveSpeed = 30.f;
 	}
+
+	// 피킹 홀드 처리
+	if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB)) {
+
+	}
+
 	if (CInputMgr::Get_Instance()->Key_Away(DIK_LSHIFT))
 	{
 		m_fMoveSpeed = 10.f;
@@ -102,6 +113,16 @@ void Player::KeyInput(const _float& fTimeDelta)
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_E)) {
 		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
 	}
+
+	// 임시 점프 처리
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_SPACE)) {
+		if (m_bGround && !m_bJump)
+		{
+			m_bJump = true;
+			m_fVelocityY = m_fJumpPower;
+		}
+	}
+	
 }
 
 void Player::CursorRotate()
@@ -124,4 +145,34 @@ void Player::CursorRotate()
 
 	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ ry, rx, 0.f });
 
+}
+
+void Player::Player_Jump(const _float& fTimeDelta)
+{
+
+	if (!m_bGround || m_bJump) {
+		m_fVelocityY -= m_fGravity * fTimeDelta; 
+		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_UP) * m_fVelocityY * fTimeDelta);
+	}
+}
+
+void Player::Set_GroundCheck()
+{
+	const float groundY = -5.f;
+
+	_vec3 pos = m_pTransform->Get_Pos();
+
+	if (pos.y <= groundY)
+	{
+		pos.y = groundY;
+		m_fVelocityY = 0.f;
+		m_bGround = true;
+		m_bJump = false;
+	}
+	else
+	{
+		m_bGround = false;
+	}
+
+	m_pTransform->Set_Pos(pos);
 }
