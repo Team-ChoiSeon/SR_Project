@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "SceneHW.h"
-#include "Player.h"
+#include "CMainPlayer.h"
 #include "CFirstviewFollowingCamera.h"
 #include "DummyCube.h"
 #include "CCamera.h"
@@ -24,7 +24,7 @@ SceneHW::~SceneHW()
 HRESULT SceneHW::Ready_Scene()
 {
 	Init_Layers();
-	m_pPlayer = Player::Create(m_pGraphicDev);
+	m_pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	m_pDummy = DummyCube::Create(m_pGraphicDev);
 	m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 	m_pFFCam->Set_Target(m_pPlayer);

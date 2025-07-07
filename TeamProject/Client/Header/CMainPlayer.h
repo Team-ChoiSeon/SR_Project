@@ -1,16 +1,17 @@
 #pragma once
 #include "CGameObject.h"
 #include "CTransform.h"
+#include "CRigidbody.h"
 
 namespace Engine {
 	class CModel;
 	class CCollider;
 }
-class Player : public CGameObject
+class CMainPlayer : public CGameObject
 {
 private:
-	Player(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~Player();
+	CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CMainPlayer();
 
 public:
 	//Basic Function
@@ -21,11 +22,12 @@ public:
 	void Player_Jump(const _float& fTimeDelta);
 
 	//Create, Release Function
-	static Player* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CMainPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
 	//Gettter, Setter Function
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
+	bool Get_Hold() { return m_bObjHold;  }
 
 	void Set_GroundCheck();
 
@@ -35,13 +37,15 @@ protected:
 	void CursorRotate();
 
 private:
+
 	CTransform* m_pTransform;
 	CModel* m_pModel;
 	CCollider* m_pCollider;
+	CRigidbody* m_pRigid;
 
 	float m_fMoveSpeed;
 	float m_fJumpPower = 10.f;
-	float m_fGravity = 20.f; // 임시 중력
+	float m_fGravity = 30.f; // 임시 중력
 	float m_fVelocityY = 0.f; //
 
 	float m_fWidth;
@@ -50,5 +54,6 @@ private:
 	bool m_bCursorMove;
 	bool m_bGround;
 	bool m_bJump;
+	bool m_bObjHold = false;
 	
 };

@@ -20,6 +20,8 @@ public:
 	virtual _int Update_GameObject(const _float& fTimeDelta) override;
 	virtual void Render_GameObject() override;
 
+	CROSSHAIR_STATE Get_State() { return m_eState; };
+
 	void Set_State(CROSSHAIR_STATE eState);
 
 	static CCrosshairUIObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);

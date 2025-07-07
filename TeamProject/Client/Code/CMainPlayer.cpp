@@ -1,20 +1,20 @@
 #include "pch.h"
-#include "Player.h"
+#include "CMainPlayer.h"
 #include "CInputMgr.h"
 #include "CVIBuffer.h"
 #include "CCubeTex.h"
 #include "CTransform.h"
 #include "CCollider.h"
 
-Player::Player(LPDIRECT3DDEVICE9 pGraphicDev) 
+CMainPlayer::CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
 }
-Player::~Player()
+CMainPlayer::~CMainPlayer()
 {
 }
 
-HRESULT Player::Ready_GameObject()
+HRESULT CMainPlayer::Ready_GameObject()
 {
 	DefaultCubeModel tModel;
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
@@ -30,10 +30,14 @@ HRESULT Player::Ready_GameObject()
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 	m_fMoveSpeed = 10.f;
 
+
+	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidbody>();
+
 	return S_OK;
 }
 
-int Player::Update_GameObject(const _float& fTimeDelta)
+int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	KeyInput(fTimeDelta);
 
@@ -46,15 +50,15 @@ int Player::Update_GameObject(const _float& fTimeDelta)
 	return S_OK;
 }
 
-void Player::LateUpdate_GameObject(const _float& fTimeDelta)
+void CMainPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->LateUpdate_Component();
 }
 
-Player* Player::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CMainPlayer* CMainPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	Player* pPlayer = new Player(pGraphicDev);
+	CMainPlayer* pPlayer = new CMainPlayer(pGraphicDev);
 
 	if (FAILED(pPlayer->Ready_GameObject()))
 	{
@@ -66,15 +70,16 @@ Player* Player::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pPlayer;
 }
 
-void Player::Free()
+void CMainPlayer::Free()
 {
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pModel);
+	Safe_Release(m_pRigid);
 
 }
 
-void Player::KeyInput(const _float& fTimeDelta)
+void CMainPlayer::KeyInput(const _float& fTimeDelta)
 {
 	if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB))
 		m_bCursorMove = !m_bCursorMove;
@@ -86,9 +91,12 @@ void Player::KeyInput(const _float& fTimeDelta)
 		m_fMoveSpeed = 30.f;
 	}
 
-	// 피킹 홀드 처리
+	// 홀드 처리
 	if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB)) {
-
+		m_bObjHold = true;
+	}
+	else {
+		m_bObjHold = false;
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Away(DIK_LSHIFT))
@@ -96,22 +104,28 @@ void Player::KeyInput(const _float& fTimeDelta)
 		m_fMoveSpeed = 10.f;
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_W)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_LOOK) * m_fMoveSpeed * fTimeDelta);
+		m_pTransform->Move(DIR_FORWARD, m_fMoveSpeed, fTimeDelta);
+		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_LOOK) * m_fMoveSpeed * fTimeDelta);
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_S)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_LOOK) * m_fMoveSpeed * fTimeDelta);
+		m_pTransform->Move(DIR_BACKWARD, m_fMoveSpeed, fTimeDelta);
+		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_LOOK) * m_fMoveSpeed * fTimeDelta);
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_D)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_RIGHT) * m_fMoveSpeed * fTimeDelta);
+		m_pTransform->Move(DIR_RIGHT, m_fMoveSpeed, fTimeDelta);
+		// m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_RIGHT) * m_fMoveSpeed * fTimeDelta);
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_A)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_RIGHT) * m_fMoveSpeed * fTimeDelta);
+		m_pTransform->Move(DIR_LEFT, m_fMoveSpeed, fTimeDelta);
+		// m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_RIGHT) * m_fMoveSpeed * fTimeDelta);
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
+		m_pTransform->Move(DIR_UP, m_fMoveSpeed, fTimeDelta);
+		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_E)) {
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
+		m_pTransform->Move(DIR_DOWN, m_fMoveSpeed, fTimeDelta);
+		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
 	}
 
 	// 임시 점프 처리
@@ -125,7 +139,7 @@ void Player::KeyInput(const _float& fTimeDelta)
 	
 }
 
-void Player::CursorRotate()
+void CMainPlayer::CursorRotate()
 {
 	//커서 고정
 	ShowCursor(false);
@@ -147,7 +161,7 @@ void Player::CursorRotate()
 
 }
 
-void Player::Player_Jump(const _float& fTimeDelta)
+void CMainPlayer::Player_Jump(const _float& fTimeDelta)
 {
 
 	if (!m_bGround || m_bJump) {
@@ -156,7 +170,7 @@ void Player::Player_Jump(const _float& fTimeDelta)
 	}
 }
 
-void Player::Set_GroundCheck()
+void CMainPlayer::Set_GroundCheck()
 {
 	const float groundY = -5.f;
 
