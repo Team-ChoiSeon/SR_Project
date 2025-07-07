@@ -270,6 +270,8 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 		else
 			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
 
+		if (push.y < 0.f)
+			push.y = 0.f;
 		// Rigidbody ¾ò±â
 		CRigidbody* pRigid1 = m_pOwner->Get_Component<CRigidbody>();
 		CRigidbody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidbody>();
