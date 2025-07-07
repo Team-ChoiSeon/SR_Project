@@ -9,9 +9,10 @@
 #include "CUiMgr.h"
 #include "CResourceMgr.h"
 #include "CPickingMgr.h"
+#include "CCollisionMgr.h"
 
 #include "CPlayer.h"
-#include "Player.h"
+#include "CMainPlayer.h"
 #include "CLightObject.h"
 #include "CTestLightMeshObject.h"
 #include "CCrosshairUIObject.h"
@@ -37,11 +38,14 @@ HRESULT SceneHS::Ready_Scene()
 
 	Init_Layers();
 
-	m_pPlayer = Player::Create(m_pGraphicDev);
+	m_pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	m_pLightObject = CLightObject::Create(m_pGraphicDev);
 	m_pTestLightMesh = CTestLightMeshObject::Create(m_pGraphicDev);
 	m_pCrosshair = CCrosshairUIObject::Create(m_pGraphicDev);
 	m_pDummy = DummyCube::Create(m_pGraphicDev);
+	DummyCube* m_pGroundDummy = DummyCube::Create(m_pGraphicDev);
+	m_pGroundDummy->Get_Component<CTransform>()->Set_Scale({ 100.f, 1.f, 100.f });
+	m_pGroundDummy->Get_Component<CTransform>()->Set_PosY(-20.f);
 
 	CFirstviewFollowingCamera* m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 	m_pFFCam->Set_Target(m_pPlayer);
@@ -58,6 +62,7 @@ HRESULT SceneHS::Ready_Scene()
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", m_pPlayer);
 
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Dummy", (m_pDummy));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"GroundDummy", (m_pGroundDummy));
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"TestLightMesh", (m_pTestLightMesh));
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"LightObject", (m_pLightObject));
 	
@@ -83,13 +88,22 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 		pLayer.second->Update_Layer(fTimeDelta);
 	if (CPickingMgr::Get_Instance()->Get_HitTarget() == m_pDummy)
 	{
-		// 피킹 처리시 일어나는 부분
+		// 피킹 처리시 일어나는 부분 m_pPlayer->Get_Hold
 		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
 		OutputDebugStringW(L"[Debug] Hit!	\n");
 	}
 	else {
 		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 	}
+
+
+	if (m_pPlayer->Get_Hold()) {
+		if (m_pCrosshair->Get_State() == CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER) {
+			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+		}
+	}
+
+	CCollisionMgr::Get_Instance()->Update_Collision();
 
 	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
 
@@ -129,19 +143,6 @@ void SceneHS::Render_Scene()
 
 
 	CUiMgr::Get_Instance()->RenderUI();
-
-	wchar_t buf[64];
-	swprintf_s(buf, L"test : HS");
-
-	RECT rc = { 10, 10, 500, 30 };
-	m_pFont->DrawTextW(
-		nullptr,
-		buf,
-		-1,
-		&rc,
-		DT_LEFT | DT_TOP,
-		D3DCOLOR_ARGB(255, 255, 0, 0)
-	);
 }
 
 SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)

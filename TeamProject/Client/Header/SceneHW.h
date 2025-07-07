@@ -1,7 +1,7 @@
 #pragma once
 #include "CScene.h"
 
-class Player;
+class CMainPlayer;
 class DummyCube;
 class CFirstviewFollowingCamera;
 
@@ -24,7 +24,7 @@ public:
 	void	Free();
 
 private:
-	Player*						m_pPlayer;
+	CMainPlayer*						m_pPlayer;
 	CFirstviewFollowingCamera*	m_pFFCam;
 	CFirstviewFollowingCamera*	m_pdummycam;
 	DummyCube*					m_pDummy;
