@@ -19,10 +19,14 @@ public:
 	virtual void	LateUpdate_Component();
 
 public:
-    void Set_Pos(const _vec3& vPos) { m_vPosition = vPos; }
-    void Set_PosX(_float x) { m_vPosition.x = x; }
-    void Set_PosY(_float y) { m_vPosition.y = y; }
-    void Set_PosZ(_float z) { m_vPosition.z = z; }
+    void Set_Pos(const _vec3& vPos) { m_vPosition = vPos; Update_Component(0.f);
+    }
+    void Set_PosX(_float x) { m_vPosition.x = x; Update_Component(0.f);
+    }
+    void Set_PosY(_float y) { m_vPosition.y = y; Update_Component(0.f);
+    }
+    void Set_PosZ(_float z) { m_vPosition.z = z; Update_Component(0.f);
+    }
     void Set_Scale(const _vec3& vScale) { m_vScale = vScale; }
     void Set_ScaleX(_float x) { m_vScale.x = x; }
     void Set_ScaleY(_float y) { m_vScale.y = y; }
@@ -87,6 +91,7 @@ private:
     _vec3       m_vPosition;
     _vec3       m_vInfo[INFO_END];
 
+    _matrix     m_matRot;
     _matrix     m_matWorld;
     _matrix     m_matParent;
     _matrix     m_matOrbit;

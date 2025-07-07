@@ -11,6 +11,7 @@
 #include "CLightMgr.h"
 #include "CRenderMgr.h"
 #include "CCollisionMgr.h"
+#include "CCameraMgr.h"
 #include "CScene.h"
 #include "Logo.h"
 
@@ -81,17 +82,24 @@ CMainApp* CMainApp::Create()
 
 void CMainApp::Free()
 {
-	Safe_Release(m_pGraphicDev);
-	Safe_Release(m_pDeviceClass);
-
-	CTimeMgr::Get_Instance()->Destroy_Instance();
-	CFrameMgr::Get_Instance()->Destroy_Instance();
-	CInputMgr::Get_Instance()->Destroy_Instance();
+	// 1. 사용자 Scene 먼저 정리 (→ GameObject, Component까지)
 	CSceneMgr::Get_Instance()->Destroy_Instance();
-	CLightMgr::Get_Instance()->Destroy_Instance();
+
+	// 2. 이들보다 아래 계층의 매니저 해제
+	CCameraMgr::Get_Instance()->Destroy_Instance();
 	CCollisionMgr::Get_Instance()->Destroy_Instance();
 	CRenderMgr::Get_Instance()->Destroy_Instance();
 
-	CGraphicDev::Get_Instance()->Destroy_Instance();
+	// 3. 그 외 매니저들
+	CInputMgr::Get_Instance()->Destroy_Instance();
+	CFrameMgr::Get_Instance()->Destroy_Instance();
+	CTimeMgr::Get_Instance()->Destroy_Instance();
+	CLightMgr::Get_Instance()->Destroy_Instance();
+
+	// 4. 리소스, 디바이스
 	CResourceMgr::Get_Instance()->Destroy_Instance();
+	CGraphicDev::Get_Instance()->Destroy_Instance();
+
+	Safe_Release(m_pGraphicDev);
+	Safe_Release(m_pDeviceClass);
 }

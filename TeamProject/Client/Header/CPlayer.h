@@ -35,10 +35,7 @@ protected:
 private:
 	CTransform* m_pTransform;
 	CModel* m_pModel;
-	CCollider* m_pCollider;
-	CRigidbody* m_pRigid;
 
-	const _matrix* m_mWorld;
 
 	float m_fSpeed;
 

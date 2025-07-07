@@ -3,6 +3,10 @@
 #include "CTransform.h"
 #include "CCollisionMgr.h"
 #include "CRigidbody.h"
+#include "CGameObject.h"
+
+
+class CGameObject;
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CComponent(pGraphicDev)
@@ -136,15 +140,16 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 		}
 
 		// 지면 충돌 : Ground와 위에서 닿은 경우만
-		if (pOther->Get_ColTag() == ColliderTag::GROUND && push.y > 0.f)
+		if (m_eType == ColliderType::ACTIVE &&
+			pOther->Get_ColType() == ColliderType::PASSIVE &&
+			pOther->Get_ColTag() == ColliderTag::GROUND &&
+			push.y > 0.f)
 		{
-			CRigidbody* pRigid = m_pOwner->Get_Component<CRigidbody>();
-			if (pRigid)
+			if (auto pRigid = m_pOwner->Get_Component<CRigidbody>())
+			{
 				pRigid->Set_OnGround(true);
+			}
 		}
-
-		// 땅에 닿았을때(추후 판정 기능 추가)
-		m_pOwner->Get_Component<CRigidbody>()->Set_OnGround(true);
 
 
 	}
@@ -213,4 +218,5 @@ void CCollider::Free()
 	Safe_Release(m_pVB);
 	Safe_Release(m_pIB);
 	Safe_Release(m_pGraphicDev);
+	//Safe_Release(m_pOwner);
 }

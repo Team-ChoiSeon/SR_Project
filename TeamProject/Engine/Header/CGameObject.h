@@ -41,6 +41,9 @@ public:
 	template<typename T>
 	bool Has_Component();
 
+	template<typename T>
+	void Remove_Component();
+
 protected:
 	virtual		void		Free();
 
@@ -95,5 +98,20 @@ bool CGameObject::Has_Component()
 			return true;
 	}
 	return false;
+}
+
+template<typename T>
+inline void CGameObject::Remove_Component()
+{
+	for (_uint i = 0; i < ID_END; ++i)
+	{
+		auto iter = m_umComponent[i].find(typeid(T));
+		if (iter != m_umComponent[i].end())
+		{
+			Safe_Release(static_cast<T*>(iter->second));
+			m_umComponent[i].erase(iter);
+		}
+	}
+	//MSG_BOX("[GameObject] Remove_Component : ");
 }
 END
