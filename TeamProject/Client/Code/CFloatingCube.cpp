@@ -97,7 +97,7 @@ void CFloatingCube::Free()
 void CFloatingCube::Set_Info(const _vec3& vStartPos, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime)
 {
 	m_vStartPos = vStartPos;
-	Get_Component<CTransform>()->Set_Pos(m_vStartPos);
+	m_pTransform->Set_Pos(m_vStartPos);
 	m_vDirection = vDirection;
 	m_fMaxDistance = fMax;
 	m_fSpeed = fSpeed;

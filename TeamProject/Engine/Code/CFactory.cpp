@@ -1,5 +1,8 @@
 #pragma once
+#include "json.hpp"
 #include "CFactory.h"
+
+using json = nlohmann::json;
 
 void CFactory::Register(const wstring& className, CreatorFunc func)
 {
