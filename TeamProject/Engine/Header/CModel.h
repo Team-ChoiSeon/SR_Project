@@ -27,6 +27,7 @@ public:
     //    return Create<DefaultCubeModel>(pDevice);
     //}
     static CModel* Create(LPDIRECT3DDEVICE9 pDevice, const DefaultCubeModel& model);
+    static CModel* Create(LPDIRECT3DDEVICE9 pDevice, const DefaultTileModel& model);
     virtual void LateUpdate_Component()override;
     void Render(LPDIRECT3DDEVICE9 pDevice);
 
@@ -47,7 +48,6 @@ private:
     CMaterial* m_pMaterial = nullptr; // material include texture
 
 };
-
 
 //template <typename ModelT, typename... Args>
 //static CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args)

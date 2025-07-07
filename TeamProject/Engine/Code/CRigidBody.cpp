@@ -68,9 +68,15 @@ void CRigidbody::Update_Component(const _float& fDeltaTime)
     // 속도 업데이트
     m_vVel += m_vAcc * fDeltaTime;
 
-    // 미세한 움직임 컷팅
-    if (D3DXVec3Length(&m_vVel) < 0.001f)
-        m_vVel = _vec3(0.f, 0.f, 0.f);
+    // 지면에서 미세한 움직임 컷팅
+    if (m_bGround)
+    {
+        if (D3DXVec3LengthSq(&m_vVel) < 0.001f)
+            m_vVel = _vec3(0.f, 0.f, 0.f);
+
+        if (D3DXVec3LengthSq(&m_vAcc) < 0.01f)
+            m_vAcc = _vec3(0.f, 0.f, 0.f);
+    }
 
     // 낙하 처리 : 탄성 적용
     if (m_bGround && m_vVel.y < 0.f)

@@ -7,11 +7,11 @@
 #include "CRigidbody.h"
 
 
-class CPlayer : public Engine::CGameObject
+class CTestTile : public Engine::CGameObject
 {
 private:
-	CPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CPlayer();
+	CTestTile(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CTestTile();
 
 public:
 	//Basic Function
@@ -20,17 +20,12 @@ public:
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
 	//Create, Release Function
-	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CTestTile* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
-	//Gettter, Setter Function
-	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
 
 
 protected:
-	//Utility Function
-	void KeyInput(const _float& fTimeDelta);
-	void CursorRotate();
 
 private:
 	CTransform* m_pTransform;
@@ -39,7 +34,8 @@ private:
 	CRigidbody* m_pRigid;
 
 
-	float m_fSpeed;
+	const _matrix* m_mWorld;
+
 
 	float m_fWidth;
 	float m_fDepth;

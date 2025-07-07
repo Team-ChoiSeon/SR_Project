@@ -165,6 +165,7 @@
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CTestLightMeshObject.h" />
     <ClInclude Include="..\Header\CCube.h" />
+    <ClInclude Include="..\Header\CTestTile.h" />
     <ClInclude Include="..\Header\DummyCube.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\CMainPlayer.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp" />
     <ClCompile Include="..\Code\CCube.cpp" />
+    <ClCompile Include="..\Code\CTestTile.cpp" />
     <ClCompile Include="..\Code\DummyCube.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\CMainPlayer.cpp" />

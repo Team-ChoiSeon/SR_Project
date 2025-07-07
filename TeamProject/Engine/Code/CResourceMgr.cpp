@@ -20,10 +20,14 @@ CResourceMgr::~CResourceMgr()
 HRESULT CResourceMgr::Ready_Resource()
 {
 	m_pGraphicDev = CGraphicDev::Get_Instance()->Get_GraphicDev();
+
 	if (!m_pGraphicDev)
 		return E_FAIL;
+
 	Load_Material(L"DirtObj.mtl");
+	Load_Material(L"BrickRoad.mtl");
 	Load_Mesh <CCubeTex>(m_pGraphicDev, L"CCubeTex");
+	
 	m_pGraphicDev->AddRef();
 }
 

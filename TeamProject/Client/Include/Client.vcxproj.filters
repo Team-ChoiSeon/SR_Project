@@ -73,6 +73,9 @@
     <Filter Include="04. GameObjects\Cube\ImpulseCube">
       <UniqueIdentifier>{d1eb18fa-2b18-4930-9a79-8dc103ed10cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\TestTile">
+      <UniqueIdentifier>{48b919c7-4a5f-44ae-b69b-234078cfeb74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -150,6 +153,9 @@
     <ClInclude Include="..\Header\CImpulseCube.h">
       <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTestTile.h">
+      <Filter>04. GameObjects\TestTile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -217,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CImpulseCube.cpp">
       <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestTile.cpp">
+      <Filter>04. GameObjects\TestTile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
