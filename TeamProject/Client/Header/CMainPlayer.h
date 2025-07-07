@@ -9,6 +9,8 @@ namespace Engine {
 }
 class CMainPlayer : public CGameObject
 {
+public:
+	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL  };  // 필요시에 더 추가
 private:
 	CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CMainPlayer();
@@ -32,6 +34,7 @@ public:
 protected:
 	//Utility Function
 	void KeyInput(const _float& fTimeDelta);
+	void Update_State(const _float& fTimeDelta);
 	void CursorRotate();
 
 private:
@@ -49,5 +52,7 @@ private:
 
 	bool m_bCursorMove;
 	bool m_bObjHold = false;
-	
+
+	PLAYER_STATE m_eCurState = PLAYER_STATE::PLAYER_IDLE;
+	PLAYER_STATE m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
 };

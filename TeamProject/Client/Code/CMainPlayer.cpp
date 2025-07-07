@@ -30,10 +30,11 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 	m_fMoveSpeed = 10.f;
 
-
 	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidbody>();
 	
+	m_eCurState = PLAYER_STATE::PLAYER_IDLE;
+	m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
 
 	return S_OK;
 }
@@ -41,12 +42,12 @@ HRESULT CMainPlayer::Ready_GameObject()
 int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	KeyInput(fTimeDelta);
+	Update_State(fTimeDelta);
 
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 	
 	Set_GroundCheck();
-	
 	return S_OK;
 }
 
@@ -181,4 +182,29 @@ void CMainPlayer::Set_GroundCheck()
 	{
 		m_pRigid->Set_OnGround(false);
 	}
+}
+
+// void CMainPlayer::Update_State(const _float& fTimeDelta)
+// {
+// 	switch (m_eCurState)
+// 	{
+// 	case PLAYER_STATE::PLAYER_IDLE:
+// 		break;
+// 	case PLAYER_STATE::PLAYER_MOVE:
+// 		break;
+// 	case PLAYER_STATE::PLAYER_JUMP:
+// 		break;
+// 	case PLAYER_STATE::PLAYER_FALL:
+// 		break;
+// 	}
+// 
+// }
+
+void CMainPlayer::Change_State(PLAYER_STATE eNewState)
+{
+	if (m_eCurState == eNewState)
+		return;
+
+	m_ePrevState = m_eCurState;
+	m_eCurState = eNewState;
 }
