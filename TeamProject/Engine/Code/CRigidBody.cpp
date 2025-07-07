@@ -1,7 +1,6 @@
 #include "CRigidbody.h"
 #include "CTransform.h"
 
-USING(Engine)
 
 CRigidbody::CRigidbody(LPDIRECT3DDEVICE9 pGraphicDev)
     : CComponent(pGraphicDev)
@@ -11,9 +10,9 @@ CRigidbody::CRigidbody(LPDIRECT3DDEVICE9 pGraphicDev)
 CRigidbody::CRigidbody(const CRigidbody& rhs)
     : CComponent(rhs)
     , m_fMass(rhs.m_fMass)
-    , m_vVelocity(rhs.m_vVelocity)
-    , m_vAccel(rhs.m_vAccel)
-    , m_vForce(rhs.m_vForce)
+    , m_vVel(rhs.m_vVel)
+    , m_vAcc(rhs.m_vAcc)
+    , m_vGforce(rhs.m_vGforce)
     , m_bGravity(rhs.m_bGravity)
     , m_pTransform(rhs.m_pTransform)
 {
@@ -37,16 +36,6 @@ CRigidbody* CRigidbody::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTrans
     return pInstance;
 }
 
-void CRigidbody::Add_Force(const _vec3& vForce)
-{
-    m_vForce += vForce;
-}
-
-void CRigidbody::Add_Velocity(const _vec3& vVel)
-{
-    m_vVelocity += vVel;
-}
-
 void CRigidbody::Update_Component(const _float& fDeltaTime)
 {
     if (m_pTransform == nullptr)
@@ -54,30 +43,56 @@ void CRigidbody::Update_Component(const _float& fDeltaTime)
 
     // 중력 적용
     if (m_bGravity && !m_bGround)
+        m_vGforce = _vec3(0.f, -9.8f, 0.f) * m_fMass;
+    else
+        m_vGforce = _vec3(0.f, 0.f, 0.f);
+
+    // 외력 + 중력
+    _vec3 totalForce = m_vEforce + m_vGforce;
+
+    // 마찰력 : 지면 위에서만
+    if (m_bGround)
     {
-        const _vec3 gravity = _vec3(0.f, -9.8f, 0.f);
-        m_vForce += gravity * m_fMass;
+        _vec3 friction = -m_vVel;
+        friction.y = 0.f; // y축 마찰 무시 (점프/낙하 방해 방지)
+        friction *= m_fFric;
+        totalForce += friction;
     }
 
     // F = m * a  =>  a = F / m
-    m_vAccel = m_vForce / m_fMass;
-
+    m_vAcc = totalForce / m_fMass;
     // 속도 업데이트
-    m_vVelocity += m_vAccel * fDeltaTime;
+    m_vVel += m_vAcc * fDeltaTime;
 
-    if (m_bGround && m_vVelocity.y < 0.f)
+    // 미세한 움직임 컷팅
+    if (D3DXVec3Length(&m_vVel) < 0.001f)
+        m_vVel = _vec3(0.f, 0.f, 0.f);
+
+    // 낙하 처리 : 탄성 적용
+    if (m_bGround && m_vVel.y < 0.f)
     {
-        m_vVelocity.y = 0.f;
-        m_vAccel.y = 0.f;
+        m_vVel.y *= -m_fBnc;
+
+        if (fabs(m_vVel.y) < 0.05f) // 너무 작으면 멈춤
+        {
+            m_vVel.y = 0.f;
+        }
+        else
+        {
+            // 여기서 튕겨 오르면 지면에서 떨어진 상태이므로 false 처리
+            m_bGround = false;
+        }
     }
 
     // 위치 업데이트
     _vec3 vPos = m_pTransform->Get_Pos();
-    vPos += m_vVelocity * fDeltaTime;
+    vPos += m_vVel * fDeltaTime;
     m_pTransform->Set_Pos(vPos);
 
+    //m_vAAcc = m_vTorque / m_fInertia;
+    m_vAVel += m_vAAcc * fDeltaTime;
     // 힘 초기화
-    m_vForce = _vec3(0.f, 0.f, 0.f);
+    m_vEforce = _vec3(0.f, 0.f, 0.f);
 
 }
 

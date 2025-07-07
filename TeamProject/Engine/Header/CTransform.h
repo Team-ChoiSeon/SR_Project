@@ -73,6 +73,8 @@ public:
         *(((_float*)&m_vAngle) + eType) += fAngle;
     }
 
+    void Rotate_Axis(const _vec3& axis, const _float& fAngle);
+
 public:
     static CTransform* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

@@ -25,7 +25,7 @@ HRESULT SceneSB::Ready_Scene()
 	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
 	CMonster* pDummy = CMonster::Create(m_pGraphicDev);
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 30.f,20.f });
-	pDummy->Get_Component<CTransform>()->Set_Scale({ 100.f, 1.f, 100.f });
+	pDummy->Get_Component<CTransform>()->Set_Scale({ 100.f, 10.f, 100.f });
 	pDummy->Get_Component<CTransform>()->Set_PosY(-20.f);
 	
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"MyPlayer", pPlayer);

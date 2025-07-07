@@ -2,8 +2,12 @@
 #include "CBase.h"
 #include "CComponent.h"
 #include "CModel.h"
+#include "CCamera.h"
+#include "CUI.h"
 
 BEGIN(Engine)
+
+
 
 class ENGINE_DLL CGameObject : public CBase
 {
