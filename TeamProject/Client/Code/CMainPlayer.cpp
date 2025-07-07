@@ -33,6 +33,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidbody>();
+	
 
 	return S_OK;
 }

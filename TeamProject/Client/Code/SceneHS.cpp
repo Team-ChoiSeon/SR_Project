@@ -86,18 +86,20 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
+
 	if (CPickingMgr::Get_Instance()->Get_HitTarget() == m_pDummy)
 	{
-		// 피킹 처리시 일어나는 부분 m_pPlayer->Get_Hold
-		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
+			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+
 		OutputDebugStringW(L"[Debug] Hit!	\n");
 	}
 	else {
-		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
+			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 	}
-
-
-	if (m_pPlayer->Get_Hold()) {
+	
+	if (Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Hold()) {
 		if (m_pCrosshair->Get_State() == CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER) {
 			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
 		}
@@ -109,11 +111,6 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 
 	// m_pLightObject->Update_GameObject(fTimeDelta);
 	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
-	// 
-	// if (m_pCrosshair)
-	// 	m_pCrosshair->Update_GameObject(fTimeDelta);
-
-	// CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
 
 	return 0;
 }
@@ -130,7 +127,6 @@ void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 	// m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
 	
 	//Engine::CLightMgr::Get_Instance()->UpdateLights({ 0.f, 0.f, -10.f });
-	// CCameraMgr::Get_Instance()->LateUpdate_Camera(fTimeDelta);
 }
 
 void SceneHS::Render_Scene()

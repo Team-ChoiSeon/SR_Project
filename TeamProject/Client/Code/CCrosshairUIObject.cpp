@@ -33,6 +33,7 @@ HRESULT CCrosshairUIObject::Ready_GameObject()
 
     CResourceMgr::Get_Instance()->Load_Texture(L"CROSS_DEFAULT.png");
     CResourceMgr::Get_Instance()->Load_Texture(L"CROSS_HOVER.png");
+    CResourceMgr::Get_Instance()->Load_Texture(L"CROSS_HOLD.png");
 
     Get_Component<CUiImage>()->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"CROSS_DEFAULT.png"));
     Get_Component<CUiImage>()->Set_Position(D3DXVECTOR2((WINCX * 0.5f)- 25, (WINCY * 0.5f)-25));
@@ -83,6 +84,7 @@ void CCrosshairUIObject::Update_Texture_State()
         pImg->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"CROSS_HOVER.png"));
         break;
     case CROSSHAIR_STATE::CROSS_HOLD:
+        pImg->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"CROSS_HOLD.png"));
         break;
     }
 
