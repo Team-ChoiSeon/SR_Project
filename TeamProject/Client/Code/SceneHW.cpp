@@ -12,6 +12,7 @@
 #include "CPickingMgr.h"
 #include "CFloatingCube.h"
 #include "CDirectionalCube.h"
+#include "CImpulseCube.h"
 
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CScene(pGraphicDev)
@@ -33,6 +34,7 @@ HRESULT SceneHW::Ready_Scene()
 	m_pdummycam->Set_Target(m_pDummy);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwFloatingCube", CFloatingCube::Create(m_pGraphicDev));
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwDirectionalCube", CDirectionalCube::Create(m_pGraphicDev));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwImpulseCube", CImpulseCube::Create(m_pGraphicDev));
 
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"hwPlayer", m_pPlayer);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwdummy", m_pDummy);
@@ -42,6 +44,7 @@ HRESULT SceneHW::Ready_Scene()
 	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwFloatingCube"))->Set_Info({ -20.f, -20.f, 20.f }, { 1.f, 1.f, 0.f }, 50.f ,20.f, 1.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Info({ 0.f, 10.f, 10.f }, { 1.f, 0.f, 0.f }, -10.f, 5.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Grab(true);
+	dynamic_cast<CImpulseCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwImpulseCube"))->Set_Info({ 10.f, 0.f, 10.f });
 
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);

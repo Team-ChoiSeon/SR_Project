@@ -70,7 +70,7 @@
     <Filter Include="04. GameObjects\Cube\DirectionalCube">
       <UniqueIdentifier>{fd46cc7f-1998-4688-a1ba-f6c45fc3d8f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\Cube\KineticCube">
+    <Filter Include="04. GameObjects\Cube\ImpulseCube">
       <UniqueIdentifier>{d1eb18fa-2b18-4930-9a79-8dc103ed10cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -147,8 +147,8 @@
     <ClInclude Include="..\Header\CDirectionalCube.h">
       <Filter>04. GameObjects\Cube\DirectionalCube</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CKineticCube.h">
-      <Filter>04. GameObjects\Cube\KineticCube</Filter>
+    <ClInclude Include="..\Header\CImpulseCube.h">
+      <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -215,8 +215,8 @@
     <ClCompile Include="..\Code\CDirectionalCube.cpp">
       <Filter>04. GameObjects\Cube\DirectionalCube</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CKineticCube.cpp">
-      <Filter>04. GameObjects\Cube\KineticCube</Filter>
+    <ClCompile Include="..\Code\CImpulseCube.cpp">
+      <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
