@@ -77,7 +77,19 @@ void CDirectionalCube::Set_Info(const _vec3& startpos, const _vec3& axis, const 
 	m_fMinDistance = mindistance; 
 	m_fMaxDistance = maxdistance; 
 	m_vCursorDelta = { 0.f, 0.f, 0.f };
+	m_bOneway = false;
 	ComputeMinMaxPos();
+}
+
+void CDirectionalCube::Set_Info(const _vec3& startpos, const _vec3& axis, const _float& maxdistance)
+{
+	m_vStartPos = startpos;
+	m_pTransform->Set_Pos(m_vStartPos);
+	D3DXVec3Normalize(&m_vDefaultAxis, &axis);
+	m_fMaxDistance = maxdistance;
+	m_vCursorDelta = { 0.f, 0.f, 0.f };
+	m_bOneway = true;
+	ComputeEndPos();
 }
 
 
@@ -87,25 +99,56 @@ void CDirectionalCube::ComputeMinMaxPos()
 	m_vMaxPos = m_vStartPos + m_fMaxDistance * m_vDefaultAxis;
 }
 
+void CDirectionalCube::ComputeEndPos()
+{
+	D3DXVec3Normalize(&m_vDefaultAxis, &m_vDefaultAxis);
+	m_vMaxPos = m_vStartPos + m_vDefaultAxis * m_fMaxDistance;
+}
+
 void CDirectionalCube::Move()
 {
-	if (m_bGrab)
+	if (!m_bOneway)
 	{
-		ComputeMoveVecIntoAxisMoveVec();
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vMoveDelta);
-	}
+		if (m_bGrab)
+		{
+			ComputeMoveVecIntoAxisMoveVec();
+			m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vMoveDelta);
+		}
 
-	_vec3 NowPos = m_pTransform->Get_Pos();
-	_vec3 MinGap = m_vMinPos - NowPos;
-	_vec3 MaxGap = m_vMaxPos - NowPos;
-	_float SumDistance = m_fMaxDistance - m_fMinDistance;
-	if (D3DXVec3Length(&MaxGap) >= SumDistance)
-	{
-		m_pTransform->Set_Pos(m_vMinPos);
+		_vec3 NowPos = m_pTransform->Get_Pos();
+		_vec3 MinGap = m_vMinPos - NowPos;
+		_vec3 MaxGap = m_vMaxPos - NowPos;
+		_float SumDistance = m_fMaxDistance - m_fMinDistance;
+		if (D3DXVec3Length(&MaxGap) >= SumDistance)
+		{
+			m_pTransform->Set_Pos(m_vMinPos);
+		}
+		else if (D3DXVec3Length(&MinGap) >= SumDistance)
+		{
+			m_pTransform->Set_Pos(m_vMaxPos);
+		}
 	}
-	else if (D3DXVec3Length(&MinGap) >= SumDistance)
+	else
 	{
-		m_pTransform->Set_Pos(m_vMaxPos);
+		if (m_bGrab)
+		{
+			ComputeMoveVecIntoAxisMoveVec();
+			_vec3 vNormalDelta;
+			D3DXVec3Normalize(&vNormalDelta, &m_vMoveDelta);
+
+
+			if (vNormalDelta == m_vDefaultAxis)
+				m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vMoveDelta);
+		}
+
+		_vec3 vNowPos = m_pTransform->Get_Pos();
+		_vec3 vNowGap = vNowPos - m_vStartPos;
+		_vec3 vEndGap = m_vMaxPos - m_vStartPos;
+
+		if (D3DXVec3Length(&vNowGap) >= D3DXVec3Length(&vEndGap))
+		{
+			m_pTransform->Set_Pos(m_vMaxPos);
+		}
 	}
 }
 
