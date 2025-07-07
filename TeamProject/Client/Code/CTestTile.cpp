@@ -23,7 +23,7 @@ HRESULT CTestTile::Ready_GameObject()
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 
-	DefaultCubeModel tModel;
+	DefaultTileModel tModel;
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
 	m_pModel = Get_Component<CModel>();
 

@@ -41,6 +41,10 @@ HRESULT CMonster::Ready_GameObject()
 
 int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
+	// For debug
+	wstring wDebug = to_wstring(m_pTransform->Get_Pos().z);
+	OutputDebugString(wDebug.c_str());
+	OutputDebugString(L"\n");
 
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);

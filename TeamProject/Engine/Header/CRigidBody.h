@@ -34,6 +34,8 @@ public:
 
     bool  Get_OnGround()   const     { return m_bGround; }
     bool  Get_UseGravity() const     { return m_bGravity; }
+
+    _float Get_Mass()   const { return m_fMass; }
     _vec3 Get_Velocity()   const     { return m_vVel; }
     _vec3 Get_AVelocity()  const     { return m_vAVel; }
     _vec3 Get_Accel()      const     { return m_vAcc; }

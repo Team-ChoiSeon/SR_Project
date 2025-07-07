@@ -29,6 +29,22 @@ CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, const DefaultCubeModel& model)
 	return pModel;
 }
 
+CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, const DefaultTileModel& model)
+{
+	auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
+	auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
+
+	if (!pMesh || !pMaterial) {
+		MSG_BOX("CModel::Create - Resource Missing");
+		return nullptr;
+	}
+	auto pModel = new CModel(pDevice);
+	pModel->Set_Mesh(pMesh);
+	pModel->Set_Material(pMaterial);
+	OutputDebugString("[CModel] Create »£√‚µ \n");
+	return pModel;
+}
+
 void CModel::LateUpdate_Component()
 {
 	OutputDebugString("[CModel] LateUpdate_Component »£√‚µ \n");
