@@ -13,6 +13,7 @@
 #include "CFloatingCube.h"
 #include "CDirectionalCube.h"
 #include "CImpulseCube.h"
+#include "CWeightButton.h"
 
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CScene(pGraphicDev)
@@ -36,6 +37,7 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwDirectionalCube", CDirectionalCube::Create(m_pGraphicDev));
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwImpulseCube", CImpulseCube::Create(m_pGraphicDev));
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwOnewayCube", CDirectionalCube::Create(m_pGraphicDev));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwWeightButton", CWeightButton::Create(m_pGraphicDev));
 
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"hwPlayer", m_pPlayer);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwdummy", m_pDummy);
@@ -48,6 +50,10 @@ HRESULT SceneHW::Ready_Scene()
 	dynamic_cast<CImpulseCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwImpulseCube"))->Set_Info({ 10.f, 0.f, 10.f });
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwOnewayCube"))->Set_Info({ 0.f, -10.f, 10.f }, { 1.f, 0.f, 0.f }, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwOnewayCube"))->Set_Grab(true);
+	dynamic_cast<CWeightButton*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwWeightButton"))->Set_Info(10.f, -1.f);
+	
+	dynamic_cast<CWeightButton*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwWeightButton"))->Set_Trigger(20.f);
+
 
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
@@ -95,6 +101,11 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	if (CPickingMgr::Get_Instance()->Get_HitTarget() == m_pDummy)
 	{
 		OutputDebugStringW(L"[Debug] Hit!	\n");
+	}
+
+	if (dynamic_cast<CWeightButton*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwWeightButton"))->Get_TriggerState())
+	{
+		OutputDebugStringW(L"[Debug] Weight Button Triggered!	\n");
 	}
 
 

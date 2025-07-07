@@ -73,6 +73,12 @@
     <Filter Include="04. GameObjects\Cube\ImpulseCube">
       <UniqueIdentifier>{d1eb18fa-2b18-4930-9a79-8dc103ed10cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Trigger">
+      <UniqueIdentifier>{6ca85163-f2f9-4842-b2fd-3af07ca1b49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Trigger\WeightButton">
+      <UniqueIdentifier>{d004dbe1-8485-46b4-9be5-6a79a3f7a4f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -150,6 +156,10 @@
     <ClInclude Include="..\Header\CImpulseCube.h">
       <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CActiveTrigger.h">
+      <Filter>04. GameObjects\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CWeightButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -218,6 +228,10 @@
     <ClCompile Include="..\Code\CImpulseCube.cpp">
       <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CActiveTrigger.cpp">
+      <Filter>04. GameObjects\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CWeightButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">

@@ -50,6 +50,6 @@ private:
 
 	_bool			m_bGrab;
 	_bool			m_bOneway;
-
+	
 };
 

@@ -7,8 +7,6 @@
 #include "CGameObject.h"
 #include "CTransform.h"
 
-
-
 CFloatingCube::CFloatingCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
 {
