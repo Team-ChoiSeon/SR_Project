@@ -1,21 +1,20 @@
 #pragma once
 #include "pch.h"
-#include "CMonster.h"
-#include "CInputMgr.h"
-#include "CCollisionMgr.h"
-#include "Engine_Model.h"
+#include "CTestTile.h"
 
-CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
+CTestTile::CTestTile(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
-}
-CMonster::~CMonster()
-{
+
 }
 
-HRESULT CMonster::Ready_GameObject()
+CTestTile::~CTestTile()
 {
 
+}
+
+HRESULT CTestTile::Ready_GameObject()
+{
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
 	m_pTransform->Ready_Transform();
@@ -33,43 +32,41 @@ HRESULT CMonster::Ready_GameObject()
 
 	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidbody>();
-	m_pCollider->Set_ColTag(ColliderTag::NONE);
-	m_pCollider->Set_ColType(ColliderType::ACTIVE);
+	m_pCollider->Set_ColTag(ColliderTag::GROUND);
+	m_pCollider->Set_ColType(ColliderType::PASSIVE);
 
 	return S_OK;
 }
 
-int CMonster::Update_GameObject(const _float& fTimeDelta)
+int CTestTile::Update_GameObject(const _float& fTimeDelta)
 {
-
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 
 
-	return S_OK;
+	return 0;
 }
 
-void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
+void CTestTile::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->LateUpdate_Component();
 }
 
-CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CTestTile* CTestTile::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CMonster* pMonster = new CMonster(pGraphicDev);
+	CTestTile* pTile = new CTestTile(pGraphicDev);
 
-	if (FAILED(pMonster->Ready_GameObject()))
+	if (FAILED(pTile->Ready_GameObject()))
 	{
-		Safe_Release(pMonster);
+		Safe_Release(pTile);
 		MSG_BOX("Monster Create Failed");
 		return nullptr;
 	}
 
-	return pMonster;
+	return pTile;
 }
-
-void CMonster::Free()
+void CTestTile::Free()
 {
 	Safe_Release(m_pRigid);
 	Safe_Release(m_pModel);

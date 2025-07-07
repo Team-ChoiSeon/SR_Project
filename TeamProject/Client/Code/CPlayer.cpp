@@ -35,13 +35,13 @@ HRESULT CPlayer::Ready_GameObject()
 	else
 		OutputDebugString(L"[CPlayer] m_pModel is OK\n");
 
-	/*Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	m_pCollider = Get_Component<CCollider>();
-	m_pCollider->Set_ColTag(ColliderTag::GROUND);
-	m_pCollider->Set_ColType(ColliderType::PASSIVE);*/
+	m_pCollider->Set_ColTag(ColliderTag::NONE);
+	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
-	/*Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
-	m_pRigid = Get_Component<CRigidbody>();*/
+	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidbody>();
 
 
 
@@ -84,8 +84,9 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CPlayer::Free()
 {
-
+	Safe_Release(m_pRigid);
 	Safe_Release(m_pModel);
+	Safe_Release(m_pCollider);
 	Safe_Release(m_pTransform);
 }
 
