@@ -13,7 +13,7 @@ CRigidbody::CRigidbody(const CRigidbody& rhs)
     , m_fMass(rhs.m_fMass)
     , m_vVelocity(rhs.m_vVelocity)
     , m_vAccel(rhs.m_vAccel)
-    , m_vForce(rhs.m_vForce)
+    , m_vGforce(rhs.m_vGforce)
     , m_bGravity(rhs.m_bGravity)
     , m_pTransform(rhs.m_pTransform)
 {
@@ -39,7 +39,7 @@ CRigidbody* CRigidbody::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTrans
 
 void CRigidbody::Add_Force(const _vec3& vForce)
 {
-    m_vForce += vForce;
+    m_vEforce += vForce;
 }
 
 void CRigidbody::Add_Velocity(const _vec3& vVel)
@@ -54,13 +54,13 @@ void CRigidbody::Update_Component(const _float& fDeltaTime)
 
     // 중력 적용
     if (m_bGravity && !m_bGround)
-    {
-        const _vec3 gravity = _vec3(0.f, -9.8f, 0.f);
-        m_vForce += gravity * m_fMass;
-    }
+        m_vGforce = _vec3(0.f, -9.8f, 0.f) * m_fMass;
+    else
+        m_vGforce = _vec3(0.f, 0.f, 0.f);
 
+    _vec3 totalForce = m_vEforce + m_vGforce;
     // F = m * a  =>  a = F / m
-    m_vAccel = m_vForce / m_fMass;
+    m_vAccel = totalForce / m_fMass;
 
     // 속도 업데이트
     m_vVelocity += m_vAccel * fDeltaTime;
@@ -77,7 +77,7 @@ void CRigidbody::Update_Component(const _float& fDeltaTime)
     m_pTransform->Set_Pos(vPos);
 
     // 힘 초기화
-    m_vForce = _vec3(0.f, 0.f, 0.f);
+    m_vEforce = _vec3(0.f, 0.f, 0.f);
 
 }
 

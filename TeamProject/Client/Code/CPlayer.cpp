@@ -53,9 +53,9 @@ int CPlayer::Update_GameObject(const _float& fTimeDelta)
 		pComponent.second->Update_Component(fTimeDelta);
 
 	// For velocity debug
-	//wstring wDebug = to_wstring(m_pRigid->Get_Velocity().y);
-	//OutputDebugString(wDebug.c_str());
-	//OutputDebugString(L"\n");
+	wstring wDebug = to_wstring(m_pRigid->Get_Accel().y);
+	OutputDebugString(wDebug.c_str());
+	OutputDebugString(L"\n");
 	return S_OK;
 }
 

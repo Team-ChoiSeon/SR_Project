@@ -25,7 +25,8 @@ public:
 
     _vec3 Get_Velocity() const { return m_vVelocity; }
     _vec3 Get_Accel() const { return m_vAccel; }
-    _vec3 Get_Force() const { return m_vForce; }
+    _vec3 Get_Gforce() const { return m_vGforce; }
+    _vec3 Get_Eforce() const { return m_vGforce; }
 
     void Update_Component(const _float& fDeltaTime) override;
 
@@ -33,10 +34,11 @@ private:
     virtual void Free() override;
 
 private:
-    _float      m_fMass = 1.f;
-    _vec3       m_vVelocity = _vec3(0.f, 0.f, 0.f);
-    _vec3       m_vAccel = _vec3(0.f, 0.f, 0.f);
-    _vec3       m_vForce = _vec3(0.f, 0.f, 0.f);
+    _float      m_fMass = 1.f;                          // 질량
+    _vec3       m_vVelocity = _vec3(0.f, 0.f, 0.f);     // 속도
+    _vec3       m_vAccel = _vec3(0.f, 0.f, 0.f);        // 가속도
+    _vec3       m_vGforce = _vec3(0.f, 0.f, 0.f);       // 중력
+    _vec3       m_vEforce = _vec3(0.f, 0.f, 0.f);       // 외부 힘
 
     bool        m_bGravity = true;
     bool        m_bGround = false;
