@@ -93,13 +93,11 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 		if (CPickingMgr::Get_Instance()->Get_PickedObject(30.f)) {
 			if (Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Hold()) {
 					m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-				OutputDebugStringW(L"[Debug] Hold!	\n");
 			}
 			else {
 
 				Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
 					Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-				OutputDebugStringW(L"[Debug] Hit!	\n");
 			}
 		}
 	}
