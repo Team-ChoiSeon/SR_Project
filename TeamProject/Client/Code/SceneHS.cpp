@@ -87,23 +87,30 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
 
-	if (CPickingMgr::Get_Instance()->Get_PickedObject(100.f) == m_pDummy)
+	if (CPickingMgr::Get_Instance()->Get_HitNearObject() == m_pDummy)
 	{
-		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
 
-		OutputDebugStringW(L"[Debug] Hit!	\n");
+		if (CPickingMgr::Get_Instance()->Get_PickedObject(30.f)) {
+			if (Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Hold()) {
+					m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+				OutputDebugStringW(L"[Debug] Hold!	\n");
+			}
+			else {
+
+				Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
+					Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+				OutputDebugStringW(L"[Debug] Hit!	\n");
+			}
+		}
 	}
 	else {
 		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
 			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 	}
 	
-	if (Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Hold()) {
-		if (m_pCrosshair->Get_State() == CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER) {
-			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-		}
-	}
+	
+
+
 
 	CCollisionMgr::Get_Instance()->Update_Collision();
 
@@ -117,6 +124,8 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 
 void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 {
+	CPickingMgr::Get_Instance()->LateUpdate_Picking(fTimeDelta);
+
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->LateUpdate_Layer(fTimeDelta);
 
@@ -173,7 +182,7 @@ void SceneHS::Free()
 	Remove_Layer(LAYER_OBJECT);
 	Remove_Layer(LAYER_CAMERA);
 
-	CCameraMgr::Destroy_Instance();
+	// CCameraMgr::Destroy_Instance();
 	CPickingMgr::Destroy_Instance();
 	CUiMgr::Destroy_Instance();
 	CResourceMgr::Destroy_Instance();
