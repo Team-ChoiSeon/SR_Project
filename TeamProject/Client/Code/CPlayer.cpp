@@ -84,6 +84,7 @@ void CPlayer::Free()
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pCollider);
+	Safe_Release(m_pRigid);
 }
 
 void CPlayer::KeyInput(const _float& fTimeDelta)

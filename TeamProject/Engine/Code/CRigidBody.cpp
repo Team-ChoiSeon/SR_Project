@@ -31,7 +31,6 @@ CRigidbody* CRigidbody::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTrans
     if (pInstance == nullptr || pTransform == nullptr)
     {
         MSG_BOX("Rigidbody Create Failed");
-        Safe_Release(pInstance);
         return nullptr;
     }
 
