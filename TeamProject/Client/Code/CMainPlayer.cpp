@@ -184,8 +184,8 @@ void CMainPlayer::Set_GroundCheck()
 	}
 }
 
-// void CMainPlayer::Update_State(const _float& fTimeDelta)
-// {
+void CMainPlayer::Update_State(const _float& fTimeDelta)
+{
 // 	switch (m_eCurState)
 // 	{
 // 	case PLAYER_STATE::PLAYER_IDLE:
@@ -198,7 +198,7 @@ void CMainPlayer::Set_GroundCheck()
 // 		break;
 // 	}
 // 
-// }
+}
 
 void CMainPlayer::Change_State(PLAYER_STATE eNewState)
 {

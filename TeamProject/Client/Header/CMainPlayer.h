@@ -21,6 +21,8 @@ public:
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
+	void Change_State(PLAYER_STATE eNewState);
+
 	//Create, Release Function
 	static CMainPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
