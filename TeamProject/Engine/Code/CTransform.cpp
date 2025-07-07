@@ -1,4 +1,8 @@
 #include "CTransform.h"
+#include "CGameObject.h"
+
+class CCamera;
+class CUI;
 
 CTransform::CTransform()
 	: m_vScale(1.f, 1.f, 1.f), m_vAngle(0.f, 0.f, 0.f), m_vPosition(0.f, 0.f, 0.f)
@@ -47,24 +51,29 @@ HRESULT CTransform::Ready_Transform()
 
 void CTransform::Update_Component(const _float& fTimeDelta)
 {
-	_matrix matScale, matRotX, matRotY, matRotZ, matRot, matTrans;
+	if (m_pOwner == nullptr)	return;
+	// TODO :m_pOwner->Has_Component<CCamera>() || m_pOwner->Has_Component<CUI>()
+	if (1)
+	{
+		_matrix matScale, matRotX, matRotY, matRotZ, matRot, matTrans;
 
-	// 크기
-	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, m_vScale.z);
+		// 크기
+		D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, m_vScale.z);
 
-	// 회전
-	D3DXMatrixRotationX(&matRotX, m_vAngle.x);
-	D3DXMatrixRotationY(&matRotY, m_vAngle.y);
-	D3DXMatrixRotationZ(&matRotZ, m_vAngle.z);
-	matRot = matRotX * matRotY * matRotZ;
-	
-	// 이동
-	D3DXMatrixTranslation(&matTrans, m_vPosition.x, m_vPosition.y, m_vPosition.z);
+		// 회전
+		D3DXMatrixRotationX(&matRotX, m_vAngle.x);
+		D3DXMatrixRotationY(&matRotY, m_vAngle.y);
+		D3DXMatrixRotationZ(&matRotZ, m_vAngle.z);
+		matRot = matRotX * matRotY * matRotZ;
 
-	m_matWorld = matScale * matRot * matTrans * m_matOrbit * m_matParent;
+		// 이동
+		D3DXMatrixTranslation(&matTrans, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
-	for (_uint i = 0; i < INFO_POS; ++i)
-		memcpy(&m_vInfo[i], &m_matWorld.m[i][0], sizeof(_vec3));
+		m_matWorld = matScale * matRot * matTrans * m_matOrbit * m_matParent;
+
+		for (_uint i = 0; i < INFO_POS; ++i)
+			memcpy(&m_vInfo[i], &m_matWorld.m[i][0], sizeof(_vec3));
+	}
 
 	return ;
 }
@@ -72,6 +81,19 @@ void CTransform::Update_Component(const _float& fTimeDelta)
 void CTransform::LateUpdate_Component()
 {
 
+}
+
+void CTransform::Rotate_Axis(const _vec3& axis, const _float& fAngle)
+{
+	_matrix matRot;
+	D3DXMatrixRotationAxis(&matRot, &axis, fAngle);
+
+	// 회전 행렬 누적 (주의: scale/translation은 건들지 않음)
+	m_matWorld = matRot * m_matWorld;
+
+	// m_vInfo 갱신 (Right, Up, Look)
+	for (_uint i = 0; i < INFO_POS; ++i)
+		memcpy(&m_vInfo[i], &m_matWorld.m[i][0], sizeof(_vec3));
 }
 
 CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)

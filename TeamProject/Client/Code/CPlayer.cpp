@@ -52,10 +52,10 @@ int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 
-	// For velocity debug
-	wstring wDebug = to_wstring(m_pRigid->Get_Accel().y);
+	// For debug
+	/*wstring wDebug = to_wstring(m_pRigid->Get_Accel().y);
 	OutputDebugString(wDebug.c_str());
-	OutputDebugString(L"\n");
+	OutputDebugString(L"\n");*/
 	return S_OK;
 }
 
@@ -109,16 +109,16 @@ void CPlayer::KeyInput(const _float& fTimeDelta)
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_W))
-		m_pTransform->Move(DIR_FORWARD, m_fSpeed, fTimeDelta);
+		m_pRigid->Add_Force({0.f, 0.f, 10.f});
 	
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_S))
-		m_pTransform->Move(DIR_BACKWARD, m_fSpeed, fTimeDelta);
+		m_pRigid->Add_Force({ 0.f, 0.f, -10.f });
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_D))
-		m_pTransform->Move(DIR_RIGHT, m_fSpeed, fTimeDelta);
+		m_pRigid->Add_Force({ 10.f, 0.f, 0.f });
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_A))
-		m_pTransform->Move(DIR_LEFT, m_fSpeed, fTimeDelta);
+		m_pRigid->Add_Force({ -10.f, 0.f, 0.f });
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q))
 		m_pTransform->Move(DIR_UP, m_fSpeed, fTimeDelta);
