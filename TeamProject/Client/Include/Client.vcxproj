@@ -155,8 +155,10 @@
   <ItemGroup>
     <ClInclude Include="..\Header\CCameraObject.h" />
     <ClInclude Include="..\Header\CCrosshairUIObject.h" />
+    <ClInclude Include="..\Header\CDirectionalCube.h" />
     <ClInclude Include="..\Header\CFirstviewFollowingCamera.h" />
     <ClInclude Include="..\Header\CFloatingCube.h" />
+    <ClInclude Include="..\Header\CKineticCube.h" />
     <ClInclude Include="..\Header\CLightObject.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMonster.h" />
@@ -180,8 +182,10 @@
   <ItemGroup>
     <ClCompile Include="..\Code\CCameraObject.cpp" />
     <ClCompile Include="..\Code\CCrosshairUIObject.cpp" />
+    <ClCompile Include="..\Code\CDirectionalCube.cpp" />
     <ClCompile Include="..\Code\CFirstviewFollowingCamera.cpp" />
     <ClCompile Include="..\Code\CFloatingCube.cpp" />
+    <ClCompile Include="..\Code\CKineticCube.cpp" />
     <ClCompile Include="..\Code\CLightObject.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />

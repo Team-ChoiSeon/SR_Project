@@ -15,7 +15,6 @@
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CScene(pGraphicDev)
 {
-
 }
 
 SceneHW::~SceneHW()
@@ -38,10 +37,7 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"hwffcam", m_pFFCam);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"hwdummycam", m_pdummycam);
 
-	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwFloatingCube"))->Set_MaxDistance(20.f);
-	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwFloatingCube"))->Set_Speed(3.f);
-	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwFloatingCube"))->Set_StartPos({-10.f, 0.f ,30.f});
-	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwFloatingCube"))->Set_Direction({1.f, 0.f, 0.f});
+	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwFloatingCube"))->Set_Info({ -20.f, -20.f, 20.f }, { 1.f, 1.f, 0.f }, 50.f ,20.f, 1.f);
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 

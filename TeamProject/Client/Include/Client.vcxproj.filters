@@ -67,6 +67,12 @@
     <Filter Include="04. GameObjects\Cube\FloatingCube">
       <UniqueIdentifier>{38bcb1ed-2e1e-4731-a023-f19abc60c621}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Cube\DirectionalCube">
+      <UniqueIdentifier>{fd46cc7f-1998-4688-a1ba-f6c45fc3d8f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\KineticCube">
+      <UniqueIdentifier>{d1eb18fa-2b18-4930-9a79-8dc103ed10cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -138,6 +144,12 @@
     <ClInclude Include="..\Header\CFloatingCube.h">
       <Filter>04. GameObjects\Cube\FloatingCube</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDirectionalCube.h">
+      <Filter>04. GameObjects\Cube\DirectionalCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CKineticCube.h">
+      <Filter>04. GameObjects\Cube\KineticCube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -199,6 +211,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CFloatingCube.cpp">
       <Filter>04. GameObjects\Cube\FloatingCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDirectionalCube.cpp">
+      <Filter>04. GameObjects\Cube\DirectionalCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CKineticCube.cpp">
+      <Filter>04. GameObjects\Cube\KineticCube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
