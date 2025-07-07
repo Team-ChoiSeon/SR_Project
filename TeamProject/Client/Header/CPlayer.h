@@ -4,6 +4,7 @@
 #include "CTransform.h"
 #include "CModel.h"
 #include "CCollider.h"
+#include "CRigidbody.h"
 
 
 class CPlayer : public Engine::CGameObject
@@ -35,6 +36,7 @@ private:
 	CTransform* m_pTransform;
 	CModel* m_pModel;
 	CCollider* m_pCollider;
+	CRigidbody* m_pRigid;
 
 	const _matrix* m_mWorld;
 
