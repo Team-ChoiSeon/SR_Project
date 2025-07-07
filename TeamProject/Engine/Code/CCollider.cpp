@@ -97,6 +97,100 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->DrawIndexedPrimitive(D3DPT_LINELIST, 0, 0, 8, 0, 12);
 }
 
+void CCollider::On_Collision_Enter(CCollider* pOther)
+{
+	ColliderType oType = pOther->Get_ColType();
+	if (m_eType == ColliderType::COL_TRIGGER || oType == ColliderType::COL_TRIGGER)
+		return; // 트리거는 반응 없음
+
+	if (m_eType == ColliderType::COL_ACTIVE && oType == ColliderType::COL_PASSIVE)
+	{
+		//MSG_BOX("Collision Detected!");
+		const AABB& myAABB = Get_AABBW();
+		const AABB& otherAABB = pOther->Get_AABBW();
+
+		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
+		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
+
+		_vec3 overlap;
+		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
+		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
+		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
+
+		// 가장 작은 축 방향으로 밀기
+		_vec3 push(0.f, 0.f, 0.f);
+		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
+			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
+		else if (overlap.y <= overlap.z)
+			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
+		else
+			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+
+		// Transform 얻기
+		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
+		if (pTransform)
+		{
+			_vec3 vPos = pTransform->Get_Pos();
+			pTransform->Set_Pos(vPos + push);
+		}
+
+
+
+	}
+	else if (m_eType == ColliderType::COL_PASSIVE && oType == ColliderType::COL_ACTIVE)
+	{
+		// 상대가 밀려나는 쪽 -> 내가 아무것도 안 함
+	}
+	else if (m_eType == ColliderType::COL_ACTIVE && oType == ColliderType::COL_ACTIVE)
+	{
+		// 둘 다 밀림 → 반씩 밀기
+	
+	}
+}
+
+void CCollider::On_Collision_Stay(CCollider* pOther)
+{
+	ColliderType oType = pOther->Get_ColType();
+	if (m_eType == ColliderType::COL_ACTIVE && oType == ColliderType::COL_PASSIVE)
+	{
+	
+		const AABB& myAABB = Get_AABBW();
+		const AABB& otherAABB = pOther->Get_AABBW();
+
+		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
+		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
+
+		_vec3 overlap;
+		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
+		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
+		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
+
+		// 가장 작은 축 방향으로 밀기
+		_vec3 push(0.f, 0.f, 0.f);
+		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
+			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
+		else if (overlap.y <= overlap.z)
+			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
+		else
+			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+
+		// Transform 얻기
+		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
+		if (pTransform)
+		{
+			_vec3 vPos = pTransform->Get_Pos();
+			pTransform->Set_Pos(vPos + push);
+		}
+
+
+
+	}
+}
+
+void CCollider::On_Collision_Exit(CCollider* pCollider)
+{
+}
+
 void CCollider::Free()
 {
 	Safe_Release(m_pVB);

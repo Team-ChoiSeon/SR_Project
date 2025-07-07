@@ -23,6 +23,17 @@ public:
 private:
 	vector<CCollider*> m_vCol;
 
+	using ColliderPair = pair<CCollider*, CCollider*>;
+	struct PairLess {
+		bool operator()(const ColliderPair& a, const ColliderPair& b) const
+		{
+			// (1,3) == (3,1) : µø¿œ«— Ω÷
+			return tie(min(a.first, a.second), max(a.first, a.second)) <
+				tie(min(b.first, b.second), max(b.first, b.second));
+		}
+	};
+	set<ColliderPair, PairLess> m_setPrevCollisions;
+
 private:
 	virtual void Free() override;
 

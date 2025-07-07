@@ -19,7 +19,7 @@ HRESULT CMonster::Ready_GameObject()
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
 	m_pTransform->Ready_Transform();
-	m_pTransform->Set_Pos({ 0.f, 0.f, 5.f });
+	m_pTransform->Set_Pos({ 1.f, -2.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
@@ -30,6 +30,8 @@ HRESULT CMonster::Ready_GameObject()
 
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	m_pCollider = Get_Component<CCollider>();
+
+	m_pCollider->Set_ColType(ColliderType::COL_PASSIVE);
 
 	return S_OK;
 }

@@ -12,6 +12,7 @@ CCollisionMgr::~CCollisionMgr()
 
 void CCollisionMgr::Update_Collision()
 {
+	set<ColliderPair, PairLess> setCurrCollisions;
 	for (size_t i = 0; i < m_vCol.size(); ++i)
 	{
 		for (size_t j = i + 1; j < m_vCol.size(); ++j)
@@ -21,14 +22,38 @@ void CCollisionMgr::Update_Collision()
 
 			if (Is_Colliding(pA->Get_AABBW(), pB->Get_AABBW()))
 			{
-				MSG_BOX("CCollider:: Collision!");
-				pA->On_Collision(pB);
-				pB->On_Collision(pA);
+				ColliderPair pair = make_pair(pA, pB);
+				setCurrCollisions.insert(pair);
+				if (m_setPrevCollisions.find(pair) != m_setPrevCollisions.end())
+				{
+					// 충돌 중 (Stay)
+					pA->On_Collision_Stay(pB);
+					pB->On_Collision_Stay(pA);
+				}
+				else
+				{
+					// 충돌 진입 (Enter)
+					pA->On_Collision_Enter(pB);
+					pB->On_Collision_Enter(pA);
+				}
 			}
 		}
 	}
 
-	Clear();
+	// 충돌 종료 (Exit)
+	for (const auto& prev : m_setPrevCollisions)
+	{
+		if (setCurrCollisions.find(prev) == setCurrCollisions.end())
+		{
+			CCollider* pA = prev.first;
+			CCollider* pB = prev.second;
+			pA->On_Collision_Exit(pB);
+			pB->On_Collision_Exit(pA);
+		}
+	}
+
+	// 갱신
+	m_setPrevCollisions = move(setCurrCollisions);
 }
 
 bool CCollisionMgr::Is_Colliding(const AABB& a, const AABB& b)
