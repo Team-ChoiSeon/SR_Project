@@ -24,8 +24,10 @@ public:
 	//Getter, Setter Function
 	Ray*				Get_Ray(){ return &m_Ray; }
 	vector<Ray_Hit>&	Get_HitTargetList() { SortHitVectorASC();  return m_vecHit; }
-	void				Add_HitInfo(Ray_Hit& hitinfo) { m_vecHit.push_back(hitinfo); }
 	
+	void				Add_HitInfo(Ray_Hit& hitinfo) { m_vecHit.push_back(hitinfo); }
+
+	CGameObject* Get_HitNearObject();
 	CGameObject* Get_PickedObject(float _Range);
 	_vec3 Get_DragVector() { return m_vDragDistance; }
 

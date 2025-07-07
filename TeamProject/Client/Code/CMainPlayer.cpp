@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "CMainPlayer.h"
-#include "CInputMgr.h"
-#include "CVIBuffer.h"
 #include "CCubeTex.h"
+
+#include "CVIBuffer.h"
 #include "CTransform.h"
 #include "CCollider.h"
+
+#include "CInputMgr.h"
+#include "CCameraMgr.h"
 
 CMainPlayer::CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
@@ -32,7 +35,10 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidbody>();
-	
+	// 임시추가 
+	m_pRigid->Set_Mass(6.f);
+	m_pRigid->Set_Friction(10.f);
+
 	m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
 
@@ -104,22 +110,41 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	{
 		m_fMoveSpeed = 10.f;
 	}
+
+
+	CTransform* pCamTransform = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>();
+	if (!pCamTransform)
+		return;
+
+	_vec3 camLook = pCamTransform->Get_Info(INFO_LOOK);
+	_vec3 camRight = pCamTransform->Get_Info(INFO_RIGHT);
+
+	camLook.y = 0.f;
+	camRight.y = 0.f;
+	D3DXVec3Normalize(&camLook, &camLook);
+	D3DXVec3Normalize(&camRight, &camRight);
+
+	_vec3 moveDir = { 0.f, 0.f, 0.f };
+
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_W)) {
-		m_pTransform->Move(DIR_FORWARD, m_fMoveSpeed, fTimeDelta);
-		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_LOOK) * m_fMoveSpeed * fTimeDelta);
+		moveDir += camLook;
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_S)) {
-		m_pTransform->Move(DIR_BACKWARD, m_fMoveSpeed, fTimeDelta);
-		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_LOOK) * m_fMoveSpeed * fTimeDelta);
+		moveDir -= camLook;
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_D)) {
-		m_pTransform->Move(DIR_RIGHT, m_fMoveSpeed, fTimeDelta);
-		// m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_RIGHT) * m_fMoveSpeed * fTimeDelta);
+		moveDir += camRight;
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_A)) {
-		m_pTransform->Move(DIR_LEFT, m_fMoveSpeed, fTimeDelta);
-		// m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_RIGHT) * m_fMoveSpeed * fTimeDelta);
+		moveDir -= camRight;
 	}
+
+	if (D3DXVec3Length(&moveDir) > 0.f) {
+		D3DXVec3Normalize(&moveDir, &moveDir);
+		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + moveDir * m_fMoveSpeed * fTimeDelta);
+	}
+
+
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q)) {
 		m_pTransform->Move(DIR_UP, m_fMoveSpeed, fTimeDelta);
 		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
@@ -135,7 +160,6 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 			m_pRigid->Set_OnGround(false);
 		}
 	}
-
 
 }
 

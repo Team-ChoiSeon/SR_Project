@@ -34,14 +34,16 @@ HRESULT CPickingMgr::Update_Picking(const _float& fTimeDelta)
 	TransformRayIntoWorld();					//ray를 월드공간으로 변화
 	Check_RayHitted();								//Search Ray
 	Check_Input();											// Fix Target
+	
+
+	if (!m_vecHit.empty())
+		m_vecHit.clear();
+	
 	return S_OK;
 }
 
 _int CPickingMgr::LateUpdate_Picking(const _float& fTimeDelta)
 {
-	if (!m_vecHit.empty())
-		m_vecHit.clear();
-
 	return 0;
 }
 
@@ -102,6 +104,14 @@ void CPickingMgr::Check_Input()
 	}
 }
 
+CGameObject* CPickingMgr::Get_HitNearObject()
+{
+	// if (m_RayHitted._hittedobject) {
+	// 	MessageBoxW(0,L"맞음",L"hit",MB_OK);
+	// }
+
+	return m_RayHitted._hittedobject;
+}
 
 CGameObject* CPickingMgr::Get_PickedObject(float _Range)
 {
