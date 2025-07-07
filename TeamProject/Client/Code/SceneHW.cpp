@@ -92,7 +92,7 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	else
 		CCameraMgr::Get_Instance()->Set_MainCamera(m_pdummycam);
 
-	if (CPickingMgr::Get_Instance()->Get_HitTarget() == m_pDummy)
+	if (CPickingMgr::Get_Instance()->Get_PickedObject(100.f) == m_pDummy)
 	{
 		OutputDebugStringW(L"[Debug] Hit!	\n");
 	}

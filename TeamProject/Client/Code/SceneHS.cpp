@@ -87,7 +87,7 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
 
-	if (CPickingMgr::Get_Instance()->Get_HitTarget() == m_pDummy)
+	if (CPickingMgr::Get_Instance()->Get_PickedObject(100.f) == m_pDummy)
 	{
 		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
 			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
