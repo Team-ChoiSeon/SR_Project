@@ -234,6 +234,9 @@
     <ClInclude Include="..\Header\CFactory.h">
       <Filter>03. GameObject\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\json.hpp">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
