@@ -38,6 +38,9 @@ HRESULT CPlayer::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	m_pCollider = Get_Component<CCollider>();
 
+	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidbody>();
+
 
 	return S_OK;
 }
@@ -49,7 +52,10 @@ int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 
-
+	// For velocity debug
+	//wstring wDebug = to_wstring(m_pRigid->Get_Velocity().y);
+	//OutputDebugString(wDebug.c_str());
+	//OutputDebugString(L"\n");
 	return S_OK;
 }
 
@@ -78,6 +84,7 @@ void CPlayer::Free()
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pCollider);
+	Safe_Release(m_pRigid);
 }
 
 void CPlayer::KeyInput(const _float& fTimeDelta)

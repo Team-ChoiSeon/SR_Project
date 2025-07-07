@@ -31,7 +31,7 @@ HRESULT CMonster::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	m_pCollider = Get_Component<CCollider>();
 
-	m_pCollider->Set_ColType(ColliderType::COL_PASSIVE);
+	m_pCollider->Set_ColType(ColliderType::PASSIVE);
 
 	return S_OK;
 }

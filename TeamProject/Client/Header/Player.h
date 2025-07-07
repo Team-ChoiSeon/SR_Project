@@ -18,6 +18,8 @@ public:
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
+	void Player_Jump(const _float& fTimeDelta);
+
 	//Create, Release Function
 	static Player* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
@@ -25,6 +27,7 @@ public:
 	//Gettter, Setter Function
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
 
+	void Set_GroundCheck();
 
 protected:
 	//Utility Function
@@ -37,9 +40,15 @@ private:
 	CCollider* m_pCollider;
 
 	float m_fMoveSpeed;
+	float m_fJumpPower = 10.f;
+	float m_fGravity = 20.f; // 임시 중력
+	float m_fVelocityY = 0.f; //
 
 	float m_fWidth;
 	float m_fDepth;
 
 	bool m_bCursorMove;
+	bool m_bGround;
+	bool m_bJump;
+	
 };

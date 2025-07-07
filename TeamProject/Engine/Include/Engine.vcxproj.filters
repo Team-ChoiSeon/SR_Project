@@ -109,6 +109,9 @@
     <Filter Include="03. GameObject\Factory">
       <UniqueIdentifier>{fc73e630-1d87-4355-9880-fb1f4a2ce1f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\08. RigidBody">
+      <UniqueIdentifier>{78f6ac5c-1c9f-4c6d-9dab-dc46bbbf4cbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -237,6 +240,9 @@
     <ClInclude Include="..\Header\json.hpp">
       <Filter>03. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CRigidBody.h">
+      <Filter>02. Components\08. RigidBody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -340,6 +346,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CFactory.cpp">
       <Filter>03. GameObject\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRigidBody.cpp">
+      <Filter>02. Components\08. RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
