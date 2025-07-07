@@ -155,11 +155,11 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 	}
 	else if (m_eType == ColliderType::PASSIVE && oType == ColliderType::ACTIVE)
 	{
-		// 상대가 밀려나는 쪽 -> 내가 아무것도 안 함
+		// 상대가 밀려나는 쪽
 	}
 	else if (m_eType == ColliderType::ACTIVE && oType == ColliderType::ACTIVE)
 	{
-		// 둘 다 밀림 → 반씩 밀기
+		// 둘 다 밀림
 	
 	}
 }
