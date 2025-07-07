@@ -35,8 +35,14 @@ HRESULT CPlayer::Ready_GameObject()
 	else
 		OutputDebugString(L"[CPlayer] m_pModel is OK\n");
 
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
+	/*Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	m_pCollider = Get_Component<CCollider>();
+	m_pCollider->Set_ColTag(ColliderTag::GROUND);
+	m_pCollider->Set_ColType(ColliderType::PASSIVE);*/
+
+	/*Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidbody>();*/
+
 
 
 	return S_OK;
@@ -49,7 +55,10 @@ int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 
-
+	// For debug
+	/*wstring wDebug = to_wstring(m_pTransform->Get_Pos().y);
+	OutputDebugString(wDebug.c_str());
+	OutputDebugString(L"\n");*/
 	return S_OK;
 }
 
@@ -75,9 +84,9 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CPlayer::Free()
 {
-	Safe_Release(m_pTransform);
+
 	Safe_Release(m_pModel);
-	Safe_Release(m_pCollider);
+	Safe_Release(m_pTransform);
 }
 
 void CPlayer::KeyInput(const _float& fTimeDelta)

@@ -23,10 +23,11 @@ public:
 
 	//Getter, Setter Function
 	Ray*				Get_Ray(){ return &m_Ray; }
-	CGameObject*		Get_HitTarget();
 	vector<Ray_Hit>&	Get_HitTargetList() { SortHitVectorASC();  return m_vecHit; }
-
 	void				Add_HitInfo(Ray_Hit& hitinfo) { m_vecHit.push_back(hitinfo); }
+	
+	CGameObject* Get_PickedObject(float _Range);
+	_vec3 Get_DragVector() { return m_vDragDistance; }
 
 private:
 	//Compute Function
@@ -36,18 +37,31 @@ private:
 	void SortHitVectorASC();
 	void SortHitVectorDESC();
 
+	_vec3 CalcRayPlaneIntersection(const Ray& ray, const _vec3& planePoint, const _vec3& planeNormal);
+	void Check_RayHitted();
+	void Check_Input();
+
+private:
 	//Variables
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
 	HWND					m_hWnd;
 	Ray						m_Ray;
+
+	_vec3 m_vLastPt;
+	_vec3 m_vPlanePt;
+	_vec3 m_vPlaneNorm;
+	_vec3 m_vDragDistance;
+
+	Ray_Hit			m_RayHitted;
+	Ray_Hit			m_Picked;
+
+	_bool m_bDragging;
+
 	vector<Ray_Hit>			m_vecHit;
 	POINT					m_Cursor;
 
 	D3DVIEWPORT9			m_vp;
 	_matrix					m_mProj;
-
-
-
 };
 
 END

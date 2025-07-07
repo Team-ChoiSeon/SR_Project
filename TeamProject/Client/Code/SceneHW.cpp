@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "SceneHW.h"
-#include "Player.h"
+#include "CMainPlayer.h"
 #include "CFirstviewFollowingCamera.h"
 #include "DummyCube.h"
 #include "CCamera.h"
@@ -27,7 +27,7 @@ SceneHW::~SceneHW()
 HRESULT SceneHW::Ready_Scene()
 {
 	Init_Layers();
-	m_pPlayer = Player::Create(m_pGraphicDev);
+	m_pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	m_pDummy = DummyCube::Create(m_pGraphicDev);
 	m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 	m_pFFCam->Set_Target(m_pPlayer);
@@ -98,7 +98,7 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	else
 		CCameraMgr::Get_Instance()->Set_MainCamera(m_pdummycam);
 
-	if (CPickingMgr::Get_Instance()->Get_HitTarget() == m_pDummy)
+	if (CPickingMgr::Get_Instance()->Get_PickedObject(100.f) == m_pDummy)
 	{
 		OutputDebugStringW(L"[Debug] Hit!	\n");
 	}

@@ -1,16 +1,19 @@
 #pragma once
 #include "CGameObject.h"
 #include "CTransform.h"
+#include "CRigidbody.h"
 
 namespace Engine {
 	class CModel;
 	class CCollider;
 }
-class Player : public CGameObject
+class CMainPlayer : public CGameObject
 {
+public:
+	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL  };  // 필요시에 더 추가
 private:
-	Player(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~Player();
+	CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CMainPlayer();
 
 public:
 	//Basic Function
@@ -18,28 +21,40 @@ public:
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
+	void Change_State(PLAYER_STATE eNewState);
+
 	//Create, Release Function
-	static Player* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CMainPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
 	//Gettter, Setter Function
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
+	bool Get_Hold() { return m_bObjHold;  }
 
+	void Set_GroundCheck();
 
 protected:
 	//Utility Function
 	void KeyInput(const _float& fTimeDelta);
+	void Update_State(const _float& fTimeDelta);
 	void CursorRotate();
 
 private:
+
 	CTransform* m_pTransform;
 	CModel* m_pModel;
 	CCollider* m_pCollider;
+	CRigidbody* m_pRigid;
 
 	float m_fMoveSpeed;
+	float m_fJumpPower = 10.f;
 
 	float m_fWidth;
 	float m_fDepth;
 
 	bool m_bCursorMove;
+	bool m_bObjHold = false;
+
+	PLAYER_STATE m_eCurState = PLAYER_STATE::PLAYER_IDLE;
+	PLAYER_STATE m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
 };

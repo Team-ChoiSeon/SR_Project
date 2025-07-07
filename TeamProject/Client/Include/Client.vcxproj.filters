@@ -99,7 +99,7 @@
     <ClInclude Include="..\Header\CMainApp.h">
       <Filter>02. MainApp</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Player.h">
+    <ClInclude Include="..\Header\CMainPlayer.h">
       <Filter>04. GameObjects\TestPlayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCameraObject.h">
@@ -171,7 +171,7 @@
     <ClCompile Include="..\Code\CMainApp.cpp">
       <Filter>02. MainApp</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Player.cpp">
+    <ClCompile Include="..\Code\CMainPlayer.cpp">
       <Filter>04. GameObjects\TestPlayer</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCameraObject.cpp">

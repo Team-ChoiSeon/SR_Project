@@ -178,6 +178,7 @@
     <ClInclude Include="..\Header\CRenderMgr.h" />
     <ClInclude Include="..\Header\CResource.h" />
     <ClInclude Include="..\Header\CResourceMgr.h" />
+    <ClInclude Include="..\Header\CRigidBody.h" />
     <ClInclude Include="..\Header\CScene.h" />
     <ClInclude Include="..\Header\CSceneMgr.h" />
     <ClInclude Include="..\Header\CTexture.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="..\Header\Engine_Model.h" />
     <ClInclude Include="..\Header\Engine_Struct.h" />
     <ClInclude Include="..\Header\Engine_Typedef.h" />
+    <ClInclude Include="..\Header\json.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CCamera.cpp" />
@@ -221,6 +223,7 @@
     <ClCompile Include="..\Code\CRenderMgr.cpp" />
     <ClCompile Include="..\Code\CResource.cpp" />
     <ClCompile Include="..\Code\CResourceMgr.cpp" />
+    <ClCompile Include="..\Code\CRigidBody.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSceneMgr.cpp" />
     <ClCompile Include="..\Code\CTexture.cpp" />

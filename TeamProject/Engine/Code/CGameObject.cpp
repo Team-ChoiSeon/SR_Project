@@ -93,6 +93,4 @@ void CGameObject::Free()
         m_umComponent[i].clear();
     }
     
-
-    Safe_Release(m_pGraphicDev);
 }

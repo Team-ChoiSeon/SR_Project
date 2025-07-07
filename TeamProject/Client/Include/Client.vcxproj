@@ -169,7 +169,7 @@
     <ClInclude Include="..\Header\CWeightButton.h" />
     <ClInclude Include="..\Header\DummyCube.h" />
     <ClInclude Include="..\Header\Logo.h" />
-    <ClInclude Include="..\Header\Player.h" />
+    <ClInclude Include="..\Header\CMainPlayer.h" />
     <ClInclude Include="..\Header\SceneBG.h" />
     <ClInclude Include="..\Header\SceneDH.h" />
     <ClInclude Include="..\Header\SceneHS.h" />
@@ -198,7 +198,7 @@
     <ClCompile Include="..\Code\CWeightButton.cpp" />
     <ClCompile Include="..\Code\DummyCube.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
-    <ClCompile Include="..\Code\Player.cpp" />
+    <ClCompile Include="..\Code\CMainPlayer.cpp" />
     <ClCompile Include="..\Code\SceneBG.cpp" />
     <ClCompile Include="..\Code\SceneDH.cpp" />
     <ClCompile Include="..\Code\SceneHS.cpp" />

@@ -31,13 +31,17 @@ HRESULT CMonster::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	m_pCollider = Get_Component<CCollider>();
 
-	m_pCollider->Set_ColType(ColliderType::COL_PASSIVE);
+	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidbody>();
+	m_pCollider->Set_ColTag(ColliderTag::GROUND);
+	m_pCollider->Set_ColType(ColliderType::PASSIVE);
 
 	return S_OK;
 }
 
 int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
+
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 
@@ -67,7 +71,8 @@ CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CMonster::Free()
 {
-	Safe_Release(m_pTransform);
+	Safe_Release(m_pRigid);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pCollider);
+	Safe_Release(m_pTransform);
 }

@@ -2,6 +2,11 @@
 #include "CRenderMgr.h"
 #include "CTransform.h"
 #include "CCollisionMgr.h"
+#include "CRigidbody.h"
+#include "CGameObject.h"
+
+
+class CGameObject;
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CComponent(pGraphicDev)
@@ -100,10 +105,10 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 void CCollider::On_Collision_Enter(CCollider* pOther)
 {
 	ColliderType oType = pOther->Get_ColType();
-	if (m_eType == ColliderType::COL_TRIGGER || oType == ColliderType::COL_TRIGGER)
+	if (m_eType == ColliderType::TRIGGER || oType == ColliderType::TRIGGER)
 		return; // 트리거는 반응 없음
 
-	if (m_eType == ColliderType::COL_ACTIVE && oType == ColliderType::COL_PASSIVE)
+	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
 	{
 		//MSG_BOX("Collision Detected!");
 		const AABB& myAABB = Get_AABBW();
@@ -134,14 +139,25 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 			pTransform->Set_Pos(vPos + push);
 		}
 
+		// 지면 충돌 : Ground와 위에서 닿은 경우만
+		if (m_eType == ColliderType::ACTIVE &&
+			pOther->Get_ColType() == ColliderType::PASSIVE &&
+			pOther->Get_ColTag() == ColliderTag::GROUND &&
+			push.y > 0.f)
+		{
+			if (auto pRigid = m_pOwner->Get_Component<CRigidbody>())
+			{
+				pRigid->Set_OnGround(true);
+			}
+		}
 
 
 	}
-	else if (m_eType == ColliderType::COL_PASSIVE && oType == ColliderType::COL_ACTIVE)
+	else if (m_eType == ColliderType::PASSIVE && oType == ColliderType::ACTIVE)
 	{
 		// 상대가 밀려나는 쪽 -> 내가 아무것도 안 함
 	}
-	else if (m_eType == ColliderType::COL_ACTIVE && oType == ColliderType::COL_ACTIVE)
+	else if (m_eType == ColliderType::ACTIVE && oType == ColliderType::ACTIVE)
 	{
 		// 둘 다 밀림 → 반씩 밀기
 	
@@ -151,7 +167,7 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 void CCollider::On_Collision_Stay(CCollider* pOther)
 {
 	ColliderType oType = pOther->Get_ColType();
-	if (m_eType == ColliderType::COL_ACTIVE && oType == ColliderType::COL_PASSIVE)
+	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
 	{
 	
 		const AABB& myAABB = Get_AABBW();
@@ -187,8 +203,14 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 	}
 }
 
-void CCollider::On_Collision_Exit(CCollider* pCollider)
+void CCollider::On_Collision_Exit(CCollider* pOther)
 {
+	if (m_eType == ColliderType::ACTIVE && pOther->Get_ColTag() == ColliderTag::GROUND)
+	{
+		CRigidbody* pRigid = m_pOwner->Get_Component<CRigidbody>();
+		if (pRigid)
+			pRigid->Set_OnGround(false);
+	}
 }
 
 void CCollider::Free()
@@ -196,4 +218,5 @@ void CCollider::Free()
 	Safe_Release(m_pVB);
 	Safe_Release(m_pIB);
 	Safe_Release(m_pGraphicDev);
+	//Safe_Release(m_pOwner);
 }
