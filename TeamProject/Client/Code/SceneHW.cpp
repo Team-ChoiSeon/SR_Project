@@ -11,6 +11,8 @@
 #include "CTransform.h"
 #include "CPickingMgr.h"
 #include "CFloatingCube.h"
+#include "CDirectionalCube.h"
+#include "CImpulseCube.h"
 
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CScene(pGraphicDev)
@@ -31,6 +33,9 @@ HRESULT SceneHW::Ready_Scene()
 	m_pdummycam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 	m_pdummycam->Set_Target(m_pDummy);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwFloatingCube", CFloatingCube::Create(m_pGraphicDev));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwDirectionalCube", CDirectionalCube::Create(m_pGraphicDev));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwImpulseCube", CImpulseCube::Create(m_pGraphicDev));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwOnewayCube", CDirectionalCube::Create(m_pGraphicDev));
 
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"hwPlayer", m_pPlayer);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwdummy", m_pDummy);
@@ -38,6 +43,12 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"hwdummycam", m_pdummycam);
 
 	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwFloatingCube"))->Set_Info({ -20.f, -20.f, 20.f }, { 1.f, 1.f, 0.f }, 50.f ,20.f, 1.f);
+	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Info({ 0.f, 10.f, 10.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
+	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Grab(true);
+	dynamic_cast<CImpulseCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwImpulseCube"))->Set_Info({ 10.f, 0.f, 10.f });
+	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwOnewayCube"))->Set_Info({ 0.f, -10.f, 10.f }, { 1.f, 0.f, 0.f }, 10.f);
+	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwOnewayCube"))->Set_Grab(true);
+
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 
@@ -70,6 +81,11 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 
 	if (CInputMgr::Get_Instance()->Key_Away(DIK_C))
 		m_bCamPlayer = !m_bCamPlayer;
+
+	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X) / 20.f;
+	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y) / 20.f;
+	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_CursorVec({ dx, 0.f, dy });
+	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwOnewayCube"))->Set_CursorVec({ dx, 0.f, dy });
 
 	if (m_bCamPlayer)
 		CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);

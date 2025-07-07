@@ -24,7 +24,7 @@ HRESULT Player::Ready_GameObject()
 	m_pCollider = Get_Component<CCollider>();
 	m_pTransform = Get_Component<CTransform>();
 
-	m_pTransform->Set_Pos({ 0.f, 0.f, -10.f });
+	m_pTransform->Set_Pos({ 0.f, 0.f, -20.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
