@@ -41,12 +41,11 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	KeyInput(fTimeDelta);
 
-	Player_Jump(fTimeDelta);
-
-	Set_GroundCheck();
-
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
+	
+	Set_GroundCheck();
+	
 	return S_OK;
 }
 
@@ -128,15 +127,14 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
 	}
 
-	// 임시 점프 처리
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_SPACE)) {
-		if (m_bGround && !m_bJump)
-		{
-			m_bJump = true;
-			m_fVelocityY = m_fJumpPower;
+		if (m_pRigid->Get_OnGround()) {
+			m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower, 0.f));
+			m_pRigid->Set_OnGround(false);
 		}
 	}
-	
+
+
 }
 
 void CMainPlayer::CursorRotate()
@@ -161,15 +159,6 @@ void CMainPlayer::CursorRotate()
 
 }
 
-void CMainPlayer::Player_Jump(const _float& fTimeDelta)
-{
-
-	if (!m_bGround || m_bJump) {
-		m_fVelocityY -= m_fGravity * fTimeDelta; 
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_UP) * m_fVelocityY * fTimeDelta);
-	}
-}
-
 void CMainPlayer::Set_GroundCheck()
 {
 	const float groundY = -5.f;
@@ -179,14 +168,16 @@ void CMainPlayer::Set_GroundCheck()
 	if (pos.y <= groundY)
 	{
 		pos.y = groundY;
-		m_fVelocityY = 0.f;
-		m_bGround = true;
-		m_bJump = false;
+		m_pTransform->Set_Pos(pos);
+
+		m_pRigid->Set_OnGround(true);
+
+		_vec3 vVel = m_pRigid->Get_Velocity();
+		vVel.y = 0.f;
+		m_pRigid->Set_Velocity(vVel);
 	}
 	else
 	{
-		m_bGround = false;
+		m_pRigid->Set_OnGround(false);
 	}
-
-	m_pTransform->Set_Pos(pos);
 }

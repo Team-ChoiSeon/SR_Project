@@ -19,8 +19,6 @@ public:
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
-	void Player_Jump(const _float& fTimeDelta);
-
 	//Create, Release Function
 	static CMainPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
@@ -45,15 +43,11 @@ private:
 
 	float m_fMoveSpeed;
 	float m_fJumpPower = 10.f;
-	float m_fGravity = 30.f; // 임시 중력
-	float m_fVelocityY = 0.f; //
 
 	float m_fWidth;
 	float m_fDepth;
 
 	bool m_bCursorMove;
-	bool m_bGround;
-	bool m_bJump;
 	bool m_bObjHold = false;
 	
 };
