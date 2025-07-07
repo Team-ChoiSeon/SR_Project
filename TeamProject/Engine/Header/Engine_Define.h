@@ -47,7 +47,8 @@
 #pragma execution_character_set("utf-8")
 
 #pragma warning(disable :4251) //맵 컨테이너 경고 무시
-
+#include <json.hpp>
+using json = nlohmann::json;
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
