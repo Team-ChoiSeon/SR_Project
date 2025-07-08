@@ -4,6 +4,7 @@
 #include "CCollisionMgr.h"
 #include "CRigidBody.h"
 #include "CGameObject.h"
+#include "CCameraMgr.h"
 
 
 class CGameObject;
@@ -43,9 +44,38 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
 	if (!pTransform) return;
 
-	
-	D3DXVec3TransformCoord(&m_tAABBWorld.vMin, &m_tAABB.vMin, pTransform->Get_WorldMatrix());
-	D3DXVec3TransformCoord(&m_tAABBWorld.vMax, &m_tAABB.vMax, pTransform->Get_WorldMatrix());
+	AABB aabb;
+	aabb.vMin = m_tAABB.vMin + m_tAABBOff.vMin;
+	aabb.vMax = m_tAABB.vMax + m_tAABBOff.vMax;
+	_vec3 corners[8] = {
+	{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z},
+	{aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
+	{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z},
+	{aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
+	{aabb.vMin.x, aabb.vMin.y, aabb.vMax.z},
+	{aabb.vMax.x, aabb.vMin.y, aabb.vMax.z},
+	{aabb.vMax.x, aabb.vMax.y, aabb.vMax.z},
+	{aabb.vMin.x, aabb.vMax.y, aabb.vMax.z}
+	};
+
+	for (int i = 0; i < 8; ++i)
+		D3DXVec3TransformCoord(&corners[i], &corners[i], pTransform->Get_WorldMatrix());
+
+	m_tAABBWorld.vMin = corners[0];
+	m_tAABBWorld.vMax = corners[0];
+
+	// 변환된 꼭짓점으로 AABBWorld 계산 : (min/max 찾기)
+	for (int i = 1; i < 8; ++i)
+	{
+		m_tAABBWorld.vMin = _vec3(min(m_tAABBWorld.vMin.x, corners[i].x),
+								  min(m_tAABBWorld.vMin.y, corners[i].y), 
+								  min(m_tAABBWorld.vMin.z, corners[i].z));
+
+		m_tAABBWorld.vMax = _vec3(max(m_tAABBWorld.vMax.x, corners[i].x),
+								  max(m_tAABBWorld.vMax.y, corners[i].y),
+								  max(m_tAABBWorld.vMax.z, corners[i].z));
+	}
+
 	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
@@ -56,6 +86,12 @@ void CCollider::LateUpdate_Component()
 
 void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 {
+	const _matrix* pView = CCameraMgr::Get_Instance()->Get_MainViewMatrix();
+	const _matrix* pProj = CCameraMgr::Get_Instance()->Get_MainProjectionMatrix();
+
+	pDevice->SetTransform(D3DTS_VIEW, pView);
+	pDevice->SetTransform(D3DTS_PROJECTION, pProj);
+
 	CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
 	if (pTransform == nullptr)
 	{
@@ -89,21 +125,32 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	VTXLINE* pVertices = nullptr;
 	m_pVB->Lock(0, 0, (void**)&pVertices, 0);
 
-	D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0); // 연두색
+	D3DCOLOR color = (m_tAABBOff.vMin == _vec3(0, 0, 0) && m_tAABBOff.vMax == _vec3(0, 0, 0)) ?
+		D3DCOLOR_ARGB(255, 0, 255, 0) :  // 기본 연두색
+		D3DCOLOR_ARGB(255, 255, 0, 0);   // 오프셋 적용시 빨간색 등
 
-	const _vec3& vMin = m_tAABB.vMin;
-	const _vec3& vMax = m_tAABB.vMax;
+	const AABB& aabb = m_tAABBWorld;
 
-	pVertices[0] = { {vMin.x, vMin.y, vMin.z}, color };
-	pVertices[1] = { {vMax.x, vMin.y, vMin.z}, color };
-	pVertices[2] = { {vMax.x, vMax.y, vMin.z}, color };
-	pVertices[3] = { {vMin.x, vMax.y, vMin.z}, color };
-	pVertices[4] = { {vMin.x, vMin.y, vMax.z}, color };
-	pVertices[5] = { {vMax.x, vMin.y, vMax.z}, color };
-	pVertices[6] = { {vMax.x, vMax.y, vMax.z}, color };
-	pVertices[7] = { {vMin.x, vMax.y, vMax.z}, color };
+	_vec3 corners[8] = {
+		{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z},
+		{aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
+		{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z},
+		{aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
+		{aabb.vMin.x, aabb.vMin.y, aabb.vMax.z},
+		{aabb.vMax.x, aabb.vMin.y, aabb.vMax.z},
+		{aabb.vMax.x, aabb.vMax.y, aabb.vMax.z},
+		{aabb.vMin.x, aabb.vMax.y, aabb.vMax.z}
+	};
+
+	// 이 좌표는 이미 월드 좌표이므로 변환 X
+	for (int i = 0; i < 8; ++i)
+		pVertices[i] = { corners[i], color };
 
 	m_pVB->Unlock();
+
+	_matrix matIdentity;
+	D3DXMatrixIdentity(&matIdentity);
+	pDevice->SetTransform(D3DTS_WORLD, &matIdentity);
 
 	pDevice->SetFVF(FVF_LINE);
 	pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VTXLINE));

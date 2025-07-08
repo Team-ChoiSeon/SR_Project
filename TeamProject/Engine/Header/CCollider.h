@@ -40,11 +40,17 @@ public:
 	void Set_ColType(ColliderType eType)	{ m_eType = eType; }
 	void Set_ColTag(ColliderTag eTag)		{ m_eTag = eTag; }
 	void Set_ColState(ColliderState eState) { m_eState = eState; }
+	void Set_Offset(const _vec3& vOffset)
+	{
+		m_tAABBOff.vMin = -vOffset;
+		m_tAABBOff.vMax = vOffset;
+	}
 
 	ColliderType Get_ColType()		const { return m_eType; }
 	ColliderTag  Get_ColTag()		const { return m_eTag; }
 	ColliderState Get_ColState()	const { return m_eState; }
 	const AABB&  Get_AABBW()			  { return m_tAABBWorld; }
+	const AABB& Get_Offset()		const { return m_tAABBOff; }
 
 public:
 	virtual void Update_Component(const _float& fTimeDelta) override;
@@ -61,6 +67,7 @@ public:
 
 private:
 	AABB m_tAABB = { {-1,-1,-1},{1,1,1} };
+	AABB m_tAABBOff = { {0, 0, 0}, {0, 0, 0} };
 	AABB m_tAABBWorld;
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVB = nullptr;
