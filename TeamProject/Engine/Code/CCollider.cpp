@@ -155,12 +155,60 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 	}
 	else if (m_eType == ColliderType::PASSIVE && oType == ColliderType::ACTIVE)
 	{
-		// 상대가 밀려나는 쪽 -> 내가 아무것도 안 함
+		// 상대가 밀려나는 쪽
 	}
 	else if (m_eType == ColliderType::ACTIVE && oType == ColliderType::ACTIVE)
 	{
-		// 둘 다 밀림 → 반씩 밀기
-	
+		// 둘 다 밀림
+		const AABB& myAABB = Get_AABBW();
+		const AABB& otherAABB = pOther->Get_AABBW();
+
+		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
+		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
+
+		_vec3 overlap;
+		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
+		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
+		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
+
+		// 가장 작은 축 방향으로 밀기 벡터
+		_vec3 push(0.f, 0.f, 0.f);
+		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
+			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
+		else if (overlap.y <= overlap.z)
+			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
+		else
+			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+
+		// Rigidbody 얻기
+		CRigidbody* pRigid1 = m_pOwner->Get_Component<CRigidbody>();
+		CRigidbody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidbody>();
+
+		if (!pRigid1 || !pRigid2)
+			return;
+
+		// 질량 비율 계산
+		float m1 = pRigid1->Get_Mass();
+		float m2 = pRigid2->Get_Mass();
+		float total = m1 + m2;
+
+		float ratio1 = m2 / total;
+		float ratio2 = m1 / total;
+
+		// 외력으로 반작용 적용
+		_vec3 force1 = push * ratio1 * 1000.f;
+		_vec3 force2 = -push * ratio2 * 1000.f;
+
+		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
+		if (pTransform)
+		{
+			_vec3 vPos = pTransform->Get_Pos();
+			pTransform->Set_Pos(vPos + push);
+		}
+
+		pRigid1->Add_Force(force1);
+		pRigid2->Add_Force(force2);
+
 	}
 }
 
@@ -197,8 +245,61 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 			_vec3 vPos = pTransform->Get_Pos();
 			pTransform->Set_Pos(vPos + push);
 		}
+	}
 
+	else if (m_eType == ColliderType::ACTIVE && oType == ColliderType::ACTIVE)
+	{
+		// 둘 다 밀림
+		const AABB& myAABB = Get_AABBW();
+		const AABB& otherAABB = pOther->Get_AABBW();
 
+		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
+		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
+
+		_vec3 overlap;
+		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
+		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
+		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
+
+		// 가장 작은 축 방향으로 밀기 벡터
+		_vec3 push(0.f, 0.f, 0.f);
+		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
+			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
+		else if (overlap.y <= overlap.z)
+			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
+		else
+			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+
+		if (push.y < 0.f)
+			push.y = 0.f;
+		// Rigidbody 얻기
+		CRigidbody* pRigid1 = m_pOwner->Get_Component<CRigidbody>();
+		CRigidbody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidbody>();
+
+		if (!pRigid1 || !pRigid2)
+			return;
+
+		// 질량 비율 계산
+		float m1 = pRigid1->Get_Mass();
+		float m2 = pRigid2->Get_Mass();
+		float total = m1 + m2;
+
+		float ratio1 = m2 / total;
+		float ratio2 = m1 / total;
+
+		// 외력으로 반작용 적용
+		_vec3 force1 = push * ratio1 * 1000.f;
+		_vec3 force2 = -push * ratio2 * 1000.f;
+
+		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
+		if (pTransform)
+		{
+			_vec3 vPos = pTransform->Get_Pos();
+			pTransform->Set_Pos(vPos + push);
+		}
+
+		pRigid1->Add_Force(force1);
+		pRigid2->Add_Force(force2);
 
 	}
 }

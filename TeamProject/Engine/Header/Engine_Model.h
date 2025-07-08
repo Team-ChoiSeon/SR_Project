@@ -16,9 +16,16 @@ struct ENGINE_DLL DefaultCubeModel
     std::wstring materialKey = L"DirtObj.mtl";
 };
 
+struct ENGINE_DLL DefaultTileModel
+{
+    std::wstring meshKey = L"CCubeTex";
+    std::wstring materialKey = L"BrickRoad.mtl";
+};
+
 struct ENGINE_DLL MeshKey { const std::wstring& value; };
 struct ENGINE_DLL MaterialKey { const std::wstring& value; };
 
+//=============================
 template <typename TArg>
 inline void ApplyArg(DefaultCubeModel& model, TArg arg)
 {
@@ -37,4 +44,17 @@ inline void ApplyArg(DefaultCubeModel& model, MaterialKey arg)
     model.materialKey = arg.value;
 }
 
+
+//=============================
+template <typename TArg>
+inline void ApplyArg(DefaultTileModel& model, TArg) {}
+
+template <>
+inline void ApplyArg(DefaultTileModel& model, MeshKey arg) {
+    model.meshKey = arg.value;
+}
+template <>
+inline void ApplyArg(DefaultTileModel& model, MaterialKey arg) {
+    model.materialKey = arg.value;
+}
 END

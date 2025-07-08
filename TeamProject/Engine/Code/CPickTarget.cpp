@@ -27,15 +27,16 @@ HRESULT CPickTarget::Ready_Component()
 	return S_OK;
 }
 
-void CPickTarget::Update_Component(const float& fTimeDelta)
+void CPickTarget::Update_Component(const _float& fTimeDelta)
+{
+}
+
+void CPickTarget::LateUpdate_Component()
 {
 	if (Check_Collision())
 		Add_HitInfo();
 }
 
-void CPickTarget::LateUpdate_Component(const float& fTimeDelta)
-{
-}
 
 CPickTarget* CPickTarget::Create(LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE boundtype)
 {

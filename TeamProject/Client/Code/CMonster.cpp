@@ -33,14 +33,20 @@ HRESULT CMonster::Ready_GameObject()
 
 	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidbody>();
-	m_pCollider->Set_ColTag(ColliderTag::GROUND);
-	m_pCollider->Set_ColType(ColliderType::PASSIVE);
+	m_pCollider->Set_ColTag(ColliderTag::NONE);
+	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
 	return S_OK;
 }
 
 int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
+
+	KeyInput(fTimeDelta);
+	// For debug
+	wstring wDebug = to_wstring(m_pTransform->Get_Pos().z);
+	OutputDebugString(wDebug.c_str());
+	OutputDebugString(L"\n");
 
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
@@ -53,6 +59,23 @@ void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->LateUpdate_Component();
+}
+
+void CMonster::KeyInput(const _float& fTimeDelta)
+{
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_UP))
+		m_pRigid->Add_Force({ 0.f, 0.f, 100.f });
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_DOWN))
+		m_pRigid->Add_Force({ 0.f, 0.f, -100.f });
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
+		m_pRigid->Add_Force({ 100.f, 0.f, 0.f });
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
+		m_pRigid->Add_Force({ -100.f, 0.f, 0.f });
+
 }
 
 CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)

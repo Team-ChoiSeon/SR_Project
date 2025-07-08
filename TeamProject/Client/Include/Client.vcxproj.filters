@@ -78,6 +78,9 @@
     </Filter>
     <Filter Include="04. GameObjects\Trigger\WeightButton">
       <UniqueIdentifier>{d004dbe1-8485-46b4-9be5-6a79a3f7a4f0}</UniqueIdentifier>
+      </Filter>
+    <Filter Include="04. GameObjects\TestTile">
+      <UniqueIdentifier>{48b919c7-4a5f-44ae-b69b-234078cfeb74}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CWeightButton.h">
       <Filter>04. GameObjects\Trigger\WeightButton</Filter>
+      </ClInclude>
+    <ClInclude Include="..\Header\CTestTile.h">
+      <Filter>04. GameObjects\TestTile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CWeightButton.cpp">
       <Filter>04. GameObjects\Trigger\WeightButton</Filter>
+      </ClCompile>
+    <ClCompile Include="..\Code\CTestTile.cpp">
+      <Filter>04. GameObjects\TestTile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
