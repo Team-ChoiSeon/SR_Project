@@ -4,7 +4,7 @@
 #include "CTransform.h"
 #include "CModel.h"
 #include "CCollider.h"
-#include "CRigidbody.h"
+#include "CRigidBody.h"
 
 
 class CMonster : public Engine::CGameObject
@@ -35,7 +35,7 @@ private:
 	CTransform* m_pTransform;
 	CModel* m_pModel;
 	CCollider* m_pCollider;
-	CRigidbody* m_pRigid;
+	CRigidBody* m_pRigid;
 
 
 	const _matrix* m_mWorld;

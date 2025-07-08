@@ -33,8 +33,8 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 	m_fMoveSpeed = 10.f;
 
-	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
-	m_pRigid = Get_Component<CRigidbody>();
+	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidBody>();
 	// 임시추가 
 	m_pRigid->Set_Mass(6.f);
 	m_pRigid->Set_Friction(10.f);

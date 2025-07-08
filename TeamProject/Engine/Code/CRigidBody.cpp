@@ -1,13 +1,13 @@
-#include "CRigidbody.h"
+#include "CRigidBody.h"
 #include "CTransform.h"
 #include "CGameObject.h"
 
-CRigidbody::CRigidbody(LPDIRECT3DDEVICE9 pGraphicDev)
+CRigidBody::CRigidBody(LPDIRECT3DDEVICE9 pGraphicDev)
     : CComponent(pGraphicDev)
 {
 }
 
-CRigidbody::CRigidbody(const CRigidbody& rhs)
+CRigidBody::CRigidBody(const CRigidBody& rhs)
     : CComponent(rhs)
     , m_fMass(rhs.m_fMass)
     , m_vVel(rhs.m_vVel)
@@ -18,13 +18,13 @@ CRigidbody::CRigidbody(const CRigidbody& rhs)
 {
 }
 
-CRigidbody::~CRigidbody()
+CRigidBody::~CRigidBody()
 {
 }
 
-CRigidbody* CRigidbody::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTransform)
+CRigidBody* CRigidBody::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTransform)
 {
-    CRigidbody* pInstance = new CRigidbody(pGraphicDev);
+    CRigidBody* pInstance = new CRigidBody(pGraphicDev);
     pInstance->m_pTransform = pTransform;
 
     if (pInstance == nullptr || pTransform == nullptr)
@@ -36,7 +36,7 @@ CRigidbody* CRigidbody::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTrans
     return pInstance;
 }
 
-void CRigidbody::Update_Component(const _float& fDeltaTime)
+void CRigidBody::Update_Component(const _float& fDeltaTime)
 {
     if (m_pTransform == nullptr)
         return;
@@ -121,7 +121,7 @@ void CRigidbody::Update_Component(const _float& fDeltaTime)
 
 }
 
-void CRigidbody::Free()
+void CRigidBody::Free()
 {
     Safe_Release(m_pGraphicDev);
     m_pTransform = nullptr;

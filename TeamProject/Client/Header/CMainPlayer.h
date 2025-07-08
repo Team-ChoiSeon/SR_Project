@@ -1,7 +1,7 @@
 #pragma once
 #include "CGameObject.h"
 #include "CTransform.h"
-#include "CRigidbody.h"
+#include "CRigidBody.h"
 
 namespace Engine {
 	class CModel;
@@ -44,7 +44,7 @@ private:
 	CTransform* m_pTransform;
 	CModel* m_pModel;
 	CCollider* m_pCollider;
-	CRigidbody* m_pRigid;
+	CRigidBody* m_pRigid;
 
 	float m_fMoveSpeed;
 	float m_fJumpPower = 10.f;

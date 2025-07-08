@@ -31,8 +31,8 @@ HRESULT CMonster::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	m_pCollider = Get_Component<CCollider>();
 
-	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
-	m_pRigid = Get_Component<CRigidbody>();
+	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidBody>();
 	m_pCollider->Set_ColTag(ColliderTag::NONE);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 

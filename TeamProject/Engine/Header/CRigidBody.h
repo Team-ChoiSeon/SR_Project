@@ -5,15 +5,15 @@ BEGIN(Engine)
 
 class CTransform;
 
-class ENGINE_DLL CRigidbody : public CComponent
+class ENGINE_DLL CRigidBody : public CComponent
 {
 private:
-    explicit CRigidbody(LPDIRECT3DDEVICE9 pGraphicDev);
-    explicit CRigidbody(const CRigidbody& rhs);
-    virtual ~CRigidbody();
+    explicit CRigidBody(LPDIRECT3DDEVICE9 pGraphicDev);
+    explicit CRigidBody(const CRigidBody& rhs);
+    virtual ~CRigidBody();
 
 public:
-    static CRigidbody* Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTransform);
+    static CRigidBody* Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTransform);
 
 public:
     void Set_OnGround(bool bGround) { m_bGround = bGround; }
