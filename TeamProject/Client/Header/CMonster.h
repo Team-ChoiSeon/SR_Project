@@ -30,7 +30,6 @@ public:
 protected:
 	//Utility Function
 	void KeyInput(const _float& fTimeDelta);
-	void CursorRotate();
 
 private:
 	CTransform* m_pTransform;
