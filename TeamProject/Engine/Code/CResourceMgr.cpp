@@ -27,7 +27,8 @@ HRESULT CResourceMgr::Ready_Resource()
 	Load_Material(L"DirtObj.mtl");
 	Load_Material(L"BrickRoad.mtl");
 	Load_Mesh <CCubeTex>(m_pGraphicDev, L"CCubeTex");
-	Load_Mesh<CCubeTex>(m_pGraphicDev,L"DirtObj.obj");
+	Load_Mesh <CCubeTex>(m_pGraphicDev,L"DirtObj.obj");
+	Load_Mesh <CCubeTex>(m_pGraphicDev, L"BrickRoad.obj");
 	m_pGraphicDev->AddRef();
 }
 
