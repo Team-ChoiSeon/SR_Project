@@ -36,6 +36,7 @@ HRESULT CCrosshairUIObject::Ready_GameObject()
     CResourceMgr::Get_Instance()->Load_Texture(L"Crosshair/Hover.png");
     CResourceMgr::Get_Instance()->Load_Texture(L"Crosshair/Hold.png");
 
+    m_vecHoverAnim.push_back(CResourceMgr::Get_Instance()->Get_Texture(L"Crosshair/Default.png"));
     for (int i = 1; i <= 9; ++i)
     {
         wchar_t buf[64];

@@ -92,10 +92,11 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	else
 		CCameraMgr::Get_Instance()->Set_MainCamera(m_pdummycam);
 
-	if (CPickingMgr::Get_Instance()->Get_PickedObject(100.f) == m_pDummy)
-	{
-		OutputDebugStringW(L"[Debug] Hit!	\n");
-	}
+	// PickingMgr 수정으로 임시 막아둔 코드
+	// if (CPickingMgr::Get_Instance()->Get_PickedObject(100.f) == m_pDummy)
+	// {
+	// 	OutputDebugStringW(L"[Debug] Hit!	\n");
+	// }
 
 
 	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);

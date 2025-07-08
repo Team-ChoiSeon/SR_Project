@@ -8,6 +8,7 @@
 
 #include "CInputMgr.h"
 #include "CCameraMgr.h"
+#include "CPickingMgr.h"
 
 CMainPlayer::CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
@@ -98,12 +99,36 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		m_fMoveSpeed = 30.f;
 	}
 
-	// È¦µå Ã³¸®
-	if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB)) {
-		m_bObjHold = true;
+	Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
+	CGameObject* PickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(10.f);
+
+	if (CInputMgr::Get_Instance()->Mouse_Down(DIM_LB))
+	{
+		if (PickObj)
+		{
+			if (m_bObjHold)
+			{
+				_vec3 nowPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
+				m_vDragDistance = nowPt - m_vLastPt;
+				m_vLastPt = nowPt;
+			}else
+			{
+				CTransform* targetTrans = PickObj->Get_Component<CTransform>();
+				CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
+
+				//m_vPlanePt = PickObj->Get_Component<CTransform>()->Get_Pos();
+				m_vPlanePt = targetTrans->Get_Pos();
+				m_vPlaneNorm = targetTrans->Get_Pos() - pMainCam->Get_Eye();
+				D3DXVec3Normalize(&m_vPlaneNorm, &m_vPlaneNorm);
+
+				m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
+				m_bObjHold = true;
+			}
+		}
 	}
 	else {
 		m_bObjHold = false;
+		m_vDragDistance = { 0,0,0 };
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Away(DIK_LSHIFT))

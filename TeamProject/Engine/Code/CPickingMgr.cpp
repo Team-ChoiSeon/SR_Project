@@ -33,17 +33,15 @@ HRESULT CPickingMgr::Update_Picking(const _float& fTimeDelta)
 	Make_Ray(m_Cursor.x, m_Cursor.y);			//ray 생성
 	TransformRayIntoWorld();					//ray를 월드공간으로 변화
 	Check_RayHitted();								//Search Ray
-	Check_Input();											// Fix Target
-	
-
-	if (!m_vecHit.empty())
-		m_vecHit.clear();
 	
 	return S_OK;
 }
 
 _int CPickingMgr::LateUpdate_Picking(const _float& fTimeDelta)
 {
+	if (!m_vecHit.empty())
+		m_vecHit.clear();
+
 	return 0;
 }
 
@@ -68,63 +66,23 @@ void CPickingMgr::Check_RayHitted()
 	m_RayHitted = *iter;
 }
 
-void CPickingMgr::Check_Input()
+CGameObject* CPickingMgr::Get_HitNearObject(float _Range)
 {
-	if (CInputMgr::Get_Instance()->Mouse_Tap(DIM_LB))
-	{
-		m_Picked = m_RayHitted;
-
-		if (m_Picked._hittedobject)
-		{
-			CTransform* targetTrans = m_Picked._hittedobject->Get_Component<CTransform>();
-			CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
-
-			m_vPlanePt = m_Picked._hittedobject->Get_Component<CTransform>()->Get_Pos();
-			m_vPlaneNorm = targetTrans->Get_Pos() - pMainCam->Get_Eye();
-			D3DXVec3Normalize(&m_vPlaneNorm, &m_vPlaneNorm);
-
-			m_vLastPt = CalcRayPlaneIntersection(m_Ray, m_vPlanePt, m_vPlaneNorm);
-			m_bDragging = true;
-		}
-	}
-	if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB))
-	{
-		if (m_bDragging && m_Picked._hittedobject)
-		{
-			_vec3 nowPt = CalcRayPlaneIntersection(m_Ray, m_vPlanePt, m_vPlaneNorm);
-			m_vDragDistance = nowPt - m_vLastPt;
-			m_vLastPt = nowPt;
-		}
-	}
-	if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB))
-	{
-		m_Picked = { nullptr, 0 };
-		m_bDragging = false;
-		m_vDragDistance = { 0,0,0 };
-	}
-}
-
-CGameObject* CPickingMgr::Get_HitNearObject()
-{
-	// if (m_RayHitted._hittedobject) {
-	// 	MessageBoxW(0,L"맞음",L"hit",MB_OK);
-	// }
-
-	return m_RayHitted._hittedobject;
-}
-
-CGameObject* CPickingMgr::Get_PickedObject(float _Range)
-{
-	if(!m_Picked._hittedobject)
+	if (!m_RayHitted._hittedobject)
 		return nullptr;
 	else {
-		if (m_Picked._distance > _Range) {
+		if (m_RayHitted._distance > _Range) {
 			return nullptr;
 		}
 		else {
-			return m_Picked._hittedobject;
+			return m_RayHitted._hittedobject;
 		}
 	}
+}
+
+CGameObject* CPickingMgr::Get_PickedObject()
+{
+	return m_Picked._hittedobject;
 }
 
 void CPickingMgr::ComputeCursor()
