@@ -26,7 +26,7 @@ CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, const DefaultCubeModel& model)
 	auto pModel = new CModel(pDevice);
 	pModel->Set_Mesh(pMesh);
 	pModel->Set_Material(pMaterial);
-	pMaterial->Set_Shader("g_UVScale.fx"); //임시
+	pMaterial->Set_Shader(L"g_UVScale.fx"); //임시
 
 	OutputDebugString("[CModel] Create 호출됨\n");
 	return pModel;

@@ -23,8 +23,10 @@ CMesh::CMesh(const CMesh& rhs)
 
 HRESULT CMesh::LoadOBJ(LPDIRECT3DDEVICE9 pDevice, const wstring& path)
 {
+	wstring basePath = L"../Bin/Resource/Obj/";
+
 	//파일 열기
-	ifstream in(path);
+	ifstream in(basePath+path);
 	if (!in.is_open()) {
 		return E_FAIL;
 	}
@@ -127,6 +129,8 @@ HRESULT CMesh::LoadOBJ(LPDIRECT3DDEVICE9 pDevice, const wstring& path)
 	m_pIB->Lock(0, 0, &pIBData, 0);
 	memcpy(pIBData, indices.data(), indices.size() * sizeof(DWORD));
 	m_pIB->Unlock();
+
+	m_wKey = path;
 
 	return S_OK;
 }

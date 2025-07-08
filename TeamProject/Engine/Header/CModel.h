@@ -35,6 +35,9 @@ public:
     // void Set_Texture(CTexture* pTexture) { m_pTexture = pTexture; }
     void Set_Material(CMaterial* pMaterial) { m_pMaterial = pMaterial; }
 
+    CMesh* Get_Mesh() { return m_pMesh; }
+    CMaterial* Get_Material() { return m_pMaterial; }
+
 public:
     RENDER_PASS Get_RenderPass() { return RENDER_PASS::RP_OPAQUE; };
     virtual void Free()override;

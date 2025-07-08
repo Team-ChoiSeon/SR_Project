@@ -110,9 +110,8 @@ inline HRESULT CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring&
 	//	Safe_Release(pMesh);
 	//	return E_FAIL;
 	//}
-	wstring basePath = L"../Bin/Resource/Obj/";
 
-	pMesh->LoadOBJ(pDevice, basePath+key);
+	pMesh->LoadOBJ(pDevice, key);
 
 	m_umMesh[key] = pMesh;
 	return S_OK;

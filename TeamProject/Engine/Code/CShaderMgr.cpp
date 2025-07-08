@@ -24,17 +24,17 @@ HRESULT CShaderMgr::Ready_Shader(LPDIRECT3DDEVICE9 pDevice)
 		return E_FAIL;
 	}
 
-	Load_AllShaders("../../Shader/");
+	Load_AllShaders(L"../../Shader/");
 	return S_OK;
 }
 
-void CShaderMgr::Load_AllShaders(const string& folderPath)
+void CShaderMgr::Load_AllShaders(const wstring& folderPath)
 {
 	for (const auto& entry : fs::directory_iterator(folderPath))
 	{
 		if (entry.is_regular_file())
 		{
-			const string& fileName = entry.path().filename().string();
+			const wstring& fileName = entry.path().filename().wstring();
 			if (entry.path().extension() == ".fx")
 			{
 				GetShader(fileName);
@@ -43,14 +43,14 @@ void CShaderMgr::Load_AllShaders(const string& folderPath)
 	}
 }
 
-LPD3DXEFFECT CShaderMgr::GetShader(const string& path)
+LPD3DXEFFECT CShaderMgr::GetShader(const wstring& path)
 {
 	auto it = m_mapShader.find(path);
 
 	if (it != m_mapShader.end())
 		return it->second;
 
-	wstring fullPath = ToWString("../../Shader/" + path); // 경로 조합
+	wstring fullPath = L"../../Shader/" + path;
 
 	LPD3DXEFFECT pEffect = nullptr;
 	LPD3DXBUFFER pError = nullptr;
@@ -82,7 +82,7 @@ LPD3DXEFFECT CShaderMgr::GetShader(const string& path)
 	return pEffect;
 }
 
-HRESULT CShaderMgr::ReloadShader(const string& path)
+HRESULT CShaderMgr::ReloadShader(const wstring& path)
 {
 	auto iter = m_mapShader.find(path);
 	if (iter != m_mapShader.end()) {

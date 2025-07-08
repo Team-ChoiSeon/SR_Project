@@ -50,13 +50,13 @@ CMaterial* CMaterial::Create()
     return pTex;
 }
 
-void CMaterial::Set_Shader(const string& path)
+void CMaterial::Set_Shader(const wstring& path)
 {
     m_pEffect = CShaderMgr::Get_Instance()->GetShader(path);
     if (m_pEffect)
-        m_strShaderPath = path;
+        m_wShaderKey = path;
     else
-        m_strShaderPath.clear(); // 로딩 실패 시 키 제거
+        m_wShaderKey.clear(); // 로딩 실패 시 키 제거
 }
 
 void CMaterial::Free()
