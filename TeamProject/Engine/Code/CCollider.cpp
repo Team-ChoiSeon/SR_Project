@@ -30,6 +30,16 @@ CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 }
 void CCollider::Update_Component(const _float& fTimeDelta)
 {
+	switch (m_eState)
+	{
+	case ColliderState::ENTER:
+		m_eState = ColliderState::STAY;
+		break;
+	case ColliderState::EXIT:
+		m_eState = ColliderState::NONE;
+		break;
+	}
+
 	CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
 	if (!pTransform) return;
 
@@ -181,6 +191,9 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 		pRigid2->Add_Force(force2);
 
 	}
+
+	if (m_eState == ColliderState::NONE || m_eState == ColliderState::EXIT)
+		m_eState = ColliderState::ENTER;
 }
 
 void CCollider::On_Collision_Stay(CCollider* pOther)
@@ -242,6 +255,11 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 		pRigid1->Add_Force(force1);
 		pRigid2->Add_Force(force2);
 	}
+
+	if (m_eState == ColliderState::NONE)
+		m_eState = ColliderState::ENTER;
+	else
+		m_eState = ColliderState::STAY;
 }
 
 void CCollider::On_Collision_Exit(CCollider* pOther)
@@ -252,6 +270,8 @@ void CCollider::On_Collision_Exit(CCollider* pOther)
 		if (pRigid)
 			pRigid->Set_OnGround(false);
 	}
+
+	m_eState = ColliderState::EXIT;
 }
 
 bool CCollider::Calc_Push(const AABB& a, const AABB& b, _vec3& push)
