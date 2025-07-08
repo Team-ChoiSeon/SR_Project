@@ -17,11 +17,11 @@ CCollider::~CCollider()
 {
 }
 
-CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, CRigidBody* pRigid)
 {
 	CCollider* pCollider = new CCollider(pGraphicDev);
-	
-	if (pCollider == nullptr)
+	pCollider->m_pRigid = pRigid;
+	if (pCollider == nullptr || pRigid == nullptr)
 	{
 		MSG_BOX("CCollider Create Failed");
 		return nullptr;
@@ -141,9 +141,9 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 			pOther->Get_ColTag() == ColliderTag::GROUND &&
 			push.y > 0.f)
 		{
-			if (auto pRigid = m_pOwner->Get_Component<CRigidBody>())
+			if (m_pRigid)
 			{
-				pRigid->Set_OnGround(true);
+				m_pRigid->Set_OnGround(true);
 			}
 		}
 
@@ -162,15 +162,13 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 		_vec3 push(0.f, 0.f, 0.f);
 		if (!Calc_Push(myAABB, otherAABB, push))	return;
 		// Rigidbody 얻기
-		CRigidBody* pRigid1 = m_pOwner->Get_Component<CRigidBody>();
-		CRigidBody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidBody>();
 
-		if (!pRigid1 || !pRigid2)
+		if (!m_pRigid || !pOther->m_pRigid)
 			return;
 
 		// 질량 비율 계산
-		float m1 = pRigid1->Get_Mass();
-		float m2 = pRigid2->Get_Mass();
+		float m1 = m_pRigid->Get_Mass();
+		float m2 = pOther->m_pRigid->Get_Mass();
 		float total = m1 + m2;
 
 		float ratio1 = m2 / total;
@@ -187,8 +185,8 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 			pTransform->Set_Pos(vPos + push);
 		}
 
-		pRigid1->Add_Force(force1);
-		pRigid2->Add_Force(force2);
+		m_pRigid->Add_Force(force1);
+		pOther->m_pRigid->Add_Force(force2);
 
 	}
 
@@ -226,16 +224,13 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
 		if (!Calc_Push(myAABB, otherAABB, push))	return;
-		// Rigidbody 얻기
-		CRigidBody* pRigid1 = m_pOwner->Get_Component<CRigidBody>();
-		CRigidBody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidBody>();
 
-		if (!pRigid1 || !pRigid2)
+		if (!m_pRigid || !pOther->m_pRigid)
 			return;
 
 		// 질량 비율 계산
-		float m1 = pRigid1->Get_Mass();
-		float m2 = pRigid2->Get_Mass();
+		float m1 = m_pRigid->Get_Mass();
+		float m2 = pOther->m_pRigid->Get_Mass();
 		float total = m1 + m2;
 
 		float ratio1 = m2 / total;
@@ -252,8 +247,8 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 			pTransform->Set_Pos(vPos + push);
 		}
 
-		pRigid1->Add_Force(force1);
-		pRigid2->Add_Force(force2);
+		m_pRigid->Add_Force(force1);
+		pOther->m_pRigid->Add_Force(force2);
 	}
 
 	if (m_eState == ColliderState::NONE)
@@ -266,9 +261,8 @@ void CCollider::On_Collision_Exit(CCollider* pOther)
 {
 	if (m_eType == ColliderType::ACTIVE && pOther->Get_ColTag() == ColliderTag::GROUND)
 	{
-		CRigidBody* pRigid = m_pOwner->Get_Component<CRigidBody>();
-		if (pRigid)
-			pRigid->Set_OnGround(false);
+		if (m_pRigid)
+			m_pRigid->Set_OnGround(false);
 	}
 
 	m_eState = ColliderState::EXIT;
@@ -305,4 +299,5 @@ void CCollider::Free()
 	Safe_Release(m_pIB);
 	Safe_Release(m_pGraphicDev);
 	//Safe_Release(m_pOwner);
+	m_pRigid = nullptr;
 }

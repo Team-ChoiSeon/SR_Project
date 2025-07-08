@@ -3,6 +3,8 @@
 
 BEGIN(Engine)
 
+class CRigidBody;
+
 enum class ColliderType		{ PASSIVE, ACTIVE, TRIGGER };
 enum class ColliderTag		{ NONE, GROUND, WALL, PLATFORM };
 enum class BoundingType		{ AABB, OBB };
@@ -33,7 +35,7 @@ public:
 	virtual  ~CCollider();
 
 public:
-	static CCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev, CRigidBody* pRigid);
 
 	void Set_ColType(ColliderType eType)	{ m_eType = eType; }
 	void Set_ColTag(ColliderTag eTag)		{ m_eTag = eTag; }
@@ -67,6 +69,8 @@ private:
 	ColliderType m_eType = ColliderType::ACTIVE;
 	ColliderTag m_eTag	 = ColliderTag::NONE;
 	ColliderState m_eState = ColliderState::NONE;
+
+	CRigidBody* m_pRigid = nullptr;
 };
 
 END

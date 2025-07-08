@@ -27,21 +27,15 @@ HRESULT CPlayer::Ready_GameObject()
 
 	DefaultCubeModel tModel;
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
-	OutputDebugString(L"[CPlayer] Add_Component<CModel> 호출 완료\n");
 	m_pModel = Get_Component<CModel>();
-
-	if (m_pModel == nullptr)
-		OutputDebugString(L"[CPlayer] m_pModel is nullptr\n");
-	else
-		OutputDebugString(L"[CPlayer] m_pModel is OK\n");
-
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
-	m_pCollider = Get_Component<CCollider>();
-	m_pCollider->Set_ColTag(ColliderTag::NONE);
-	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
+
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
+	m_pCollider = Get_Component<CCollider>();
+	m_pCollider->Set_ColTag(ColliderTag::NONE);
+	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
 
 
