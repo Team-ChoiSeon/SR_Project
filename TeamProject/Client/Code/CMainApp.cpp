@@ -12,6 +12,7 @@
 #include "CRenderMgr.h"
 #include "CCollisionMgr.h"
 #include "CCameraMgr.h"
+#include "CShaderMgr.h"
 #include "CScene.h"
 #include "Logo.h"
 
@@ -31,7 +32,7 @@ HRESULT CMainApp::Ready_MainApp()
 		return E_FAIL;
 
 	if (FAILED(CInputMgr::Get_Instance()->Ready_InputDev(g_HInst, g_hWnd)))
-		return E_FAIL;
+		return E_FAIL;	
 
 	m_pDeviceClass->AddRef();
 
@@ -39,6 +40,7 @@ HRESULT CMainApp::Ready_MainApp()
 	m_pGraphicDev->AddRef();
   
 	CResourceMgr::Get_Instance()->Ready_Resource();
+	CShaderMgr::Get_Instance()->Ready_Shader(m_pGraphicDev);
 	CRenderMgr::Get_Instance()->Ready_RenderMgr();
 	m_pScene = Logo::Create(m_pGraphicDev);
 	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
@@ -98,6 +100,7 @@ void CMainApp::Free()
 
 	// 4. 리소스, 디바이스
 	CResourceMgr::Get_Instance()->Destroy_Instance();
+	CShaderMgr::Get_Instance()->Destroy_Instance();
 	CGraphicDev::Get_Instance()->Destroy_Instance();
 
 	Safe_Release(m_pGraphicDev);
