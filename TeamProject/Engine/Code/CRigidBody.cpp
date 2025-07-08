@@ -24,16 +24,16 @@ CRigidBody::~CRigidBody()
 
 CRigidBody* CRigidBody::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTransform)
 {
-    CRigidBody* pInstance = new CRigidBody(pGraphicDev);
-    pInstance->m_pTransform = pTransform;
+    CRigidBody* pRigid = new CRigidBody(pGraphicDev);
+    pRigid->m_pTransform = pTransform;
 
-    if (pInstance == nullptr || pTransform == nullptr)
+    if (pRigid == nullptr || pTransform == nullptr)
     {
         MSG_BOX("Rigidbody Create Failed");
         return nullptr;
     }
 
-    return pInstance;
+    return pRigid;
 }
 
 void CRigidBody::Update_Component(const _float& fDeltaTime)

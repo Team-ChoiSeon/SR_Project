@@ -21,11 +21,6 @@ HRESULT CRenderMgr::Ready_RenderMgr()
 
 void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 {
-	//OutputDebugString("[RenderMgr] Render Start\n");
-	/*wchar_t buffer[64];
-	swprintf_s(buffer, L"OPAQUE 모델 수: %d\n", m_vModellist[static_cast<int>(RENDER_PASS::RP_OPAQUE)].size());
-	OutputDebugStringW(buffer);*/
-
 	//렌더 스테이트 설정
 	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);

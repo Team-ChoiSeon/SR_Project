@@ -25,7 +25,7 @@ HRESULT DummyCube::Ready_GameObject()
 	DefaultCubeModel tModel;
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
+	//Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
 
 	m_pModel = Get_Component<CModel>();

@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "SceneSB.h"
 
-#include "CMainPlayer.h"
+#include "CPlayer.h"
 #include "CMonster.h"
 #include "CCameraMgr.h"
 #include "CFirstviewFollowingCamera.h"
@@ -24,7 +24,7 @@ HRESULT SceneSB::Ready_Scene()
 {
 	Init_Layers();
 	// 1. 플레이어 (시점 고정)
-	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
+	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 0.f, -20.f });
 	pPlayer->Get_Component<CRigidBody>()->Set_Friction(1.f);
 	pPlayer->Get_Component<CRigidBody>()->Set_Mass(100.f);
@@ -45,6 +45,7 @@ HRESULT SceneSB::Ready_Scene()
 	pFallingMonster->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	pFallingMonster->Get_Component<CRigidBody>()->Set_Bounce(0.5f);
 	pFallingMonster->Get_Component<CRigidBody>()->Set_Friction(0.2f);
+	pFallingMonster->Get_Component<CCollider>()->Set_Offset({ 1.5,1.5,1.5 });
 
 	// 4. 카메라 (플레이어 시점)
 	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
