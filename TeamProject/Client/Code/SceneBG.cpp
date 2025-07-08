@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "SceneBG.h"
+#include "CFactory.h"
 
 SceneBG::SceneBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
@@ -15,6 +16,8 @@ SceneBG::~SceneBG()
 HRESULT SceneBG::Ready_Scene()
 {
 	Init_Layers();
+	CFactory::DeSerializeScene(L"../Bin/Resource/Scene/SampleScene.json ", this);
+	CGameObject* obj = m_umLayer[LAYERID::LAYER_OBJECT]->Get_GameObject(L"DummyCube_1");
 	return S_OK;
 }
 

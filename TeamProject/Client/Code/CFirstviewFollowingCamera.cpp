@@ -5,6 +5,7 @@
 #include "CTransform.h"
 #include "CCamera.h"
 #include "CInputMgr.h"
+#include "CFactory.h"
 
 CFirstviewFollowingCamera::CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCameraObject(pGraphicDev)
@@ -28,6 +29,8 @@ CFirstviewFollowingCamera::CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicD
 	m_pCamera->Set_Aspect(WINCX / (WINCY * 1.f));
 	m_pCamera->Set_Near(0.1f);
 	m_pCamera->Set_Far(1000.f);
+
+	CFactory::Save_Prefab(this, "CFirstviewFollowingCamera");
 }
 
 CFirstviewFollowingCamera::CFirstviewFollowingCamera(const CFirstviewFollowingCamera& rhs)
@@ -87,3 +90,4 @@ void CFirstviewFollowingCamera::Free()
 	Safe_Release(m_pGraphicDev);
 }
 
+REGISTER_GAMEOBJECT(CFirstviewFollowingCamera)

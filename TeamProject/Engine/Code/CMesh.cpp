@@ -163,6 +163,7 @@ HRESULT CMesh::Ready_Buffer()
         MSG_BOX("IndexBuffer 생성 실패");
         return E_FAIL;
     }
+	m_wKey = L"Default.obj";
 
     return S_OK;
 }
