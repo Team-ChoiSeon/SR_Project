@@ -69,14 +69,14 @@ void CInputMgr::LateUpdate_InputDev(void)
 _bool CInputMgr::Mouse_Tap(MOUSEKEYSTATE eMouse)
 {
 	_bool now = m_tCurMouseState.rgbButtons[eMouse] & 0x80;
-	_bool prev = m_PreMouseState.rgbButtons[eMouse] & 0x80;
+	_bool prev = m_tCurMouseState.rgbButtons[eMouse] & 0x80;
 	return now && !prev;
 }
 
 _bool CInputMgr::Mouse_Hold(MOUSEKEYSTATE eMouse)
 {
 	_bool now = m_tCurMouseState.rgbButtons[eMouse] & 0x80;
-	_bool prev = m_PreMouseState.rgbButtons[eMouse] & 0x80;
+	_bool prev = m_tCurMouseState.rgbButtons[eMouse] & 0x80;
 	return now && prev;
 }
 
@@ -89,7 +89,7 @@ _bool CInputMgr::Mouse_Down(MOUSEKEYSTATE eMouse)
 _bool CInputMgr::Mouse_Away(MOUSEKEYSTATE eMouse)
 {
 	_bool now = m_tCurMouseState.rgbButtons[eMouse] & 0x80;
-	_bool prev = m_PreMouseState.rgbButtons[eMouse] & 0x80;
+	_bool prev = m_tCurMouseState.rgbButtons[eMouse] & 0x80;
 	return !now && prev;
 }
 

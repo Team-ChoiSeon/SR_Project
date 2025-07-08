@@ -141,7 +141,6 @@ HRESULT CResourceMgr::Load_Material(const wstring& mtlPath)
 	// 머티리얼 생성 및 등록
 	CMaterial* mat = CMaterial::Create();
 	mat->Set_Diffuse(tex);
-	mat->Set_MaterialKey(mtlPath);
 	m_umMaterial[mtlPath] = mat;
 
 	return S_OK;

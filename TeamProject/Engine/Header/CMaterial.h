@@ -18,7 +18,6 @@ public:
     void Set_Normal(CTexture* tex)    { m_pNormal = tex; }
     void Set_Roughness(CTexture* tex) { m_pRoughness = tex; }
     void Set_Shader(const wstring& path); // ShaderMgr 연동
-    void Set_MaterialKey(const wstring& path) { m_wMatKey = path; }
 
     CTexture* Get_Diffuse() const { return m_pDiffuse; }
     CTexture* Get_Normal() const { return m_pNormal; }
@@ -42,7 +41,7 @@ public:
 
 private:
     D3DMATERIAL9 m_tMaterial;
-    wstring m_wMatKey; //머티리얼 키
+    wstring m_wMatKey; //셰이더 키
 
     CTexture* m_pDiffuse = nullptr;
     CTexture* m_pNormal = nullptr;
