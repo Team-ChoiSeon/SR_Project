@@ -27,9 +27,10 @@ public:
 	
 	void				Add_HitInfo(Ray_Hit& hitinfo) { m_vecHit.push_back(hitinfo); }
 
-	CGameObject* Get_HitNearObject();
-	CGameObject* Get_PickedObject(float _Range);
+	CGameObject* Get_HitNearObject(float _Range);
+	CGameObject* Get_PickedObject();
 	_vec3 Get_DragVector() { return m_vDragDistance; }
+	_vec3 CalcRayPlaneIntersection(const Ray& ray, const _vec3& planePoint, const _vec3& planeNormal);
 
 private:
 	//Compute Function
@@ -39,9 +40,7 @@ private:
 	void SortHitVectorASC();
 	void SortHitVectorDESC();
 
-	_vec3 CalcRayPlaneIntersection(const Ray& ray, const _vec3& planePoint, const _vec3& planeNormal);
 	void Check_RayHitted();
-	void Check_Input();
 
 private:
 	//Variables
