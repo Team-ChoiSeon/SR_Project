@@ -26,24 +26,24 @@ HRESULT SceneDH::Ready_Scene()
 	// 1. 플레이어 (시점 고정)
 	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 0.f, -20.f });
-	pPlayer->Get_Component<CRigidbody>()->Set_Friction(1.f);
-	pPlayer->Get_Component<CRigidbody>()->Set_Mass(100.f);
+	pPlayer->Get_Component<CRigidBody>()->Set_Friction(1.f);
+	pPlayer->Get_Component<CRigidBody>()->Set_Mass(100.f);
 	// 2. 바닥 역할 (몬스터 착지용)
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
 	pTile->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 50.f });
 	pTile->Get_Component<CTransform>()->Set_PosY(-20.f);
-	pTile->Get_Component<CRigidbody>()->Set_OnGround(true);
-	pTile->Get_Component<CRigidbody>()->Set_UseGravity(false);
+	pTile->Get_Component<CRigidBody>()->Set_OnGround(true);
+	pTile->Get_Component<CRigidBody>()->Set_UseGravity(false);
 
 	// 3. 떨어지는 몬스터
 	CMonster* pFallingMonster = CMonster::Create(m_pGraphicDev);
 
 	pFallingMonster->Get_Component<CTransform>()->Set_Pos({ 0.f, 8.f, 10.f }); // 공중, 약간 앞쪽
 	pFallingMonster->Get_Component<CTransform>()->Set_Scale({ 0.5f, 0.5f, 0.5f });
-	pFallingMonster->Get_Component<CRigidbody>()->Set_OnGround(false);
-	pFallingMonster->Get_Component<CRigidbody>()->Set_UseGravity(true);
-	pFallingMonster->Get_Component<CRigidbody>()->Set_Bounce(0.5f);
-	pFallingMonster->Get_Component<CRigidbody>()->Set_Friction(0.2f);
+	pFallingMonster->Get_Component<CRigidBody>()->Set_OnGround(false);
+	pFallingMonster->Get_Component<CRigidBody>()->Set_UseGravity(true);
+	pFallingMonster->Get_Component<CRigidBody>()->Set_Bounce(0.5f);
+	pFallingMonster->Get_Component<CRigidBody>()->Set_Friction(0.2f);
 
 	// 4. 카메라 (플레이어 시점)
 	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);

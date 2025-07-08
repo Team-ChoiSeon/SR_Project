@@ -40,8 +40,8 @@ HRESULT CPlayer::Ready_GameObject()
 	m_pCollider->Set_ColTag(ColliderTag::NONE);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
-	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
-	m_pRigid = Get_Component<CRigidbody>();
+	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidBody>();
 
 
 

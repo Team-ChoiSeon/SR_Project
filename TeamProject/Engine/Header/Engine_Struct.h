@@ -36,6 +36,16 @@ namespace Engine {
 
 	const _ulong	FVF_LINE(D3DFVF_XYZ | D3DFVF_DIFFUSE);
 
+	typedef struct tagVertexTile
+	{
+		_vec3		vPosition;
+		_vec3		vNormal;
+		_vec2		vTexUV;
+
+	}VTXTILE;
+
+	const _ulong	FVF_TILE = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1;
+
 	typedef struct tagIndex16
 	{
 		_ushort  _0;

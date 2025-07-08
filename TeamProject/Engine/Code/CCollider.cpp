@@ -2,7 +2,7 @@
 #include "CRenderMgr.h"
 #include "CTransform.h"
 #include "CCollisionMgr.h"
-#include "CRigidbody.h"
+#include "CRigidBody.h"
 #include "CGameObject.h"
 
 
@@ -145,7 +145,7 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 			pOther->Get_ColTag() == ColliderTag::GROUND &&
 			push.y > 0.f)
 		{
-			if (auto pRigid = m_pOwner->Get_Component<CRigidbody>())
+			if (auto pRigid = m_pOwner->Get_Component<CRigidBody>())
 			{
 				pRigid->Set_OnGround(true);
 			}
@@ -181,8 +181,8 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
 
 		// Rigidbody 얻기
-		CRigidbody* pRigid1 = m_pOwner->Get_Component<CRigidbody>();
-		CRigidbody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidbody>();
+		CRigidBody* pRigid1 = m_pOwner->Get_Component<CRigidBody>();
+		CRigidBody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidBody>();
 
 		if (!pRigid1 || !pRigid2)
 			return;
@@ -273,8 +273,8 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 		if (push.y < 0.f)
 			push.y = 0.f;
 		// Rigidbody 얻기
-		CRigidbody* pRigid1 = m_pOwner->Get_Component<CRigidbody>();
-		CRigidbody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidbody>();
+		CRigidBody* pRigid1 = m_pOwner->Get_Component<CRigidBody>();
+		CRigidBody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidBody>();
 
 		if (!pRigid1 || !pRigid2)
 			return;
@@ -308,7 +308,7 @@ void CCollider::On_Collision_Exit(CCollider* pOther)
 {
 	if (m_eType == ColliderType::ACTIVE && pOther->Get_ColTag() == ColliderTag::GROUND)
 	{
-		CRigidbody* pRigid = m_pOwner->Get_Component<CRigidbody>();
+		CRigidBody* pRigid = m_pOwner->Get_Component<CRigidBody>();
 		if (pRigid)
 			pRigid->Set_OnGround(false);
 	}

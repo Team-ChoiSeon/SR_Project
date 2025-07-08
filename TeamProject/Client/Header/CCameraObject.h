@@ -23,8 +23,8 @@ public:
 	virtual	void		Free();
 	
 	//Getter, Setter Function
-	_matrix	Get_ViewMatrix() { return *m_pCamera->Get_ViewMatrix(); }
-	_matrix	Get_ProjectionMatrix() { return *m_pCamera->Get_ProjectionMatrix(); }
+	virtual _matrix	Get_ViewMatrix() { return *m_pCamera->Get_ViewMatrix(); }
+	virtual _matrix	Get_ProjectionMatrix() { return *m_pCamera->Get_ProjectionMatrix(); }
 
 protected:
 	CCamera*	m_pCamera;

@@ -29,6 +29,8 @@ public:
 		m_pCamera->Set_Target(target);
 		m_pTargetTransform = m_pCamera->Get_Target()->Get_Component<CTransform>();
 	}
+	virtual _matrix	Get_ViewMatrix() { return *m_pCamera->Get_ViewMatrix(); }
+	virtual _matrix	Get_ProjectionMatrix() { return *m_pCamera->Get_ProjectionMatrix(); }
 
 protected:
 
