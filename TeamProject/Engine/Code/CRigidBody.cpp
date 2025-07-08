@@ -39,12 +39,15 @@ CRigidBody* CRigidBody::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTransform* pTrans
 void CRigidBody::Update_Component(const _float& fDeltaTime)
 {
     if (m_pTransform == nullptr)
+    {
+        MSG_BOX("CRigidBody::Update_Component - m_pTransform is null.");
         return;
+    }
 
     // 중력 적용
     if (m_bGravity && !m_bGround)
     {
-        m_vGforce = _vec3(0.f, -9.8f, 0.f) * m_fMass;
+        m_vGforce = _vec3(0.f, -9.8f * m_fGravity, 0.f) * m_fMass;
     }
     else
     {
@@ -63,6 +66,8 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         totalForce += friction;
     }
 
+
+    if (m_fMass == 0.f) return;
     // F = m * a  =>  a = F / m
     m_vAcc = totalForce / m_fMass;
     // 속도 업데이트
@@ -83,9 +88,10 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     {
         m_vVel.y *= -m_fBnc;
 
-        if (fabs(m_vVel.y) < 0.05f) // 너무 작으면 멈춤
+        if (fabs(m_vVel.y) < 0.05f)
         {
             m_vVel.y = 0.f;
+            m_vAcc.y = 0.f;
         }
         else
         {
@@ -114,9 +120,6 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     // 감쇠 및 초기화
     m_vAVel *= 0.98f;
     m_vTorque = _vec3(0.f, 0.f, 0.f);
-    m_vEforce = _vec3(0.f, 0.f, 0.f);
-
-    // 힘 초기화
     m_vEforce = _vec3(0.f, 0.f, 0.f);
 
 }
