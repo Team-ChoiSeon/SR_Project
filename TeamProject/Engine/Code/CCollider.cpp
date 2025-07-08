@@ -110,26 +110,12 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 
 	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
 	{
-		//MSG_BOX("Collision Detected!");
+		// 둘 다 밀림
 		const AABB& myAABB = Get_AABBW();
 		const AABB& otherAABB = pOther->Get_AABBW();
-
-		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
-		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
-
-		_vec3 overlap;
-		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
-		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
-		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
-
-		// 가장 작은 축 방향으로 밀기
+		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
-			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
-		else if (overlap.y <= overlap.z)
-			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
-		else
-			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+		if (!Calc_Push(myAABB, otherAABB, push))	return;
 
 		// Transform 얻기
 		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
@@ -162,24 +148,9 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 		// 둘 다 밀림
 		const AABB& myAABB = Get_AABBW();
 		const AABB& otherAABB = pOther->Get_AABBW();
-
-		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
-		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
-
-		_vec3 overlap;
-		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
-		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
-		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
-
-		// 가장 작은 축 방향으로 밀기 벡터
+		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
-			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
-		else if (overlap.y <= overlap.z)
-			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
-		else
-			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
-
+		if (!Calc_Push(myAABB, otherAABB, push))	return;
 		// Rigidbody 얻기
 		CRigidBody* pRigid1 = m_pOwner->Get_Component<CRigidBody>();
 		CRigidBody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidBody>();
@@ -218,25 +189,12 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
 	{
 	
+		// 둘 다 밀림
 		const AABB& myAABB = Get_AABBW();
 		const AABB& otherAABB = pOther->Get_AABBW();
-
-		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
-		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
-
-		_vec3 overlap;
-		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
-		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
-		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
-
-		// 가장 작은 축 방향으로 밀기
+		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
-			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
-		else if (overlap.y <= overlap.z)
-			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
-		else
-			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+		if (!Calc_Push(myAABB, otherAABB, push))	return;
 
 		// Transform 얻기
 		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
@@ -252,26 +210,9 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 		// 둘 다 밀림
 		const AABB& myAABB = Get_AABBW();
 		const AABB& otherAABB = pOther->Get_AABBW();
-
-		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
-		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
-
-		_vec3 overlap;
-		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
-		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
-		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
-
-		// 가장 작은 축 방향으로 밀기 벡터
+		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
-			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
-		else if (overlap.y <= overlap.z)
-			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
-		else
-			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
-
-		if (push.y < 0.f)
-			push.y = 0.f;
+		if (!Calc_Push(myAABB, otherAABB, push))	return;
 		// Rigidbody 얻기
 		CRigidBody* pRigid1 = m_pOwner->Get_Component<CRigidBody>();
 		CRigidBody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidBody>();
@@ -300,7 +241,6 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 
 		pRigid1->Add_Force(force1);
 		pRigid2->Add_Force(force2);
-
 	}
 }
 
@@ -312,6 +252,31 @@ void CCollider::On_Collision_Exit(CCollider* pOther)
 		if (pRigid)
 			pRigid->Set_OnGround(false);
 	}
+}
+
+bool CCollider::Calc_Push(const AABB& a, const AABB& b, _vec3& push)
+{
+	_vec3 vMyCenter = (a.vMin + a.vMax) * 0.5f;
+	_vec3 vOtherCenter = (b.vMin + b.vMax) * 0.5f;
+
+	_vec3 overlap;
+	overlap.x = min(a.vMax.x, b.vMax.x) - max(a.vMin.x, b.vMin.x);
+	overlap.y = min(a.vMax.y, b.vMax.y) - max(a.vMin.y, b.vMin.y);
+	overlap.z = min(a.vMax.z, b.vMax.z) - max(a.vMin.z, b.vMin.z);
+
+
+	if (overlap.x <= overlap.y && overlap.x <= overlap.z)
+		push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
+	else if (overlap.y <= overlap.z)
+		push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
+	else
+		push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+
+	return true;
+}
+
+void CCollider::Calc_Transform(const _matrix& matWorld)
+{
 }
 
 void CCollider::Free()
