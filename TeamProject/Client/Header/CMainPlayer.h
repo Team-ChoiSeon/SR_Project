@@ -30,6 +30,7 @@ public:
 	//Gettter, Setter Function
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
 	bool Get_Hold() { return m_bObjHold;  }
+	_vec3 Get_DragDistance() { return m_vDragDistance; }
 
 	void Set_GroundCheck();
 
@@ -54,6 +55,11 @@ private:
 
 	bool m_bCursorMove;
 	bool m_bObjHold = false;
+
+	_vec3 m_vLastPt;
+	_vec3 m_vPlanePt;
+	_vec3 m_vPlaneNorm;
+	_vec3 m_vDragDistance;
 
 	PLAYER_STATE m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	PLAYER_STATE m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
