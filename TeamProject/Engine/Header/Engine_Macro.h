@@ -84,7 +84,7 @@ public:																					\
     namespace { \
         struct ClassName##AutoRegister { \
             ClassName##AutoRegister() { \
-                CFactory::Register(#ClassName, &ClassName::Create); \
+                CFactory::Register(L#ClassName, &ClassName::Create); \
             } \
         }; \
         static ClassName##AutoRegister g_##ClassName##_AutoRegister; \

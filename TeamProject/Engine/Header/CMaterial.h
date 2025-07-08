@@ -33,6 +33,7 @@ public:
         return const_cast<CMaterial*>(this);
     }
     const D3DMATERIAL9& Get_Material() const { return m_tMaterial; }
+    void Set_MaterialKey(const wstring& path) { m_wMatKey = path; }
 
 public:
     virtual HRESULT Ready_Material();
