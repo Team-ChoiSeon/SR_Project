@@ -69,7 +69,7 @@ void CFactory::Save_Prefab(CGameObject* object, const string& className)
 		Serialize_Collider(jCol, comp);
 		jComponents["CCollider"] = jCol;
 	}
-	if (CRigidbody* comp = object->Get_Component<CRigidbody>()) {
+	if (CRigidBody* comp = object->Get_Component<CRigidBody>()) {
 		json jRigid;
 		Serialize_RigidBody(jRigid, comp);
 		jComponents["CRigidBody"] = jRigid;
@@ -242,7 +242,7 @@ void CFactory::Serialize_Collider(nlohmann::json& outJson, CCollider* comp)
 	outJson["ColType"] = comp->Get_ColType();
 
 }
-void CFactory::Serialize_RigidBody(nlohmann::json& outJson, CRigidbody* comp)
+void CFactory::Serialize_RigidBody(nlohmann::json& outJson, CRigidBody* comp)
 {
 	if (!comp)
 		return;

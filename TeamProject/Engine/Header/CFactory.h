@@ -8,7 +8,7 @@ class CLight;
 class CModel;
 class CPickTarget;
 class CCollider;
-class CRigidbody;
+class CRigidBody;
 class CScene;
 
 using CreatorFunc = std::function<CGameObject* (LPDIRECT3DDEVICE9)>;
@@ -31,7 +31,7 @@ private:
     static void Serialize_Light(nlohmann::json& outJson, CLight* comp);
     static void Serialize_PickTarget(nlohmann::json& outJson, CPickTarget* comp);
     static void Serialize_Collider(nlohmann::json& outJson, CCollider* comp);
-    static void Serialize_RigidBody(nlohmann::json& outJson, CRigidbody* comp);
+    static void Serialize_RigidBody(nlohmann::json& outJson, CRigidBody* comp);
 
 private:
     static string ToString(const wstring& wstr);
