@@ -56,28 +56,19 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	aabb.vMin = m_tAABB.vMin + m_tAABBOff.vMin;
 	aabb.vMax = m_tAABB.vMax + m_tAABBOff.vMax;
 
-	_vec3 vHalf = (aabb.vMax - aabb.vMin) * 0.5f;
-	_vec3 vScale;
-	vScale.x = D3DXVec3Length((_vec3*)&pWorld->_11);
-	vScale.y = D3DXVec3Length((_vec3*)&pWorld->_21);
-	vScale.z = D3DXVec3Length((_vec3*)&pWorld->_31);
-	m_tBound.vHalf = _vec3(vHalf.x * vScale.x, vHalf.y * vScale.y, vHalf.z * vScale.z);
-	m_tBound.Calc_Transform(*pWorld);
-
+	// 8개의 로컬 꼭짓점 → 월드 변환
 	_vec3 corners[8] = {
-	{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z}, {aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
-	{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z}, {aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
-	{aabb.vMin.x, aabb.vMin.y, aabb.vMax.z}, {aabb.vMax.x, aabb.vMin.y, aabb.vMax.z},
-	{aabb.vMax.x, aabb.vMax.y, aabb.vMax.z}, {aabb.vMin.x, aabb.vMax.y, aabb.vMax.z}
+		{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z}, {aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
+		{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z}, {aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
+		{aabb.vMin.x, aabb.vMin.y, aabb.vMax.z}, {aabb.vMax.x, aabb.vMin.y, aabb.vMax.z},
+		{aabb.vMax.x, aabb.vMax.y, aabb.vMax.z}, {aabb.vMin.x, aabb.vMax.y, aabb.vMax.z}
 	};
 
 	for (int i = 0; i < 8; ++i)
 		D3DXVec3TransformCoord(&corners[i], &corners[i], pWorld);
 
-	m_tAABBWorld.vMin = corners[0];
-	m_tAABBWorld.vMax = corners[0];
-
-	// 변환된 꼭짓점으로 AABBWorld 계산 : (min/max 찾기)
+	// AABB 월드 좌표 재계산
+	m_tAABBWorld.vMin = m_tAABBWorld.vMax = corners[0];
 	for (int i = 1; i < 8; ++i)
 	{
 		m_tAABBWorld.vMin.x = min(m_tAABBWorld.vMin.x, corners[i].x);
@@ -87,9 +78,41 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 		m_tAABBWorld.vMax.y = max(m_tAABBWorld.vMax.y, corners[i].y);
 		m_tAABBWorld.vMax.z = max(m_tAABBWorld.vMax.z, corners[i].z);
 	}
-	// OBB 갱신
-	m_tBound.Calc_Transform(*pWorld);
 
+	// Bounding 정보 계산
+	if (m_tBound.eType == BoundingType::OBB)
+	{
+		// OBB 계산 (축 방향 반지름 계산 및 변환)
+		_vec3 vHalf = (aabb.vMax - aabb.vMin) * 0.5f;
+		_vec3 vScale = {
+			D3DXVec3Length((_vec3*)&pWorld->_11),
+			D3DXVec3Length((_vec3*)&pWorld->_21),
+			D3DXVec3Length((_vec3*)&pWorld->_31)
+		};
+		m_tBound.vHalf = _vec3(vHalf.x * vScale.x, vHalf.y * vScale.y, vHalf.z * vScale.z);
+		m_tBound.Calc_Transform(*pWorld);
+	}
+	else
+	{
+		// AABB이지만 OBB 계산기(Calc_Push_OBB)를 위해 꼭짓점 저장
+		m_tBound.vCorners.clear();
+		m_tBound.vCorners.reserve(8);
+		for (int i = 0; i < 8; ++i)
+			m_tBound.vCorners.push_back(corners[i]);
+
+		// 중심 위치 갱신
+		m_tBound.vCenter = (m_tAABBWorld.vMin + m_tAABBWorld.vMax) * 0.5f;
+
+		// 단위 벡터 설정 (축 고정)
+		m_tBound.vAxisX = _vec3(1.f, 0.f, 0.f);
+		m_tBound.vAxisY = _vec3(0.f, 1.f, 0.f);
+		m_tBound.vAxisZ = _vec3(0.f, 0.f, 1.f);
+
+		// 반지름 길이 갱신
+		m_tBound.vHalf = (m_tAABBWorld.vMax - m_tAABBWorld.vMin) * 0.5f;
+	}
+
+	// 충돌 매니저 등록
 	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
@@ -139,12 +162,38 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	VTXLINE* pVertices = nullptr;
 	m_pVB->Lock(0, 0, (void**)&pVertices, 0);
 
-	D3DCOLOR color = (m_tAABBOff.vMin == _vec3(0, 0, 0) && m_tAABBOff.vMax == _vec3(0, 0, 0)) ?
-		D3DCOLOR_ARGB(255, 0, 255, 0) :  // 기본 연두색
-		D3DCOLOR_ARGB(255, 255, 0, 0);   // 오프셋 적용시 빨간색 등
+	bool bHasOffset = (m_tAABBOff.vMin != _vec3(0.f, 0.f, 0.f) || m_tAABBOff.vMax != _vec3(0.f, 0.f, 0.f));
+	D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255); // 기본 흰색
+	if (m_tBound.eType == BoundingType::AABB)
+	{
+		color = bHasOffset ? D3DCOLOR_ARGB(255, 0, 255, 0)     // AABB + Offset : 연두
+			: D3DCOLOR_ARGB(255, 0, 128, 0);     // AABB + No Offset : 짙은 초록
+	}
+	else if (m_tBound.eType == BoundingType::OBB)
+	{
+		color = bHasOffset ? D3DCOLOR_ARGB(255, 255, 0, 0)     // OBB + Offset : 빨강
+			: D3DCOLOR_ARGB(255, 128, 0, 0);     // OBB + No Offset : 짙은 빨강
+	}
 
-	for (int i = 0; i < 8; ++i)
-		pVertices[i] = { m_tBound.vCorners[i], color };
+	if (m_tBound.eType == BoundingType::OBB)
+	{
+		for (int i = 0; i < 8; ++i)
+			pVertices[i] = { m_tBound.vCorners[i], color };
+	}
+	else // AABB용
+	{
+		_vec3 min = m_tAABBWorld.vMin;
+		_vec3 max = m_tAABBWorld.vMax;
+
+		pVertices[0] = { {min.x, min.y, min.z}, color };
+		pVertices[1] = { {max.x, min.y, min.z}, color };
+		pVertices[2] = { {max.x, max.y, min.z}, color };
+		pVertices[3] = { {min.x, max.y, min.z}, color };
+		pVertices[4] = { {min.x, min.y, max.z}, color };
+		pVertices[5] = { {max.x, min.y, max.z}, color };
+		pVertices[6] = { {max.x, max.y, max.z}, color };
+		pVertices[7] = { {min.x, max.y, max.z}, color };
+	}
 
 	m_pVB->Unlock();
 
@@ -195,10 +244,8 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 			pOther->Get_ColTag() == ColliderTag::GROUND &&
 			push.y > 0.f)
 		{
-			if (m_pRigid)
-			{
+			if (push.y > abs(push.x) && push.y > abs(push.z))
 				m_pRigid->Set_OnGround(true);
-			}
 		}
 
 
@@ -422,7 +469,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 			mtvAxis = axis;
 
 			// 중심 기준 방향 보정
-			_vec3 dir = b.vCenter - a.vCenter;
+			_vec3 dir = a.vCenter - b.vCenter;
 			if (D3DXVec3Dot(&dir, &axis) < 0.f)
 				mtvAxis = -mtvAxis;
 		}

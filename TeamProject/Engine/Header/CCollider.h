@@ -63,6 +63,7 @@ public:
 	void Set_ColType(ColliderType eType)	{ m_eType = eType; }
 	void Set_ColTag(ColliderTag eTag)		{ m_eTag = eTag; }
 	void Set_ColState(ColliderState eState) { m_eState = eState; }
+	void Set_BoundType(BoundingType eType)  { m_tBound.eType = eType; }
 	// 각 축 방향으로의 반지름 길이
 	void Set_Offset(const _vec3& vOffset)
 	{
@@ -72,12 +73,13 @@ public:
 		m_tBound.vHalf = vOffset;
 	}
 
-	ColliderType Get_ColType()		const { return m_eType; }
-	ColliderTag  Get_ColTag()		const { return m_eTag; }
-	ColliderState Get_ColState()	const { return m_eState; }
-	const AABB&  Get_AABBW()			  { return m_tAABBWorld; }
-	const AABB& Get_Offset()		const { return m_tAABBOff; }
-	const BoundInfo& Get_Bound() const { return m_tBound; }
+	ColliderType Get_ColType()			const { return m_eType; }
+	ColliderTag  Get_ColTag()			const { return m_eTag; }
+	ColliderState Get_ColState()		const { return m_eState; }
+	const AABB&  Get_AABBW()				  { return m_tAABBWorld; }
+	const AABB& Get_Offset()			const { return m_tAABBOff; }
+	const BoundInfo& Get_Bound()		const { return m_tBound; }
+	const BoundingType& Get_BoundType() const { return m_tBound.eType; }
 
 public:
 	virtual void Update_Component(const _float& fTimeDelta) override;
