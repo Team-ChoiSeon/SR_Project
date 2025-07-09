@@ -167,6 +167,9 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 
 
 
+	for (auto& pLayer : m_umLayer)
+		pLayer.second->Update_Layer(fTimeDelta);
+
 	//CGameObject* PickObj = m_pPlayer->Get_PickObj();
 	//auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(PickObj);
 
@@ -209,9 +212,6 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	//if (m_pOnewayCube->Get_Grab())
 	//	m_pOnewayCube->Set_CursorVec(m_pPlayer->Get_DragDistance());
 
-
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->Update_Layer(fTimeDelta);
 
 	//m_pTimerButton->Set_Trigger(m_fTime);
 	//if (m_pPlayer->Get_Hold() && CPickingMgr::Get_Instance()->Get_PickedObject(100.f) == m_pTimerButton)
