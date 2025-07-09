@@ -80,6 +80,8 @@ public:
 	const AABB& Get_Offset()			const { return m_tAABBOff; }
 	const BoundInfo& Get_Bound()		const { return m_tBound; }
 	const BoundingType& Get_BoundType() const { return m_tBound.eType; }
+	// 예외처리는 가져오는 곳에서 직접 수행
+	CCollider* Get_Other()				const { return m_pOther; }
 
 public:
 	virtual HRESULT Ready_Component()override;
@@ -114,6 +116,7 @@ private:
 	ColliderState m_eState = ColliderState::NONE;
 
 	CRigidBody* m_pRigid = nullptr;
+	CCollider* m_pOther = nullptr;
 };
 
 END
