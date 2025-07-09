@@ -4,6 +4,7 @@
 namespace Engine
 {
 	class CCollider;
+	class CRigidBody;
 }
 class CFloatingCube : public CCube
 {
@@ -32,6 +33,7 @@ public:
 	void Set_Speed(const _float& speed) { m_fSpeed = speed; }
 	void Set_SleepTime(const _float& SleepTime) { m_fSleepTime = SleepTime; }
 	void Set_Info(const _vec3& vStartPos, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime);
+	void Set_Loop() { m_bBackward = true; }
 
 
 private:
@@ -43,10 +45,13 @@ private:
 
 	//Variables
 	CCollider* m_pCollider;
+	CRigidBody* m_pRigid;
 
 	_vec3 m_vStartPos;
 	_vec3 m_vDirection;
 	_vec3 m_vEndPos;
+	_vec3 m_vConstVelPos;
+	_vec3 m_vDescVelPos;
 	_float m_fMaxDistance = 5.f;
 	_float m_fSpeed = 10.f;
 	_float m_fSleepTime;

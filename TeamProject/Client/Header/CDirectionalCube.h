@@ -3,6 +3,7 @@
 
 namespace Engine {
 	class CCollider;
+	class CRigidBody;
 	class CPickTarget;
 }
 class CDirectionalCube : public CCube
@@ -23,11 +24,9 @@ public:
 	void Free() override;
 
 	//Getter, Setter Function
-	void Set_CursorVec(const _vec3& cursorvec) { m_vCursorDelta = cursorvec; }
 	void Set_Info(const _vec3& startpos,  const _vec3& axis, const _float& mindistance, const _float& maxdistance);
 	void Set_Info(const _vec3& startpos, const _vec3& direction, const _float& maxdistance);
-	void Set_Grab(const bool& Trigger) { m_bGrab = Trigger; }
-
+	
 private:
 	//Compute Function
 	void ComputeMoveVecIntoAxisMoveVec();
@@ -38,18 +37,19 @@ private:
 	//Variables
 	CCollider*		m_pCollider;
 	CPickTarget*	m_pPick;
+	CRigidBody*		m_pRigid;
 
 	_vec3			m_vStartPos;
 	_vec3			m_vDefaultAxis;
-	_vec3			m_vCursorDelta;
 	_vec3			m_vMoveDelta;
 	_vec3			m_vMinPos;
 	_vec3			m_vMaxPos;
 	_float			m_fMaxDistance;
 	_float			m_fMinDistance;
 
-	_bool			m_bGrab;
-	_bool			m_bOneway;
+	_float			m_fCurDistance;
 
+	_bool			m_bOneway;
+	
 };
 

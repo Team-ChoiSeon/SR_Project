@@ -73,8 +73,17 @@
     <Filter Include="04. GameObjects\Cube\ImpulseCube">
       <UniqueIdentifier>{d1eb18fa-2b18-4930-9a79-8dc103ed10cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Trigger">
+      <UniqueIdentifier>{6ca85163-f2f9-4842-b2fd-3af07ca1b49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Trigger\WeightButton">
+      <UniqueIdentifier>{d004dbe1-8485-46b4-9be5-6a79a3f7a4f0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="04. GameObjects\TestTile">
       <UniqueIdentifier>{48b919c7-4a5f-44ae-b69b-234078cfeb74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Trigger\TimerButton">
+      <UniqueIdentifier>{1e089019-6e1a-4932-af78-e4731a97e0c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -153,8 +162,17 @@
     <ClInclude Include="..\Header\CImpulseCube.h">
       <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CActiveTrigger.h">
+      <Filter>04. GameObjects\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CWeightButton.h">
+      <Filter>04. GameObjects\Trigger\WeightButton</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CTestTile.h">
       <Filter>04. GameObjects\TestTile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTimerButton.h">
+      <Filter>04. GameObjects\Trigger\TimerButton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -224,8 +242,17 @@
     <ClCompile Include="..\Code\CImpulseCube.cpp">
       <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CActiveTrigger.cpp">
+      <Filter>04. GameObjects\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CWeightButton.cpp">
+      <Filter>04. GameObjects\Trigger\WeightButton</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CTestTile.cpp">
       <Filter>04. GameObjects\TestTile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTimerButton.cpp">
+      <Filter>04. GameObjects\Trigger\TimerButton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

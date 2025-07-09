@@ -30,8 +30,9 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
-	//Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
-	
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
+	m_pCollider = Get_Component<CCollider>();
+
 	m_pTransform->Set_Pos({ 0.f, 0.f, -20.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
@@ -83,7 +84,7 @@ CMainPlayer* CMainPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CMainPlayer::Free()
 {
 	Safe_Release(m_pTransform);
-	//Safe_Release(m_pCollider);
+	Safe_Release(m_pCollider);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pRigid);
 
@@ -102,11 +103,11 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	}
 
 	Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
-	CGameObject* PickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(10.f);
+	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);
 
 	if (CInputMgr::Get_Instance()->Mouse_Down(DIM_LB))
 	{
-		if (PickObj)
+		if (m_pPickObj)
 		{
 			if (m_bObjHold)
 			{
@@ -115,7 +116,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 				m_vLastPt = nowPt;
 			}else
 			{
-				CTransform* targetTrans = PickObj->Get_Component<CTransform>();
+				CTransform* targetTrans = m_pPickObj->Get_Component<CTransform>();
 				CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
 
 				//m_vPlanePt = PickObj->Get_Component<CTransform>()->Get_Pos();
@@ -128,7 +129,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 			}
 		}
 	}
-	else {
+	if(CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
 		m_bObjHold = false;
 		m_vDragDistance = { 0,0,0 };
 	}

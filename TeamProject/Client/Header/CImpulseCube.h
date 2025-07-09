@@ -3,6 +3,7 @@
 
 namespace Engine {
 	class CCollider;
+	class CRigidBody;
 }
 class CImpulseCube : public CCube
 {
@@ -29,5 +30,6 @@ private:
 
 	//Variables
 	CCollider* m_pCollider;
+	CRigidBody* m_pRigid;
 };
 

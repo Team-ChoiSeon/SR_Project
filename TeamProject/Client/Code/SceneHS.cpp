@@ -18,6 +18,7 @@
 #include "CCrosshairUIObject.h"
 #include "DummyCube.h"
 #include "CDirectionalCube.h"
+#include "CTestTile.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -38,10 +39,21 @@ HRESULT SceneHS::Ready_Scene()
 	CUiMgr::Get_Instance()->Ready_UiMgr();
 	Init_Layers();
 
-	//
-	DummyCube* m_pGroundDummy = DummyCube::Create(m_pGraphicDev);
-	m_pGroundDummy->Get_Component<CTransform>()->Set_Scale({ 100.f, 1.f, 100.f });
-	m_pGroundDummy->Get_Component<CTransform>()->Set_PosY(-20.f);
+	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
+	pTile->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 50.f });
+	pTile->Get_Component<CTransform>()->Set_PosY(-20.f);
+	pTile->Get_Component<CRigidBody>()->Set_OnGround(true);
+	pTile->Get_Component<CRigidBody>()->Set_UseGravity(false);
+
+
+	CDirectionalCube* pOnewayCube = CDirectionalCube::Create(m_pGraphicDev);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwOnewayCube", pOnewayCube);
+	pOnewayCube->Set_Info({ -10.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, 20.f);
+	pOnewayCube->Get_Component<CRigidBody>()->Set_Friction(0.f);
+	pOnewayCube->Get_Component<CRigidBody>()->Set_Mass(10.f);
+	pOnewayCube->Get_Component<CRigidBody>()->Set_Bounce(0.1f);
+	pOnewayCube->Get_Component<CRigidBody>()->Set_OnGround(true);
+	pOnewayCube->Get_Component<CRigidBody>()->Set_UseGravity(false);
 
 	//////////////////
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", CMainPlayer::Create(m_pGraphicDev));
@@ -50,7 +62,7 @@ HRESULT SceneHS::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwDirectionalCube", CDirectionalCube::Create(m_pGraphicDev));
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Info({ 5.f, 0.f, 0.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Grab(true);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"GroundDummy", (m_pGroundDummy));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"GroundDummy", (pTile));
 
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"TestLightMesh", CTestLightMeshObject::Create(m_pGraphicDev));
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"LightObject", CLightObject::Create(m_pGraphicDev));
@@ -81,7 +93,7 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
 
-	CGameObject* PickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(10.f);
+	CGameObject* PickObj = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_PickObj();
 	auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(PickObj);
 	
 	if (pPickCubeObj) {
@@ -92,6 +104,8 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 	{
 		if (Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Hold()) {
 			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+
+
 
 			if (pPickCubeObj) {
 				pPickCubeObj->Set_Grab(true);

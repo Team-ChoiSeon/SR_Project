@@ -21,17 +21,17 @@ HRESULT CRenderMgr::Ready_RenderMgr()
 
 void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 {
-	//·»´õ ½ºÅ×ÀÌÆ® ¼³Á¤
+	//ë Œë” ìŠ¤í…Œì´íŠ¸ ì„¤ì •
 	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	//pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);		// Á¤±ÔÈ­µÈ ³ë¸Ö »ç¿ë
-	pDevice->SetRenderState(D3DRS_SPECULARENABLE, TRUE);			// ½ºÆäÅ§·¯ ÇÏÀÌ¶óÀÌÆ®
+	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);		// ì •ê·œí™”ëœ ë…¸ë©€ ì‚¬ìš©
+	pDevice->SetRenderState(D3DRS_SPECULARENABLE, TRUE);			// ìŠ¤íŽ˜í˜ëŸ¬ í•˜ì´ë¼ì´íŠ¸
 
-	//ÅØ½ºÃÄ ¼³Á¤
+	//í…ìŠ¤ì³ ì„¤ì •
 	pDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 	pDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
 	pDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
@@ -93,7 +93,13 @@ void CRenderMgr::Remove_Model(CModel* model)
 
 void CRenderMgr::Add_Collider(CCollider* collider)
 {
-	m_vCol.push_back(collider);
+	auto iter = find_if(m_vCol.begin(), m_vCol.end(),
+		[&collider](CCollider* data)->bool {
+			return data == collider;
+		});
+
+	if (iter == m_vCol.end())
+		m_vCol.push_back(collider);
 }
 
 void CRenderMgr::Remove_Collider(CCollider* collider)

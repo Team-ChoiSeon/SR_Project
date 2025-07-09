@@ -31,6 +31,7 @@ public:
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
 	bool Get_Hold() { return m_bObjHold;  }
 	_vec3 Get_DragDistance() { return m_vDragDistance; }
+	CGameObject* Get_PickObj() { return m_pPickObj; }
 
 	void Set_GroundCheck();
 
@@ -46,6 +47,7 @@ private:
 	CModel* m_pModel;
 	CCollider* m_pCollider;
 	CRigidBody* m_pRigid;
+	CGameObject* m_pPickObj;
 
 	float m_fMoveSpeed;
 	float m_fJumpPower = 10.f;

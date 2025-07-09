@@ -21,11 +21,9 @@ CCrosshairUIObject::~CCrosshairUIObject()
 
 HRESULT CCrosshairUIObject::Ready_GameObject()
 {
-    DefaultCubeModel tModel;
     
     Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
     Add_Component<CUiImage>(ID_DYNAMIC, m_pGraphicDev);
-    Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
     
     Get_Component<CTransform>()->Ready_Transform();
 
