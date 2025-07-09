@@ -10,7 +10,7 @@
 #include "Engine_Model.h"
 #include "CPickTarget.h"
 #include "CPickingMgr.h"
-
+#include "CRigidBody.h"
 #include "Engine_Macro.h"
 #include "CFactory.h"
 
@@ -29,7 +29,8 @@ HRESULT DummyCube::Ready_GameObject()
 	DefaultCubeModel tModel;
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
-	//Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
+	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CTransform>());
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
 	Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
 
 	m_pModel = Get_Component<CModel>();

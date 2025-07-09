@@ -109,6 +109,8 @@ void CRenderMgr::Add_Collider(CCollider* collider)
 
 	if (iter == m_vCol.end())
 		m_vCol.push_back(collider);
+
+	m_vCol.clear();
 }
 
 void CRenderMgr::Remove_Collider(CCollider* collider)

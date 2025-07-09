@@ -6,6 +6,7 @@ namespace Engine
 	class CTransform;
 	class CModel;
 	class CCollider;
+	class CRigidBody;
 }
 class CWeightButton : public CActiveTrigger
 {
@@ -25,7 +26,7 @@ public:
 	void Free() override;
 
 	// Getter, Setter Function
-	void Set_Info(const _float& weight, const _float& recyclecount);
+	void Set_Info(const _vec3& startpos, const _float& weight, const _float& recyclecount);
 	void Set_Trigger(const _float& weight);
 
 private:
@@ -36,5 +37,6 @@ private:
 	CTransform*				m_pTransform;
 	CModel*					m_pModel;
 	CCollider*				m_pCollider;
+	CRigidBody*				m_pRigid;
 };
 

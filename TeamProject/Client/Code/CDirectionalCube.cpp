@@ -2,7 +2,7 @@
 #include "CDirectionalCube.h"
 #include "CTransform.h"
 #include "CPickTarget.h"
-#include "CRigidbody.h"
+#include "CRigidBody.h"
 
 CDirectionalCube::CDirectionalCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -22,20 +22,24 @@ HRESULT CDirectionalCube::Ready_GameObject()
 {
 	DefaultCubeModel tModel;
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-	//Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
 	Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
+	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CTransform>());
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
+
 
 	m_pTransform = Get_Component<CTransform>();
 	m_pTransform->Set_Scale({ 1.f, 1.f, 0.2f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 
+	m_pRigid = Get_Component<CRigidBody>();
 	m_pModel = Get_Component<CModel>();
 	m_pPick = Get_Component<CPickTarget>();
 	m_pCollider = Get_Component<CCollider>();
 	m_pCollider->Set_ColTag(ColliderTag::NONE);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
+
 	return S_OK;
 }
 
@@ -70,6 +74,8 @@ void CDirectionalCube::Free()
 	Safe_Release(m_pPick);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pTransform);
+	Safe_Release(m_pRigid);
+	Safe_Release(m_pCollider);
 	Safe_Release(m_pGraphicDev);
 }
 
@@ -79,7 +85,8 @@ void CDirectionalCube::Set_Info(const _vec3& startpos, const _vec3& axis, const 
 	m_pTransform->Set_Pos(m_vStartPos);
 	D3DXVec3Normalize(&m_vDefaultAxis, &axis);
 	m_fMinDistance = mindistance; 
-	m_fMaxDistance = maxdistance; 
+	m_fMaxDistance = maxdistance;
+	m_vMoveDelta = { 0.f, 0.f, 0.f };
 	m_vCursorDelta = { 0.f, 0.f, 0.f };
 	m_bOneway = false;
 	ComputeMinMaxPos();
@@ -91,6 +98,7 @@ void CDirectionalCube::Set_Info(const _vec3& startpos, const _vec3& axis, const 
 	m_pTransform->Set_Pos(m_vStartPos);
 	D3DXVec3Normalize(&m_vDefaultAxis, &axis);
 	m_fMaxDistance = maxdistance;
+	m_vMoveDelta = { 0.f, 0.f, 0.f };
 	m_vCursorDelta = { 0.f, 0.f, 0.f };
 	m_bOneway = true;
 	ComputeEndPos();
@@ -137,23 +145,28 @@ void CDirectionalCube::Move()
 		if (m_bGrab)
 		{
 			ComputeMoveVecIntoAxisMoveVec();
-			_vec3 vNormalDelta;
-			D3DXVec3Normalize(&vNormalDelta, &m_vMoveDelta);
+			_float fDelta = D3DXVec3Dot(&m_vDefaultAxis, &m_vCursorDelta);
 
-
-			if (vNormalDelta == m_vDefaultAxis)
+			if (fDelta > 0.f)
 				m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vMoveDelta);
 		}
-
 		_vec3 vNowPos = m_pTransform->Get_Pos();
 		_vec3 vNowGap = vNowPos - m_vStartPos;
 		_vec3 vEndGap = m_vMaxPos - m_vStartPos;
+		_vec3 vStartGap = m_vStartPos - vNowPos;
+		_vec3 vMaxNowGap = m_vMaxPos - vNowPos;
 
 		if (D3DXVec3Length(&vNowGap) >= D3DXVec3Length(&vEndGap))
 		{
 			m_pTransform->Set_Pos(m_vMaxPos);
 		}
+		else if (D3DXVec3Length(&vMaxNowGap) >= D3DXVec3Length(&vEndGap))
+		{
+			m_pTransform->Set_Pos(m_vStartPos);
+		}
 	}
+
+	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
 }
 
 void CDirectionalCube::ComputeMoveVecIntoAxisMoveVec()

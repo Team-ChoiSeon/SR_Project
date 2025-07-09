@@ -29,12 +29,12 @@ public:
     void Add_Velocity(const _vec3& vVel) { m_vVel += vVel; }
     void Add_AVelocity(const _vec3& vAVel) { m_vAVel += vAVel; }
 
-    void Set_Accel(const _vec3& vAcc) { m_vAcc = vAcc; }
     void Set_Force(const _vec3& vForce) { m_vEforce = vForce; }
     void Set_AAccel(const _vec3& vAAcc) { m_vAAcc = vAAcc; }
     void Set_Torque(const _vec3& vTorque){m_vTorque = vTorque;}
     void Set_Inertia(const _vec3& vInertia) { m_fInertia = vInertia; }
     void Set_Velocity(const _vec3& vVel) { m_vVel = vVel; }
+    void Set_Accel(const _vec3& vAcc) { m_vAcc = vAcc; }
     void Set_AVelocity(const _vec3& vAVel){ m_vAVel = vAVel;}
 
     bool  Get_OnGround()   const     { return m_bGround; }
