@@ -63,6 +63,7 @@ public:
 	void Set_ColType(ColliderType eType)	{ m_eType = eType; }
 	void Set_ColTag(ColliderTag eTag)		{ m_eTag = eTag; }
 	void Set_ColState(ColliderState eState) { m_eState = eState; }
+	// 각 축 방향으로의 반지름 길이
 	void Set_Offset(const _vec3& vOffset)
 	{
 		m_tAABBOff.vMin = -vOffset;

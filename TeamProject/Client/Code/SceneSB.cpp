@@ -45,7 +45,7 @@ HRESULT SceneSB::Ready_Scene()
 	pFallingMonster->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	pFallingMonster->Get_Component<CRigidBody>()->Set_Bounce(0.5f);
 	pFallingMonster->Get_Component<CRigidBody>()->Set_Friction(0.2f);
-	//pFallingMonster->Get_Component<CCollider>()->Set_Offset({ 1.5,1.5,1.5 });
+	pFallingMonster->Get_Component<CCollider>()->Set_Offset({ 1.5,1.5,1.5 });
 
 	// 4. 카메라 (플레이어 시점)
 	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);

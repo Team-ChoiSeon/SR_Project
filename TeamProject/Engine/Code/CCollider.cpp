@@ -170,7 +170,16 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 		const AABB& otherAABB = pOther->Get_AABBW();
 		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (!Calc_Push_AABB(myAABB, otherAABB, push))	return;
+		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
+		{
+			if (!Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push))
+				return;
+		}
+		else
+		{
+			if (!Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push))
+				return;
+		}
 
 		// Transform 얻기
 		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
@@ -250,7 +259,16 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 		const AABB& otherAABB = pOther->Get_AABBW();
 		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (!Calc_Push_AABB(myAABB, otherAABB, push))	return;
+		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
+		{
+			if (!Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push))
+				return;
+		}
+		else
+		{
+			if (!Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push))
+				return;
+		}
 
 		// Transform 얻기
 		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
