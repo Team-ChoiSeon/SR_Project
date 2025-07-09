@@ -72,17 +72,8 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 
 void CRenderMgr::Add_Model(CModel* model)
 {
-	OutputDebugString("[RenderMgr] Add_Model »£√‚µ \n");
 	auto pass = static_cast<int>(model->Get_RenderPass());
-
-	auto iter = find_if(m_vModellist[pass].begin(), m_vModellist[pass].end(),
-		[&model](CModel* data)->bool {
-			return data == model;
-		});
-
-	if (iter == m_vModellist[pass].end())
-		m_vModellist[pass].push_back(model);
-	OutputDebugString("[CRenderMgr] ∏µ® √ﬂ∞°µ \n");
+	m_vModellist[pass].push_back(model);
 }
 
 void CRenderMgr::Remove_Model(CModel* model)
@@ -102,13 +93,7 @@ void CRenderMgr::Remove_Model(CModel* model)
 
 void CRenderMgr::Add_Collider(CCollider* collider)
 {
-	auto iter = find_if(m_vCol.begin(), m_vCol.end(),
-		[&collider](CCollider* data)->bool {
-			return data == collider;
-		});
-
-	if (iter == m_vCol.end())
-		m_vCol.push_back(collider);
+	m_vCol.push_back(collider);
 }
 
 void CRenderMgr::Remove_Collider(CCollider* collider)
@@ -151,8 +136,8 @@ void CRenderMgr::Clear()
 {
 	for (auto& list : m_vModellist)
 		list.clear();
-
 	m_vCol.clear();
+	m_vUI.clear();
 }
 
 
