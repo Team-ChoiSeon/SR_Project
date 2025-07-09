@@ -28,6 +28,7 @@ HRESULT SceneDH::Ready_Scene()
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 0.f, -20.f });
 	pPlayer->Get_Component<CRigidBody>()->Set_Friction(1.f);
 	pPlayer->Get_Component<CRigidBody>()->Set_Mass(100.f);
+
 	// 2. ¹Ù´Ú ¿ªÇÒ (¸ó½ºÅÍ ÂøÁö¿ë)
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
 	pTile->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 50.f });

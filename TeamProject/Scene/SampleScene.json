@@ -1,0 +1,91 @@
+{
+    "layers": {
+        "CAMERA": {
+            "objects": []
+        },
+        "DEFAULT": {
+            "objects": [
+                {
+                    "Layer": "DEFAULT",
+                    "class": "CMainPlayer",
+                    "components": {
+                        "CModel": {
+                            "matKey": "SandyTile.mtl",
+                            "mesh": "SandyTile.obj",
+                            "shader": "g_UVScale.fx"
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CTransform": {
+                            "position": [
+                                -4.0869927406311035,
+                                1.0861812829971313,
+                                10.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                3.1599998474121094,
+                                3.1599998474121094,
+                                3.1599998474121094
+                            ]
+                        }
+                    },
+                    "name": "CMainPlayer_1"
+                },
+                {
+                    "Layer": "DEFAULT",
+                    "class": "CMainPlayer",
+                    "components": {
+                        "CModel": {
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "DirtObj.obj",
+                            "shader": "g_UVScale.fx"
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CTransform": {
+                            "position": [
+                                0.0,
+                                0.0,
+                                30.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CMainPlayer_2"
+                }
+            ]
+        },
+        "LIGHT": {
+            "objects": []
+        },
+        "OBJECT": {
+            "objects": []
+        },
+        "PLAYER": {
+            "objects": []
+        },
+        "TILE": {
+            "objects": []
+        },
+        "UI": {
+            "objects": []
+        }
+    },
+    "scene_name": "SampleScene"
+}

@@ -4,6 +4,7 @@
 #include "CCollisionMgr.h"
 #include "CRigidBody.h"
 #include "CGameObject.h"
+#include "CCameraMgr.h"
 
 
 class CGameObject;
@@ -17,11 +18,11 @@ CCollider::~CCollider()
 {
 }
 
-CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, CRigidBody* pRigid)
 {
 	CCollider* pCollider = new CCollider(pGraphicDev);
-	
-	if (pCollider == nullptr)
+	pCollider->m_pRigid = pRigid;
+	if (pCollider == nullptr || pRigid == nullptr)
 	{
 		MSG_BOX("CCollider Create Failed");
 		return nullptr;
@@ -30,12 +31,51 @@ CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 }
 void CCollider::Update_Component(const _float& fTimeDelta)
 {
+	switch (m_eState)
+	{
+	case ColliderState::ENTER:
+		m_eState = ColliderState::STAY;
+		break;
+	case ColliderState::EXIT:
+		m_eState = ColliderState::NONE;
+		break;
+	}
+
 	CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
 	if (!pTransform) return;
 
-	
-	D3DXVec3TransformCoord(&m_tAABBWorld.vMin, &m_tAABB.vMin, pTransform->Get_WorldMatrix());
-	D3DXVec3TransformCoord(&m_tAABBWorld.vMax, &m_tAABB.vMax, pTransform->Get_WorldMatrix());
+	AABB aabb;
+	aabb.vMin = m_tAABB.vMin + m_tAABBOff.vMin;
+	aabb.vMax = m_tAABB.vMax + m_tAABBOff.vMax;
+	_vec3 corners[8] = {
+	{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z},
+	{aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
+	{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z},
+	{aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
+	{aabb.vMin.x, aabb.vMin.y, aabb.vMax.z},
+	{aabb.vMax.x, aabb.vMin.y, aabb.vMax.z},
+	{aabb.vMax.x, aabb.vMax.y, aabb.vMax.z},
+	{aabb.vMin.x, aabb.vMax.y, aabb.vMax.z}
+	};
+
+	for (int i = 0; i < 8; ++i)
+		D3DXVec3TransformCoord(&corners[i], &corners[i], pTransform->Get_WorldMatrix());
+
+	m_tAABBWorld.vMin = corners[0];
+	m_tAABBWorld.vMax = corners[0];
+
+	// 변환된 꼭짓점으로 AABBWorld 계산 : (min/max 찾기)
+	for (int i = 1; i < 8; ++i)
+	{
+		m_tAABBWorld.vMin = _vec3(min(m_tAABBWorld.vMin.x, corners[i].x),
+								  min(m_tAABBWorld.vMin.y, corners[i].y), 
+								  min(m_tAABBWorld.vMin.z, corners[i].z));
+
+		m_tAABBWorld.vMax = _vec3(max(m_tAABBWorld.vMax.x, corners[i].x),
+								  max(m_tAABBWorld.vMax.y, corners[i].y),
+								  max(m_tAABBWorld.vMax.z, corners[i].z));
+	}
+
 	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
@@ -46,6 +86,12 @@ void CCollider::LateUpdate_Component()
 
 void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 {
+	const _matrix* pView = CCameraMgr::Get_Instance()->Get_MainViewMatrix();
+	const _matrix* pProj = CCameraMgr::Get_Instance()->Get_MainProjectionMatrix();
+
+	pDevice->SetTransform(D3DTS_VIEW, pView);
+	pDevice->SetTransform(D3DTS_PROJECTION, pProj);
+
 	CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
 	if (pTransform == nullptr)
 	{
@@ -79,21 +125,32 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	VTXLINE* pVertices = nullptr;
 	m_pVB->Lock(0, 0, (void**)&pVertices, 0);
 
-	D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0); // 연두색
+	D3DCOLOR color = (m_tAABBOff.vMin == _vec3(0, 0, 0) && m_tAABBOff.vMax == _vec3(0, 0, 0)) ?
+		D3DCOLOR_ARGB(255, 0, 255, 0) :  // 기본 연두색
+		D3DCOLOR_ARGB(255, 255, 0, 0);   // 오프셋 적용시 빨간색 등
 
-	const _vec3& vMin = m_tAABB.vMin;
-	const _vec3& vMax = m_tAABB.vMax;
+	const AABB& aabb = m_tAABBWorld;
 
-	pVertices[0] = { {vMin.x, vMin.y, vMin.z}, color };
-	pVertices[1] = { {vMax.x, vMin.y, vMin.z}, color };
-	pVertices[2] = { {vMax.x, vMax.y, vMin.z}, color };
-	pVertices[3] = { {vMin.x, vMax.y, vMin.z}, color };
-	pVertices[4] = { {vMin.x, vMin.y, vMax.z}, color };
-	pVertices[5] = { {vMax.x, vMin.y, vMax.z}, color };
-	pVertices[6] = { {vMax.x, vMax.y, vMax.z}, color };
-	pVertices[7] = { {vMin.x, vMax.y, vMax.z}, color };
+	_vec3 corners[8] = {
+		{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z},
+		{aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
+		{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z},
+		{aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
+		{aabb.vMin.x, aabb.vMin.y, aabb.vMax.z},
+		{aabb.vMax.x, aabb.vMin.y, aabb.vMax.z},
+		{aabb.vMax.x, aabb.vMax.y, aabb.vMax.z},
+		{aabb.vMin.x, aabb.vMax.y, aabb.vMax.z}
+	};
+
+	// 이 좌표는 이미 월드 좌표이므로 변환 X
+	for (int i = 0; i < 8; ++i)
+		pVertices[i] = { corners[i], color };
 
 	m_pVB->Unlock();
+
+	_matrix matIdentity;
+	D3DXMatrixIdentity(&matIdentity);
+	pDevice->SetTransform(D3DTS_WORLD, &matIdentity);
 
 	pDevice->SetFVF(FVF_LINE);
 	pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VTXLINE));
@@ -110,26 +167,12 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 
 	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
 	{
-		//MSG_BOX("Collision Detected!");
+		// 둘 다 밀림
 		const AABB& myAABB = Get_AABBW();
 		const AABB& otherAABB = pOther->Get_AABBW();
-
-		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
-		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
-
-		_vec3 overlap;
-		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
-		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
-		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
-
-		// 가장 작은 축 방향으로 밀기
+		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
-			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
-		else if (overlap.y <= overlap.z)
-			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
-		else
-			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+		if (!Calc_Push(myAABB, otherAABB, push))	return;
 
 		// Transform 얻기
 		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
@@ -145,9 +188,9 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 			pOther->Get_ColTag() == ColliderTag::GROUND &&
 			push.y > 0.f)
 		{
-			if (auto pRigid = m_pOwner->Get_Component<CRigidBody>())
+			if (m_pRigid)
 			{
-				pRigid->Set_OnGround(true);
+				m_pRigid->Set_OnGround(true);
 			}
 		}
 
@@ -162,34 +205,17 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 		// 둘 다 밀림
 		const AABB& myAABB = Get_AABBW();
 		const AABB& otherAABB = pOther->Get_AABBW();
-
-		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
-		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
-
-		_vec3 overlap;
-		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
-		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
-		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
-
-		// 가장 작은 축 방향으로 밀기 벡터
+		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
-			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
-		else if (overlap.y <= overlap.z)
-			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
-		else
-			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
-
+		if (!Calc_Push(myAABB, otherAABB, push))	return;
 		// Rigidbody 얻기
-		CRigidBody* pRigid1 = m_pOwner->Get_Component<CRigidBody>();
-		CRigidBody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidBody>();
 
-		if (!pRigid1 || !pRigid2)
+		if (!m_pRigid || !pOther->m_pRigid)
 			return;
 
 		// 질량 비율 계산
-		float m1 = pRigid1->Get_Mass();
-		float m2 = pRigid2->Get_Mass();
+		float m1 = m_pRigid->Get_Mass();
+		float m2 = pOther->m_pRigid->Get_Mass();
 		float total = m1 + m2;
 
 		float ratio1 = m2 / total;
@@ -206,10 +232,13 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 			pTransform->Set_Pos(vPos + push);
 		}
 
-		pRigid1->Add_Force(force1);
-		pRigid2->Add_Force(force2);
+		m_pRigid->Add_Force(force1);
+		pOther->m_pRigid->Add_Force(force2);
 
 	}
+
+	if (m_eState == ColliderState::NONE || m_eState == ColliderState::EXIT)
+		m_eState = ColliderState::ENTER;
 }
 
 void CCollider::On_Collision_Stay(CCollider* pOther)
@@ -218,25 +247,12 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
 	{
 	
+		// 둘 다 밀림
 		const AABB& myAABB = Get_AABBW();
 		const AABB& otherAABB = pOther->Get_AABBW();
-
-		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
-		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
-
-		_vec3 overlap;
-		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
-		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
-		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
-
-		// 가장 작은 축 방향으로 밀기
+		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
-			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
-		else if (overlap.y <= overlap.z)
-			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
-		else
-			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+		if (!Calc_Push(myAABB, otherAABB, push))	return;
 
 		// Transform 얻기
 		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
@@ -252,36 +268,16 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 		// 둘 다 밀림
 		const AABB& myAABB = Get_AABBW();
 		const AABB& otherAABB = pOther->Get_AABBW();
-
-		_vec3 vMyCenter = (myAABB.vMin + myAABB.vMax) * 0.5f;
-		_vec3 vOtherCenter = (otherAABB.vMin + otherAABB.vMax) * 0.5f;
-
-		_vec3 overlap;
-		overlap.x = min(myAABB.vMax.x, otherAABB.vMax.x) - max(myAABB.vMin.x, otherAABB.vMin.x);
-		overlap.y = min(myAABB.vMax.y, otherAABB.vMax.y) - max(myAABB.vMin.y, otherAABB.vMin.y);
-		overlap.z = min(myAABB.vMax.z, otherAABB.vMax.z) - max(myAABB.vMin.z, otherAABB.vMin.z);
-
-		// 가장 작은 축 방향으로 밀기 벡터
+		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
-		if (overlap.x <= overlap.y && overlap.x <= overlap.z)
-			push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
-		else if (overlap.y <= overlap.z)
-			push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
-		else
-			push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+		if (!Calc_Push(myAABB, otherAABB, push))	return;
 
-		if (push.y < 0.f)
-			push.y = 0.f;
-		// Rigidbody 얻기
-		CRigidBody* pRigid1 = m_pOwner->Get_Component<CRigidBody>();
-		CRigidBody* pRigid2 = pOther->m_pOwner->Get_Component<CRigidBody>();
-
-		if (!pRigid1 || !pRigid2)
+		if (!m_pRigid || !pOther->m_pRigid)
 			return;
 
 		// 질량 비율 계산
-		float m1 = pRigid1->Get_Mass();
-		float m2 = pRigid2->Get_Mass();
+		float m1 = m_pRigid->Get_Mass();
+		float m2 = pOther->m_pRigid->Get_Mass();
 		float total = m1 + m2;
 
 		float ratio1 = m2 / total;
@@ -298,20 +294,50 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 			pTransform->Set_Pos(vPos + push);
 		}
 
-		pRigid1->Add_Force(force1);
-		pRigid2->Add_Force(force2);
-
+		m_pRigid->Add_Force(force1);
+		pOther->m_pRigid->Add_Force(force2);
 	}
+
+	if (m_eState == ColliderState::NONE)
+		m_eState = ColliderState::ENTER;
+	else
+		m_eState = ColliderState::STAY;
 }
 
 void CCollider::On_Collision_Exit(CCollider* pOther)
 {
 	if (m_eType == ColliderType::ACTIVE && pOther->Get_ColTag() == ColliderTag::GROUND)
 	{
-		CRigidBody* pRigid = m_pOwner->Get_Component<CRigidBody>();
-		if (pRigid)
-			pRigid->Set_OnGround(false);
+		if (m_pRigid)
+			m_pRigid->Set_OnGround(false);
 	}
+
+	m_eState = ColliderState::EXIT;
+}
+
+bool CCollider::Calc_Push(const AABB& a, const AABB& b, _vec3& push)
+{
+	_vec3 vMyCenter = (a.vMin + a.vMax) * 0.5f;
+	_vec3 vOtherCenter = (b.vMin + b.vMax) * 0.5f;
+
+	_vec3 overlap;
+	overlap.x = min(a.vMax.x, b.vMax.x) - max(a.vMin.x, b.vMin.x);
+	overlap.y = min(a.vMax.y, b.vMax.y) - max(a.vMin.y, b.vMin.y);
+	overlap.z = min(a.vMax.z, b.vMax.z) - max(a.vMin.z, b.vMin.z);
+
+
+	if (overlap.x <= overlap.y && overlap.x <= overlap.z)
+		push.x = (vMyCenter.x > vOtherCenter.x) ? overlap.x : -overlap.x;
+	else if (overlap.y <= overlap.z)
+		push.y = (vMyCenter.y > vOtherCenter.y) ? overlap.y : -overlap.y;
+	else
+		push.z = (vMyCenter.z > vOtherCenter.z) ? overlap.z : -overlap.z;
+
+	return true;
+}
+
+void CCollider::Calc_Transform(const _matrix& matWorld)
+{
 }
 
 void CCollider::Free()
@@ -320,4 +346,5 @@ void CCollider::Free()
 	Safe_Release(m_pIB);
 	Safe_Release(m_pGraphicDev);
 	//Safe_Release(m_pOwner);
+	m_pRigid = nullptr;
 }

@@ -16,6 +16,8 @@
 #include "CPickTarget.h"
 #include "CLight.h"
 #include "CScene.h"
+#include "CLayer.h"
+#include "CGraphicDev.h"
 
 void CFactory::Register(const wstring& className, CreatorFunc func)
 {
@@ -105,7 +107,6 @@ void CFactory::Save_Prefab(CGameObject* object, const string& className)
 	}
 }
 
-
 void CFactory::DeSerializeScene(const wstring& SceneData, CScene* scene)
 {
 	HANDLE hFile = ::CreateFileW(
@@ -124,24 +125,182 @@ void CFactory::DeSerializeScene(const wstring& SceneData, CScene* scene)
 	CloseHandle(hFile);
 
 	json jScene = json::parse(jsonText);
-	string sceneName = jScene.value("scene_name", "");
+	json jLayers = jScene["layers"];
 
-	if (!sceneName.empty()) {
-		
-	}
-	else {
-		MessageBoxW(nullptr, L"scene_name이 없습니다", L"Error", MB_OK);
+	for (auto& [layerName, jLayer] : jLayers.items()) {
+		LAYERID eID = stringToLayer(layerName); // 레이어 이름 → enum
+		CLayer* layer = scene->Get_Layer(eID); // ← string → enum 변환 필요시 처리
+		if (!layer) continue;
+
+		json jObjects = jLayer["objects"];
+		DeSerializeLayer(layer, jObjects); // ← 이제 jObjects는 배열!
 	}
 }
 
-void CFactory::DeSerializeLayer(LAYERID eID, const nlohmann::json& inJson)
+void CFactory::DeSerializeLayer(CLayer* pLayer, const json& inJson)
 {
 
+	if (!pLayer || !inJson.is_array())
+		return;
+	//const auto& jObjects = inJson["objects"];
+
+	for (const auto& jObj : inJson)
+	{
+		if (!jObj.is_object())
+			continue;
+
+		CGameObject* obj = DeSerializeObject(jObj);
+		if (obj)
+		{
+			std::string nameStr = jObj.value("name", "");
+			pLayer->Add_GameObject(ToWString(nameStr), obj);
+		}
+	}
 }
+
 
 CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 {
-	return nullptr;
+	string classNameStr = inJson.value("class", "");
+	string nameStr = inJson.value("name", "");
+
+	wstring className = ToWString(classNameStr);
+	wstring objectName = ToWString(nameStr);
+
+	// 0. 팩토리 생성
+	CGameObject* obj = CFactory::Create(className, CGraphicDev::Get_Instance()->Get_GraphicDev());
+	if (!obj)
+	{
+		MSG_BOX("CFactory:: obj is nullptr");
+		return nullptr;
+	}
+	const auto& jComponents = inJson["components"];
+
+	// 1. CTransform
+	if (jComponents.contains("CTransform")) {
+		if (auto comp = obj->Get_Component<CTransform>()) {
+			const auto& jTrans = jComponents["CTransform"];
+			comp->Set_Pos({ jTrans["position"][0], jTrans["position"][1], jTrans["position"][2] });
+			comp->Set_Angle({ jTrans["rotation"][0], jTrans["rotation"][1], jTrans["rotation"][2] });
+			comp->Set_Scale({ jTrans["scale"][0], jTrans["scale"][1], jTrans["scale"][2] });
+		}
+	}
+
+	// 2. CCamera
+	if (jComponents.contains("CCamera")) {
+		if (auto comp = obj->Get_Component<CCamera>()) {
+			const auto& jTrans = jComponents["CCamera"];
+			comp->Set_Fov(jTrans["fov"]);
+			comp->Set_Near(jTrans["zNear"]);
+			comp->Set_Far(jTrans["zFar"]);
+		}
+	}
+
+	// 3. CModel
+	if (jComponents.contains("CModel")) {
+		CModel* model = obj->Get_Component<CModel>();
+		if (model) {
+			const auto& jModel = jComponents["CModel"];
+			//model->Set_Mesh(ToWString(jModel["mesh"]));
+			//model->LoadMaterial(ToWString(jModel["matKey"]));
+			//if (jModel.contains("shader"))
+			//	model->Set_Shader(ToWString(jModel["shader"]));
+		}
+	}
+
+	// 4. CLight
+	if (jComponents.contains("CLight")) {
+		CLight* light = obj->Get_Component<CLight>();
+		if (light) {
+			const auto& jLight = jComponents["CLight"];
+			D3DLIGHT9 d3dLight{};
+			d3dLight.Type = static_cast<D3DLIGHTTYPE>(jLight["type"]);
+			d3dLight.Position = { jLight["position"][0], jLight["position"][1], jLight["position"][2] };
+			d3dLight.Direction = { jLight["direction"][0], jLight["direction"][1], jLight["direction"][2] };
+			d3dLight.Range = jLight["range"];
+			d3dLight.Attenuation0 = jLight["attenuation"][0];
+			d3dLight.Attenuation1 = jLight["attenuation"][1];
+			d3dLight.Attenuation2 = jLight["attenuation"][2];
+			d3dLight.Ambient = { jLight["ambient"][0], jLight["ambient"][1], jLight["ambient"][2], jLight["ambient"][3] };
+			d3dLight.Diffuse = { jLight["diffuse"][0], jLight["diffuse"][1], jLight["diffuse"][2], jLight["diffuse"][3] };
+			d3dLight.Specular = { jLight["specular"][0], jLight["specular"][1], jLight["specular"][2], jLight["specular"][3] };
+			d3dLight.Theta = jLight["theta"];
+			d3dLight.Phi = jLight["phi"];
+			light->Set_LightInfo(d3dLight);
+		}
+	}
+
+	// 5. CPickable
+	if (jComponents.contains("CPickable")) {
+		const auto& jPick = jComponents["CPickable"];
+		bool valid = jPick.value("validInGame", true);
+	}
+
+	// 6. CCollider
+	if (jComponents.contains("CCollider") && !jComponents["CCollider"].is_null()) {
+		const auto& jCol = jComponents["CCollider"];
+		if (auto col = obj->Get_Component<CCollider>()) {
+			if (jCol.contains("ColType")) col->Set_ColType(jCol["ColType"]);
+			if (jCol.contains("ColTag")) col->Set_ColTag(jCol["ColTag"]);
+		}
+	}
+
+
+	// 7. CRigidBody
+	if (jComponents.contains("CRigidBody")) {
+		const auto& jRigid = jComponents["CRigidBody"];
+		if (auto rigid = obj->Get_Component<CRigidBody>()) {
+
+			rigid->Set_UseGravity(jRigid["m_bGravity"]);
+			rigid->Set_Mass(jRigid["Mass"]);
+			rigid->Set_Friction(jRigid["Friction"]);
+			rigid->Set_Bounce(jRigid["Bounciness"]);
+
+			rigid->Set_Velocity({
+				jRigid["Velocity"][0],
+				jRigid["Velocity"][1],
+				jRigid["Velocity"][2]
+				});
+
+			rigid->Set_Accel({
+				jRigid["Accelator"][0],
+				jRigid["Accelator"][1],
+				jRigid["Accelator"][2]
+				});
+
+			rigid->Set_AVelocity({
+				jRigid["AngleVelocity"][0],
+				jRigid["AngleVelocity"][1],
+				jRigid["AngleVelocity"][2]
+				});
+
+			rigid->Set_AAccel({
+				jRigid["AngleAccel"][0],
+				jRigid["AngleAccel"][1],
+				jRigid["AngleAccel"][2]
+				});
+
+			rigid->Set_Force({
+				jRigid["ExternalForce"][0],
+				jRigid["ExternalForce"][1],
+				jRigid["ExternalForce"][2]
+				});
+
+			rigid->Set_Torque({
+				jRigid["Torque"][0],
+				jRigid["Torque"][1],
+				jRigid["Torque"][2]
+				});
+
+			rigid->Set_Inertia({
+				jRigid["Inertia"][0],
+				jRigid["Inertia"][1],
+				jRigid["Inertia"][2]
+				});
+		}
+	}
+
+	return obj;
 }
 
 void CFactory::Serialize_Transform(nlohmann::json& outJson, CTransform* comp)
@@ -162,10 +321,7 @@ void CFactory::Serialize_Camera(nlohmann::json& outJson, CCamera* comp)
 {
 	if (!comp)
 		return;
-
-	const _vec3& eye = comp->Get_Eye();
 	float fov = comp->Get_Fov();
-	float aspect = comp->Get_Aspect();
 	float zNear = comp->Get_Near();
 	float zFar = comp->Get_Far();
 
@@ -211,9 +367,6 @@ void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 void CFactory::Serialize_Light(nlohmann::json& outJson, CLight* comp)
 {
 	D3DLIGHT9 light = comp->Get_LightInfo();
-	//D3DLIGHT_POINT = 1,
-	//D3DLIGHT_SPOT = 2,
-	//D3DLIGHT_DIRECTIONAL = 3,
 
 	outJson["type"] = light.Type;
 	outJson["position"] = { light.Position.x, light.Position.y, light.Position.z };
@@ -240,8 +393,9 @@ void CFactory::Serialize_PickTarget(nlohmann::json& outJson, CPickTarget* comp)
 void CFactory::Serialize_Collider(nlohmann::json& outJson, CCollider* comp)
 {
 	outJson["ColType"] = comp->Get_ColType();
-
+	outJson["ColTag"] = comp->Get_ColTag();
 }
+
 void CFactory::Serialize_RigidBody(nlohmann::json& outJson, CRigidBody* comp)
 {
 	if (!comp)
@@ -250,22 +404,21 @@ void CFactory::Serialize_RigidBody(nlohmann::json& outJson, CRigidBody* comp)
 	outJson["m_bGravity"] = comp->Get_UseGravity();
 
 	outJson["Mass"] = comp->Get_Mass();
-	//outJson["Friction"] = comp->Get_Friction();
-	//outJson["Bounciness"] = comp->Get_Bounciness();
+	outJson["Friction"] = comp->Get_Friction();
+	outJson["Bounciness"] = comp->Get_Bounce();
+	outJson["Gravity"] = { comp->Get_Gravity() };
+	outJson["GravityForce"] = { comp->Get_Gforce().x, comp->Get_Gforce().y, comp->Get_Gforce().z };
 
 	outJson["Velocity"] = { comp->Get_Velocity().x, comp->Get_Velocity().y, comp->Get_Velocity().z };
 	outJson["Accelator"] = { comp->Get_Accel().x, comp->Get_Accel().y, comp->Get_Accel().z };
 
 	outJson["AngleVelocity"] = { comp->Get_AVelocity().x, comp->Get_AVelocity().y, comp->Get_AVelocity().z };
-	//outJson["AngleAccel"] = { comp->Get_AAccel().x, comp->Get_AAccel().y, comp->Get_AAccel().z };
+	outJson["AngleAccel"] = { comp->Get_AAccel().x, comp->Get_AAccel().y, comp->Get_AAccel().z };
 
-	outJson["Gravity"] = { comp->Get_Gforce().x, comp->Get_Gforce().y, comp->Get_Gforce().z };
 	outJson["ExternalForce"] = { comp->Get_Eforce().x, comp->Get_Eforce().y, comp->Get_Eforce().z };
-	//outJson["Torque"] = { comp->Get_Torque().x, comp->Get_Torque().y, comp->Get_Torque().z };
-
-	//outJson["Inertia"] = { comp->Get_Inertia().x, comp->Get_Inertia().y, comp->Get_Inertia().z };
+	outJson["Torque"] = { comp->Get_Torque().x, comp->Get_Torque().y, comp->Get_Torque().z };
+	outJson["Inertia"] = { comp->Get_Inertia().x, comp->Get_Inertia().y, comp->Get_Inertia().z };
 }
-
 
 
 unordered_map<wstring, CreatorFunc>& CFactory::Get_Map()
@@ -273,7 +426,6 @@ unordered_map<wstring, CreatorFunc>& CFactory::Get_Map()
 	static unordered_map<wstring, CreatorFunc> umap;
 	return umap;
 }
-
 
 string CFactory::ToString(const wstring& wstr)
 {
@@ -293,12 +445,13 @@ wstring CFactory::ToWString(const string& str)
 	return result;
 }
 
-LAYERID CFactory::ToLayer(const wstring& wstr)
+LAYERID CFactory::stringToLayer(const string& wstr)
 {
-	if (wstr == L"CAMERA")  return LAYERID::LAYER_CAMERA;
-	if (wstr == L"PLAYER")  return LAYERID::LAYER_PLAYER;
-	if (wstr == L"OBJECT")  return LAYERID::LAYER_OBJECT;
-	if (wstr == L"TILE")    return LAYERID::LAYER_TILE;
-
-	return LAYERID::LAYER_END; // 또는 예외 처리용 L_INVALID이 있으면 더 좋음
-}
+	if (wstr == "CAMERA")  return LAYERID::LAYER_CAMERA;
+	if (wstr == "PLAYER")  return LAYERID::LAYER_PLAYER;
+	if (wstr == "DEFAULT")  return LAYERID::LAYER_OBJECT;
+	if (wstr == "OBJECT")  return LAYERID::LAYER_OBJECT;
+	if (wstr == "TILE")    return LAYERID::LAYER_TILE;
+	if (wstr == "UI")    return LAYERID::LAYER_UI;
+	if (wstr == "LIGHT")    return LAYERID::LAYER_LIGHT;
+};

@@ -27,7 +27,8 @@ HRESULT CResourceMgr::Ready_Resource()
 	Load_Material(L"DirtObj.mtl");
 	Load_Material(L"BrickRoad.mtl");
 	Load_Mesh <CCubeTex>(m_pGraphicDev, L"CCubeTex");
-	Load_Mesh<CCubeTex>(m_pGraphicDev,L"DirtObj.obj");
+	Load_Mesh <CCubeTex>(m_pGraphicDev,L"DirtObj.obj");
+	Load_Mesh <CCubeTex>(m_pGraphicDev, L"BrickRoad.obj");
 	m_pGraphicDev->AddRef();
 }
 
@@ -46,7 +47,7 @@ HRESULT CResourceMgr::Load_Texture(const wstring& texturePath)
 		Safe_Release(tex);
 		return E_FAIL;
 	}
-
+	tex->Set_Key(texturePath);
 	m_umTexture[texturePath] = tex;
 	return S_OK;
 }
@@ -140,6 +141,7 @@ HRESULT CResourceMgr::Load_Material(const wstring& mtlPath)
 	// 머티리얼 생성 및 등록
 	CMaterial* mat = CMaterial::Create();
 	mat->Set_Diffuse(tex);
+	mat->Set_MaterialKey(mtlPath);
 	m_umMaterial[mtlPath] = mat;
 
 	return S_OK;

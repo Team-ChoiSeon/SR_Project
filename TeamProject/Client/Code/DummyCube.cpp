@@ -11,6 +11,10 @@
 #include "CPickTarget.h"
 #include "CPickingMgr.h"
 
+#include "Engine_Macro.h"
+#include "CFactory.h"
+
+
 DummyCube::DummyCube(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CGameObject(pGraphicDev)
 { 
@@ -25,7 +29,7 @@ HRESULT DummyCube::Ready_GameObject()
 	DefaultCubeModel tModel;
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
+	//Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
 
 	m_pModel = Get_Component<CModel>();
@@ -38,6 +42,7 @@ HRESULT DummyCube::Ready_GameObject()
 	m_pTransform->Set_Right({ -1.f, 0.f, 0.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Angle({ 0.f, D3DX_PI, 0.f });
+	CFactory::Save_Prefab(this, "DummyCube");
 
 	return S_OK;
 }

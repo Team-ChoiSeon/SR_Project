@@ -9,12 +9,14 @@
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
 #include "CLightMgr.h"
+#include "CPickingMgr.h"
 #include "CRenderMgr.h"
 #include "CCollisionMgr.h"
 #include "CCameraMgr.h"
 #include "CShaderMgr.h"
 #include "CScene.h"
 #include "Logo.h"
+
 
 CMainApp::CMainApp()
 	:m_pDeviceClass(nullptr)
@@ -38,7 +40,7 @@ HRESULT CMainApp::Ready_MainApp()
 
 	m_pGraphicDev = m_pDeviceClass->Get_GraphicDev();
 	m_pGraphicDev->AddRef();
-  
+
 	CResourceMgr::Get_Instance()->Ready_Resource();
 	CShaderMgr::Get_Instance()->Ready_Shader(m_pGraphicDev);
 	CRenderMgr::Get_Instance()->Ready_RenderMgr();
@@ -97,6 +99,7 @@ void CMainApp::Free()
 	CFrameMgr::Get_Instance()->Destroy_Instance();
 	CTimeMgr::Get_Instance()->Destroy_Instance();
 	CLightMgr::Get_Instance()->Destroy_Instance();
+	CPickingMgr::Get_Instance()->Destroy_Instance();
 
 	// 4. 리소스, 디바이스
 	CResourceMgr::Get_Instance()->Destroy_Instance();

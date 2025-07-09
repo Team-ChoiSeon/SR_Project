@@ -29,18 +29,6 @@ public:
 
 private:
 	LPDIRECT3DDEVICE9	m_pGraphicDev;
-	CLayer*				m_pObjectLayer = nullptr;
-	CLayer*				m_pCameraLayer = nullptr;
-
-	ID3DXFont*			m_pFont = nullptr;
-
-	CMainPlayer*				m_pPlayer = nullptr;
-	CLightObject*		m_pLightObject = nullptr;
-	CTestLightMeshObject* m_pTestLightMesh = nullptr;
-	//CFirstviewFollowingCamera* m_pFFCam;
-	CFirstviewFollowingCamera* m_pdummycam = nullptr;
-	DummyCube*			m_pDummy = nullptr;
-	CCrosshairUIObject* m_pCrosshair = nullptr;
 
 public:
 	virtual void Free();

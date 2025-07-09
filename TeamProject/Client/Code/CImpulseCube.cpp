@@ -22,7 +22,7 @@ HRESULT CImpulseCube::Ready_GameObject()
 {
 	DefaultCubeModel tModel;
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
+	//Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
 	Add_Component<CRigidbody>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CTransform>());
 

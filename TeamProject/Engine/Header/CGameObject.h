@@ -62,7 +62,7 @@ T* CGameObject::Get_Component()
 		if (iter != m_umComponent[i].end())
 			return static_cast<T*>(iter->second);
 	}
-	MSG_BOX("[GameObject] Get_Component : ");
+	//MSG_BOX("[GameObject] Get_Component : ");
 	return nullptr;
 }
 
@@ -72,7 +72,7 @@ void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 	const std::type_index tag = typeid(T);
 	if (m_umComponent[eID].find(tag) != m_umComponent[eID].end())
 	{
-		MSG_BOX("[GameObject] Add_Component : ");
+		//MSG_BOX("[GameObject] Add_Component : ");
 		return;
 	}
   

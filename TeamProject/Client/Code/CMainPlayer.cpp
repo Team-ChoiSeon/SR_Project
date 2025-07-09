@@ -8,7 +8,9 @@
 
 #include "CInputMgr.h"
 #include "CCameraMgr.h"
+#include "CPickingMgr.h"
 
+#include "CFactory.h"
 CMainPlayer::CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
@@ -20,21 +22,22 @@ CMainPlayer::~CMainPlayer()
 HRESULT CMainPlayer::Ready_GameObject()
 {
 	DefaultCubeModel tModel;
-	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
 	m_pModel = Get_Component<CModel>();
-	m_pCollider = Get_Component<CCollider>();
+
+	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
 
+	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidBody>();
+	//Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
+	
 	m_pTransform->Set_Pos({ 0.f, 0.f, -20.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 	m_fMoveSpeed = 10.f;
-
-	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
-	m_pRigid = Get_Component<CRigidBody>();
+	
 	// 임시추가 
 	m_pRigid->Set_Mass(6.f);
 	m_pRigid->Set_Friction(10.f);
@@ -80,7 +83,7 @@ CMainPlayer* CMainPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CMainPlayer::Free()
 {
 	Safe_Release(m_pTransform);
-	Safe_Release(m_pCollider);
+	//Safe_Release(m_pCollider);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pRigid);
 
@@ -98,12 +101,36 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		m_fMoveSpeed = 30.f;
 	}
 
-	// 홀드 처리
-	if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB)) {
-		m_bObjHold = true;
+	Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
+	CGameObject* PickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(10.f);
+
+	if (CInputMgr::Get_Instance()->Mouse_Down(DIM_LB))
+	{
+		if (PickObj)
+		{
+			if (m_bObjHold)
+			{
+				_vec3 nowPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
+				m_vDragDistance = nowPt - m_vLastPt;
+				m_vLastPt = nowPt;
+			}else
+			{
+				CTransform* targetTrans = PickObj->Get_Component<CTransform>();
+				CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
+
+				//m_vPlanePt = PickObj->Get_Component<CTransform>()->Get_Pos();
+				m_vPlanePt = targetTrans->Get_Pos();
+				m_vPlaneNorm = targetTrans->Get_Pos() - pMainCam->Get_Eye();
+				D3DXVec3Normalize(&m_vPlaneNorm, &m_vPlaneNorm);
+
+				m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
+				m_bObjHold = true;
+			}
+		}
 	}
 	else {
 		m_bObjHold = false;
+		m_vDragDistance = { 0,0,0 };
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Away(DIK_LSHIFT))
@@ -232,3 +259,5 @@ void CMainPlayer::Change_State(PLAYER_STATE eNewState)
 	m_ePrevState = m_eCurState;
 	m_eCurState = eNewState;
 }
+
+REGISTER_GAMEOBJECT(CMainPlayer)
