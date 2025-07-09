@@ -42,9 +42,12 @@ HRESULT CMainPlayer::Ready_GameObject()
 	// 임시추가 
 	m_pRigid->Set_Mass(6.f);
 	m_pRigid->Set_Friction(10.f);
+	m_pRigid->Set_Gravity(5.f);
 
 	m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
+
+	CFactory::Save_Prefab(this, "CMainPlayer");
 
 	return S_OK;
 }
@@ -57,7 +60,7 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 	
-	Set_GroundCheck();
+	// Set_GroundCheck();
 	return S_OK;
 }
 

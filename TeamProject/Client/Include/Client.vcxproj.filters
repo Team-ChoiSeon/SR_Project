@@ -85,6 +85,9 @@
     <Filter Include="04. GameObjects\Trigger\TimerButton">
       <UniqueIdentifier>{1e089019-6e1a-4932-af78-e4731a97e0c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene\SceneHS\test">
+      <UniqueIdentifier>{c6e88d43-7f86-41a2-8f56-2908c917d0b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -174,6 +177,9 @@
     <ClInclude Include="..\Header\CTimerButton.h">
       <Filter>04. GameObjects\Trigger\TimerButton</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSceneTestHS.h">
+      <Filter>03. Scene\SceneHS\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -253,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTimerButton.cpp">
       <Filter>04. GameObjects\Trigger\TimerButton</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSceneTestHS.cpp">
+      <Filter>03. Scene\SceneHS\test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -102,3 +102,5 @@ void DummyCube::Key_Input(const float& fTimeDelta)
 	}
 }
 
+
+REGISTER_GAMEOBJECT(DummyCube)

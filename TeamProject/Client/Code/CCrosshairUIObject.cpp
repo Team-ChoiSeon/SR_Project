@@ -8,7 +8,7 @@
 #include "CTexture.h"
 
 #include "CResourceMgr.h"
-
+#include "CFactory.h"
 CCrosshairUIObject::CCrosshairUIObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev)
 {
@@ -57,6 +57,8 @@ HRESULT CCrosshairUIObject::Ready_GameObject()
     Get_Component<CUiImage>()->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"Crosshair/Default.png"));
     Get_Component<CUiImage>()->Set_Position(D3DXVECTOR2((WINCX * 0.5f)- 60, (WINCY * 0.5f)-60));
     Get_Component<CUiImage>()->Set_Scale(D3DXVECTOR2(1.f, 1.f));
+
+    CFactory::Save_Prefab(this, "CCrosshairUIObject");
 
     return S_OK;
 }
@@ -213,3 +215,5 @@ void CCrosshairUIObject::Free()
     m_vecHoldAnim.clear();
     CGameObject::Free();
 }
+
+REGISTER_GAMEOBJECT(CCrosshairUIObject)
