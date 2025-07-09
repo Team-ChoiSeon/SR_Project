@@ -213,85 +213,38 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 {
 	ColliderType oType = pOther->Get_ColType();
 	if (m_eType == ColliderType::TRIGGER || oType == ColliderType::TRIGGER)
-		return; // 트리거는 반응 없음
+		return;
+
+	_vec3 push(0.f, 0.f, 0.f);
+	bool pushed = false;
 
 	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
 	{
-		// 둘 다 밀림
-		const AABB& myAABB = Get_AABBW();
-		const AABB& otherAABB = pOther->Get_AABBW();
-		// 가장 작은 축 방향으로 밀기 벡터 계산
-		_vec3 push(0.f, 0.f, 0.f);
 		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
-		{
-			if (!Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push))
-				return;
-		}
+			pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
 		else
+			pushed = Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push);
+
+		if (pushed)
 		{
-			if (!Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push))
-				return;
+			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
+				pTransform->Set_Pos(pTransform->Get_Pos() + push);
+			Handle_Ground(pOther, push);
 		}
-
-		// Transform 얻기
-		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
-		if (pTransform)
-		{
-			_vec3 vPos = pTransform->Get_Pos();
-			pTransform->Set_Pos(vPos + push);
-		}
-
-		// 지면 충돌 : Ground와 위에서 닿은 경우만
-		if (m_eType == ColliderType::ACTIVE &&
-			pOther->Get_ColType() == ColliderType::PASSIVE &&
-			pOther->Get_ColTag() == ColliderTag::GROUND &&
-			push.y > 0.f)
-		{
-			if (push.y > abs(push.x) && push.y > abs(push.z))
-				m_pRigid->Set_OnGround(true);
-		}
-
-
-	}
-	else if (m_eType == ColliderType::PASSIVE && oType == ColliderType::ACTIVE)
-	{
-		// 상대가 밀려나는 쪽
 	}
 	else if (m_eType == ColliderType::ACTIVE && oType == ColliderType::ACTIVE)
 	{
-		// 둘 다 밀림
-		const AABB& myAABB = Get_AABBW();
-		const AABB& otherAABB = pOther->Get_AABBW();
-		// 가장 작은 축 방향으로 밀기 벡터 계산
-		_vec3 push(0.f, 0.f, 0.f);
-		if (!Calc_Push_AABB(myAABB, otherAABB, push))	return;
-		// Rigidbody 얻기
-
-		if (!m_pRigid || !pOther->m_pRigid)
+		pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
+		if (!pushed || !m_pRigid || !pOther->m_pRigid)
 			return;
 
-		// 질량 비율 계산
-		float m1 = m_pRigid->Get_Mass();
-		float m2 = pOther->m_pRigid->Get_Mass();
+		if (auto pTransform = m_pOwner->Get_Component<CTransform>())
+			pTransform->Set_Pos(pTransform->Get_Pos() + push);
+
+		float m1 = m_pRigid->Get_Mass(), m2 = pOther->m_pRigid->Get_Mass();
 		float total = m1 + m2;
-
-		float ratio1 = m2 / total;
-		float ratio2 = m1 / total;
-
-		// 외력으로 반작용 적용
-		_vec3 force1 = push * ratio1 * 1000.f;
-		_vec3 force2 = -push * ratio2 * 1000.f;
-
-		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
-		if (pTransform)
-		{
-			_vec3 vPos = pTransform->Get_Pos();
-			pTransform->Set_Pos(vPos + push);
-		}
-
-		m_pRigid->Add_Force(force1);
-		pOther->m_pRigid->Add_Force(force2);
-
+		m_pRigid->Add_Force(push * (m2 / total) * 1000.f);
+		pOther->m_pRigid->Add_Force(-push * (m1 / total) * 1000.f);
 	}
 
 	if (m_eState == ColliderState::NONE || m_eState == ColliderState::EXIT)
@@ -301,73 +254,34 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 void CCollider::On_Collision_Stay(CCollider* pOther)
 {
 	ColliderType oType = pOther->Get_ColType();
-	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
+	if (m_eType == ColliderType::ACTIVE && (oType == ColliderType::PASSIVE || oType == ColliderType::ACTIVE))
 	{
-	
-		// 둘 다 밀림
-		const AABB& myAABB = Get_AABBW();
-		const AABB& otherAABB = pOther->Get_AABBW();
-		// 가장 작은 축 방향으로 밀기 벡터 계산
 		_vec3 push(0.f, 0.f, 0.f);
+		bool pushed = false;
+
 		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
-		{
-			if (!Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push))
-				return;
-		}
+			pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
 		else
-		{
-			if (!Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push))
-				return;
-		}
+			pushed = Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push);
 
-		// Transform 얻기
-		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
-		if (pTransform)
+		if (pushed)
 		{
-			_vec3 vPos = pTransform->Get_Pos();
-			pTransform->Set_Pos(vPos + push);
+			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
+				pTransform->Set_Pos(pTransform->Get_Pos() + push);
+
+			if (oType == ColliderType::ACTIVE && m_pRigid && pOther->m_pRigid)
+			{
+				float m1 = m_pRigid->Get_Mass(), m2 = pOther->m_pRigid->Get_Mass();
+				float total = m1 + m2;
+				m_pRigid->Add_Force(push * (m2 / total) * 1000.f);
+				pOther->m_pRigid->Add_Force(-push * (m1 / total) * 1000.f);
+			}
+
+			Handle_Ground(pOther, push);
 		}
 	}
 
-	else if (m_eType == ColliderType::ACTIVE && oType == ColliderType::ACTIVE)
-	{
-		// 둘 다 밀림
-		const AABB& myAABB = Get_AABBW();
-		const AABB& otherAABB = pOther->Get_AABBW();
-		// 가장 작은 축 방향으로 밀기 벡터 계산
-		_vec3 push(0.f, 0.f, 0.f);
-		if (!Calc_Push_AABB(myAABB, otherAABB, push))	return;
-
-		if (!m_pRigid || !pOther->m_pRigid)
-			return;
-
-		// 질량 비율 계산
-		float m1 = m_pRigid->Get_Mass();
-		float m2 = pOther->m_pRigid->Get_Mass();
-		float total = m1 + m2;
-
-		float ratio1 = m2 / total;
-		float ratio2 = m1 / total;
-
-		// 외력으로 반작용 적용
-		_vec3 force1 = push * ratio1 * 1000.f;
-		_vec3 force2 = -push * ratio2 * 1000.f;
-
-		CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
-		if (pTransform)
-		{
-			_vec3 vPos = pTransform->Get_Pos();
-			pTransform->Set_Pos(vPos + push);
-		}
-
-		m_pRigid->Add_Force(force1);
-		pOther->m_pRigid->Add_Force(force2);
-	}
-
-	if (m_eState == ColliderState::NONE)
-		m_eState = ColliderState::ENTER;
-	else
-		m_eState = ColliderState::STAY;
+	m_eState = (m_eState == ColliderState::NONE) ? ColliderState::ENTER : ColliderState::STAY;
 }
 
 void CCollider::On_Collision_Exit(CCollider* pOther)
@@ -480,6 +394,18 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 
 	push = mtvAxis * minOverlap;
 	return true;
+}
+
+void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+{
+	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
+		return;
+
+	// 위쪽에서 눌렀는지 확인
+	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
+	{
+		m_pRigid->Set_OnGround(true);
+	}
 }
 
 

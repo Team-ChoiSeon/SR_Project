@@ -1,5 +1,9 @@
 #include "CGameObject.h"
 
+#include "CTransform.h"
+#include "CRigidBody.h"
+#include "CCollider.h"
+
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDev(pGraphicDev)
 {
@@ -25,8 +29,24 @@ HRESULT CGameObject::Ready_GameObject()
 
 _int CGameObject::Update_GameObject(const _float& fTimeDelta)
 {
-    for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-        pComponent.second->Update_Component(fTimeDelta);
+    if (auto pTransform = Get_Component<CTransform>())
+        pTransform->Update_Component(fTimeDelta);
+
+    if (auto pRigid = Get_Component<CRigidBody>())
+        pRigid->Update_Component(fTimeDelta);
+
+    if (auto pCollider = Get_Component<CCollider>())
+        pCollider->Update_Component(fTimeDelta);
+
+    // 기타 나머지 컴포넌트
+    for (auto& pair : m_umComponent[ID_DYNAMIC])
+    {
+        auto type = pair.first;
+        if (type == typeid(CTransform) || type == typeid(CRigidBody) || type == typeid(CCollider))
+            continue;
+
+        pair.second->Update_Component(fTimeDelta);
+    }
 
     return 0;
 }

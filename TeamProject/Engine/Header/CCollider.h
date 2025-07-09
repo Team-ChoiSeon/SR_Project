@@ -95,6 +95,8 @@ public:
 	bool Calc_Push_AABB(const AABB& a, const AABB& b, _vec3& push);
 	bool Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& push);
 
+	void Handle_Ground(CCollider* pOther, const _vec3& push);
+
 	virtual void Free();
 
 private:

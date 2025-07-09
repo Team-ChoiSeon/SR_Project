@@ -46,7 +46,7 @@ HRESULT CMonster::Ready_GameObject()
 int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
 
-	//KeyInput(fTimeDelta);
+	KeyInput(fTimeDelta);
 	//// For debug
 
 
@@ -56,11 +56,26 @@ int CMonster::Update_GameObject(const _float& fTimeDelta)
 	//OutputDebugString(L"\n");
 
 
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->Update_Component(fTimeDelta);
+	if (auto pTransform = Get_Component<CTransform>())
+		pTransform->Update_Component(fTimeDelta);
 
+	if (auto pRigid = Get_Component<CRigidBody>())
+		pRigid->Update_Component(fTimeDelta);
 
-	return S_OK;
+	if (auto pCollider = Get_Component<CCollider>())
+		pCollider->Update_Component(fTimeDelta);
+
+	// 기타 나머지 컴포넌트
+	for (auto& pair : m_umComponent[ID_DYNAMIC])
+	{
+		auto type = pair.first;
+		if (type == typeid(CTransform) || type == typeid(CRigidBody) || type == typeid(CCollider))
+			continue;
+
+		pair.second->Update_Component(fTimeDelta);
+	}
+
+	return 0;
 }
 
 void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
@@ -72,23 +87,30 @@ void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
 void CMonster::KeyInput(const _float& fTimeDelta)
 {
 	// test code
-	//if (CInputMgr::Get_Instance()->Key_Down(DIK_UP))
-	//	m_pRigid->Add_Force({ 0.f, 0.f, 100.f });
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_UP))
+	{
+		m_pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); //  회전
+		m_pRigid->Add_Force(_vec3(0.f, 0.f, 1.f) * 1.f);
+	}
 
-	//if (CInputMgr::Get_Instance()->Key_Down(DIK_DOWN))
-	//	m_pRigid->Add_Force({ 0.f, 0.f, -100.f });
-
-	//if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
-	//	m_pRigid->Add_Force({ 100.f, 0.f, 0.f });
-
-	//if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
-	//	m_pRigid->Add_Force({ -100.f, 0.f, 0.f });
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_DOWN))
+	{
+		m_pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  회전
+		m_pRigid->Add_Force(_vec3(0.f, 0.f, -1.f) * 1.f);
+	}
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
+	{
 		m_pRigid->Add_Torque(_vec3(0.f, 1.f, 0.f) * 50.f); // 왼쪽 회전
+		m_pRigid->Add_Force(_vec3(-1.f, 0.f, 0.f) * 1.f);
+	}
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
+	{
 		m_pRigid->Add_Torque(_vec3(0.f, -1.f, 0.f) * 50.f); // 오른쪽 회전
+		m_pRigid->Add_Force(_vec3(1.f, 0.f, 0.f) * 1.f);
+	}
+		
 }
 
 CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)
