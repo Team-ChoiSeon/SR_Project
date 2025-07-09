@@ -10,6 +10,7 @@
 #include "CCameraMgr.h"
 #include "CPickingMgr.h"
 
+#include "CFactory.h"
 CMainPlayer::CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
@@ -21,21 +22,22 @@ CMainPlayer::~CMainPlayer()
 HRESULT CMainPlayer::Ready_GameObject()
 {
 	DefaultCubeModel tModel;
-	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-	//Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
 	m_pModel = Get_Component<CModel>();
-	m_pCollider = Get_Component<CCollider>();
+
+	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
 
+	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidBody>();
+	//Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev);
+	
 	m_pTransform->Set_Pos({ 0.f, 0.f, -20.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 	m_fMoveSpeed = 10.f;
-
-	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
-	m_pRigid = Get_Component<CRigidBody>();
+	
 	// 임시추가 
 	m_pRigid->Set_Mass(6.f);
 	m_pRigid->Set_Friction(10.f);
@@ -81,7 +83,7 @@ CMainPlayer* CMainPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CMainPlayer::Free()
 {
 	Safe_Release(m_pTransform);
-	Safe_Release(m_pCollider);
+	//Safe_Release(m_pCollider);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pRigid);
 
@@ -257,3 +259,5 @@ void CMainPlayer::Change_State(PLAYER_STATE eNewState)
 	m_ePrevState = m_eCurState;
 	m_eCurState = eNewState;
 }
+
+REGISTER_GAMEOBJECT(CMainPlayer)

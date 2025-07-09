@@ -169,8 +169,11 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 
 	// 0. ÆÑÅä¸® »ý¼º
 	CGameObject* obj = CFactory::Create(className, CGraphicDev::Get_Instance()->Get_GraphicDev());
-	if (!obj) return nullptr;
-
+	if (!obj)
+	{
+		MSG_BOX("CFactory:: obj is nullptr");
+		return nullptr;
+	}
 	const auto& jComponents = inJson["components"];
 
 	// 1. CTransform
