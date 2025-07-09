@@ -26,6 +26,7 @@ CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 	m_tBound.vHalf = _vec3(1.f, 1.f, 1.f);
 	m_tBound.vCorners.clear();
 	m_tBound.vCorners.resize(8, _vec3(0.f, 0.f, 0.f));
+	Ready_Component();
 }
 
 CCollider::~CCollider()
@@ -42,6 +43,29 @@ CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev, CRigidBody* pRigid)
 		return nullptr;
 	}
 	return pCollider;
+}
+HRESULT CCollider::Ready_Component()
+{
+	if (FAILED(m_pGraphicDev->CreateVertexBuffer(sizeof(VTXLINE) * 8, 0, FVF_LINE,
+		D3DPOOL_MANAGED, &m_pVB, nullptr)))
+		return E_FAIL;
+
+	if (FAILED(m_pGraphicDev->CreateIndexBuffer(sizeof(WORD) * 24, 0, D3DFMT_INDEX16,
+		D3DPOOL_MANAGED, &m_pIB, nullptr)))
+		return E_FAIL;
+
+	WORD* pIndices = nullptr;
+	m_pIB->Lock(0, 0, (void**)&pIndices, 0);
+	WORD indices[24] = {
+		0,1, 1,2, 2,3, 3,0,
+		4,5, 5,6, 6,7, 7,4,
+		0,4, 1,5, 2,6, 3,7
+	};
+	memcpy(pIndices, indices, sizeof(indices));
+
+	m_pIB->Unlock();
+
+	return S_OK;
 }
 void CCollider::Update_Component(const _float& fTimeDelta)
 {
@@ -135,27 +159,6 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 		MSG_BOX("CModel::Render : pTransform is nullptr");
 		return;
 	}
-
-	if (FAILED(pDevice->CreateVertexBuffer(sizeof(VTXLINE) * 8, 0, FVF_LINE,
-		D3DPOOL_MANAGED, &m_pVB, nullptr)))
-		return;
-
-	// 인덱스 버퍼 (12개 선 = 24 index)
-	if (FAILED(pDevice->CreateIndexBuffer(sizeof(WORD) * 24, 0, D3DFMT_INDEX16,
-		D3DPOOL_MANAGED, &m_pIB, nullptr)))
-		return;
-
-	// 인덱스 채우기
-	WORD* pIndices = nullptr;
-	m_pIB->Lock(0, 0, (void**)&pIndices, 0);
-
-	WORD indices[24] = {
-		0,1, 1,2, 2,3, 3,0, // 앞면
-		4,5, 5,6, 6,7, 7,4, // 뒷면
-		0,4, 1,5, 2,6, 3,7  // 측면
-	};
-	memcpy(pIndices, indices, sizeof(indices));
-	m_pIB->Unlock();
 
 	if (!m_pVB || !m_pIB) return;
 

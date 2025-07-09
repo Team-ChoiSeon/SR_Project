@@ -15,6 +15,7 @@ protected:
 	virtual ~CComponent();
 
 public:
+	virtual HRESULT Ready_Component() { return S_OK; }
 	virtual void Update_Component(const _float& fTimeDelta) {}
 	virtual void LateUpdate_Component() {}
 

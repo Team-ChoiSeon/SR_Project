@@ -82,6 +82,7 @@ public:
 	const BoundingType& Get_BoundType() const { return m_tBound.eType; }
 
 public:
+	virtual HRESULT Ready_Component()override;
 	virtual void Update_Component(const _float& fTimeDelta) override;
 	virtual void LateUpdate_Component() override;
 	void Render(LPDIRECT3DDEVICE9 pDevice);
