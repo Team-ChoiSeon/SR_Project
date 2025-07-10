@@ -21,8 +21,7 @@ CMainPlayer::~CMainPlayer()
 
 HRESULT CMainPlayer::Ready_GameObject()
 {
-	DefaultCubeModel tModel;
-	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
+	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
 	m_pModel = Get_Component<CModel>();
 
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
