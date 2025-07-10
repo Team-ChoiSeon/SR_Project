@@ -56,7 +56,17 @@ _int CToggleButton::Update_GameObject(const _float& fTimeDelta)
     if (m_bReusable)
     {
         if (m_bGrab)
+        {
+            if (!m_bPressed)
+            {
+                m_bPressed = true;
                 m_bTriggerOn = !m_bTriggerOn;
+            }
+        }
+        else
+        {
+            m_bPressed = false;
+        }
     }
     else
     {

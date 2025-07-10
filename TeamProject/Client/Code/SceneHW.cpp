@@ -190,8 +190,8 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
 
-	//if(m_pToggleButton->Get_TriggerState())
-	//	OutputDebugStringW(L"ButtonOn\n");
+	if(m_pToggleButton->Get_TriggerState())
+		OutputDebugStringW(L"ButtonOn\n");
 
 	//CGameObject* PickObj = m_pPlayer->Get_PickObj();
 	//auto* pPickCubeObj = dynamic_cast<CCube*>(PickObj);

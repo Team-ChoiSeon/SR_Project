@@ -159,12 +159,10 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 			m_vDragDistance = { 0,0,0 };
 		}
 	}
-	if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
-		m_bObjHold = false;
-		m_vDragDistance = { 0,0,0 };
-	}
 	else {
 		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+		m_bObjHold = false;
+		m_vDragDistance = { 0,0,0 };
 	}
 	//else {
 	//	m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);

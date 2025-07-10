@@ -40,5 +40,6 @@ private:
 	CPickTarget*		m_pPick;
 
 	_bool				m_bReusable = false;
+	_bool				m_bPressed = false;
 };
 
