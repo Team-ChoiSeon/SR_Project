@@ -166,12 +166,13 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 
 	wstring className = ToWString(classNameStr);
 	wstring objectName = ToWString(nameStr);
-
+	LPDIRECT3DDEVICE9 pDevice = CGraphicDev::Get_Instance()->Get_GraphicDev();
 	// 0. 팩토리 생성
-	CGameObject* obj = CFactory::Create(className, CGraphicDev::Get_Instance()->Get_GraphicDev());
+	CGameObject* obj = CFactory::Create(className, pDevice);
 	if (!obj)
 	{
-		MSG_BOX("CFactory:: obj is nullptr");
+		wstring err = L"CFactory:: obj is nullptr : " + className;
+		MessageBoxW(0,err.c_str(),L"Error",MB_OK);
 		return nullptr;
 	}
 	const auto& jComponents = inJson["components"];
@@ -195,16 +196,27 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 			comp->Set_Far(jTrans["zFar"]);
 		}
 	}
-
 	// 3. CModel
 	if (jComponents.contains("CModel")) {
 		CModel* model = obj->Get_Component<CModel>();
 		if (model) {
-			const auto& jModel = jComponents["CModel"];
-			//model->Set_Mesh(ToWString(jModel["mesh"]));
-			//model->LoadMaterial(ToWString(jModel["matKey"]));
-			//if (jModel.contains("shader"))
-			//	model->Set_Shader(ToWString(jModel["shader"]));
+			wstring meshKey = L"DirtObj.obj";
+			wstring matKey = L"DirtObj.mtl";
+			wstring shaderPath = L"g_UVScale.fx";
+
+			if (jComponents["CModel"].contains("mesh"))
+				meshKey = ToWString(jComponents["CModel"]["mesh"]);
+
+			if (jComponents["CModel"].contains("matKey"))
+				matKey = ToWString(jComponents["CModel"]["matKey"]);
+
+			if (jComponents["CModel"].contains("shader"))
+				shaderPath = ToWString(jComponents["CModel"]["shader"]);
+
+			model->Set_Model(meshKey, matKey);
+
+			if (!shaderPath.empty() && model->Get_Material())
+				model->Get_Material()->Set_Shader(shaderPath);
 		}
 	}
 
@@ -251,7 +263,14 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 		const auto& jRigid = jComponents["CRigidBody"];
 		if (auto rigid = obj->Get_Component<CRigidBody>()) {
 
-			rigid->Set_UseGravity(jRigid["m_bGravity"]);
+			if (jRigid.contains("m_bGravity") && jRigid["m_bGravity"].is_boolean()) {
+				rigid->Set_UseGravity(jRigid["m_bGravity"].get<bool>());
+			}
+			else {
+				// 기본값 처리
+				rigid->Set_UseGravity(false);
+			}
+
 			rigid->Set_Mass(jRigid["Mass"]);
 			rigid->Set_Friction(jRigid["Friction"]);
 			rigid->Set_Bounce(jRigid["Bounciness"]);
@@ -337,7 +356,9 @@ void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 	CMesh* mesh = comp->Get_Mesh();
 
 	// 상위 기본 정보
+	if(mesh)
 	outJson["mesh"] = ToString(mesh->Get_Key());
+	if(material)
 	outJson["matKey"] = ToString(material->Get_MatrialKey());
 
 	// 머티리얼 내부 텍스처 키

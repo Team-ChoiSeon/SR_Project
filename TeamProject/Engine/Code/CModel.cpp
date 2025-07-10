@@ -14,38 +14,16 @@ CModel::~CModel()
 {
 }
 
-CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, const DefaultCubeModel& model)
+CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice)
 {
-	auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
-	auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
+	CModel* instance = new CModel(pDevice);
 
-	if (!pMesh || !pMaterial) {
-		MSG_BOX("CModel::Create - Resource Missing");
-		return nullptr;
+	if (FAILED(instance->Ready_Component())) {
+		Safe_Release(instance);
+		instance = nullptr;
 	}
-	auto pModel = new CModel(pDevice);
-	pModel->Set_Mesh(pMesh);
-	pModel->Set_Material(pMaterial);
-	pMaterial->Set_Shader(L"g_UVScale.fx"); //ÀÓ½Ã
 
-	OutputDebugString("[CModel] Create È£ÃâµÊ\n");
-	return pModel;
-}
-
-CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, const DefaultTileModel& model)
-{
-	auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
-	auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
-
-	if (!pMesh || !pMaterial) {
-		MSG_BOX("CModel::Create - Resource Missing");
-		return nullptr;
-	}
-	auto pModel = new CModel(pDevice);
-	pModel->Set_Mesh(pMesh);
-	pModel->Set_Material(pMaterial);
-	OutputDebugString("[CModel] Create È£ÃâµÊ\n");
-	return pModel;
+	return instance;
 }
 
 void CModel::LateUpdate_Component()
@@ -115,6 +93,20 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 	else {
 		m_pMesh->Render_Buffer();
 	}
+}
+
+HRESULT CModel::Set_Model(const wstring& meshType, const wstring& matType)
+{
+
+	if (!meshType.empty()) {
+		Safe_Change(m_pMesh, CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev,meshType));
+	}
+
+	if (!matType.empty()) {
+		Safe_Change(m_pMaterial, CResourceMgr::Get_Instance()->Load_Material(matType));
+	}
+
+	return S_OK;
 }
 
 void CModel::Free()

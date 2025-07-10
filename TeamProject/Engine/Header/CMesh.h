@@ -13,14 +13,19 @@ public:
 	virtual ~CMesh();
 
 public:
+	static CMesh* Create();
+
 	virtual HRESULT		Ready_Buffer();
 	virtual void		Render_Buffer();
 
 public:
+	HRESULT Ready_Mesh();
+
 	HRESULT LoadOBJ(LPDIRECT3DDEVICE9 pDevice, const wstring& path);
 	virtual LPDIRECT3DVERTEXBUFFER9 Get_VertexBuffer() const { return m_pVB; };
 	virtual LPDIRECT3DINDEXBUFFER9 Get_IndexBuffer() const { return m_pIB; };
 	virtual const wstring& Get_Key() { return m_wKey; }
+	virtual void Set_Key(const wstring& key) {  m_wKey = key; }
 public:
 	virtual void Free();
 

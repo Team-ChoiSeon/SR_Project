@@ -1,5 +1,6 @@
 #include "CMesh.h"
-
+#include "CFactory.h"
+#include "CGraphicDev.h"
 CMesh::CMesh() : m_pVB(nullptr), m_pIB(nullptr),
 m_dwVtxSize(0), m_dwTriCnt(0), m_dwVtxCnt(0), m_dwFVF(0), m_dwIdxSize(0)
 {
@@ -21,12 +22,20 @@ CMesh::CMesh(const CMesh& rhs)
     if (m_pIB) m_pIB->AddRef();
 }
 
+HRESULT CMesh::Ready_Mesh()
+{
+	m_pGraphicDev = CGraphicDev::Get_Instance()->Get_GraphicDev();
+	return S_OK;
+}
+
 HRESULT CMesh::LoadOBJ(LPDIRECT3DDEVICE9 pDevice, const wstring& path)
 {
-	wstring basePath = L"../Bin/Resource/Obj/";
+	//wstring basePath = L"../Bin/Resource/Obj/";
 
 	//파일 열기
-	ifstream in(basePath+path);
+	//CFactory::
+	string basePath = CFactory::ToString(path); 
+	ifstream in(basePath);
 	if (!in.is_open()) {
 		return E_FAIL;
 	}
@@ -130,13 +139,25 @@ HRESULT CMesh::LoadOBJ(LPDIRECT3DDEVICE9 pDevice, const wstring& path)
 	memcpy(pIBData, indices.data(), indices.size() * sizeof(DWORD));
 	m_pIB->Unlock();
 
-	m_wKey = path;
+	//m_wKey = path;
 
 	return S_OK;
 }
 
 CMesh::~CMesh()
 {
+}
+
+CMesh* CMesh::Create()
+{
+	CMesh* instance = new CMesh;
+
+	if (FAILED(instance->Ready_Mesh())) {
+		Safe_Release(instance);
+		instance = nullptr;
+	}
+
+	return instance;
 }
 
 HRESULT CMesh::Ready_Buffer()
