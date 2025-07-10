@@ -39,7 +39,7 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 {
 	if (!m_pMesh)
 	{
-		OutputDebugString("[CModel] m_pMesh is nullptr\n");
+		//OutputDebugString("[CModel] m_pMesh is nullptr\n");
 		return;
 	}
 	if (!m_pMaterial)

@@ -94,6 +94,9 @@
     <Filter Include="04. GameObjects\SceneTrigger\SceneGate">
       <UniqueIdentifier>{bad48d57-5cf4-4a43-97b7-580711e99a80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Trigger\ToggleButton">
+      <UniqueIdentifier>{6224e65c-e2be-4ac3-bed9-5f5cc82c1a82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -192,6 +195,9 @@
     <ClInclude Include="..\Header\CSceneGate.h">
       <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CToggleButton.h">
+      <Filter>04. GameObjects\Trigger\ToggleButton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -280,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSceneGate.cpp">
       <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CToggleButton.cpp">
+      <Filter>04. GameObjects\Trigger\ToggleButton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

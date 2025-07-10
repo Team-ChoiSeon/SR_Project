@@ -60,6 +60,7 @@ private:
 
 	bool m_bCursorMove;
 	bool m_bObjHold = false;
+	bool m_bHoldOff = false;
 
 	_vec3 m_vLastPt;
 	_vec3 m_vPlanePt;

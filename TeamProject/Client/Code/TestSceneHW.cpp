@@ -39,7 +39,7 @@ HRESULT TestSceneHW::Ready_Scene()
 {
 	CUiMgr::Get_Instance()->Ready_UiMgr();
 	Init_Layers();
-	CFactory::DeSerializeScene(L"../../Scene/TestScene_2.json", this);
+	CFactory::DeSerializeScene(L"../../Scene/MergeStage.json", this);
 
 	m_pFFCam = FFCam::Create(m_pGraphicDev);
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1");
@@ -106,9 +106,9 @@ HRESULT TestSceneHW::Ready_Scene()
 	Get_Layer(LAYER_TILE)->Get_GameObject(L"Wall_2")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 
 
-	const wstring basetilekey = L"Sand_008.mtl";
-	const wstring floatingcubekey = L"Rock029.mtl";
-	const wstring diretionalkey = L"Wood_Grain.mtl";
+	//const wstring basetilekey = L"Sand_008.mtl";
+	//const wstring floatingcubekey = L"Rock029.mtl";
+	//const wstring diretionalkey = L"Wood_Grain.mtl";
 
 	//const wstring basetilekey = L"Sand_008.mtl";
 	//const wstring basetilekey = L"Sand_008.mtl";

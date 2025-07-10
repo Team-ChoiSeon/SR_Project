@@ -22,6 +22,7 @@
 #include "CTimerButton.h"
 #include "CCrosshairUIObject.h"
 #include "CUiMgr.h"
+#include "CToggleButton.h"
 
 
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) 
@@ -47,8 +48,9 @@ HRESULT SceneHW::Ready_Scene()
 	m_pDirectionalCube = CDirectionalCube::Create(m_pGraphicDev);
 	m_pOnewayCube = CDirectionalCube::Create(m_pGraphicDev);
 	m_pImpulseCube = CImpulseCube::Create(m_pGraphicDev);
+	m_pToggleButton = CToggleButton::Create(m_pGraphicDev);
 	//m_pWeightButton = CWeightButton::Create(m_pGraphicDev);
-	m_pTimerButton = CTimerButton::Create(m_pGraphicDev);
+	//m_pTimerButton = CTimerButton::Create(m_pGraphicDev);
 
 
 
@@ -64,16 +66,18 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwDirectionalCube", m_pDirectionalCube);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwOnewayCube", m_pOnewayCube);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwImpulseCube", m_pImpulseCube);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwToggle", m_pToggleButton);
 	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwWeightButton", m_pWeightButton);
 	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwTimerButton", m_pTimerButton);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
+	Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"hwPlayer")->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
 
 
 	//===========================================================================================================//
 
 
 	//Set Obejct Informations
-	m_pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 0.f, 0.f });
+	m_pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 30.f, 0.f });
 	m_pPlayer->Get_Component<CRigidBody>()->Set_Friction(1.f);
 	m_pPlayer->Get_Component<CRigidBody>()->Set_Mass(100.f);
 
@@ -86,7 +90,8 @@ HRESULT SceneHW::Ready_Scene()
 	m_pDirectionalCube->Set_Info({ 0.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
 	m_pOnewayCube->Set_Info({ -10.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, 20.f);
 	m_pImpulseCube->Set_Info({ 0.f, 0.f, 20.f });
-	m_pTimerButton->Set_Info({ -10.f, 30.f, 20.f }, 1.f, -1.f);
+	m_pToggleButton->Get_Component<CTransform>()->Set_Pos({ 50.f, 0.f, 20.f });
+	//m_pTimerButton->Set_Info({ -10.f, 30.f, 20.f }, 1.f, -1.f);
 	//m_pWeightButton->Set_Info(10.f, -1.f);
 	
 	
@@ -131,9 +136,17 @@ HRESULT SceneHW::Ready_Scene()
 
 	m_pImpulseCube->Get_Component<CRigidBody>()->Set_OnGround(false);
 	m_pImpulseCube->Get_Component<CRigidBody>()->Set_UseGravity(true);
-	m_pImpulseCube->Get_Component<CRigidBody>()->Set_Mass(10.f);
 	m_pImpulseCube->Get_Component<CRigidBody>()->Set_Bounce(1.f);
-	m_pImpulseCube->Get_Component<CRigidBody>()->Set_Friction(0.1f);
+	m_pImpulseCube->Get_Component<CRigidBody>()->Set_Friction(0.f);
+	m_pImpulseCube->Get_Component<CRigidBody>()->Set_Mass(10.f);
+	m_pImpulseCube->Get_Component<CCollider>()->Set_BoundType(BoundingType::OBB);
+
+	m_pToggleButton->Get_Component<CRigidBody>()->Set_Friction(0.f);
+	m_pToggleButton->Get_Component<CRigidBody>()->Set_Mass(10.f);
+	m_pToggleButton->Get_Component<CRigidBody>()->Set_Bounce(0.f);
+	m_pToggleButton->Get_Component<CRigidBody>()->Set_OnGround(true);
+	m_pToggleButton->Get_Component<CRigidBody>()->Set_UseGravity(false);	
+
 
 	//m_pTimerButton->Get_Component<CRigidBody>()->Set_Friction(0.f);
 	//m_pTimerButton->Get_Component<CRigidBody>()->Set_Mass(10.f);
@@ -164,7 +177,7 @@ SceneHW* SceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	if (FAILED(pScene->Ready_Scene()))
 	{
 		Safe_Release(pScene);
-		MSG_BOX("SceneHW Create Failed");
+		MSG_BOX("SceneHW Create Failed");	
 		return nullptr;
 	}
 
@@ -177,36 +190,40 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
 
-	CGameObject* PickObj = m_pPlayer->Get_PickObj();
-	auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(PickObj);
+	//if(m_pToggleButton->Get_TriggerState())
+	//	OutputDebugStringW(L"ButtonOn\n");
 
-	if (pPickCubeObj) {
-		pPickCubeObj->Set_Grab(false);
-	}
+	//CGameObject* PickObj = m_pPlayer->Get_PickObj();
+	//auto* pPickCubeObj = dynamic_cast<CCube*>(PickObj);
 
-	if (PickObj)
-	{
-		if (m_pPlayer->Get_Hold()) {
-			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+	//if (pPickCubeObj) {
+	//	pPickCubeObj->Set_Grab(false);
+	//}
 
-			if (pPickCubeObj) {
-				pPickCubeObj->Set_Grab(true);
-				pPickCubeObj->Set_CursorVec(m_pPlayer->Get_DragDistance());
-			}
-		}
-		else {
-			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-				Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-		}
-	}
-	else {
-		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
-	}
-	if (m_pPlayer->Get_Hold()) {
-		m_pDirectionalCube->Set_Grab(m_pPlayer->Get_PickObj() == m_pDirectionalCube);
-		m_pOnewayCube->Set_Grab(m_pPlayer->Get_PickObj() == m_pOnewayCube);
-	}
+	//if (PickObj)
+	//{
+	//	if (m_pPlayer->Get_Hold()) {
+	//		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+
+	//		if (pPickCubeObj) {
+	//			pPickCubeObj->Set_Grab(true);
+	//			pPickCubeObj->Set_CursorVec(m_pPlayer->Get_DragDistance());
+	//		}
+	//	}
+	//	else {
+	//		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
+	//			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+	//	}
+	//}
+	//else {
+	//	Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
+	//		Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+	//}
+
+	//if (m_pPlayer->Get_Hold()) {
+	//	m_pDirectionalCube->Set_Grab(m_pPlayer->Get_PickObj() == m_pDirectionalCube);
+	//	m_pOnewayCube->Set_Grab(m_pPlayer->Get_PickObj() == m_pOnewayCube);
+	//}
 
 
 	//=====================================================================================================================================//
@@ -266,25 +283,27 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	_vec3 dcubepos = m_pDirectionalCube->Get_Component<CTransform>()->Get_Pos();
 	//_vec3 tbuttonpos = m_pTimerButton->Get_Component<CTransform>()->Get_Pos();
 
-	wchar_t pposbuf[128];
-	swprintf_s(pposbuf, 128, L"Player Pos : %.3f, %.3f, %.3f\n", playerpos.x, playerpos.y, playerpos.z);
-	OutputDebugStringW(pposbuf);
+	//wchar_t pposbuf[128];
+	//swprintf_s(pposbuf, 128, L"Player Pos : %.3f, %.3f, %.3f\n", playerpos.x, playerpos.y, playerpos.z);
+	//OutputDebugStringW(pposbuf);
 
-	wchar_t fcposbuf[128];
-	swprintf_s(fcposbuf, 128, L"FCube Pos : %.3f, %.3f, %.3f\n", fcubepos.x, fcubepos.y, fcubepos.z);
-	OutputDebugStringW(fcposbuf);
+	//wchar_t fcposbuf[128];
+	//swprintf_s(fcposbuf, 128, L"FCube Pos : %.3f, %.3f, %.3f\n", fcubepos.x, fcubepos.y, fcubepos.z);
+	//OutputDebugStringW(fcposbuf);
 
-	wchar_t dcposbuf[128];
-	swprintf_s(dcposbuf, 128, L"DCube Pos : %.3f, %.3f, %.3f\n", dcubepos.x, dcubepos.y, dcubepos.z);
-	OutputDebugStringW(dcposbuf);
+	//wchar_t dcposbuf[128];
+	//swprintf_s(dcposbuf, 128, L"DCube Pos : %.3f, %.3f, %.3f\n", dcubepos.x, dcubepos.y, dcubepos.z);
+	//OutputDebugStringW(dcposbuf);
 
 	//wchar_t bposbuf[128];
 	//swprintf_s(bposbuf, 128, L"TButton Pos : %.3f, %.3f, %.3f\n", tbuttonpos.x, tbuttonpos.y, tbuttonpos.z);
 	//OutputDebugStringW(bposbuf);
 
+
 	//===========================================================================================================//
 
-
+	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
+	CCollisionMgr::Get_Instance()->Update_Collision();
 
 	return 0;
 }
