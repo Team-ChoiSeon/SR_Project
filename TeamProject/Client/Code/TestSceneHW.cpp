@@ -43,13 +43,11 @@ HRESULT TestSceneHW::Ready_Scene()
 
 	m_pFFCam = FFCam::Create(m_pGraphicDev);
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1");
-	//m_pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"FFCam", m_pFFCam);
 
-
-	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", m_pPlayer);
-
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
+	Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1")->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
+
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component<CRigidBody>()->Set_OnGround(true);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component<CRigidBody>()->Set_UseGravity(false);
@@ -106,32 +104,23 @@ HRESULT TestSceneHW::Ready_Scene()
 	Get_Layer(LAYER_TILE)->Get_GameObject(L"Wall_2")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 
 
-	//const wstring basetilekey = L"Sand_008.mtl";
-	//const wstring floatingcubekey = L"Rock029.mtl";
-	//const wstring diretionalkey = L"Wood_Grain.mtl";
+	const wstring basetilemtl = L"Sand_008.mtl";
+	const wstring floatingcubemtl = L"Rock029.mtl";
+	const wstring diretionalmtl = L"Wood_Grain.mtl";
 
-	//const wstring basetilekey = L"Sand_008.mtl";
-	//const wstring basetilekey = L"Sand_008.mtl";
+	const wstring basetilemesh = L"Sand_008.obj";
+	const wstring floatingcubemesh = L"Rock029.obj";
+	const wstring diretionalmesh = L"Wood_Grain.obj";
 
-
-
-
-	// CResourceMgr::Get_Instance()->Load_Material(basetilekey);
-	// CMaterial* material1 = CResourceMgr::Get_Instance()->Get_Material(basetilekey);
-	// 
-	// CResourceMgr::Get_Instance()->Load_Material(floatingcubekey);
-	// CMaterial* floatingmaterial = CResourceMgr::Get_Instance()->Get_Material(floatingcubekey);
-	// CResourceMgr::Get_Instance()->Load_Material(diretionalkey);
-	// CMaterial* diretionalmtl = CResourceMgr::Get_Instance()->Get_Material(diretionalkey);
 	
-	// Get_Layer(LAYER_TILE)->Get_GameObject(L"BaseTile")->Get_Component <CModel>()->Set_Material(material1);
-	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component <CModel>()->Set_Material(floatingmaterial);
-	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component <CModel>()->Set_Material(floatingmaterial);
-	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component <CModel>()->Set_Material(floatingmaterial);
-	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component <CModel>()->Set_Material(diretionalmtl);
-	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A2")->Get_Component <CModel>()->Set_Material(diretionalmtl);
-	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A3")->Get_Component <CModel>()->Set_Material(diretionalmtl);
-	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+	 Get_Layer(LAYER_TILE)->Get_GameObject(L"BaseTile")->Get_Component <CModel>()->Set_Model(basetilemesh, basetilemtl);
+	 Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component <CModel>()->Set_Model(floatingcubemesh, floatingcubemtl);
+	 Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component <CModel>()->Set_Model(floatingcubemesh, floatingcubemtl);
+	 Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component <CModel>()->Set_Model(floatingcubemesh, floatingcubemtl);
+	 Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component <CModel>()->Set_Model(diretionalmesh, diretionalmtl);
+	 Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A2")->Get_Component <CModel>()->Set_Model(diretionalmesh, diretionalmtl);
+	 Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A3")->Get_Component <CModel>()->Set_Model(diretionalmesh, diretionalmtl);
+	 Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component <CModel>()->Set_Model(diretionalmesh, diretionalmtl);
 
 
 
@@ -175,48 +164,8 @@ TestSceneHW* TestSceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 {
-	CPickingMgr::Get_Instance()->Update_Picking(fTimeDelta);
-
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
-
-
-	CGameObject* PickObj = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1")->Get_PickObj();
-
-	auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(PickObj);
-
-	if (pPickCubeObj) {
-		pPickCubeObj->Set_Grab(false);
-	}
-
-	if (PickObj)
-	{
-		if (Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1")->Get_Hold()) {
-
-			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-
-
-
-			if (pPickCubeObj) {
-				pPickCubeObj->Set_Grab(true);
-				pPickCubeObj->Set_CursorVec(Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1")->Get_DragDistance());
-
-			}
-		}
-		else {
-			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-				Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-		}
-	}
-	else {
-		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
-	}
-
-
-	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
-	CCollisionMgr::Get_Instance()->Update_Collision();
-
 
 	//===========================================================================================================//
 	//Debugging Codes

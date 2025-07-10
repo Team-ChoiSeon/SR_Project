@@ -45,6 +45,7 @@ HRESULT CToggleButton::Ready_GameObject()
     m_bGrab = false;                        //picking 확인
     m_bReusable = true;                     //여러번 상호작용 가능한지
     m_bTriggerOn = false;                   //켜져있는지
+    m_bPressed = false;
 
 	return S_OK;
 }
@@ -53,25 +54,7 @@ _int CToggleButton::Update_GameObject(const _float& fTimeDelta)
 {
     for (auto& pComponent : m_umComponent[ID_DYNAMIC])
         pComponent.second->Update_Component(fTimeDelta);
-    if (m_bReusable)
-    {
-        if (m_bGrab)
-        {
-            if (!m_bPressed)
-            {
-                m_bPressed = true;
-                m_bTriggerOn = !m_bTriggerOn;
-            }
-        }
-        else
-        {
-            m_bPressed = false;
-        }
-    }
-    else
-    {
-        m_bTriggerOn = true;
-    }
+    Toggle();
 	return _int();
 }
 
@@ -101,4 +84,32 @@ void CToggleButton::Free()
     Safe_Release(m_pCollider);
     Safe_Release(m_pPick);
     Safe_Release(m_pGraphicDev);
+}
+
+void CToggleButton::Toggle()
+{
+    if (m_bReusable)
+    {
+        if (m_bGrab)
+        {
+            if (!m_bPressed)
+            {
+                m_bPressed = true;
+                m_bTriggerOn = !m_bTriggerOn;
+                if (m_bTriggerOn)
+                    m_pTransform->Set_ScaleY(m_pTransform->Get_Scale().y * 0.4f);
+                else
+                    m_pTransform->Set_ScaleY(m_pTransform->Get_Scale().y * 2.5f);
+            }
+        }
+        else
+        {
+            m_bPressed = false;
+        }
+    }
+    else
+    {
+        m_bTriggerOn = true;
+    }
+
 }

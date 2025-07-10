@@ -31,6 +31,7 @@ public:
 
 private:
 	// Compute Function
+	void Toggle();
 
 	// Variables
 	CTransform*			m_pTransform;
