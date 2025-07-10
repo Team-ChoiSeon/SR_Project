@@ -177,6 +177,7 @@
     <ClInclude Include="..\Header\SceneHS.h" />
     <ClInclude Include="..\Header\SceneHW.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
+    <ClInclude Include="..\Header\TestSceneHW.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="..\Code\SceneHS.cpp" />
     <ClCompile Include="..\Code\SceneHW.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
+    <ClCompile Include="..\Code\TestSceneHW.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
