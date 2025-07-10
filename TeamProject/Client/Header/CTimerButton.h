@@ -1,5 +1,6 @@
 #pragma once
 #include "CActiveTrigger.h"
+#include "CCube.h"
 
 namespace Engine
 {

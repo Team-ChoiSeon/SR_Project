@@ -40,6 +40,7 @@ public:
 
 private:
 	//Compute Function
+	void SyncVelPlayer();
 	void ComputeEndPos();
 	void Move(const _float& fTimeDelta);
 	void MoveBack(const _float& fTimeDelta);
