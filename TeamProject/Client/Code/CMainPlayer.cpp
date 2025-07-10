@@ -30,9 +30,10 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 
+	m_pTransform->Ready_Transform();
 	m_pTransform->Set_Pos({ 0.f, 0.f, -20.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
@@ -42,9 +43,12 @@ HRESULT CMainPlayer::Ready_GameObject()
 	// 임시추가 
 	m_pRigid->Set_Mass(6.f);
 	m_pRigid->Set_Friction(10.f);
+	m_pRigid->Set_Gravity(5.f);
 
 	m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
+
+	CFactory::Save_Prefab(this, "CMainPlayer");
 
 	return S_OK;
 }
@@ -215,25 +219,24 @@ void CMainPlayer::CursorRotate()
 
 void CMainPlayer::Set_GroundCheck()
 {
-	const float groundY = -5.f;
-
-	_vec3 pos = m_pTransform->Get_Pos();
-
-	if (pos.y <= groundY)
-	{
-		pos.y = groundY;
-		m_pTransform->Set_Pos(pos);
-
-		m_pRigid->Set_OnGround(true);
-
-		_vec3 vVel = m_pRigid->Get_Velocity();
-		vVel.y = 0.f;
-		m_pRigid->Set_Velocity(vVel);
-	}
-	else
-	{
-		m_pRigid->Set_OnGround(false);
-	}
+	// m_pRigid->Set_OnGround(false);
+	// 
+	// for (auto& obj : Get_Layer(LAYER_OBJECT)->Get_GameObjects())
+	// {
+	// 	if (obj == this) continue;
+	// 
+	// 	auto pCol = obj->Get_Component<CCollider>();
+	// 	if (!pCol) continue;
+	// 
+	// 	if (CCollisionMgr::Get_Instance()->Check_Collision(m_pCollider, pCol)) {
+	// 		// 플레이어보다 아래쪽이면 바닥으로 인식
+	// 		if (pCol->Get_BottomY() <= m_pTransform->Get_Pos().y)
+	// 		{
+	// 			m_pRigid->Set_OnGround(true);
+	// 			return;
+	// 		}
+	// 	}
+	// }
 }
 
 void CMainPlayer::Update_State(const _float& fTimeDelta)

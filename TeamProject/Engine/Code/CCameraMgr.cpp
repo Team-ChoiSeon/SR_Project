@@ -45,7 +45,7 @@ void CCameraMgr::Render_Camera()
 
 void CCameraMgr::Free()
 {
-	//Safe_Release(m_pMainCam);
+	Safe_Release(m_pMainCam);
 }
 
 //void CCameraMgr::Add_Camera(const wstring& wCamTag, CGameObject* pCamera)

@@ -5,6 +5,7 @@
 #include "CRigidBody.h"
 #include "CFactory.h"
 
+#include "CFactory.h"
 CDirectionalCube::CDirectionalCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
 {
@@ -93,6 +94,8 @@ void CDirectionalCube::Set_Info(const _vec3& startpos, const _vec3& axis, const 
 	m_vCursorDelta = { 0.f, 0.f, 0.f };
 	m_bOneway = false;
 	ComputeMinMaxPos();
+
+	CFactory::Save_Prefab(this, "CDirectionalCube");
 }
 
 void CDirectionalCube::Set_Info(const _vec3& startpos, const _vec3& axis, const _float& maxdistance)
@@ -105,6 +108,7 @@ void CDirectionalCube::Set_Info(const _vec3& startpos, const _vec3& axis, const 
 	m_vCursorDelta = { 0.f, 0.f, 0.f };
 	m_bOneway = true;
 	ComputeEndPos();
+
 }
 
 

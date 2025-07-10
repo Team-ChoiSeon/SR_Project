@@ -50,7 +50,7 @@ private:
 	CGameObject* m_pPickObj;
 
 	float m_fMoveSpeed;
-	float m_fJumpPower = 10.f;
+	float m_fJumpPower = 40.f;
 
 	float m_fWidth;
 	float m_fDepth;

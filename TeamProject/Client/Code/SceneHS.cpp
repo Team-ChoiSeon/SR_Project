@@ -10,6 +10,8 @@
 #include "CResourceMgr.h"
 #include "CPickingMgr.h"
 #include "CCollisionMgr.h"
+#include "CSceneMgr.h"
+#include "CRenderMgr.h"
 
 #include "CPlayer.h"
 #include "CMainPlayer.h"
@@ -19,6 +21,9 @@
 #include "DummyCube.h"
 #include "CDirectionalCube.h"
 #include "CTestTile.h"
+#include "CSceneGate.h"
+
+#include "SceneHW.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -62,6 +67,7 @@ HRESULT SceneHS::Ready_Scene()
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Info({ 5.f, 0.f, 0.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Grab(true);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"GroundDummy", (pTile));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"SceneGate", CSceneGate::Create(m_pGraphicDev));
 
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"TestLightMesh", CTestLightMeshObject::Create(m_pGraphicDev));
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"LightObject", CLightObject::Create(m_pGraphicDev));
@@ -137,7 +143,13 @@ void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 	// m_pLightObject->LateUpdate_GameObject(fTimeDelta);
 	// m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
 	
-	//Engine::CLightMgr::Get_Instance()->UpdateLights({ 0.f, 0.f, -10.f });
+	//Engine::CLightMgr::Get_Instance()->UpdateLights({ 0.f, 0.f, -10.f });	if (m_bInGate) {
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"SceneGate")->Get_InGate()) {
+		CScene* pScene = SceneHW::Create(m_pGraphicDev);
+		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+	}
+
+
 }
 
 SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)

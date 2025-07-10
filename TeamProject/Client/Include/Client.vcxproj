@@ -164,6 +164,8 @@
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMonster.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
+    <ClInclude Include="..\Header\CSceneGate.h" />
+    <ClInclude Include="..\Header\CSceneTestHS.h" />
     <ClInclude Include="..\Header\CTestLightMeshObject.h" />
     <ClInclude Include="..\Header\CCube.h" />
     <ClInclude Include="..\Header\CTimerButton.h" />
@@ -196,6 +198,8 @@
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
+    <ClCompile Include="..\Code\CSceneGate.cpp" />
+    <ClCompile Include="..\Code\CSceneTestHS.cpp" />
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp" />
     <ClCompile Include="..\Code\CCube.cpp" />
     <ClCompile Include="..\Code\CTimerButton.cpp" />

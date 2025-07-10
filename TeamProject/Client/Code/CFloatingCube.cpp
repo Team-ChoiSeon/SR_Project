@@ -124,6 +124,7 @@ void CFloatingCube::Set_Info(const _vec3& vStartPos, const _vec3& vDirection, co
 	m_fSleepTime = SleepTime;
 	m_bBackward = true;
 	ComputeEndPos();
+
 }
 
 void CFloatingCube::SyncVelPlayer()
@@ -173,6 +174,7 @@ void CFloatingCube::Move(const _float& fTimeDelta)
 	}
 	else if (fTravelDist < fTotalDist)
 	{
+
 		m_pRigid->Add_Velocity(-Accel * m_vDirection * fTimeDelta);
 	}
 	else
@@ -248,6 +250,7 @@ void CFloatingCube::MoveBack(const _float& fTimeDelta)
 	}
 	else if (fTravelDist < fTotalDist)
 	{
+
 		m_pRigid->Add_Velocity(Accel * m_vDirection * fTimeDelta);
 	}
 	else

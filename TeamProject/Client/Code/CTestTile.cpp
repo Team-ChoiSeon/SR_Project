@@ -2,6 +2,8 @@
 #include "pch.h"
 #include "CTestTile.h"
 
+#include "CFactory.h"
+
 CTestTile::CTestTile(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
@@ -35,6 +37,9 @@ HRESULT CTestTile::Ready_GameObject()
 	m_pCollider = Get_Component<CCollider>();
 	m_pCollider->Set_ColTag(ColliderTag::GROUND);
 	m_pCollider->Set_ColType(ColliderType::PASSIVE);
+
+
+	CFactory::Save_Prefab(this, "CTestTile");
 
 	return S_OK;
 }
@@ -74,3 +79,5 @@ void CTestTile::Free()
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pTransform);
 }
+
+REGISTER_GAMEOBJECT(CTestTile)

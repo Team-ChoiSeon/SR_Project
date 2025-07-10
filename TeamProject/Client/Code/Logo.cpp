@@ -11,6 +11,8 @@
 #include "SceneSB.h"
 #include "TestSceneHW.h"
 
+#include "CSceneTestHS.h"
+
 Logo::Logo(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
 {
@@ -57,6 +59,10 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 	{
 		CScene* pScene = SceneSB::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+	}
+	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F6))
+	{
+		CScene* pScene = CSceneTestHS::Create(m_pGraphicDev);
 	}
 	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F7))
 	{

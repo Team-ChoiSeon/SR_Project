@@ -46,6 +46,7 @@ HRESULT TestSceneHW::Ready_Scene()
 	//m_pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"FFCam", m_pFFCam);
 
+
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", m_pPlayer);
 
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
@@ -59,6 +60,7 @@ HRESULT TestSceneHW::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component<CRigidBody>()->Set_OnGround(true);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component<CRigidBody>()->Set_OnGround(true);
+
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component<CRigidBody>()->Set_OnGround(true);
@@ -103,12 +105,14 @@ HRESULT TestSceneHW::Ready_Scene()
 	Get_Layer(LAYER_TILE)->Get_GameObject(L"Wall_2")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	Get_Layer(LAYER_TILE)->Get_GameObject(L"Wall_2")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 
+
 	const wstring basetilekey = L"Sand_008.mtl";
 	const wstring floatingcubekey = L"Rock029.mtl";
 	const wstring diretionalkey = L"Wood_Grain.mtl";
 
 	//const wstring basetilekey = L"Sand_008.mtl";
 	//const wstring basetilekey = L"Sand_008.mtl";
+
 
 
 
@@ -130,10 +134,12 @@ HRESULT TestSceneHW::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component <CModel>()->Set_Material(diretionalmtl);
 
 
+
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1"))->Set_Info({ 10.f, 9.75f, 40.f }, { 1.f, 0.f, 0.f }, -10.f, 0.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A2"))->Set_Info({ -10.f, 14.f, 45.f }, { 1.f, 0.f, 0.f }, 0.f, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A3"))->Set_Info({ 0.f, 8.f, 53.f }, { 0.f, 1.f, 0.f }, 0.f, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4"))->Set_Info({ -20.f, 60.f, 120.f }, { 1.f, 0.5f, 0.f }, -15.f, 0.f);
+
 
 	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A"))->Set_Info({ 0.f, 9.75f, 21.f }, { 0.f, 0.f, 1.f }, 120.f, 10.f, 1.f);
 	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A"))->Set_Loop();
@@ -215,6 +221,7 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	//===========================================================================================================//
 	//Debugging Codes
 
+
 	_vec3 playerpos = m_pPlayer->GetPos();
 	_bool FloatingALoop = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A"))->Get_Loop();
 	_bool FloatingA2Loop = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2"))->Get_Loop();
@@ -222,7 +229,9 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	_float FloatingATime = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A"))->Get_SleepTime();
 	_float FloatingA2Time = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2"))->Get_SleepTime();
 	_float FloatingA3Time = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3"))->Get_SleepTime();
+
 	_vec3 StartTilepos = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_TILE)->Get_GameObject(L"StartTile"))->Get_Component<CTransform>()->Get_Pos();
+
 
 
 	if (FloatingALoop)
@@ -253,6 +262,7 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	wchar_t bposbuf[128];
 	swprintf_s(bposbuf, 128, L"starttile Pos : %.3f, %.3f, %.3f\n", StartTilepos.x, StartTilepos.y, StartTilepos.z);
 	OutputDebugStringW(bposbuf);
+
 
 
 	//===========================================================================================================//

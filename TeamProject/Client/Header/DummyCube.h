@@ -1,6 +1,7 @@
 #pragma once
 #include "CGameObject.h"
 #include "CCollider.h"
+#include "CRigidBody.h"
 
 namespace Engine {
 	class CTransform;
@@ -32,7 +33,7 @@ private:
 	CModel*				m_pModel;
 	CPickTarget*		m_pPick;
 	CCollider*			m_pCollider;
-
+	CRigidBody* m_pRigid;
 
 };
 
