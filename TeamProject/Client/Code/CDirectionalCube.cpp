@@ -3,6 +3,7 @@
 #include "CTransform.h"
 #include "CPickTarget.h"
 #include "CRigidBody.h"
+#include "CFactory.h"
 
 CDirectionalCube::CDirectionalCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -39,6 +40,8 @@ HRESULT CDirectionalCube::Ready_GameObject()
 	m_pCollider = Get_Component<CCollider>();
 	m_pCollider->Set_ColTag(ColliderTag::NONE);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
+
+	CFactory::Save_Prefab(this, "CDirectionalCube");
 
 	return S_OK;
 }
@@ -173,3 +176,6 @@ void CDirectionalCube::ComputeMoveVecIntoAxisMoveVec()
 {
 	m_vMoveDelta = m_vDefaultAxis * (D3DXVec3Dot(&m_vDefaultAxis, &m_vCursorDelta));
 }
+
+
+REGISTER_GAMEOBJECT(CDirectionalCube)
