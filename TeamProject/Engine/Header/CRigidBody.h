@@ -18,6 +18,7 @@ public:
 public:
     void Set_OnGround(bool bGround) { m_bGround = bGround; }
     void Set_UseGravity(bool bUse) { m_bGravity = bUse; }
+    void Set_Restore(bool bRestore) { m_bRestore = bRestore; }
 
     void Set_Mass(_float fMass) { m_fMass = fMass; }
     void Set_Friction(_float fFric) { m_fFric = fFric; }
@@ -39,6 +40,7 @@ public:
 
     bool  Get_OnGround()   const     { return m_bGround; }
     bool  Get_UseGravity() const     { return m_bGravity; }
+    bool  Get_Restore()    const     { return m_bRestore; }
 
     _float Get_Mass()   const { return m_fMass; }
     _float Get_Friction() const { return m_fFric; }
@@ -77,6 +79,7 @@ private:
 
     bool        m_bGravity = true;
     bool        m_bGround = false;
+    bool        m_bRestore = false;
 
     CTransform* m_pTransform = nullptr;
 };

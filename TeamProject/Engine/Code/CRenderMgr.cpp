@@ -21,17 +21,17 @@ HRESULT CRenderMgr::Ready_RenderMgr()
 
 void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 {
-	//·»´õ ½ºÅ×ÀÌÆ® ¼³Á¤
+	//ë Œë” ìŠ¤í…Œì´íŠ¸ ì„¤ì •
 	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	//pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);		// Á¤±ÔÈ­µÈ ³ë¸Ö »ç¿ë
-	pDevice->SetRenderState(D3DRS_SPECULARENABLE, TRUE);			// ½ºÆäÅ§·¯ ÇÏÀÌ¶óÀÌÆ®
+	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);		// ì •ê·œí™”ëœ ë…¸ë©€ ì‚¬ìš©
+	pDevice->SetRenderState(D3DRS_SPECULARENABLE, TRUE);			// ìŠ¤íŽ˜í˜ëŸ¬ í•˜ì´ë¼ì´íŠ¸
 
-	//ÅØ½ºÃÄ ¼³Á¤
+	//í…ìŠ¤ì³ ì„¤ì •
 	pDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 	pDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
 	pDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
@@ -72,17 +72,8 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 
 void CRenderMgr::Add_Model(CModel* model)
 {
-	OutputDebugString("[RenderMgr] Add_Model È£ÃâµÊ\n");
 	auto pass = static_cast<int>(model->Get_RenderPass());
-
-	auto iter = find_if(m_vModellist[pass].begin(), m_vModellist[pass].end(),
-		[&model](CModel* data)->bool {
-			return data == model;
-		});
-
-	if (iter == m_vModellist[pass].end())
-		m_vModellist[pass].push_back(model);
-	OutputDebugString("[CRenderMgr] ¸ðµ¨ Ãß°¡µÊ\n");
+	m_vModellist[pass].push_back(model);
 }
 
 void CRenderMgr::Remove_Model(CModel* model)
@@ -109,8 +100,6 @@ void CRenderMgr::Add_Collider(CCollider* collider)
 
 	if (iter == m_vCol.end())
 		m_vCol.push_back(collider);
-
-	m_vCol.clear();
 }
 
 void CRenderMgr::Remove_Collider(CCollider* collider)
@@ -153,8 +142,8 @@ void CRenderMgr::Clear()
 {
 	for (auto& list : m_vModellist)
 		list.clear();
-
 	m_vCol.clear();
+	m_vUI.clear();
 }
 
 

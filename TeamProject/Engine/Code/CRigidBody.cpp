@@ -105,9 +105,9 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     vPos += m_vVel * fDeltaTime;
     m_pTransform->Set_Pos(vPos);
 
+    // 회전 반영
     m_vAAcc = { m_vTorque.x / m_fInertia.x ,m_vTorque.y / m_fInertia.y ,m_vTorque.z / m_fInertia.z};
     m_vAVel += m_vAAcc * fDeltaTime;
-
     if (D3DXVec3LengthSq(&m_vAVel) > 0.f)
     {
         _vec3 axis = m_vAVel;
@@ -116,10 +116,11 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         D3DXVec3Normalize(&axis, &axis);
         m_pTransform->Rotate_Axis(axis, angle);
     }
-
     // 감쇠 및 초기화
-    m_vAVel *= 0.98f;
+    m_vAVel *= 0.995f;
     m_vTorque = _vec3(0.f, 0.f, 0.f);
+
+
     m_vEforce = _vec3(0.f, 0.f, 0.f);
 
 }

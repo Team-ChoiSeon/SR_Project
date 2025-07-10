@@ -28,6 +28,7 @@ HRESULT SceneSB::Ready_Scene()
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 0.f, -20.f });
 	pPlayer->Get_Component<CRigidBody>()->Set_Friction(1.f);
 	pPlayer->Get_Component<CRigidBody>()->Set_Mass(100.f);
+	pPlayer->Get_Component<CCollider>()->Set_BoundType(BoundingType::OBB);
 
 	// 2. 바닥 역할 (몬스터 착지용)
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
@@ -45,8 +46,8 @@ HRESULT SceneSB::Ready_Scene()
 	pFallingMonster->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	pFallingMonster->Get_Component<CRigidBody>()->Set_Bounce(0.5f);
 	pFallingMonster->Get_Component<CRigidBody>()->Set_Friction(0.2f);
-	pFallingMonster->Get_Component<CCollider>()->Set_Offset({ 1.5,1.5,1.5 });
-
+	//pFallingMonster->Get_Component<CCollider>()->Set_Offset({ 1.5,1.5,1.5 });
+	pFallingMonster->Get_Component<CCollider>()->Set_BoundType(BoundingType::OBB);
 	// 4. 카메라 (플레이어 시점)
 	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 
