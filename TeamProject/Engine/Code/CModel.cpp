@@ -4,7 +4,7 @@
 #include "CCameraMgr.h"
 
 CModel::CModel(LPDIRECT3DDEVICE9 pDevice)
-	: CComponent(pDevice)
+	: CComponent(pDevice),uvScale{1.f,1.f,0.f,0.f}
 {
 	if (m_pGraphicDev)
 		m_pGraphicDev->AddRef();
@@ -73,11 +73,6 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 
 		D3DXMATRIX wvp = world * view * proj;
 		shader->SetMatrix("g_matWorldViewProj", &wvp);
-
-		D3DXVECTOR4 uvScale(
-			scale.x * 3.f,  
-			scale.z * 3.f,
-			0.f, 0.f);
 		shader->SetVector("g_UVScale", &uvScale);
 	}
 

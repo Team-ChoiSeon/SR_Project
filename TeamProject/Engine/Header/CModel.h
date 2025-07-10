@@ -31,7 +31,7 @@ public:
 
     CMesh* Get_Mesh() { return m_pMesh; }
     CMaterial* Get_Material() { return m_pMaterial; }
-
+    void Set_UVScale(_vec4 _uvScale) { uvScale = _uvScale; }
 public:
     RENDER_PASS Get_RenderPass() { return RENDER_PASS::RP_OPAQUE; };
     virtual void Free()override;
@@ -42,6 +42,7 @@ private:
 private:
     CMesh* m_pMesh = nullptr;
     CMaterial* m_pMaterial = nullptr; // material include texture
+    _vec4 uvScale;
 
 };
 

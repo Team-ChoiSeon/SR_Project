@@ -196,6 +196,7 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 			comp->Set_Far(jTrans["zFar"]);
 		}
 	}
+
 	// 3. CModel
 	if (jComponents.contains("CModel")) {
 		CModel* model = obj->Get_Component<CModel>();
@@ -217,6 +218,16 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 
 			if (!shaderPath.empty() && model->Get_Material())
 				model->Get_Material()->Set_Shader(shaderPath);
+			
+			if (jComponents["CModel"].contains("uvScale") && 
+				jComponents["CModel"]["uvScale"].is_array() && jComponents["CModel"]["uvScale"].size() >= 2) {
+				_vec4 uvScale;
+				uvScale.x = jComponents["CModel"]["uvScale"][0].get<float>();
+				uvScale.y = jComponents["CModel"]["uvScale"][1].get<float>();
+				uvScale.z = jComponents["CModel"]["uvScale"][2].get<float>();
+				uvScale.w = jComponents["CModel"]["uvScale"][3].get<float>();
+				model->Set_UVScale(uvScale);
+			}
 		}
 	}
 

@@ -16,9 +16,15 @@
                     "class": "CTestTile",
                     "components": {
                         "CModel": {
-                   	    "matKey": "medieval_blocks_06.mtl",
-                            "mesh": "medieval_blocks_06.obj",
-                            "shader": "g_UVScale.fx"
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "DirtObj.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
                         },
                         "CPickable": {
                             "validInGame": true
@@ -50,51 +56,16 @@
                         "CModel": {
                             "matKey": "medieval_blocks_06.mtl",
                             "mesh": "medieval_blocks_06.obj",
-                            "shader": "g_UVScale.fx"
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
                         },
                         "CPickable": {
                             "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": true
                         },
                         "CTransform": {
                             "position": [
@@ -123,7 +94,13 @@
                         "CModel": {
                             "matKey": "DirtObj.mtl",
                             "mesh": "DirtObj.obj",
-                            "shader": "g_UVScale.fx"
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                7.938000202178955,
+                                8.944000244140625,
+                                0.0,
+                                0.0
+                            ]
                         },
                         "CPickable": {
                             "validInGame": true
