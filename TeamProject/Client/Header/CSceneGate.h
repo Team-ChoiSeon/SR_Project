@@ -6,14 +6,13 @@
 namespace Engine {
 	class CTransform;
 	class CModel;
-	class CPickTarget;
 	class CCollider;
 }
-class DummyCube : public CGameObject
+class CSceneGate : public CGameObject
 {
-private :
-	explicit DummyCube(LPDIRECT3DDEVICE9 pGrpahicDev);
-	virtual ~DummyCube();
+private:
+	explicit CSceneGate(LPDIRECT3DDEVICE9 pGrpahicDev);
+	virtual ~CSceneGate();
 
 public:
 	//Basic Function
@@ -21,19 +20,20 @@ public:
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
-	//Create, Release Function
-	static DummyCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CSceneGate* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
-	//Optional Function
-	void Key_Input(const float& fTimeDelta);
+	void Check_CollisionWithPlayer();
+
+	void Set_NextSceneTag(const std::wstring& tag);
 
 private:
-	CTransform*			m_pTransform;
-	CModel*				m_pModel;
-	CPickTarget*		m_pPick;
-	CCollider*			m_pCollider;
+	CTransform* m_pTransform;
+	CModel* m_pModel;
+	CCollider* m_pCollider;
 	CRigidBody* m_pRigid;
 
+	wstring m_NextSceneTag;
+	bool m_bActivated = false;
 };
 

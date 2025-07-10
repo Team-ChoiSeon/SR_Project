@@ -37,12 +37,17 @@ HRESULT DummyCube::Ready_GameObject()
 	m_pCollider = Get_Component<CCollider>();
 	m_pTransform = Get_Component<CTransform>();
 	m_pPick = Get_Component<CPickTarget>();
+	m_pRigid = Get_Component<CRigidBody>();
 
+	m_pTransform->Ready_Transform();
 	m_pTransform->Set_Pos({ 0.f, 0.f, 10.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, -1.f });
 	m_pTransform->Set_Right({ -1.f, 0.f, 0.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Angle({ 0.f, D3DX_PI, 0.f });
+
+
+	m_pCollider->Set_ColTag(ColliderTag::GROUND);
 	CFactory::Save_Prefab(this, "DummyCube");
 
 	return S_OK;
@@ -83,6 +88,7 @@ void DummyCube::Free()
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pPick);
+	Safe_Release(m_pRigid);
 }
 
 void DummyCube::Key_Input(const float& fTimeDelta)

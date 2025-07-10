@@ -164,6 +164,7 @@
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMonster.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
+    <ClInclude Include="..\Header\CSceneGate.h" />
     <ClInclude Include="..\Header\CSceneTestHS.h" />
     <ClInclude Include="..\Header\CTestLightMeshObject.h" />
     <ClInclude Include="..\Header\CCube.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="..\Header\SceneHS.h" />
     <ClInclude Include="..\Header\SceneHW.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
+    <ClInclude Include="..\Header\TestSceneHW.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -196,6 +198,7 @@
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
+    <ClCompile Include="..\Code\CSceneGate.cpp" />
     <ClCompile Include="..\Code\CSceneTestHS.cpp" />
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp" />
     <ClCompile Include="..\Code\CCube.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="..\Code\SceneHS.cpp" />
     <ClCompile Include="..\Code\SceneHW.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
+    <ClCompile Include="..\Code\TestSceneHW.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

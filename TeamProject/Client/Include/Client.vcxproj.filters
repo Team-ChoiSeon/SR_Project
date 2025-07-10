@@ -88,6 +88,12 @@
     <Filter Include="03. Scene\SceneHS\test">
       <UniqueIdentifier>{c6e88d43-7f86-41a2-8f56-2908c917d0b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\SceneTrigger">
+      <UniqueIdentifier>{3a1afc33-49d1-4228-97fa-6a78e8d46b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\SceneTrigger\SceneGate">
+      <UniqueIdentifier>{bad48d57-5cf4-4a43-97b7-580711e99a80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -180,6 +186,12 @@
     <ClInclude Include="..\Header\CSceneTestHS.h">
       <Filter>03. Scene\SceneHS\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\TestSceneHW.h">
+      <Filter>03. Scene\SceneHW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSceneGate.h">
+      <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -262,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSceneTestHS.cpp">
       <Filter>03. Scene\SceneHS\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TestSceneHW.cpp">
+      <Filter>03. Scene\SceneHW</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSceneGate.cpp">
+      <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

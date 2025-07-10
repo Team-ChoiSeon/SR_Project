@@ -1,0 +1,115 @@
+{
+    "layers": {
+        "CAMERA": {
+            "objects": []
+        },
+        "DEFAULT": {
+            "objects": []
+        },
+        "LIGHT": {
+            "objects": []
+        },
+        "OBJECT": {
+            "objects": [
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCamera": {
+                            "eye": [
+                                0.0,
+                                -10.0,
+                                0.0
+                            ],
+                            "far": 200.0,
+                            "fov": 45.0,
+                            "look": [
+                                0.0,
+                                0.0,
+                                30.0
+                            ],
+                            "near": 0.10000000149011612,
+                            "pitch": 0.0,
+                            "roll": 0.0,
+                            "up": [
+                                0.0,
+                                1.0,
+                                0.0
+                            ],
+                            "yaw": 90.0
+                        },
+                        "CModel": {
+                            "matKey": "BrickRoad.mtl",
+                            "mesh": "BrickRoad.obj",
+                            "shader": "g_UVScale.fx"
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CTransform": {
+                            "position": [
+                                0.0,
+                                -10.0,
+                                0.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                30.0,
+                                10.0,
+                                30.0
+                            ]
+                        }
+                    },
+                    "name": "Ground"
+                }
+            ]
+        },
+        "PLAYER": {
+            "objects": [
+                {
+                    "Layer": "PLAYER",
+                    "class": "CMainPlayer",
+                    "components": {
+                        "CModel": {
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "SandyTile.obj",
+                            "shader": "g_UVScale.fx"
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CTransform": {
+                            "position": [
+                                2.0248870849609375,
+                                7.658256530761719,
+                                10.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                0.8532000780105591,
+                                0.8532000780105591,
+                                0.8532000780105591
+                            ]
+                        }
+                    },
+                    "name": "CMainPlayer_1"
+                }
+            ]
+        },
+        "TILE": {
+            "objects": []
+        },
+        "UI": {
+            "objects": []
+        }
+    },
+    "scene_name": "SampleScene"
+}

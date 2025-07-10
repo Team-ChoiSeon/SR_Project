@@ -9,6 +9,7 @@
 #include "SceneHS.h"
 #include "SceneHW.h"
 #include "SceneSB.h"
+#include "TestSceneHW.h"
 
 #include "CSceneTestHS.h"
 
@@ -62,6 +63,10 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F6))
 	{
 		CScene* pScene = CSceneTestHS::Create(m_pGraphicDev);
+	}
+	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F7))
+	{
+		CScene* pScene = TestSceneHW::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 	}
 	

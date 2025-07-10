@@ -19,6 +19,7 @@
 #include "DummyCube.h"
 #include "CDirectionalCube.h"
 #include "CTestTile.h"
+#include "CSceneGate.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -63,6 +64,7 @@ HRESULT SceneHS::Ready_Scene()
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Info({ 5.f, 0.f, 0.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Grab(true);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"GroundDummy", (pTile));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"SceneGate", CSceneGate::Create(m_pGraphicDev));
 
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"TestLightMesh", CTestLightMeshObject::Create(m_pGraphicDev));
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"LightObject", CLightObject::Create(m_pGraphicDev));
