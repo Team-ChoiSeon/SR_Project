@@ -4,6 +4,7 @@
 //--다이렉트X--//
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <d3dx9math.h>
 
 //--STL--//
 #include <stdio.h>

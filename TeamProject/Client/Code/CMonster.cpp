@@ -101,14 +101,27 @@ void CMonster::KeyInput(const _float& fTimeDelta)
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
 	{
-		m_pRigid->Add_Torque(_vec3(0.f, 1.f, 0.f) * 50.f); // 왼쪽 회전
+		m_pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // 왼쪽 회전
 		m_pRigid->Add_Force(_vec3(-1.f, 0.f, 0.f) * 1.f);
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
 	{
-		m_pRigid->Add_Torque(_vec3(0.f, -1.f, 0.f) * 50.f); // 오른쪽 회전
+		m_pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // 오른쪽 회전
 		m_pRigid->Add_Force(_vec3(1.f, 0.f, 0.f) * 1.f);
+	}
+
+	if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
+	{
+		// 정방향 행렬 (Y-up 기준)
+		_matrix matIdentity;
+		D3DXMatrixIdentity(&matIdentity);
+		m_pTransform->Set_RotMatrix(&matIdentity);
+
+		m_pRigid->Set_Velocity(_vec3{ 0.f,0.f,0.f });
+		// 각속도 및 토크 초기화
+		m_pRigid->Set_AVelocity(_vec3(0.f, 0.f, 0.f));
+		m_pRigid->Set_Torque(_vec3(0.f, 0.f, 0.f));
 	}
 		
 }

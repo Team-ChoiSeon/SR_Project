@@ -211,6 +211,7 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 
 void CCollider::On_Collision_Enter(CCollider* pOther)
 {
+	m_pOther = pOther;
 	ColliderType oType = pOther->Get_ColType();
 	if (m_eType == ColliderType::TRIGGER || oType == ColliderType::TRIGGER)
 		return;
@@ -286,6 +287,8 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 
 void CCollider::On_Collision_Exit(CCollider* pOther)
 {
+	if (m_pOther == pOther)	m_pOther = nullptr;
+
 	if (m_eType == ColliderType::ACTIVE && pOther->Get_ColTag() == ColliderTag::GROUND)
 	{
 		if (m_pRigid)
@@ -416,4 +419,5 @@ void CCollider::Free()
 	Safe_Release(m_pGraphicDev);
 	//Safe_Release(m_pOwner);
 	m_pRigid = nullptr;
+	m_pOther = nullptr;
 }

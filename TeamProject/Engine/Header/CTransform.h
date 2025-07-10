@@ -35,6 +35,7 @@ public:
     void Set_AngleX(_float x) { m_vAngle.x = x; }
     void Set_AngleY(_float y) { m_vAngle.y = y; }
     void Set_AngleZ(_float z) { m_vAngle.z = z; }
+    void Set_RotMatrix(const _matrix* pMat) { m_matRot = *pMat; }
     void Set_ParentMatrix(const _matrix* pMat) { m_matParent = *pMat; }
     void Set_OrbitMatrix(const _matrix* pMat) { m_matOrbit = *pMat; }
     void Set_Right(const _vec3& vRight) { m_vInfo[INFO_RIGHT] = vRight; }
