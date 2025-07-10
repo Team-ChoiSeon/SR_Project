@@ -73,6 +73,7 @@ HRESULT SceneHS::Ready_Scene()
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"LightObject", CLightObject::Create(m_pGraphicDev));
 	
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
+	Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
 
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"ffcam", CFirstviewFollowingCamera::Create(m_pGraphicDev));
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"dummycam", CFirstviewFollowingCamera::Create(m_pGraphicDev));
@@ -95,36 +96,6 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 {
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
-
-	CGameObject* PickObj = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_PickObj();
-	auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(PickObj);
-	
-	if (pPickCubeObj) {
-		pPickCubeObj->Set_Grab(false);
-	}
-
-	if (PickObj)
-	{
-		if (Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Hold()) {
-			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-
-
-
-			if (pPickCubeObj) {
-				pPickCubeObj->Set_Grab(true);
-				pPickCubeObj->Set_CursorVec(Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_DragDistance());
-			}
-		}
-		else {
-			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-				Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-		}
-	}
-	else {
-		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
-	}
-
 	// m_pLightObject->Update_GameObject(fTimeDelta);
 	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
 
@@ -144,10 +115,10 @@ void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 	// m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
 	
 	//Engine::CLightMgr::Get_Instance()->UpdateLights({ 0.f, 0.f, -10.f });	if (m_bInGate) {
-	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"SceneGate")->Get_InGate()) {
-		CScene* pScene = SceneHW::Create(m_pGraphicDev);
-		CSceneMgr::Get_Instance()->Set_Scene(pScene);
-	}
+	//if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"SceneGate")->Get_InGate()) {
+	//	CScene* pScene = SceneHW::Create(m_pGraphicDev);
+	//	CSceneMgr::Get_Instance()->Set_Scene(pScene);
+	//}
 
 
 }
@@ -170,4 +141,6 @@ void SceneHS::Free()
 {	
 	Clear_Layers();
 	CScene::Free();
+
+	//CRenderMgr::Get_Instance()->Clear();
 }

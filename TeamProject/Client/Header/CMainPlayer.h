@@ -2,6 +2,7 @@
 #include "CGameObject.h"
 #include "CTransform.h"
 #include "CRigidBody.h"
+#include "CCrosshairUIObject.h"
 
 namespace Engine {
 	class CModel;
@@ -34,6 +35,7 @@ public:
 	CGameObject* Get_PickObj() { return m_pPickObj; }
 
 	void Set_GroundCheck();
+	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; };
 
 protected:
 	//Utility Function
@@ -48,9 +50,10 @@ private:
 	CCollider* m_pCollider;
 	CRigidBody* m_pRigid;
 	CGameObject* m_pPickObj;
+	CCrosshairUIObject* m_pCrosshair;
 
 	float m_fMoveSpeed;
-	float m_fJumpPower = 40.f;
+	float m_fJumpPower = 20.f;
 
 	float m_fWidth;
 	float m_fDepth;

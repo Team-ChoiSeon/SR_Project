@@ -45,7 +45,7 @@ HRESULT CSceneGate::Ready_GameObject()
 	m_pCollider = Get_Component<CCollider>();
 	m_pCollider->Set_ColType(ColliderType::TRIGGER);
 
-	m_pTransform->Set_Pos({ 0.f, 0.f, 10.f });
+	m_pTransform->Set_Pos({ 0.f, -7.f, -20.f });
 	m_pTransform->Set_Scale({ 2.f, 2.f, 2.f });
 
 	return S_OK;
