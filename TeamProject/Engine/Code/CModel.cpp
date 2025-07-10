@@ -4,7 +4,7 @@
 #include "CCameraMgr.h"
 
 CModel::CModel(LPDIRECT3DDEVICE9 pDevice)
-	: CComponent(pDevice),uvScale{1.f,1.f,0.f,0.f}
+	: CComponent(pDevice), m_uvScale{1.f,1.f,0.f,0.f}
 {
 	if (m_pGraphicDev)
 		m_pGraphicDev->AddRef();
@@ -70,10 +70,17 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 		D3DXMATRIX world = *(pTransform->Get_WorldMatrix());
 		D3DXMATRIX view = *(CCameraMgr::Get_Instance()->Get_MainViewMatrix());
 		D3DXMATRIX proj = *(CCameraMgr::Get_Instance()->Get_MainProjectionMatrix());
-
 		D3DXMATRIX wvp = world * view * proj;
 		shader->SetMatrix("g_matWorldViewProj", &wvp);
-		shader->SetVector("g_UVScale", &uvScale);
+		_vec4 tmp = { 1.f,1.f,0.f,0.f };
+		if (m_uvScale != tmp){
+			D3DXVECTOR4 transScale(scale.x, scale.y, 0.f, 0.f); // Z, W는 임시값
+			shader->SetVector("g_UVScale", &transScale);
+			//shader->SetVector("g_UVPosition", &uvPos);
+		}
+		else {
+			shader->SetVector("g_UVScale", &m_uvScale);
+		}
 	}
 
 	if (shader) {
