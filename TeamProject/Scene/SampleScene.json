@@ -4,78 +4,128 @@
             "objects": []
         },
         "DEFAULT": {
-            "objects": [
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CMainPlayer",
-                    "components": {
-                        "CModel": {
-                            "matKey": "SandyTile.mtl",
-                            "mesh": "SandyTile.obj",
-                            "shader": "g_UVScale.fx"
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CTransform": {
-                            "position": [
-                                -4.0869927406311035,
-                                1.0861812829971313,
-                                10.0
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                3.1599998474121094,
-                                3.1599998474121094,
-                                3.1599998474121094
-                            ]
-                        }
-                    },
-                    "name": "CMainPlayer_1"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CMainPlayer",
-                    "components": {
-                        "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
-                            "shader": "g_UVScale.fx"
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CTransform": {
-                            "position": [
-                                0.0,
-                                0.0,
-                                30.0
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CMainPlayer_2"
-                }
-            ]
+            "objects": []
         },
         "LIGHT": {
             "objects": []
         },
         "OBJECT": {
-            "objects": []
+            "objects": [
+                {
+                    "Layer": "OBJECT",
+                    "class": "CTestTile",
+                    "components": {
+                        "CModel": {
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "DirtObj.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                -16.737892150878906,
+                                -2.407726287841797
+                            ],
+                            "rotation": [
+                                0.0,
+                                -0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                40.0,
+                                4.15123176574707,
+                                40.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CDirectionalCube",
+                    "components": {
+                        "CModel": {
+                            "matKey": "medieval_blocks_06.mtl",
+                            "mesh": "medieval_blocks_06.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CTransform": {
+                            "position": [
+                                7.734665870666504,
+                                2.9030706882476807,
+                                -17.48735809326172
+                            ],
+                            "rotation": [
+                                -1.1113402843475342,
+                                7.390129566192627,
+                                -0.14720384776592255
+                            ],
+                            "scale": [
+                                5.614316940307617,
+                                5.413746356964111,
+                                1.6160720586776733
+                            ]
+                        }
+                    },
+                    "name": "CDirectionalCube_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "DummyCube",
+                    "components": {
+                        "CModel": {
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "DirtObj.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                7.938000202178955,
+                                8.944000244140625,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CTransform": {
+                            "position": [
+                                -0.7087944149971008,
+                                4.566763401031494,
+                                -12.394290924072266
+                            ],
+                            "rotation": [
+                                0.0,
+                                3.1415915489196777,
+                                0.0
+                            ],
+                            "scale": [
+                                0.9999801516532898,
+                                1.0,
+                                0.9999801516532898
+                            ]
+                        }
+                    },
+                    "name": "DummyCube_1"
+                }
+            ]
         },
         "PLAYER": {
             "objects": []

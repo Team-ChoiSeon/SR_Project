@@ -36,7 +36,6 @@ SceneHS::~SceneHS()
 
 HRESULT SceneHS::Ready_Scene()
 {
-	CUiMgr::Get_Instance()->Ready_UiMgr();
 	Init_Layers();
 
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
@@ -77,7 +76,7 @@ HRESULT SceneHS::Ready_Scene()
 	Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam")->Set_Target(Get_Layer(LAYER_PLAYER)->Get_GameObject(L"Player"));
 
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
-	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
+
 	CCameraMgr::Get_Instance()->Set_MainCamera(Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam"));
 
 	for (auto& pLayer : m_umLayer)
@@ -88,8 +87,6 @@ HRESULT SceneHS::Ready_Scene()
 
 _int SceneHS::Update_Scene(const _float& fTimeDelta)
 {
-	CPickingMgr::Get_Instance()->Update_Picking(fTimeDelta);
-
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
 
@@ -122,9 +119,6 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 	}
 
-	CCollisionMgr::Get_Instance()->Update_Collision();
-	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
-
 	// m_pLightObject->Update_GameObject(fTimeDelta);
 	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
 
@@ -133,13 +127,12 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 
 void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 {
-	CPickingMgr::Get_Instance()->LateUpdate_Picking(fTimeDelta);
 
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->LateUpdate_Layer(fTimeDelta);
 
 	CLightMgr::Get_Instance()->UpdateLights(CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>()->Get_Pos());
-	CCameraMgr::Get_Instance()->LateUpdate_Camera(fTimeDelta);
+
 
 	// m_pLightObject->LateUpdate_GameObject(fTimeDelta);
 	// m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
@@ -164,10 +157,5 @@ SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void SceneHS::Free()
 {	
 	Clear_Layers();
-
-	CPickingMgr::Destroy_Instance();
-	CUiMgr::Destroy_Instance();
-	CResourceMgr::Destroy_Instance();
-
 	CScene::Free();
 }

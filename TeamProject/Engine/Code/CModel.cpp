@@ -4,7 +4,7 @@
 #include "CCameraMgr.h"
 
 CModel::CModel(LPDIRECT3DDEVICE9 pDevice)
-	: CComponent(pDevice)
+	: CComponent(pDevice), m_uvScale{1.f,1.f,0.f,0.f}
 {
 	if (m_pGraphicDev)
 		m_pGraphicDev->AddRef();
@@ -14,38 +14,16 @@ CModel::~CModel()
 {
 }
 
-CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, const DefaultCubeModel& model)
+CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice)
 {
-	auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
-	auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
+	CModel* instance = new CModel(pDevice);
 
-	if (!pMesh || !pMaterial) {
-		MSG_BOX("CModel::Create - Resource Missing");
-		return nullptr;
+	if (FAILED(instance->Ready_Component())) {
+		Safe_Release(instance);
+		instance = nullptr;
 	}
-	auto pModel = new CModel(pDevice);
-	pModel->Set_Mesh(pMesh);
-	pModel->Set_Material(pMaterial);
-	pMaterial->Set_Shader(L"g_UVScale.fx"); //임시
 
-	OutputDebugString("[CModel] Create 호출됨\n");
-	return pModel;
-}
-
-CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, const DefaultTileModel& model)
-{
-	auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
-	auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
-
-	if (!pMesh || !pMaterial) {
-		MSG_BOX("CModel::Create - Resource Missing");
-		return nullptr;
-	}
-	auto pModel = new CModel(pDevice);
-	pModel->Set_Mesh(pMesh);
-	pModel->Set_Material(pMaterial);
-	OutputDebugString("[CModel] Create 호출됨\n");
-	return pModel;
+	return instance;
 }
 
 void CModel::LateUpdate_Component()
@@ -92,15 +70,17 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 		D3DXMATRIX world = *(pTransform->Get_WorldMatrix());
 		D3DXMATRIX view = *(CCameraMgr::Get_Instance()->Get_MainViewMatrix());
 		D3DXMATRIX proj = *(CCameraMgr::Get_Instance()->Get_MainProjectionMatrix());
-
 		D3DXMATRIX wvp = world * view * proj;
 		shader->SetMatrix("g_matWorldViewProj", &wvp);
-
-		D3DXVECTOR4 uvScale(
-			scale.x * 3.f,  
-			scale.z * 3.f,
-			0.f, 0.f);
-		shader->SetVector("g_UVScale", &uvScale);
+		_vec4 tmp = { 1.f,1.f,0.f,0.f };
+		if (m_uvScale != tmp){
+			D3DXVECTOR4 transScale(scale.x, scale.y, 0.f, 0.f); // Z, W는 임시값
+			shader->SetVector("g_UVScale", &transScale);
+			//shader->SetVector("g_UVPosition", &uvPos);
+		}
+		else {
+			shader->SetVector("g_UVScale", &m_uvScale);
+		}
 	}
 
 	if (shader) {
@@ -115,6 +95,20 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 	else {
 		m_pMesh->Render_Buffer();
 	}
+}
+
+HRESULT CModel::Set_Model(const wstring& meshType, const wstring& matType)
+{
+
+	if (!meshType.empty()) {
+		Safe_Change(m_pMesh, CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev,meshType));
+	}
+
+	if (!matType.empty()) {
+		Safe_Change(m_pMaterial, CResourceMgr::Get_Instance()->Load_Material(matType));
+	}
+
+	return S_OK;
 }
 
 void CModel::Free()

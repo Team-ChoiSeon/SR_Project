@@ -39,6 +39,9 @@ HRESULT CFloatingCube::Ready_GameObject()
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 
+
+
+
 	m_bGoBack = false;	
 	m_bBackward = false;
 	m_bOn = true;
@@ -121,7 +124,6 @@ void CFloatingCube::Set_Info(const _vec3& vStartPos, const _vec3& vDirection, co
 	m_fSleepTime = SleepTime;
 	m_bBackward = true;
 	ComputeEndPos();
-
 }
 
 void CFloatingCube::SyncVelPlayer()
