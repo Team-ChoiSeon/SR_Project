@@ -39,6 +39,14 @@ HRESULT CMonster::Ready_GameObject()
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
 
+	Get_Component<CRigidBody>()->Set_OnGround(false);
+	Get_Component<CRigidBody>()->Set_UseGravity(true);
+	Get_Component<CRigidBody>()->Set_Bounce(0.5f);
+	Get_Component<CRigidBody>()->Set_Friction(0.2f);
+	// Get_Component<CCollider>()->Set_Offset({ 1.5,1.5,1.5 });
+	Get_Component<CCollider>()->Set_BoundType(BoundingType::OBB);
+
+
 
 	return S_OK;
 }
