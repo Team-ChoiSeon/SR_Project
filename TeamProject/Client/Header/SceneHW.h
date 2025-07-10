@@ -37,7 +37,8 @@ private:
 	CFirstviewFollowingCamera*			m_pFFCam;
 	CFirstviewFollowingCamera*			m_pdummycam;
 	DummyCube*							m_pDummy;
-	CFloatingCube*						m_pFloatingCube;
+	CFloatingCube* m_pFloatingCube;
+	CFloatingCube* m_pFloatingCube2;
 	CDirectionalCube*					m_pDirectionalCube;
 	CDirectionalCube*					m_pOnewayCube;
 	CImpulseCube*						m_pImpulseCube;
@@ -46,6 +47,6 @@ private:
 	CTimerButton*						m_pTimerButton;
 
 	_float								m_fTime;
-	bool						m_bCamPlayer;
+	bool								m_bCamPlayer;
 };
 
