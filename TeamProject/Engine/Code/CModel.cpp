@@ -23,6 +23,8 @@ CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice)
 		instance = nullptr;
 	}
 
+	DefaultCubeModel model;
+	instance->Set_Model(model.meshKey, model.materialKey);
 	return instance;
 }
 
