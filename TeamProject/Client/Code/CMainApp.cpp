@@ -7,16 +7,23 @@
 #include "CTimeMgr.h"
 #include "CFrameMgr.h"
 #include "CInputMgr.h"
+
 #include "CSceneMgr.h"
-#include "CLightMgr.h"
-#include "CPickingMgr.h"
-#include "CRenderMgr.h"
-#include "CUIMgr.h"
-#include "CCollisionMgr.h"
-#include "CCameraMgr.h"
-#include "CShaderMgr.h"
 #include "CScene.h"
 #include "Logo.h"
+
+#include "CRenderMgr.h"
+#include "CShaderMgr.h"
+#include "CResourceMgr.h"
+
+#include "CUIMgr.h"
+#include "CPickingMgr.h"
+
+#include "CCollisionMgr.h"
+#include "CCameraMgr.h"
+#include "CLightMgr.h"
+
+
 
 
 CMainApp::CMainApp()
@@ -42,6 +49,7 @@ HRESULT CMainApp::Ready_MainApp()
 	CResourceMgr::Get_Instance()->Ready_Resource();
 	CShaderMgr::Get_Instance()->Ready_Shader(m_pGraphicDev);
 	CRenderMgr::Get_Instance()->Ready_RenderMgr();
+
 	CUiMgr::Get_Instance()->Ready_UiMgr();
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
 
@@ -57,6 +65,7 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->Update_InputDev();
 	CPickingMgr::Get_Instance()->Update_Picking(fTimeDelta);
+
 	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
 	CCollisionMgr::Get_Instance()->Update_Collision();
 
@@ -69,6 +78,7 @@ void CMainApp::LateUpdate_MainApp(_float& fTimeDelta)
 {
 	CInputMgr::Get_Instance()->LateUpdate_InputDev();
 	CPickingMgr::Get_Instance()->LateUpdate_Picking(fTimeDelta);
+
 	CCameraMgr::Get_Instance()->LateUpdate_Camera(fTimeDelta);
 	CCollisionMgr::Get_Instance()->LateUpdate_Collision();
 
@@ -80,10 +90,7 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
 	CRenderMgr::Get_Instance()->Render(m_pGraphicDev);
-  
 	m_pDeviceClass->Render_End();
-
-
 }
 
 CMainApp* CMainApp::Create()
@@ -110,10 +117,11 @@ void CMainApp::Free()
 	CInputMgr::Get_Instance()->Destroy_Instance();
 	CFrameMgr::Get_Instance()->Destroy_Instance();
 	CTimeMgr::Get_Instance()->Destroy_Instance();
+
+	CUiMgr::Destroy_Instance();
 	CLightMgr::Get_Instance()->Destroy_Instance();
 	CPickingMgr::Get_Instance()->Destroy_Instance();
-	CUiMgr::Destroy_Instance();
-
+	
 	// 4. 리소스, 디바이스
 	CResourceMgr::Get_Instance()->Destroy_Instance();
 	CShaderMgr::Get_Instance()->Destroy_Instance();

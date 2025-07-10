@@ -42,7 +42,7 @@ public:
 
 private:
 	//Variables
-	CGameObject*							m_pMainCam;
+	CGameObject*							m_pMainCam = nullptr;
 	unordered_map<wstring, CGameObject*>	m_umCam;
 	
 	_matrix		m_matView;
