@@ -116,22 +116,22 @@ HRESULT TestSceneHW::Ready_Scene()
 
 
 
-	CResourceMgr::Get_Instance()->Load_Material(basetilekey);
-	CMaterial* material1 = CResourceMgr::Get_Instance()->Get_Material(basetilekey);
-
-	CResourceMgr::Get_Instance()->Load_Material(floatingcubekey);
-	CMaterial* floatingmaterial = CResourceMgr::Get_Instance()->Get_Material(floatingcubekey);
-	CResourceMgr::Get_Instance()->Load_Material(diretionalkey);
-	CMaterial* diretionalmtl = CResourceMgr::Get_Instance()->Get_Material(diretionalkey);
+	// CResourceMgr::Get_Instance()->Load_Material(basetilekey);
+	// CMaterial* material1 = CResourceMgr::Get_Instance()->Get_Material(basetilekey);
+	// 
+	// CResourceMgr::Get_Instance()->Load_Material(floatingcubekey);
+	// CMaterial* floatingmaterial = CResourceMgr::Get_Instance()->Get_Material(floatingcubekey);
+	// CResourceMgr::Get_Instance()->Load_Material(diretionalkey);
+	// CMaterial* diretionalmtl = CResourceMgr::Get_Instance()->Get_Material(diretionalkey);
 	
-	Get_Layer(LAYER_TILE)->Get_GameObject(L"BaseTile")->Get_Component <CModel>()->Set_Material(material1);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component <CModel>()->Set_Material(floatingmaterial);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component <CModel>()->Set_Material(floatingmaterial);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component <CModel>()->Set_Material(floatingmaterial);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component <CModel>()->Set_Material(diretionalmtl);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A2")->Get_Component <CModel>()->Set_Material(diretionalmtl);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A3")->Get_Component <CModel>()->Set_Material(diretionalmtl);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+	// Get_Layer(LAYER_TILE)->Get_GameObject(L"BaseTile")->Get_Component <CModel>()->Set_Material(material1);
+	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component <CModel>()->Set_Material(floatingmaterial);
+	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component <CModel>()->Set_Material(floatingmaterial);
+	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component <CModel>()->Set_Material(floatingmaterial);
+	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A2")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A3")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+	// Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component <CModel>()->Set_Material(diretionalmtl);
 
 
 
