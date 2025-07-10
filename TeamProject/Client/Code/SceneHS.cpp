@@ -10,6 +10,8 @@
 #include "CResourceMgr.h"
 #include "CPickingMgr.h"
 #include "CCollisionMgr.h"
+#include "CSceneMgr.h"
+#include "CRenderMgr.h"
 
 #include "CPlayer.h"
 #include "CMainPlayer.h"
@@ -20,6 +22,8 @@
 #include "CDirectionalCube.h"
 #include "CTestTile.h"
 #include "CSceneGate.h"
+
+#include "SceneHW.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -147,7 +151,13 @@ void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 	// m_pLightObject->LateUpdate_GameObject(fTimeDelta);
 	// m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
 	
-	//Engine::CLightMgr::Get_Instance()->UpdateLights({ 0.f, 0.f, -10.f });
+	//Engine::CLightMgr::Get_Instance()->UpdateLights({ 0.f, 0.f, -10.f });	if (m_bInGate) {
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"SceneGate")->Get_InGate()) {
+		CScene* pScene = SceneHW::Create(m_pGraphicDev);
+		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+	}
+
+
 }
 
 SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -167,10 +177,12 @@ SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void SceneHS::Free()
 {	
 	Clear_Layers();
-
-	CPickingMgr::Destroy_Instance();
-	CUiMgr::Destroy_Instance();
-	CResourceMgr::Destroy_Instance();
+	//CPickingMgr::Get_Instance()->Free();
+	//CPickingMgr::Get_Instance()->Destroy_Instance();
+	CUiMgr::Get_Instance()->Destroy_Instance();
+	//CResourceMgr::Get_Instance()->Destroy_Instance();
+	CCollisionMgr::Get_Instance()->Clear();
+	CRenderMgr::Get_Instance()->Clear();
 
 	CScene::Free();
 }

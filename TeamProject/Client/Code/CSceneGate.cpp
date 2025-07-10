@@ -3,6 +3,7 @@
 #include "CSceneGate.h"
 #include "Engine_Model.h"
 #include "Engine_Macro.h"
+#include "CGameObject.h"
 
 #include "CTransform.h"
 #include "CCollider.h"
@@ -10,6 +11,7 @@
 #include "CRigidBody.h"
 
 #include "CMainPlayer.h"
+#include "SceneHW.h"
 
 #include "CCollisionMgr.h"
 #include "CInputMgr.h"
@@ -61,6 +63,22 @@ void CSceneGate::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->LateUpdate_Component();
+
+	CCollider* pOtherCol = m_pCollider->Get_Other();
+	
+	if (pOtherCol) {
+		CGameObject* pOtherObj = pOtherCol->m_pOwner;
+		if (pOtherObj != nullptr)
+		{
+			if (dynamic_cast<CMainPlayer*>(pOtherObj))
+			{
+				m_bInGate = true;
+			}
+		}
+
+	}
+
+
 }
 
 

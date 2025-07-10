@@ -22,10 +22,8 @@ public:
 
 	static CSceneGate* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
-
-	void Check_CollisionWithPlayer();
-
-	void Set_NextSceneTag(const std::wstring& tag);
+	
+	bool Get_InGate() { return m_bInGate; };
 
 private:
 	CTransform* m_pTransform;
@@ -34,6 +32,6 @@ private:
 	CRigidBody* m_pRigid;
 
 	wstring m_NextSceneTag;
-	bool m_bActivated = false;
+	bool m_bInGate = false;
 };
 
