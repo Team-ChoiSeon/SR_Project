@@ -42,12 +42,13 @@ HRESULT SceneHW::Ready_Scene()
 	m_pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 	m_pFloatingCube = CFloatingCube::Create(m_pGraphicDev);
+	m_pFloatingCube2 = CFloatingCube::Create(m_pGraphicDev);
 	CFloatingCube* pGround = CFloatingCube::Create(m_pGraphicDev);
 	m_pDirectionalCube = CDirectionalCube::Create(m_pGraphicDev);
 	m_pOnewayCube = CDirectionalCube::Create(m_pGraphicDev);
 	m_pImpulseCube = CImpulseCube::Create(m_pGraphicDev);
 	//m_pWeightButton = CWeightButton::Create(m_pGraphicDev);
-	//m_pTimerButton = CTimerButton::Create(m_pGraphicDev);
+	m_pTimerButton = CTimerButton::Create(m_pGraphicDev);
 
 
 
@@ -58,6 +59,7 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"hwPlayer", m_pPlayer);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"hwffcam", m_pFFCam);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwFloatingCube", m_pFloatingCube);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwFloatingCube2", m_pFloatingCube2);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwGround", pGround);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwDirectionalCube", m_pDirectionalCube);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwOnewayCube", m_pOnewayCube);
@@ -78,12 +80,13 @@ HRESULT SceneHW::Ready_Scene()
 	m_pFFCam->Set_Target(m_pPlayer);
 
 	m_pFloatingCube->Set_Info({ -20.f, 0.f, 50.f }, { 1.f, 0.f, 0.f }, 40.f, 20.f, 1.5f);
+	m_pFloatingCube2->Set_Info({ 20.f, 10.f, 30.f }, { 0.f, 1.f, 0.f }, 20.f, 10.f, 1.5f);
 	pGround->Set_Info({ 0.f, -20.f, 0.f }, { 1.f, 0.f, 0.f }, 1.f, 0.f, 0.f);
 	pGround->Get_Component<CTransform>()->Set_Scale({ 100.f, 1.f, 100.f });
 	m_pDirectionalCube->Set_Info({ 0.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
 	m_pOnewayCube->Set_Info({ -10.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, 20.f);
 	m_pImpulseCube->Set_Info({ 0.f, 0.f, 20.f });
-	//m_pTimerButton->Set_Info({ -10.f, 30.f, 20.f }, 1.f, -1.f);
+	m_pTimerButton->Set_Info({ -10.f, 30.f, 20.f }, 1.f, -1.f);
 	//m_pWeightButton->Set_Info(10.f, -1.f);
 	
 	
@@ -97,6 +100,13 @@ HRESULT SceneHW::Ready_Scene()
 	m_pFloatingCube->Get_Component<CRigidBody>()->Set_OnGround(true);
 	m_pFloatingCube->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	m_pFloatingCube->Set_Loop();
+
+	m_pFloatingCube2->Get_Component<CRigidBody>()->Set_Friction(0.f);
+	m_pFloatingCube2->Get_Component<CRigidBody>()->Set_Mass(10.f);
+	m_pFloatingCube2->Get_Component<CRigidBody>()->Set_Bounce(0.f);
+	m_pFloatingCube2->Get_Component<CRigidBody>()->Set_OnGround(true);
+	m_pFloatingCube2->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	m_pFloatingCube2->Set_Loop();
 
 	pGround->Get_Component<CRigidBody>()->Set_Friction(0.f);
 	pGround->Get_Component<CRigidBody>()->Set_Mass(1000.f);
@@ -136,14 +146,14 @@ HRESULT SceneHW::Ready_Scene()
 	//===========================================================================================================//
 
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
-	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
+	
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Ready_Layer();
 
 
-	m_fTime = 100000.f;
+	//m_fTime = 100000.f;
 	return S_OK;
 }
 
@@ -163,47 +173,43 @@ SceneHW* SceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 int SceneHW::Update_Scene(const _float& fTimeDelta)
 {
-	CPickingMgr::Get_Instance()->Update_Picking(fTimeDelta);
-
-
 
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
 
-	//CGameObject* PickObj = m_pPlayer->Get_PickObj();
-	//auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(PickObj);
+	CGameObject* PickObj = m_pPlayer->Get_PickObj();
+	auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(PickObj);
 
-	//if (pPickCubeObj) {
-	//	pPickCubeObj->Set_Grab(false);
-	//}
+	if (pPickCubeObj) {
+		pPickCubeObj->Set_Grab(false);
+	}
 
-	//if (PickObj)
-	//{
-	//	if (m_pPlayer->Get_Hold()) {
-	//		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+	if (PickObj)
+	{
+		if (m_pPlayer->Get_Hold()) {
+			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
 
-
-
-	//		if (pPickCubeObj) {
-	//			pPickCubeObj->Set_Grab(true);
-	//			pPickCubeObj->Set_CursorVec(m_pPlayer->Get_DragDistance());
-	//		}
-	//	}
-	//	else {
-	//		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-	//			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-	//	}
-	//}
-	//else {
-	//	Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-	//		Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
-	//}
-	//if (m_pPlayer->Get_Hold()) {
-	//	m_pDirectionalCube->Set_Grab(m_pPlayer->Get_PickObj() == m_pDirectionalCube);
-	//	m_pOnewayCube->Set_Grab(m_pPlayer->Get_PickObj() == m_pOnewayCube);
-	//}
+			if (pPickCubeObj) {
+				pPickCubeObj->Set_Grab(true);
+				pPickCubeObj->Set_CursorVec(m_pPlayer->Get_DragDistance());
+			}
+		}
+		else {
+			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
+				Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+		}
+	}
+	else {
+		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
+			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+	}
+	if (m_pPlayer->Get_Hold()) {
+		m_pDirectionalCube->Set_Grab(m_pPlayer->Get_PickObj() == m_pDirectionalCube);
+		m_pOnewayCube->Set_Grab(m_pPlayer->Get_PickObj() == m_pOnewayCube);
+	}
 
 
+	//=====================================================================================================================================//
 	//m_pDirectionalCube->Set_Grab(m_pPlayer->Get_Hold() && CPickingMgr::Get_Instance()->Get_PickedObject() == m_pDirectionalCube);
 	//m_pOnewayCube->Set_Grab(m_pPlayer->Get_Hold() && CPickingMgr::Get_Instance()->Get_PickedObject()  == m_pOnewayCube);
 
@@ -211,7 +217,7 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	//	m_pDirectionalCube->Set_CursorVec(m_pPlayer->Get_DragDistance());
 	//if (m_pOnewayCube->Get_Grab())
 	//	m_pOnewayCube->Set_CursorVec(m_pPlayer->Get_DragDistance());
-
+	//=====================================================================================================================================//
 
 	//m_pTimerButton->Set_Trigger(m_fTime);
 	//if (m_pPlayer->Get_Hold() && CPickingMgr::Get_Instance()->Get_PickedObject(100.f) == m_pTimerButton)
@@ -240,7 +246,7 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	//else
 	//	CCameraMgr::Get_Instance()->Set_MainCamera(m_pdummycam);
 
-	// PickingMgr ¼öÁ¤À¸·Î ÀÓ½Ã ¸·¾ÆµÐ ÄÚµå
+	// PickingMgr ìˆ˜ì •ìœ¼ë¡œ ìž„ì‹œ ë§‰ì•„ë‘” ì½”ë“œ
 	// if (CPickingMgr::Get_Instance()->Get_PickedObject(100.f) == m_pDummy)
 	// {
 	// 	OutputDebugStringW(L"[Debug] Hit!	\n");
@@ -280,9 +286,6 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 
 
 
-	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
-	CCollisionMgr::Get_Instance()->Update_Collision();
-
 	return 0;
 }
 
@@ -302,8 +305,5 @@ void SceneHW::Render_Scene()
 void SceneHW::Free()
 {
 	CScene::Free();
-
-	CUiMgr::Destroy_Instance();
-	CPickingMgr::Destroy_Instance();
 }
 

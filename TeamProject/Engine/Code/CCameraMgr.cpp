@@ -92,16 +92,19 @@ const _matrix* CCameraMgr::Get_CamViewMatrix(CGameObject* pCamera)
 
 const _matrix* CCameraMgr::Get_CamProjectionMatrix(CGameObject* pCamera)
 {
+	
 	return pCamera->Get_Component<CCamera>()->Get_ProjectionMatrix();
 }
 
 const _matrix* CCameraMgr::Get_MainViewMatrix()
 {
+	if (m_pMainCam == nullptr) return nullptr;
 	return m_pMainCam->Get_Component<CCamera>()->Get_ViewMatrix();
 }
 
 const _matrix* CCameraMgr::Get_MainProjectionMatrix()
 {
+	if (m_pMainCam == nullptr) return nullptr;
 	return m_pMainCam->Get_Component<CCamera>()->Get_ProjectionMatrix();
 }
 

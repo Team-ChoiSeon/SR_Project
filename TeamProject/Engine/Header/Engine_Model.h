@@ -12,13 +12,13 @@ BEGIN(Engine)
 
 struct ENGINE_DLL DefaultCubeModel
 {
-    std::wstring meshKey = L"CCubeTex";
+    std::wstring meshKey = L"DirtObj.obj";
     std::wstring materialKey = L"DirtObj.mtl";
 };
 
 struct ENGINE_DLL DefaultTileModel
 {
-    std::wstring meshKey = L"CCubeTex";
+    std::wstring meshKey = L"BrickRoad.obj";
     std::wstring materialKey = L"BrickRoad.mtl";
 };
 

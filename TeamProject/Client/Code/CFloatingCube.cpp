@@ -47,6 +47,7 @@ HRESULT CFloatingCube::Ready_GameObject()
 	m_bOn = true;
 	m_fSpeed = 1.f;
 	m_fSleepTime = 0.f;
+	//m_vEndPos = { 0.f, 0.f, 0.f };
 
 	CFactory::Save_Prefab(this, "CFloatingCube");
     return S_OK;
@@ -54,6 +55,9 @@ HRESULT CFloatingCube::Ready_GameObject()
 
 _int CFloatingCube::Update_GameObject(const _float& fTimeDelta)
 {
+	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
+		pComponent.second->Update_Component(fTimeDelta);
+
 	if (m_bBackward)
 	{
 		if (m_bGoBack)
@@ -77,8 +81,8 @@ _int CFloatingCube::Update_GameObject(const _float& fTimeDelta)
 			Move(fTimeDelta);
 	}
 
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->Update_Component(fTimeDelta);
+
+	SyncVelPlayer();
 
 	return S_OK;
 }
@@ -123,6 +127,19 @@ void CFloatingCube::Set_Info(const _vec3& vStartPos, const _vec3& vDirection, co
 
 }
 
+void CFloatingCube::SyncVelPlayer()
+{
+	CCollider* pOtherCol = m_pCollider->Get_Other();
+	if (pOtherCol)
+	{
+		if ((pOtherCol->m_pOwner->Get_Component<CTransform>()->Get_Pos().y - pOtherCol->m_pOwner->Get_Component<CTransform>()->Get_Scale().y) >
+			(m_pTransform->Get_Pos().y + m_pTransform->Get_Scale().y - 0.1f))
+		{
+			pOtherCol->m_pOwner->Get_Component<CRigidBody>()->Set_Velocity(m_pRigid->Get_Velocity());
+		}
+	}
+}
+
 void CFloatingCube::ComputeEndPos()
 {
 	D3DXVec3Normalize(&m_vDirection, &m_vDirection);
@@ -131,71 +148,157 @@ void CFloatingCube::ComputeEndPos()
 	m_vDescVelPos = m_vStartPos + m_vDirection * m_fMaxDistance * 0.8f;
 }
 
+
 void CFloatingCube::Move(const _float& fTimeDelta)
 {
 	_vec3 vNowPos = m_pTransform->Get_Pos();
 	_vec3 vNowStartGap = vNowPos - m_vStartPos;
+	_vec3 vEndStartGap = m_vEndPos - m_vStartPos;
 	_vec3 vConstStartGap = m_vConstVelPos - m_vStartPos;
 	_vec3 vDescStartGap = m_vDescVelPos - m_vStartPos;
-	_vec3 vEndStartGap = m_vEndPos - m_vStartPos;
 
-	float ForceAdd = (m_fSpeed * m_fSpeed) * m_pRigid->Get_Mass() / (2.0f * D3DXVec3Length(&vConstStartGap));
-	//float  decelMag = -(vmax * vmax) / (2.0f * distEndSeg);
+	_float fTravelDist = D3DXVec3Length(&vNowStartGap);
+	_float fTotalDist = D3DXVec3Length(&vEndStartGap);
+	_float fConstDist = D3DXVec3Length(&vConstStartGap);
+	_float fDescDist = D3DXVec3Length(&vDescStartGap);
 
+	_float Accel = ((m_fSpeed * m_fSpeed) / (2.f * fConstDist));
+
+	if (fTravelDist < fConstDist)
+	{
+		m_pRigid->Add_Velocity(Accel * m_vDirection *fTimeDelta);
+	}
+	else if (fTravelDist < fDescDist)
+	{
+		m_pRigid->Add_Velocity(0.f * m_vDirection * fTimeDelta);
+	}
+	else if (fTravelDist < fTotalDist)
+	{
+
+		m_pRigid->Add_Velocity(-Accel * m_vDirection * fTimeDelta);
+	}
+	else
+	{
+		m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
+		m_bGoBack = true;
+		m_bOn = false;
+	}
+
+
+	//_vec3 vNowPos = m_pTransform->Get_Pos();
+	//_vec3 vNowStartGap = vNowPos - m_vStartPos;
+	//_vec3 vEndStartGap = m_vEndPos - m_vStartPos;
+	//_vec3 vConstStartGap = m_vConstVelPos - m_vStartPos;
+	//_vec3 vDescStartGap = m_vDescVelPos - m_vStartPos;
+
+	//float ForceAdd = (m_fSpeed * m_fSpeed) * m_pRigid->Get_Mass() / (2.0f * D3DXVec3Length(&vConstStartGap));
+	////float  decelMag = -(vmax * vmax) / (2.0f * distEndSeg);
+
+	////_vec3 standardvel = m_vDirection * m_fSpeed;
 	//_vec3 standardvel = m_vDirection * m_fSpeed;
+	//_vec3 setacc = (m_fSpeed * m_fSpeed) * m_vDirection / (2.f * D3DXVec3Length(&vConstStartGap));
 
-	if (D3DXVec3Length(&vNowStartGap) <= D3DXVec3Length(&vConstStartGap))
-	{
-		m_pRigid->Set_Force(ForceAdd * m_vDirection);
-	}
-	else if (D3DXVec3Length(&vNowStartGap) <= D3DXVec3Length(&vDescStartGap))
-	{
-		m_pRigid->Set_Force({0.f, 0.f, 0.f});
-	}
-	else if (D3DXVec3Length(&vNowStartGap) <= D3DXVec3Length(&vEndStartGap))
-	{
-		m_pRigid->Set_Force(ForceAdd * -m_vDirection);
+	//if (D3DXVec3Length(&vNowStartGap) <= D3DXVec3Length(&vConstStartGap))
+	//{
+	//	m_pRigid->Add_Velocity(setacc * fTimeDelta);
+	//	//m_pRigid->Set_Force(ForceAdd * m_vDirection);
+	//}
+	//else if (D3DXVec3Length(&vNowStartGap) <= D3DXVec3Length(&vDescStartGap))
+	//{
+	//	m_pRigid->Add_Velocity({ 0.f, 0.f, 0.f });
+	//	//m_pRigid->Set_Force({ 0.f, 0.f, 0.f });
+	//}
+	//else if (D3DXVec3Length(&vNowStartGap) <= D3DXVec3Length(&vEndStartGap))
+	//{
+	//	m_pRigid->Add_Velocity(-setacc * fTimeDelta);
+	//	//m_pRigid->Set_Force(ForceAdd * -m_vDirection);
 
-		_vec3 nowvel = m_pRigid->Get_Velocity();
-		if (D3DXVec3Length(&nowvel) < 0.01f) {
-			m_bGoBack = true;
-			m_bOn = false;
-		}
-	}
+	//	_vec3 nowvel = m_pRigid->Get_Velocity();
+	//	if (D3DXVec3Length(&nowvel) < 0.001f) {
+	//		m_pRigid->Set_Force({ 0.f, 0.f, 0.f });
+	//		m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
+	//		m_pTransform->Set_Pos(m_vEndPos);
+	//		m_bGoBack = true;
+	//		m_bOn = false;
+	//	}
+	//}
 
 }
 
 void CFloatingCube::MoveBack(const _float& fTimeDelta)
 {
 	_vec3 vNowPos = m_pTransform->Get_Pos();
-	_vec3 vNowEndGap = vNowPos - m_vEndPos;
-	_vec3 vConstEndGap = m_vConstVelPos - m_vEndPos;
-	_vec3 vDescEndGap = m_vDescVelPos - m_vEndPos;
-	_vec3 vStartEndGap = m_vStartPos - m_vEndPos;
+	_vec3 vNowStartGap = vNowPos - m_vEndPos;
+	_vec3 vEndStartGap = m_vStartPos - m_vEndPos;
+	_vec3 vConstStartGap = m_vConstVelPos - m_vEndPos;
+	_vec3 vDescStartGap = m_vDescVelPos - m_vEndPos;
 
-	float ForceAdd = (m_fSpeed * m_fSpeed) * m_pRigid->Get_Mass() / (2.0f * D3DXVec3Length(&vDescEndGap));
-	//float  decelMag = -(vmax * vmax) / (2.0f * distEndSeg);
+	_float fTravelDist = D3DXVec3Length(&vNowStartGap);
+	_float fTotalDist = D3DXVec3Length(&vEndStartGap);
+	_float fConstDist = D3DXVec3Length(&vConstStartGap);
+	_float fDescDist = D3DXVec3Length(&vDescStartGap);
+
+	_float Accel = ((m_fSpeed * m_fSpeed) / (2.f * fDescDist));
+
+	if (fTravelDist < fDescDist)
+	{
+		m_pRigid->Add_Velocity(-Accel * m_vDirection * fTimeDelta);
+	}
+	else if (fTravelDist < fConstDist)
+	{
+		m_pRigid->Add_Velocity(0.f * m_vDirection * fTimeDelta);
+	}
+	else if (fTravelDist < fTotalDist)
+	{
+
+		m_pRigid->Add_Velocity(Accel * m_vDirection * fTimeDelta);
+	}
+	else
+	{
+		m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
+		m_bGoBack = false;
+		m_bOn = false;
+	}
+
+
+
+	//_vec3 vNowPos = m_pTransform->Get_Pos();
+	//_vec3 vNowEndGap = vNowPos - m_vEndPos;
+	//_vec3 vConstEndGap = m_vConstVelPos - m_vEndPos;
+	//_vec3 vDescEndGap = m_vDescVelPos - m_vEndPos;
+	//_vec3 vStartEndGap = m_vStartPos - m_vEndPos;
+
+	//float ForceAdd = (m_fSpeed * m_fSpeed) * m_pRigid->Get_Mass() / (2.0f * D3DXVec3Length(&vDescEndGap));
+	////float  decelMag = -(vmax * vmax) / (2.0f * distEndSeg);
 
 	//_vec3 standardvel = m_vDirection * m_fSpeed;
+	//_vec3 setacc = (m_fSpeed * m_fSpeed) * m_vDirection / (2.f * D3DXVec3Length(&vDescEndGap));
 
-	if (D3DXVec3Length(&vNowEndGap) <= D3DXVec3Length(&vDescEndGap))
-	{
-		m_pRigid->Set_Force(ForceAdd * -m_vDirection);
-	}
-	else if (D3DXVec3Length(&vNowEndGap) <= D3DXVec3Length(&vConstEndGap))
-	{
-		m_pRigid->Set_Force({ 0.f, 0.f, 0.f });
-	}
-	else if (D3DXVec3Length(&vNowEndGap) <= D3DXVec3Length(&vStartEndGap))
-	{
-		m_pRigid->Set_Force(ForceAdd * m_vDirection);
+	//if (D3DXVec3Length(&vNowEndGap) <= D3DXVec3Length(&vDescEndGap))
+	//{
+	//	m_pRigid->Add_Velocity(-setacc);
+	//	//m_pRigid->Set_Force(ForceAdd * -m_vDirection);
+	//}
+	//else if (D3DXVec3Length(&vNowEndGap) <= D3DXVec3Length(&vConstEndGap))
+	//{
+	//	m_pRigid->Add_Velocity({ 0.f, 0.f, 0.f });
+	//}
+	//else if (D3DXVec3Length(&vNowEndGap) <= D3DXVec3Length(&vStartEndGap))
+	//{
 
-		_vec3 nowvel = m_pRigid->Get_Velocity();
-		if (D3DXVec3Length(&nowvel) < 0.01f) {
-			m_bGoBack = false;
-			m_bOn = false;
-		}
-	}
+	//	m_pRigid->Add_Velocity(setacc);
+	//	//m_pRigid->Set_Force(ForceAdd * m_vDirection);
+
+	//	_vec3 nowvel = m_pRigid->Get_Velocity();
+	//	if (D3DXVec3Length(&nowvel) < 0.001f) {
+	//		m_pRigid->Set_Force({ 0.f, 0.f, 0.f });
+	//		m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
+	//		//m_pTransform->Set_Pos(m_vStartPos);
+	//		m_bGoBack = false;
+	//		m_bOn = false;
+
+	//	}
+	//}
 }
 
 void CFloatingCube::Sleep(const _float fTimeDelta)

@@ -45,7 +45,10 @@ HRESULT TestSceneHW::Ready_Scene()
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1");
 	//m_pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"FFCam", m_pFFCam);
-	//Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", m_pPlayer);
+
+
+	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", m_pPlayer);
+
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component<CRigidBody>()->Set_OnGround(true);
@@ -57,11 +60,14 @@ HRESULT TestSceneHW::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component<CRigidBody>()->Set_OnGround(true);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component<CRigidBody>()->Set_OnGround(true);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component<CRigidBody>()->Set_UseGravity(false);
+
+
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component<CRigidBody>()->Set_OnGround(true);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component<CRigidBody>()->Set_OnGround(true);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component<CRigidBody>()->Set_UseGravity(true);
+
 
 	Get_Layer(LAYER_TILE)->Get_GameObject(L"BaseTile")->Get_Component<CRigidBody>()->Set_OnGround(true);
 	Get_Layer(LAYER_TILE)->Get_GameObject(L"BaseTile")->Get_Component<CRigidBody>()->Set_UseGravity(false);
@@ -99,40 +105,48 @@ HRESULT TestSceneHW::Ready_Scene()
 	Get_Layer(LAYER_TILE)->Get_GameObject(L"Wall_2")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	Get_Layer(LAYER_TILE)->Get_GameObject(L"Wall_2")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 
-	//const wstring basetilekey = L"Sand_008.mtl";
-	//const wstring floatingcubekey = L"Rock029.mtl";
-	//const wstring diretionalkey = L"Wood_Grain.mtl";
+
+	const wstring basetilekey = L"Sand_008.mtl";
+	const wstring floatingcubekey = L"Rock029.mtl";
+	const wstring diretionalkey = L"Wood_Grain.mtl";
+
 	//const wstring basetilekey = L"Sand_008.mtl";
 	//const wstring basetilekey = L"Sand_008.mtl";
 
 
-	// CResourceMgr::Get_Instance()->Load_Material(basetilekey);
-	// CMaterial* material1 = CResourceMgr::Get_Instance()->Get_Material(basetilekey);
-	// 
-	// CResourceMgr::Get_Instance()->Load_Material(floatingcubekey);
-	// CMaterial* floatingmaterial = CResourceMgr::Get_Instance()->Get_Material(floatingcubekey);
-	// CResourceMgr::Get_Instance()->Load_Material(diretionalkey);
-	// CMaterial* diretionalmtl = CResourceMgr::Get_Instance()->Get_Material(diretionalkey);
+
+
+	CResourceMgr::Get_Instance()->Load_Material(basetilekey);
+	CMaterial* material1 = CResourceMgr::Get_Instance()->Get_Material(basetilekey);
+
+	CResourceMgr::Get_Instance()->Load_Material(floatingcubekey);
+	CMaterial* floatingmaterial = CResourceMgr::Get_Instance()->Get_Material(floatingcubekey);
+	CResourceMgr::Get_Instance()->Load_Material(diretionalkey);
+	CMaterial* diretionalmtl = CResourceMgr::Get_Instance()->Get_Material(diretionalkey);
 	
-	//Get_Layer(LAYER_TILE)->Get_GameObject(L"BaseTile")->Get_Component <CModel>()->Set_Material(material1);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component <CModel>()->Set_Material(floatingmaterial);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component <CModel>()->Set_Material(floatingmaterial);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component <CModel>()->Set_Material(floatingmaterial);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component <CModel>()->Set_Material(diretionalmtl);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A2")->Get_Component <CModel>()->Set_Material(diretionalmtl);
-	//(LAYER_OBJECT)->Get_GameObject(L"Directional_A3")->Get_Component <CModel>()->Set_Material(diretionalmtl);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+	Get_Layer(LAYER_TILE)->Get_GameObject(L"BaseTile")->Get_Component <CModel>()->Set_Material(material1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component <CModel>()->Set_Material(floatingmaterial);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component <CModel>()->Set_Material(floatingmaterial);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component <CModel>()->Set_Material(floatingmaterial);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A2")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A3")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4")->Get_Component <CModel>()->Set_Material(diretionalmtl);
+
 
 
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1"))->Set_Info({ 10.f, 9.75f, 40.f }, { 1.f, 0.f, 0.f }, -10.f, 0.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A2"))->Set_Info({ -10.f, 14.f, 45.f }, { 1.f, 0.f, 0.f }, 0.f, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A3"))->Set_Info({ 0.f, 8.f, 53.f }, { 0.f, 1.f, 0.f }, 0.f, 10.f);
 	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A4"))->Set_Info({ -20.f, 60.f, 120.f }, { 1.f, 0.5f, 0.f }, -15.f, 0.f);
-	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A"))->Set_Info({ 0.f, 9.75f, 21.f }, { 0.f, 0.f, 1.f }, 20.f, 10.f, 0.f);
+
+
+	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A"))->Set_Info({ 0.f, 9.75f, 21.f }, { 0.f, 0.f, 1.f }, 120.f, 10.f, 1.f);
 	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A"))->Set_Loop();
-	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2"))->Set_Info({ 0.f, 22.f, 60.f }, { 3.f, 2.f, 2.f }, 40.f, 10.f, 0.f);
+	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2"))->Set_Info({ 0.f, 22.f, 60.f }, { 3.f, 2.f, 2.f }, 40.f, 10.f, 1.f);
 	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2"))->Set_Loop();
-	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3"))->Set_Info({ 30.f, 40.f, 80.f }, { -6.f, 2.f, 4.f }, 70.f, 10.f, 0.f);
+	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3"))->Set_Info({ 30.f, 40.f, 80.f }, { -6.f, 2.f, 4.f }, 70.f, 10.f, 1.f);
+
 	dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3"))->Set_Loop();
 
 	m_pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 30.f, 10.f });
@@ -168,6 +182,7 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 
 
 	CGameObject* PickObj = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1")->Get_PickObj();
+
 	auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(PickObj);
 
 	if (pPickCubeObj) {
@@ -177,6 +192,7 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	if (PickObj)
 	{
 		if (Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1")->Get_Hold()) {
+
 			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
 
 
@@ -184,6 +200,7 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 			if (pPickCubeObj) {
 				pPickCubeObj->Set_Grab(true);
 				pPickCubeObj->Set_CursorVec(Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1")->Get_DragDistance());
+
 			}
 		}
 		else {
@@ -204,13 +221,17 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	//===========================================================================================================//
 	//Debugging Codes
 
-	//_vec3 playerpos = m_pPlayer->GetPos();
+
+	_vec3 playerpos = m_pPlayer->GetPos();
 	_bool FloatingALoop = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A"))->Get_Loop();
 	_bool FloatingA2Loop = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2"))->Get_Loop();
 	_bool FloatingA3Loop = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3"))->Get_Loop();
 	_float FloatingATime = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A"))->Get_SleepTime();
 	_float FloatingA2Time = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2"))->Get_SleepTime();
 	_float FloatingA3Time = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3"))->Get_SleepTime();
+
+	_vec3 StartTilepos = dynamic_cast<CFloatingCube*>(Get_Layer(LAYER_TILE)->Get_GameObject(L"StartTile"))->Get_Component<CTransform>()->Get_Pos();
+
 
 
 	if (FloatingALoop)
@@ -238,9 +259,11 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	swprintf_s(dcposbuf, 128, L"Floating A3 Time : %.3f\n", FloatingA3Time);
 	OutputDebugStringW(dcposbuf);
 
-	//wchar_t bposbuf[128];
-	//swprintf_s(bposbuf, 128, L"TButton Pos : %.3f, %.3f, %.3f\n", tbuttonpos.x, tbuttonpos.y, tbuttonpos.z);
-	//OutputDebugStringW(bposbuf);
+	wchar_t bposbuf[128];
+	swprintf_s(bposbuf, 128, L"starttile Pos : %.3f, %.3f, %.3f\n", StartTilepos.x, StartTilepos.y, StartTilepos.z);
+	OutputDebugStringW(bposbuf);
+
+
 
 	//===========================================================================================================//
 

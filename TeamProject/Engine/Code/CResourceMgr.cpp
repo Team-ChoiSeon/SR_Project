@@ -24,87 +24,67 @@ HRESULT CResourceMgr::Ready_Resource()
 	if (!m_pGraphicDev)
 		return E_FAIL;
 
-	Load_Material(L"DirtObj.mtl");
-	Load_Material(L"BrickRoad.mtl");
-	Load_Mesh <CCubeTex>(m_pGraphicDev, L"CCubeTex");
-	Load_Mesh <CCubeTex>(m_pGraphicDev,L"DirtObj.obj");
-	Load_Mesh <CCubeTex>(m_pGraphicDev, L"BrickRoad.obj");
 	m_pGraphicDev->AddRef();
 }
 
-HRESULT CResourceMgr::Load_Texture(const wstring& texturePath)
+CTexture* CResourceMgr::Load_Texture(const wstring& texturePath)
 {
 	auto it = m_umTexture.find(texturePath);
 	if (it != m_umTexture.end())
-		return E_FAIL;
+		return it->second; // 이미 로드된 텍스처 반환
 
 	wstring BasePath = L"../Bin/Resource/Texture/";
 	wstring filePath = BasePath + texturePath;
 
 	CTexture* tex = CTexture::Create();
+	if (!tex) return nullptr;
 
 	if (FAILED(tex->Load(m_pGraphicDev, filePath))) {
 		Safe_Release(tex);
-		return E_FAIL;
+		return nullptr;
 	}
+
 	tex->Set_Key(texturePath);
 	m_umTexture[texturePath] = tex;
-	return S_OK;
+
+	return tex; // 성공 시 텍스처 반환
 }
 
-HRESULT CResourceMgr::Load_GameObject(const wstring& filePath)
+CMesh* CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
 {
-	//HANDLE hFile = ::CreateFileW(
-	//	path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	auto iter = m_umMesh.find(key);
+	if (iter != m_umMesh.end()) {
+		return iter->second;
+	}
 
-	//if (hFile == INVALID_HANDLE_VALUE) {
-	//	MessageBoxW(nullptr, L"파일 열기 실패", L"Error", MB_OK);
-	//	return;
-	//}
+	wstring BasePath = L"../Bin/Resource/Obj/";
+	wstring filePath = BasePath + key;
 
-	//DWORD fileSize = GetFileSize(hFile, NULL);
-	//std::string jsonText(fileSize, '\0');
-	//DWORD bytesRead = 0;
-	//ReadFile(hFile, jsonText.data(), fileSize, &bytesRead, NULL);
-	//CloseHandle(hFile);
-
-	//json jScene = json::parse(jsonText);
-
-	//for (const auto& jObj : jScene["objects"])
-	//{
-	//	string className = jObj["class"];
-	//	string instanceName = jObj["name"];
-	//	string layerName = jObj["Layer"];
-
-	//	CGameObject* pObj = CFactory::Create(ToWString(className), m_pGraphicDev);
-	//	if (!pObj) continue;
-
-	//	pObj->Deserialize(jObj);
-
-	//	CScene* pScene = CSceneMgr::Get_Instance()->Get_Scene();
-	//	// 예: Layer 등록 -> d
-	//	LAYERID id = ToLayer(ToWString(jObj["Layer"]));
-	//	pScene->Get_Layer(id)->Add_GameObject(ToWString(instanceName), pObj);
-	//}
-
-	return S_OK;
+	CMesh* mesh = CMesh::Create();
+	if (FAILED(mesh->LoadOBJ(pDevice, filePath))) {
+		Safe_Release(mesh);
+		return nullptr;
+	}
+	mesh->Set_Key(key);
+	m_umMesh[key] = mesh;
+	return mesh;
 }
 
-HRESULT CResourceMgr::Load_Material(const wstring& mtlPath)
+CMaterial* CResourceMgr::Load_Material(const wstring& mtlPath)
 {
-	// 이미 로드되어 있으면 종료
-	if (m_umMaterial.find(mtlPath) != m_umMaterial.end())
-		return S_OK;
+	// 이미 로드된 머티리얼이 있다면 재사용 (중복 방지)
+	auto iter = m_umMaterial.find(mtlPath);
+	if (iter != m_umMaterial.end())
+		return iter->second;
 
 	// 경로 조합
 	wstring basePath = L"../Bin/Resource/Material/";
 	wstring fullPath = basePath + mtlPath;
 
-	// UTF-8 바이너리로 읽기
 	ifstream in(fullPath, ios::binary);
 	if (!in.is_open()) {
 		MSG_BOX("ResourceMgr::File Open Failed");
-		return E_FAIL;
+		return nullptr;
 	}
 
 	string utf8Line;
@@ -132,20 +112,20 @@ HRESULT CResourceMgr::Load_Material(const wstring& mtlPath)
 	}
 
 	// 텍스처 로드
-	if (FAILED(Load_Texture(texturePath)))
-		return E_FAIL;
-
-	CTexture* tex = Get_Texture(texturePath);
-	if (!tex) return E_FAIL;
+	CTexture* tex = Load_Texture(texturePath);
+	if (!tex) return nullptr;
 
 	// 머티리얼 생성 및 등록
 	CMaterial* mat = CMaterial::Create();
+	if (!mat) return nullptr;
+
 	mat->Set_Diffuse(tex);
 	mat->Set_MaterialKey(mtlPath);
 	m_umMaterial[mtlPath] = mat;
 
-	return S_OK;
+	return mat; //  올바른 반환
 }
+
 
 string CResourceMgr::ToString(const wstring& wstr)
 {
@@ -165,26 +145,6 @@ wstring CResourceMgr::ToWString(const string& str)
 	return result;
 }
 
-// enum LAYERID { LAYER_TILE, LAYER_OBJECT, LAYER_PLAYER, LAYER_CAMERA, LAYER_END };
-LAYERID CResourceMgr::ToLayer(const wstring& wstr)
-{
-	if (wstr == L"CAMERA")  return LAYERID::LAYER_CAMERA;
-	if (wstr == L"PLAYER")  return LAYERID::LAYER_PLAYER;
-	if (wstr == L"OBJECT")  return LAYERID::LAYER_OBJECT;
-	if (wstr == L"TILE")    return LAYERID::LAYER_TILE;
-
-	return LAYERID::LAYER_END; // 또는 예외 처리용 L_INVALID이 있으면 더 좋음
-}
-
-wstring CResourceMgr::Get_FileName(const wstring& filePath)
-{
-	for (int i = static_cast<int>(filePath.size()) - 1; i >= 0; --i)
-	{
-		if (filePath[i] == L'\\' || filePath[i] == L'/')
-			return filePath.substr(i + 1);
-	}
-	return filePath;
-}
 
 void CResourceMgr::Free()
 {
