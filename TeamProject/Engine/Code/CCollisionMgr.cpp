@@ -20,19 +20,31 @@ void CCollisionMgr::Update_Collision()
 			CCollider* pA = m_vCol[i];
 			CCollider* pB = m_vCol[j];
 
-			if (Is_Colliding(pA->Get_AABBW(), pB->Get_AABBW()))
+			bool bCollided = false;
+			auto eTypeA = pA->Get_Bound().eType;
+			auto eTypeB = pB->Get_Bound().eType;
+
+			if (eTypeA == BoundingType::AABB && eTypeB == BoundingType::AABB)
+			{
+				bCollided = Is_Colliding(pA->Get_AABBW(), pB->Get_AABBW());
+			}
+			else
+			{
+				_vec3 dummyPush;	// 충돌 여부만 판단
+				bCollided = pA->Calc_Push_OBB(pA->Get_Bound(), pB->Get_Bound(), dummyPush);
+			}
+
+			if (bCollided)
 			{
 				ColliderPair pair = make_pair(pA, pB);
 				setCurrCollisions.insert(pair);
 				if (m_setPrevCollisions.find(pair) != m_setPrevCollisions.end())
 				{
-					// 충돌 중 (Stay)
 					pA->On_Collision_Stay(pB);
 					pB->On_Collision_Stay(pA);
 				}
 				else
 				{
-					// 충돌 진입 (Enter)
 					pA->On_Collision_Enter(pB);
 					pB->On_Collision_Enter(pA);
 				}
