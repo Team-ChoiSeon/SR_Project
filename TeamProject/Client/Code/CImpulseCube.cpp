@@ -3,6 +3,7 @@
 #include "CCollider.h"
 #include "CTransform.h"
 #include "CRigidBody.h"
+#include "CFactory.h"
 
 CImpulseCube::CImpulseCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -39,6 +40,9 @@ HRESULT CImpulseCube::Ready_GameObject()
 
 	m_pCollider->Set_ColTag(ColliderTag::NONE);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
+
+
+	CFactory::Save_Prefab(this, "CImpulseCube");
 
 	return S_OK;
 }
@@ -81,3 +85,6 @@ void CImpulseCube::Set_Info(const _vec3& StartPos)
 {
 	m_pTransform->Set_Pos(StartPos);
 }
+
+
+REGISTER_GAMEOBJECT(CImpulseCube)

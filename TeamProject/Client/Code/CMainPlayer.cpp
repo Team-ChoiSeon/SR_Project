@@ -57,7 +57,7 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
 	
-	Set_GroundCheck();
+	//Set_GroundCheck();
 	return S_OK;
 }
 

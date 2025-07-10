@@ -14,6 +14,7 @@ public:
 public:
     const wstring& Get_Key() const { return m_wKey; }
     void Set_Key(const wstring& key) {  m_wKey =key; }
+
     LPDIRECT3DBASETEXTURE9 Get_Texture(_uint iIndex = 0) const { return m_pTexture; }
 
     HRESULT Ready_Texture();

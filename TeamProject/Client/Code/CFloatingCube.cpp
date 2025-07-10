@@ -7,6 +7,7 @@
 #include "CGameObject.h"
 #include "CTransform.h"
 #include "CRigidBody.h"
+#include "CFactory.h"
 
 CFloatingCube::CFloatingCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -14,7 +15,7 @@ CFloatingCube::CFloatingCube(LPDIRECT3DDEVICE9 pGraphicDev)
 }
 
 CFloatingCube::CFloatingCube(const CFloatingCube& rhs)
-	: CCube(rhs.m_pGraphicDev)
+	: CCube(rhs.m_pGraphicDev), m_bBackward(rhs.m_bBackward)
 {
 }
 
@@ -24,7 +25,7 @@ CFloatingCube::~CFloatingCube()
 
 HRESULT CFloatingCube::Ready_GameObject()
 {
-	DefaultCubeModel tModel;
+	DefaultTileModel tModel;
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CTransform>());
@@ -38,12 +39,16 @@ HRESULT CFloatingCube::Ready_GameObject()
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 
+
+
+
 	m_bGoBack = false;	
 	m_bBackward = false;
 	m_bOn = true;
 	m_fSpeed = 1.f;
 	m_fSleepTime = 0.f;
 
+	CFactory::Save_Prefab(this, "CFloatingCube");
     return S_OK;
 }
 
@@ -113,7 +118,9 @@ void CFloatingCube::Set_Info(const _vec3& vStartPos, const _vec3& vDirection, co
 	m_fMaxDistance = fMax;
 	m_fSpeed = fSpeed;
 	m_fSleepTime = SleepTime;
+	m_bBackward = true;
 	ComputeEndPos();
+
 }
 
 void CFloatingCube::ComputeEndPos()
@@ -150,7 +157,7 @@ void CFloatingCube::Move(const _float& fTimeDelta)
 		m_pRigid->Set_Force(ForceAdd * -m_vDirection);
 
 		_vec3 nowvel = m_pRigid->Get_Velocity();
-		if (D3DXVec3Length(&nowvel) < 0.001f) {
+		if (D3DXVec3Length(&nowvel) < 0.01f) {
 			m_bGoBack = true;
 			m_bOn = false;
 		}
@@ -184,7 +191,7 @@ void CFloatingCube::MoveBack(const _float& fTimeDelta)
 		m_pRigid->Set_Force(ForceAdd * m_vDirection);
 
 		_vec3 nowvel = m_pRigid->Get_Velocity();
-		if (D3DXVec3Length(&nowvel) < 0.001f) {
+		if (D3DXVec3Length(&nowvel) < 0.01f) {
 			m_bGoBack = false;
 			m_bOn = false;
 		}
@@ -200,3 +207,5 @@ void CFloatingCube::Sleep(const _float fTimeDelta)
 		m_fTime = 0.f;
 	}
 }
+
+REGISTER_GAMEOBJECT(CFloatingCube)

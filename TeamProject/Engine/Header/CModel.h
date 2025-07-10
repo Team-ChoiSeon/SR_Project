@@ -20,60 +20,44 @@ public:
     virtual ~CModel();
 
 public:
-    /*template <typename ModelT, typename... Args>
-    static CModel* Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args);*/
-    //static CModel* Create(LPDIRECT3DDEVICE9 pDevice)
-    //{
-    //    return Create<DefaultCubeModel>(pDevice);
-    //}
-    static CModel* Create(LPDIRECT3DDEVICE9 pDevice, const DefaultCubeModel& model);
-    static CModel* Create(LPDIRECT3DDEVICE9 pDevice, const DefaultTileModel& model);
+    static CModel* Create(LPDIRECT3DDEVICE9 pDevice);
+    //static CModel* Create(LPDIRECT3DDEVICE9 pDevice, const DefaultTileModel& model);
     virtual void LateUpdate_Component()override;
     void Render(LPDIRECT3DDEVICE9 pDevice);
+    HRESULT Set_Model(const wstring& meshType, const wstring& matType);
 
-    void Set_Mesh(CMesh* pMesh) { m_pMesh = pMesh; }
-    // void Set_Texture(CTexture* pTexture) { m_pTexture = pTexture; }
-    void Set_Material(CMaterial* pMaterial) { m_pMaterial = pMaterial; }
+    //void Set_Mesh(CMesh* pMesh) { m_pMesh = pMesh; }
+    //void Set_Material(CMaterial* pMaterial) { m_pMaterial = pMaterial; }
 
     CMesh* Get_Mesh() { return m_pMesh; }
     CMaterial* Get_Material() { return m_pMaterial; }
-
+    void Set_UVScale(_vec4 _uvScale) { m_uvScale = _uvScale; }
 public:
     RENDER_PASS Get_RenderPass() { return RENDER_PASS::RP_OPAQUE; };
     virtual void Free()override;
 
 private:
-    // CComponent
-    // LPDIRECT3DDEVICE9 m_pGraphicDev = nullptr;
-
+    template<typename T>
+    void Safe_Change(T& lhs, T rhs);
+private:
     CMesh* m_pMesh = nullptr;
-    // CTexture* m_pTexture = nullptr;
     CMaterial* m_pMaterial = nullptr; // material include texture
+    _vec4 m_uvScale;
 
 };
 
-//template <typename ModelT, typename... Args>
-//static CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice, Args&&... args)
-//{
-//    ModelT model;
-//    // 인자들을 하나씩 처리    
-//    (ApplyArg(model, std::forward<Args>(args)), ...);
-//    auto pMesh = CResourceMgr::Get_Instance()->Get_Mesh(model.meshKey);
-//    // auto pTexture = CResourceMgr::Get_Instance()->Get_Texture(model.textureKey);
-//    auto pMaterial = CResourceMgr::Get_Instance()->Get_Material(model.materialKey);
-//    
-//
-//    if (!pMesh || !pMaterial) {
-//        MSG_BOX("CModel::Create - Resource Missing");
-//        return nullptr;
-//    }
-//
-//    auto pModel = new CModel(pDevice);
-//    pModel->Set_Mesh(pMesh);
-//    // pModel->Set_Texture(pTexture);
-//    pModel->Set_Material(pMaterial);
-//
-//    return pModel;
-//};
-
 END
+
+template<typename T>
+inline void CModel::Safe_Change(T& lhs, T rhs)
+{
+    if (lhs != nullptr) {
+        Safe_Release(lhs);
+    }
+
+    lhs = rhs;
+
+    if (rhs != nullptr) {
+        rhs->AddRef();
+    }
+}

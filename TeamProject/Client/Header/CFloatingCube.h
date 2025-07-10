@@ -35,6 +35,8 @@ public:
 	void Set_Info(const _vec3& vStartPos, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime);
 	void Set_Loop() { m_bBackward = true; }
 
+	_bool Get_Loop() { return m_bBackward; }
+	_float Get_SleepTime() { return m_fTime; }
 
 private:
 	//Compute Function
@@ -54,7 +56,7 @@ private:
 	_vec3 m_vDescVelPos;
 	_float m_fMaxDistance = 5.f;
 	_float m_fSpeed = 10.f;
-	_float m_fSleepTime;
+	_float m_fSleepTime  = 0.f;
 	_float m_fTime = 0.f;
 
 	bool m_bOn = false;	

@@ -26,15 +26,16 @@ public:
 	// [Mesh Register]
 	// 
 	template <typename MeshT>
-	HRESULT Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key);
+	CMesh* Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key);
+	CMesh* Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key);
 
 	// [Material Register]
 	// 
-	HRESULT Load_Material(const wstring& mtlPath);
+	CMaterial* Load_Material(const wstring& mtlPath);
 
 	// [Texture Register]
 	// 
-	HRESULT Load_Texture(const wstring& filePath);
+	CTexture* Load_Texture(const wstring& filePath);
 
 	HRESULT Load_GameObject(const wstring& filePath);
 
@@ -49,6 +50,7 @@ public:
 		}
 		return nullptr;
 	}
+
 	CMaterial* Get_Material(const wstring& key)
 	{
 		auto iter = m_umMaterial.find(key);
@@ -92,27 +94,23 @@ private:
 END
 
 template<typename MeshType>
-inline HRESULT CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
+inline CMesh* CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
 {
-	if (!std::is_base_of<CMesh, MeshType>::value)
-	{
-		//"MeshT must be derived from CMesh"
-		return E_FAIL;
-	}
+	static_assert(std::is_base_of<CMesh, MeshType>::value, "MeshType must derive from CMesh");
 
-	if (m_umMesh.find(key) != m_umMesh.end())
-		return S_OK; // Already loaded
+	auto it = m_umMesh.find(key);
+	if (it != m_umMesh.end())
+		return it->second; // Already loaded
 
 	MeshType* pMesh = MeshType::Create(pDevice);
+	if (!pMesh) return nullptr;
 
-	//if (FAILED(pMesh->Ready_Buffer()))
-	//{
-	//	Safe_Release(pMesh);
-	//	return E_FAIL;
-	//}
-
-	pMesh->LoadOBJ(pDevice, key);
+	if (!pMesh->LoadOBJ(pDevice, key)) // 로딩 실패시 nullptr 반환
+	{
+		Safe_Release(pMesh);
+		return nullptr;
+	}
 
 	m_umMesh[key] = pMesh;
-	return S_OK;
+	return pMesh;
 }
