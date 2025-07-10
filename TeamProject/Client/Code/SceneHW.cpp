@@ -136,7 +136,7 @@ HRESULT SceneHW::Ready_Scene()
 	//===========================================================================================================//
 
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
-	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
+	
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 
 	for (auto& pLayer : m_umLayer)
@@ -163,9 +163,6 @@ SceneHW* SceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 int SceneHW::Update_Scene(const _float& fTimeDelta)
 {
-	CPickingMgr::Get_Instance()->Update_Picking(fTimeDelta);
-
-
 
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Update_Layer(fTimeDelta);
@@ -280,9 +277,6 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 
 
 
-	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
-	CCollisionMgr::Get_Instance()->Update_Collision();
-
 	return 0;
 }
 
@@ -302,8 +296,5 @@ void SceneHW::Render_Scene()
 void SceneHW::Free()
 {
 	CScene::Free();
-
-	CUiMgr::Destroy_Instance();
-	CPickingMgr::Destroy_Instance();
 }
 

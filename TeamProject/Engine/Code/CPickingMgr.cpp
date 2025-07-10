@@ -28,6 +28,8 @@ void CPickingMgr::Ready_Picking(LPDIRECT3DDEVICE9 GraphicDev, HWND hWnd)
 
 HRESULT CPickingMgr::Update_Picking(const _float& fTimeDelta)
 {
+    if (CCameraMgr::Get_Instance()->Get_MainCamera() == nullptr)
+        return E_FAIL;
 
     ComputeCursor();
     Make_Ray(m_Cursor.x, m_Cursor.y);         //ray »ý¼º
