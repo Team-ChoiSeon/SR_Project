@@ -111,7 +111,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 
 	Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
 	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);
-	auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(m_pPickObj);
+	auto* pPickCubeObj = dynamic_cast<CCube*>(m_pPickObj);
 	if (pPickCubeObj) {
 		pPickCubeObj->Set_Grab(false);
 	}

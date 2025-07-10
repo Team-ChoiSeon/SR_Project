@@ -3,12 +3,12 @@
 #include "CActiveTrigger.h"
 
 CActiveTrigger::CActiveTrigger(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CGameObject(pGraphicDev)
+	: CCube(pGraphicDev)
 {
 }
 
 CActiveTrigger::CActiveTrigger(const CActiveTrigger& rhs)
-	: CGameObject(rhs.m_pGraphicDev)
+	: CCube(rhs.m_pGraphicDev)
 {
 }
 
