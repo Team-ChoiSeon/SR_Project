@@ -22,9 +22,8 @@ CTimerButton::~CTimerButton()
 
 HRESULT CTimerButton::Ready_GameObject()
 {
-    DefaultCubeModel tModel;
     Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-    Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev, tModel);
+    Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CTransform>());
     Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
