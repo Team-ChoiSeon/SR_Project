@@ -33,8 +33,11 @@ HRESULT CPlayer::Ready_GameObject()
 
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
-	m_pCollider->Set_ColTag(ColliderTag::NONE);
-	m_pCollider->Set_ColType(ColliderType::ACTIVE);
+
+
+	Get_Component<CRigidBody>()->Set_Friction(1.f);
+	Get_Component<CRigidBody>()->Set_Mass(100.f);
+	Get_Component<CCollider>()->Set_BoundType(BoundingType::OBB);
 
 
 

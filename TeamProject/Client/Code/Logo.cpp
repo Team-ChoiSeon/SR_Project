@@ -31,8 +31,7 @@ HRESULT Logo::Ready_Scene()
 
 _int Logo::Update_Scene(const _float& fTimeDelta)
 {
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->Update_Layer(fTimeDelta);
+	CScene::Update_Scene(fTimeDelta);
 
 
 	if (CInputMgr::Get_Instance()->Key_Tap(DIK_F1))
@@ -75,8 +74,7 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 
 void Logo::LateUpdate_Scene(const _float& fTimeDelta)
 {
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->LateUpdate_Layer(fTimeDelta);
+	CScene::LateUpdate_Scene(fTimeDelta);
 }
 
 

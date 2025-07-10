@@ -1,5 +1,8 @@
 #include "CScene.h"
 
+#include "CRenderMgr.h"
+#include "CCollisionMgr.h"
+
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDev(pGraphicDev)
 {
@@ -8,13 +11,9 @@ CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CScene::~CScene()
 {
+    Free();
 }
 
-HRESULT CScene::Ready_Scene()
-{
-
-    return S_OK;
-}
 
 void CScene::Init_Layers()
 {
@@ -55,8 +54,15 @@ void CScene::Clear_Layers()
     m_umLayer.clear();
 }
 
+HRESULT CScene::Ready_Scene()
+{
+    // 레이어 Create할때 Ready_Layer 하기때문에 Ready_Layer X
+    return S_OK;
+}
+
 _int CScene::Update_Scene(const _float& fTimeDelta)
 {
+    
     for (auto& pLayer : m_umLayer)
         pLayer.second->Update_Layer(fTimeDelta);
 
@@ -67,6 +73,12 @@ void CScene::LateUpdate_Scene(const _float& fTimeDelta)
 {
     for (auto& pLayer : m_umLayer)
         pLayer.second->LateUpdate_Layer(fTimeDelta);
+}
+
+void CScene::Exit_Scene()
+{
+    CRenderMgr::Get_Instance()->Clear();
+    CCollisionMgr::Get_Instance()->Clear();
 }
 
 

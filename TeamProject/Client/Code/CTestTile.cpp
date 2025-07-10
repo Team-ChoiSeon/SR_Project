@@ -37,6 +37,11 @@ HRESULT CTestTile::Ready_GameObject()
 	m_pCollider->Set_ColType(ColliderType::PASSIVE);
 
 
+	
+	Get_Component<CRigidBody>()->Set_OnGround(true);
+	Get_Component<CRigidBody>()->Set_UseGravity(false);
+
+
 	CFactory::Save_Prefab(this, "CTestTile");
 
 	return S_OK;
