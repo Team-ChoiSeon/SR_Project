@@ -97,6 +97,12 @@
     <Filter Include="04. GameObjects\Trigger\ToggleButton">
       <UniqueIdentifier>{6224e65c-e2be-4ac3-bed9-5f5cc82c1a82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Block">
+      <UniqueIdentifier>{7c193ad6-cbaf-44da-b976-e2fe2eb5facf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Block\StairBlock">
+      <UniqueIdentifier>{0ee28229-e306-40c5-bc7b-c972bc7f551e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -198,6 +204,12 @@
     <ClInclude Include="..\Header\CToggleButton.h">
       <Filter>04. GameObjects\Trigger\ToggleButton</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBlock.h">
+      <Filter>04. GameObjects\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStairBlock.h">
+      <Filter>04. GameObjects\Block\StairBlock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -289,6 +301,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CToggleButton.cpp">
       <Filter>04. GameObjects\Trigger\ToggleButton</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBlock.cpp">
+      <Filter>04. GameObjects\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStairBlock.cpp">
+      <Filter>04. GameObjects\Block\StairBlock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

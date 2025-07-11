@@ -159,11 +159,9 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 			m_vDragDistance = { 0,0,0 };
 		}
 	}
-	if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
+	else {
 		m_bObjHold = false;
 		m_vDragDistance = { 0,0,0 };
-	}
-	else {
 		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 	}
 	//else {
@@ -223,7 +221,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_SPACE)) {
 		if (m_pRigid->Get_OnGround()) {
-			m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower, 0.f));
+			m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower , 0.f));
 			m_pRigid->Set_OnGround(false);
 		}
 	}

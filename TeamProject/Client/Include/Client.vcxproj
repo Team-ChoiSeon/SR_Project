@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CActiveTrigger.h" />
+    <ClInclude Include="..\Header\CBlock.h" />
     <ClInclude Include="..\Header\CCameraObject.h" />
     <ClInclude Include="..\Header\CCrosshairUIObject.h" />
     <ClInclude Include="..\Header\CDirectionalCube.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CSceneGate.h" />
     <ClInclude Include="..\Header\CSceneTestHS.h" />
+    <ClInclude Include="..\Header\CStairBlock.h" />
     <ClInclude Include="..\Header\CTestLightMeshObject.h" />
     <ClInclude Include="..\Header\CCube.h" />
     <ClInclude Include="..\Header\CTimerButton.h" />
@@ -189,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CActiveTrigger.cpp" />
+    <ClCompile Include="..\Code\CBlock.cpp" />
     <ClCompile Include="..\Code\CCameraObject.cpp" />
     <ClCompile Include="..\Code\CCrosshairUIObject.cpp" />
     <ClCompile Include="..\Code\CDirectionalCube.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CSceneGate.cpp" />
     <ClCompile Include="..\Code\CSceneTestHS.cpp" />
+    <ClCompile Include="..\Code\CStairBlock.cpp" />
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp" />
     <ClCompile Include="..\Code\CCube.cpp" />
     <ClCompile Include="..\Code\CTimerButton.cpp" />

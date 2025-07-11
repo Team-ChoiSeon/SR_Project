@@ -84,7 +84,7 @@ HRESULT TestSceneHW::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A2")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"d")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Floating_A3")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Directional_A1")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);

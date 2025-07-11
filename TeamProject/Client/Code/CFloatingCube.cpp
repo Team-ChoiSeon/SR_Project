@@ -29,7 +29,6 @@ HRESULT CFloatingCube::Ready_GameObject()
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CTransform>());
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
-
 	m_pModel = Get_Component<CModel>();
 	m_pCollider = Get_Component<CCollider>();
 	m_pTransform = Get_Component<CTransform>();

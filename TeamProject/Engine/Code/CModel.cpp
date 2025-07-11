@@ -75,7 +75,7 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 		D3DXMATRIX wvp = world * view * proj;
 		shader->SetMatrix("g_matWorldViewProj", &wvp);
 		_vec4 tmp = { 1.f,1.f,0.f,0.f };
-		if (m_uvScale != tmp){
+		if (m_uvScale == tmp){
 			D3DXVECTOR4 transScale(scale.x, scale.y, 0.f, 0.f); // Z, W는 임시값
 			shader->SetVector("g_UVScale", &transScale);
 			//shader->SetVector("g_UVPosition", &uvPos);
