@@ -59,7 +59,7 @@ HRESULT CMainApp::Ready_MainApp()
 
 	m_pScene = Logo::Create(m_pGraphicDev);
 	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
-	CSoundMgr::Get_Instance()->Play("test", "BGM");
+	//CSoundMgr::Get_Instance()->Play("test", "BGM");
 	
 	return S_OK;
 }
