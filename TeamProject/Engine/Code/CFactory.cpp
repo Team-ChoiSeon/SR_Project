@@ -182,7 +182,20 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 		if (auto comp = obj->Get_Component<CTransform>()) {
 			const auto& jTrans = jComponents["CTransform"];
 			comp->Set_Pos({ jTrans["position"][0], jTrans["position"][1], jTrans["position"][2] });
-			comp->Set_Angle({ jTrans["rotation"][0], jTrans["rotation"][1], jTrans["rotation"][2] });
+			if (jTrans.contains("rotation")) {
+				const auto& r = jTrans["rotation"];
+
+				_vec3 rotDeg = { r[0], r[1], r[2] };
+				_vec3 axisX = { 1.f, 0.f, 0.f };
+				_vec3 axisY = { 0.f, 1.f, 0.f };
+				_vec3 axisZ = { 0.f, 0.f, 1.f };
+
+				// XYZ 축 회전을 누적 회전 방식으로 적용
+				comp->Rotate_Axis(axisX, D3DXToRadian(rotDeg.x));
+				comp->Rotate_Axis(axisY, D3DXToRadian(rotDeg.y));
+				comp->Rotate_Axis(axisZ, D3DXToRadian(rotDeg.z));
+			}
+
 			comp->Set_Scale({ jTrans["scale"][0], jTrans["scale"][1], jTrans["scale"][2] });
 		}
 	}
@@ -219,15 +232,20 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 			if (!shaderPath.empty() && model->Get_Material())
 				model->Get_Material()->Set_Shader(shaderPath);
 			
-			if (jComponents["CModel"].contains("uvScale") && 
-				jComponents["CModel"]["uvScale"].is_array() && jComponents["CModel"]["uvScale"].size() >= 2) {
-				_vec4 uvScale;
-				uvScale.x = jComponents["CModel"]["uvScale"][0].get<float>();
-				uvScale.y = jComponents["CModel"]["uvScale"][1].get<float>();
-				uvScale.z = jComponents["CModel"]["uvScale"][2].get<float>();
-				uvScale.w = jComponents["CModel"]["uvScale"][3].get<float>();
+			if (jComponents["CModel"].contains("uvScale") &&
+				jComponents["CModel"]["uvScale"].is_array())
+			{
+				const auto& uvArr = jComponents["CModel"]["uvScale"];
+				_vec4 uvScale = { 1.f, 1.f, 0.f, 0.f }; // 기본값
+
+				if (uvArr.size() > 0) uvScale.x = uvArr[0].get<float>();
+				if (uvArr.size() > 1) uvScale.y = uvArr[1].get<float>();
+				if (uvArr.size() > 2) uvScale.z = uvArr[2].get<float>();
+				if (uvArr.size() > 3) uvScale.w = uvArr[3].get<float>();
+
 				model->Set_UVScale(uvScale);
 			}
+
 		}
 	}
 
@@ -265,6 +283,7 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 		if (auto col = obj->Get_Component<CCollider>()) {
 			if (jCol.contains("ColType")) col->Set_ColType(jCol["ColType"]);
 			if (jCol.contains("ColTag")) col->Set_ColTag(jCol["ColTag"]);
+			if (jCol.contains("BoundType")) col->Set_BoundType(jCol["BoundType"]);
 		}
 	}
 
@@ -362,15 +381,27 @@ void CFactory::Serialize_Camera(nlohmann::json& outJson, CCamera* comp)
 
 void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 {
-	if (!comp) return;
+	if (!comp) {
+		// nullptr이면 기본값 지정
+		outJson["mesh"] = "Brick_Wall_009.obj";
+		outJson["matKey"] = "Brick_Wall_009.mtl";
+		return;
+	}
+
 	CMaterial* material = comp->Get_Material();
 	CMesh* mesh = comp->Get_Mesh();
 
-	// 상위 기본 정보
-	if(mesh)
-	outJson["mesh"] = ToString(mesh->Get_Key());
-	if(material)
-	outJson["matKey"] = ToString(material->Get_MatrialKey());
+	// mesh 없으면 기본값
+	if (mesh)
+		outJson["mesh"] = ToString(mesh->Get_Key());
+	else
+		outJson["mesh"] = "Brick_Wall_009.obj";
+
+	// material 없으면 기본값
+	if (material)
+		outJson["matKey"] = ToString(material->Get_MatrialKey());
+	else
+		outJson["matKey"] = "Brick_Wall_009.mtl";
 
 	// 머티리얼 내부 텍스처 키
 	if (material)
@@ -384,6 +415,7 @@ void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 		if (CTexture* tex = material->Get_Normal()) {
 			jMat["normal"] = ToString(tex->Get_Key());
 		}
+
 		if (CTexture* tex = material->Get_Roughness()) {
 			jMat["roughness"] = ToString(tex->Get_Key());
 		}
@@ -395,6 +427,7 @@ void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 		outJson["material"] = jMat;
 	}
 }
+
 
 void CFactory::Serialize_Light(nlohmann::json& outJson, CLight* comp)
 {

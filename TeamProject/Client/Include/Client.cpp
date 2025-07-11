@@ -48,7 +48,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
     if (nullptr == pMainApp)
         return FALSE;
-    
+
+
     if (FAILED(CTimeMgr::Get_Instance()->Ready_Timer(L"Timer_Immediate")))
         return FALSE;
     

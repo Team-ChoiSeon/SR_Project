@@ -7,6 +7,7 @@
 #include "CTimeMgr.h"
 #include "CFrameMgr.h"
 #include "CInputMgr.h"
+#include "CSoundMgr.h"
 
 #include "CSceneMgr.h"
 #include "CScene.h"
@@ -54,10 +55,12 @@ HRESULT CMainApp::Ready_MainApp()
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
 
 	// CameraMgr, LightMgr, CollisionMgr 초기화는 필요시 추가
+	CSoundMgr::Get_Instance()->Ready_Sound();
 
 	m_pScene = Logo::Create(m_pGraphicDev);
 	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
-
+	//CSoundMgr::Get_Instance()->Play("test", "BGM");
+	
 	return S_OK;
 }
 
@@ -70,6 +73,8 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 	CCollisionMgr::Get_Instance()->Update_Collision();
 
 	CSceneMgr::Get_Instance()->Update_Scene(fTimeDelta);
+
+	CSoundMgr::Get_Instance()->Update_Sound();
 
 	return 0;
 }
@@ -115,6 +120,7 @@ void CMainApp::Free()
 
 	// 3. 그 외 매니저들
 	CInputMgr::Get_Instance()->Destroy_Instance();
+	CSoundMgr::Get_Instance()->Destroy_Instance();
 	CFrameMgr::Get_Instance()->Destroy_Instance();
 	CTimeMgr::Get_Instance()->Destroy_Instance();
 

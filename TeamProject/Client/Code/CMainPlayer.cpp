@@ -221,7 +221,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_SPACE)) {
 		if (m_pRigid->Get_OnGround()) {
-			m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower, 0.f));
+			m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower , 0.f));
 			m_pRigid->Set_OnGround(false);
 		}
 	}
