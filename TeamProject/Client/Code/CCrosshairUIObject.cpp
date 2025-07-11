@@ -73,7 +73,7 @@ _int CCrosshairUIObject::Update_GameObject(const _float& fTimeDelta)
     return 0;
 }
 
-void CCrosshairUIObject::Render_GameObject()
+void CCrosshairUIObject::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     for (auto& pComponent : m_umComponent[ID_DYNAMIC])
         pComponent.second->LateUpdate_Component();

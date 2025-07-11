@@ -59,26 +59,8 @@ HRESULT CSceneGate::Ready_GameObject()
 
 	pGatePillarL = Set_GateStructure(vGatePos + _vec3(-5.f, -2.f, -vGateScale.z -1.f), vPillarScale);
 	pGatePillarR = Set_GateStructure(vGatePos + _vec3(5.f, -2.f, -vGateScale.z - 1.f), vPillarScale);
-	const _vec3 vTopScale = { 6.f, 1.f, 1.f };
+	const _vec3 vTopScale = { 6.f, 1.f, 2.f };
 	pGateTop = Set_GateStructure(vGatePos + _vec3(0.f, 5.f, -vGateScale.z), vTopScale);
-
-
-	// pGateDoorL = CTestTile::Create(m_pGraphicDev);
-	// pGateDoorR = CTestTile::Create(m_pGraphicDev);
-	// 
-	// _vec3 vDoorScale = { 2.0f, 4.f, 0.1f };
-	// pGateDoorL->Get_Component<CTransform>()->Set_Scale(vDoorScale);
-	// pGateDoorR->Get_Component<CTransform>()->Set_Scale(vDoorScale);
-	// 
-	// _vec3 vHingeL = { -4.0f, -7.f, -25.f };
-	// _vec3 vHingeR = { 4.0f, -7.f, -25.0f };
-	// 
-	// pGateDoorL->Get_Component<CTransform>()->Set_Pos(vHingeL );
-	// pGateDoorR->Get_Component<CTransform>()->Set_Pos(vHingeR );
-	// 
-	// 
-	// pGateDoorL->Get_Component<CRigidBody>()->Set_UseGravity(false);
-	// pGateDoorR->Get_Component<CRigidBody>()->Set_UseGravity(false);
 
 	return S_OK;
 }
@@ -145,38 +127,6 @@ void CSceneGate::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	pTransR->Set_Pos(vFinalPosR);
 	pTransR->Set_RotMatrix(&matRotR);
-
-
-
-	// CTransform* pTransL = pGateDoorL->Get_Component<CTransform>();
-	// const _vec3 vHingeL = _vec3(-4.0f, -7.f, -25.0f);
-	// const _vec3 vLocalOffsetL = _vec3(2.0f, 0.f, 0.f);
-	// 
-	// _matrix matRotL;
-	// D3DXMatrixRotationY(&matRotL, -m_fDoorAngle);
-	// 
-	// _vec3 vFinalPosL;
-	// D3DXVec3TransformCoord(&vFinalPosL, &vLocalOffsetL, &matRotL);
-	// vFinalPosL += vHingeL;
-	// 
-	// pTransL->Set_Pos(vFinalPosL);
-	// pTransL->Set_RotMatrix(&matRotL);
-	// 
-	// 
-	// CTransform* pTransR = pGateDoorR->Get_Component<CTransform>();
-	// const _vec3 vHingeR = _vec3(4.0f, -7.f, -25.0f);
-	// const _vec3 vLocalOffsetR = _vec3(-2.0f, 0.f, 0.f);
-	// 
-	// _matrix matRotR;
-	// D3DXMatrixRotationY(&matRotR, m_fDoorAngle);
-	// 
-	// _vec3 vFinalPosR;
-	// D3DXVec3TransformCoord(&vFinalPosR, &vLocalOffsetR, &matRotR);
-	// vFinalPosR += vHingeR;
-	// 
-	// pTransR->Set_Pos(vFinalPosR);
-	// pTransR->Set_RotMatrix(&matRotR);
-
 
 	pGateDoorL->LateUpdate_GameObject(fTimeDelta);
 	pGateDoorR->LateUpdate_GameObject(fTimeDelta);

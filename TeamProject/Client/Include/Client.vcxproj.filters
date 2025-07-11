@@ -103,6 +103,9 @@
     <Filter Include="04. GameObjects\Block\StairBlock">
       <UniqueIdentifier>{0ee28229-e306-40c5-bc7b-c972bc7f551e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\TestUI\ProgressBar">
+      <UniqueIdentifier>{29c66e0f-666c-4ed7-833c-f9adbd9721d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -210,6 +213,12 @@
     <ClInclude Include="..\Header\CStairBlock.h">
       <Filter>04. GameObjects\Block\StairBlock</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\SceneLoding.h">
+      <Filter>03. Scene\SceneHS\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CProgressBar.h">
+      <Filter>04. GameObjects\TestUI\ProgressBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -307,6 +316,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CStairBlock.cpp">
       <Filter>04. GameObjects\Block\StairBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneLoding.cpp">
+      <Filter>03. Scene\SceneHS\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CProgressBar.cpp">
+      <Filter>04. GameObjects\TestUI\ProgressBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -11,15 +11,15 @@ class CMainPlayer;
 namespace Engine {
 	class CLayer;
 }
-class SceneHS : public CScene
+class SceneLoding : public CScene
 {
 private:
-	explicit SceneHS(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit SceneLoding(LPDIRECT3DDEVICE9 pGraphicDev);
 public:
-	virtual ~SceneHS();
+	virtual ~SceneLoding();
 
 public:
-	static SceneHS* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static SceneLoding* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 public:
 	virtual	HRESULT	Ready_Scene()override;
@@ -32,4 +32,3 @@ private:
 public:
 	virtual void Free();
 };
-
