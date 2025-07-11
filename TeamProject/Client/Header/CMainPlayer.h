@@ -54,6 +54,7 @@ private:
 
 	float m_fMoveSpeed;
 	float m_fJumpPower = 20.f;
+	_float m_fJumpTime = 5.f;
 
 	float m_fWidth;
 	float m_fDepth;
