@@ -1,6 +1,7 @@
 #pragma once
-#include "CGameObject.h"
-class CActiveTrigger : public CGameObject
+#include "CCube.h"
+
+class CActiveTrigger : public CCube
 {
 protected:
 	explicit CActiveTrigger(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -73,7 +73,7 @@ int CMonster::Update_GameObject(const _float& fTimeDelta)
 	if (auto pCollider = Get_Component<CCollider>())
 		pCollider->Update_Component(fTimeDelta);
 
-	// ±âÅ¸ ³ª¸ÓÁö ÄÄÆ÷³ÍÆ®
+	// ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	for (auto& pair : m_umComponent[ID_DYNAMIC])
 	{
 		auto type = pair.first;
@@ -97,37 +97,37 @@ void CMonster::KeyInput(const _float& fTimeDelta)
 	// test code
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_UP))
 	{
-		m_pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); //  È¸Àü
+		m_pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); //  È¸ï¿½ï¿½
 		m_pRigid->Add_Force(_vec3(0.f, 0.f, 1.f) * 1.f);
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_DOWN))
 	{
-		m_pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  È¸Àü
+		m_pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  È¸ï¿½ï¿½
 		m_pRigid->Add_Force(_vec3(0.f, 0.f, -1.f) * 1.f);
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
 	{
-		m_pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // ¿ÞÂÊ È¸Àü
+		m_pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 		m_pRigid->Add_Force(_vec3(-1.f, 0.f, 0.f) * 1.f);
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
 	{
-		m_pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // ¿À¸¥ÂÊ È¸Àü
+		m_pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 		m_pRigid->Add_Force(_vec3(1.f, 0.f, 0.f) * 1.f);
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
 	{
-		// Á¤¹æÇâ Çà·Ä (Y-up ±âÁØ)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (Y-up ï¿½ï¿½ï¿½ï¿½)
 		_matrix matIdentity;
 		D3DXMatrixIdentity(&matIdentity);
 		m_pTransform->Set_RotMatrix(&matIdentity);
 
 		m_pRigid->Set_Velocity(_vec3{ 0.f,0.f,0.f });
-		// °¢¼Óµµ ¹× ÅäÅ© ÃÊ±âÈ­
+		// ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ ï¿½ï¿½Å© ï¿½Ê±ï¿½È­
 		m_pRigid->Set_AVelocity(_vec3(0.f, 0.f, 0.f));
 		m_pRigid->Set_Torque(_vec3(0.f, 0.f, 0.f));
 	}

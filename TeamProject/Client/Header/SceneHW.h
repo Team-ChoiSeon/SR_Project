@@ -11,6 +11,7 @@ class CWeightButton;
 class CPlayer;
 class CTestTile;
 class CTimerButton;
+class CToggleButton;
 
 class SceneHW : public CScene
 {
@@ -45,6 +46,7 @@ private:
 	CWeightButton*						m_pWeightButton;
 	CTestTile*							m_pTile;
 	CTimerButton*						m_pTimerButton;
+	CToggleButton*						m_pToggleButton;
 
 	_float								m_fTime;
 	bool								m_bCamPlayer;

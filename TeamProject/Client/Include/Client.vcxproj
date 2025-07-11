@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CActiveTrigger.h" />
+    <ClInclude Include="..\Header\CBlock.h" />
     <ClInclude Include="..\Header\CCameraObject.h" />
     <ClInclude Include="..\Header\CCrosshairUIObject.h" />
     <ClInclude Include="..\Header\CDirectionalCube.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CSceneGate.h" />
     <ClInclude Include="..\Header\CSceneTestHS.h" />
+    <ClInclude Include="..\Header\CStairBlock.h" />
     <ClInclude Include="..\Header\CTestLightMeshObject.h" />
     <ClInclude Include="..\Header\CCube.h" />
     <ClInclude Include="..\Header\CTimerButton.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="..\Header\SceneHW.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
     <ClInclude Include="..\Header\TestSceneHW.h" />
+    <ClInclude Include="..\Header\CToggleButton.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -188,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CActiveTrigger.cpp" />
+    <ClCompile Include="..\Code\CBlock.cpp" />
     <ClCompile Include="..\Code\CCameraObject.cpp" />
     <ClCompile Include="..\Code\CCrosshairUIObject.cpp" />
     <ClCompile Include="..\Code\CDirectionalCube.cpp" />
@@ -200,6 +204,7 @@
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CSceneGate.cpp" />
     <ClCompile Include="..\Code\CSceneTestHS.cpp" />
+    <ClCompile Include="..\Code\CStairBlock.cpp" />
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp" />
     <ClCompile Include="..\Code\CCube.cpp" />
     <ClCompile Include="..\Code\CTimerButton.cpp" />
@@ -214,6 +219,7 @@
     <ClCompile Include="..\Code\SceneHW.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
     <ClCompile Include="..\Code\TestSceneHW.cpp" />
+    <ClCompile Include="..\Code\CToggleButton.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

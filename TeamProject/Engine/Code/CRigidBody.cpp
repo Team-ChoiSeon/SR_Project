@@ -99,6 +99,12 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
             m_bGround = false;
         }
     }
+    else if (m_bGround)
+    {
+        // 땅 위에 충분히 닿았고 속도가 작다면 확실히 고정
+        m_vVel.y = 0.f;
+        m_vAcc.y = 0.f;
+    }
 
     // 위치 업데이트
     _vec3 vPos = m_pTransform->Get_Pos();

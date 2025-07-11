@@ -43,7 +43,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 	m_fMoveSpeed = 10.f;
 	
-	// ÀÓ½ÃÃß°¡ 
+	// ï¿½Ó½ï¿½ï¿½ß°ï¿½ 
 	m_pRigid->Set_Mass(6.f);
 	m_pRigid->Set_Friction(10.f);
 	m_pRigid->Set_Gravity(5.f);
@@ -111,7 +111,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 
 	Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
 	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);
-	auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(m_pPickObj);
+	auto* pPickCubeObj = dynamic_cast<CCube*>(m_pPickObj);
 	if (pPickCubeObj) {
 		pPickCubeObj->Set_Grab(false);
 	}
@@ -164,6 +164,10 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		m_vDragDistance = { 0,0,0 };
 		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 	}
+	//else {
+	//	m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+	//	m_bObjHold = false;
+	//}
 
 
 
@@ -217,7 +221,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_SPACE)) {
 		if (m_pRigid->Get_OnGround()) {
-			m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower, 0.f));
+			m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower , 0.f));
 			m_pRigid->Set_OnGround(false);
 		}
 	}
@@ -226,7 +230,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 
 void CMainPlayer::CursorRotate()
 {
-	//Ä¿¼­ °íÁ¤
+	//Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ShowCursor(false);
 	float cx = WINCX / 2.f;
 	float cy = WINCY / 2.f;
@@ -234,7 +238,7 @@ void CMainPlayer::CursorRotate()
 	ClientToScreen(g_hWnd, &cursor);
 	SetCursorPos(cursor.x, cursor.y);
 
-	//È­¸é È¸Àü
+	//È­ï¿½ï¿½ È¸ï¿½ï¿½
 	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X);
 	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y);
 
@@ -258,7 +262,7 @@ void CMainPlayer::Set_GroundCheck()
 	// 	if (!pCol) continue;
 	// 
 	// 	if (CCollisionMgr::Get_Instance()->Check_Collision(m_pCollider, pCol)) {
-	// 		// ÇÃ·¹ÀÌ¾îº¸´Ù ¾Æ·¡ÂÊÀÌ¸é ¹Ù´ÚÀ¸·Î ÀÎ½Ä
+	// 		// ï¿½Ã·ï¿½ï¿½Ì¾îº¸ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½
 	// 		if (pCol->Get_BottomY() <= m_pTransform->Get_Pos().y)
 	// 		{
 	// 			m_pRigid->Set_OnGround(true);
