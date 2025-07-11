@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="00. Common">
@@ -14,17 +14,94 @@
     <Filter Include="02. MainApp">
       <UniqueIdentifier>{9c5040e7-00aa-46e9-975c-7a1b9dace7a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObjects">
+    <Filter Include="04. GameObjects">
       <UniqueIdentifier>{ab7604f5-dc2e-4079-a511-01ca857fdab1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObjects\TestPlayer">
+    <Filter Include="04. GameObjects\TestPlayer">
       <UniqueIdentifier>{59dd0850-c33f-45f5-8a15-5279976fcc02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObjects\TestLight">
+    <Filter Include="04. GameObjects\TestLight">
       <UniqueIdentifier>{f0f59b2f-0432-4248-b0e8-e754b52cb41f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObjects\TestCamera">
+    <Filter Include="04. GameObjects\CameraObejct">
       <UniqueIdentifier>{faac4596-d2fc-44e4-8613-5f76bee7bef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\CameraObejct\FirstviewFollowingCam">
+      <UniqueIdentifier>{960fb8c3-bd33-453d-bf13-a8b55eaf28df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene">
+      <UniqueIdentifier>{7a1af6c0-b0d1-400e-ab0e-b9bbea314936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneHW">
+      <UniqueIdentifier>{8ee7b265-de06-42fa-b2df-530547d8c75a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestObject">
+      <UniqueIdentifier>{2a140a9a-97a3-471c-9b0b-edf3b173ce36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneBG">
+      <UniqueIdentifier>{c74caa5e-84d0-4710-867f-b83dd80b2fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneSB">
+      <UniqueIdentifier>{a78f37b4-b766-4b5b-b73e-e4dc44afd86b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneHS">
+      <UniqueIdentifier>{7f201cda-42bf-44b8-ab2a-bcbfba2287c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneDH">
+      <UniqueIdentifier>{58c69da1-fbb4-48b5-8347-2f12d35ab13c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\Logo">
+      <UniqueIdentifier>{11859b5b-3fe4-42a7-bffa-734c123776a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI">
+      <UniqueIdentifier>{484eb73b-8f04-4925-aa39-3d1a9fded025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\TestCrooshair">
+      <UniqueIdentifier>{f826ebc1-8818-4990-b515-07c043e6a79c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestLight\TestLightObject">
+    </Filter>
+    <Filter Include="04. GameObjects\Cube">
+      <UniqueIdentifier>{d64b5e19-4e88-43d6-a18d-4613c84aa671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\FloatingCube">
+      <UniqueIdentifier>{38bcb1ed-2e1e-4731-a023-f19abc60c621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\DirectionalCube">
+      <UniqueIdentifier>{fd46cc7f-1998-4688-a1ba-f6c45fc3d8f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\ImpulseCube">
+      <UniqueIdentifier>{d1eb18fa-2b18-4930-9a79-8dc103ed10cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Trigger">
+      <UniqueIdentifier>{6ca85163-f2f9-4842-b2fd-3af07ca1b49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Trigger\WeightButton">
+      <UniqueIdentifier>{d004dbe1-8485-46b4-9be5-6a79a3f7a4f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestTile">
+      <UniqueIdentifier>{48b919c7-4a5f-44ae-b69b-234078cfeb74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Trigger\TimerButton">
+      <UniqueIdentifier>{1e089019-6e1a-4932-af78-e4731a97e0c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\SceneHS\test">
+      <UniqueIdentifier>{c6e88d43-7f86-41a2-8f56-2908c917d0b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\SceneTrigger">
+      <UniqueIdentifier>{3a1afc33-49d1-4228-97fa-6a78e8d46b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\SceneTrigger\SceneGate">
+      <UniqueIdentifier>{bad48d57-5cf4-4a43-97b7-580711e99a80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Trigger\ToggleButton">
+      <UniqueIdentifier>{6224e65c-e2be-4ac3-bed9-5f5cc82c1a82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Block">
+      <UniqueIdentifier>{7c193ad6-cbaf-44da-b976-e2fe2eb5facf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Block\StairBlock">
+      <UniqueIdentifier>{0ee28229-e306-40c5-bc7b-c972bc7f551e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,11 +123,92 @@
     <ClInclude Include="..\Header\CMainApp.h">
       <Filter>02. MainApp</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CLightObject.h">
-      <Filter>03. GameObjects\TestLight</Filter>
+    <ClInclude Include="..\Header\CMainPlayer.h">
+      <Filter>04. GameObjects\TestPlayer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Player.h">
-      <Filter>03. GameObjects\TestPlayer</Filter>
+    <ClInclude Include="..\Header\CCameraObject.h">
+      <Filter>04. GameObjects\CameraObejct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFirstviewFollowingCamera.h">
+      <Filter>04. GameObjects\CameraObejct\FirstviewFollowingCam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\DummyCube.h">
+      <Filter>04. GameObjects\TestObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Logo.h">
+      <Filter>03. Scene\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneBG.h">
+      <Filter>03. Scene\SceneBG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneDH.h">
+      <Filter>03. Scene\SceneDH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneHW.h">
+      <Filter>03. Scene\SceneHW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneHS.h">
+      <Filter>03. Scene\SceneHS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneSB.h">
+      <Filter>03. Scene\SceneSB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLightObject.h">
+      <Filter>04. GameObjects\TestLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCrosshairUIObject.h">
+      <Filter>04. GameObjects\TestUI\TestCrooshair</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestLightMeshObject.h">
+      <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPlayer.h">
+      <Filter>04. GameObjects\TestPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMonster.h">
+      <Filter>04. GameObjects\TestObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCube.h">
+      <Filter>04. GameObjects\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFloatingCube.h">
+      <Filter>04. GameObjects\Cube\FloatingCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDirectionalCube.h">
+      <Filter>04. GameObjects\Cube\DirectionalCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CImpulseCube.h">
+      <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CActiveTrigger.h">
+      <Filter>04. GameObjects\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CWeightButton.h">
+      <Filter>04. GameObjects\Trigger\WeightButton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestTile.h">
+      <Filter>04. GameObjects\TestTile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTimerButton.h">
+      <Filter>04. GameObjects\Trigger\TimerButton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSceneTestHS.h">
+      <Filter>03. Scene\SceneHS\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TestSceneHW.h">
+      <Filter>03. Scene\SceneHW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSceneGate.h">
+      <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CToggleButton.h">
+      <Filter>04. GameObjects\Trigger\ToggleButton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBlock.h">
+      <Filter>04. GameObjects\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStairBlock.h">
+      <Filter>04. GameObjects\Block\StairBlock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -63,11 +221,92 @@
     <ClCompile Include="..\Code\CMainApp.cpp">
       <Filter>02. MainApp</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CLightObject.cpp">
-      <Filter>03. GameObjects\TestLight</Filter>
+    <ClCompile Include="..\Code\CMainPlayer.cpp">
+      <Filter>04. GameObjects\TestPlayer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Player.cpp">
-      <Filter>03. GameObjects\TestPlayer</Filter>
+    <ClCompile Include="..\Code\CCameraObject.cpp">
+      <Filter>04. GameObjects\CameraObejct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFirstviewFollowingCamera.cpp">
+      <Filter>04. GameObjects\CameraObejct\FirstviewFollowingCam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\DummyCube.cpp">
+      <Filter>04. GameObjects\TestObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Logo.cpp">
+      <Filter>03. Scene\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneBG.cpp">
+      <Filter>03. Scene\SceneBG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneDH.cpp">
+      <Filter>03. Scene\SceneDH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneHW.cpp">
+      <Filter>03. Scene\SceneHW</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneHS.cpp">
+      <Filter>03. Scene\SceneHS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneSB.cpp">
+      <Filter>03. Scene\SceneSB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLightObject.cpp">
+      <Filter>04. GameObjects\TestLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCrosshairUIObject.cpp">
+      <Filter>04. GameObjects\TestUI\TestCrooshair</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestLightMeshObject.cpp">
+      <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayer.cpp">
+      <Filter>04. GameObjects\TestPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonster.cpp">
+      <Filter>04. GameObjects\TestObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCube.cpp">
+      <Filter>04. GameObjects\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFloatingCube.cpp">
+      <Filter>04. GameObjects\Cube\FloatingCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDirectionalCube.cpp">
+      <Filter>04. GameObjects\Cube\DirectionalCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CImpulseCube.cpp">
+      <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CActiveTrigger.cpp">
+      <Filter>04. GameObjects\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CWeightButton.cpp">
+      <Filter>04. GameObjects\Trigger\WeightButton</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestTile.cpp">
+      <Filter>04. GameObjects\TestTile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTimerButton.cpp">
+      <Filter>04. GameObjects\Trigger\TimerButton</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSceneTestHS.cpp">
+      <Filter>03. Scene\SceneHS\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TestSceneHW.cpp">
+      <Filter>03. Scene\SceneHW</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSceneGate.cpp">
+      <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CToggleButton.cpp">
+      <Filter>04. GameObjects\Trigger\ToggleButton</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBlock.cpp">
+      <Filter>04. GameObjects\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStairBlock.cpp">
+      <Filter>04. GameObjects\Block\StairBlock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

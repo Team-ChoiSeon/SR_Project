@@ -27,6 +27,8 @@ public:
 	// 사용 예시 
 	// pLayer->Add_GameObject(L"SkyBox", pSkyBoxObj);
 	void	Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject);
+
+	const vector<OBJINFO>& Get_ObjVec() const { return m_vObject; }
 	
 
 public:
@@ -59,6 +61,17 @@ T* CLayer::Get_GameObject(const wstring& wObjTag)
 			return info.szName == wObjTag;
 		});
 
-	return dynamic_cast<T*>(iter->pObj);  // 자동 캐스팅
+	if (iter != m_vObject.end())
+	{
+		if (iter->pObj == nullptr)
+		{
+			MSG_BOX("CLayer::pObj is nullptr!");
+			return nullptr;
+		}
+		return dynamic_cast<T*>(iter->pObj);
+	}
+
+	MSG_BOX("CLayer::can't find gameobject");
+	return nullptr;
 }
 

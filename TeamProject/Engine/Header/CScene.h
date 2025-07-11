@@ -12,15 +12,15 @@ protected:
 	virtual ~CScene();
 
 public:
-	virtual			HRESULT		Ready_Scene();
-
-	// enum LAYERID {LAYER_TILE, LAYER_OBJECT, LAYER_PLAYER, LAYER_END};
+	// LAYERID {LAYER_TILE, LAYER_OBJECT, LAYER_PLAYER, LAYER_CAMERA, LAYER_LIGHT, LAYER_UI, LAYER_END};
 	// 모든 레이어를 추가합니다.
-	virtual			void		Create_Layer();
+	virtual			void		Init_Layers();
 	// LAYERID에 해당하는 레이어를 추가합니다.
 	virtual			void		Add_Layer(LAYERID eID);
 	// LAYERID에 해당하는 레이어를 제거합니다.
 	virtual			void		Remove_Layer(LAYERID eID);
+	// 모든 레이어를 제거합니다.
+	virtual			void		Clear_Layers();
 	// LAYERID에 해당하는 레이어포인터를 가져옵니다.
 	virtual			CLayer* Get_Layer(LAYERID eID)
 	{
@@ -31,9 +31,11 @@ public:
 		return iter->second;
 	}
 
-	virtual			_int		Update_Scene(const _float& fTimeDelta);
-	virtual			void		LateUpdate_Scene(const _float& fTimeDelta);
-	virtual			void		Render_Scene();
+	virtual			HRESULT		Ready_Scene();
+	virtual	_int	Update_Scene(const _float& fTimeDelta);
+	virtual	void	LateUpdate_Scene(const _float& fTimeDelta);
+
+	virtual	void	Exit_Scene();
 
 protected:
 	unordered_map<LAYERID, CLayer*>			m_umLayer;

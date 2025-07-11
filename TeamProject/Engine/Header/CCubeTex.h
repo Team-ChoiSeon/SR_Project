@@ -1,9 +1,9 @@
 #pragma once
-#include "CVIBuffer.h"
+#include "CMesh.h"
 
 BEGIN(Engine)
 
-class ENGINE_DLL CCubeTex : public CVIBuffer
+class ENGINE_DLL CCubeTex : public CMesh
 {
 private:
 	explicit CCubeTex();

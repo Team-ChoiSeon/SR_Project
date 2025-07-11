@@ -5,6 +5,8 @@
 
 BEGIN(Engine)
 
+class CGameObject;
+
 class ENGINE_DLL CSceneMgr : public CBase
 {
 	DECLARE_SINGLETON(CSceneMgr)
@@ -15,12 +17,17 @@ private:
 
 public:
 	HRESULT			Set_Scene(CScene* pScene);
+	HRESULT			Set_Player(CGameObject* pPlayer);
+
+	CScene*			Get_Scene() { return m_pScene; }
+	CGameObject*	Get_Player() { return m_pPlayer; }
+
 	_int			Update_Scene(const _float& fTimeDelta);
 	void			LateUpdate_Scene(const _float& fTimeDelta);
-	void			Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-	CScene* m_pScene;
+	CScene* m_pScene = nullptr;
+	CGameObject* m_pPlayer = nullptr;
 
 public:
 	virtual void			Free();

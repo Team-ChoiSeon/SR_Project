@@ -4,6 +4,8 @@
 
 BEGIN(Engine)
 
+class CGameObject;
+
 class ENGINE_DLL CComponent : public CBase
 {
 protected:
@@ -13,6 +15,7 @@ protected:
 	virtual ~CComponent();
 
 public:
+	virtual HRESULT Ready_Component() { return S_OK; }
 	virtual void Update_Component(const _float& fTimeDelta) {}
 	virtual void LateUpdate_Component() {}
 
@@ -21,6 +24,9 @@ protected:
 
 protected:
 	virtual void				Free()PURE;
+
+public:
+	CGameObject* m_pOwner = nullptr;
 };
 
 END

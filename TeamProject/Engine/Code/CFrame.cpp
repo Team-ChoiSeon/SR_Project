@@ -37,7 +37,7 @@ CFrame* CFrame::Create(const _float& fCallLimit)
 	if (FAILED(pFrame->Ready_Frame(fCallLimit)))
 	{
 		Safe_Release(pFrame);
-		//MSG_BOX("frame create Failed");
+		MSG_BOX("frame create Failed");
 		return nullptr;
 	}
 	return pFrame;

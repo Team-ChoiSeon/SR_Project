@@ -26,7 +26,25 @@ namespace Engine {
 
 	}VTXCUBE;
 
-	const _ulong	FVF_CUBE = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE3(0); // ÅØ½ºÃ³ÀÇ UV ÁÂÇ¥ °ªÀ» FLOATÇü 3°³·Î Ç¥ÇöÇÏ°Ú´Ù´Â ¸ÅÅ©·Î(°ıÈ£¾ÈÀÇ ¼ıÀÚ 0ÀÇ ÀÇ¹Ì´Â º»·¡ ¹öÅØ½º¿¡ ÅØ½ºÃÄ UV°ªÀÌ ¿©·¯°³°¡ ¿Ã ¼ö ÀÖ´Âµ¥ ±×Áß 0¹øÂ° °ªÀ» ÁöÁ¤ÇÏ°Ú´Ù´Â ÀÇ¹Ì)
+	const _ulong	FVF_CUBE = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE3(0); // í…ìŠ¤ì²˜ì˜ UV ì¢Œí‘œ ê°’ì„ FLOATí˜• 3ê°œë¡œ í‘œí˜„í•˜ê² ë‹¤ëŠ” ë§¤í¬ë¡œ(ê´„í˜¸ì•ˆì˜ ìˆ«ì 0ì˜ ì˜ë¯¸ëŠ” ë³¸ë˜ ë²„í…ìŠ¤ì— í…ìŠ¤ì³ UVê°’ì´ ì—¬ëŸ¬ê°œê°€ ì˜¬ ìˆ˜ ìˆëŠ”ë° ê·¸ì¤‘ 0ë²ˆì§¸ ê°’ì„ ì§€ì •í•˜ê² ë‹¤ëŠ” ì˜ë¯¸)
+
+	typedef struct tagVertexLine
+	{
+		D3DXVECTOR3 vPos;
+		D3DCOLOR    color;
+	}VTXLINE;
+
+	const _ulong	FVF_LINE(D3DFVF_XYZ | D3DFVF_DIFFUSE);
+
+	typedef struct tagVertexTile
+	{
+		_vec3		vPosition;
+		_vec3		vNormal;
+		_vec2		vTexUV;
+
+	}VTXTILE;
+
+	const _ulong	FVF_TILE = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1;
 
 	typedef struct tagIndex16
 	{
@@ -43,5 +61,27 @@ namespace Engine {
 		_ulong	_2;
 
 	}INDEX32;
+
+	struct Ray {
+		_vec3 _position;
+		_vec3 _direction;
+	};
+
+	class CGameObject;
+	typedef struct Ray_HitInfo {
+		CGameObject*	_hittedobject;
+		float			_distance;
+	}Ray_Hit;
+
+	typedef struct Ray_BoundTri {
+		_vec3 _v0, _v1,_v2;
+		_vec3 _nv0, _nv1, _nv2;
+	}Ray_Tri;
+  
+	typedef struct  tagAABB
+	{
+		_vec3 vMin;
+		_vec3 vMax;
+	}AABB;
 
 }

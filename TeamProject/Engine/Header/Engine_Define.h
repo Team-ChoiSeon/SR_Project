@@ -4,6 +4,7 @@
 //--다이렉트X--//
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <d3dx9math.h>
 
 //--STL--//
 #include <stdio.h>
@@ -14,13 +15,20 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <queue>
+#include <set>
+#include <tuple>
+#include <queue>
 
 #include <string>
+#include <sstream>
 #include <algorithm>
 #include <functional>
 #include <memory>
 #include <typeindex> //타입으로 해시
 #include <process.h>//쓰레드
+
+#include <codecvt>
+#include <locale>
 
 #include <windows.h>
 #include <fstream>
@@ -40,7 +48,8 @@
 #pragma execution_character_set("utf-8")
 
 #pragma warning(disable :4251) //맵 컨테이너 경고 무시
-
+#include <json.hpp>
+using json = nlohmann::json;
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>

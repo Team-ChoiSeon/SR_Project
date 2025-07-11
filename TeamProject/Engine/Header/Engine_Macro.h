@@ -78,4 +78,16 @@ public:																					\
 	}		
 }
 
+// include in .cpp bottom
+// ex) REGISTER_GAMEOBJECT(CPlayer)
+#define REGISTER_GAMEOBJECT(ClassName) \
+    namespace { \
+        struct ClassName##AutoRegister { \
+            ClassName##AutoRegister() { \
+                CFactory::Register(L#ClassName, &ClassName::Create); \
+            } \
+        }; \
+        static ClassName##AutoRegister g_##ClassName##_AutoRegister; \
+    }
+
 #endif // Engine_Macro_h__
