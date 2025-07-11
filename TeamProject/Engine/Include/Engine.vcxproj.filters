@@ -115,6 +115,9 @@
     <Filter Include="01. Managers\11. ShaderMgr">
       <UniqueIdentifier>{fa8a89c2-5d64-4e62-9fcd-817aeb3cde34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Managers\12. SoundMgr">
+      <UniqueIdentifier>{ccaf2c00-62f4-4b1f-b5f0-6aa97eaaeb38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -249,6 +252,12 @@
     <ClInclude Include="..\Header\CShaderMgr.h">
       <Filter>01. Managers\11. ShaderMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSoundMgr.h">
+      <Filter>01. Managers\12. SoundMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\FMOD\fmod.hpp">
+      <Filter>01. Managers\12. SoundMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -358,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CShaderMgr.cpp">
       <Filter>01. Managers\11. ShaderMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSoundMgr.cpp">
+      <Filter>01. Managers\12. SoundMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
