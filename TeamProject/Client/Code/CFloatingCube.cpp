@@ -25,27 +25,28 @@ CFloatingCube::~CFloatingCube()
 
 HRESULT CFloatingCube::Ready_GameObject()
 {
-	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
-	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CTransform>());
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
 	m_pModel = Get_Component<CModel>();
-	m_pCollider = Get_Component<CCollider>();
+
+	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
-	m_pRigid = Get_Component<CRigidBody>();
 	m_pTransform->Set_Scale({ 1.f, 0.3f, 1.f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 
+	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+	m_pRigid = Get_Component<CRigidBody>();
 
-
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
+	m_pCollider = Get_Component<CCollider>();
+	m_pCollider->Set_ColTag(ColliderTag::GROUND);
+	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
 	m_bGoBack = false;	
 	m_bBackward = false;
 	m_bOn = true;
 	m_fSpeed = 1.f;
 	m_fSleepTime = 0.f;
-	//m_vEndPos = { 0.f, 0.f, 0.f };
 
 	CFactory::Save_Prefab(this, "CFloatingCube");
     return S_OK;

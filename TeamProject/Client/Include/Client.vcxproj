@@ -153,8 +153,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Header\CActiveTrigger.h" />
+    <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CBlock.h" />
+    <ClInclude Include="..\Header\CSwitch.h" />
     <ClInclude Include="..\Header\CCameraObject.h" />
     <ClInclude Include="..\Header\CCrosshairUIObject.h" />
     <ClInclude Include="..\Header\CDirectionalCube.h" />
@@ -170,8 +171,6 @@
     <ClInclude Include="..\Header\CStairBlock.h" />
     <ClInclude Include="..\Header\CTestLightMeshObject.h" />
     <ClInclude Include="..\Header\CCube.h" />
-    <ClInclude Include="..\Header\CTimerButton.h" />
-    <ClInclude Include="..\Header\CWeightButton.h" />
     <ClInclude Include="..\Header\CTestTile.h" />
     <ClInclude Include="..\Header\DummyCube.h" />
     <ClInclude Include="..\Header\Logo.h" />
@@ -182,7 +181,7 @@
     <ClInclude Include="..\Header\SceneHW.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
     <ClInclude Include="..\Header\TestSceneHW.h" />
-    <ClInclude Include="..\Header\CToggleButton.h" />
+    <ClInclude Include="..\Header\CPickSwitch.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -190,8 +189,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Code\CActiveTrigger.cpp" />
+    <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CBlock.cpp" />
+    <ClCompile Include="..\Code\CSwitch.cpp" />
     <ClCompile Include="..\Code\CCameraObject.cpp" />
     <ClCompile Include="..\Code\CCrosshairUIObject.cpp" />
     <ClCompile Include="..\Code\CDirectionalCube.cpp" />
@@ -207,8 +207,6 @@
     <ClCompile Include="..\Code\CStairBlock.cpp" />
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp" />
     <ClCompile Include="..\Code\CCube.cpp" />
-    <ClCompile Include="..\Code\CTimerButton.cpp" />
-    <ClCompile Include="..\Code\CWeightButton.cpp" />
     <ClCompile Include="..\Code\CTestTile.cpp" />
     <ClCompile Include="..\Code\DummyCube.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
@@ -219,7 +217,7 @@
     <ClCompile Include="..\Code\SceneHW.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
     <ClCompile Include="..\Code\TestSceneHW.cpp" />
-    <ClCompile Include="..\Code\CToggleButton.cpp" />
+    <ClCompile Include="..\Code\CPickSwitch.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

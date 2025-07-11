@@ -73,17 +73,8 @@
     <Filter Include="04. GameObjects\Cube\ImpulseCube">
       <UniqueIdentifier>{d1eb18fa-2b18-4930-9a79-8dc103ed10cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\Trigger">
-      <UniqueIdentifier>{6ca85163-f2f9-4842-b2fd-3af07ca1b49b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. GameObjects\Trigger\WeightButton">
-      <UniqueIdentifier>{d004dbe1-8485-46b4-9be5-6a79a3f7a4f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObjects\TestTile">
       <UniqueIdentifier>{48b919c7-4a5f-44ae-b69b-234078cfeb74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. GameObjects\Trigger\TimerButton">
-      <UniqueIdentifier>{1e089019-6e1a-4932-af78-e4731a97e0c4}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Scene\SceneHS\test">
       <UniqueIdentifier>{c6e88d43-7f86-41a2-8f56-2908c917d0b2}</UniqueIdentifier>
@@ -94,14 +85,20 @@
     <Filter Include="04. GameObjects\SceneTrigger\SceneGate">
       <UniqueIdentifier>{bad48d57-5cf4-4a43-97b7-580711e99a80}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\Trigger\ToggleButton">
-      <UniqueIdentifier>{6224e65c-e2be-4ac3-bed9-5f5cc82c1a82}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObjects\Block">
       <UniqueIdentifier>{7c193ad6-cbaf-44da-b976-e2fe2eb5facf}</UniqueIdentifier>
     </Filter>
     <Filter Include="04. GameObjects\Block\StairBlock">
       <UniqueIdentifier>{0ee28229-e306-40c5-bc7b-c972bc7f551e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Trigger">
+      <UniqueIdentifier>{61a88893-c867-4f29-9e96-718b219bbf6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Switch">
+      <UniqueIdentifier>{6ca85163-f2f9-4842-b2fd-3af07ca1b49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Switch\ToggleButton">
+      <UniqueIdentifier>{6224e65c-e2be-4ac3-bed9-5f5cc82c1a82}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -180,17 +177,8 @@
     <ClInclude Include="..\Header\CImpulseCube.h">
       <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CActiveTrigger.h">
-      <Filter>04. GameObjects\Trigger</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CWeightButton.h">
-      <Filter>04. GameObjects\Trigger\WeightButton</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CTestTile.h">
       <Filter>04. GameObjects\TestTile</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CTimerButton.h">
-      <Filter>04. GameObjects\Trigger\TimerButton</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSceneTestHS.h">
       <Filter>03. Scene\SceneHS\test</Filter>
@@ -201,14 +189,20 @@
     <ClInclude Include="..\Header\CSceneGate.h">
       <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CToggleButton.h">
-      <Filter>04. GameObjects\Trigger\ToggleButton</Filter>
+    <ClInclude Include="..\Header\CPickSwitch.h">
+      <Filter>04. GameObjects\Switch\ToggleButton</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CBlock.h">
       <Filter>04. GameObjects\Block</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CStairBlock.h">
       <Filter>04. GameObjects\Block\StairBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTrigger.h">
+      <Filter>04. GameObjects\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSwitch.h">
+      <Filter>04. GameObjects\Switch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,17 +272,8 @@
     <ClCompile Include="..\Code\CImpulseCube.cpp">
       <Filter>04. GameObjects\Cube\ImpulseCube</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CActiveTrigger.cpp">
-      <Filter>04. GameObjects\Trigger</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CWeightButton.cpp">
-      <Filter>04. GameObjects\Trigger\WeightButton</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CTestTile.cpp">
       <Filter>04. GameObjects\TestTile</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTimerButton.cpp">
-      <Filter>04. GameObjects\Trigger\TimerButton</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSceneTestHS.cpp">
       <Filter>03. Scene\SceneHS\test</Filter>
@@ -299,14 +284,20 @@
     <ClCompile Include="..\Code\CSceneGate.cpp">
       <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CToggleButton.cpp">
-      <Filter>04. GameObjects\Trigger\ToggleButton</Filter>
+    <ClCompile Include="..\Code\CPickSwitch.cpp">
+      <Filter>04. GameObjects\Switch\ToggleButton</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CBlock.cpp">
       <Filter>04. GameObjects\Block</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CStairBlock.cpp">
       <Filter>04. GameObjects\Block\StairBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTrigger.cpp">
+      <Filter>04. GameObjects\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSwitch.cpp">
+      <Filter>04. GameObjects\Switch</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

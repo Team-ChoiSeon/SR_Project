@@ -46,8 +46,7 @@ HRESULT CSoundMgr::Ready_Sound()
     m_pSystem->createChannelGroup("VOICE", &pVoice);
     m_mapGroup["VOICE"] = pVoice;
 
-    Load_Sound("test", "../Bin/Resource/Sound/test.wav");
-    Load_Sound("jump", "../Bin/Resource/Sound/Jump1.mp3");
+    //Load_Sound("test", "../Bin/Resource/Sound/test.wav");
 
     return S_OK;
 }

@@ -7,11 +7,9 @@ class CFirstviewFollowingCamera;
 class CFloatingCube;
 class CDirectionalCube;
 class CImpulseCube;
-class CWeightButton;
 class CPlayer;
 class CTestTile;
-class CTimerButton;
-class CToggleButton;
+class CPickSwitch;
 
 class SceneHW : public CScene
 {
@@ -43,10 +41,8 @@ private:
 	CDirectionalCube*					m_pDirectionalCube;
 	CDirectionalCube*					m_pOnewayCube;
 	CImpulseCube*						m_pImpulseCube;
-	CWeightButton*						m_pWeightButton;
 	CTestTile*							m_pTile;
-	CTimerButton*						m_pTimerButton;
-	CToggleButton*						m_pToggleButton;
+	CPickSwitch*						m_pPickSwitch;
 
 	_float								m_fTime;
 	bool								m_bCamPlayer;

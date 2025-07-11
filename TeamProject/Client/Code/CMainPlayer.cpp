@@ -2,7 +2,8 @@
 #include "CMainPlayer.h"
 #include "CCubeTex.h"
 
-#include "CDirectionalCube.h"
+#include "CCube.h"
+#include "CSwitch.h"
 
 #include "CVIBuffer.h"
 #include "CTransform.h"
@@ -112,8 +113,13 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
 	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);
 	auto* pPickCubeObj = dynamic_cast<CCube*>(m_pPickObj);
+	auto* pPickSwitchObj = dynamic_cast<CSwitch*>(m_pPickObj);
 	if (pPickCubeObj) {
 		pPickCubeObj->Set_Grab(false);
+	}
+	if (pPickSwitchObj)
+	{
+		pPickSwitchObj->Set_Grab(false);
 	}
 	//m_pCrosshair
 	if (m_pPickObj)
@@ -130,6 +136,10 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 				if (pPickCubeObj) {
 					pPickCubeObj->Set_Grab(true);
 					pPickCubeObj->Set_CursorVec(m_vDragDistance);
+				}
+				if (pPickSwitchObj) {
+					pPickSwitchObj->Set_Grab(true);
+					pPickSwitchObj->Set_CursorVec(m_vDragDistance);
 				}
 
 			}
