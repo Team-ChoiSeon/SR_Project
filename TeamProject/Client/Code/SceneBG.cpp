@@ -26,8 +26,8 @@ SceneBG::~SceneBG()
 HRESULT SceneBG::Ready_Scene()
 {
 	Init_Layers();
-	//CFactory::DeSerializeScene(L"../../Scene/Merge_Scene.json", this);
-	CFactory::DeSerializeScene(L"../../Scene/Jahyeon.json", this);
+	CFactory::DeSerializeScene(L"../../Scene/Merge_Scene.json", this);
+	//CFactory::DeSerializeScene(L"../../Scene/Jahyeon.json", this);
 
 	//플레이어 셋
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"MainPlayer");
