@@ -109,7 +109,7 @@ void CPlayer::KeyInput(const _float& fTimeDelta)
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_W))
 		m_pTransform->Move(DIR_FORWARD, m_fSpeed, fTimeDelta);
-	
+
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_S))
 		m_pTransform->Move(DIR_BACKWARD, m_fSpeed, fTimeDelta);
 
@@ -120,7 +120,11 @@ void CPlayer::KeyInput(const _float& fTimeDelta)
 		m_pTransform->Move(DIR_LEFT, m_fSpeed, fTimeDelta);
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q))
+	{
+		CSoundMgr::Get_Instance()->Play("jump");
 		m_pTransform->Move(DIR_UP, m_fSpeed, fTimeDelta);
+	}
+		
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_E))
 		m_pTransform->Move(DIR_DOWN, m_fSpeed, fTimeDelta);
