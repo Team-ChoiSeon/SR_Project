@@ -267,8 +267,12 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 
 		if (pushed)
 		{
+
 			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
+			{
 				pTransform->Set_Pos(pTransform->Get_Pos() + push);
+			}
+				
 
 			if (oType == ColliderType::ACTIVE && m_pRigid && pOther->m_pRigid)
 			{

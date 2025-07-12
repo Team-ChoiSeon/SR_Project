@@ -53,7 +53,7 @@ HRESULT CMonster::Ready_GameObject()
 
 int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
-	KeyInput(fTimeDelta);
+	//KeyInput(fTimeDelta);
 	CGameObject::Update_GameObject(fTimeDelta);
 	return 0;
 }

@@ -30,6 +30,8 @@ HRESULT CPlayer::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
+	//m_pRigid->Set_OnGround(false);
+	//m_pRigid->Set_UseGravity(false);
 
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
