@@ -37,6 +37,7 @@ HRESULT CMonsterPart::Ready_GameObject()
     m_pTransform = Get_Component<CTransform>();
     m_pModel = Get_Component<CModel>();
 
+
     m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
 
     return S_OK;

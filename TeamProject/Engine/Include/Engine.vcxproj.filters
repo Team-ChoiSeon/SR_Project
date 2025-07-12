@@ -121,6 +121,9 @@
     <Filter Include="03. GameObject\MonsterPart">
       <UniqueIdentifier>{00f2ecb3-2a4e-4dd9-a6f4-71287eb2fa62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Resources\Mesh\CDodeTex">
+      <UniqueIdentifier>{abb3b1db-172a-42b3-bda1-7d99b2994a62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -264,6 +267,9 @@
     <ClInclude Include="..\Header\CMonsterPart.h">
       <Filter>03. GameObject\MonsterPart</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDodeTex.h">
+      <Filter>06. Resources\Mesh\CDodeTex</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -379,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMonsterPart.cpp">
       <Filter>03. GameObject\MonsterPart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDodeTex.cpp">
+      <Filter>06. Resources\Mesh\CDodeTex</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
