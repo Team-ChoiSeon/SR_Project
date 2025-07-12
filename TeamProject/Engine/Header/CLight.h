@@ -18,8 +18,10 @@ public:
 
 public:
 	HRESULT			Ready_Light(const D3DLIGHT9* pLightInfo, LIGHTTYPE type);
-	virtual void	Update_Component(const _float& fTimeDelta);
-	virtual void	LateUpdate_Component();
+
+	virtual HRESULT	Ready_Component()override { return S_OK; };
+	virtual void	Update_Component(const _float& fTimeDelta)override;
+	virtual void	LateUpdate_Component(const _float& fTimeDelta)override;
 
 	void			EnableLight(_bool bEnable);
 

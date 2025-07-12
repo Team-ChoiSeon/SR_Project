@@ -14,9 +14,9 @@ public:
 	virtual ~CTransform();
 
 public:
-	HRESULT			Ready_Transform();
-	virtual void	Update_Component(const _float& fTimeDelta);
-	virtual void	LateUpdate_Component();
+	HRESULT			Ready_Component()override;
+	virtual void	Update_Component(const _float& fTimeDelta)override;
+	virtual void	LateUpdate_Component(const _float& fTimeDelta)override;
 
 public:
     void Set_Pos(const _vec3& vPos) { m_vPosition = vPos; Update_Component(0.f);

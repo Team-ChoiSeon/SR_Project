@@ -14,7 +14,7 @@ CLightObject::~CLightObject()
 
 HRESULT CLightObject::Ready_GameObject()
 {
-    Get_Component<CTransform>()->Ready_Transform();
+    Get_Component<CTransform>()->Ready_Component();
 
     D3DLIGHT9 lightInfo = {};
     lightInfo.Type = D3DLIGHT_POINT;
@@ -45,7 +45,7 @@ int CLightObject::Update_GameObject(const _float& fTimeDelta)
 void CLightObject::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+		pComponent.second->LateUpdate_Component(fTimeDelta);
 
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }

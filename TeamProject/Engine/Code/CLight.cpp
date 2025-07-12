@@ -45,7 +45,7 @@ void CLight::Update_Component(const _float& fTimeDelta)
     Update_ViewProjectionMatrix();
 }
 
-void CLight::LateUpdate_Component()
+void CLight::LateUpdate_Component(const _float& fTimeDelta)
 {
     if (!m_pGraphicDev)
         return;

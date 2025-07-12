@@ -26,7 +26,7 @@ HRESULT CTestLightMeshObject::Ready_GameObject()
     m_Material.Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.f);
     m_Material.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
 
-    Get_Component<CTransform>()->Ready_Transform();
+    Get_Component<CTransform>()->Ready_Component();
     Get_Component<CTransform>()->Set_Pos({ 0.f, 0.5f, 0.f });
 
     CLight* pLight = CLight::Create(m_pGraphicDev);
@@ -60,7 +60,7 @@ _int CTestLightMeshObject::Update_GameObject(const _float& fTimeDelta)
 void CTestLightMeshObject::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     for (auto& comp : m_umComponent[ID_DYNAMIC])
-        comp.second->LateUpdate_Component();
+        comp.second->LateUpdate_Component(fTimeDelta);
 }
 
 void CTestLightMeshObject::Render_GameObject()

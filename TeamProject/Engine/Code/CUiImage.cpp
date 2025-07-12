@@ -32,7 +32,7 @@ void CUiImage::Update_Component(const _float& fTimeDelta)
 {
 }
 
-void CUiImage::LateUpdate_Component() 
+void CUiImage::LateUpdate_Component(const _float& fTimeDelta)
 {
 	CRenderMgr::Get_Instance()->Add_UI(this);
 }

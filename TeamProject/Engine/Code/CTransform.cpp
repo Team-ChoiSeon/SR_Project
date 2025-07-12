@@ -38,7 +38,7 @@ CTransform::~CTransform()
 }
 
 
-HRESULT CTransform::Ready_Transform()
+HRESULT CTransform::Ready_Component()
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&m_matParent);
@@ -83,7 +83,7 @@ void CTransform::Update_Component(const _float& fTimeDelta)
 	return ;
 }
 
-void CTransform::LateUpdate_Component()
+void CTransform::LateUpdate_Component(const _float& fTimeDelta)
 {
 
 }
@@ -101,7 +101,7 @@ CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CTransform* pTransform = new CTransform(pGraphicDev);
 
-	if (FAILED(pTransform->Ready_Transform()))
+	if (FAILED(pTransform->Ready_Component()))
 	{
 		Safe_Release(pTransform);
 		MSG_BOX("Transform Create Failed");

@@ -68,7 +68,7 @@ _int CToggleButton::Update_GameObject(const _float& fTimeDelta)
 void CToggleButton::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-        pComponent.second->LateUpdate_Component();
+        pComponent.second->LateUpdate_Component(fTimeDelta);
 }
 
 CToggleButton* CToggleButton::Create(LPDIRECT3DDEVICE9 pGraphicDev)

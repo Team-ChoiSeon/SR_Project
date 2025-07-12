@@ -140,7 +140,7 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
-void CCollider::LateUpdate_Component()
+void CCollider::LateUpdate_Component(const _float& fTimeDelta)
 {
 	CRenderMgr::Get_Instance()->Add_Collider(this);
 }

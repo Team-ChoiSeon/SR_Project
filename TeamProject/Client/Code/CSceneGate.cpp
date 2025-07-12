@@ -62,7 +62,7 @@ int CSceneGate::Update_GameObject(const _float& fTimeDelta)
 void CSceneGate::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+		pComponent.second->LateUpdate_Component(fTimeDelta);
 
 	CCollider* pOtherCol = m_pCollider->Get_Other();
 	

@@ -14,9 +14,9 @@ private:
 
 public:
 	//Basic Function
-	HRESULT			Ready_Component();
-	virtual void	Update_Component(const _float& fTimeDelta);
-	virtual void	LateUpdate_Component();
+	HRESULT			Ready_Component()override;
+	virtual void	Update_Component(const _float& fTimeDelta)override;
+	virtual void	LateUpdate_Component(const _float& fTimeDelta)override;
 
 	//Create, Release Function
 	static CCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev);

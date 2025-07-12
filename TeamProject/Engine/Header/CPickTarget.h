@@ -14,9 +14,9 @@ private:
 
 public:
 	//Basic Function
-	HRESULT Ready_Component();
-	void	Update_Component(const _float& fTimeDelta);
-	void	LateUpdate_Component();
+	HRESULT Ready_Component()override;
+	void	Update_Component(const _float& fTimeDelta)override;
+	void	LateUpdate_Component(const _float& fTimeDelta)override;
 
 
 	//Create, Release Function
