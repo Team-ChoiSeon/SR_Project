@@ -64,11 +64,15 @@ void CMonsterPart::Follow_Target(_float fDeltaTime)
 
     _vec3 dir = targetPos - myPos;
     float dist = D3DXVec3Length(&dir);
-    if (dist < 0.01f)
+    const float desiredDistance = 2.f;
+
+    // 너무 가까우면 이동 안 함
+    if (dist <= desiredDistance)
         return;
 
+
     D3DXVec3Normalize(&dir, &dir);
-    float speed = 5.f;
+    float speed = 30.f;
     _vec3 newPos = myPos + dir * fDeltaTime * speed;
 
     m_pTransform->Set_Pos(newPos);

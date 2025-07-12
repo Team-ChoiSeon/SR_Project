@@ -171,6 +171,7 @@
     <ClInclude Include="..\Header\CTestLightMeshObject.h" />
     <ClInclude Include="..\Header\CCube.h" />
     <ClInclude Include="..\Header\CTimerButton.h" />
+    <ClInclude Include="..\Header\CVellum.h" />
     <ClInclude Include="..\Header\CWeightButton.h" />
     <ClInclude Include="..\Header\CTestTile.h" />
     <ClInclude Include="..\Header\DummyCube.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp" />
     <ClCompile Include="..\Code\CCube.cpp" />
     <ClCompile Include="..\Code\CTimerButton.cpp" />
+    <ClCompile Include="..\Code\CVellum.cpp" />
     <ClCompile Include="..\Code\CWeightButton.cpp" />
     <ClCompile Include="..\Code\CTestTile.cpp" />
     <ClCompile Include="..\Code\DummyCube.cpp" />

@@ -7,6 +7,7 @@
 #include "CCameraMgr.h"
 #include "CFirstviewFollowingCamera.h"
 #include "CTestTile.h"
+#include "CVellum.h"
 
 #include "CCollisionMgr.h"
 
@@ -39,6 +40,10 @@ HRESULT SceneSB::Ready_Scene()
 	CMonster* pFallingMonster = CMonster::Create(m_pGraphicDev);
 	pFallingMonster->Get_Component<CTransform>()->Set_Pos({ 0.f, 8.f, 10.f }); // 공중, 약간 앞쪽
 	pFallingMonster->Get_Component<CTransform>()->Set_Scale({ 0.5f, 0.5f, 0.5f });
+
+	// test. 벨룸
+	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
+
 	// 4. 카메라 (플레이어 시점)
 	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 
@@ -47,6 +52,7 @@ HRESULT SceneSB::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"MyTile", pTile);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"FallingMonster", pFallingMonster);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
 
 
 
