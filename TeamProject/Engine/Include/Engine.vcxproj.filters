@@ -124,6 +124,9 @@
     <Filter Include="06. Resources\Mesh\CDodeTex">
       <UniqueIdentifier>{abb3b1db-172a-42b3-bda1-7d99b2994a62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Resources\Mesh\CIcosaTex">
+      <UniqueIdentifier>{31c96d2e-8f34-4517-a1be-273beb7aa506}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -270,6 +273,9 @@
     <ClInclude Include="..\Header\CDodeTex.h">
       <Filter>06. Resources\Mesh\CDodeTex</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CIcosaTex.h">
+      <Filter>06. Resources\Mesh\CIcosaTex</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -388,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDodeTex.cpp">
       <Filter>06. Resources\Mesh\CDodeTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CIcosaTex.cpp">
+      <Filter>06. Resources\Mesh\CIcosaTex</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

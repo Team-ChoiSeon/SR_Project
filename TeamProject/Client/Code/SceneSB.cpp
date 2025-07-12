@@ -29,7 +29,7 @@ HRESULT SceneSB::Ready_Scene()
 
 	// 1. 플레이어 (시점 고정)
 	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
-	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 0.f, -20.f });
+	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 20.f, -20.f });
 
 	// 2. 바닥 역할 (몬스터 착지용)
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);

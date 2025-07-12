@@ -1,9 +1,13 @@
 #pragma once
 #include "CGameObject.h"
-#include "CTransform.h"
+
 #include "CModel.h"
 
 BEGIN(Engine)
+
+class CTransform;
+class CRigidBody;
+class CCollider;
 
 class ENGINE_DLL CMonsterPart : public CGameObject
 {
@@ -27,8 +31,11 @@ public:
 	virtual void Free();
 
 private:
-	CTransform* m_pTransform = nullptr;
 	CModel* m_pModel = nullptr;
+
+	CTransform* m_pTransform = nullptr;
+	CRigidBody* m_pRigid = nullptr;
+	CCollider* m_pCol = nullptr;
 
 	CMonsterPart* m_pTarget = nullptr;
 

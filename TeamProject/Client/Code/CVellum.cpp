@@ -1,8 +1,13 @@
 #pragma once
 #include "pch.h"
 #include "CVellum.h"
+#include "CRigidBody.h"
+#include "CCollider.h"
+
 
 #include "CInputMgr.h"
+
+#include "CFactory.h"
 
 CVellum::CVellum(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev)
@@ -54,6 +59,9 @@ HRESULT CVellum::Ready_GameObject()
         m_vPart.push_back(pPart);
         pPrev = pPart;
     }
+
+    m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+   
 	return CGameObject::Ready_GameObject();;
 }
 
@@ -79,36 +87,44 @@ void CVellum::Key_Input(const _float& fTimeDelta)
         return;
 
     CTransform* pHeadTransform = m_vPart[0]->Get_Component<CTransform>();
-    if (!pHeadTransform)
+    CRigidBody* pRigid = m_vPart[0]->Get_Component<CRigidBody>();
+    if (!pHeadTransform || !pRigid)
         return;
 
     const float speed = 10.0f;
     _vec3 pos = pHeadTransform->Get_Pos();
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_UP))
-        pHeadTransform->Move(DIR_UP, speed, fTimeDelta);
+    {
+        pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); //  ???
+    }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_DOWN))
-        pHeadTransform->Move(DIR_DOWN, speed, fTimeDelta);
+    {
+        pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  ???
+    }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
-        pHeadTransform->Move(DIR_LEFT, speed, fTimeDelta);
+    {
+        pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // ???? ???
+    }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
-        pHeadTransform->Move(DIR_RIGHT, speed, fTimeDelta);
+    {
+        pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // ?????? ???
+    }
 
-    // 넘버패드숫자키 1~6 (x/y/z축 직접 이동)
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD1)) // +X
-        pos.x += speed * fTimeDelta;
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD2)) // -X
-        pos.x -= speed * fTimeDelta;
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD3)) // +Y
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD8)) // +Y
         pos.y += speed * fTimeDelta;
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD4)) // -Y
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD2)) // -Y
         pos.y -= speed * fTimeDelta;
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD5)) // +Z
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD6)) // +X
+        pos.x += speed * fTimeDelta;
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD4)) // -X
+        pos.x -= speed * fTimeDelta;
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD9)) // +Z
         pos.z += speed * fTimeDelta;
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD6)) // -Z
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
     pHeadTransform->Set_Pos(pos); // 적용
@@ -125,3 +141,5 @@ void CVellum::Free()
     CGameObject::Free();
 
 }
+
+REGISTER_GAMEOBJECT(CVellum)
