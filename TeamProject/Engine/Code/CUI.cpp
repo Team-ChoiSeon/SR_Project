@@ -35,15 +35,7 @@ HRESULT CUI::Ready_UI()
 	return S_OK;
 }
 
-void CUI::Update_Component(const _float& fTimeDelta)
-{
 
-}
-
-void CUI::LateUpdate_Component()
-{
-
-}
 
 void CUI::Render(LPDIRECT3DDEVICE9 pDevice)
 {

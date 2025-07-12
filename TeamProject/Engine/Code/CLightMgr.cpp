@@ -42,7 +42,7 @@ void CLightMgr::UpdateLights(const D3DXVECTOR3& cameraPos)
     int index = 0;
     for (auto light : m_LightList) {
         light->EnableLight(true);
-        light->LateUpdate_Component();
+        light->LateUpdate_Component(0.f);
     }
     // for (auto light : sortedLights) {
     //     if (index >= 7) 

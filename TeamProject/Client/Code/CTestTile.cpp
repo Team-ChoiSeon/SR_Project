@@ -19,7 +19,7 @@ HRESULT CTestTile::Ready_GameObject()
 {
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
-	m_pTransform->Ready_Transform();
+	m_pTransform->Ready_Component();
 	m_pTransform->Set_Pos({ 1.f, -2.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
@@ -59,7 +59,7 @@ int CTestTile::Update_GameObject(const _float& fTimeDelta)
 void CTestTile::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+		pComponent.second->LateUpdate_Component(fTimeDelta);
 }
 
 CTestTile* CTestTile::Create(LPDIRECT3DDEVICE9 pGraphicDev)

@@ -28,7 +28,7 @@ CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice)
 	return instance;
 }
 
-void CModel::LateUpdate_Component()
+void CModel::LateUpdate_Component(const _float& fTimeDelta)
 {
 	OutputDebugString("[CModel] LateUpdate_Component È£ÃâµÊ\n");
 	CRenderMgr::Get_Instance()->Add_Model(this);

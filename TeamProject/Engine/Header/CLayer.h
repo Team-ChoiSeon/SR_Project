@@ -35,7 +35,7 @@ public:
 	HRESULT			Ready_Layer();
 	_int			Update_Layer(const _float& fTimeDelta);
 	void			LateUpdate_Layer(const _float& fTimeDelta);
-	void			Render_Layer();
+	/*void			Render_Layer();*/
 
 public:
 	static CLayer* Create();

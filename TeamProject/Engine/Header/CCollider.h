@@ -86,7 +86,7 @@ public:
 public:
 	virtual HRESULT Ready_Component()override;
 	virtual void Update_Component(const _float& fTimeDelta) override;
-	virtual void LateUpdate_Component() override;
+	virtual void LateUpdate_Component(const _float& fTimeDelta) override;
 	void Render(LPDIRECT3DDEVICE9 pDevice);
 	// pCollider : other
 	// ex) change color, set flag

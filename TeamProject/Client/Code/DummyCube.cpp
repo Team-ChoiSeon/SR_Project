@@ -38,7 +38,7 @@ HRESULT DummyCube::Ready_GameObject()
 	m_pPick = Get_Component<CPickTarget>();
 	m_pRigid = Get_Component<CRigidBody>();
 
-	m_pTransform->Ready_Transform();
+	m_pTransform->Ready_Component();
 	m_pTransform->Set_Pos({ 0.f, 0.f, 10.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, -1.f });
 	m_pTransform->Set_Right({ -1.f, 0.f, 0.f });
@@ -64,7 +64,7 @@ int DummyCube::Update_GameObject(const _float& fTimeDelta)
 void DummyCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+		pComponent.second->LateUpdate_Component(fTimeDelta);
 }
 
 DummyCube* DummyCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)

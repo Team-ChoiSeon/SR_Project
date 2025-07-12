@@ -38,7 +38,7 @@ void CCamera::Update_Component(const _float& fTimeDelta)
 	ComputeProjMatrix();
 }
 
-void CCamera::LateUpdate_Component()
+void CCamera::LateUpdate_Component(const _float& fTimeDelta)
 {
 }
 

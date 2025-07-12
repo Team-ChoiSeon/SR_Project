@@ -15,9 +15,9 @@ protected:
 	virtual ~CComponent();
 
 public:
-	virtual HRESULT Ready_Component() { return S_OK; }
-	virtual void Update_Component(const _float& fTimeDelta) {}
-	virtual void LateUpdate_Component() {}
+	virtual HRESULT Ready_Component()PURE;
+	virtual void Update_Component(const _float& fTimeDelta)PURE;
+	virtual void LateUpdate_Component(const _float& fTimeDelta)PURE;
 
 protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDev;

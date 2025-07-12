@@ -15,7 +15,7 @@ private:
 
 public:
 	//Basic Function
-	HRESULT Ready_GameObject();
+	HRESULT Ready_GameObject()override;
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 

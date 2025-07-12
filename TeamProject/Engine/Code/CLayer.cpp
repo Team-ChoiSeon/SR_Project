@@ -61,11 +61,11 @@ void CLayer::LateUpdate_Layer(const _float& fTimeDelta)
 	}
 }
 
-void CLayer::Render_Layer()
-{
-	for (auto& pObj : m_vObject)
-		pObj.pObj->Render_GameObject();
-}
+//void CLayer::Render_Layer()
+//{
+//	for (auto& pObj : m_vObject)
+//		pObj.pObj->Render_GameObject();
+//}
 
 
 CLayer* CLayer::Create()

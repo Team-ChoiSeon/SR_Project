@@ -22,7 +22,11 @@ public:
 public:
     static CModel* Create(LPDIRECT3DDEVICE9 pDevice);
     //static CModel* Create(LPDIRECT3DDEVICE9 pDevice, const DefaultTileModel& model);
-    virtual void LateUpdate_Component()override;
+    
+    virtual HRESULT Ready_Component()override { return S_OK; }
+    virtual void Update_Component(const _float& fTimeDelta)override {};
+    virtual void LateUpdate_Component(const _float& fTimeDelta)override;
+    
     void Render(LPDIRECT3DDEVICE9 pDevice);
     HRESULT Set_Model(const wstring& meshType, const wstring& matType);
 
