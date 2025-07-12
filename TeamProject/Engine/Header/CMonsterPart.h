@@ -1,0 +1,37 @@
+#pragma once
+#include "CGameObject.h"
+#include "CTransform.h"
+#include "CModel.h"
+
+BEGIN(Engine)
+
+class ENGINE_DLL CMonsterPart : public CGameObject
+{
+private:
+	explicit CMonsterPart(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CMonsterPart(const CMonsterPart& rhs);
+	virtual ~CMonsterPart();
+
+public:
+	static CMonsterPart* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+	virtual	 HRESULT	Ready_GameObject()override;
+	virtual	 _int		Update_GameObject(const _float& fTimeDelta)override;
+	virtual	 void		LateUpdate_GameObject(const _float& fTimeDelta)override;
+
+public:
+	void Follow_Target(_float fDeltaTime);
+	void Set_Target(CMonsterPart* pTarget) { m_pTarget = pTarget; }
+
+public:
+	virtual void Free();
+
+private:
+	CTransform* m_pTransform = nullptr;
+	CModel* m_pModel = nullptr;
+
+	CMonsterPart* m_pTarget = nullptr;
+
+};
+
+END

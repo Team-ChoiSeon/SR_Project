@@ -118,6 +118,9 @@
     <Filter Include="01. Managers\12. SoundMgr">
       <UniqueIdentifier>{ccaf2c00-62f4-4b1f-b5f0-6aa97eaaeb38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\MonsterPart">
+      <UniqueIdentifier>{00f2ecb3-2a4e-4dd9-a6f4-71287eb2fa62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -258,6 +261,9 @@
     <ClInclude Include="..\..\ThirdParty\json.hpp">
       <Filter>03. GameObject\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CMonsterPart.h">
+      <Filter>03. GameObject\MonsterPart</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -370,6 +376,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSoundMgr.cpp">
       <Filter>01. Managers\12. SoundMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonsterPart.cpp">
+      <Filter>03. GameObject\MonsterPart</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
