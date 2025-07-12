@@ -70,8 +70,7 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 
 void CMainPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component(fTimeDelta);
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 CMainPlayer* CMainPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

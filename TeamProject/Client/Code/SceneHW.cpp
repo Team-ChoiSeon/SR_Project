@@ -315,11 +315,7 @@ void SceneHW::LateUpdate_Scene(const _float& fTimeDelta)
 	CCameraMgr::Get_Instance()->LateUpdate_Camera(fTimeDelta);
 }
 
-void SceneHW::Render_Scene()
-{
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->Render_Layer();
-}
+
 
 void SceneHW::Free()
 {

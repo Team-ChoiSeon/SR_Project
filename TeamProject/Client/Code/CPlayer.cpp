@@ -48,8 +48,7 @@ int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	KeyInput(fTimeDelta);
 
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->Update_Component(fTimeDelta);
+	CGameObject::Update_GameObject(fTimeDelta);
 
 	// For debug
 	/*wstring wDebug = to_wstring(m_pTransform->Get_Pos().y);
@@ -60,8 +59,7 @@ int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component(fTimeDelta);
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

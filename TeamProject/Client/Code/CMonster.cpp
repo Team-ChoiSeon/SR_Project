@@ -53,43 +53,14 @@ HRESULT CMonster::Ready_GameObject()
 
 int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
-
 	KeyInput(fTimeDelta);
-	//// For debug
-
-
-
-	//wstring wDebug = to_wstring(m_pTransform->Get_Pos().z);
-	//OutputDebugString(wDebug.c_str());
-	//OutputDebugString(L"\n");
-
-
-	if (auto pTransform = Get_Component<CTransform>())
-		pTransform->Update_Component(fTimeDelta);
-
-	if (auto pRigid = Get_Component<CRigidBody>())
-		pRigid->Update_Component(fTimeDelta);
-
-	if (auto pCollider = Get_Component<CCollider>())
-		pCollider->Update_Component(fTimeDelta);
-
-	// ��Ÿ ������ ������Ʈ
-	for (auto& pair : m_umComponent[ID_DYNAMIC])
-	{
-		auto type = pair.first;
-		if (type == typeid(CTransform) || type == typeid(CRigidBody) || type == typeid(CCollider))
-			continue;
-
-		pair.second->Update_Component(fTimeDelta);
-	}
-
+	CGameObject::Update_GameObject(fTimeDelta);
 	return 0;
 }
 
 void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component(fTimeDelta);
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CMonster::KeyInput(const _float& fTimeDelta)

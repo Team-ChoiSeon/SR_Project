@@ -77,8 +77,7 @@ _int CImpulseCube::Update_GameObject(const _float& fTimeDelta)
 
 void CImpulseCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component(fTimeDelta);
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 CImpulseCube* CImpulseCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
