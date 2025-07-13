@@ -36,6 +36,15 @@ namespace Engine {
 
 	const _ulong	FVF_LINE(D3DFVF_XYZ | D3DFVF_DIFFUSE);
 
+	typedef struct tagVertexParticle
+	{
+		_vec3 vPosition;
+		_ulong dwColor;
+		_vec2 vTexUV;
+	}VTXPARTICLE;
+
+	const _ulong	FVF_PARTICLE = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1;
+
 	typedef struct tagVertexTile
 	{
 		_vec3		vPosition;

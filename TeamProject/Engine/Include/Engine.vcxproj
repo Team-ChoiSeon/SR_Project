@@ -178,6 +178,7 @@
     <ClInclude Include="..\Header\CModel.h" />
     <ClInclude Include="..\Header\CLightMgr.h" />
     <ClInclude Include="..\Header\CMonsterPart.h" />
+    <ClInclude Include="..\Header\CParticle.h" />
     <ClInclude Include="..\Header\CPickingMgr.h" />
     <ClInclude Include="..\Header\CPickTarget.h" />
     <ClInclude Include="..\Header\CRcCube.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="..\Code\CModel.cpp" />
     <ClCompile Include="..\Code\CLightMgr.cpp" />
     <ClCompile Include="..\Code\CMonsterPart.cpp" />
+    <ClCompile Include="..\Code\CParticle.cpp" />
     <ClCompile Include="..\Code\CPickingMgr.cpp" />
     <ClCompile Include="..\Code\CPickTarget.cpp" />
     <ClCompile Include="..\Code\CRcCube.cpp" />

@@ -11,6 +11,7 @@ class CCollider;
 class CRigidBody;
 class CScene;
 class CLayer;
+class CParticle;
 
 using CreatorFunc = std::function<CGameObject* (LPDIRECT3DDEVICE9)>;
 
@@ -35,6 +36,7 @@ private:
     static void Serialize_PickTarget(json& outJson, CPickTarget* comp);
     static void Serialize_Collider(json& outJson, CCollider* comp);
     static void Serialize_RigidBody(json& outJson, CRigidBody* comp);
+    static void Serialize_Particle(json& outJson, CParticle* comp);
 
 private:
     static LAYERID stringToLayer(const string& wstr);

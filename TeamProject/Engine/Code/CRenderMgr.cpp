@@ -1,5 +1,6 @@
 #include "CRenderMgr.h"
 #include "CCollisionMgr.h"
+#include "CParticle.h"
 
 IMPLEMENT_SINGLETON(CRenderMgr)
 
@@ -50,6 +51,9 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 		
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_STENCIL)])
 		renderer->Render(pDevice);
+
+	for (auto& renderer : m_vParticles)
+		renderer->Render_Particle();
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_TRANSPARENT)])
 		renderer->Render(pDevice);
@@ -114,6 +118,17 @@ void CRenderMgr::Remove_Collider(CCollider* collider)
 	}
 }
 
+void CRenderMgr::Add_ParticleRenderer(CParticle* particle)
+{
+	auto iter = find_if(m_vParticles.begin(), m_vParticles.end(),
+		[&particle](CParticle* data)->bool {
+			return data == particle;
+		});
+
+	if (iter == m_vParticles.end())
+		m_vParticles.push_back(particle);
+}
+
 void CRenderMgr::Add_UI(CUI* ui)
 {
 	auto iter = find_if(m_vUI.begin(), m_vUI.end(),
@@ -144,6 +159,8 @@ void CRenderMgr::Clear()
 		list.clear();
 	m_vCol.clear();
 	m_vUI.clear();
+	m_vParticles.clear();
+
 }
 
 
