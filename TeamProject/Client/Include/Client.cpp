@@ -6,7 +6,7 @@
 #include "CMainApp.h"
 #include "CTimeMgr.h"
 #include "CFrameMgr.h"
-
+#include "CGuiSystem.h"
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -144,6 +144,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    Engine::CGuiSystem::Get_Instance()->Set_Input(hWnd, message, wParam, lParam);
+
     switch (message)
     {
     case WM_COMMAND:

@@ -114,9 +114,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_EXPORTS;IMGUI_API=__declspec(dllexport);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../ThirdParty;../../ThirdParty/FMOD</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../ThirdParty;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;../../ThirdParty/FMOD;../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -138,9 +138,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_EXPORTS;IMGUI_API=__declspec(dllexport);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Header; ../../Base; ../../ThirdParty;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../ThirdParty;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;y;;../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,6 +156,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\ThirdParty\FMOD\fmod.hpp" />
+    <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_dx9.h" />
+    <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="..\..\ThirdParty\Imgui\imgui.h" />
     <ClInclude Include="..\..\ThirdParty\json.hpp" />
     <ClInclude Include="..\Header\CCamera.h" />
     <ClInclude Include="..\Header\CCameraMgr.h" />
@@ -169,6 +172,7 @@
     <ClInclude Include="..\Header\CFrameMgr.h" />
     <ClInclude Include="..\Header\CGameObject.h" />
     <ClInclude Include="..\Header\CGraphicDev.h" />
+    <ClInclude Include="..\Header\CGuiSystem.h" />
     <ClInclude Include="..\Header\CIcosaTex.h" />
     <ClInclude Include="..\Header\CInputMgr.h" />
     <ClInclude Include="..\Header\CLayer.h" />
@@ -201,12 +205,19 @@
     <ClInclude Include="..\Header\Engine_Define.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
     <ClInclude Include="..\Header\Engine_Function.h" />
+    <ClInclude Include="..\Header\Engine_GUI.h" />
     <ClInclude Include="..\Header\Engine_Macro.h" />
     <ClInclude Include="..\Header\Engine_Model.h" />
     <ClInclude Include="..\Header\Engine_Struct.h" />
     <ClInclude Include="..\Header\Engine_Typedef.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_dx9.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\Code\CCamera.cpp" />
     <ClCompile Include="..\Code\CCameraMgr.cpp" />
     <ClCompile Include="..\Code\CCollider.cpp" />
@@ -219,6 +230,7 @@
     <ClCompile Include="..\Code\CFrameMgr.cpp" />
     <ClCompile Include="..\Code\CGameObject.cpp" />
     <ClCompile Include="..\Code\CGraphicDev.cpp" />
+    <ClCompile Include="..\Code\CGuiSystem.cpp" />
     <ClCompile Include="..\Code\CIcosaTex.cpp" />
     <ClCompile Include="..\Code\CInputMgr.cpp" />
     <ClCompile Include="..\Code\CLayer.cpp" />
