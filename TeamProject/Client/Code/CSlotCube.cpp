@@ -9,7 +9,8 @@
 #include "CInputMgr.h"
 #include "CPickingMgr.h"
 #include "CMainPlayer.h"
-
+#include "CFloatingCube.h"
+CSlotCube* CSlotCube::s_pPickedCube = nullptr;
 CSlotCube::CSlotCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
 {
@@ -61,9 +62,24 @@ HRESULT CSlotCube::Ready_GameObject()
 
 _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 {
-	Check_Lay();
+	if (m_bCurGrab) {
+		if (s_pPickedCube == nullptr) {
+			// 아직 잡힌 큐브 없음 → 이 큐브가 독점 pick
+			s_pPickedCube = this;
+		}
+		else if (s_pPickedCube != this) {
+			// 이미 다른 큐브가 pick 중 → 이 큐브는 pick 상태 해제
+			m_bCurGrab = false;
+		}
+	}
+	else {
+		// pick 해제 시, static 포인터도 해제
+		if (s_pPickedCube == this)
+			s_pPickedCube = nullptr;
+	}
 
-	if (m_bCurGrab)
+	Check_Lay();
+	if (m_bCurGrab )
 	{
 		PickMove();
 	}
@@ -86,6 +102,7 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 
 void CSlotCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -138,8 +155,8 @@ void CSlotCube::PickMove()
 	auto ray = CPickingMgr::Get_Instance()->Get_Ray();
 	_vec3 MovedPos = m_pPlayer->GetPos() + ray->_direction* m_fDist;
 	
-	//m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vCursorDelta);
 	m_pTransform->Set_Pos(MovedPos);
+
 	m_FitSlot = nullptr;
 	m_vecDetected_Slot.clear();
 }

@@ -114,7 +114,7 @@ HRESULT SceneHW::Ready_Scene()
 	m_pSlotCube3->Set_Info(m_pPlayer, 1, 0);
 	m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -10.f, -15.f, -10.f });
 	m_pSlotSensor->Set_Info(m_pPlayer, 0, 0);
-	m_pSlotSensor2->Get_Component<CTransform>()->Set_Pos({ -15.f, -15.f, -10.f });
+	m_pSlotSensor2->Get_Component<CTransform>()->Set_Pos({ -12.f, -15.f, -10.f });
 	m_pSlotSensor2->Set_Info(m_pPlayer, 0, 1);
 	m_pSlotSensor3->Get_Component<CTransform>()->Set_Pos({ -20.f, -15.f, -10.f });
 	m_pSlotSensor3->Set_Info(m_pPlayer, 1, 0);

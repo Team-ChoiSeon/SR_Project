@@ -102,7 +102,8 @@ void CSlotSensor::Set_Info(CMainPlayer* player, const _int puzzleID, const _int 
 
 void CSlotSensor::Insert_Slot()
 {
-    //m_pSlotted = nullptr;
+    if (m_pSlotted)
+        return;
     if (m_pPlayer->Get_Hold()) {
 
         //if(CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)){
@@ -134,17 +135,6 @@ void CSlotSensor::Insert_Slot()
 
 bool CSlotSensor::Check_Slot()
 {
-    //if (m_pSlotted != nullptr)
-    //{
-    //    if (dynamic_cast<CSlotCube*>(m_pSlotted)->Get_SlotID() == m_iSlotID)
-    //        return true;
-    //    else
-    //        return false;
-    //}
-    //else
-    //    return false;
-
-
     if (m_pSlotted)
     {
         // 1) 현재 할당된 큐브가 여전히 영역 안에 있나 확인

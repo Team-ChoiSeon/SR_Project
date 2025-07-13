@@ -57,5 +57,6 @@ private:
 
 	_vec3		m_vDist;
 	_float		m_fDist;
+	static CSlotCube* s_pPickedCube;
 };
 
