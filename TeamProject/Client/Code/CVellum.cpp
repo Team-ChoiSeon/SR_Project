@@ -235,18 +235,18 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
 
 void CVellum::Wander(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid)
 {
-    if (m_bPattern && m_fPatternTime == 0.f)
-    {
-        CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-        if (pPlayer)
-        {
-            _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
-            _vec3 offset = { (rand() % 5 - 2.f), 0.f, (rand() % 5 - 2.f) }; // ¡¾2
-            pTransform->Set_Pos(playerPos + offset);
-            pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
-            pRigid->Set_Force({ 0.f, 0.f, 0.f });
-        }
-    }
+    //if (m_bPattern && m_fPatternTime == 0.f)
+    //{
+    //    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
+    //    if (pPlayer)
+    //    {
+    //        _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
+    //        _vec3 offset = { (rand() % 5 - 2.f), 0.f, (rand() % 5 - 2.f) }; // ¡¾2
+    //        pTransform->Set_Pos(playerPos + offset);
+    //        pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
+    //        pRigid->Set_Force({ 0.f, 0.f, 0.f });
+    //    }
+    //}
 
     static _float fElapsed = 0.f;
     static _vec3 vDir = { 1.f, 0.f, 0.f };
@@ -282,19 +282,19 @@ void CVellum::Around_Player(const _float& fTimeDelta, CTransform* pTransform)
 
     static float angle = 0.f;
 
-    if (m_bPattern && m_fPatternTime == 0.f)
-    {
-        angle = static_cast<float>(rand() % 360);
-        _vec3 center = pPlayer->Get_Component<CTransform>()->Get_Pos();
-        float radius = 5.f;
-        _vec3 startPos = {
-            center.x + cosf(angle) * radius,
-            center.y,
-            center.z + sinf(angle) * radius
-        };
+    //if (m_bPattern && m_fPatternTime == 0.f)
+    //{
+    //    angle = static_cast<float>(rand() % 360);
+    //    _vec3 center = pPlayer->Get_Component<CTransform>()->Get_Pos();
+    //    float radius = 5.f;
+    //    _vec3 startPos = {
+    //        center.x + cosf(angle) * radius,
+    //        center.y,
+    //        center.z + sinf(angle) * radius
+    //    };
 
-        pTransform->Set_Pos(startPos);
-    }
+    //    pTransform->Set_Pos(startPos);
+    //}
 
     angle += fTimeDelta;
 
