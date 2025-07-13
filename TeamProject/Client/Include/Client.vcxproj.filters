@@ -91,14 +91,26 @@
     <Filter Include="04. GameObjects\Block\StairBlock">
       <UniqueIdentifier>{0ee28229-e306-40c5-bc7b-c972bc7f551e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\Trigger">
-      <UniqueIdentifier>{61a88893-c867-4f29-9e96-718b219bbf6b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObjects\Switch">
       <UniqueIdentifier>{6ca85163-f2f9-4842-b2fd-3af07ca1b49b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\Switch\ToggleButton">
+    <Filter Include="04. GameObjects\Behavior">
+      <UniqueIdentifier>{61a88893-c867-4f29-9e96-718b219bbf6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Switch\PickSwitch">
       <UniqueIdentifier>{6224e65c-e2be-4ac3-bed9-5f5cc82c1a82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Sensor">
+      <UniqueIdentifier>{baf025e5-52b7-420f-ac97-6fc07faa1c1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Sensor\ZoneSensor">
+      <UniqueIdentifier>{7d799b21-7bdf-4e82-9273-b9d547974025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Sensor\SlotSensor">
+      <UniqueIdentifier>{0deca1ee-b800-4a37-978a-8a23447df583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\SlotCube">
+      <UniqueIdentifier>{d9bc43af-4c22-4e47-9d39-6a4db356e5bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +202,7 @@
       <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CPickSwitch.h">
-      <Filter>04. GameObjects\Switch\ToggleButton</Filter>
+      <Filter>04. GameObjects\Switch\PickSwitch</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CBlock.h">
       <Filter>04. GameObjects\Block</Filter>
@@ -199,10 +211,22 @@
       <Filter>04. GameObjects\Block\StairBlock</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTrigger.h">
-      <Filter>04. GameObjects\Trigger</Filter>
+      <Filter>04. GameObjects\Behavior</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSwitch.h">
       <Filter>04. GameObjects\Switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSensor.h">
+      <Filter>04. GameObjects\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlotCube.h">
+      <Filter>04. GameObjects\Cube\SlotCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CZoneSensor.h">
+      <Filter>04. GameObjects\Sensor\ZoneSensor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlotSensor.h">
+      <Filter>04. GameObjects\Sensor\SlotSensor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -285,7 +309,7 @@
       <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CPickSwitch.cpp">
-      <Filter>04. GameObjects\Switch\ToggleButton</Filter>
+      <Filter>04. GameObjects\Switch\PickSwitch</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CBlock.cpp">
       <Filter>04. GameObjects\Block</Filter>
@@ -294,10 +318,22 @@
       <Filter>04. GameObjects\Block\StairBlock</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTrigger.cpp">
-      <Filter>04. GameObjects\Trigger</Filter>
+      <Filter>04. GameObjects\Behavior</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSwitch.cpp">
       <Filter>04. GameObjects\Switch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSensor.cpp">
+      <Filter>04. GameObjects\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlotCube.cpp">
+      <Filter>04. GameObjects\Cube\SlotCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CZoneSensor.cpp">
+      <Filter>04. GameObjects\Sensor\ZoneSensor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlotSensor.cpp">
+      <Filter>04. GameObjects\Sensor\SlotSensor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

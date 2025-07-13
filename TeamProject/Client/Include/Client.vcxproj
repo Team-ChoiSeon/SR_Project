@@ -153,6 +153,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CSlotSensor.h" />
+    <ClInclude Include="..\Header\CZoneSensor.h" />
+    <ClInclude Include="..\Header\CSensor.h" />
+    <ClInclude Include="..\Header\CSlotCube.h" />
     <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CBlock.h" />
     <ClInclude Include="..\Header\CSwitch.h" />
@@ -189,6 +193,10 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CSlotSensor.cpp" />
+    <ClCompile Include="..\Code\CZoneSensor.cpp" />
+    <ClCompile Include="..\Code\CSensor.cpp" />
+    <ClCompile Include="..\Code\CSlotCube.cpp" />
     <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CBlock.cpp" />
     <ClCompile Include="..\Code\CSwitch.cpp" />

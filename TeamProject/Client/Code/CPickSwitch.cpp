@@ -54,7 +54,6 @@ HRESULT CPickSwitch::Ready_GameObject()
     m_bPressed = false;
     m_bInit = false;
 
-    CSoundMgr::Get_Instance()->Load_Sound("active", "../Bin/Resource/Sound/Active3.mp3");
 	return S_OK;
 }
 

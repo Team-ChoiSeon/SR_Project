@@ -1,13 +1,5 @@
 #pragma once
 #include "CSwitch.h"
-namespace Engine
-{
-	class CTransform;
-	class CModel;
-	class CCollider;
-	class CRigidBody;
-	class CPickTarget;
-}
 
 class CPickSwitch : public CSwitch
 {
