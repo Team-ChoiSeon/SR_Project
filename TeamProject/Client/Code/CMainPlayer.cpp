@@ -63,10 +63,8 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 	KeyInput(fTimeDelta);
 	Update_State(fTimeDelta);
 
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->Update_Component(fTimeDelta);
+	CGameObject::Update_GameObject(fTimeDelta);
 	
-	//Set_GroundCheck();
 	return S_OK;
 }
 
@@ -122,57 +120,60 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		pPickSwitchObj->Set_Grab(false);
 	}
 	//m_pCrosshair
-	if (m_pPickObj)
+	if(m_pCrosshair)
 	{
-		if (CInputMgr::Get_Instance()->Mouse_Down(DIM_LB))
+		if (m_pPickObj)
 		{
-			if (m_bObjHold)
+			if (CInputMgr::Get_Instance()->Mouse_Down(DIM_LB))
 			{
-				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-				_vec3 nowPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
-				m_vDragDistance = nowPt - m_vLastPt;
-				m_vLastPt = nowPt;
+				if (m_bObjHold)
+				{
+					m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+					_vec3 nowPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
+					m_vDragDistance = nowPt - m_vLastPt;
+					m_vLastPt = nowPt;
 
-				if (pPickCubeObj) {
-					pPickCubeObj->Set_Grab(true);
-					pPickCubeObj->Set_CursorVec(m_vDragDistance);
+					if (pPickCubeObj) {
+						pPickCubeObj->Set_Grab(true);
+						pPickCubeObj->Set_CursorVec(m_vDragDistance);
+					}
+					if (pPickSwitchObj) {
+						pPickSwitchObj->Set_Grab(true);
+						pPickSwitchObj->Set_CursorVec(m_vDragDistance);
+					}
+
 				}
-				if (pPickSwitchObj) {
-					pPickSwitchObj->Set_Grab(true);
-					pPickSwitchObj->Set_CursorVec(m_vDragDistance);
+				else
+				{
+					CTransform* targetTrans = m_pPickObj->Get_Component<CTransform>();
+					CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
+
+					//m_vPlanePt = PickObj->Get_Component<CTransform>()->Get_Pos();
+					m_vPlanePt = targetTrans->Get_Pos();
+					m_vPlaneNorm = targetTrans->Get_Pos() - pMainCam->Get_Eye();
+					D3DXVec3Normalize(&m_vPlaneNorm, &m_vPlaneNorm);
+
+					m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
+					m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+					m_bObjHold = true;
 				}
 
 			}
-			else
-			{
-				CTransform* targetTrans = m_pPickObj->Get_Component<CTransform>();
-				CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
-
-				//m_vPlanePt = PickObj->Get_Component<CTransform>()->Get_Pos();
-				m_vPlanePt = targetTrans->Get_Pos();
-				m_vPlaneNorm = targetTrans->Get_Pos() - pMainCam->Get_Eye();
-				D3DXVec3Normalize(&m_vPlaneNorm, &m_vPlaneNorm);
-
-				m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
-				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-				m_bObjHold = true;
+			else {
+				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
 			}
 
+			if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
+				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+				m_bObjHold = false;
+				m_vDragDistance = { 0,0,0 };
+			}
 		}
 		else {
-			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-		}
-
-		if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
-			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 			m_bObjHold = false;
 			m_vDragDistance = { 0,0,0 };
 		}
-	}
-	else {
-		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
-		m_bObjHold = false;
-		m_vDragDistance = { 0,0,0 };
 	}
 	//else {
 	//	m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);

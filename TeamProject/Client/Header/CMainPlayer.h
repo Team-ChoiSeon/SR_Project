@@ -45,12 +45,12 @@ protected:
 
 private:
 
-	CTransform* m_pTransform;
-	CModel* m_pModel;
-	CCollider* m_pCollider;
-	CRigidBody* m_pRigid;
-	CGameObject* m_pPickObj;
-	CCrosshairUIObject* m_pCrosshair;
+	CTransform* m_pTransform = nullptr;
+	CModel* m_pModel = nullptr;
+	CCollider* m_pCollider = nullptr;
+	CRigidBody* m_pRigid = nullptr;
+	CGameObject* m_pPickObj = nullptr;
+	CCrosshairUIObject* m_pCrosshair = nullptr;
 
 	float m_fMoveSpeed;
 	float m_fJumpPower = 20.f;

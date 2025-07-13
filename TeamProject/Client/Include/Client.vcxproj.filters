@@ -115,6 +115,15 @@
     <Filter Include="04. GameObjects\Vellum">
       <UniqueIdentifier>{47e44b8d-2f23-45a9-b024-ae6b1781a3ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\TestUI\Loding">
+      <UniqueIdentifier>{ec8c747c-e3c2-4a60-8675-375d384ccfe2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\Loding\ProgressBar">
+      <UniqueIdentifier>{cc94fa3b-bde0-4688-bc56-95203fa9b564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\Loding\LodingCube">
+      <UniqueIdentifier>{95078ba1-268d-45ab-8482-bab2e477300c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -234,6 +243,18 @@
     <ClInclude Include="..\Header\CVellum.h">
       <Filter>04. GameObjects\Vellum</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CImageUIObject.h">
+      <Filter>04. GameObjects\TestUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CProgressBar.h">
+      <Filter>04. GameObjects\TestUI\Loding\ProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLodingCube.h">
+      <Filter>04. GameObjects\TestUI\Loding\LodingCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneLoding.h">
+      <Filter>03. Scene\SceneHS\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -343,6 +364,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CVellum.cpp">
       <Filter>04. GameObjects\Vellum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CImageUIObject.cpp">
+      <Filter>04. GameObjects\TestUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CProgressBar.cpp">
+      <Filter>04. GameObjects\TestUI\Loding\ProgressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLodingCube.cpp">
+      <Filter>04. GameObjects\TestUI\Loding\LodingCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneLoding.cpp">
+      <Filter>03. Scene\SceneHS\test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
