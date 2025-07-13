@@ -25,7 +25,6 @@ Logo::~Logo()
 
 HRESULT Logo::Ready_Scene()
 {
-	Init_Layers();
 	return S_OK;
 }
 
