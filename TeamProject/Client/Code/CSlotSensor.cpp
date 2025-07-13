@@ -54,13 +54,13 @@ HRESULT CSlotSensor::Ready_GameObject()
 _int CSlotSensor::Update_GameObject(const _float& fTimeDelta)
 {
     Insert_Slot();
-       m_bSensorOn = Detect();
     CGameObject::Update_GameObject(fTimeDelta);
 	return _int();
 }
 
 void CSlotSensor::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+    m_bSensorOn = Detect();
     CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 

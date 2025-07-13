@@ -76,9 +76,9 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube", m_pSlotCube);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube2", m_pSlotCube2);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube3", m_pSlotCube3);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor", m_pSlotSensor);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor2", m_pSlotSensor2);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor3", m_pSlotSensor3);
+	Get_Layer(LAYER_TILE)->Add_GameObject(L"hwSlotSensor", m_pSlotSensor);
+	Get_Layer(LAYER_TILE)->Add_GameObject(L"hwSlotSensor2", m_pSlotSensor2);
+	Get_Layer(LAYER_TILE)->Add_GameObject(L"hwSlotSensor3", m_pSlotSensor3);
 	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwWeightButton", m_pWeightButton);
 	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwTimerButton", m_pTimerButton);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));

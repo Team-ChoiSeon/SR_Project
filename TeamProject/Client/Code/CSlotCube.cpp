@@ -86,8 +86,7 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 	else
 	{
 		if (Check_Overlap()) {
-			if (m_FitSlot != nullptr)
-				Fit(fTimeDelta);
+			Fit(fTimeDelta);
 		}
 		else if (m_FitSlot != nullptr)
 			m_FitSlot->Set_SlottedCube(nullptr);
