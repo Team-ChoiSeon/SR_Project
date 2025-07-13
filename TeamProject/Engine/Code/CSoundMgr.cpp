@@ -85,7 +85,12 @@ void CSoundMgr::Play(const string& key, const string& group, bool loop)
     FMOD::Channel* pChannel = nullptr;
     if (FMOD_OK == m_pSystem->playSound(pSound, nullptr, false, &pChannel))
     {
-        pChannel->setVolume(1.0f);
+        float volume = 1.0f;
+        auto volIt = m_mapVolume.find(key);
+        if (volIt != m_mapVolume.end())
+            volume = volIt->second;
+
+        pChannel->setVolume(volume);
         m_mapChannel[key] = pChannel;
 
         auto groupIt = m_mapGroup.find(group);
@@ -108,6 +113,18 @@ void CSoundMgr::Stop(const std::string& key)
     {
         it->second->stop();
         m_mapChannel.erase(it);
+    }
+}
+
+void CSoundMgr::Set_Volume(const string& key, float volume)
+{
+    volume = max(0.f, min(volume, 1.f));
+    m_mapVolume[key] = volume;
+
+    auto it = m_mapChannel.find(key);
+    if (it != m_mapChannel.end())
+    {
+        it->second->setVolume(volume);
     }
 }
 
@@ -149,6 +166,10 @@ void CSoundMgr::Free()
     for (auto& pair : m_mapSound)
         pair.second->release();
     m_mapSound.clear();
+
+    m_mapChannel.clear();
+    m_mapGroup.clear();
+    m_mapVolume.clear();
 
     if (m_pSystem)
     {
