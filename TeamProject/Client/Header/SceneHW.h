@@ -7,11 +7,11 @@ class CFirstviewFollowingCamera;
 class CFloatingCube;
 class CDirectionalCube;
 class CImpulseCube;
-class CWeightButton;
 class CPlayer;
 class CTestTile;
-class CTimerButton;
-class CToggleButton;
+class CPickSwitch;
+class CSlotCube;
+class CSlotSensor;
 
 class SceneHW : public CScene
 {
@@ -25,7 +25,6 @@ public:
 	//Basic Function
 	int		Update_Scene(const _float& fTimeDelta);
 	void	LateUpdate_Scene(const _float& fTimeDelta);
-	void	Render_Scene();
 
 	//Create, Release Function
 	static SceneHW* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -43,11 +42,14 @@ private:
 	CDirectionalCube*					m_pDirectionalCube;
 	CDirectionalCube*					m_pOnewayCube;
 	CImpulseCube*						m_pImpulseCube;
-	CWeightButton*						m_pWeightButton;
 	CTestTile*							m_pTile;
-	CTimerButton*						m_pTimerButton;
-	CToggleButton*						m_pToggleButton;
-
+	CPickSwitch*						m_pPickSwitch;
+	CSlotCube*							m_pSlotCube;
+	CSlotCube*							m_pSlotCube2;
+	CSlotCube*							m_pSlotCube3;
+	CSlotSensor*						m_pSlotSensor;
+	CSlotSensor*						m_pSlotSensor2;
+	CSlotSensor*						m_pSlotSensor3;
 	_float								m_fTime;
 	bool								m_bCamPlayer;
 };

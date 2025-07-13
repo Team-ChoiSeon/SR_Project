@@ -127,7 +127,7 @@ void CDirectionalCube::Move()
 {
 	if (!m_bOneway)
 	{
-		if (m_bGrab)
+		if (m_bCurGrab)
 		{
 			ComputeMoveVecIntoAxisMoveVec();
 			m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vMoveDelta);
@@ -148,7 +148,7 @@ void CDirectionalCube::Move()
 	}
 	else
 	{
-		if (m_bGrab)
+		if (m_bCurGrab)
 		{
 			ComputeMoveVecIntoAxisMoveVec();
 			_float fDelta = D3DXVec3Dot(&m_vDefaultAxis, &m_vCursorDelta);

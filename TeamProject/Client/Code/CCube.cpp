@@ -23,3 +23,18 @@ _int CCube::Update_GameObject(const _float& fTimeDelta)
 void CCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 }
+
+void CCube::Check_Lay()
+{
+    if (m_bCurGrab)
+    {
+        if (!m_bLay)
+        {
+            m_bLay = true;
+        }
+    }
+    else
+    {
+        m_bLay = false;
+    }
+}

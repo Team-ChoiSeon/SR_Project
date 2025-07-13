@@ -39,7 +39,7 @@ HRESULT CImpulseCube::Ready_GameObject()
 
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
-	m_pCollider->Set_ColTag(ColliderTag::NONE);
+	m_pCollider->Set_ColTag(ColliderTag::GROUND);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
 
@@ -64,6 +64,7 @@ _int CImpulseCube::Update_GameObject(const _float& fTimeDelta)
 	if (m_pCollider)
 		m_pCollider->Update_Component(fTimeDelta);
 
+
 	for (auto& pair : m_umComponent[ID_DYNAMIC])
 	{
 		auto type = pair.first;
@@ -72,6 +73,11 @@ _int CImpulseCube::Update_GameObject(const _float& fTimeDelta)
 
 		pair.second->Update_Component(fTimeDelta);
 	}
+
+	//if (m_pRigid->Get_OnGround())
+	//{
+	//	m_pRigid->Add_Velocity({ 0.f, 10.f, 0.f });
+	//}
 	return S_OK;
 }
 
