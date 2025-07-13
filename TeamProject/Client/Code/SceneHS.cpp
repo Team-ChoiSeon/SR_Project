@@ -30,7 +30,7 @@
 
 
 SceneHS::SceneHS(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CScene(pGraphicDev), m_pGraphicDev(pGraphicDev)
+	:CScene(pGraphicDev)
 {
 
 }
@@ -61,6 +61,8 @@ HRESULT SceneHS::Ready_Scene()
 
 	//////////////////
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", CMainPlayer::Create(m_pGraphicDev));
+	Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Component<CTransform>()->Set_Pos({ -20.f, 20.f, -20.f });
+	CSceneMgr::Get_Instance()->Set_Player(Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player"));
 
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Dummy", DummyCube::Create(m_pGraphicDev));
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwDirectionalCube", CDirectionalCube::Create(m_pGraphicDev));
@@ -94,8 +96,7 @@ HRESULT SceneHS::Ready_Scene()
 
 _int SceneHS::Update_Scene(const _float& fTimeDelta)
 {
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->Update_Layer(fTimeDelta);
+	CScene::Update_Scene(fTimeDelta);
 	// m_pLightObject->Update_GameObject(fTimeDelta);
 	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
 
@@ -104,12 +105,8 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 
 void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 {
-
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->LateUpdate_Layer(fTimeDelta);
-
-	CLightMgr::Get_Instance()->UpdateLights(CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>()->Get_Pos());
-
+	CScene::LateUpdate_Scene(fTimeDelta);
+	//CLightMgr::Get_Instance()->UpdateLights(CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>()->Get_Pos());
 
 	// m_pLightObject->LateUpdate_GameObject(fTimeDelta);
 	// m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
@@ -139,7 +136,7 @@ SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void SceneHS::Free()
 {	
-	Clear_Layers();
+	//Clear_Layers();
 	CScene::Free();
 
 	//CRenderMgr::Get_Instance()->Clear();

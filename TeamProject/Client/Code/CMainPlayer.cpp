@@ -59,6 +59,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 {
+	m_fJumpTime += fTimeDelta;
 	KeyInput(fTimeDelta);
 	Update_State(fTimeDelta);
 
@@ -230,11 +231,13 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_SPACE)) {
 		if (m_pRigid->Get_OnGround()) {
-			m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower , 0.f));
-			m_pRigid->Set_OnGround(false);
+			if (m_pRigid->Get_OnGround() && m_fJumpTime >= 1.f) {
+				m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower, 0.f));
+				m_pRigid->Set_OnGround(false);
+				m_fJumpTime = 0.f;
+			}
 		}
 	}
-
 }
 
 void CMainPlayer::CursorRotate()
