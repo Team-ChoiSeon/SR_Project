@@ -116,11 +116,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>IMGUI_API=__declspec(dllimport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;../../ThirdParty/FMOD</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;../../ThirdParty/FMOD;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;../../ThirdParty/Imgui/;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -137,11 +137,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>IMGUI_API=__declspec(dllimport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;../../ThirdParty/Imgui/;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

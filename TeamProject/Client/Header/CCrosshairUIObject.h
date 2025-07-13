@@ -2,11 +2,11 @@
 #include "CGameObject.h"
 #include "CUiImage.h"
 
-class CTexture;
 
 namespace Engine {
 	class CTransform;
 	class CModel;
+	class CTexture;
 }
 class CCrosshairUIObject : public Engine::CGameObject
 {

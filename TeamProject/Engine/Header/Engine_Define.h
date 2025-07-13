@@ -40,6 +40,7 @@
 #include "Engine_Macro.h"
 #include "Engine_Typedef.h"
 #include "Engine_Struct.h"
+#include "Engine_GUI.h"
 
 //---Define -- //
 #define DIRECTINPUT_VERSION 0x0800

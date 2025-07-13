@@ -16,6 +16,7 @@ extern HINSTANCE g_HInst;
 #include <unordered_map>
 #include <algorithm>
 using namespace std;
+#include "imgui.h"
 
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC

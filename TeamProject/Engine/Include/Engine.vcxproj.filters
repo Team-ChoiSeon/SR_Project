@@ -130,6 +130,12 @@
     <Filter Include="02. Components\09. Particle">
       <UniqueIdentifier>{048f00a9-e1d7-4a42-ab8c-409947d971b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Managers\13. GUISystem">
+      <UniqueIdentifier>{a1b3818c-4b5e-40b3-bd66-ff3461c7e8b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\13. GUISystem\Imgui">
+      <UniqueIdentifier>{6748df94-7294-4d42-897e-4a5c26276cb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -282,6 +288,21 @@
     <ClInclude Include="..\Header\CParticle.h">
       <Filter>02. Components\09. Particle</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Engine_GUI.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CGuiSystem.h">
+      <Filter>01. Managers\13. GUISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\Imgui\imgui.h">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_dx9.h">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.h">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -406,6 +427,27 @@
     </ClCompile>
     <ClCompile Include="..\Code\CParticle.cpp">
       <Filter>02. Components\09. Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CGuiSystem.cpp">
+      <Filter>01. Managers\13. GUISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_draw.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_tables.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_widgets.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_dx9.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
