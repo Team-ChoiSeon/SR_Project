@@ -140,7 +140,7 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
-void CCollider::LateUpdate_Component()
+void CCollider::LateUpdate_Component(const _float& fTimeDelta)
 {
 	CRenderMgr::Get_Instance()->Add_Collider(this);
 }
@@ -267,8 +267,12 @@ void CCollider::On_Collision_Stay(CCollider* pOther)
 
 		if (pushed)
 		{
+
 			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
+			{
 				pTransform->Set_Pos(pTransform->Get_Pos() + push);
+			}
+				
 
 			if (oType == ColliderType::ACTIVE && m_pRigid && pOther->m_pRigid)
 			{

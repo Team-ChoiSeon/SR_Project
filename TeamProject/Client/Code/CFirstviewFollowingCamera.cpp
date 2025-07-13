@@ -67,7 +67,7 @@ int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 void CFirstviewFollowingCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+		pComponent.second->LateUpdate_Component(fTimeDelta);
 }
 
 void CFirstviewFollowingCamera::Render_GameObject()

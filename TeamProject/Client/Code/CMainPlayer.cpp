@@ -35,7 +35,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 
-	m_pTransform->Ready_Transform();
+	m_pTransform->Ready_Component();
 
 	m_pTransform->Set_Scale({ 1.f, 2.f, 1.f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
@@ -71,8 +71,7 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 
 void CMainPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 CMainPlayer* CMainPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

@@ -19,7 +19,7 @@ HRESULT CPlayer::Ready_GameObject()
 
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
-	m_pTransform->Ready_Transform();
+	m_pTransform->Ready_Component();
 	m_pTransform->Set_Pos({ 0.f, 0.f, -10.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
@@ -30,6 +30,8 @@ HRESULT CPlayer::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
+	//m_pRigid->Set_OnGround(false);
+	//m_pRigid->Set_UseGravity(false);
 
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
@@ -48,8 +50,7 @@ int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	KeyInput(fTimeDelta);
 
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->Update_Component(fTimeDelta);
+	CGameObject::Update_GameObject(fTimeDelta);
 
 	// For debug
 	/*wstring wDebug = to_wstring(m_pTransform->Get_Pos().y);
@@ -60,8 +61,7 @@ int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

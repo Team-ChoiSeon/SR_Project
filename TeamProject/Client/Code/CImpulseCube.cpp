@@ -23,7 +23,7 @@ HRESULT CImpulseCube::Ready_GameObject()
 {
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
-	m_pTransform->Ready_Transform();
+	m_pTransform->Ready_Component();
 	m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
 	m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
@@ -83,8 +83,7 @@ _int CImpulseCube::Update_GameObject(const _float& fTimeDelta)
 
 void CImpulseCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 CImpulseCube* CImpulseCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)

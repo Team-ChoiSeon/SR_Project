@@ -112,6 +112,9 @@
     <Filter Include="04. GameObjects\Cube\SlotCube">
       <UniqueIdentifier>{d9bc43af-4c22-4e47-9d39-6a4db356e5bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Vellum">
+      <UniqueIdentifier>{47e44b8d-2f23-45a9-b024-ae6b1781a3ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -228,6 +231,9 @@
     <ClInclude Include="..\Header\CSlotSensor.h">
       <Filter>04. GameObjects\Sensor\SlotSensor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CVellum.h">
+      <Filter>04. GameObjects\Vellum</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -334,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSlotSensor.cpp">
       <Filter>04. GameObjects\Sensor\SlotSensor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVellum.cpp">
+      <Filter>04. GameObjects\Vellum</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

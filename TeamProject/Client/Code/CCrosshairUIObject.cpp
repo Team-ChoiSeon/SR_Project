@@ -25,7 +25,7 @@ HRESULT CCrosshairUIObject::Ready_GameObject()
     Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
     Add_Component<CUiImage>(ID_DYNAMIC, m_pGraphicDev);
     
-    Get_Component<CTransform>()->Ready_Transform();
+    Get_Component<CTransform>()->Ready_Component();
 
     //Ready_Resource 되어있는곳이 없어서 임시 ( 나중에 지워도 됨)
     CResourceMgr::Get_Instance()->Ready_Resource();
@@ -76,7 +76,7 @@ _int CCrosshairUIObject::Update_GameObject(const _float& fTimeDelta)
 void CCrosshairUIObject::Render_GameObject()
 {
     for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-        pComponent.second->LateUpdate_Component();
+        pComponent.second->LateUpdate_Component(0.f);
 }
 
 void CCrosshairUIObject::Set_State(CROSSHAIR_STATE eState)

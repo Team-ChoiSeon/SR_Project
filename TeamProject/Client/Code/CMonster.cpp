@@ -18,7 +18,7 @@ HRESULT CMonster::Ready_GameObject()
 
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
-	m_pTransform->Ready_Transform();
+	m_pTransform->Ready_Component();
 	m_pTransform->Set_Pos({ 1.f, -2.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
@@ -53,43 +53,14 @@ HRESULT CMonster::Ready_GameObject()
 
 int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
-
-	KeyInput(fTimeDelta);
-	//// For debug
-
-
-
-	//wstring wDebug = to_wstring(m_pTransform->Get_Pos().z);
-	//OutputDebugString(wDebug.c_str());
-	//OutputDebugString(L"\n");
-
-
-	if (auto pTransform = Get_Component<CTransform>())
-		pTransform->Update_Component(fTimeDelta);
-
-	if (auto pRigid = Get_Component<CRigidBody>())
-		pRigid->Update_Component(fTimeDelta);
-
-	if (auto pCollider = Get_Component<CCollider>())
-		pCollider->Update_Component(fTimeDelta);
-
-	// ��Ÿ ������ ������Ʈ
-	for (auto& pair : m_umComponent[ID_DYNAMIC])
-	{
-		auto type = pair.first;
-		if (type == typeid(CTransform) || type == typeid(CRigidBody) || type == typeid(CCollider))
-			continue;
-
-		pair.second->Update_Component(fTimeDelta);
-	}
-
+	//KeyInput(fTimeDelta);
+	CGameObject::Update_GameObject(fTimeDelta);
 	return 0;
 }
 
 void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CMonster::KeyInput(const _float& fTimeDelta)
