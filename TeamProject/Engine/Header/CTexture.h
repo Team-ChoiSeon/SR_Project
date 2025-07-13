@@ -1,6 +1,8 @@
 #pragma once
 #include "CResource.h"
-class CTexture : public CResource
+BEGIN(Engine)
+
+class ENGINE_DLL CTexture : public CResource
 {
 protected:
     explicit CTexture();
@@ -29,3 +31,4 @@ private:
     wstring m_wKey;
 };
 
+END

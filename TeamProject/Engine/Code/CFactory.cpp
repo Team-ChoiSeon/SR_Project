@@ -15,6 +15,8 @@
 #include "CCollider.h"
 #include "CPickTarget.h"
 #include "CLight.h"
+#include "CParticle.h"
+
 #include "CScene.h"
 #include "CLayer.h"
 #include "CGraphicDev.h"
@@ -75,6 +77,11 @@ void CFactory::Save_Prefab(CGameObject* object, const string& className)
 		json jRigid;
 		Serialize_RigidBody(jRigid, comp);
 		jComponents["CRigidBody"] = jRigid;
+	}
+	if (CParticle* comp = object->Get_Component<CParticle>()) {
+		json jParticle;
+		Serialize_Particle(jParticle, comp);
+		jComponents["CParticle"] = jParticle;
 	}
 
 	jObj["components"] = jComponents;
@@ -172,7 +179,7 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 	if (!obj)
 	{
 		wstring err = L"CFactory:: obj is nullptr : " + className;
-		MessageBoxW(0,err.c_str(),L"Error",MB_OK);
+		MessageBoxW(0, err.c_str(), L"Error", MB_OK);
 		return nullptr;
 	}
 	const auto& jComponents = inJson["components"];
@@ -231,7 +238,7 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 
 			if (!shaderPath.empty() && model->Get_Material())
 				model->Get_Material()->Set_Shader(shaderPath);
-			
+
 			if (jComponents["CModel"].contains("uvScale") &&
 				jComponents["CModel"]["uvScale"].is_array())
 			{
@@ -349,6 +356,29 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 		}
 	}
 
+	//08.Particle
+	if (jComponents.contains("CParticle")) {
+		const auto& jParticle = jComponents["CParticle"];
+		if (auto particle = obj->Get_Component<CParticle>()) {
+			particle->Set_Spawn(jParticle.value("spawn_interval", 1.0f));
+			particle->Set_MaxParticle(jParticle.value("max_particles", 100));
+			particle->Set_LifeTime(jParticle.value("life_time", 1.0f));
+			particle->Set_Size(jParticle.value("size", 1.0f));
+			particle->Set_Type(jParticle.value("Particle_Type", PARTICLE_MOVE_TYPE::FIRE));
+
+			auto off = jParticle.value("offset", vector<float>{0.f, 0.f, 0.f});
+			if (off.size() == 3)
+				particle->Set_Offset({ off[0], off[1], off[2] });
+
+			auto col = jParticle.value("base_color", vector<int>{255, 255, 255, 255});
+			if (col.size() == 4)
+				particle->Set_Color(D3DCOLOR_ARGB(col[0], col[1], col[2], col[3]));
+
+			if (jParticle.contains("texture_path")) {
+				particle->Set_Texture(ToWString(jParticle["texture_path"]));
+			}
+		}
+	}
 	return obj;
 }
 
@@ -483,6 +513,28 @@ void CFactory::Serialize_RigidBody(nlohmann::json& outJson, CRigidBody* comp)
 	outJson["ExternalForce"] = { comp->Get_Eforce().x, comp->Get_Eforce().y, comp->Get_Eforce().z };
 	outJson["Torque"] = { comp->Get_Torque().x, comp->Get_Torque().y, comp->Get_Torque().z };
 	outJson["Inertia"] = { comp->Get_Inertia().x, comp->Get_Inertia().y, comp->Get_Inertia().z };
+}
+
+void CFactory::Serialize_Particle(json& outJson, CParticle* comp)
+{
+	outJson["spawn_interval"] = comp->Get_Spawn();
+	outJson["max_particles"] = comp->Get_MaxParticle();
+	outJson["life_time"] = comp->Get_LifeTime();
+	outJson["size"] = comp->Get_Size();
+
+	_vec3 offset = comp->Get_Offset();
+	outJson["offset"] = { offset.x, offset.y, offset.z };
+
+	outJson["base_color"] =  //a,r,g,b
+	{		((BYTE)((comp->Get_Color()) >> 24) & 0xFF),
+			((BYTE)((comp->Get_Color()) >> 16) & 0xFF),
+			((BYTE)((comp->Get_Color()) >> 8) & 0xFF),
+			((BYTE)((comp->Get_Color()) >> 0) & 0xFF)
+	};
+	if (!comp->Get_Texture().empty()) {
+		outJson["texture_path"] = ToString(comp->Get_Texture());
+	}
+	outJson["Particle_Type"] = comp->Get_Type();
 }
 
 

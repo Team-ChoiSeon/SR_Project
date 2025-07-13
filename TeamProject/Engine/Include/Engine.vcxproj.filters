@@ -127,6 +127,9 @@
     <Filter Include="06. Resources\Mesh\CIcosaTex">
       <UniqueIdentifier>{31c96d2e-8f34-4517-a1be-273beb7aa506}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\09. Particle">
+      <UniqueIdentifier>{048f00a9-e1d7-4a42-ab8c-409947d971b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -276,6 +279,9 @@
     <ClInclude Include="..\Header\CIcosaTex.h">
       <Filter>06. Resources\Mesh\CIcosaTex</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CParticle.h">
+      <Filter>02. Components\09. Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -397,6 +403,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CIcosaTex.cpp">
       <Filter>06. Resources\Mesh\CIcosaTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CParticle.cpp">
+      <Filter>02. Components\09. Particle</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
