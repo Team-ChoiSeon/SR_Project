@@ -119,6 +119,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	{
 		pPickSwitchObj->Set_Grab(false);
 	}
+
 	//m_pCrosshair
 	if(m_pCrosshair)
 	{
@@ -156,6 +157,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 					m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
 					m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
 					m_bObjHold = true;
+					m_pPrevPickObj = m_pPickObj;
 				}
 
 			}
@@ -175,11 +177,6 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 			m_vDragDistance = { 0,0,0 };
 		}
 	}
-	//else {
-	//	m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
-	//	m_bObjHold = false;
-	//}
-
 
 
 	if (CInputMgr::Get_Instance()->Key_Away(DIK_LSHIFT))
@@ -220,14 +217,12 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + moveDir * m_fMoveSpeed * fTimeDelta);
 	}
 
-
+	// 나중에 삭제
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q)) {
 		m_pTransform->Move(DIR_UP, m_fMoveSpeed, fTimeDelta);
-		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
 	}
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_E)) {
 		m_pTransform->Move(DIR_DOWN, m_fMoveSpeed, fTimeDelta);
-		//m_pTransform->Set_Pos(m_pTransform->Get_Pos() - m_pTransform->Get_Info(INFO_UP) * m_fMoveSpeed * fTimeDelta);
 	}
 
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_SPACE)) {
@@ -261,28 +256,6 @@ void CMainPlayer::CursorRotate()
 
 	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ ry, rx, 0.f });
 
-}
-
-void CMainPlayer::Set_GroundCheck()
-{
-	// m_pRigid->Set_OnGround(false);
-	// 
-	// for (auto& obj : Get_Layer(LAYER_OBJECT)->Get_GameObjects())
-	// {
-	// 	if (obj == this) continue;
-	// 
-	// 	auto pCol = obj->Get_Component<CCollider>();
-	// 	if (!pCol) continue;
-	// 
-	// 	if (CCollisionMgr::Get_Instance()->Check_Collision(m_pCollider, pCol)) {
-	// 		// �÷��̾�� �Ʒ����̸� �ٴ����� �ν�
-	// 		if (pCol->Get_BottomY() <= m_pTransform->Get_Pos().y)
-	// 		{
-	// 			m_pRigid->Set_OnGround(true);
-	// 			return;
-	// 		}
-	// 	}
-	// }
 }
 
 void CMainPlayer::Update_State(const _float& fTimeDelta)

@@ -33,8 +33,8 @@ public:
 	bool Get_Hold() { return m_bObjHold;  }
 	_vec3 Get_DragDistance() { return m_vDragDistance; }
 	CGameObject* Get_PickObj() { return m_pPickObj; }
+	CGameObject* Get_PrevPickObj() { return m_pPrevPickObj; }
 
-	void Set_GroundCheck();
 	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; };
 
 protected:
@@ -50,6 +50,8 @@ private:
 	CCollider* m_pCollider = nullptr;
 	CRigidBody* m_pRigid = nullptr;
 	CGameObject* m_pPickObj = nullptr;
+	CGameObject* m_pPrevPickObj = nullptr;
+
 	CCrosshairUIObject* m_pCrosshair = nullptr;
 
 	float m_fMoveSpeed;
