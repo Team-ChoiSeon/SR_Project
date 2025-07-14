@@ -64,7 +64,7 @@ HRESULT CVellum::Ready_GameObject()
         pPrev = pPart;
     }
 
-    m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+    //m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
    
 	return CGameObject::Ready_GameObject();;
 }
@@ -139,7 +139,7 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
 
         m_bPattern = false;
         m_fPatternTime = 0.f;
-        m_fSwitchTime = 1.f;
+        m_fSwitchTime = 1.f;    // 다음 패턴까지의 인터벌
 
         return;
     }
@@ -149,7 +149,7 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
     {
         m_eCurPattern = static_cast<VPattern>(rand() % 1); // 
         m_fPatternTime = 0.f;
-        m_fSwitchTime = 3.f;
+        m_fSwitchTime = 3.f;    // 패턴 재생 시간
         m_bPattern = true;
 
         if (!m_vPart.empty())
