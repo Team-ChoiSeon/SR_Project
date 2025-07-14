@@ -156,6 +156,7 @@
     <ClInclude Include="..\Header\CCinematicCamera.h" />
     <ClInclude Include="..\Header\CImageUIObject.h" />
     <ClInclude Include="..\Header\CLodingCube.h" />
+    <ClInclude Include="..\Header\CPlayerTriggerCube.h" />
     <ClInclude Include="..\Header\CProgressBar.h" />
     <ClInclude Include="..\Header\CSlotSensor.h" />
     <ClInclude Include="..\Header\CZoneSensor.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="..\Code\CCinematicCamera.cpp" />
     <ClCompile Include="..\Code\CImageUIObject.cpp" />
     <ClCompile Include="..\Code\CLodingCube.cpp" />
+    <ClCompile Include="..\Code\CPlayerTriggerCube.cpp" />
     <ClCompile Include="..\Code\CProgressBar.cpp" />
     <ClCompile Include="..\Code\CSlotSensor.cpp" />
     <ClCompile Include="..\Code\CZoneSensor.cpp" />

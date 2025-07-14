@@ -25,6 +25,7 @@
 #include "CCinematicCamera.h"
 
 #include "SceneHW.h"
+#include "SceneBG.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -117,7 +118,18 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 		}
 	}
 
-	CScene::Update_Scene(fTimeDelta);
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"SceneGate")->Get_InGate()) {
+		CScene* pScene = SceneBG::Create(m_pGraphicDev);
+		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+		CCollisionMgr::Get_Instance()->Clear();
+		CRenderMgr::Get_Instance()->Clear();
+	}
+	else {
+		CScene::Update_Scene(fTimeDelta);
+	}
+
+
+
 	// m_pLightObject->Update_GameObject(fTimeDelta);
 	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
 	// _vec3 playerpos = Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam")->Get_Component<CTransform>()->Get_Pos();
@@ -137,12 +149,6 @@ void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 	// m_pTestLightMesh->LateUpdate_GameObject(fTimeDelta);
 	
 	//Engine::CLightMgr::Get_Instance()->UpdateLights({ 0.f, 0.f, -10.f });	if (m_bInGate) {
-	//if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"SceneGate")->Get_InGate()) {
-	//	CScene* pScene = SceneHW::Create(m_pGraphicDev);
-	//	CSceneMgr::Get_Instance()->Set_Scene(pScene);
-	//}
-
-
 }
 
 void SceneHS::End_Cinematic()
@@ -154,6 +160,7 @@ void SceneHS::End_Cinematic()
 SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneHS* pScene = new SceneHS(pGraphicDev);
+
 
 	if (FAILED(pScene->Ready_Scene()))
 	{
