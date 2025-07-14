@@ -62,32 +62,28 @@ HRESULT CSlotCube::Ready_GameObject()
 
 _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 {
-	if (m_bCurGrab) {
+	if (m_bCurGrab)
+	{
 		if (s_pPickedCube == nullptr) {
-			// 아직 잡힌 큐브 없음 → 이 큐브가 독점 pick
 			s_pPickedCube = this;
 		}
 		else if (s_pPickedCube != this) {
-			// 이미 다른 큐브가 pick 중 → 이 큐브는 pick 상태 해제
 			m_bCurGrab = false;
 		}
 	}
-	else {
-		// pick 해제 시, static 포인터도 해제
+	else
+	{
 		if (s_pPickedCube == this)
 			s_pPickedCube = nullptr;
 	}
-
-	Check_Lay();
-	if (m_bCurGrab )
+	if (m_bCurGrab)
 	{
 		PickMove();
-	}
+	}	
 	else
 	{
 		if (Check_Overlap()) {
-			if (m_FitSlot != nullptr)
-				Fit(fTimeDelta);
+			Fit(fTimeDelta);
 		}
 		else if (m_FitSlot != nullptr)
 			m_FitSlot->Set_SlottedCube(nullptr);
@@ -95,13 +91,13 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 		m_pRigid->Set_OnGround(false);
 		m_bFirstPick = true;
 	}
-
 	CGameObject::Update_GameObject(fTimeDelta);
 	return _int();
 }
 
 void CSlotCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+
 
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
@@ -186,9 +182,13 @@ void CSlotCube::Fit(const _float& fTimeDelta)
 	m_pTransform->Set_Pos(m_FitSlot->Get_Component<CTransform>()->Get_Pos());
 	m_pRigid->Set_UseGravity(false);
 	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f }); 
+
+
 	_float AllignSpeed = 3.f;
 	_vec3 SensorLook = m_FitSlot->Get_Look();
 	_vec3 CubeLook = m_pTransform->Get_Info(INFO_LOOK);
+
+
 
 	_vec3 axis;
 	D3DXVec3Cross(&axis, &CubeLook, &SensorLook);

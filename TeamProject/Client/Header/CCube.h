@@ -25,10 +25,10 @@ public:
 	
 	void Set_CursorVec(const _vec3& cursorvec) { m_vCursorDelta = cursorvec; }
 	void Set_Grab(bool Trigger) { m_bCurGrab = Trigger; }
+	_bool Lay();
 
 protected:
 	//Compute Function
-	void Check_Lay();
 	//Variables
 	CModel* m_pModel;
 	CTransform* m_pTransform;

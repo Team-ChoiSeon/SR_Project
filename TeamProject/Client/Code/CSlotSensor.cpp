@@ -54,13 +54,13 @@ HRESULT CSlotSensor::Ready_GameObject()
 _int CSlotSensor::Update_GameObject(const _float& fTimeDelta)
 {
     Insert_Slot();
-       m_bSensorOn = Detect();
     CGameObject::Update_GameObject(fTimeDelta);
 	return _int();
 }
 
 void CSlotSensor::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+    m_bSensorOn = Detect();
     CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -95,8 +95,8 @@ void CSlotSensor::Set_Info(CMainPlayer* player, const _int puzzleID, const _int 
     m_pPlayer = player;
     m_iPuzzleID = puzzleID;
     m_iSlotID = slotID;
-    m_Zone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale();
-    m_Zone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale();
+    m_Zone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale() * 2;
+    m_Zone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale() * 2;
 }
 
 
@@ -105,31 +105,28 @@ void CSlotSensor::Insert_Slot()
     if (m_pSlotted)
         return;
     if (m_pPlayer->Get_Hold()) {
-
-        //if(CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)){
-        auto pickObj = m_pPlayer->Get_PickObj();
-        if (pickObj)
+        m_pPickObj = m_pPlayer->Get_PickObj();
+        if (m_pPickObj)
         {
-            CSlotCube* pSlotCube = dynamic_cast<CSlotCube*>(pickObj);
-
-            if (pSlotCube)
-            {
-                if (pSlotCube->Get_Lay() &&
-                    pSlotCube->Get_PuzzleID() == m_iPuzzleID &&
-                    pSlotCube->Get_Component<CTransform>()->Get_Pos().x > m_Zone._min.x &&
-                    pSlotCube->Get_Component<CTransform>()->Get_Pos().y > m_Zone._min.y &&
-                    pSlotCube->Get_Component<CTransform>()->Get_Pos().z > m_Zone._min.z &&
-                    pSlotCube->Get_Component<CTransform>()->Get_Pos().x < m_Zone._max.x &&
-                    pSlotCube->Get_Component<CTransform>()->Get_Pos().y < m_Zone._max.y &&
-                    pSlotCube->Get_Component<CTransform>()->Get_Pos().z < m_Zone._max.z)
-                {
-                    m_pDetectedGameObject = pSlotCube;
-                    _vec3 vDist = pSlotCube->Get_Component<CTransform>()->Get_Pos() - m_pTransform->Get_Pos();
-                    _float fDist = D3DXVec3Length(&vDist);
-                    pSlotCube->Insert_Overlap(this, fDist);
-                }
-            }
+            m_pPickSlot = dynamic_cast<CSlotCube*>(m_pPickObj);
         }
+    }
+    else if (m_pPickSlot)
+    {
+        if (m_pPickSlot->Get_PuzzleID() == m_iPuzzleID &&
+            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().x > m_Zone._min.x &&
+            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().y > m_Zone._min.y &&
+            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().z > m_Zone._min.z &&
+            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().x < m_Zone._max.x &&
+            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().y < m_Zone._max.y &&
+            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().z < m_Zone._max.z)
+        {
+            _vec3 vDist = m_pPickSlot->Get_Component<CTransform>()->Get_Pos() - m_pTransform->Get_Pos();
+            _float fDist = D3DXVec3Length(&vDist);
+            m_pPickSlot->Insert_Overlap(this, fDist);
+        }
+        m_pPickObj = nullptr;
+        m_pPickSlot = nullptr;
     }
 }
 

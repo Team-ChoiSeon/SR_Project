@@ -115,6 +115,12 @@
     <Filter Include="04. GameObjects\Vellum">
       <UniqueIdentifier>{47e44b8d-2f23-45a9-b024-ae6b1781a3ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Cube\MagneticCube">
+      <UniqueIdentifier>{268a6416-a668-437e-a8ab-af206d52300c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\MetaCube">
+      <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="04. GameObjects\TestUI\Loding">
       <UniqueIdentifier>{ec8c747c-e3c2-4a60-8675-375d384ccfe2}</UniqueIdentifier>
     </Filter>
@@ -243,6 +249,12 @@
     <ClInclude Include="..\Header\CVellum.h">
       <Filter>04. GameObjects\Vellum</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CMagneticCube.h">
+      <Filter>04. GameObjects\Cube\MagneticCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMetalCube.h">
+      <Filter>04. GameObjects\Cube\MetaCube</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CImageUIObject.h">
       <Filter>04. GameObjects\TestUI</Filter>
     </ClInclude>
@@ -364,6 +376,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CVellum.cpp">
       <Filter>04. GameObjects\Vellum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMagneticCube.cpp">
+      <Filter>04. GameObjects\Cube\MagneticCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMetalCube.cpp">
+      <Filter>04. GameObjects\Cube\MetaCube</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CImageUIObject.cpp">
       <Filter>04. GameObjects\TestUI</Filter>

@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CMetalCube.h" />
     <ClInclude Include="..\Header\CImageUIObject.h" />
     <ClInclude Include="..\Header\CLodingCube.h" />
     <ClInclude Include="..\Header\CProgressBar.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="..\Header\DummyCube.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\CMainPlayer.h" />
+    <ClInclude Include="..\Header\CMagneticCube.h" />
     <ClInclude Include="..\Header\SceneBG.h" />
     <ClInclude Include="..\Header\SceneDH.h" />
     <ClInclude Include="..\Header\SceneHS.h" />
@@ -198,6 +200,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CMetalCube.cpp" />
     <ClCompile Include="..\Code\CImageUIObject.cpp" />
     <ClCompile Include="..\Code\CLodingCube.cpp" />
     <ClCompile Include="..\Code\CProgressBar.cpp" />
@@ -228,6 +231,7 @@
     <ClCompile Include="..\Code\DummyCube.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\CMainPlayer.cpp" />
+    <ClCompile Include="..\Code\CMagneticCube.cpp" />
     <ClCompile Include="..\Code\SceneBG.cpp" />
     <ClCompile Include="..\Code\SceneDH.cpp" />
     <ClCompile Include="..\Code\SceneHS.cpp" />
