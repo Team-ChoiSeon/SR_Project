@@ -22,6 +22,7 @@
 #include "CDirectionalCube.h"
 #include "CTestTile.h"
 #include "CSceneGate.h"
+#include "CCinematicCamera.h"
 
 #include "SceneHW.h"
 
@@ -42,6 +43,8 @@ SceneHS::~SceneHS()
 HRESULT SceneHS::Ready_Scene()
 {
 	Init_Layers();
+
+
 
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
 	pTile->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 50.f });
@@ -80,13 +83,23 @@ HRESULT SceneHS::Ready_Scene()
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"ffcam", CFirstviewFollowingCamera::Create(m_pGraphicDev));
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"dummycam", CFirstviewFollowingCamera::Create(m_pGraphicDev));
 
+	CCinematicCamera* pCineCam = CCinematicCamera::Create(m_pGraphicDev);
+	pCineCam->Get_Component<CTransform>()->Set_Pos(pOnewayCube->Get_Component<CTransform>()->Get_Pos());
+	//pCineCam->Set_Eye(m_StartPos);
+
+	_vec3 endPos = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Component<CTransform>()->Get_Pos();
+	_vec3 endLook = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Component<CTransform>()->Get_Info(INFO_LOOK);
+	pCineCam->Start_Cinematic({ -10.f, 0.f, 30.f }, { -20.f, -8.f, -20.f }, endLook, D3DX_PI * 0.15f, 5.f);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"CinematicCam", pCineCam);
+
 	/////////////////////
 	Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"dummycam")->Set_Target(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Dummy"));
 	Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam")->Set_Target(Get_Layer(LAYER_PLAYER)->Get_GameObject(L"Player"));
 
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
 
-	CCameraMgr::Get_Instance()->Set_MainCamera(Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam"));
+	//CCameraMgr::Get_Instance()->Set_MainCamera(Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam"));
+	CCameraMgr::Get_Instance()->Set_MainCamera(Get_Layer(LAYER_CAMERA)->Get_GameObject<CCinematicCamera>(L"CinematicCam"));
 
 	for (auto& pLayer : m_umLayer)
 		pLayer.second->Ready_Layer();
@@ -96,9 +109,21 @@ HRESULT SceneHS::Ready_Scene()
 
 _int SceneHS::Update_Scene(const _float& fTimeDelta)
 {
+	if (CCameraMgr::Get_Instance()->Get_MainCamera() == Get_Layer(LAYER_CAMERA)->Get_GameObject<CCinematicCamera>(L"CinematicCam"))
+	{
+		if (!Get_Layer(LAYER_CAMERA)->Get_GameObject<CCinematicCamera>(L"CinematicCam")->Get_CinematicEnd())
+		{
+			End_Cinematic();
+		}
+	}
+
 	CScene::Update_Scene(fTimeDelta);
 	// m_pLightObject->Update_GameObject(fTimeDelta);
 	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
+	// _vec3 playerpos = Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam")->Get_Component<CTransform>()->Get_Pos();
+	// wchar_t buf1[128];
+	// swprintf_s(buf1, 128, L"Player Pos : %.3f, %.3f, %.3f\n", playerpos.x, playerpos.y, playerpos.z);
+	// OutputDebugStringW(buf1);
 
 	return 0;
 }
@@ -118,6 +143,12 @@ void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 	//}
 
 
+}
+
+void SceneHS::End_Cinematic()
+{
+	Get_Layer(LAYER_CAMERA)->Get_GameObject<CCinematicCamera>(L"CinematicCam")->End_Cinematic();
+	CCameraMgr::Get_Instance()->Set_MainCamera(Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam"));
 }
 
 SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)

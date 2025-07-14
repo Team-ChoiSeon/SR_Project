@@ -124,6 +124,9 @@
     <Filter Include="04. GameObjects\TestUI\Loding\LodingCube">
       <UniqueIdentifier>{95078ba1-268d-45ab-8482-bab2e477300c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\CameraObejct\CinematicCamera">
+      <UniqueIdentifier>{d0eb2f06-d4b3-4de0-a7a3-d48ea498ba97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -255,6 +258,9 @@
     <ClInclude Include="..\Header\SceneLoding.h">
       <Filter>03. Scene\SceneHS\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCinematicCamera.h">
+      <Filter>04. GameObjects\CameraObejct\CinematicCamera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -376,6 +382,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\SceneLoding.cpp">
       <Filter>03. Scene\SceneHS\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCinematicCamera.cpp">
+      <Filter>04. GameObjects\CameraObejct\CinematicCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
