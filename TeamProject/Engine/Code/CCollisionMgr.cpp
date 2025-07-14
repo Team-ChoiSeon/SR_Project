@@ -13,6 +13,7 @@ CCollisionMgr::~CCollisionMgr()
 void CCollisionMgr::Update_Collision()
 {
 	set<ColliderPair, PairLess> setCurrCollisions;
+
 	for (size_t i = 0; i < m_vCol.size(); ++i)
 	{
 		for (size_t j = i + 1; j < m_vCol.size(); ++j)
@@ -20,24 +21,17 @@ void CCollisionMgr::Update_Collision()
 			CCollider* pA = m_vCol[i];
 			CCollider* pB = m_vCol[j];
 
-			bool bCollided = false;
-			auto eTypeA = pA->Get_Bound().eType;
-			auto eTypeB = pB->Get_Bound().eType;
+			if (!pA->Broad_Phase(pB))
+				continue;
 
-			if (eTypeA == BoundingType::AABB && eTypeB == BoundingType::AABB)
-			{
-				bCollided = Is_Colliding(pA->Get_AABBW(), pB->Get_AABBW());
-			}
-			else
-			{
-				_vec3 dummyPush;	// 충돌 여부만 판단
-				bCollided = pA->Calc_Push_OBB(pA->Get_Bound(), pB->Get_Bound(), dummyPush);
-			}
+			_vec3 push{};
+			bool bCollided = pA->Narrow_Phase(pB, push);
 
 			if (bCollided)
 			{
 				ColliderPair pair = make_pair(pA, pB);
 				setCurrCollisions.insert(pair);
+
 				if (m_setPrevCollisions.find(pair) != m_setPrevCollisions.end())
 				{
 					pA->On_Collision_Stay(pB);
@@ -52,7 +46,7 @@ void CCollisionMgr::Update_Collision()
 		}
 	}
 
-	// 충돌 종료 (Exit)
+	// Exit 처리
 	for (const auto& prev : m_setPrevCollisions)
 	{
 		if (setCurrCollisions.find(prev) == setCurrCollisions.end())
@@ -64,15 +58,7 @@ void CCollisionMgr::Update_Collision()
 		}
 	}
 
-	// 갱신
 	m_setPrevCollisions = move(setCurrCollisions);
-}
-
-bool CCollisionMgr::Is_Colliding(const AABB& a, const AABB& b)
-{
-	return !(a.vMax.x < b.vMin.x || a.vMin.x > b.vMax.x ||
-		a.vMax.y < b.vMin.y || a.vMin.y > b.vMax.y ||
-		a.vMax.z < b.vMin.z || a.vMin.z > b.vMax.z);
 }
 
 void CCollisionMgr::Add_Collider(CCollider* collider)

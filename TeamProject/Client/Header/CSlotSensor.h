@@ -31,7 +31,6 @@ public:
 	//Getter, Setter Function
 	void Set_Info(CMainPlayer* player, const _int puzzleID, const _int slotID);
 	void Set_PuzzleID(const _int& ID) { m_iPuzzleID = ID; }
-	void Set_Sequence(const std::vector<int>& seq) {m_vecSequence = seq;}
 	void Set_SlottedCube(CSlotCube* pSlotCube) { m_pSlotted = pSlotCube; }
 
 	const _vec3 Get_Look() { return m_pTransform->Get_Info(INFO_LOOK); }
@@ -45,10 +44,10 @@ private:
 	DetectZone		m_Zone;
 	_int			m_iPuzzleID;
 	_int			m_iSlotID;
-	vector<_int>	m_vecSequence;
-	vector<_int>	m_vecInput;
 	CMainPlayer*	m_pPlayer;
 	CSlotCube*		m_pSlotted;
 
+	CGameObject*	m_pPickObj = nullptr;
+	CSlotCube*		m_pPickSlot = nullptr;
 };
 

@@ -24,17 +24,25 @@ void CCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 }
 
-void CCube::Check_Lay()
+_bool CCube::Lay()
 {
-    if (m_bCurGrab)
+    //if (m_bCurGrab)
+    //{
+    //    if (!m_bLay)
+    //    {
+    //        m_bLay = true;
+    //    }
+    //}
+    //else
+    //{
+    //    m_bLay = false;
+    //}
+
+    if (m_bPreGrab && !m_bCurGrab)
     {
-        if (!m_bLay)
-        {
-            m_bLay = true;
-        }
+        return true;
     }
-    else
-    {
-        m_bLay = false;
-    }
+    // 다음 프레임을 위해 prev 상태 갱신
+    m_bPreGrab = m_bCurGrab;
+    return false;
 }

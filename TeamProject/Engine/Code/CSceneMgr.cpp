@@ -46,7 +46,7 @@ _int CSceneMgr::Update_Scene(const _float& fTimeDelta)
     {
         CLayer* pLayer = m_pScene->Get_Layer(LAYER_PLAYER);
         if (pLayer)
-            m_pPlayer = pLayer->Get_GameObject(L"MyPlayer");
+            m_pPlayer = pLayer->Get_GameObject(L"Player");
     }
 
     return m_pScene->Update_Scene(fTimeDelta);
