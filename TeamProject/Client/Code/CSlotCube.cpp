@@ -10,6 +10,9 @@
 #include "CPickingMgr.h"
 #include "CMainPlayer.h"
 #include "CFloatingCube.h"
+#include "CFactory.h"
+#include "Engine_GUI.h"
+#include "CGuiSystem.h"
 CSlotCube* CSlotCube::s_pPickedCube = nullptr;
 CSlotCube::CSlotCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -57,6 +60,7 @@ HRESULT CSlotCube::Ready_GameObject()
 	
 	m_bFirstPick = true;
 
+	CFactory::Save_Prefab(this, "CSlotCube");
 	return S_OK;
 }
 
@@ -88,10 +92,12 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 		else if (m_FitSlot != nullptr)
 			m_FitSlot->Set_SlottedCube(nullptr);
 		m_pRigid->Set_UseGravity(true);
-		m_pRigid->Set_OnGround(false);
+		//m_pRigid->Set_OnGround(false);
 		m_bFirstPick = true;
 	}
 	CGameObject::Update_GameObject(fTimeDelta);
+	
+
 	return _int();
 }
 
@@ -216,3 +222,6 @@ void CSlotCube::Fit(const _float& fTimeDelta)
 
 
 }
+
+
+REGISTER_GAMEOBJECT(CSlotCube)

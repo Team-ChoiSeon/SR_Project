@@ -3,7 +3,7 @@
 #include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCollider.h" 
-
+#include "CFactory.h"
 CMonsterPart::CMonsterPart(LPDIRECT3DDEVICE9 pGraphicDev)
     :CGameObject(pGraphicDev)
 {
@@ -57,6 +57,8 @@ HRESULT CMonsterPart::Ready_GameObject()
     m_pRigid->Set_Mass(1.f);
     m_pRigid->Set_Friction(1.f);
     m_pRigid->Set_Bounce(0.f);
+
+    CFactory::Save_Prefab(this, "CMonsterPart");
 
     return S_OK;
 }
@@ -144,3 +146,5 @@ void CMonsterPart::Free()
     Safe_Release(m_pCol);
     m_pTarget = nullptr;
 }
+
+REGISTER_GAMEOBJECT(CMonsterPart)

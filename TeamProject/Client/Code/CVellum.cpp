@@ -65,7 +65,8 @@ HRESULT CVellum::Ready_GameObject()
     }
 
     //m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-   
+
+    CFactory::Save_Prefab(this, "CVellum");
 	return CGameObject::Ready_GameObject();;
 }
 
