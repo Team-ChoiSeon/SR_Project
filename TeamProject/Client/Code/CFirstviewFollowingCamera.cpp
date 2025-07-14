@@ -51,7 +51,9 @@ HRESULT CFirstviewFollowingCamera::Ready_GameObject()
 int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 {
 	//Get and Change Target Angle, Set transform same as target
-	m_pTransform->Set_Pos(m_pTargetTransform->Get_Pos());
+	_vec3 vTargetPos = m_pTargetTransform->Get_Pos();
+	vTargetPos.y += 1.f;
+	m_pTransform->Set_Pos(vTargetPos);
 	m_pTransform->Set_Angle(m_pTargetTransform->Get_Angle());
 	m_pTransform->Set_Look(m_pTargetTransform->Get_Info(INFO_LOOK));
 

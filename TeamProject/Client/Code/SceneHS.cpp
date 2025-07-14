@@ -54,6 +54,14 @@ HRESULT SceneHS::Ready_Scene()
 	pTile->Get_Component<CRigidBody>()->Set_UseGravity(false);
 
 
+	CTestTile* pWall = CTestTile::Create(m_pGraphicDev);
+	pWall->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 10.f });
+	pWall->Get_Component<CTransform>()->Set_Pos({ -10.f, 0.f, 50.f });
+	pWall->Get_Component<CRigidBody>()->Set_OnGround(true);
+	pWall->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Wall", (pWall));
+
+
 	CDirectionalCube* pOnewayCube = CDirectionalCube::Create(m_pGraphicDev);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwOnewayCube", pOnewayCube);
 	pOnewayCube->Set_Info({ -10.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, 20.f);
@@ -90,7 +98,8 @@ HRESULT SceneHS::Ready_Scene()
 
 	_vec3 endPos = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Component<CTransform>()->Get_Pos();
 	_vec3 endLook = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Component<CTransform>()->Get_Info(INFO_LOOK);
-	pCineCam->Start_Cinematic({ -10.f, 0.f, 30.f }, { -20.f, -8.f, -20.f }, endLook, D3DX_PI * 0.15f, 5.f);
+	pCineCam->Start_Cinematic(pOnewayCube->Get_Component<CTransform>()->Get_Pos(), {-10.f, 0.f, -20.f}, endLook, D3DX_PI * 0.15f, 5.f);
+	
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"CinematicCam", pCineCam);
 
 	/////////////////////
