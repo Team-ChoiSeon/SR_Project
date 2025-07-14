@@ -172,12 +172,12 @@ void CVellum::Chase(const _float& fTimeDelta, CTransform* pTransform, CRigidBody
     _vec3 myPos = pTransform->Get_Pos();
     _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
     _vec3 dir = playerPos - myPos;
+
     D3DXVec3Normalize(&dir, &dir);
-    
-    pRigid->Add_Torque(pTransform->Get_Info(INFO_LOOK) * 30.f);
+
+    pTransform->Set_Look(dir);
+    pRigid->Add_Torque(dir * 30.f);
     pRigid->Add_Force(dir * 5.f);
-
-
 }
 
 
