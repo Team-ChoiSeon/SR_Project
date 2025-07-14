@@ -116,11 +116,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>IMGUI_API=__declspec(dllimport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;../../ThirdParty/FMOD</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;../../ThirdParty/FMOD;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;../../ThirdParty/Imgui/;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -137,11 +137,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>IMGUI_API=__declspec(dllimport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;../../ThirdParty/Imgui/;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -154,6 +154,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CMetalCube.h" />
+    <ClInclude Include="..\Header\CImageUIObject.h" />
+    <ClInclude Include="..\Header\CLodingCube.h" />
+    <ClInclude Include="..\Header\CProgressBar.h" />
     <ClInclude Include="..\Header\CSlotSensor.h" />
     <ClInclude Include="..\Header\CZoneSensor.h" />
     <ClInclude Include="..\Header\CSensor.h" />
@@ -186,6 +189,7 @@
     <ClInclude Include="..\Header\SceneDH.h" />
     <ClInclude Include="..\Header\SceneHS.h" />
     <ClInclude Include="..\Header\SceneHW.h" />
+    <ClInclude Include="..\Header\SceneLoding.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
     <ClInclude Include="..\Header\TestSceneHW.h" />
     <ClInclude Include="..\Header\CPickSwitch.h" />
@@ -197,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CMetalCube.cpp" />
+    <ClCompile Include="..\Code\CImageUIObject.cpp" />
+    <ClCompile Include="..\Code\CLodingCube.cpp" />
+    <ClCompile Include="..\Code\CProgressBar.cpp" />
     <ClCompile Include="..\Code\CSlotSensor.cpp" />
     <ClCompile Include="..\Code\CZoneSensor.cpp" />
     <ClCompile Include="..\Code\CSensor.cpp" />
@@ -229,6 +236,7 @@
     <ClCompile Include="..\Code\SceneDH.cpp" />
     <ClCompile Include="..\Code\SceneHS.cpp" />
     <ClCompile Include="..\Code\SceneHW.cpp" />
+    <ClCompile Include="..\Code\SceneLoding.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
     <ClCompile Include="..\Code\TestSceneHW.cpp" />
     <ClCompile Include="..\Code\CPickSwitch.cpp" />

@@ -24,7 +24,7 @@
 #include "CCameraMgr.h"
 #include "CLightMgr.h"
 
-
+#include "CGuiSystem.h"
 
 
 CMainApp::CMainApp()
@@ -61,6 +61,7 @@ HRESULT CMainApp::Ready_MainApp()
 	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
 	//CSoundMgr::Get_Instance()->Play("test", "BGM");
 	
+	CGuiSystem::Get_Instance()->Ready_GUI(g_hWnd);
 	return S_OK;
 }
 
@@ -95,6 +96,8 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
 	CRenderMgr::Get_Instance()->Render(m_pGraphicDev);
+	CGuiSystem::Get_Instance()->Render_GUI();
+	
 	m_pDeviceClass->Render_End();
 }
 
@@ -132,6 +135,9 @@ void CMainApp::Free()
 	CResourceMgr::Get_Instance()->Destroy_Instance();
 	CShaderMgr::Get_Instance()->Destroy_Instance();
 	CGraphicDev::Get_Instance()->Destroy_Instance();
+
+	//5. GUI 시스템(디버그)
+	CGuiSystem::Get_Instance()->Destroy_Instance();
 
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);

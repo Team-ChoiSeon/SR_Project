@@ -94,6 +94,8 @@ public:
 	void On_Collision_Stay(CCollider* pCollider);
 	void On_Collision_Exit(CCollider* pCollider);
 
+	bool Broad_Phase(CCollider* pOther);
+	bool Narrow_Phase(CCollider* pOther, _vec3& push);
 	bool Calc_Push_AABB(const AABB& a, const AABB& b, _vec3& push);
 	bool Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& push);
 
@@ -105,6 +107,7 @@ private:
 	AABB m_tAABB = { {-1,-1,-1},{1,1,1} };
 	AABB m_tAABBOff = { {0, 0, 0}, {0, 0, 0} };
 	AABB m_tAABBWorld;
+	_matrix m_matPrevWorld = {};
 
 	BoundInfo m_tBound;
 

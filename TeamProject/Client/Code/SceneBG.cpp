@@ -1,6 +1,8 @@
 #pragma once
 #include "pch.h"
 #include "SceneBG.h"
+#include "Engine_GUI.h"
+#include "CGuiSystem.h"
 #include "CFactory.h"
 #include "CFirstviewFollowingCamera.h"
 #include "CMainPlayer.h"
@@ -51,6 +53,7 @@ HRESULT SceneBG::Ready_Scene()
 	Step_StoneSet();
 	Moving_StoneSet();
 	Stair_Set();
+	
 
 	return S_OK;
 }
@@ -64,6 +67,9 @@ _int SceneBG::Update_Scene(const _float& fTimeDelta)
 void SceneBG::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CScene::LateUpdate_Scene(fTimeDelta);
+	CGuiSystem::Get_Instance()->RegisterPanel("test", [this]() {
+		Test_Panel();
+	});
 }
 
 void SceneBG::TileLayer_Set()
@@ -125,6 +131,16 @@ void SceneBG::Stair_Set()
 	}
 }
 
+void SceneBG::Test_Panel()
+{
+	// 간단한 GUI 창 하나 출력
+	ImGui::Begin("Test Panel");
+	ImGui::Text("Hello, ImGui!");
+	static float f = 0.0f;
+	ImGui::SliderFloat("Float Value", &f, 0.0f, 1.0f);
+	ImGui::End();
+}
+
 SceneBG* SceneBG::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneBG* pScene = new SceneBG(pGraphicDev);
@@ -132,7 +148,7 @@ SceneBG* SceneBG::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	if (FAILED(pScene->Ready_Scene()))
 	{
 		Safe_Release(pScene);
-		MSG_BOX("SceneHW Create Failed");
+		MSG_BOX("SceneBG Create Failed");
 		return nullptr;
 	}
 

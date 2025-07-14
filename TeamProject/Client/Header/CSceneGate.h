@@ -2,6 +2,8 @@
 #include "CGameObject.h"
 #include "CCollider.h"
 #include "CRigidBody.h"
+#include "DummyCube.h"
+#include "CTestTile.h"
 
 namespace Engine {
 	class CTransform;
@@ -15,7 +17,7 @@ private:
 	virtual ~CSceneGate();
 
 public:
-	//Basic Function
+
 	HRESULT Ready_GameObject();
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
@@ -23,6 +25,9 @@ public:
 	static CSceneGate* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 	
+	CTestTile* Set_GateDoor(bool bLeft);
+	CTestTile* Set_GateStructure(const _vec3& vPos, const _vec3& vScale);
+
 	bool Get_InGate() { return m_bInGate; };
 
 private:
@@ -33,5 +38,13 @@ private:
 
 	wstring m_NextSceneTag;
 	bool m_bInGate = false;
+
+	CTestTile* pGateDoorL;
+	CTestTile* pGateDoorR;
+	CTestTile* pGatePillarL;
+	CTestTile* pGatePillarR;
+	CTestTile* pGateTop;
+
+	_float m_fDoorAngle = 0.f;
 };
 

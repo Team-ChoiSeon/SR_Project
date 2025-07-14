@@ -21,7 +21,7 @@ CUI::~CUI()
 	Free();
 }
 
-HRESULT CUI::Ready_UI()
+HRESULT CUI::Ready_Component()
 {
 	// if (!m_pGraphicDev)
 	// {

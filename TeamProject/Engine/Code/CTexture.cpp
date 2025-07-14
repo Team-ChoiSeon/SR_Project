@@ -30,11 +30,24 @@ HRESULT CTexture::Load(LPDIRECT3DDEVICE9 pDevice, const wstring& filePath)
 
     LPDIRECT3DTEXTURE9 pTexture = nullptr;
 
-    std::wstring debugMessage = L"[Texture Load Failed] Path: " + filePath + L"\n";
+    wstring debugMessage = L"[Texture Load Failed] Path: " + filePath + L"\n";
 
-    if (FAILED(D3DXCreateTextureFromFileW(pDevice, filePath.c_str(), &pTexture)))
+    HRESULT hr = D3DXCreateTextureFromFileExW(
+        pDevice,
+        filePath.c_str(),
+        D3DX_DEFAULT, D3DX_DEFAULT,     // 원본 사이즈
+        D3DX_DEFAULT,                   // MipLevel
+        0,                              // Usage
+        D3DFMT_A8R8G8B8,                // Force alpha-aware format
+        D3DPOOL_MANAGED,                // 일반적인 풀
+        D3DX_DEFAULT, D3DX_DEFAULT,     // 필터
+        0,                              // ColorKey (0: 없음)
+        nullptr, nullptr,
+        &pTexture
+    );
+
+    if (FAILED(hr))
     {
-        OutputDebugStringW(debugMessage.c_str());
         MSG_BOX("CTexture::Load Failed : CreateTextureFromFile");
         return E_FAIL;
     }

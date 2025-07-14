@@ -71,7 +71,7 @@ T* CLayer::Get_GameObject(const wstring& wObjTag)
 		return dynamic_cast<T*>(iter->pObj);
 	}
 
-	MSG_BOX("CLayer::can't find gameobject");
+	// MSG_BOX("CLayer::can't find gameobject");
 	return nullptr;
 }
 

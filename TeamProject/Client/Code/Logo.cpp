@@ -12,6 +12,7 @@
 #include "TestSceneHW.h"
 
 #include "CSceneTestHS.h"
+#include "SceneLoding.h"
 
 Logo::Logo(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
@@ -25,7 +26,6 @@ Logo::~Logo()
 
 HRESULT Logo::Ready_Scene()
 {
-	Init_Layers();
 	return S_OK;
 }
 
@@ -61,7 +61,9 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 	}
 	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F6))
 	{
-		CScene* pScene = CSceneTestHS::Create(m_pGraphicDev);
+		//CScene* pScene = CSceneTestHS::Create(m_pGraphicDev);
+		CScene* pScene = SceneLoding::Create(m_pGraphicDev);
+		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 	}
 	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F7))
 	{

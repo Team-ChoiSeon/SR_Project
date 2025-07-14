@@ -22,7 +22,7 @@ HRESULT CSceneMgr::Set_Scene(CScene* pScene)
     Safe_Release(m_pScene);
 
     m_pScene = pScene;
-
+    
     OutputDebugString("Set_Scene\n");
     return S_OK;
 }
@@ -38,8 +38,16 @@ HRESULT CSceneMgr::Set_Player(CGameObject* pPlayer)
 
 _int CSceneMgr::Update_Scene(const _float& fTimeDelta)
 {
+    
     if (nullptr == m_pScene)
         return -1;
+    
+    if (!m_pPlayer)
+    {
+        CLayer* pLayer = m_pScene->Get_Layer(LAYER_PLAYER);
+        if (pLayer)
+            m_pPlayer = pLayer->Get_GameObject(L"Player");
+    }
 
     return m_pScene->Update_Scene(fTimeDelta);
 }
