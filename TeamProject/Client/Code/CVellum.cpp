@@ -52,7 +52,7 @@ HRESULT CVellum::Ready_GameObject()
         }
 
         // 파츠 위치 초기화 (선형 배열 형태)
-        _vec3 partPos = { 0.f, - 2.f * i, 0.f };
+        _vec3 partPos = { 0.f, 20.f - 2.f * i, 0.f };
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
         // 앞 파츠를 따라가게 연결
@@ -82,6 +82,9 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
     {
     case VPattern::CHASE:
         Chase(fTimeDelta, pHeadTransform, pHeadRigid);
+        break;
+    case VPattern::DIVE:
+        Dive(fTimeDelta, pHeadTransform, pHeadRigid);
         break;
     }
 
@@ -127,11 +130,15 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
 {
     m_fPatternTime += fTimeDelta;
 
+    if (m_eCurPattern == VPattern::DIVE && m_bPattern)
+        return;
+
     // 패턴 종료 시
     if (m_bPattern && m_fPatternTime > m_fSwitchTime)
     {
         if (!m_vPart.empty())
         {
+
             m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
             m_vPart[0]->Get_Component<CRigidBody>()->Set_Velocity(_vec3(0.f, 0.f, 0.f));
             m_vPart[0]->Get_Component<CRigidBody>()->Set_AVelocity(_vec3(0.f, 0.f, 0.f));
@@ -139,7 +146,7 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
 
         m_bPattern = false;
         m_fPatternTime = 0.f;
-        m_fSwitchTime = 1.f;    // 다음 패턴까지의 인터벌
+        m_fSwitchTime = 3.f;    // 다음 패턴까지의 인터벌
 
         return;
     }
@@ -147,10 +154,28 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
     // 패턴 설정 및 돌입
     if (!m_bPattern && m_fPatternTime >= m_fSwitchTime)
     {
-        m_eCurPattern = static_cast<VPattern>(rand() % 1); // 
-        m_fPatternTime = 0.f;
-        m_fSwitchTime = 3.f;    // 패턴 재생 시간
         m_bPattern = true;
+        m_fPatternTime = 0.f;
+
+        m_eCurPattern = static_cast<VPattern>(rand() % 2);
+        
+        // 패턴 재생 시간
+        switch (m_eCurPattern)
+        {
+        case VPattern::CHASE:
+            m_fSwitchTime = 3.f;
+            break;
+        case VPattern::DIVE:
+            m_fSwitchTime = FLT_MAX;  // 패턴이 끝날때 까지
+            if (m_eDPhase == DivePhase::None)
+            {
+                m_vPart[0]->Get_Component<CRigidBody>()->Set_Velocity(_vec3(0.f, 10.f, 0.f));
+            }
+            m_eDPhase = DivePhase::Ready;
+            break;
+        }
+
+        
 
         if (!m_vPart.empty())
             m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
@@ -158,6 +183,7 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
         switch (m_eCurPattern)
         {
         case VPattern::CHASE:  OutputDebugString(L"패턴: CHASE\n"); break;
+        case VPattern::DIVE:  OutputDebugString(L"패턴: DIVE\n"); break;
         }
     }
 }
@@ -178,6 +204,100 @@ void CVellum::Chase(const _float& fTimeDelta, CTransform* pTransform, CRigidBody
     pTransform->Set_Look(dir);
     pRigid->Add_Torque(dir * 30.f);
     pRigid->Add_Force(dir * 5.f);
+}
+
+void CVellum::Dive(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid)
+{
+
+    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
+    if (!pPlayer) return;
+
+    if (!pPlayer || !pTransform || !pRigid)
+        return;
+
+    _vec3 myPos = pTransform->Get_Pos();
+    _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
+    _vec3 diff = playerPos - myPos;
+    diff.y = 0.f;
+    _float fDist = D3DXVec3Length(&diff);
+    D3DXVec3Normalize(&diff, &diff);
+
+    switch (m_eDPhase)
+    {
+    // force → phase = DiveIn;
+    case DivePhase::Ready:
+        if (fDist < 5.f)
+        {
+            pRigid->Set_Accel({ 0.f,0.f,0.f });
+            pRigid->Set_Velocity({ 0.f,0.f,0.f });
+            m_fSearch = 0.f;
+            m_eDPhase = DivePhase::In;
+            OutputDebugString(L"Ready->In\n");
+        }
+        m_fSearch += fTimeDelta;
+        if (m_fSearch > 1.f)
+        {
+            pRigid->Set_Accel({ 0.f,0.f,0.f });
+            pRigid->Set_Velocity({ 0.f,0.f,0.f });
+            m_fSearch = 0.f;
+        }
+
+        pRigid->Add_Force(diff * 10.f);
+        break;
+
+     // 도달 체크 → phase = Wait;
+    case DivePhase::In:
+        if (pTransform->Get_Pos().y < -5.f)
+        {
+            pRigid->Set_Accel({ 0.f,0.f,0.f });
+            pRigid->Set_Velocity({ 0.f,0.f,0.f });
+            m_eDPhase = DivePhase::Wait;
+            OutputDebugString(L"In->Wait\n");
+        }
+        pRigid->Add_Force({ 0.f,-1.f * 15.f, 0.f });
+        break;
+
+    // 시간 경과 → phase = DiveOut;
+    case DivePhase::Wait:
+        if (fDist < 5.f)
+        {
+            Sleep(300);
+            pRigid->Set_Accel({ 0.f,0.f,0.f });
+            pRigid->Set_Velocity({ 0.f,0.f,0.f });
+            m_eDPhase = DivePhase::Out;
+            m_fSearch = 0.f;
+            OutputDebugString(L"Wait->Out\n");
+        }
+        m_fSearch += fTimeDelta;
+        if (m_fSearch > 1.f)
+        {
+            pRigid->Set_Accel({ 0.f,0.f,0.f });
+            pRigid->Set_Velocity({ 0.f,0.f,0.f });
+            m_fSearch = 0.f;
+        }
+
+        pRigid->Add_Force(diff * 10.f);
+        break;
+
+    // 상승 완료 → phase = Ready, m_bPattern = false;
+    case DivePhase::Out:
+        if (pTransform->Get_Pos().y > 15.f)
+        {
+            pRigid->Set_Accel({ 0.f,0.f,0.f });
+            pRigid->Set_Velocity({ 0.f,0.f,0.f });
+            m_eDPhase = DivePhase::None;
+            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+            OutputDebugString(L"Out->None\n");
+
+            m_bPattern = false;
+            m_fPatternTime = 0.f;
+            m_fSwitchTime = 5.f; // 다음 패턴 인터벌
+        }
+        pRigid->Add_Force({ 0.f,1.f * 15.f, 0.f });
+        break;
+        
+    }
+    
 }
 
 
