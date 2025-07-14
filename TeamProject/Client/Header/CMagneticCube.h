@@ -1,14 +1,13 @@
 #pragma once
 #include "CCube.h"
-#include "CSlotSensor.h"
 
-enum class MAGNETTYPE { N, S, METAL, NONE };
 namespace Engine {
 	class CCollider;
 	class CRigidBody;
 	class CPickTarget;
 }
 class CMainPlayer;
+class CMetalCube;
 class CMagneticCube : public CCube
 {
 private:
@@ -31,11 +30,13 @@ public:
 
 private:
 	void PickMove();
+	void DetectMetal();
 	void MagneticMove();
 	void DetectMagnetic();
 
 	//Variables
 	CCollider*			m_pCollider;
+	CCollider*			m_pDetectCollider;
 	CRigidBody*			m_pRigid;
 	CPickTarget*		m_pPick;
 
@@ -44,11 +45,9 @@ private:
 
 	_vec3				m_vDist;
 	_float				m_fDist;
-	_float				m_fDetectDist;
+	_float				m_fDetectDist = 3.f;
 	_bool				m_bParent;
-	MAGNETTYPE			m_eMagnetType = MAGNETTYPE::METAL;
-	DetectZone			m_Zone;
 
-	vector<CMagneticCube*>	m_vecNearMag;
+	vector<CMetalCube*>	m_vecMetal;
 };
 

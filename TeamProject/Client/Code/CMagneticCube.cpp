@@ -1,8 +1,11 @@
+#pragma once
+#include "pch.h"
 #include "CMagneticCube.h"
 #include "CTransform.h"
 #include "CCollider.h"
 #include "CRigidBody.h"
 #include "CPickTarget.h"
+#include "CMetalCube.h"
 
 
 CMagneticCube::CMagneticCube(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -41,8 +44,18 @@ HRESULT CMagneticCube::Ready_GameObject()
 
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCollider = Get_Component<CCollider>();
-    m_pCollider->Set_ColTag(ColliderTag::GROUND);
+    m_pCollider->Set_ColTag(ColliderTag::NONE);
     m_pCollider->Set_ColType(ColliderType::PASSIVE);
+    m_pCollider->Set_BoundType(BoundingType::OBB);
+
+
+    Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
+    m_pDetectCollider = Get_Component<CCollider>();
+    m_pDetectCollider->Set_ColTag(ColliderTag::NONE);
+    m_pDetectCollider->Set_ColType(ColliderType::TRIGGER);
+    _vec3 detectbound = _vec3{ 1.f, 1.f, 1.f } * m_fDetectDist;
+    m_pDetectCollider->Set_Offset(detectbound);
+    m_pDetectCollider->Set_BoundType(BoundingType::AABB);
 
     Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
     m_pPick = Get_Component<CPickTarget>();
@@ -62,8 +75,6 @@ void CMagneticCube::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CMagneticCube::Set_Info()
 {
-    m_Zone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale() * 3;
-    m_Zone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale() * 3;
 }
 
 CMagneticCube* CMagneticCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -81,58 +92,46 @@ void CMagneticCube::PickMove()
 {
 }
 
-void CMagneticCube::MagneticMove()
+void CMagneticCube::DetectMetal()
 {
-    switch (m_eMagnetType)
+    m_vecMetal.clear();
+    auto DetectedObj = m_pDetectCollider->Get_Other()->m_pOwner;
+    if (typeid(DetectedObj) == typeid(CMetalCube))
     {
-    case MAGNETTYPE::N:
-        break;
+        auto Metal = static_cast<CMetalCube*>(DetectedObj);
+        m_vecMetal.push_back(Metal);
+    }
 
-    case MAGNETTYPE::S:
-        break;
-
-    case MAGNETTYPE::METAL:
-        break;
-
-    case MAGNETTYPE::NONE:
-        break;
+    for (auto& iter : m_vecMetal)
+    {
+        iter->MovetoMagnetic(this);
     }
 }
+//
+//void CMagneticCube::MagneticMove()
+//{
+//}
 
-void CMagneticCube::DetectMagnetic()
-{
-    m_vecNearMag.clear();
-
-    switch (m_eMagnetType)
-    {
-    case MAGNETTYPE::N:
-        break;
-
-    case MAGNETTYPE::S:
-        break;
-
-    case MAGNETTYPE::METAL:
-        break;
-
-    case MAGNETTYPE::NONE:
-        break;
-    }
-    const BoundInfo& myBound = m_pCollider->Get_Bound();
-
-    //for (auto* other : s_AllMagnets)
-    //{
-    //    if (other == this)
-    //        continue;
-
-    //    // other 의 OBB 정보
-    //    CCollider* oCol = other->Get_Component<CCollider>();
-    //    const BoundInfo& otherBound = oCol->Get_Bound();
-
-    //    // SAT 기반 OBB 교차 검사 (push 벡터는 필요 없으면 무시)
-    //    _vec3 dummyPush;
-    //    if (m_pCollider->Calc_Push_OBB(myBound, otherBound, dummyPush))
-    //    {
-    //        m_vecNearMag.push_back(other);
-    //    }
-    //}
-}
+//void CMagneticCube::DetectMagnetic()
+//{
+//    m_vecMetal.clear();
+//
+//    const BoundInfo& myBound = m_pCollider->Get_Bound();
+//
+//    //for (auto* other : s_AllMagnets)
+//    //{
+//    //    if (other == this)
+//    //        continue;
+//
+//    //    // other 의 OBB 정보
+//    //    CCollider* oCol = other->Get_Component<CCollider>();
+//    //    const BoundInfo& otherBound = oCol->Get_Bound();
+//
+//    //    // SAT 기반 OBB 교차 검사 (push 벡터는 필요 없으면 무시)
+//    //    _vec3 dummyPush;
+//    //    if (m_pCollider->Calc_Push_OBB(myBound, otherBound, dummyPush))
+//    //    {
+//    //        m_vecNearMag.push_back(other);
+//    //    }
+//    //}
+//}

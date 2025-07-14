@@ -23,6 +23,7 @@
 #include "CPickSwitch.h"
 #include "CSlotCube.h"
 #include "CSlotSensor.h"
+#include "CSceneMgr.h"
 
 
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) 
@@ -55,6 +56,7 @@ HRESULT SceneHW::Ready_Scene()
 	m_pSlotSensor = CSlotSensor::Create(m_pGraphicDev);
 	m_pSlotSensor2 = CSlotSensor::Create(m_pGraphicDev);
 	m_pSlotSensor3 = CSlotSensor::Create(m_pGraphicDev);
+	auto TestFloat = CFloatingCube::Create(m_pGraphicDev);
 	//m_pWeightButton = CWeightButton::Create(m_pGraphicDev);
 	//m_pTimerButton = CTimerButton::Create(m_pGraphicDev);
 
@@ -73,12 +75,13 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwOnewayCube", m_pOnewayCube);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwImpulseCube", m_pImpulseCube);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwToggle", m_pPickSwitch);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor", m_pSlotSensor);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor2", m_pSlotSensor2);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor3", m_pSlotSensor3);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube", m_pSlotCube);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube2", m_pSlotCube2);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube3", m_pSlotCube3);
-	Get_Layer(LAYER_TILE)->Add_GameObject(L"hwSlotSensor", m_pSlotSensor);
-	Get_Layer(LAYER_TILE)->Add_GameObject(L"hwSlotSensor2", m_pSlotSensor2);
-	Get_Layer(LAYER_TILE)->Add_GameObject(L"hwSlotSensor3", m_pSlotSensor3);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwTestFloat", TestFloat);
 	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwWeightButton", m_pWeightButton);
 	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwTimerButton", m_pTimerButton);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
@@ -89,9 +92,10 @@ HRESULT SceneHW::Ready_Scene()
 
 
 	//Set Obejct Informations
-	m_pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 30.f, 0.f });
+	m_pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 50.f, 0.f });
 	m_pPlayer->Get_Component<CRigidBody>()->Set_Friction(1.f);
 	m_pPlayer->Get_Component<CRigidBody>()->Set_Mass(100.f);
+	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
 
 	m_pFFCam->Set_Target(m_pPlayer);
 
@@ -103,14 +107,14 @@ HRESULT SceneHW::Ready_Scene()
 	m_pOnewayCube->Set_Info({ -10.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, 20.f);
 	m_pImpulseCube->Set_Info({ 0.f, 0.f, 20.f });
 	m_pPickSwitch->Get_Component<CTransform>()->Set_Pos({ 50.f, -15.f, 10.f });
-	m_pSlotCube->Get_Component<CTransform>()->Set_Pos({ 0.f, -15.f, -10.f });
+	m_pSlotCube->Get_Component<CTransform>()->Set_Pos({ 0.f, -10.f, -10.f });
 	//m_pSlotCube->Get_Component<CTransform>()->Set_Look({ 1.f, 0.f, 1.f });
 	m_pSlotCube->Get_Component<CRigidBody>()->Set_AVelocity({ 0.f, 1.f, 0.f });
 	m_pSlotCube->Set_Info(m_pPlayer, 0, 0);
 
-	m_pSlotCube2->Get_Component<CTransform>()->Set_Pos({ -3.f, -15.f, -10.f });
+	m_pSlotCube2->Get_Component<CTransform>()->Set_Pos({ -3.f, -10.f, -10.f });
 	m_pSlotCube2->Set_Info(m_pPlayer, 0, 1);
-	m_pSlotCube3->Get_Component<CTransform>()->Set_Pos({ -6.f, -15.f, -10.f });
+	m_pSlotCube3->Get_Component<CTransform>()->Set_Pos({ -6.f, -10.f, -10.f });
 	m_pSlotCube3->Set_Info(m_pPlayer, 1, 0);
 	m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -10.f, -15.f, -10.f });
 	m_pSlotSensor->Set_Info(m_pPlayer, 0, 0);
@@ -118,6 +122,11 @@ HRESULT SceneHW::Ready_Scene()
 	m_pSlotSensor2->Set_Info(m_pPlayer, 0, 1);
 	m_pSlotSensor3->Get_Component<CTransform>()->Set_Pos({ -20.f, -15.f, -10.f });
 	m_pSlotSensor3->Set_Info(m_pPlayer, 1, 0);
+
+	TestFloat->Set_Info({ 20.f, -15.f ,0.f }, { 0.f, 0.f, -1.f }, 10.f, 5.f, 0.f);
+	TestFloat->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
+	TestFloat->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+
 
 	//m_pTimerButton->Set_Info({ -10.f, 30.f, 20.f }, 1.f, -1.f);
 	//m_pWeightButton->Set_Info(10.f, -1.f);
@@ -132,6 +141,7 @@ HRESULT SceneHW::Ready_Scene()
 	m_pFloatingCube->Get_Component<CRigidBody>()->Set_Bounce(0.f);
 	m_pFloatingCube->Get_Component<CRigidBody>()->Set_OnGround(true);
 	m_pFloatingCube->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	m_pFloatingCube->SetTrigger(true);
 	m_pFloatingCube->Set_Loop();
 
 	m_pFloatingCube2->Get_Component<CRigidBody>()->Set_Friction(0.f);
@@ -188,8 +198,14 @@ HRESULT SceneHW::Ready_Scene()
 	//m_pTimerButton->Get_Component<CRigidBody>()->Set_Bounce(0.1f);
 	//m_pTimerButton->Get_Component<CRigidBody>()->Set_OnGround(true);
 	//m_pTimerButton->Get_Component<CRigidBody>()->Set_UseGravity(false);
-
-
+	
+	TestFloat->Get_Component<CRigidBody>()->Set_Friction(0.f);
+	TestFloat->Get_Component<CRigidBody>()->Set_Mass(10.f);
+	TestFloat->Get_Component<CRigidBody>()->Set_Bounce(0.f);
+	TestFloat->Get_Component<CRigidBody>()->Set_OnGround(true);
+	TestFloat->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	TestFloat->SetTrigger(false);
+	TestFloat->Set_Loop();
 
 	//===========================================================================================================//
 
@@ -197,8 +213,6 @@ HRESULT SceneHW::Ready_Scene()
 	
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->Ready_Layer();
 
 
 	CSoundMgr::Get_Instance()->Load_Sound("Zelda", "../Bin/Resource/Sound/Zelda.wav");
@@ -226,6 +240,9 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 
 	CScene::Update_Scene(fTimeDelta);
 
+	_bool Puzzel1 = m_pSlotSensor->Get_SensorState() && m_pSlotSensor2->Get_SensorState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"hwTestFloat")->SetTrigger(m_pPickSwitch->Get_SwitchState());
+
 	//===========================================================================================================//
 	//Debugging Codes
 
@@ -238,11 +255,12 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	_bool trigger1 = m_pSlotSensor->Get_SensorState();
 	_bool trigger2 = m_pSlotSensor2->Get_SensorState();
 	_bool trigger3 = m_pSlotSensor3->Get_SensorState();
+	_bool switchon = m_pPickSwitch->Get_SwitchState();
 
-	if (trigger1)
+	if (switchon)
 		OutputDebugStringW(L"slot1 : True \n");
 	else
-		OutputDebugStringW(L"slot1 : False\n");
+		OutputDebugStringW(L"slot1 : False\n");/*
 	if (trigger2)
 		OutputDebugStringW(L"slot2 : True \n");
 	else
@@ -250,7 +268,7 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	if (trigger3)
 		OutputDebugStringW(L"slot3 : True \n");
 	else
-		OutputDebugStringW(L"slot3 : False\n");
+		OutputDebugStringW(L"slot3 : False\n");*/
 	//wchar_t buf1[128];
 	//swprintf_s(buf1, 128, L"Sensor Pos : %.3f, %.3f, %.3f\n", sensorpos.x, sensorpos.y, sensorpos.z);
 	//OutputDebugStringW(buf1);
