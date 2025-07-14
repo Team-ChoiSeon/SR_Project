@@ -167,10 +167,10 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
             break;
         case VPattern::DIVE:
             m_fSwitchTime = FLT_MAX;  // 패턴이 끝날때 까지
+            // 
             if (m_eDPhase == DivePhase::None)
-            {
                 m_vPart[0]->Get_Component<CRigidBody>()->Set_Velocity(_vec3(0.f, 10.f, 0.f));
-            }
+            
             m_eDPhase = DivePhase::Ready;
             break;
         }
@@ -210,8 +210,6 @@ void CVellum::Dive(const _float& fTimeDelta, CTransform* pTransform, CRigidBody*
 {
 
     CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-    if (!pPlayer) return;
-
     if (!pPlayer || !pTransform || !pRigid)
         return;
 
@@ -261,7 +259,6 @@ void CVellum::Dive(const _float& fTimeDelta, CTransform* pTransform, CRigidBody*
     case DivePhase::Wait:
         if (fDist < 5.f)
         {
-            Sleep(300);
             pRigid->Set_Accel({ 0.f,0.f,0.f });
             pRigid->Set_Velocity({ 0.f,0.f,0.f });
             m_eDPhase = DivePhase::Out;
