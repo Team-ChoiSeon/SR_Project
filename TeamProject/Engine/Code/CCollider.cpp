@@ -106,16 +106,24 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	// Bounding 정보 계산
 	if (m_tBound.eType == BoundingType::OBB)
 	{
-		// OBB 계산 (축 방향 반지름 계산 및 변환)
-		_vec3 vHalf = (aabb.vMax - aabb.vMin) * 0.5f;
-		_vec3 vScale = {
-			D3DXVec3Length((_vec3*)&pWorld->_11),
-			D3DXVec3Length((_vec3*)&pWorld->_21),
-			D3DXVec3Length((_vec3*)&pWorld->_31)
-		};
-		m_tBound.vHalf = _vec3(vHalf.x * vScale.x, vHalf.y * vScale.y, vHalf.z * vScale.z);
-		m_tBound.Calc_Transform(*pWorld);
+		// OBB 캐싱
+		// Update_Component()에서 월드 매트릭스 변경 감지 시에만
+		if (memcmp(&m_matPrevWorld, pWorld, sizeof(_matrix)) != 0)
+		{
+			// Calc_Transform() 호출 
+			m_matPrevWorld = *pWorld;
+
+			_vec3 vHalf = (aabb.vMax - aabb.vMin) * 0.5f;
+			_vec3 vScale = {
+				D3DXVec3Length((_vec3*)&pWorld->_11),
+				D3DXVec3Length((_vec3*)&pWorld->_21),
+				D3DXVec3Length((_vec3*)&pWorld->_31)
+			};
+			m_tBound.vHalf = _vec3(vHalf.x * vScale.x, vHalf.y * vScale.y, vHalf.z * vScale.z);
+			m_tBound.Calc_Transform(*pWorld);
+		}
 	}
+
 	else
 	{
 		// AABB이지만 OBB 계산기(Calc_Push_OBB)를 위해 꼭짓점 저장

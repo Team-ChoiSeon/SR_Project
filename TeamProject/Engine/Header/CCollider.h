@@ -107,6 +107,7 @@ private:
 	AABB m_tAABB = { {-1,-1,-1},{1,1,1} };
 	AABB m_tAABBOff = { {0, 0, 0}, {0, 0, 0} };
 	AABB m_tAABBWorld;
+	_matrix m_matPrevWorld = {};
 
 	BoundInfo m_tBound;
 
