@@ -26,6 +26,7 @@ public:
 public:
 	void Follow_Target(_float fDeltaTime);
 	void Set_Target(CMonsterPart* pTarget) { m_pTarget = pTarget; }
+	void Set_Index(int idx, int max) { m_iIdx = idx, m_iMax = max; }
 
 public:
 	virtual void Free();
@@ -38,6 +39,9 @@ private:
 	CCollider* m_pCol = nullptr;
 
 	CMonsterPart* m_pTarget = nullptr;
+
+	int m_iIdx = 0;
+	int m_iMax = 0;
 
 };
 

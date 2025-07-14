@@ -48,6 +48,7 @@ HRESULT CMonsterPart::Ready_GameObject()
     m_pCol = Get_Component<CCollider>();
     m_pCol->Set_ColTag(ColliderTag::NONE);
     m_pCol->Set_ColType(ColliderType::PASSIVE);
+    m_pCol->Set_BoundType(BoundingType::OBB);
 
     m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
 
@@ -110,18 +111,25 @@ void CMonsterPart::Follow_Target(_float fDeltaTime)
     // F = -k * x - b * v
     
     // 거리가 멀어질수록 더 빠르게 이동
-    float baseDist = 2.0f; // 기준 거리
-    const float baseStiffness = 60.f;
-    const float baseDamping = 6.f;
+    /*
+    * 머리 근처 파츠가 덜렁거리면 > damping 증가
+    * 꼬리 파츠가 너무 뒤쳐지면 > stiffness 증가 
+    */
+
+    _float ratio = (_float)m_iIdx / max(1, m_iMax - 1);
+    _float baseDist = 2.f; // 기준 거리
+    const _float baseStiffness = 60.f;
+    const _float baseDamping = 6.f;
     
     _vec3 targetSpringPos = targetPos - dir * baseDist;
-    float stretchFactor = max(1.f, dist / baseDist); // 최소 1.0 이상
-    float stiffness = baseStiffness * stretchFactor;  // 멀어질수록 더 강하게
-    float damping = baseDamping * sqrtf(stretchFactor);  // 감쇠는 급격히 커지지 않도록 루트 적용
+    _float stretchFactor = max(1.f, dist / baseDist); // 최소 1.0 이상
+    _float stiffness = baseStiffness * stretchFactor;  // 멀어질수록 더 강하게
+    _float damping = baseDamping * sqrtf(stretchFactor);  // 감쇠는 급격히 커지지 않도록 루트 적용
 
     _vec3 springVec = targetSpringPos - myPos;
     _vec3 velocity = m_pRigid->Get_Velocity();
     _vec3 force = springVec * stiffness - velocity * damping;
+
 
     // 외력으로 전달
     m_pRigid->Add_Force(force);
