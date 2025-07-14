@@ -18,7 +18,6 @@ public:
 	void Remove_Collider(CCollider* collider);
 	void Update_Collision();
 	void LateUpdate_Collision() {}
-	bool Is_Colliding(const AABB& a, const AABB& b);
 	void Clear();
 
 private:

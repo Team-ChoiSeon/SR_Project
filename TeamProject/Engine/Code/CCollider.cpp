@@ -106,16 +106,24 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	// Bounding 정보 계산
 	if (m_tBound.eType == BoundingType::OBB)
 	{
-		// OBB 계산 (축 방향 반지름 계산 및 변환)
-		_vec3 vHalf = (aabb.vMax - aabb.vMin) * 0.5f;
-		_vec3 vScale = {
-			D3DXVec3Length((_vec3*)&pWorld->_11),
-			D3DXVec3Length((_vec3*)&pWorld->_21),
-			D3DXVec3Length((_vec3*)&pWorld->_31)
-		};
-		m_tBound.vHalf = _vec3(vHalf.x * vScale.x, vHalf.y * vScale.y, vHalf.z * vScale.z);
-		m_tBound.Calc_Transform(*pWorld);
+		// OBB 캐싱
+		// Update_Component()에서 월드 매트릭스 변경 감지 시에만
+		if (memcmp(&m_matPrevWorld, pWorld, sizeof(_matrix)) != 0)
+		{
+			// Calc_Transform() 호출 
+			m_matPrevWorld = *pWorld;
+
+			_vec3 vHalf = (aabb.vMax - aabb.vMin) * 0.5f;
+			_vec3 vScale = {
+				D3DXVec3Length((_vec3*)&pWorld->_11),
+				D3DXVec3Length((_vec3*)&pWorld->_21),
+				D3DXVec3Length((_vec3*)&pWorld->_31)
+			};
+			m_tBound.vHalf = _vec3(vHalf.x * vScale.x, vHalf.y * vScale.y, vHalf.z * vScale.z);
+			m_tBound.Calc_Transform(*pWorld);
+		}
 	}
+
 	else
 	{
 		// AABB이지만 OBB 계산기(Calc_Push_OBB)를 위해 꼭짓점 저장
@@ -153,52 +161,8 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->SetTransform(D3DTS_VIEW, pView);
 	pDevice->SetTransform(D3DTS_PROJECTION, pProj);
 
-	CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
-	if (pTransform == nullptr)
-	{
-		MSG_BOX("CModel::Render : pTransform is nullptr");
-		return;
-	}
-
-	if (!m_pVB || !m_pIB) return;
-
 	VTXLINE* pVertices = nullptr;
 	m_pVB->Lock(0, 0, (void**)&pVertices, 0);
-
-	bool bHasOffset = (m_tAABBOff.vMin != _vec3(0.f, 0.f, 0.f) || m_tAABBOff.vMax != _vec3(0.f, 0.f, 0.f));
-	D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255); // 기본 흰색
-	if (m_tBound.eType == BoundingType::AABB)
-	{
-		color = bHasOffset ? D3DCOLOR_ARGB(255, 0, 255, 0)     // AABB + Offset : 연두
-			: D3DCOLOR_ARGB(255, 0, 128, 0);     // AABB + No Offset : 짙은 초록
-	}
-	else if (m_tBound.eType == BoundingType::OBB)
-	{
-		color = bHasOffset ? D3DCOLOR_ARGB(255, 255, 0, 0)     // OBB + Offset : 빨강
-			: D3DCOLOR_ARGB(255, 128, 0, 0);     // OBB + No Offset : 짙은 빨강
-	}
-
-	if (m_tBound.eType == BoundingType::OBB)
-	{
-		for (int i = 0; i < 8; ++i)
-			pVertices[i] = { m_tBound.vCorners[i], color };
-	}
-	else // AABB용
-	{
-		_vec3 min = m_tAABBWorld.vMin;
-		_vec3 max = m_tAABBWorld.vMax;
-
-		pVertices[0] = { {min.x, min.y, min.z}, color };
-		pVertices[1] = { {max.x, min.y, min.z}, color };
-		pVertices[2] = { {max.x, max.y, min.z}, color };
-		pVertices[3] = { {min.x, max.y, min.z}, color };
-		pVertices[4] = { {min.x, min.y, max.z}, color };
-		pVertices[5] = { {max.x, min.y, max.z}, color };
-		pVertices[6] = { {max.x, max.y, max.z}, color };
-		pVertices[7] = { {min.x, max.y, max.z}, color };
-	}
-
-	m_pVB->Unlock();
 
 	_matrix matIdentity;
 	D3DXMatrixIdentity(&matIdentity);
@@ -206,7 +170,37 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->SetFVF(FVF_LINE);
 	pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VTXLINE));
 	pDevice->SetIndices(m_pIB);
+
+	D3DCOLOR color;
+	// OBB
+	if(m_tBound.eType==BoundingType::OBB)
+	{
+		color = D3DCOLOR_ARGB(255, 255, 0, 0); // 빨강
+		for (int i = 0; i < 8; ++i)
+			pVertices[i] = { m_tBound.vCorners[i], color };
+
+		m_pVB->Unlock();
+		pDevice->DrawIndexedPrimitive(D3DPT_LINELIST, 0, 0, 8, 0, 12);
+	}
+	
+	// AABB
+	m_pVB->Lock(0, 0, (void**)&pVertices, 0); // 다시 Lock
+	_vec3 min = m_tAABBWorld.vMin;
+	_vec3 max = m_tAABBWorld.vMax;
+	color = D3DCOLOR_ARGB(255, 0, 255, 0); // 연두
+
+	pVertices[0] = { {min.x, min.y, min.z}, color };
+	pVertices[1] = { {max.x, min.y, min.z}, color };
+	pVertices[2] = { {max.x, max.y, min.z}, color };
+	pVertices[3] = { {min.x, max.y, min.z}, color };
+	pVertices[4] = { {min.x, min.y, max.z}, color };
+	pVertices[5] = { {max.x, min.y, max.z}, color };
+	pVertices[6] = { {max.x, max.y, max.z}, color };
+	pVertices[7] = { {min.x, max.y, max.z}, color };
+
+	m_pVB->Unlock();
 	pDevice->DrawIndexedPrimitive(D3DPT_LINELIST, 0, 0, 8, 0, 12);
+
 }
 
 void CCollider::On_Collision_Enter(CCollider* pOther)
@@ -300,6 +294,27 @@ void CCollider::On_Collision_Exit(CCollider* pOther)
 	}
 
 	m_eState = ColliderState::EXIT;
+}
+
+bool CCollider::Broad_Phase(CCollider* pOther)
+{
+	const AABB& a = this->Get_AABBW();
+	const AABB& b = pOther->Get_AABBW();
+
+	return !(a.vMax.x < b.vMin.x || a.vMin.x > b.vMax.x ||
+		a.vMax.y < b.vMin.y || a.vMin.y > b.vMax.y ||
+		a.vMax.z < b.vMin.z || a.vMin.z > b.vMax.z);
+}
+
+bool CCollider::Narrow_Phase(CCollider* pOther, _vec3& push)
+{
+	const auto& myBound = this->Get_Bound();
+	const auto& otherBound = pOther->Get_Bound();
+
+	if (myBound.eType == BoundingType::AABB && otherBound.eType == BoundingType::AABB)
+		return Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
+	else
+		return Calc_Push_OBB(myBound, otherBound, push);
 }
 
 bool CCollider::Calc_Push_AABB(const AABB& a, const AABB& b, _vec3& push)
