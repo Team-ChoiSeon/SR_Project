@@ -5,7 +5,7 @@
 #include "CTransform.h"
 #include "CModel.h"
 
-enum class VPattern { IDLE, WANDER, CHASE, AROUND, BAF };
+enum class VPattern { CHASE, DIVE};
 
 class CVellum : public CGameObject
 {
@@ -26,18 +26,20 @@ public:
 
 public:
 	void Update_Pattern(const _float& fTimeDelta);
-	void Wander(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid);
-	void Chase_Player(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid);
-	void Around_Player(const _float& fTimeDelta, CTransform* pTransform);
+	void Chase(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid);
+	//void Snake_Curve(const _float& fTimeDelta, CTransform* pTransform, int idx);
 
 private:
 	int m_iPartCnt = 6;
 	vector<CMonsterPart*> m_vPart;
 
+	_float m_fCurveTime = 0.f;
+
 	_float m_fPatternTime = 0.f;
 	_float m_fSwitchTime = 0.f;
-	VPattern m_eCuPattern = VPattern::IDLE;
-	bool m_bPattern = true;
+	VPattern m_eCurPattern;
+	bool m_bPattern = false;
+
 
 
 };

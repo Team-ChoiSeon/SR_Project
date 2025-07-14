@@ -58,12 +58,13 @@ HRESULT CVellum::Ready_GameObject()
         // 앞 파츠를 따라가게 연결
         if (pPrev)
             pPart->Set_Target(pPrev);
-
+        
+        pPart->Set_Index(i, m_iPartCnt);
         m_vPart.push_back(pPart);
         pPrev = pPart;
     }
 
-    m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+    //m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
    
 	return CGameObject::Ready_GameObject();;
 }
@@ -76,35 +77,27 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
     // 머리 정보
     CTransform* pHeadTransform = m_vPart[0]->Get_Component<CTransform>();
     CRigidBody* pHeadRigid = m_vPart[0]->Get_Component<CRigidBody>();
-    if (!pHeadTransform || !pHeadRigid) return -1;
-    _vec3 vPos = pHeadTransform->Get_Pos();
-
-    switch (m_eCuPattern)
+    
+    switch (m_eCurPattern)
     {
-    case VPattern::IDLE:
-        // 아무것도 하지 않음
-        break;
-
-    case VPattern::WANDER:
-        Wander(fTimeDelta, pHeadTransform, pHeadRigid);
-        break;
-
     case VPattern::CHASE:
-        Chase_Player(fTimeDelta, pHeadTransform, pHeadRigid);
-        break;
-
-    case VPattern::AROUND:
-        Around_Player(fTimeDelta, pHeadTransform);
+        Chase(fTimeDelta, pHeadTransform, pHeadRigid);
         break;
     }
 
     Update_Pattern(fTimeDelta);
 
     Key_Input(fTimeDelta);
-
+    for (int i = 1; i < m_iPartCnt; i++)
+    {
+        /*Snake_Curve(fTimeDelta, m_vPart[i]->Get_Component<CTransform>(), i);*/
+    }
 	CGameObject::Update_GameObject(fTimeDelta);
     for (auto* pPart : m_vPart)
+    {
         pPart->Update_GameObject(fTimeDelta);
+    }
+        
 
 
 	return 0;
@@ -116,6 +109,92 @@ void CVellum::LateUpdate_GameObject(const _float& fTimeDelta)
     for (auto* pPart : m_vPart)
         pPart->LateUpdate_GameObject(fTimeDelta);
 }
+
+
+
+void CVellum::Free()
+{
+    for (auto* pPart : m_vPart)
+        Safe_Release(pPart);
+
+    m_vPart.clear();
+
+    CGameObject::Free();
+
+}
+
+void CVellum::Update_Pattern(const _float& fTimeDelta)
+{
+    m_fPatternTime += fTimeDelta;
+
+    // 패턴 종료 시
+    if (m_bPattern && m_fPatternTime > m_fSwitchTime)
+    {
+        if (!m_vPart.empty())
+        {
+            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+            m_vPart[0]->Get_Component<CRigidBody>()->Set_Velocity(_vec3(0.f, 0.f, 0.f));
+            m_vPart[0]->Get_Component<CRigidBody>()->Set_AVelocity(_vec3(0.f, 0.f, 0.f));
+        }
+
+        m_bPattern = false;
+        m_fPatternTime = 0.f;
+        m_fSwitchTime = 1.f;    // 다음 패턴까지의 인터벌
+
+        return;
+    }
+
+    // 패턴 설정 및 돌입
+    if (!m_bPattern && m_fPatternTime >= m_fSwitchTime)
+    {
+        m_eCurPattern = static_cast<VPattern>(rand() % 1); // 
+        m_fPatternTime = 0.f;
+        m_fSwitchTime = 3.f;    // 패턴 재생 시간
+        m_bPattern = true;
+
+        if (!m_vPart.empty())
+            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+
+        switch (m_eCurPattern)
+        {
+        case VPattern::CHASE:  OutputDebugString(L"패턴: CHASE\n"); break;
+        }
+    }
+}
+
+
+
+void CVellum::Chase(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid)
+{
+    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
+    if (!pPlayer) return;
+
+    _vec3 myPos = pTransform->Get_Pos();
+    _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
+    _vec3 dir = playerPos - myPos;
+    D3DXVec3Normalize(&dir, &dir);
+    
+    pRigid->Add_Torque(pTransform->Get_Info(INFO_LOOK) * 30.f);
+    pRigid->Add_Force(dir * 5.f);
+
+
+}
+
+
+
+//void CVellum::Snake_Curve(const _float& fTimeDelta, CTransform* pTransform, int idx)
+//{
+//    m_fCurveTime += fTimeDelta;
+//
+//    const _float fAmp = 0.05f; // 진폭
+//    const _float fFre = 0.1f;  // 진동수
+//    
+//    _vec3 vPos = pTransform->Get_Pos();
+//    vPos.y += fAmp * sinf(fFre * m_fCurveTime + idx * 0.5f); // 0.5f : 위상 offset
+//
+//    pTransform->Set_Pos(vPos);
+//
+//}
 
 void CVellum::Key_Input(const _float& fTimeDelta)
 {
@@ -132,22 +211,22 @@ void CVellum::Key_Input(const _float& fTimeDelta)
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_UP))
     {
-        pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); //  ???
+        pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); // 
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_DOWN))
     {
-        pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  ???
+        pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
     {
-        pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // ???? ???
+        pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // 
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
     {
-        pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // ?????? ???
+        pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // 
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD8)) // +Y
@@ -164,149 +243,6 @@ void CVellum::Key_Input(const _float& fTimeDelta)
         pos.z -= speed * fTimeDelta;
 
     pHeadTransform->Set_Pos(pos); // 적용
-}
-
-void CVellum::Free()
-{
-    for (auto* pPart : m_vPart)
-        Safe_Release(pPart);
-
-
-    m_vPart.clear();
-
-    CGameObject::Free();
-
-}
-
-void CVellum::Update_Pattern(const _float& fTimeDelta)
-{
-    m_fPatternTime += fTimeDelta;
-
-    // 패턴 종료 시 → ACTIVE 복구
-    if (m_bPattern && m_fPatternTime > m_fSwitchTime)
-    {
-        if (!m_vPart.empty())
-        {
-            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-            m_vPart[0]->Get_Component<CRigidBody>()->Set_Velocity(_vec3(0.f, 0.f, 0.f));
-        }
-            
-
-        m_bPattern = false;
-        m_fPatternTime = 0.f;
-        m_fSwitchTime = 3.f + static_cast<float>(rand() % 3);
-        m_eCuPattern = VPattern::IDLE;
-        return;
-    }
-
-    // IDLE 상태일 때만 새로운 패턴 시작
-    if (!m_bPattern && m_eCuPattern == VPattern::IDLE && m_fPatternTime > m_fSwitchTime)
-    {
-        m_eCuPattern = static_cast<VPattern>(rand() % 3); // 0~2 : WANDER, CHASE, AROUND
-        m_fPatternTime = 0.f;
-        m_fSwitchTime = 5.f + static_cast<float>(rand() % 3); // 다음 전환 대기 시간
-
-        if (!m_vPart.empty())
-            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
-
-        switch (m_eCuPattern)
-        {
-        case VPattern::IDLE:
-            // 아무것도 하지 않음
-            OutputDebugString(L"패턴: IDLE\n");
-            break;
-
-        case VPattern::WANDER:
-            OutputDebugString(L"패턴: WANDER\n");
-            break;
-
-        case VPattern::CHASE:
-            OutputDebugString(L"패턴: CHASE\n");
-            break;
-
-        case VPattern::AROUND:
-            OutputDebugString(L"패턴: AROUND\n");
-            break;
-        }
-
-        m_bPattern = true;
-    }
-}
-
-void CVellum::Wander(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid)
-{
-    //if (m_bPattern && m_fPatternTime == 0.f)
-    //{
-    //    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-    //    if (pPlayer)
-    //    {
-    //        _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
-    //        _vec3 offset = { (rand() % 5 - 2.f), 0.f, (rand() % 5 - 2.f) }; // ±2
-    //        pTransform->Set_Pos(playerPos + offset);
-    //        pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
-    //        pRigid->Set_Force({ 0.f, 0.f, 0.f });
-    //    }
-    //}
-
-    static _float fElapsed = 0.f;
-    static _vec3 vDir = { 1.f, 0.f, 0.f };
-
-    fElapsed += fTimeDelta;
-    if (fElapsed > 2.f) // 매 2초마다 방향 변경
-    {
-        float theta = D3DXToRadian(rand() % 360);
-        vDir = _vec3(cosf(theta), 0.f, sinf(theta));
-        fElapsed = 0.f;
-    }
-
-    pRigid->Add_Force(vDir * 5.f);
-}
-
-void CVellum::Chase_Player(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid)
-{
-    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-    if (!pPlayer) return;
-
-    _vec3 myPos = pTransform->Get_Pos();
-    _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
-    _vec3 dir = playerPos - myPos;
-    D3DXVec3Normalize(&dir, &dir);
-
-    pRigid->Add_Force(dir * 5.f);
-}
-
-void CVellum::Around_Player(const _float& fTimeDelta, CTransform* pTransform)
-{
-    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-    if (!pPlayer) return;
-
-    static float angle = 0.f;
-
-    //if (m_bPattern && m_fPatternTime == 0.f)
-    //{
-    //    angle = static_cast<float>(rand() % 360);
-    //    _vec3 center = pPlayer->Get_Component<CTransform>()->Get_Pos();
-    //    float radius = 5.f;
-    //    _vec3 startPos = {
-    //        center.x + cosf(angle) * radius,
-    //        center.y,
-    //        center.z + sinf(angle) * radius
-    //    };
-
-    //    pTransform->Set_Pos(startPos);
-    //}
-
-    angle += fTimeDelta;
-
-    _vec3 center = pPlayer->Get_Component<CTransform>()->Get_Pos();
-    float radius = 5.f;
-    _vec3 newPos = {
-        center.x + cosf(angle) * radius,
-        center.y,
-        center.z + sinf(angle) * radius
-    };
-
-    pTransform->Set_Pos(newPos);
 }
 
 REGISTER_GAMEOBJECT(CVellum)

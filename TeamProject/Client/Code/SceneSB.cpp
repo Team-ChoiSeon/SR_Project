@@ -10,6 +10,8 @@
 #include "CVellum.h"
 
 #include "CCollisionMgr.h"
+#include "CSceneMgr.h"
+
 
 SceneSB::SceneSB(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
@@ -43,7 +45,6 @@ HRESULT SceneSB::Ready_Scene()
 
 	// test. 벨룸
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
-
 	// 4. 카메라 (플레이어 시점)
 	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 
@@ -59,6 +60,9 @@ HRESULT SceneSB::Ready_Scene()
 	// 6. 카메라 타겟은 플레이어
 	pCam->Set_Target(pPlayer);  // 1인칭 시점
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
+
+	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+
 	return S_OK;
 }
 
