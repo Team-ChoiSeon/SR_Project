@@ -58,9 +58,10 @@ HRESULT SceneLoding::Ready_Scene()
 
 	CTestTile* m_pCamTargetDummy = CTestTile::Create(m_pGraphicDev);
 	_vec3 vCubePos = m_pRotateCube->Get_Component<CTransform>()->Get_Pos();
-	_vec3 vDummyPos = vCubePos + _vec3(0.f, 0.f, -3.f);
+	_vec3 vDummyPos = vCubePos + _vec3(-1.38f, -0.12f, -3.3f);
 	//_vec3 vDummyPos = vCubePos + _vec3(-0.7f, 0.85f, -3.f);
 	m_pCamTargetDummy->Get_Component<CTransform>()->Set_Pos(vDummyPos);
+	m_pCamTargetDummy->Get_Component<CTransform>()->Set_ScaleY(2.f);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"CamTargetDummy", m_pCamTargetDummy);
 
 

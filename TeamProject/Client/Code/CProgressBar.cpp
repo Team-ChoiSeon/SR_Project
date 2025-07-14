@@ -30,14 +30,14 @@ HRESULT CProgressBar::Ready_GameObject()
     m_pFillImage = CImageUIObject::Create(m_pGraphicDev);
 
     m_pBackImage->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"UI/ProgressBar_Back.png"));
-    m_pBackImage->Set_Position({ -420.f, 400.f });
+    m_pBackImage->Set_Position({ -245.f, 550.f });
     //m_pBackImage->Set_Position({ -420.f, 550.f });
-    m_pBackImage->Set_RenderSize(400, 10.f);
+    m_pBackImage->Set_RenderSize(150.f, 10.f);
 
     m_pFillImage->Set_Texture(CResourceMgr::Get_Instance()->Get_Texture(L"UI/ProgressBar_Fill.png"));
-    m_pFillImage->Set_Position({ -420.f, 400.f });
+    m_pFillImage->Set_Position({ -245.f, 550.f });
     //m_pFillImage->Set_Position({ -420.f, 550.f });
-    m_pFillImage->Set_RenderSize(400, 10.f);
+    m_pFillImage->Set_RenderSize(150.f, 10.f);
 
     return S_OK;
 }
@@ -61,8 +61,10 @@ void CProgressBar::LateUpdate_GameObject(const _float& fTimeDelta)
 void CProgressBar::Set_Progress(float fPercent)
 {
     m_fProgress = max(0.f, min(fPercent, 1.f));
-
-    D3DXVECTOR2 vBaseScale = { 400, 10.f };
+    float fWidth = -(150.f * m_fProgress);
+    float fLeft = -245.f - 150.f;
+    D3DXVECTOR2 vBaseScale = { 150.f, 10.f };
+    m_pFillImage->Set_Position({ fLeft - fWidth, 550.f });
     m_pFillImage->Set_RenderSize(vBaseScale.x * m_fProgress, vBaseScale.y);
 }
 
