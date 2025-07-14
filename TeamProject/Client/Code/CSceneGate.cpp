@@ -33,8 +33,6 @@ CSceneGate::~CSceneGate()
 
 HRESULT CSceneGate::Ready_GameObject()
 {
-	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
-	m_pModel = Get_Component<CModel>();
 
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
@@ -65,6 +63,22 @@ HRESULT CSceneGate::Ready_GameObject()
 	pGateTop = Set_GateStructure(vGatePos + _vec3(0.f, 5.f, -vGateScale.z -1.f), vTopScale);
 
 
+	pTriggerCube = CPlayerTriggerCube::Create(m_pGraphicDev);
+	pTriggerCube->Get_Component<CTransform>()->Set_Pos(vGatePos + _vec3(0.f, 0.f, -vGateScale.z - 2.f));
+	pTriggerCube->Get_Component<CTransform>()->Set_Scale({ 6.f, 2.f, 1.f });
+	pTriggerCube->Get_Component<CRigidBody>()->Set_UseGravity(false);
+
+
+	m_vGameObjects.push_back(pGateDoorL);
+	m_vGameObjects.push_back(pGateDoorR);
+	m_vGameObjects.push_back(pGatePillarL);
+	m_vGameObjects.push_back(pGatePillarR);
+	m_vGameObjects.push_back(pGateTop);
+	m_vGameObjects.push_back(pTriggerCube);
+
+
+	CFactory::Save_Prefab(this, "CSceneGate");
+
 	return S_OK;
 }
 
@@ -77,6 +91,7 @@ int CSceneGate::Update_GameObject(const _float& fTimeDelta)
 	pGatePillarL->Update_GameObject(fTimeDelta);
 	pGatePillarR->Update_GameObject(fTimeDelta);
 	pGateTop->Update_GameObject(fTimeDelta);
+	pTriggerCube->Update_GameObject(fTimeDelta);
 
 	return 0;
 }
@@ -84,8 +99,10 @@ int CSceneGate::Update_GameObject(const _float& fTimeDelta)
 void CSceneGate::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+	
+	m_bInGate = pTriggerCube->Get_InGate();
 
-	m_bInGate = false;
+	m_bInOpendoor = false;
 	CCollider* pOtherCol = m_pCollider->Get_Other();
 
 	if (pOtherCol) {
@@ -94,17 +111,17 @@ void CSceneGate::LateUpdate_GameObject(const _float& fTimeDelta)
 		{
 			if (dynamic_cast<CMainPlayer*>(pOtherObj))
 			{
-				m_bInGate = true;
+				m_bInOpendoor = true;
 			}
 		}
 		if (pOtherCol && dynamic_cast<CMainPlayer*>(pOtherCol->m_pOwner))
-			m_bInGate = true;
+			m_bInOpendoor = true;
 
 	}
 	const _float fTargetAngle = D3DXToRadian(135.f);
 	const _float fSpeed = D3DXToRadian(45.f) * fTimeDelta;
 
-	if (m_bInGate)
+	if (m_bInOpendoor)
 		m_fDoorAngle = min(m_fDoorAngle + fSpeed, fTargetAngle);
 	else
 		m_fDoorAngle = max(m_fDoorAngle - fSpeed, 0.f);
@@ -145,7 +162,7 @@ void CSceneGate::LateUpdate_GameObject(const _float& fTimeDelta)
 	pGatePillarL->LateUpdate_GameObject(fTimeDelta);
 	pGatePillarR->LateUpdate_GameObject(fTimeDelta);
 	pGateTop->LateUpdate_GameObject(fTimeDelta);
-
+	pTriggerCube->LateUpdate_GameObject(fTimeDelta);
 }
 
 CTestTile* CSceneGate::Set_GateDoor(bool bLeft)
@@ -201,7 +218,8 @@ void CSceneGate::Free()
 	Safe_Release(pGatePillarR);
 	Safe_Release(pGateTop);
 
-	Safe_Release(m_pModel);
+	Safe_Release(pTriggerCube);
+
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pRigid);
@@ -209,4 +227,4 @@ void CSceneGate::Free()
 	CGameObject::Free();
 }
 
-// REGISTER_GAMEOBJECT(CSceneGate)
+REGISTER_GAMEOBJECT(CSceneGate)

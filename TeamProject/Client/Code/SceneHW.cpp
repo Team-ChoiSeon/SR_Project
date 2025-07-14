@@ -25,6 +25,8 @@
 #include "CSlotSensor.h"
 #include "CSceneMgr.h"
 
+#include "CSceneMgr.h"
+
 
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CScene(pGraphicDev)
@@ -64,6 +66,7 @@ HRESULT SceneHW::Ready_Scene()
 
 	//===========================================================================================================//
 
+	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
 
 	//Input Objects into Layer
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"hwPlayer", m_pPlayer);

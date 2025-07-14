@@ -32,12 +32,13 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
+
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 
 	m_pTransform->Ready_Component();
 
-	m_pTransform->Set_Scale({ 1.f, 2.f, 1.f });
+	m_pTransform->Set_Scale({ .8f, 2.f, .8f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });

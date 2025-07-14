@@ -62,9 +62,9 @@ int CCinematicCamera::Update_GameObject(const _float& fTimeDelta)
 		D3DXVec3Normalize(&lerpLook, &lerpLook);
 		m_pTransform->Set_Look(lerpLook);
 
-		_float originFov = D3DX_PI * 0.25f;
-		_float lerpedFov = (1.f - timeRatio) * originFov + timeRatio * m_fCinematicFov;
-		m_pCamera->Set_Fov(lerpedFov);
+		_float originFov = D3DX_PI * 0.25f * (timeRatio);
+		//_float lerpedFov = (1.f - timeRatio) * originFov + timeRatio * m_fCinematicFov;
+		m_pCamera->Set_Fov(originFov);
 
 		m_pCamera->Set_Eye(lerpPos);
 		m_pCamera->Set_At(lerpPos + lerpLook);

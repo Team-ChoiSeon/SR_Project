@@ -4,6 +4,8 @@
 #include "CRigidBody.h"
 #include "DummyCube.h"
 #include "CTestTile.h"
+#include "CPlayerTriggerCube.h"
+
 
 namespace Engine {
 	class CTransform;
@@ -32,18 +34,22 @@ public:
 
 private:
 	CTransform* m_pTransform;
-	CModel* m_pModel;
 	CCollider* m_pCollider;
 	CRigidBody* m_pRigid;
 
 	wstring m_NextSceneTag;
 	bool m_bInGate = false;
+	bool m_bInOpendoor = false;
 
 	CTestTile* pGateDoorL;
 	CTestTile* pGateDoorR;
 	CTestTile* pGatePillarL;
 	CTestTile* pGatePillarR;
 	CTestTile* pGateTop;
+
+	CPlayerTriggerCube* pTriggerCube;
+
+	vector<CGameObject*> m_vGameObjects;
 
 	_float m_fDoorAngle = 0.f;
 };
