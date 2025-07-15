@@ -50,12 +50,6 @@ HRESULT CSceneGate::Ready_GameObject()
 	//m_pTransform->Set_Scale({ 2.f, 2.f, 2.f });
 	m_pTransform->Set_Scale({ 7.f, 7.f, 7.f });
 
-	m_pTransform->Set_AngleY(25.f);
-	_matrix matRotR;
-	D3DXMatrixRotationY(&matRotR, m_pTransform->Get_Angle().y);
-	m_pTransform->Set_RotMatrix(&matRotR);
-
-
 
 
 	m_bFirstSet = true;

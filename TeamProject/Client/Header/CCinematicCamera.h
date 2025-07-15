@@ -1,5 +1,6 @@
 #pragma once
 #include "CCameraObject.h"
+#include "CImageUIObject.h"
 
 namespace Engine {
 	class CTransform;
@@ -21,7 +22,7 @@ public:
 	static CCinematicCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
-	void Start_Cinematic(const _vec3& startPos, const _vec3& endPos, const _vec3& endLook, _float fov, _float duration);
+	void Start_Cinematic();
 	void End_Cinematic();
 	
 	void Set_Target(CGameObject* target) {
@@ -38,15 +39,9 @@ private:
 	CTransform* m_pTargetTransform;
 	CCamera* m_pCamera = nullptr;
 
-	_vec3 m_StartPos;
-	_vec3 m_EndPos;
+	float m_fbarMove = 0.f;
+	bool m_bCinematic = false;
 
-	_vec3 m_StartLookDir;
-	_vec3 m_EndLookDir;
-
-	_float m_fCinematicFov = D3DX_PI * 0.15f;
-	_float m_fDuration = 0.f;
-	_float m_fTimer = 0.f;
-	bool   m_bCinematic = false;
-
+	CImageUIObject* m_pBlackBarTop = nullptr;
+	CImageUIObject* m_pBlackBarBottom = nullptr;
 };
