@@ -36,6 +36,7 @@ HRESULT CSceneMgr::Set_Scene(CScene* pScene)
         MessageBoxW(0, L"씬 로딩 경로 설정 재확인 필요", L"I told you so", MB_OK);
         m_pCurScene = prevScene;
         Safe_Release(pScene);
+
     }
 
     OutputDebugString("Set_Scene\n");

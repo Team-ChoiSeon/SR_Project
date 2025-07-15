@@ -70,7 +70,6 @@ HRESULT SceneLoding::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"DummyTarget", m_pCamTargetDummy);
 	CCameraMgr::Get_Instance()->Set_MainCamera(pDummyCam);
 
-
 	return S_OK;
 }
 
