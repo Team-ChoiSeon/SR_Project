@@ -46,7 +46,7 @@ HRESULT CMagneticCube::Ready_GameObject()
     m_pCollider = Get_Component<CCollider>();
     m_pCollider->Set_ColTag(ColliderTag::NONE);
     m_pCollider->Set_ColType(ColliderType::ACTIVE);
-    m_pCollider->Set_BoundType(BoundingType::OBB);
+    m_pCollider->Set_BoundType(BoundingType::AABB);
 
     Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
     m_pPick = Get_Component<CPickTarget>();

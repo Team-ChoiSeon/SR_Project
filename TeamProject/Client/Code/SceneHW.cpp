@@ -93,7 +93,7 @@ HRESULT SceneHW::Ready_Scene()
 
 	//======================================== Set Obejct Initial Informations ===================================================================//
 
-	m_pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 20.f, 0.f });
+	m_pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 30.f, 0.f });
 	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
 
 	m_pFFCam->Set_Target(m_pPlayer);
@@ -103,7 +103,7 @@ HRESULT SceneHW::Ready_Scene()
 	m_pFloatingCube->Set_Loop();
 	m_pFloatingCube2->Set_Info({ 20.f, 10.f, 30.f }, { 0.f, 1.f, 0.f }, 20.f, 10.f, 1.5f);
 	m_pFloatingCube2->Set_Loop();
-	TestFloat->Set_Info({ 20.f, -15.f ,0.f }, { 0.f, 0.f, -1.f }, 10.f, 5.f, 0.f);
+	TestFloat->Set_Info({ 20.f, -10.f ,0.f }, { 0.f, 0.f, -1.f }, 10.f, 5.f, 0.f);
 	TestFloat->SetTrigger(false);
 	TestFloat->Set_Loop();
 

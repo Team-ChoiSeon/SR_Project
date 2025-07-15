@@ -45,8 +45,8 @@ HRESULT CFloatingCube::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 	m_pCollider->Set_ColTag(ColliderTag::GROUND);
-	m_pCollider->Set_ColType(ColliderType::ACTIVE);
-	m_pCollider->Set_BoundType(BoundingType::OBB);
+	m_pCollider->Set_ColType(ColliderType::PASSIVE);
+	m_pCollider->Set_BoundType(BoundingType::AABB);
 
 	m_bGoBack = false;	
 	m_bBackward = false;
@@ -150,10 +150,10 @@ void CFloatingCube::SyncVelPlayer(const _float& fTimeDelta)
 			(m_pTransform->Get_Pos().y + m_pTransform->Get_Scale().y - 0.1f))
 		{
 			//pOtherCol->m_pOwner->Get_Component<CTransform>()->Move_Pos(&m_vDirection, m_fSpeed , fTimeDelta);
-			//_vec3 Nowpos = m_pTransform->Get_Pos();
-			//_vec3 Gap = Nowpos - m_vPrePos;
-			//pOtherCol->m_pOwner->Get_Component<CTransform>()->Set_Pos(pOtherCol->m_pOwner->Get_Component<CTransform>()->Get_Pos() + Gap);
-			//
+			_vec3 Nowpos = m_pTransform->Get_Pos();
+			_vec3 Gap = Nowpos - m_vPrePos;
+			pOtherCol->m_pOwner->Get_Component<CTransform>()->Set_Pos(pOtherCol->m_pOwner->Get_Component<CTransform>()->Get_Pos() + Gap);
+			
 			//Rigid Sync
 			//pOtherCol->m_pOwner->Get_Component<CRigidBody>()->Set_Velocity(m_pRigid->Get_Velocity());
 		}
@@ -179,6 +179,25 @@ void CFloatingCube::Move(const _float& fTimeDelta)
 
 	_float fTravelDist = D3DXVec3Length(&vNowStartGap);
 	_float fTotalDist = D3DXVec3Length(&vEndStartGap);
+
+	//=============================== Move by Transfrom===============================//
+	if (fTravelDist < fTotalDist)
+	{
+		m_vPrePos= m_pTransform->Get_Pos();
+		m_pTransform->Move_Pos(&m_vDirection, m_fSpeed, fTimeDelta);
+		_vec3 MovedGap = m_pTransform->Get_Pos() - m_vStartPos;
+		_float MovedDist = D3DXVec3Length(&MovedGap);
+		if (MovedDist > fTotalDist)
+			m_pTransform->Set_Pos(m_vEndPos);
+	}
+	else
+	{
+		m_pTransform->Set_Pos(m_vEndPos);
+		m_bGoBack = true;
+		m_bSleep = true;
+	}
+	//=============================== Move by Rigid ===============================//
+
 	//_float fConstDist = D3DXVec3Length(&vConstStartGap);
 	//_float fDescDist = D3DXVec3Length(&vDescStartGap);
 
@@ -203,25 +222,6 @@ void CFloatingCube::Move(const _float& fTimeDelta)
 	//	m_bGoBack = true;
 	//	m_bSleep = true;
 	//}
-
-
-	//=============================== Move by Transfrom===============================//
-	if (fTravelDist < fTotalDist)
-	{
-		m_vPrePos= m_pTransform->Get_Pos();
-		m_pTransform->Move_Pos(&m_vDirection, m_fSpeed, fTimeDelta);
-		_vec3 MovedGap = m_pTransform->Get_Pos() - m_vStartPos;
-		_float MovedDist = D3DXVec3Length(&MovedGap);
-		if (MovedDist > fTotalDist)
-			m_pTransform->Set_Pos(m_vEndPos);
-	}
-	else
-	{
-		m_pTransform->Set_Pos(m_vEndPos);
-		m_bGoBack = true;
-		m_bSleep = true;
-	}
-
 }
 
 void CFloatingCube::MoveBack(const _float& fTimeDelta)
@@ -234,30 +234,8 @@ void CFloatingCube::MoveBack(const _float& fTimeDelta)
 
 	_float fTravelDist = D3DXVec3Length(&vNowStartGap);
 	_float fTotalDist = D3DXVec3Length(&vEndStartGap);
-	/*_float fConstDist = D3DXVec3Length(&vConstStartGap);
-	_float fDescDist = D3DXVec3Length(&vDescStartGap);
 
-	_float Accel = ((m_fSpeed * m_fSpeed) / (2.f * fDescDist));
-
-	if (fTravelDist < fDescDist)
-	{
-		m_pRigid->Add_Velocity(-Accel * m_vDirection * fTimeDelta);
-	}
-	else if (fTravelDist < fConstDist)
-	{
-		m_pRigid->Add_Velocity(0.f * m_vDirection * fTimeDelta);
-	}
-	else if (fTravelDist < fTotalDist)
-	{
-
-		m_pRigid->Add_Velocity(Accel * m_vDirection * fTimeDelta);
-	}
-	else
-	{
-		m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
-		m_bGoBack = false;
-		m_bSleep = true;
-	}*/
+	//=============================== Move by Transfrom===============================//
 
 	if (fTravelDist < fTotalDist)
 	{
@@ -274,6 +252,34 @@ void CFloatingCube::MoveBack(const _float& fTimeDelta)
 		m_bGoBack = false;
 		m_bSleep = true;
 	}
+
+	//=============================== Move by Rigid ===============================//
+
+	//_float fConstDist = D3DXVec3Length(&vConstStartGap);
+	//_float fDescDist = D3DXVec3Length(&vDescStartGap);
+
+	//_float Accel = ((m_fSpeed * m_fSpeed) / (2.f * fDescDist));
+
+	//if (fTravelDist < fDescDist)
+	//{
+	//	m_pRigid->Add_Velocity(-Accel * m_vDirection * fTimeDelta);
+	//}
+	//else if (fTravelDist < fConstDist)
+	//{
+	//	m_pRigid->Add_Velocity(0.f * m_vDirection * fTimeDelta);
+	//}
+	//else if (fTravelDist < fTotalDist)
+	//{
+
+	//	m_pRigid->Add_Velocity(Accel * m_vDirection * fTimeDelta);
+	//}
+	//else
+	//{
+	//	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
+	//	m_bGoBack = false;
+	//	m_bSleep = true;
+	//}
+
 }
 
 void CFloatingCube::Sleep(const _float fTimeDelta)

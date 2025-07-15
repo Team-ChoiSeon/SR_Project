@@ -48,7 +48,7 @@ HRESULT CImpulseCube::Ready_GameObject()
 	m_pCollider = Get_Component<CCollider>();
 	m_pCollider->Set_ColTag(ColliderTag::NONE);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
-	m_pCollider->Set_BoundType(BoundingType::OBB);
+	m_pCollider->Set_BoundType(BoundingType::AABB);
 
 
 
@@ -62,17 +62,17 @@ _int CImpulseCube::Update_GameObject(const _float& fTimeDelta)
 	CGameObject::Update_GameObject(fTimeDelta);
 
 
-	//CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
-	//	// 간단한 GUI 창 하나 출력
-	//	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-	//	if (m_pRigid->Get_OnGround()) {
-	//		ImGui::Begin("on Ground");
-	//	}
-	//	else {
-	//		ImGui::Begin("not on Ground");
-	//	}
-	//	ImGui::End();
-	//	});
+	CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
+		// 간단한 GUI 창 하나 출력
+		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+		if (m_pRigid->Get_OnGround()) {
+			ImGui::Begin("on Ground");
+		}
+		else {
+			ImGui::Begin("not on Ground");
+		}
+		ImGui::End();
+		});
 	return S_OK;
 }
 

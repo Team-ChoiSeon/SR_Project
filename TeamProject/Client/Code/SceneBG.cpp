@@ -117,9 +117,11 @@ void SceneBG::Moving_StoneSet()
 	cube->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	cube->Get_Component<CRigidBody>()->Set_OnGround(true);
 	cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
-	cube->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	cube->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+	cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
 	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, -1.f }, 39.f, 20.f, 0.5f);
 	cube->Set_Loop();
+	cube->SetTrigger(true);
 }
 
 void SceneBG::Stair_Set()
