@@ -144,7 +144,6 @@ void CMainApp::Free()
 	//5. GUI 시스템(디버그)
 	CGuiSystem::Get_Instance()->Destroy_Instance();
 
-	Safe_Release(m_pScene);
 	Safe_Release(m_pDeviceClass);
 	Safe_Release(m_pDeviceClass);
 }

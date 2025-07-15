@@ -215,7 +215,7 @@ void SceneLoding::LoadObject()
 void SceneLoding::Change_Scene()
 {
 	CSceneMgr::Get_Instance()->Set_CurrentScene(m_pTo);
-
+	m_pFrom->Exit_Scene();
 	Safe_Release(m_pFrom);
 
 	m_pTo = nullptr;
