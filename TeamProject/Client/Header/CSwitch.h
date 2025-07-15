@@ -29,7 +29,13 @@ public:
 	const _bool Get_SwitchState() const { return m_bButtonOn; }
 	void Set_Button() { m_bReusable = false; }
 	void Set_Grab(const _bool grab) { m_bGrab = grab; }
+	void Set_Tap(bool Trigger) { m_bTap = Trigger; }
+	void Set_Away(bool Trigger) { m_bAway = Trigger; }
 	void Set_CursorVec(const _vec3& cursorvec) { m_vCursorDelta = cursorvec; }
+
+	_bool	Get_Grab() { return m_bGrab; }
+	_bool	Get_Tap() { return m_bTap; }
+	_bool	Get_Away() { return  m_bAway; }
 
 protected:
 	// Compute Function
@@ -49,6 +55,8 @@ protected:
 	_bool				m_bReusable = true;
 	_bool				m_bPressed = false;
 	_bool				m_bGrab = false;
+	_bool				m_bTap = false;
+	_bool				m_bAway = false;
 
 	_vec3				m_vCursorDelta;
 	_vec3				m_vOriginalScale;

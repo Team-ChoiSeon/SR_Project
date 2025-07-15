@@ -55,6 +55,8 @@ HRESULT CFloatingCube::Ready_GameObject()
 	m_fSpeed = 1.f;
 	m_fSleepTime = 0.f;
 
+	m_vPrePos = { 0.f, 0.f, 0.f };
+
 	CFactory::Save_Prefab(this, "CFloatingCube");
     return S_OK;
 }
@@ -93,9 +95,10 @@ _int CFloatingCube::Update_GameObject(const _float& fTimeDelta)
 	else
 		Stop(fTimeDelta);
 
-
 	SyncVelPlayer(fTimeDelta);
 
+
+	m_vPrePos = m_pTransform->Get_Pos();
 
 	CGameObject::Update_GameObject(fTimeDelta);
 
@@ -183,7 +186,6 @@ void CFloatingCube::Move(const _float& fTimeDelta)
 	//=============================== Move by Transfrom===============================//
 	if (fTravelDist < fTotalDist)
 	{
-		m_vPrePos= m_pTransform->Get_Pos();
 		m_pTransform->Move_Pos(&m_vDirection, m_fSpeed, fTimeDelta);
 		_vec3 MovedGap = m_pTransform->Get_Pos() - m_vStartPos;
 		_float MovedDist = D3DXVec3Length(&MovedGap);
@@ -239,7 +241,6 @@ void CFloatingCube::MoveBack(const _float& fTimeDelta)
 
 	if (fTravelDist < fTotalDist)
 	{
-		m_vPrePos = m_pTransform->Get_Pos();
 		m_pTransform->Move_Pos(&m_vDirection, -m_fSpeed, fTimeDelta);
 		_vec3 MovedGap = m_pTransform->Get_Pos() - m_vEndPos;
 		_float MovedDist = D3DXVec3Length(&MovedGap);

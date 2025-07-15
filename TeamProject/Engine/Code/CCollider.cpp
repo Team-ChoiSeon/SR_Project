@@ -430,26 +430,26 @@ void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 	}
 }
 
-/*
-* void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
-{
-	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
-		return;
 
-	if (D3DXVec3LengthSq(&push) < 0.0001f)
-		return;
+//void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+//{
+//	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
+//		return;
+//
+//	if (D3DXVec3LengthSq(&push) < 0.0001f)
+//		return;
+//
+//	_vec3 vPush = push;
+//	D3DXVec3Normalize(&vPush, &vPush);
+//	_vec3 vUp = { 0.f,1.f,0.f };
+//	_float fDot = D3DXVec3Dot(&vPush, &vUp);
+//
+//	if (fDot < cosf(D3DX_PI / 6.f))
+//	{
+//		m_pRigid->Set_OnGround(true);
+//	}
+//}
 
-	_vec3 vPush = push;
-	D3DXVec3Normalize(&vPush, &vPush);
-	_vec3 vUp = { 0.f,1.f,0.f };
-	_float fDot = D3DXVec3Dot(&vPush, &vUp);
-
-	if (fDot < cosf(D3DX_PI / 6.f))
-	{
-		m_pRigid->Set_OnGround(true);
-	}
-}
-*/
 
 
 void CCollider::Free()

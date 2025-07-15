@@ -145,20 +145,10 @@ void CSlotCube::Insert_Overlap(CSlotSensor* sensor, _float dist)
 
 void CSlotCube::PickMove()
 {
-	if (m_bFirstPick)
-	{
-		m_vDist = m_pPlayer->Get_Component<CTransform>()->Get_Pos() - m_pTransform->Get_Pos();
-		m_fDist = D3DXVec3Length(&m_vDist);
-		m_bFirstPick = false;
-	}
-	//m_pRigid->Set_UseGravity(false);
-	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f }); 
 
-	auto ray = CPickingMgr::Get_Instance()->Get_Ray();
-	auto campos = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>()->Get_Pos();
-	_vec3 MovedPos = campos + ray->_direction* m_fDist;
-	
-	m_pTransform->Set_Pos(MovedPos);
+	m_pRigid->Set_UseGravity(false);
+	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f }); 
+	m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vCursorDelta);
 
 	m_FitSlot = nullptr;
 	m_vecDetected_Slot.clear();

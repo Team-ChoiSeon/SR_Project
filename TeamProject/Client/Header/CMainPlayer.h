@@ -8,6 +8,9 @@ namespace Engine {
 	class CModel;
 	class CCollider;
 }
+
+class CCube;
+class CSwitch;
 class CMainPlayer : public CGameObject
 {
 public:
@@ -46,6 +49,12 @@ protected:
 	void CursorRotate();
 
 private:
+	//Compute Function
+	void Picking_Init();
+	void Tap_Picking();
+	void Hold_Picking();
+	void Away_Picking();
+
 
 	CTransform* m_pTransform = nullptr;
 	CModel* m_pModel = nullptr;
@@ -72,6 +81,13 @@ private:
 	_vec3 m_vPlanePt;
 	_vec3 m_vPlaneNorm;
 	_vec3 m_vDragDistance;
+
+	_vec3 m_vPrevPickedPos;
+	_vec3 m_vPickedDist;
+	_float m_fPickedDist;
+	CCube* m_PickedCube;
+	CSwitch* m_PickedSwitch;
+	Ray* m_pRay;
 
 	PLAYER_STATE m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	PLAYER_STATE m_ePrevState = PLAYER_STATE::PLAYER_IDLE;

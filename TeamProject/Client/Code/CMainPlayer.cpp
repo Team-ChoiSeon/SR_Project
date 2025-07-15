@@ -4,6 +4,7 @@
 
 #include "CCube.h"
 #include "CSwitch.h"
+#include "CCameraObject.h"
 
 #include "CVIBuffer.h"
 #include "CTransform.h"
@@ -38,7 +39,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 	m_pTransform->Ready_Component();
 
-	m_pTransform->Set_Scale({ .8f, 2.f, .8f });
+	m_pTransform->Set_Scale({ .8f, 4.f, .8f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
@@ -52,6 +53,8 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 	m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
+	m_fPickedDist = 0.f;
+	m_vPickedDist = { 0.f, 0.f, 0.f };
 
 	CFactory::Save_Prefab(this, "CMainPlayer");
 
@@ -99,9 +102,9 @@ void CMainPlayer::Free()
 
 void CMainPlayer::KeyInput(const _float& fTimeDelta)
 {
-	if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB))
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB)) {
 		m_bCursorMove = !m_bCursorMove;
-
+	}
 	if (m_bCursorMove)
 		CursorRotate();
 
@@ -109,90 +112,117 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		m_fMoveSpeed = 30.f;
 	}
 
-	Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
-	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(10.f);
-	auto* pPickCubeObj = dynamic_cast<CCube*>(m_pPickObj);
-	auto* pPickSwitchObj = dynamic_cast<CSwitch*>(m_pPickObj);
-	if (pPickCubeObj) {
-		pPickCubeObj->Set_Grab(false);
+	//======================================== New Picking ===============================================//
+	
+	Picking_Init();
+	if (m_pPickObj) {
+		if (CInputMgr::Get_Instance()->Mouse_Tap(DIM_LB))
+		{
+			Tap_Picking();
+		}
+		else if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB))
+		{
+			Hold_Picking();
+		}
+		else if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB))
+		{
+			Away_Picking();
+		}
+		else
+		{
+			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+		}
 	}
-	if (pPickSwitchObj)
-	{
-		pPickSwitchObj->Set_Grab(false);
-	}
+	else
+		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+
+	//=====================================================================================================//
+
+
+	//Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
+	//m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);
+	//auto* pPickCubeObj = dynamic_cast<CCube*>(m_pPickObj);
+	//auto* pPickSwitchObj = dynamic_cast<CSwitch*>(m_pPickObj);
+	//if (pPickCubeObj) {
+	//	pPickCubeObj->Set_Grab(false);
+	//}
+	//if (pPickSwitchObj)
+	//{
+	//	pPickSwitchObj->Set_Grab(false);
+	//}
 
 	//m_pCrosshair
-	m_bMouseTap = false;
-	m_bMouseAway = false;
-	if(m_pCrosshair)
-	{
-		if (m_pPickObj)
-		{
-			if (CInputMgr::Get_Instance()->Mouse_Tap(DIM_LB))
-			{
-				CTransform* targetTrans = m_pPickObj->Get_Component<CTransform>();
-				CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
+	//m_bMouseTap = false;
+	//m_bMouseAway = false;
+	//if(m_pCrosshair)
+	//{
+	//	if (m_pPickObj)
+	//	{
+	//		if (CInputMgr::Get_Instance()->Mouse_Tap(DIM_LB))
+	//		{
+	//			CTransform* targetTrans = m_pPickObj->Get_Component<CTransform>();
+	//			CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
 
-				//m_vPlanePt = PickObj->Get_Component<CTransform>()->Get_Pos();
-				m_vPlanePt = targetTrans->Get_Pos();
-				m_vPlaneNorm = targetTrans->Get_Pos() - pMainCam->Get_Eye();
-				D3DXVec3Normalize(&m_vPlaneNorm, &m_vPlaneNorm);
+	//			//m_vPlanePt = PickObj->Get_Component<CTransform>()->Get_Pos();
+	//			m_vPlanePt = targetTrans->Get_Pos();
+	//			m_vPlaneNorm = targetTrans->Get_Pos() - pMainCam->Get_Eye();
+	//			D3DXVec3Normalize(&m_vPlaneNorm, &m_vPlaneNorm);
 
-				m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
-				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-				m_bObjHold = true;
-				m_bMouseTap = true;
-				m_pPrevPickObj = m_pPickObj;
-			}
+	//			m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
+	//			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+	//			m_bObjHold = true;
+	//			m_bMouseTap = true;
+	//			m_pPrevPickObj = m_pPickObj;
+	//		}
 
-			if (CInputMgr::Get_Instance()->Mouse_Down(DIM_LB))
-			{
-				if (m_bObjHold)
-				{
-					m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-					_vec3 nowPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
-					m_vDragDistance = nowPt - m_vLastPt;
-					m_vLastPt = nowPt;
+	//		if (CInputMgr::Get_Instance()->Mouse_Down(DIM_LB))
+	//		{
+	//			if (m_bObjHold)
+	//			{
+	//				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+	//				_vec3 nowPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
+	//				m_vDragDistance = nowPt - m_vLastPt;
+	//				m_vLastPt = nowPt;
 
-					if (pPickCubeObj) {
-						pPickCubeObj->Set_Grab(true);
-						pPickCubeObj->Set_CursorVec(m_vDragDistance);
-					}
-					if (pPickSwitchObj) {
-						pPickSwitchObj->Set_Grab(true);
-						pPickSwitchObj->Set_CursorVec(m_vDragDistance);
-					}
+	//				if (pPickCubeObj) {
+	//					pPickCubeObj->Set_Grab(true);
+	//					pPickCubeObj->Set_CursorVec(m_vDragDistance);
+	//				}
+	//				if (pPickSwitchObj) {
+	//					pPickSwitchObj->Set_Grab(true);
+	//					pPickSwitchObj->Set_CursorVec(m_vDragDistance);
+	//				}
 
-				}
-			}
-			else {
-				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-			}
-		}
-		else {
-			if (m_bObjHold)
-				m_bMouseAway = true;
+	//			}
+	//		}
+	//		else {
+	//			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+	//		}
+	//	}
+	//	else {
+	//		if (m_bObjHold)
+	//			m_bMouseAway = true;
 
-			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
-			m_bObjHold = false;
-			m_vDragDistance = { 0,0,0 };
-		}
+	//		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+	//		m_bObjHold = false;
+	//		m_vDragDistance = { 0,0,0 };
+	//	}
 
 
-		if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
-			if (m_pPickObj)
-			{
-				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-			}
-			else {
-				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+	//	if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
+	//		if (m_pPickObj)
+	//		{
+	//			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+	//		}
+	//		else {
+	//			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 
-			}
-			m_bObjHold = false;
-			m_bMouseAway = true;
-			m_vDragDistance = { 0,0,0 };
-		}
-	}
+	//		}
+	//		m_bObjHold = false;
+	//		m_bMouseAway = true;
+	//		m_vDragDistance = { 0,0,0 };
+	//	}
+	//}
 
 
 	if (CInputMgr::Get_Instance()->Key_Away(DIK_LSHIFT))
@@ -252,6 +282,88 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	}
 }
 
+
+void CMainPlayer::Picking_Init()
+{
+	m_bMouseTap = false;													//탭 초기화
+	m_bMouseAway = false;													//어웨이 초기화
+	m_bObjHold = false;														//홀드 초기화  //문제시 삭제
+	m_pRay = CPickingMgr::Get_Instance()->Get_Ray();						//ray 계산
+	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);		//Pickobj 계산
+
+
+	m_PickedCube = dynamic_cast<CCube*>(m_pPickObj);						//큐브인지 확인
+	if (m_PickedCube) {
+		m_PickedCube->Set_Grab(false);
+		m_PickedCube->Set_Tap(false);
+		m_PickedCube->Set_Away(false);
+
+	}
+
+	m_PickedSwitch = dynamic_cast<CSwitch*>(m_pPickObj);					//스위치인지 확인
+	if (m_PickedSwitch) {
+		m_PickedSwitch->Set_Grab(false);
+		m_PickedSwitch->Set_Tap(false);
+		m_PickedSwitch->Set_Away(false);
+	}
+}
+
+void CMainPlayer::Tap_Picking()
+{
+	CTransform* pPickTrans = m_pPickObj->Get_Component<CTransform>();
+	CGameObject* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera();
+
+	m_vPickedDist = pPickTrans->Get_Pos() - pMainCam->Get_Component<CTransform>()->Get_Pos();
+	m_fPickedDist = D3DXVec3Length(&m_vPickedDist);
+	m_vPrevPickedPos = pPickTrans->Get_Pos();
+	m_vDragDistance = { 0,0,0 };
+
+	m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+	m_bMouseTap = true;
+
+	if (m_PickedCube)
+		m_PickedCube->Set_Tap(true);
+	if (m_PickedSwitch)
+		m_PickedSwitch->Set_Tap(true);
+
+	if (m_pPrevPickObj == nullptr)
+		m_pPrevPickObj = m_pPickObj;
+}
+
+void CMainPlayer::Hold_Picking()
+{
+	CTransform* pPickTrans = m_pPickObj->Get_Component<CTransform>();
+	CGameObject* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera();
+
+	_vec3 MovedPos = pMainCam->Get_Component<CTransform>()->Get_Pos() + m_pRay->_direction * m_fPickedDist;
+	m_vDragDistance = MovedPos - m_vPrevPickedPos;
+
+	m_vPickedDist = pPickTrans->Get_Pos() - pMainCam->Get_Component<CTransform>()->Get_Pos();
+	m_vPrevPickedPos = MovedPos;
+
+	if (m_PickedCube) {
+		m_PickedCube->Set_Grab(true);
+		m_PickedCube->Set_CursorVec(m_vDragDistance);
+	}
+	if (m_PickedSwitch) {
+		m_PickedSwitch->Set_Grab(true);
+		m_PickedSwitch->Set_CursorVec(m_vDragDistance);
+	}
+
+	m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+	m_bObjHold = true;
+	m_bMouseTap = false;
+}
+
+void CMainPlayer::Away_Picking()
+{
+	m_bObjHold = false;
+	m_bMouseAway = true;
+	m_vDragDistance = { 0,0,0 };
+	m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+}
+
+
 void CMainPlayer::CursorRotate()
 {
 	//Ŀ�� ����
@@ -273,6 +385,8 @@ void CMainPlayer::CursorRotate()
 	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ ry, rx, 0.f });
 
 }
+
+
 
 void CMainPlayer::Update_State(const _float& fTimeDelta)
 {

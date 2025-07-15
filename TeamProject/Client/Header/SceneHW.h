@@ -12,6 +12,7 @@ class CTestTile;
 class CPickSwitch;
 class CSlotCube;
 class CSlotSensor;
+class CMagneticCube;
 
 class SceneHW : public CScene
 {
@@ -49,7 +50,8 @@ private:
 	CSlotCube*							m_pSlotCube3;
 	CSlotSensor*						m_pSlotSensor;
 	CSlotSensor*						m_pSlotSensor2;
-	CSlotSensor*						m_pSlotSensor3;
+	CSlotSensor* m_pSlotSensor3;
+	CMagneticCube*						m_pTestmagnet;
 	_float								m_fTime;
 	bool								m_bCamPlayer;
 };

@@ -26,13 +26,13 @@ public:
 	HRESULT Ready_GameObject()override;
 	_int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
-	void Set_Info();
+	void Set_Info(CMainPlayer* player);
 
 	//Create, Release Function
 	static CMetalCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
-	void GluetoMagnetic(CMagneticCube* parentMagnet, const _float& fTimeDelta);
+	void GluetoMagnetic(CGameObject* parentMagnet, const _float& fTimeDelta);
 	void DetectMagnet(const _float& fTimeDelta);
 	//Getter, Setter Function
 
@@ -46,7 +46,7 @@ private:
 	MetalZone	m_MZone;
 	CGameObject* m_pPickObj;
 	CMagneticCube* m_pPickMagnet;
-	CMagneticCube* m_pParentMagnet;
+	CGameObject* m_pParentMagnet;
 	vector<CMagneticCube*> m_vecDetectedMagnets;
 };
 
