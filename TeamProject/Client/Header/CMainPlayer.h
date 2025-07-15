@@ -31,6 +31,8 @@ public:
 	//Gettter, Setter Function
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
 	bool Get_Hold() { return m_bObjHold;  }
+	bool Get_MouseTap() { return m_bMouseTap; }
+	bool Get_MouseAway() { return m_bMouseAway; }
 	_vec3 Get_DragDistance() { return m_vDragDistance; }
 	CGameObject* Get_PickObj() { return m_pPickObj; }
 	CGameObject* Get_PrevPickObj() { return m_pPrevPickObj; }
@@ -63,7 +65,8 @@ private:
 
 	bool m_bCursorMove;
 	bool m_bObjHold = false;
-	bool m_bHoldOff = false;
+	bool m_bMouseTap = false;
+	bool m_bMouseAway = false;
 
 	_vec3 m_vLastPt;
 	_vec3 m_vPlanePt;
