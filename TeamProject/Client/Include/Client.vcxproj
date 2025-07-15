@@ -153,7 +153,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CChaseState.h" />
     <ClInclude Include="..\Header\CCinematicCamera.h" />
+    <ClInclude Include="..\Header\CDiveState.h" />
+    <ClInclude Include="..\Header\CIdleState.h" />
     <ClInclude Include="..\Header\CMetalCube.h" />
     <ClInclude Include="..\Header\CImageUIObject.h" />
     <ClInclude Include="..\Header\CLodingCube.h" />
@@ -196,12 +199,16 @@
     <ClInclude Include="..\Header\CPickSwitch.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="IVellumState.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CChaseState.cpp" />
     <ClCompile Include="..\Code\CCinematicCamera.cpp" />
+    <ClCompile Include="..\Code\CDiveState.cpp" />
+    <ClCompile Include="..\Code\CIdleState.cpp" />
     <ClCompile Include="..\Code\CMetalCube.cpp" />
     <ClCompile Include="..\Code\CImageUIObject.cpp" />
     <ClCompile Include="..\Code\CLodingCube.cpp" />

@@ -33,18 +33,21 @@ HRESULT SceneSB::Ready_Scene()
 	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 20.f, -20.f });
 
+	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+
 	// 2. 바닥 역할 (몬스터 착지용)
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
 	pTile->Get_Component<CTransform>()->Set_Scale({ 100.f, 5.f, 100.f });
 	pTile->Get_Component<CTransform>()->Set_PosY(0.f);
 
-	// 3. 떨어지는 몬스터
+	// 3-1. 떨어지는 몬스터
 	CMonster* pFallingMonster = CMonster::Create(m_pGraphicDev);
 	pFallingMonster->Get_Component<CTransform>()->Set_Pos({ 0.f, 8.f, 10.f }); // 공중, 약간 앞쪽
 	pFallingMonster->Get_Component<CTransform>()->Set_Scale({ 0.5f, 0.5f, 0.5f });
 
-	// test. 벨룸
+	// 3-2. 벨룸
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
+
 	// 4. 카메라 (플레이어 시점)
 	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 
@@ -61,7 +64,7 @@ HRESULT SceneSB::Ready_Scene()
 	pCam->Set_Target(pPlayer);  // 1인칭 시점
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
-	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+	
 
 	return S_OK;
 }
