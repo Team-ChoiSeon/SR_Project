@@ -32,12 +32,13 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
+
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 
 	m_pTransform->Ready_Component();
 
-	m_pTransform->Set_Scale({ 1.f, 2.f, 1.f });
+	m_pTransform->Set_Scale({ .8f, 2.f, .8f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
@@ -109,7 +110,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	}
 
 	Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
-	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);
+	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(10.f);
 	auto* pPickCubeObj = dynamic_cast<CCube*>(m_pPickObj);
 	auto* pPickSwitchObj = dynamic_cast<CSwitch*>(m_pPickObj);
 	if (pPickCubeObj) {
@@ -121,10 +122,29 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	}
 
 	//m_pCrosshair
+	m_bMouseTap = false;
+	m_bMouseAway = false;
 	if(m_pCrosshair)
 	{
 		if (m_pPickObj)
 		{
+			if (CInputMgr::Get_Instance()->Mouse_Tap(DIM_LB))
+			{
+				CTransform* targetTrans = m_pPickObj->Get_Component<CTransform>();
+				CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
+
+				//m_vPlanePt = PickObj->Get_Component<CTransform>()->Get_Pos();
+				m_vPlanePt = targetTrans->Get_Pos();
+				m_vPlaneNorm = targetTrans->Get_Pos() - pMainCam->Get_Eye();
+				D3DXVec3Normalize(&m_vPlaneNorm, &m_vPlaneNorm);
+
+				m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
+				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
+				m_bObjHold = true;
+				m_bMouseTap = true;
+				m_pPrevPickObj = m_pPickObj;
+			}
+
 			if (CInputMgr::Get_Instance()->Mouse_Down(DIM_LB))
 			{
 				if (m_bObjHold)
@@ -144,36 +164,29 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 					}
 
 				}
-				else
-				{
-					CTransform* targetTrans = m_pPickObj->Get_Component<CTransform>();
-					CCamera* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
-
-					//m_vPlanePt = PickObj->Get_Component<CTransform>()->Get_Pos();
-					m_vPlanePt = targetTrans->Get_Pos();
-					m_vPlaneNorm = targetTrans->Get_Pos() - pMainCam->Get_Eye();
-					D3DXVec3Normalize(&m_vPlaneNorm, &m_vPlaneNorm);
-
-					m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
-					m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-					m_bObjHold = true;
-					m_pPrevPickObj = m_pPickObj;
-				}
-
 			}
 			else {
 				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-			}
-
-			if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
-				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-				m_bObjHold = false;
-				m_vDragDistance = { 0,0,0 };
 			}
 		}
 		else {
 			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 			m_bObjHold = false;
+			m_vDragDistance = { 0,0,0 };
+		}
+
+
+		if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
+			if (m_pPickObj)
+			{
+				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+			}
+			else {
+				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+
+			}
+			m_bObjHold = false;
+			m_bMouseAway = true;
 			m_vDragDistance = { 0,0,0 };
 		}
 	}
