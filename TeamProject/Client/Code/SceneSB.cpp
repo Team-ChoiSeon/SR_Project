@@ -35,8 +35,8 @@ HRESULT SceneSB::Ready_Scene()
 
 	// 2. 바닥 역할 (몬스터 착지용)
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
-	pTile->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 50.f });
-	pTile->Get_Component<CTransform>()->Set_PosY(-20.f);
+	pTile->Get_Component<CTransform>()->Set_Scale({ 100.f, 5.f, 100.f });
+	pTile->Get_Component<CTransform>()->Set_PosY(0.f);
 
 	// 3. 떨어지는 몬스터
 	CMonster* pFallingMonster = CMonster::Create(m_pGraphicDev);

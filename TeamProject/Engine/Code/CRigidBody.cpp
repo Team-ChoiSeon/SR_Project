@@ -75,6 +75,10 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     if (m_vVel.y < -50.f)
         m_vVel.y = -50.f;
 
+    // 최대 속도 제한
+    if (m_vVel.y < -50.f)  
+        m_vVel.y = -50.f;
+
     // 지면에서 미세한 움직임 컷팅
     if (m_bGround)
     {
