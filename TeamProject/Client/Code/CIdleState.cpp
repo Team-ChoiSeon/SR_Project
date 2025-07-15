@@ -6,6 +6,7 @@
 
 #include "CChaseState.h"
 #include "CDiveState.h"
+#include "CSpinState.h"
 
 void CIdleState::Enter(CVellum* pVellum)
 {
@@ -19,15 +20,17 @@ void CIdleState::Update(const _float fTimeDelta, CVellum* pVellum)
 	if (m_fPatternTime >= m_fSwitchTime)
 	{
 		// 패턴 변경
-		m_ePattern = static_cast<VPattern>(rand() % 2);
+		m_ePattern = static_cast<VPattern>(rand() % 3);
 		switch (m_ePattern)
 		{
 		case VPattern::CHASE:
 			m_pNext = new CChaseState();
 			break;
-
 		case VPattern::DIVE:
 			m_pNext = new CDiveState();
+			break;
+		case VPattern::SPIN:
+			m_pNext = new CSpinState();
 			break;
 		}
 		pVellum->Change_Pattern(m_pNext);

@@ -1,16 +1,18 @@
 #pragma once
 #include "pch.h"
 #include "CChaseState.h"
+#include "CIdleState.h"
 
 #include "CVellum.h"
 #include "CTransform.h"
 #include "CRigidBody.h"
-#include "CIdleState.h"
+#include "CCollider.h"
 
 void CChaseState::Enter(CVellum* pVellum)
 {
 	OutputDebugString(L"Chase : Enter\n");
 	m_fPatternTime = 0.f;
+	pVellum->Get_HCol()->Set_ColType(ColliderType::PASSIVE);
 }
 
 void CChaseState::Update(const _float fTimeDelta, CVellum* pVellum)
@@ -34,6 +36,7 @@ void CChaseState::Update(const _float fTimeDelta, CVellum* pVellum)
 
 void CChaseState::Exit(CVellum* pVellum)
 {
+	pVellum->Get_HCol()->Set_ColType(ColliderType::ACTIVE);
 	pVellum->Get_HRigid()->Stop_Motion();
 	OutputDebugString(L"Chase : Exit\n");
 }

@@ -151,6 +151,9 @@
     <Filter Include="04. GameObjects\Vellum\State\DIVE">
       <UniqueIdentifier>{0a224f01-9ad8-47d0-964d-ee10334b66a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Vellum\State\SPIN">
+      <UniqueIdentifier>{81d6c48a-3774-4720-b76b-46265feb643c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -309,6 +312,9 @@
     <ClInclude Include="..\Header\CDiveState.h">
       <Filter>04. GameObjects\Vellum\State\DIVE</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSpinState.h">
+      <Filter>04. GameObjects\Vellum\State\SPIN</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -454,6 +460,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDiveState.cpp">
       <Filter>04. GameObjects\Vellum\State\DIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSpinState.cpp">
+      <Filter>04. GameObjects\Vellum\State\SPIN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
