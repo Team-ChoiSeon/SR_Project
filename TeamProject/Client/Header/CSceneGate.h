@@ -30,6 +30,9 @@ public:
 	CTestTile* Set_GateDoor(bool bLeft);
 	CTestTile* Set_GateStructure(const _vec3& vPos, const _vec3& vScale);
 
+
+	void Set_GateDoorPos(bool bLeft, CGameObject* pObj);
+	
 	bool Get_InGate() { return m_bInGate; };
 
 private:
@@ -52,5 +55,7 @@ private:
 	vector<CGameObject*> m_vGameObjects;
 
 	_float m_fDoorAngle = 0.f;
+
+	bool m_bFirstSet = true;
 };
 

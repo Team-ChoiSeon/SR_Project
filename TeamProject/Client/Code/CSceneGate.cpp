@@ -48,7 +48,11 @@ HRESULT CSceneGate::Ready_GameObject()
 
 	m_pTransform->Set_Pos({ 0.f, -7.f, -20.f });
 	//m_pTransform->Set_Scale({ 2.f, 2.f, 2.f });
-	m_pTransform->Set_Scale({ 4.f, 4.f, 5.f });
+	m_pTransform->Set_Scale({ 7.f, 7.f, 7.f });
+
+
+
+	m_bFirstSet = true;
 
 	pGateDoorL = Set_GateDoor(true);
 	pGateDoorR = Set_GateDoor(false);
@@ -61,7 +65,6 @@ HRESULT CSceneGate::Ready_GameObject()
 	pGatePillarR = Set_GateStructure(vGatePos + _vec3(5.f, -2.f, -vGateScale.z - 1.f), vPillarScale);
 	const _vec3 vTopScale = { 6.f, 1.f, 2.f };
 	pGateTop = Set_GateStructure(vGatePos + _vec3(0.f, 5.f, -vGateScale.z -1.f), vTopScale);
-
 
 	pTriggerCube = CPlayerTriggerCube::Create(m_pGraphicDev);
 	pTriggerCube->Get_Component<CTransform>()->Set_Pos(vGatePos + _vec3(0.f, 0.f, -vGateScale.z - 2.f));
@@ -84,6 +87,22 @@ HRESULT CSceneGate::Ready_GameObject()
 
 int CSceneGate::Update_GameObject(const _float& fTimeDelta)
 {
+	if (m_bFirstSet)
+	{
+		Set_GateDoorPos(true, pGateDoorL);
+		Set_GateDoorPos(false, pGateDoorR);
+
+		const _vec3 vGatePos = m_pTransform->Get_Pos();
+		const _vec3 vGateScale = m_pTransform->Get_Scale();
+
+		pGatePillarL->Get_Component<CTransform>()->Set_Pos(vGatePos + _vec3(-5.f, -2.f, -vGateScale.z - 1.f));
+		pGatePillarR->Get_Component<CTransform>()->Set_Pos(vGatePos + _vec3(5.f, -2.f, -vGateScale.z - 1.f));
+		pGateTop->Get_Component<CTransform>()->Set_Pos(vGatePos + _vec3(0.f, 5.f, -vGateScale.z - 1.f));
+		pTriggerCube->Get_Component<CTransform>()->Set_Pos(vGatePos + _vec3(0.f, 0.f, -vGateScale.z - 2.f));
+
+		m_bFirstSet = false;
+	}
+
 	CGameObject::Update_GameObject(fTimeDelta);
 
 	pGateDoorL->Update_GameObject(fTimeDelta);
@@ -193,6 +212,16 @@ CTestTile* CSceneGate::Set_GateStructure(const _vec3& vPos, const _vec3& vScale)
 	pObj->Get_Component<CTransform>()->Set_Scale(vScale);
 	pObj->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	return pObj;
+}
+
+void CSceneGate::Set_GateDoorPos(bool bLeft, CGameObject* pObj)
+{
+	_vec3 vGatePos = m_pTransform->Get_Info(INFO_POS);
+
+	_vec3 vOffset = { bLeft ? -4.0f : 4.0f, 0.f, -5.0f };
+	_vec3 vHingePos = vGatePos + vOffset;
+
+	pObj->Get_Component<CTransform>()->Set_Pos(vHingePos);
 }
 
 CSceneGate* CSceneGate::Create(LPDIRECT3DDEVICE9 pGraphicDev)

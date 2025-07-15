@@ -133,6 +133,9 @@
     <Filter Include="04. GameObjects\SceneTrigger\PlayerTriggerCube">
       <UniqueIdentifier>{c975fd68-2a60-4c8f-a3bd-9af2138f8125}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\CameraObejct\DollyCamera">
+      <UniqueIdentifier>{e6f3e886-84a1-46ab-b754-8e191c0e8b26}</UniqueIdentifier>
+    </Filter>
     <Filter Include="04. GameObjects\Cube\MetalCube">
       <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
      </Filter>
@@ -291,6 +294,9 @@
     <ClInclude Include="..\Header\CPlayerTriggerCube.h">
       <Filter>04. GameObjects\SceneTrigger\PlayerTriggerCube</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDollyCamera.h">
+      <Filter>04. GameObjects\CameraObejct\DollyCamera</Filter>
+    </ClInclude>
     <ClInclude Include="IVellumState.h">
       <Filter>04. GameObjects\Vellum\State</Filter>
     </ClInclude>
@@ -436,6 +442,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPlayerTriggerCube.cpp">
       <Filter>04. GameObjects\SceneTrigger\PlayerTriggerCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDollyCamera.cpp">
+      <Filter>04. GameObjects\CameraObejct\DollyCamera</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CIdleState.cpp">
       <Filter>04. GameObjects\Vellum\State\IDLE</Filter>

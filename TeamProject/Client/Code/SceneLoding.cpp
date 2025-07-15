@@ -73,9 +73,6 @@ HRESULT SceneLoding::Ready_Scene()
 
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"ProgressBar"));
 
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->Ready_Layer();
-
 	return S_OK;
 }
 
