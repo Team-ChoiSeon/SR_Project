@@ -64,27 +64,27 @@ HRESULT CVellum::Ready_GameObject()
         pPrev = pPart;
     }
 
-    //m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+    // 헤드 정보 설정
+    m_pTransform = m_vPart[0]->Get_Component<CTransform>();
+    m_pRigid = m_vPart[0]->Get_Component<CRigidBody>();
+    m_pCol = m_vPart[0]->Get_Component<CCollider>();
    
 	return CGameObject::Ready_GameObject();;
 }
 
 int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
-    if (m_vPart.empty())
-        return -1;
-
-    // 머리 정보
-    CTransform* pHeadTransform = m_vPart[0]->Get_Component<CTransform>();
-    CRigidBody* pHeadRigid = m_vPart[0]->Get_Component<CRigidBody>();
+    if (m_vPart.empty()) return -1;
+    m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
+    if (!m_pTarget) return;
     
     switch (m_eCurPattern)
     {
     case VPattern::CHASE:
-        Chase(fTimeDelta, pHeadTransform, pHeadRigid);
+        Chase(fTimeDelta, m_pTransform, m_pRigid);
         break;
     case VPattern::DIVE:
-        Dive(fTimeDelta, pHeadTransform, pHeadRigid);
+        Dive(fTimeDelta, m_pTransform, m_pRigid);
         break;
     }
 
@@ -117,6 +117,10 @@ void CVellum::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CVellum::Free()
 {
+    m_pTransform = nullptr;
+    m_pRigid = nullptr;
+    m_pCol = nullptr;
+
     for (auto* pPart : m_vPart)
         Safe_Release(pPart);
 
@@ -139,9 +143,9 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
         if (!m_vPart.empty())
         {
 
-            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-            m_vPart[0]->Get_Component<CRigidBody>()->Set_Velocity(_vec3(0.f, 0.f, 0.f));
-            m_vPart[0]->Get_Component<CRigidBody>()->Set_AVelocity(_vec3(0.f, 0.f, 0.f));
+            m_pCol->Set_ColType(ColliderType::ACTIVE);
+            m_pRigid->Set_Velocity(_vec3(0.f, 0.f, 0.f));
+            m_pRigid->Set_AVelocity(_vec3(0.f, 0.f, 0.f));
         }
 
         m_bPattern = false;
@@ -169,7 +173,7 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
             m_fSwitchTime = FLT_MAX;  // 패턴이 끝날때 까지
             // 
             if (m_eDPhase == DivePhase::None)
-                m_vPart[0]->Get_Component<CRigidBody>()->Set_Velocity(_vec3(0.f, 10.f, 0.f));
+                m_pRigid->Set_Velocity(_vec3(0.f, 10.f, 0.f));
             
             m_eDPhase = DivePhase::Ready;
             break;
@@ -178,7 +182,7 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
         
 
         if (!m_vPart.empty())
-            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+            m_pCol->Set_ColType(ColliderType::PASSIVE);
 
         switch (m_eCurPattern)
         {
@@ -192,11 +196,10 @@ void CVellum::Update_Pattern(const _float& fTimeDelta)
 
 void CVellum::Chase(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid)
 {
-    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-    if (!pPlayer) return;
+
 
     _vec3 myPos = pTransform->Get_Pos();
-    _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
+    _vec3 playerPos = m_pTarget->Get_Component<CTransform>()->Get_Pos();
     _vec3 dir = playerPos - myPos;
 
     D3DXVec3Normalize(&dir, &dir);
@@ -209,12 +212,11 @@ void CVellum::Chase(const _float& fTimeDelta, CTransform* pTransform, CRigidBody
 void CVellum::Dive(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid)
 {
 
-    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-    if (!pPlayer || !pTransform || !pRigid)
+    if (!pTransform || !pRigid)
         return;
 
     _vec3 myPos = pTransform->Get_Pos();
-    _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
+    _vec3 playerPos = m_pTarget->Get_Component<CTransform>()->Get_Pos();
     _vec3 diff = playerPos - myPos;
     diff.y = 0.f;
     _float fDist = D3DXVec3Length(&diff);
@@ -318,32 +320,30 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (m_vPart.empty())
         return;
 
-    CTransform* pHeadTransform = m_vPart[0]->Get_Component<CTransform>();
-    CRigidBody* pRigid = m_vPart[0]->Get_Component<CRigidBody>();
-    if (!pHeadTransform || !pRigid)
+    if (!m_pTransform || !m_pRigid)
         return;
 
     const float speed = 10.0f;
-    _vec3 pos = pHeadTransform->Get_Pos();
+    _vec3 pos = m_pTransform->Get_Pos();
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_UP))
     {
-        pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); // 
+        m_pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); // 
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_DOWN))
     {
-        pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  
+        m_pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
     {
-        pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // 
+        m_pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // 
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
     {
-        pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // 
+        m_pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // 
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD8)) // +Y
@@ -365,7 +365,7 @@ void CVellum::Key_Input(const _float& fTimeDelta)
         m_vPart.clear();
     }
 
-    pHeadTransform->Set_Pos(pos); // 적용
+    m_pTransform->Set_Pos(pos); // 적용
 }
 
 REGISTER_GAMEOBJECT(CVellum)

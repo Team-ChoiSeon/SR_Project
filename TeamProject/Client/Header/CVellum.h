@@ -45,6 +45,11 @@ private:
 	DivePhase m_eDPhase = DivePhase::Ready;
 	_float m_fSearch = 0.f;
 
+	// 헤드정보
+	CTransform* m_pTransform = nullptr;
+	CRigidBody* m_pRigid = nullptr;
+	CCollider*	m_pCol = nullptr;
+
 
 };
 
