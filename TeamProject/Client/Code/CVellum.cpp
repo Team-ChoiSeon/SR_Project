@@ -72,17 +72,21 @@ HRESULT CVellum::Ready_GameObject()
     m_pRigid = m_vPart[0]->Get_Component<CRigidBody>();
     m_pCol = m_vPart[0]->Get_Component<CCollider>();
 
+    m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
+
     // IDLE 상태 진입
     m_pState = new CIdleState();
     m_pState->Enter(this);
    
+
+
 	return CGameObject::Ready_GameObject();;
 }
 
 int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
-    m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
-    if (!m_pTarget || m_vPart.empty()) return -1;
+    
+    if (m_vPart.empty()) return -1;
 
     if (m_pState)
         m_pState->Update(fTimeDelta, this);
