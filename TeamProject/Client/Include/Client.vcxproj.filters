@@ -118,9 +118,6 @@
     <Filter Include="04. GameObjects\Cube\MagneticCube">
       <UniqueIdentifier>{268a6416-a668-437e-a8ab-af206d52300c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\Cube\MetaCube">
-      <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObjects\TestUI\Loding">
       <UniqueIdentifier>{ec8c747c-e3c2-4a60-8675-375d384ccfe2}</UniqueIdentifier>
     </Filter>
@@ -133,6 +130,12 @@
     <Filter Include="04. GameObjects\CameraObejct\CinematicCamera">
       <UniqueIdentifier>{d0eb2f06-d4b3-4de0-a7a3-d48ea498ba97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\SceneTrigger\PlayerTriggerCube">
+      <UniqueIdentifier>{c975fd68-2a60-4c8f-a3bd-9af2138f8125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\MetalCube">
+      <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
+     </Filter>
     <Filter Include="04. GameObjects\Vellum\State">
       <UniqueIdentifier>{2cfdc824-f120-42a7-bbed-99129ef1662c}</UniqueIdentifier>
     </Filter>
@@ -268,7 +271,7 @@
       <Filter>04. GameObjects\Cube\MagneticCube</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CMetalCube.h">
-      <Filter>04. GameObjects\Cube\MetaCube</Filter>
+      <Filter>04. GameObjects\Cube\MetalCube</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CImageUIObject.h">
       <Filter>04. GameObjects\TestUI</Filter>
@@ -284,6 +287,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CCinematicCamera.h">
       <Filter>04. GameObjects\CameraObejct\CinematicCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPlayerTriggerCube.h">
+      <Filter>04. GameObjects\SceneTrigger\PlayerTriggerCube</Filter>
     </ClInclude>
     <ClInclude Include="IVellumState.h">
       <Filter>04. GameObjects\Vellum\State</Filter>
@@ -411,7 +417,7 @@
       <Filter>04. GameObjects\Cube\MagneticCube</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMetalCube.cpp">
-      <Filter>04. GameObjects\Cube\MetaCube</Filter>
+      <Filter>04. GameObjects\Cube\MetalCube</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CImageUIObject.cpp">
       <Filter>04. GameObjects\TestUI</Filter>
@@ -427,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCinematicCamera.cpp">
       <Filter>04. GameObjects\CameraObejct\CinematicCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayerTriggerCube.cpp">
+      <Filter>04. GameObjects\SceneTrigger\PlayerTriggerCube</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CIdleState.cpp">
       <Filter>04. GameObjects\Vellum\State\IDLE</Filter>

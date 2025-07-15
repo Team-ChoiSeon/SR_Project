@@ -7,7 +7,7 @@
 #include "CMainPlayer.h"
 #include "CSlotCube.h"
 #include "CInputMgr.h"
-
+#include "CFactory.h"
 CSlotSensor::CSlotSensor(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CSensor(pGraphicDev), m_pSlotted(nullptr)
 {
@@ -48,7 +48,11 @@ HRESULT CSlotSensor::Ready_GameObject()
     m_pCollider->Set_BoundType(BoundingType::OBB);
 
     m_bSensorOn = false;
-	return S_OK;
+
+    CFactory::Save_Prefab(this, "CSlotSensor"); 
+    
+    return S_OK;
+
 }
 
 _int CSlotSensor::Update_GameObject(const _float& fTimeDelta)
@@ -148,3 +152,6 @@ bool CSlotSensor::Check_Slot()
     }
     return false;
 }
+
+
+REGISTER_GAMEOBJECT(CSlotSensor)

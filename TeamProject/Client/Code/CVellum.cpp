@@ -50,15 +50,15 @@ HRESULT CVellum::Ready_GameObject()
         CMonsterPart* pPart = CMonsterPart::Create(m_pGraphicDev);
         if (!pPart)
         {
-            MSG_BOX("Vellum ÆÄÃ÷ »ı¼º ½ÇÆĞ");
+            MSG_BOX("Vellum íŒŒì¸  ìƒì„± ì‹¤íŒ¨");
             return E_FAIL;
         }
 
-        // ÆÄÃ÷ À§Ä¡ ÃÊ±âÈ­ (¼±Çü ¹è¿­ ÇüÅÂ)
+        // íŒŒì¸  ìœ„ì¹˜ ì´ˆê¸°í™” (ì„ í˜• ë°°ì—´ í˜•íƒœ)
         _vec3 partPos = { 0.f, 20.f - 2.f * i, 0.f };
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
-        // ¾Õ ÆÄÃ÷¸¦ µû¶ó°¡°Ô ¿¬°á
+        // ì• íŒŒì¸ ë¥¼ ë”°ë¼ê°€ê²Œ ì—°ê²°
         if (pPrev)
             pPart->Set_Target(pPrev);
         
@@ -67,19 +67,17 @@ HRESULT CVellum::Ready_GameObject()
         pPrev = pPart;
     }
 
-    // Çìµå Á¤º¸ ¼³Á¤
+    CFactory::Save_Prefab(this, "CVellum");
+    // í—¤ë“œ ì •ë³´ ì„¤ì •
     m_pTransform = m_vPart[0]->Get_Component<CTransform>();
     m_pRigid = m_vPart[0]->Get_Component<CRigidBody>();
     m_pCol = m_vPart[0]->Get_Component<CCollider>();
 
     m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
 
-    // IDLE »óÅÂ ÁøÀÔ
+    // IDLE ìƒíƒœ ì§„ì…
     m_pState = new CIdleState();
     m_pState->Enter(this);
-   
-
-
 	return CGameObject::Ready_GameObject();;
 }
 
@@ -128,7 +126,7 @@ void CVellum::Free()
 
 void CVellum::Change_Pattern(IVellumState* pState)
 {
-    // ±âÁ¸ »óÅÂ°¡ ÀÖ´Ù¸é Exit ÇÔ¼ö¸¦ È£Ãâ
+    // ê¸°ì¡´ ìƒíƒœê°€ ìˆë‹¤ë©´ Exit í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
     if (m_pState) 
     {
         m_pState->Exit(this);
@@ -186,13 +184,13 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
-    //  »èÁ¦ : ¸Ş¸ğ¸® ´©¼ö ¹ß»ıÇÏ´Ï µÇµµ·Ï »ç¿ëÇÏÁö ¸»°Í
+    //  ì‚­ì œ : ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ ë°œìƒí•˜ë‹ˆ ë˜ë„ë¡ ì‚¬ìš©í•˜ì§€ ë§ê²ƒ
     if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
     {
         m_vPart.clear();
     }
 
-    m_pTransform->Set_Pos(pos); // Àû¿ë
+    m_pTransform->Set_Pos(pos); // ì ìš©
 }
 
 REGISTER_GAMEOBJECT(CVellum)
