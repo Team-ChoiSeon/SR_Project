@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CCinematicCamera.h" />
+    <ClInclude Include="..\Header\CDollyCamera.h" />
     <ClInclude Include="..\Header\CMetalCube.h" />
     <ClInclude Include="..\Header\CImageUIObject.h" />
     <ClInclude Include="..\Header\CLodingCube.h" />
@@ -203,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CCinematicCamera.cpp" />
+    <ClCompile Include="..\Code\CDollyCamera.cpp" />
     <ClCompile Include="..\Code\CMetalCube.cpp" />
     <ClCompile Include="..\Code\CImageUIObject.cpp" />
     <ClCompile Include="..\Code\CLodingCube.cpp" />

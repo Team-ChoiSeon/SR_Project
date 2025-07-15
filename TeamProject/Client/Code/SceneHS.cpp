@@ -69,15 +69,25 @@ HRESULT SceneHS::Ready_Scene()
 	pOnewayCube->Get_Component<CRigidBody>()->Set_OnGround(true);
 	pOnewayCube->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	
+	CDirectionalCube* pDirectionalCube = CDirectionalCube::Create(m_pGraphicDev);
+	pDirectionalCube->Set_Info({ 5.f, 0.f, 0.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
+	pDirectionalCube->Set_Grab(true);
+
+	CCrosshairUIObject* pCrosshair = CCrosshairUIObject::Create(m_pGraphicDev);
+
+	CFirstviewFollowingCamera* ffcam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
+	CFirstviewFollowingCamera* dummycam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
+	CCinematicCamera* pCineCam = CCinematicCamera::Create(m_pGraphicDev);
+	CDollyCamera* pDollyCam = CDollyCamera::Create(m_pGraphicDev);
+	pDollyCam->Get_Component<CTransform>()->Set_Pos(pOnewayCube->Get_Component<CTransform>()->Get_Pos());
+	pDollyCam->Start_Dolly(pOnewayCube, _vec3(0.f, 0.f, -20.f), D3DX_PI * 0.15f, 10.f);
 
 	//////////////////
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Dummy", DummyCube::Create(m_pGraphicDev));
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwDirectionalCube", CDirectionalCube::Create(m_pGraphicDev));
-	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Info({ 5.f, 0.f, 0.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
-	dynamic_cast<CDirectionalCube*>(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"hwDirectionalCube"))->Set_Grab(true);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwDirectionalCube", pDirectionalCube);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"GroundDummy", (pTile));
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"SceneGate", CSceneGate::Create(m_pGraphicDev));
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Wall", (pWall));
@@ -86,51 +96,39 @@ HRESULT SceneHS::Ready_Scene()
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"TestLightMesh", CTestLightMeshObject::Create(m_pGraphicDev));
 	Get_Layer(LAYER_LIGHT)->Add_GameObject(L"LightObject", CLightObject::Create(m_pGraphicDev));
 	
-	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
-	Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
+	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", pCrosshair);
 
-	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"ffcam", CFirstviewFollowingCamera::Create(m_pGraphicDev));
-	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"dummycam", CFirstviewFollowingCamera::Create(m_pGraphicDev));
-
-	//CDollyCamera* pDollyCam = CDollyCamera::Create(m_pGraphicDev);
-	//pDollyCam->Get_Component<CTransform>()->Set_Pos(pOnewayCube->Get_Component<CTransform>()->Get_Pos());
-
-	//_vec3 endPos = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Component<CTransform>()->Get_Pos();
-	//_vec3 endLook = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Component<CTransform>()->Get_Info(INFO_LOOK);
-	//pDollyCam->Start_Cinematic(pOnewayCube->Get_Component<CTransform>()->Get_Pos(), {-10.f, 0.f, -20.f}, endLook, D3DX_PI * 0.15f, 5.f);
-	//pDollyCam->Start_Cinematic(pOnewayCube,30.f, -D3DX_PI * 0.1f,5.f);
-	//pDollyCam->Start_Cinematic(pOnewayCube, 150.f, -D3DX_PI * 0.25f, 10.f);
-	//
-	//Get_Layer(LAYER_CAMERA)->Add_GameObject(L"DollyCam", pDollyCam);
-
-
-	CCinematicCamera* pCineCam = CCinematicCamera::Create(m_pGraphicDev);
-	pCineCam->Set_Target(pPlayer);
-
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"ffcam", ffcam);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"dummycam", dummycam);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"DollyCam", pDollyCam);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"CineCam", pCineCam);
+
 	/////////////////////
+	pCineCam->Set_Target(pPlayer);
 	Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"dummycam")->Set_Target(Get_Layer(LAYER_OBJECT)->Get_GameObject(L"Dummy"));
 	Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam")->Set_Target(Get_Layer(LAYER_PLAYER)->Get_GameObject(L"Player"));
 
-	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
 
+	pPlayer->Set_Crosshair(pCrosshair);
+	
+	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
+	
 	CCameraMgr::Get_Instance()->Set_MainCamera(Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam"));
 	//CCameraMgr::Get_Instance()->Set_MainCamera(pDollyCam);
 	//CCameraMgr::Get_Instance()->Set_MainCamera(pCineCam);
-
 
 	return S_OK;
 }
 
 _int SceneHS::Update_Scene(const _float& fTimeDelta)
 {
-	// if (CCameraMgr::Get_Instance()->Get_MainCamera() == Get_Layer(LAYER_CAMERA)->Get_GameObject<CDollyCamera>(L"DollyCam"))
-	// {
-	// 	if (!Get_Layer(LAYER_CAMERA)->Get_GameObject<CDollyCamera>(L"DollyCam")->Get_CinematicEnd())
-	// 	{
-	// 		End_Cinematic();
-	// 	}
-	// }
+	if (CCameraMgr::Get_Instance()->Get_MainCamera() == Get_Layer(LAYER_CAMERA)->Get_GameObject<CDollyCamera>(L"DollyCam"))
+	{
+		if (!Get_Layer(LAYER_CAMERA)->Get_GameObject<CDollyCamera>(L"DollyCam")->Get_DollyEnd())
+		{
+			End_Cinematic();
+		}
+	}
 
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"SceneGate")->Get_InGate()) {
 		CScene* pScene = SceneBG::Create(m_pGraphicDev);
@@ -141,8 +139,6 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 	else {
 		CScene::Update_Scene(fTimeDelta);
 	}
-
-
 
 	// m_pLightObject->Update_GameObject(fTimeDelta);
 	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
@@ -167,14 +163,13 @@ void SceneHS::LateUpdate_Scene(const _float& fTimeDelta)
 
 void SceneHS::End_Cinematic()
 {
-	Get_Layer(LAYER_CAMERA)->Get_GameObject<CDollyCamera>(L"DollyCam")->End_Cinematic();
+	Get_Layer(LAYER_CAMERA)->Get_GameObject<CDollyCamera>(L"DollyCam")->End_Dolly();
 	CCameraMgr::Get_Instance()->Set_MainCamera(Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam"));
 }
 
 SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneHS* pScene = new SceneHS(pGraphicDev);
-
 
 	if (FAILED(pScene->Ready_Scene()))
 	{
@@ -188,8 +183,5 @@ SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void SceneHS::Free()
 {	
-	//Clear_Layers();
 	CScene::Free();
-
-	//CRenderMgr::Get_Instance()->Clear();
 }
