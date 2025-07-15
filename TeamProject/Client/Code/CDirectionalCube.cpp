@@ -5,7 +5,6 @@
 #include "CRigidBody.h"
 #include "CFactory.h"
 
-#include "CFactory.h"
 CDirectionalCube::CDirectionalCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
 {
@@ -22,24 +21,31 @@ CDirectionalCube::~CDirectionalCube()
 
 HRESULT CDirectionalCube::Ready_GameObject()
 {
-	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
-	Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
-	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CTransform>());
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
+	m_pModel = Get_Component<CModel>();
 
-
+	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
 	m_pTransform->Set_Scale({ 1.f, 1.f, 0.2f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 
+	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
-	m_pModel = Get_Component<CModel>();
-	m_pPick = Get_Component<CPickTarget>();
+	m_pRigid->Set_Friction(0.f);
+	m_pRigid->Set_Mass(10.f);
+	m_pRigid->Set_Bounce(0.1f);
+	m_pRigid->Set_OnGround(true);
+	m_pRigid->Set_UseGravity(false);
+
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
-	m_pCollider->Set_ColTag(ColliderTag::NONE);
-	m_pCollider->Set_ColType(ColliderType::ACTIVE);
+	m_pCollider->Set_ColTag(ColliderTag::GROUND);
+	m_pCollider->Set_ColType(ColliderType::PASSIVE);
+	m_pCollider->Set_BoundType(BoundingType::AABB);
+
+	Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
+	m_pPick = Get_Component<CPickTarget>();
 
 	CFactory::Save_Prefab(this, "CDirectionalCube");
 

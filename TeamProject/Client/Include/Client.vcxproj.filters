@@ -118,9 +118,6 @@
     <Filter Include="04. GameObjects\Cube\MagneticCube">
       <UniqueIdentifier>{268a6416-a668-437e-a8ab-af206d52300c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\Cube\MetaCube">
-      <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObjects\TestUI\Loding">
       <UniqueIdentifier>{ec8c747c-e3c2-4a60-8675-375d384ccfe2}</UniqueIdentifier>
     </Filter>
@@ -138,6 +135,21 @@
     </Filter>
     <Filter Include="04. GameObjects\CameraObejct\DollyCamera">
       <UniqueIdentifier>{e6f3e886-84a1-46ab-b754-8e191c0e8b26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\MetalCube">
+      <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
+     </Filter>
+    <Filter Include="04. GameObjects\Vellum\State">
+      <UniqueIdentifier>{2cfdc824-f120-42a7-bbed-99129ef1662c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Vellum\State\IDLE">
+      <UniqueIdentifier>{58af0757-4f44-457a-ad31-f2ec33a5fcf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Vellum\State\CHASE">
+      <UniqueIdentifier>{c97e5306-c55c-4d2e-9740-9e82244171a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Vellum\State\DIVE">
+      <UniqueIdentifier>{0a224f01-9ad8-47d0-964d-ee10334b66a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -262,7 +274,7 @@
       <Filter>04. GameObjects\Cube\MagneticCube</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CMetalCube.h">
-      <Filter>04. GameObjects\Cube\MetaCube</Filter>
+      <Filter>04. GameObjects\Cube\MetalCube</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CImageUIObject.h">
       <Filter>04. GameObjects\TestUI</Filter>
@@ -284,6 +296,18 @@
     </ClInclude>
     <ClInclude Include="..\Header\CDollyCamera.h">
       <Filter>04. GameObjects\CameraObejct\DollyCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="IVellumState.h">
+      <Filter>04. GameObjects\Vellum\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CIdleState.h">
+      <Filter>04. GameObjects\Vellum\State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CChaseState.h">
+      <Filter>04. GameObjects\Vellum\State\CHASE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDiveState.h">
+      <Filter>04. GameObjects\Vellum\State\DIVE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -399,7 +423,7 @@
       <Filter>04. GameObjects\Cube\MagneticCube</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMetalCube.cpp">
-      <Filter>04. GameObjects\Cube\MetaCube</Filter>
+      <Filter>04. GameObjects\Cube\MetalCube</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CImageUIObject.cpp">
       <Filter>04. GameObjects\TestUI</Filter>
@@ -421,6 +445,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDollyCamera.cpp">
       <Filter>04. GameObjects\CameraObejct\DollyCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CIdleState.cpp">
+      <Filter>04. GameObjects\Vellum\State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CChaseState.cpp">
+      <Filter>04. GameObjects\Vellum\State\CHASE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDiveState.cpp">
+      <Filter>04. GameObjects\Vellum\State\DIVE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

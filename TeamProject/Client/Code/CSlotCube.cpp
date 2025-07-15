@@ -10,6 +10,10 @@
 #include "CPickingMgr.h"
 #include "CMainPlayer.h"
 #include "CFloatingCube.h"
+#include "CFactory.h"
+#include "Engine_GUI.h"
+#include "CGuiSystem.h"
+#include "CCameraMgr.h"
 CSlotCube* CSlotCube::s_pPickedCube = nullptr;
 CSlotCube::CSlotCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -39,9 +43,9 @@ HRESULT CSlotCube::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
-	m_pRigid->Set_Friction(0.1f);
+	m_pRigid->Set_Friction(0.7f);
 	m_pRigid->Set_Mass(1.f);
-	m_pRigid->Set_Bounce(0.1f);
+	m_pRigid->Set_Bounce(0.3f);
 	m_pRigid->Set_OnGround(false);
 	m_pRigid->Set_UseGravity(true);
 
@@ -57,6 +61,7 @@ HRESULT CSlotCube::Ready_GameObject()
 	
 	m_bFirstPick = true;
 
+	CFactory::Save_Prefab(this, "CSlotCube");
 	return S_OK;
 }
 
@@ -76,6 +81,7 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 		if (s_pPickedCube == this)
 			s_pPickedCube = nullptr;
 	}
+
 	if (m_bCurGrab)
 	{
 		PickMove();
@@ -88,17 +94,17 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 		else if (m_FitSlot != nullptr)
 			m_FitSlot->Set_SlottedCube(nullptr);
 		m_pRigid->Set_UseGravity(true);
-		m_pRigid->Set_OnGround(false);
+		//m_pRigid->Set_OnGround(false);
 		m_bFirstPick = true;
 	}
 	CGameObject::Update_GameObject(fTimeDelta);
+	
+
 	return _int();
 }
 
 void CSlotCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-
-
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -145,11 +151,12 @@ void CSlotCube::PickMove()
 		m_fDist = D3DXVec3Length(&m_vDist);
 		m_bFirstPick = false;
 	}
-	m_pRigid->Set_UseGravity(false);
+	//m_pRigid->Set_UseGravity(false);
 	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f }); 
 
 	auto ray = CPickingMgr::Get_Instance()->Get_Ray();
-	_vec3 MovedPos = m_pPlayer->GetPos() + ray->_direction* m_fDist;
+	auto campos = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>()->Get_Pos();
+	_vec3 MovedPos = campos + ray->_direction* m_fDist;
 	
 	m_pTransform->Set_Pos(MovedPos);
 
@@ -216,3 +223,6 @@ void CSlotCube::Fit(const _float& fTimeDelta)
 
 
 }
+
+
+REGISTER_GAMEOBJECT(CSlotCube)

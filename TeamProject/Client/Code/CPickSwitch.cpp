@@ -4,7 +4,7 @@
 #include "CCollider.h"
 #include "CRigidBody.h"
 #include "CPickTarget.h"
-
+#include "CFactory.h"
 CPickSwitch::CPickSwitch(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CSwitch(pGraphicDev)
 {
@@ -54,6 +54,9 @@ HRESULT CPickSwitch::Ready_GameObject()
     m_bPressed = false;
     m_bInit = false;
 
+
+
+    CFactory::Save_Prefab(this, "CPickSwitch");
 	return S_OK;
 }
 
@@ -103,3 +106,6 @@ void CPickSwitch::Init()
         m_bInit = true;
     }
 }
+
+
+REGISTER_GAMEOBJECT(CPickSwitch)

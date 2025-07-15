@@ -2,10 +2,12 @@
 #include "CGameObject.h"
 #include "CMonsterPart.h"
 
-#include "CTransform.h"
 #include "CModel.h"
 
-enum class VPattern { CHASE, DIVE};
+#include "IVellumState.h"
+
+
+
 
 class CVellum : public CGameObject
 {
@@ -25,20 +27,29 @@ public:
 	void Free();
 
 public:
-	void Update_Pattern(const _float& fTimeDelta);
-	void Chase(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid);
-	//void Snake_Curve(const _float& fTimeDelta, CTransform* pTransform, int idx);
+	CMonsterPart*	Get_Head()			{ return m_vPart[0]; }
+	CTransform*		Get_HTransform()	{ return m_pTransform; }
+	CRigidBody*		Get_HRigid()		{ return m_pRigid; }
+	CCollider*		Get_HCol()			{ return m_pCol; }
+	CGameObject*	Get_Target()		{ return m_pTarget; }
+
+
+public:
+	void Change_Pattern(IVellumState* pState);
 
 private:
 	int m_iPartCnt = 6;
 	vector<CMonsterPart*> m_vPart;
 
-	_float m_fCurveTime = 0.f;
+	IVellumState* m_pState = nullptr;
 
-	_float m_fPatternTime = 0.f;
-	_float m_fSwitchTime = 0.f;
-	VPattern m_eCurPattern;
-	bool m_bPattern = false;
+	// 플레이어 정보
+	CGameObject* m_pTarget = nullptr;
+
+	// 헤드정보
+	CTransform* m_pTransform = nullptr;
+	CRigidBody* m_pRigid = nullptr;
+	CCollider*	m_pCol = nullptr;
 
 
 

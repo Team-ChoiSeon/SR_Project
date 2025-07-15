@@ -3,7 +3,7 @@
 #include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCollider.h" 
-
+#include "CFactory.h"
 CMonsterPart::CMonsterPart(LPDIRECT3DDEVICE9 pGraphicDev)
     :CGameObject(pGraphicDev)
 {
@@ -58,6 +58,8 @@ HRESULT CMonsterPart::Ready_GameObject()
     m_pRigid->Set_Friction(1.f);
     m_pRigid->Set_Bounce(0.f);
 
+    CFactory::Save_Prefab(this, "CMonsterPart");
+
     return S_OK;
 }
 
@@ -80,15 +82,21 @@ void CMonsterPart::Follow_Target(_float fDeltaTime)
 
     const _vec3 myPos = m_pTransform->Get_Pos();
     const _vec3 targetPos = m_pTarget->Get_Component<CTransform>()->Get_Pos();
-
+   
     // 1. 방향과 거리 계산
     _vec3 dir = targetPos - myPos;
     float dist = D3DXVec3Length(&dir);
-    if (dist < 0.001f) return; // 너무 가까우면 처리 X
 
-    // 2. 방향 벡터 정규화
-    D3DXVec3Normalize(&dir, &dir);
+    // 안전 코드 
+    if (dist > 0.001f)
+        D3DXVec3Normalize(&dir, &dir);
+    else
+        dir = _vec3(0.f, 0.f, 0.f); 
 
+    // ++) 파츠가 너무 멀어지지않게
+    if (dist > 10.f)
+         m_pTransform->Set_Pos(m_pTransform->Get_Pos() + dir * fDeltaTime * 10.f);
+    
     // 3. 이동 방향 처리 (Set_Look + Set_Right + Set_Up)
     m_pTransform->Set_Look(dir);
 
@@ -122,9 +130,9 @@ void CMonsterPart::Follow_Target(_float fDeltaTime)
     const _float baseDamping = 6.f;
     
     _vec3 targetSpringPos = targetPos - dir * baseDist;
-    _float stretchFactor = max(1.f, dist / baseDist); // 최소 1.0 이상
+    _float stretchFactor = max(1.f, min(dist / baseDist, 5.f)); //  최소 1.0 이상, 5배 이상 제한
     _float stiffness = baseStiffness * stretchFactor;  // 멀어질수록 더 강하게
-    _float damping = baseDamping * sqrtf(stretchFactor);  // 감쇠는 급격히 커지지 않도록 루트 적용
+    _float damping = baseDamping * (1.0f + ratio * 2.0f);  // 뒷 파츠는 감쇠 증가
 
     _vec3 springVec = targetSpringPos - myPos;
     _vec3 velocity = m_pRigid->Get_Velocity();
@@ -144,3 +152,5 @@ void CMonsterPart::Free()
     Safe_Release(m_pCol);
     m_pTarget = nullptr;
 }
+
+REGISTER_GAMEOBJECT(CMonsterPart)
