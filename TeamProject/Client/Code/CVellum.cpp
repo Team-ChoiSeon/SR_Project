@@ -359,6 +359,12 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
+    //  삭제 : 메모리 누수 발생하니 되도록 사용하지 말것
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
+    {
+        m_vPart.clear();
+    }
+
     pHeadTransform->Set_Pos(pos); // 적용
 }
 
