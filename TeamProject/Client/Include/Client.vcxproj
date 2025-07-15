@@ -157,6 +157,7 @@
     <ClInclude Include="..\Header\CCinematicCamera.h" />
     <ClInclude Include="..\Header\CDollyCamera.h" />
     <ClInclude Include="..\Header\CDiveState.h" />
+    <ClInclude Include="..\Header\CFireState.h" />
     <ClInclude Include="..\Header\CIdleState.h" />
     <ClInclude Include="..\Header\CMetalCube.h" />
     <ClInclude Include="..\Header\CImageUIObject.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="..\Code\CCinematicCamera.cpp" />
     <ClCompile Include="..\Code\CDollyCamera.cpp" />
     <ClCompile Include="..\Code\CDiveState.cpp" />
+    <ClCompile Include="..\Code\CFireState.cpp" />
     <ClCompile Include="..\Code\CIdleState.cpp" />
     <ClCompile Include="..\Code\CMetalCube.cpp" />
     <ClCompile Include="..\Code\CImageUIObject.cpp" />

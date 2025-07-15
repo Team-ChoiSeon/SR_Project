@@ -13,6 +13,7 @@ void CDiveState::Enter(CVellum* pVellum)
     OutputDebugString(L"Dive : Enter\n");
     m_eDPhase = DivePhase::Ready;
     m_fSearch = 0.f;
+    pVellum->Get_HCol()->Set_ColType(ColliderType::PASSIVE);
     if (pVellum->Get_HTransform()->Get_Pos().y < 30.f)
         pVellum->Get_HRigid()->Set_Velocity(_vec3(0.f, 10.f, 0.f));
 }

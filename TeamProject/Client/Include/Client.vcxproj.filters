@@ -138,7 +138,7 @@
     </Filter>
     <Filter Include="04. GameObjects\Cube\MetalCube">
       <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
-     </Filter>
+    </Filter>
     <Filter Include="04. GameObjects\Vellum\State">
       <UniqueIdentifier>{2cfdc824-f120-42a7-bbed-99129ef1662c}</UniqueIdentifier>
     </Filter>
@@ -153,6 +153,9 @@
     </Filter>
     <Filter Include="04. GameObjects\Vellum\State\SPIN">
       <UniqueIdentifier>{81d6c48a-3774-4720-b76b-46265feb643c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Vellum\State\FIRE">
+      <UniqueIdentifier>{9d8049c0-061a-43f8-af65-61c50a14ece6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +318,9 @@
     <ClInclude Include="..\Header\CSpinState.h">
       <Filter>04. GameObjects\Vellum\State\SPIN</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CFireState.h">
+      <Filter>04. GameObjects\Vellum\State\FIRE</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -463,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSpinState.cpp">
       <Filter>04. GameObjects\Vellum\State\SPIN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFireState.cpp">
+      <Filter>04. GameObjects\Vellum\State\FIRE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
