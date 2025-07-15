@@ -1,7 +1,10 @@
 #pragma once
 #include "CCube.h"
 
-
+struct MetalZone {
+	_vec3 _min;
+	_vec3 _max;
+};
 
 namespace Engine {
 	class CCollider;
@@ -9,6 +12,7 @@ namespace Engine {
 	class CPickTarget;
 }
 class CMagneticCube;
+class CMainPlayer;
 
 class CMetalCube : public CCube
 {
@@ -28,7 +32,8 @@ public:
 	static CMetalCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
-	void MovetoMagnetic(CMagneticCube* parentMagnet);
+	void GluetoMagnetic(CMagneticCube* parentMagnet, const _float& fTimeDelta);
+	void DetectMagnet(const _float& fTimeDelta);
 	//Getter, Setter Function
 
 private:
@@ -36,7 +41,12 @@ private:
 	//Variables
 	CCollider* m_pCollider;
 	CRigidBody* m_pRigid;
+	CMainPlayer* m_pPlayer;
 
+	MetalZone	m_MZone;
+	CGameObject* m_pPickObj;
+	CMagneticCube* m_pPickMagnet;
 	CMagneticCube* m_pParentMagnet;
+	vector<CMagneticCube*> m_vecDetectedMagnets;
 };
 

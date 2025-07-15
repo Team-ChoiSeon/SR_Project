@@ -212,8 +212,8 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 		if (auto comp = obj->Get_Component<CCamera>()) {
 			const auto& jTrans = jComponents["CCamera"];
 			comp->Set_Fov(jTrans["fov"]);
-			comp->Set_Near(jTrans["zNear"]);
-			comp->Set_Far(jTrans["zFar"]);
+			comp->Set_Near(jTrans["near"]);
+			comp->Set_Far(jTrans["far"]);
 		}
 	}
 

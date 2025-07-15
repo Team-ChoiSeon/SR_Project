@@ -118,9 +118,6 @@
     <Filter Include="04. GameObjects\Cube\MagneticCube">
       <UniqueIdentifier>{268a6416-a668-437e-a8ab-af206d52300c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\Cube\MetaCube">
-      <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObjects\TestUI\Loding">
       <UniqueIdentifier>{ec8c747c-e3c2-4a60-8675-375d384ccfe2}</UniqueIdentifier>
     </Filter>
@@ -135,6 +132,9 @@
     </Filter>
     <Filter Include="04. GameObjects\SceneTrigger\PlayerTriggerCube">
       <UniqueIdentifier>{c975fd68-2a60-4c8f-a3bd-9af2138f8125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\MetalCube">
+      <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -259,7 +259,7 @@
       <Filter>04. GameObjects\Cube\MagneticCube</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CMetalCube.h">
-      <Filter>04. GameObjects\Cube\MetaCube</Filter>
+      <Filter>04. GameObjects\Cube\MetalCube</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CImageUIObject.h">
       <Filter>04. GameObjects\TestUI</Filter>
@@ -393,7 +393,7 @@
       <Filter>04. GameObjects\Cube\MagneticCube</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMetalCube.cpp">
-      <Filter>04. GameObjects\Cube\MetaCube</Filter>
+      <Filter>04. GameObjects\Cube\MetalCube</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CImageUIObject.cpp">
       <Filter>04. GameObjects\TestUI</Filter>

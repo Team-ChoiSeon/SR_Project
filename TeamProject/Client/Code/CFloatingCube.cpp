@@ -36,11 +36,17 @@ HRESULT CFloatingCube::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
+	m_pRigid->Set_Friction(0.f);
+	m_pRigid->Set_Mass(10.f);
+	m_pRigid->Set_Bounce(0.f);
+	m_pRigid->Set_OnGround(true);
+	m_pRigid->Set_UseGravity(false);
 
-	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, Get_Component<CRigidBody>());
+	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 	m_pCollider->Set_ColTag(ColliderTag::GROUND);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
+	m_pCollider->Set_BoundType(BoundingType::OBB);
 
 	m_bGoBack = false;	
 	m_bBackward = false;

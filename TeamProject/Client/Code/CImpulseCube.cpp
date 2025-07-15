@@ -37,12 +37,18 @@ HRESULT CImpulseCube::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
+	m_pRigid->Set_OnGround(false);
+	m_pRigid->Set_UseGravity(true);
+	m_pRigid->Set_Bounce(0.9f);
+	m_pRigid->Set_Friction(0.1f);
+	m_pRigid->Set_Mass(1.f);
 
 
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 	m_pCollider->Set_ColTag(ColliderTag::NONE);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
+	m_pCollider->Set_BoundType(BoundingType::OBB);
 
 
 
@@ -53,27 +59,20 @@ HRESULT CImpulseCube::Ready_GameObject()
 
 _int CImpulseCube::Update_GameObject(const _float& fTimeDelta)
 {
-	//for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-	//	pComponent.second->Update_Component(fTimeDelta);
-
 	CGameObject::Update_GameObject(fTimeDelta);
 
-	//if (m_pRigid->Get_OnGround())
-	//{
-	//	m_pRigid->Add_Velocity({ 0.f, 10.f, 0.f });
-	//}
 
-	CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
-		// 간단한 GUI 창 하나 출력
-		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-		if (m_pRigid->Get_OnGround()) {
-			ImGui::Begin("on Ground");
-		}
-		else {
-			ImGui::Begin("not on Ground");
-		}
-		ImGui::End();
-		});
+	//CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
+	//	// 간단한 GUI 창 하나 출력
+	//	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+	//	if (m_pRigid->Get_OnGround()) {
+	//		ImGui::Begin("on Ground");
+	//	}
+	//	else {
+	//		ImGui::Begin("not on Ground");
+	//	}
+	//	ImGui::End();
+	//	});
 	return S_OK;
 }
 

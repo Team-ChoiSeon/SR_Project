@@ -39,7 +39,7 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
-	pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	//pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_SHADOW)])
 		renderer->Render(pDevice);

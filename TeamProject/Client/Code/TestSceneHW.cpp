@@ -26,8 +26,9 @@
 #include "CSceneMgr.h"
 #include "CSlotSensor.h"
 #include "CSlotCube.h"
-#include "CImpulseCube.h"
-
+#include "CPickSwitch.h"
+#include "Engine_GUI.h"
+#include "CGuiSystem.h"
 
 TestSceneHW::TestSceneHW(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CScene(pGraphicDev)
@@ -42,58 +43,36 @@ HRESULT TestSceneHW::Ready_Scene()
 {
 	CUiMgr::Get_Instance()->Ready_UiMgr();
 	Init_Layers();
-	CFactory::DeSerializeScene(L"../../Scene/Test_6.json", this);
+	CFactory::DeSerializeScene(L"../../Scene/hwtest_1.json", this);
 
-	m_pFFCam = FFCam::Create(m_pGraphicDev);
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1");
-	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"FFCam", m_pFFCam);
-	//m_pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 100.f, 10.f });
+	m_pPlayer->Get_Component<CTransform>()->Set_Pos({0, -8, -40});
+	m_pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
+	m_pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
+
+	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
+
+	m_pFFCam = Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"CFirstviewFollowingCamera_1");
+	m_pFFCam->Set_Target(m_pPlayer);
+	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
+
+	m_pFloatingCube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_1");
 
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
 	Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1")->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
 
+	m_pDirectionalCube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1");
+	m_pDirectionalCube->Set_Info(m_pDirectionalCube->Get_Component<CTransform>()->Get_Pos(), { 0, 1, 0 }, 0.f,  7.f);
+	m_pFloatingCube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_1");
+	m_pFloatingCube->Set_Info(m_pFloatingCube->Get_Component<CTransform>()->Get_Pos(), { 1, 0, 0 }, 20.f, 3.f, 0.f);
+	m_pFloatingCube->Set_Loop();
+
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_1")->Set_Info(m_pPlayer, 0, 1);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_2")->Set_Info(m_pPlayer, 0, 2);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_3")->Set_Info(m_pPlayer, 0, 3);
-
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Set_Info(m_pPlayer, 0, 1);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_2")->Set_Info(m_pPlayer, 0, 2);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_3")->Set_Info(m_pPlayer, 0, 3);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::NONE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_2")->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_2")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::NONE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_3")->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_3")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::NONE);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Get_Component<CRigidBody>()->Set_Mass(0.f);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Get_Component<CRigidBody>()->Set_UseGravity(false);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Get_Component<CRigidBody>()->Set_OnGround(false);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_2")->Get_Component<CRigidBody>()->Set_UseGravity(false);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_2")->Get_Component<CRigidBody>()->Set_OnGround(true);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_3")->Get_Component<CRigidBody>()->Set_UseGravity(true);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_3")->Get_Component<CRigidBody>()->Set_OnGround(true);
-	
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Get_Component<CTransform>()->Set_Pos({ 0, 700, 10 });
 
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CImpulseCube>(L"CImpulseCube_1")->Get_Component<CRigidBody>()->Set_UseGravity(true);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CImpulseCube>(L"CImpulseCube_1")->Get_Component<CRigidBody>()->Set_OnGround(false);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CImpulseCube>(L"CImpulseCube_2")->Get_Component<CRigidBody>()->Set_UseGravity(true);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CImpulseCube>(L"CImpulseCube_2")->Get_Component<CRigidBody>()->Set_OnGround(false);
-
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CImpulseCube>(L"CImpulseCube_1")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::NONE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CImpulseCube>(L"CImpulseCube_1")->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CImpulseCube>(L"CImpulseCube_2")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::NONE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CImpulseCube>(L"CImpulseCube_2")->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CImpulseCube>(L"CImpulseCube_1")->Get_Component<CTransform>()->Set_Pos({0,10,0});
-	m_pFFCam->Set_Target(m_pPlayer);
-	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
-
-	m_pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
-
-	
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
-	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
-	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 
 	return S_OK;
 }
@@ -114,14 +93,26 @@ TestSceneHW* TestSceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 {
+	m_pFloatingCube->SetTrigger(Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch_1")->Get_SwitchState());
+
 	CScene::Update_Scene(fTimeDelta);
 
+
+	CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
+		// 간단한 GUI 창 하나 출력
+		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+		ImGui::Begin("IMGUI");
+		ImGui::Text(to_string(m_pFloatingCube->Get_Component<CTransform>()->Get_Pos().y).c_str());
+		ImGui::End();
+		});
 	//===========================================================================================================//
 	//Debugging Codes
 
+	_vec3 playerpos = m_pPlayer->GetPos();
 
-
-
+	wchar_t buf1[128];
+	swprintf_s(buf1, 128, L"Player Pos : %.3f, %.3f, %.3f\n", playerpos.x, playerpos.y, playerpos.z);
+	OutputDebugStringW(buf1);
 
 	//===========================================================================================================//
 
@@ -141,11 +132,7 @@ void TestSceneHW::LateUpdate_Scene(const _float& fTimeDelta)
 void TestSceneHW::Free()
 {
 	Clear_Layers();
-	CPickingMgr::Destroy_Instance();
-	CUiMgr::Destroy_Instance();
-	CResourceMgr::Destroy_Instance();
 
 	CScene::Free();
-
 }
 
