@@ -22,9 +22,7 @@ HRESULT CGuiSystem::Ready_GUI(HWND hwnd)
 	IMGUI_CHECKVERSION();
 
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.DisplaySize = ImVec2(static_cast<float>(WINCX), static_cast<float>(WINCY));
-
+	ImGuiIO& io = ImGui::GetIO();
 	ImFont* bigFont = io.Fonts->AddFontFromFileTTF("../../ThirdParty/NanumSquareNeo-cBd.ttf", 
 		24.0f, nullptr, io.Fonts->GetGlyphRangesKorean()); // Å« ÆùÆ®
 
@@ -48,9 +46,26 @@ HRESULT CGuiSystem::Ready_GUI(HWND hwnd)
 
 void CGuiSystem::Render_GUI()
 {
+
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);
+	ImGui::SetNextWindowSize(ImVec2(100, 40), ImGuiCond_Always);
+
+	ImGui::Begin("FPSWindow", nullptr,
+		ImGuiWindowFlags_NoTitleBar |
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoScrollbar |
+		ImGuiWindowFlags_NoSavedSettings |
+		ImGuiWindowFlags_AlwaysAutoResize);
+
+	ImGui::Text("FPS: %d", (int)ImGui::GetIO().Framerate);
+
+	ImGui::End();
+
 
 	for (auto& pair : m_PanelContainer)
 	{

@@ -28,8 +28,6 @@ SceneBG::~SceneBG()
 HRESULT SceneBG::Ready_Scene()
 {
 	Init_Layers();
-	CFactory::DeSerializeScene(L"../../Scene/Merge_Scene.json", this);
-	//CFactory::DeSerializeScene(L"../../Scene/Jahyeon.json", this);
 
 	//플레이어 셋
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"MainPlayer");
@@ -67,9 +65,7 @@ _int SceneBG::Update_Scene(const _float& fTimeDelta)
 void SceneBG::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CScene::LateUpdate_Scene(fTimeDelta);
-	CGuiSystem::Get_Instance()->RegisterPanel("test", [this]() {
-		Test_Panel();
-	});
+
 }
 
 void SceneBG::TileLayer_Set()
@@ -147,12 +143,12 @@ SceneBG* SceneBG::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneBG* pScene = new SceneBG(pGraphicDev);
 
-	if (FAILED(pScene->Ready_Scene()))
-	{
-		Safe_Release(pScene);
-		MSG_BOX("SceneBG Create Failed");
-		return nullptr;
-	}
+	//if (FAILED(pScene->Ready_Scene()))
+	//{
+	//	Safe_Release(pScene);
+	//	MSG_BOX("SceneBG Create Failed");
+	//	return nullptr;
+	//}
 
 	return pScene;
 }

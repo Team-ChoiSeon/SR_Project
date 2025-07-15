@@ -33,6 +33,7 @@ CGameObject* CFactory::Create(const wstring& className, LPDIRECT3DDEVICE9 pGraph
 		return it->second(pGraphicDev); // 함수 호출
 	return nullptr;
 }
+
 void CFactory::Save_Prefab(CGameObject* object, const string& className)
 {
 	if (!object)

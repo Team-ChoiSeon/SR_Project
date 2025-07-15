@@ -10,6 +10,7 @@
 #include "CSoundMgr.h"
 
 #include "CSceneMgr.h"
+#include "SceneLoding.h"
 #include "CScene.h"
 #include "Logo.h"
 
@@ -57,10 +58,14 @@ HRESULT CMainApp::Ready_MainApp()
 	// CameraMgr, LightMgr, CollisionMgr 초기화는 필요시 추가
 	CSoundMgr::Get_Instance()->Ready_Sound();
 
-	m_pScene = Logo::Create(m_pGraphicDev);
-	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
 	//CSoundMgr::Get_Instance()->Play("test", "BGM");
-	
+
+	//First Scene Setting
+	m_pScene = Logo::Create(m_pGraphicDev);
+	CSceneMgr::Get_Instance()->Ready_SceneManager(m_pScene);
+	SceneLoding* loadingScene = SceneLoding::Create(m_pGraphicDev);
+	//Loading Scene Setting
+	CSceneMgr::Get_Instance()->Set_LoadingScene(loadingScene);
 	CGuiSystem::Get_Instance()->Ready_GUI(g_hWnd);
 	return S_OK;
 }
@@ -139,6 +144,7 @@ void CMainApp::Free()
 	//5. GUI 시스템(디버그)
 	CGuiSystem::Get_Instance()->Destroy_Instance();
 
-	Safe_Release(m_pGraphicDev);
+	Safe_Release(m_pScene);
+	Safe_Release(m_pDeviceClass);
 	Safe_Release(m_pDeviceClass);
 }

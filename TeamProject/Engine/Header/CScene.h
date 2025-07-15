@@ -37,6 +37,8 @@ public:
 
 	virtual	void	Exit_Scene();
 
+	virtual HRESULT LoadScene(CScene* from, CScene* to);
+	virtual const wstring Get_ScenePath() { return L""; };
 protected:
 	unordered_map<LAYERID, CLayer*>			m_umLayer;
 	LPDIRECT3DDEVICE9						m_pGraphicDev;
