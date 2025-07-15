@@ -135,6 +135,18 @@
     </Filter>
     <Filter Include="04. GameObjects\Cube\MetalCube">
       <UniqueIdentifier>{b184ccbc-90e5-48c9-90be-ed8585b389a6}</UniqueIdentifier>
+     </Filter>
+    <Filter Include="04. GameObjects\Vellum\State">
+      <UniqueIdentifier>{2cfdc824-f120-42a7-bbed-99129ef1662c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Vellum\State\IDLE">
+      <UniqueIdentifier>{58af0757-4f44-457a-ad31-f2ec33a5fcf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Vellum\State\CHASE">
+      <UniqueIdentifier>{c97e5306-c55c-4d2e-9740-9e82244171a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Vellum\State\DIVE">
+      <UniqueIdentifier>{0a224f01-9ad8-47d0-964d-ee10334b66a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +291,18 @@
     <ClInclude Include="..\Header\CPlayerTriggerCube.h">
       <Filter>04. GameObjects\SceneTrigger\PlayerTriggerCube</Filter>
     </ClInclude>
+    <ClInclude Include="IVellumState.h">
+      <Filter>04. GameObjects\Vellum\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CIdleState.h">
+      <Filter>04. GameObjects\Vellum\State\IDLE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CChaseState.h">
+      <Filter>04. GameObjects\Vellum\State\CHASE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDiveState.h">
+      <Filter>04. GameObjects\Vellum\State\DIVE</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -412,6 +436,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPlayerTriggerCube.cpp">
       <Filter>04. GameObjects\SceneTrigger\PlayerTriggerCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CIdleState.cpp">
+      <Filter>04. GameObjects\Vellum\State\IDLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CChaseState.cpp">
+      <Filter>04. GameObjects\Vellum\State\CHASE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDiveState.cpp">
+      <Filter>04. GameObjects\Vellum\State\DIVE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,12 +1,15 @@
 #pragma once
 #include "pch.h"
 #include "CVellum.h"
+
+#include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCollider.h"
 
-
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
+
+#include "CIdleState.h"
 
 #include "CFactory.h"
 
@@ -47,15 +50,15 @@ HRESULT CVellum::Ready_GameObject()
         CMonsterPart* pPart = CMonsterPart::Create(m_pGraphicDev);
         if (!pPart)
         {
-            MSG_BOX("Vellum ∆ƒ√˜ ª˝º∫ Ω«∆–");
+            MSG_BOX("Vellum ÌååÏ∏† ÏÉùÏÑ± Ïã§Ìå®");
             return E_FAIL;
         }
 
-        // ∆ƒ√˜ ¿ßƒ° √ ±‚»≠ (º±«¸ πËø≠ «¸≈¬)
+        // ÌååÏ∏† ÏúÑÏπò Ï¥àÍ∏∞Ìôî (ÏÑ†Ìòï Î∞∞Ïó¥ ÌòïÌÉú)
         _vec3 partPos = { 0.f, 20.f - 2.f * i, 0.f };
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
-        // æ’ ∆ƒ√˜∏¶ µ˚∂Û∞°∞‘ ø¨∞·
+        // Ïïû ÌååÏ∏†Î•º Îî∞ÎùºÍ∞ÄÍ≤å Ïó∞Í≤∞
         if (pPrev)
             pPart->Set_Target(pPrev);
         
@@ -64,45 +67,35 @@ HRESULT CVellum::Ready_GameObject()
         pPrev = pPart;
     }
 
-    //m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-
     CFactory::Save_Prefab(this, "CVellum");
+    // Ìó§Îìú Ï†ïÎ≥¥ ÏÑ§Ï†ï
+    m_pTransform = m_vPart[0]->Get_Component<CTransform>();
+    m_pRigid = m_vPart[0]->Get_Component<CRigidBody>();
+    m_pCol = m_vPart[0]->Get_Component<CCollider>();
+
+    m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
+
+    // IDLE ÏÉÅÌÉú ÏßÑÏûÖ
+    m_pState = new CIdleState();
+    m_pState->Enter(this);
 	return CGameObject::Ready_GameObject();;
 }
 
 int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
-    if (m_vPart.empty())
-        return -1;
-
-    // ∏”∏Æ ¡§∫∏
-    CTransform* pHeadTransform = m_vPart[0]->Get_Component<CTransform>();
-    CRigidBody* pHeadRigid = m_vPart[0]->Get_Component<CRigidBody>();
     
-    switch (m_eCurPattern)
-    {
-    case VPattern::CHASE:
-        Chase(fTimeDelta, pHeadTransform, pHeadRigid);
-        break;
-    case VPattern::DIVE:
-        Dive(fTimeDelta, pHeadTransform, pHeadRigid);
-        break;
-    }
+    if (m_vPart.empty()) return -1;
 
-    Update_Pattern(fTimeDelta);
+    if (m_pState)
+        m_pState->Update(fTimeDelta, this);
 
     Key_Input(fTimeDelta);
-    for (int i = 1; i < m_iPartCnt; i++)
-    {
-        /*Snake_Curve(fTimeDelta, m_vPart[i]->Get_Component<CTransform>(), i);*/
-    }
+
 	CGameObject::Update_GameObject(fTimeDelta);
     for (auto* pPart : m_vPart)
     {
         pPart->Update_GameObject(fTimeDelta);
     }
-        
-
 
 	return 0;
 }
@@ -115,236 +108,67 @@ void CVellum::LateUpdate_GameObject(const _float& fTimeDelta)
 }
 
 
-
 void CVellum::Free()
 {
+    Safe_Delete(m_pState);
+
+    m_pTransform = nullptr;
+    m_pRigid = nullptr;
+    m_pCol = nullptr;
+
     for (auto* pPart : m_vPart)
         Safe_Release(pPart);
-
     m_vPart.clear();
 
     CGameObject::Free();
-
 }
 
-void CVellum::Update_Pattern(const _float& fTimeDelta)
+
+void CVellum::Change_Pattern(IVellumState* pState)
 {
-    m_fPatternTime += fTimeDelta;
-
-    if (m_eCurPattern == VPattern::DIVE && m_bPattern)
-        return;
-
-    // ∆–≈œ ¡æ∑· Ω√
-    if (m_bPattern && m_fPatternTime > m_fSwitchTime)
+    // Í∏∞Ï°¥ ÏÉÅÌÉúÍ∞Ä ÏûàÎã§Î©¥ Exit Ìï®ÏàòÎ•º Ìò∏Ï∂ú
+    if (m_pState) 
     {
-        if (!m_vPart.empty())
-        {
-
-            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-            m_vPart[0]->Get_Component<CRigidBody>()->Set_Velocity(_vec3(0.f, 0.f, 0.f));
-            m_vPart[0]->Get_Component<CRigidBody>()->Set_AVelocity(_vec3(0.f, 0.f, 0.f));
-        }
-
-        m_bPattern = false;
-        m_fPatternTime = 0.f;
-        m_fSwitchTime = 3.f;    // ¥Ÿ¿Ω ∆–≈œ±Ó¡ˆ¿« ¿Œ≈Õπ˙
-
-        return;
+        m_pState->Exit(this);
+        Safe_Delete(m_pState);
     }
 
-    // ∆–≈œ º≥¡§ π◊ µπ¿‘
-    if (!m_bPattern && m_fPatternTime >= m_fSwitchTime)
-    {
-        m_bPattern = true;
-        m_fPatternTime = 0.f;
-
-        m_eCurPattern = static_cast<VPattern>(rand() % 2);
-        
-        // ∆–≈œ ¿Áª˝ Ω√∞£
-        switch (m_eCurPattern)
-        {
-        case VPattern::CHASE:
-            m_fSwitchTime = 3.f;
-            break;
-        case VPattern::DIVE:
-            m_fSwitchTime = FLT_MAX;  // ∆–≈œ¿Ã ≥°≥Ø∂ß ±Ó¡ˆ
-            // 
-            if (m_eDPhase == DivePhase::None)
-                m_vPart[0]->Get_Component<CRigidBody>()->Set_Velocity(_vec3(0.f, 10.f, 0.f));
-            
-            m_eDPhase = DivePhase::Ready;
-            break;
-        }
-
-        
-
-        if (!m_vPart.empty())
-            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
-
-        switch (m_eCurPattern)
-        {
-        case VPattern::CHASE:  OutputDebugString(L"∆–≈œ: CHASE\n"); break;
-        case VPattern::DIVE:  OutputDebugString(L"∆–≈œ: DIVE\n"); break;
-        }
-    }
+    m_pState = pState;
+    if (m_pState)  m_pState->Enter(this);
 }
 
 
 
-void CVellum::Chase(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid)
-{
-    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-    if (!pPlayer) return;
-
-    _vec3 myPos = pTransform->Get_Pos();
-    _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
-    _vec3 dir = playerPos - myPos;
-
-    D3DXVec3Normalize(&dir, &dir);
-
-    pTransform->Set_Look(dir);
-    pRigid->Add_Torque(dir * 30.f);
-    pRigid->Add_Force(dir * 5.f);
-}
-
-void CVellum::Dive(const _float& fTimeDelta, CTransform* pTransform, CRigidBody* pRigid)
-{
-
-    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-    if (!pPlayer || !pTransform || !pRigid)
-        return;
-
-    _vec3 myPos = pTransform->Get_Pos();
-    _vec3 playerPos = pPlayer->Get_Component<CTransform>()->Get_Pos();
-    _vec3 diff = playerPos - myPos;
-    diff.y = 0.f;
-    _float fDist = D3DXVec3Length(&diff);
-    D3DXVec3Normalize(&diff, &diff);
-
-    switch (m_eDPhase)
-    {
-    // force °Ê phase = DiveIn;
-    case DivePhase::Ready:
-        if (fDist < 5.f)
-        {
-            pRigid->Set_Accel({ 0.f,0.f,0.f });
-            pRigid->Set_Velocity({ 0.f,0.f,0.f });
-            m_fSearch = 0.f;
-            m_eDPhase = DivePhase::In;
-            OutputDebugString(L"Ready->In\n");
-        }
-        m_fSearch += fTimeDelta;
-        if (m_fSearch > 1.f)
-        {
-            pRigid->Set_Accel({ 0.f,0.f,0.f });
-            pRigid->Set_Velocity({ 0.f,0.f,0.f });
-            m_fSearch = 0.f;
-        }
-
-        pRigid->Add_Force(diff * 10.f);
-        break;
-
-     // µµ¥ﬁ √º≈© °Ê phase = Wait;
-    case DivePhase::In:
-        if (pTransform->Get_Pos().y < -5.f)
-        {
-            pRigid->Set_Accel({ 0.f,0.f,0.f });
-            pRigid->Set_Velocity({ 0.f,0.f,0.f });
-            m_eDPhase = DivePhase::Wait;
-            OutputDebugString(L"In->Wait\n");
-        }
-        pRigid->Add_Force({ 0.f,-1.f * 15.f, 0.f });
-        break;
-
-    // Ω√∞£ ∞Ê∞˙ °Ê phase = DiveOut;
-    case DivePhase::Wait:
-        if (fDist < 5.f)
-        {
-            pRigid->Set_Accel({ 0.f,0.f,0.f });
-            pRigid->Set_Velocity({ 0.f,0.f,0.f });
-            m_eDPhase = DivePhase::Out;
-            m_fSearch = 0.f;
-            OutputDebugString(L"Wait->Out\n");
-        }
-        m_fSearch += fTimeDelta;
-        if (m_fSearch > 1.f)
-        {
-            pRigid->Set_Accel({ 0.f,0.f,0.f });
-            pRigid->Set_Velocity({ 0.f,0.f,0.f });
-            m_fSearch = 0.f;
-        }
-
-        pRigid->Add_Force(diff * 10.f);
-        break;
-
-    // ªÛΩ¬ øœ∑· °Ê phase = Ready, m_bPattern = false;
-    case DivePhase::Out:
-        if (pTransform->Get_Pos().y > 15.f)
-        {
-            pRigid->Set_Accel({ 0.f,0.f,0.f });
-            pRigid->Set_Velocity({ 0.f,0.f,0.f });
-            m_eDPhase = DivePhase::None;
-            m_vPart[0]->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
-            OutputDebugString(L"Out->None\n");
-
-            m_bPattern = false;
-            m_fPatternTime = 0.f;
-            m_fSwitchTime = 5.f; // ¥Ÿ¿Ω ∆–≈œ ¿Œ≈Õπ˙
-        }
-        pRigid->Add_Force({ 0.f,1.f * 15.f, 0.f });
-        break;
-        
-    }
-    
-}
-
-
-
-//void CVellum::Snake_Curve(const _float& fTimeDelta, CTransform* pTransform, int idx)
-//{
-//    m_fCurveTime += fTimeDelta;
-//
-//    const _float fAmp = 0.05f; // ¡¯∆¯
-//    const _float fFre = 0.1f;  // ¡¯µøºˆ
-//    
-//    _vec3 vPos = pTransform->Get_Pos();
-//    vPos.y += fAmp * sinf(fFre * m_fCurveTime + idx * 0.5f); // 0.5f : ¿ßªÛ offset
-//
-//    pTransform->Set_Pos(vPos);
-//
-//}
 
 void CVellum::Key_Input(const _float& fTimeDelta)
 {
     if (m_vPart.empty())
         return;
 
-    CTransform* pHeadTransform = m_vPart[0]->Get_Component<CTransform>();
-    CRigidBody* pRigid = m_vPart[0]->Get_Component<CRigidBody>();
-    if (!pHeadTransform || !pRigid)
+    if (!m_pTransform || !m_pRigid)
         return;
 
     const float speed = 10.0f;
-    _vec3 pos = pHeadTransform->Get_Pos();
+    _vec3 pos = m_pTransform->Get_Pos();
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_UP))
     {
-        pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); // 
+        m_pRigid->Add_Torque(_vec3(1.f, 0.f, 0.f) * 50.f); // 
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_DOWN))
     {
-        pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  
+        m_pRigid->Add_Torque(_vec3(-1.f, 0.f, 0.f) * 50.f); //  
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
     {
-        pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // 
+        m_pRigid->Add_Torque(_vec3(0.f, 0.f, 1.f) * 50.f); // 
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
     {
-        pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // 
+        m_pRigid->Add_Torque(_vec3(0.f, 0.f, -1.f) * 50.f); // 
     }
 
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD8)) // +Y
@@ -360,13 +184,13 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
-    //  ªË¡¶ : ∏ﬁ∏∏Æ ¥©ºˆ πﬂª˝«œ¥œ µ«µµ∑œ ªÁøÎ«œ¡ˆ ∏ª∞Õ
+    //  ÏÇ≠Ï†ú : Î©îÎ™®Î¶¨ ÎàÑÏàò Î∞úÏÉùÌïòÎãà ÎêòÎèÑÎ°ù ÏÇ¨Ïö©ÌïòÏßÄ ÎßêÍ≤É
     if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
     {
         m_vPart.clear();
     }
 
-    pHeadTransform->Set_Pos(pos); // ¿˚øÎ
+    m_pTransform->Set_Pos(pos); // Ï†ÅÏö©
 }
 
 REGISTER_GAMEOBJECT(CVellum)
