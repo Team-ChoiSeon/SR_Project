@@ -31,14 +31,15 @@ public:
 	CTransform*		Get_HTransform()	{ return m_pTransform; }
 	CRigidBody*		Get_HRigid()		{ return m_pRigid; }
 	CCollider*		Get_HCol()			{ return m_pCol; }
+	
 	CGameObject*	Get_Target()		{ return m_pTarget; }
-
+	const vector<CMonsterPart*> Get_Part() { return m_vPart; }
 
 public:
 	void Change_Pattern(IVellumState* pState);
 
 private:
-	int m_iPartCnt = 6;
+	int m_iPartCnt = 7;
 	vector<CMonsterPart*> m_vPart;
 
 	IVellumState* m_pState = nullptr;

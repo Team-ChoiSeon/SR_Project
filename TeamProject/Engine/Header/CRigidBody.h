@@ -57,6 +57,7 @@ public:
     _vec3 Get_Inertia() const { return m_fInertia; }
 
     void Stop_Motion() { Set_Accel({ 0.f,0.f,0.f }); Set_Velocity({ 0.f,0.f,0.f }); }
+    void Stop_AMotion() { Set_AAccel({ 0.f,0.f,0.f }); Set_AVelocity({ 0.f,0.f,0.f }); }
 
     virtual HRESULT Ready_Component()override { return S_OK; }
     void Update_Component(const _float& fDeltaTime) override;

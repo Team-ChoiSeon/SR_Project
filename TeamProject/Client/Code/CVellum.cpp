@@ -54,8 +54,8 @@ HRESULT CVellum::Ready_GameObject()
             return E_FAIL;
         }
 
-        // íŒŒì¸  ìœ„ì¹˜ ì´ˆê¸°í™” (ì„ í˜• ë°°ì—´ í˜•íƒœ)
-        _vec3 partPos = { 0.f, 20.f - 2.f * i, 0.f };
+        // ÆÄÃ÷ À§Ä¡ ÃÊ±âÈ­ (¼±Çü ¹è¿­ ÇüÅÂ)
+        _vec3 partPos = { 0.f, 30.f - 2.f * i, 0.f };
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
         // ì• íŒŒì¸ ë¥¼ ë”°ë¼ê°€ê²Œ ì—°ê²°
