@@ -67,7 +67,7 @@ HRESULT CVellum::Ready_GameObject()
         pPrev = pPart;
     }
 
-    CFactory::Save_Prefab(this, "CVellum");
+    
     // ?¤ë“œ ?•ë³´ ?¤ì •
     m_pTransform = m_vPart[0]->Get_Component<CTransform>();
     m_pRigid = m_vPart[0]->Get_Component<CRigidBody>();
@@ -78,6 +78,8 @@ HRESULT CVellum::Ready_GameObject()
     // IDLE ?íƒœ ì§„ìž…
     m_pState = new CIdleState();
     m_pState->Enter(this);
+
+    CFactory::Save_Prefab(this, "CVellum");
 	return CGameObject::Ready_GameObject();;
 }
 
