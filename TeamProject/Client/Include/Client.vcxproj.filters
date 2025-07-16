@@ -157,6 +157,9 @@
     <Filter Include="04. GameObjects\Vellum\State\FIRE">
       <UniqueIdentifier>{9d8049c0-061a-43f8-af65-61c50a14ece6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Projectile">
+      <UniqueIdentifier>{0a2554f9-dc36-48fb-8630-9d88a089771c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -321,6 +324,9 @@
     <ClInclude Include="..\Header\CFireState.h">
       <Filter>04. GameObjects\Vellum\State\FIRE</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CProjectile.h">
+      <Filter>04. GameObjects\Projectile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -472,6 +478,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CFireState.cpp">
       <Filter>04. GameObjects\Vellum\State\FIRE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CProjectile.cpp">
+      <Filter>04. GameObjects\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

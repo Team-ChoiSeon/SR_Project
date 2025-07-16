@@ -21,5 +21,6 @@ private:
     _vec3       m_vPos;                // 발사 시작 위치
     _vec3       m_vBasePos;
     _vec3       m_vDir;                // 발사 방향
+    bool        m_bFire = false;
 };
 
