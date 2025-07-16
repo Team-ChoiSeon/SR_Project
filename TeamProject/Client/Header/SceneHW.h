@@ -12,6 +12,8 @@ class CTestTile;
 class CPickSwitch;
 class CSlotCube;
 class CSlotSensor;
+class CMagneticCube;
+class CMetalCube;
 
 class SceneHW : public CScene
 {
@@ -29,6 +31,9 @@ public:
 	//Create, Release Function
 	static SceneHW* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void	Free();
+
+
+	virtual const wstring Get_ScenePath() { return L"../../Scene/empty.json"; }
 
 private:
 	//temp
@@ -49,8 +54,11 @@ private:
 	CSlotCube*							m_pSlotCube3;
 	CSlotSensor*						m_pSlotSensor;
 	CSlotSensor*						m_pSlotSensor2;
-	CSlotSensor*						m_pSlotSensor3;
+	CSlotSensor* m_pSlotSensor3;
+	CMagneticCube*						m_pTestmagnet;
+	CMetalCube*						m_pTestmetal;
 	_float								m_fTime;
 	bool								m_bCamPlayer;
+	_bool								m_bSceneFirst;
 };
 

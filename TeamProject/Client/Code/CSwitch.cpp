@@ -6,7 +6,7 @@
 CSwitch::CSwitch(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
-    CSoundMgr::Get_Instance()->Load_Sound("active", "../Bin/Resource/Sound/Active3.mp3");
+    //CSoundMgr::Get_Instance()->Load_Sound("active", "../Bin/Resource/Sound/Active3.mp3");
 }
 
 CSwitch::CSwitch(const CSwitch& rhs)
@@ -28,7 +28,7 @@ void CSwitch::SwitchOn(bool trigger)
             {
                 m_bPressed = true;
                 m_bButtonOn = !m_bButtonOn;
-                CSoundMgr::Get_Instance()->Play("active", "EFFECT", false);
+               //CSoundMgr::Get_Instance()->Play("active", "EFFECT", false);
             }
         }
         else
