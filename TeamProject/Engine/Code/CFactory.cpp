@@ -361,7 +361,7 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 	if (jComponents.contains("CParticle")) {
 		const auto& jParticle = jComponents["CParticle"];
 		if (auto particle = obj->Get_Component<CParticle>()) {
-			particle->Set_Spawn(jParticle.value("spawn_interval", 1.0f));
+			particle->Set_SpawnInterval(jParticle.value("spawn_interval", 1.0f));
 			particle->Set_MaxParticle(jParticle.value("max_particles", 100));
 			particle->Set_LifeTime(jParticle.value("life_time", 1.0f));
 			particle->Set_Size(jParticle.value("size", 1.0f));

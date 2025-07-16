@@ -43,17 +43,11 @@ HRESULT CParticle::Ready_Component()
 
 void CParticle::Update_Component(const _float& fTimeDelta)
 {
-
-	switch (m_iMovementType)
-	{
-	case 0: m_MoveType = PARTICLE_MOVE_TYPE::FIRE;break;
-	case 1: m_MoveType = PARTICLE_MOVE_TYPE::DUST;break;
-	}
-
+	//발사 위치 결정
 	if (m_pOwner)
 		m_vPos = m_pOwner->Get_Component<CTransform>()->Get_Pos() + m_vOffset;
 
-
+	//각 파티클 조정
 	for (auto& particle : m_vecParticles)
 	{
 		if (!particle.bActive) continue;
@@ -86,23 +80,44 @@ void CParticle::Update_Component(const _float& fTimeDelta)
 			particle.vVelocity.y -= 0.1f * fTimeDelta; // 중력
 			particle.fSize -= 0.1f * fTimeDelta;
 			break;
+		case PARTICLE_MOVE_TYPE::BREATH:
+			particle.vVelocity *= 0.9998; //감속
+			particle.fSize += 0.3f * fTimeDelta;
+			break;
+		case PARTICLE_MOVE_TYPE::SPREAD:
+			particle.fSize += 0.3f * fTimeDelta;
+			break;
+		case PARTICLE_MOVE_TYPE::RADIAL:
+			particle.fSize += 0.4f * fTimeDelta;
+			particle.vVelocity.y -= 0.1f * fTimeDelta; // 중력
+			break;
 		default:
 			break;
 		}
 
-		particle.vPos += particle.vVelocity * fTimeDelta;
+		particle.vPos += particle.vVelocity * m_fSpeed * fTimeDelta;
 	}
 }
 
-void CParticle::LateUpdate_Component(const _float& fTimeDelta)
+void CParticle::LateUpdate_Component(const _float& dt)
 {
+	m_fElapsedTime += dt;
 
-	m_fElapsedTime += fTimeDelta;
-	if (m_fElapsedTime >= m_fSpawnInterval)
+	if (!m_bLoop && m_eNowState == EMITTING)
+		m_fElapsedEmit += dt;
+
+	if (m_eNowState == PARTICLE_STATE::EMITTING && m_fElapsedTime >= m_fSpawnInterval)
 	{
 		Emit_Particle();
 		m_fElapsedTime = 0.f;
 	}
+
+	if (!m_bLoop && m_fElapsedEmit >= m_fEmitLife) {
+		m_eNowState = STOPPING;
+	}
+
+	if (m_eNowState == PARTICLE_STATE::STOPPING && Particle_Count() == 0)
+		m_eNowState = PARTICLE_STATE::NONEACTIVE;
 
 	CRenderMgr::Get_Instance()->Add_ParticleRenderer(this);
 }
@@ -193,38 +208,97 @@ void CParticle::Render_Particle()
 
 void CParticle::Emit_Particle()
 {
-	for (auto& particle : m_vecParticles)
-	{
-		if (!particle.bActive)
-		{
-			particle.bActive = true;
-			particle.fLifeTime = m_fLifeTime;
-			particle.fSize = m_fSize;
-			particle.fAge = 0;
-			particle.moveType = m_MoveType;
-			particle.color = m_BaseColor; // 주황 계열
 
-			switch (particle.moveType)
+	if (m_eNowState == STOPPING) return;
+
+	if (m_eMoveType == PARTICLE_MOVE_TYPE::RADIAL) {
+		int count = 0;
+		for (auto& particle : m_vecParticles) {
+			if (!particle.bActive)
 			{
-			case PARTICLE_MOVE_TYPE::FIRE:
-				particle.vVelocity = {
-					randRange(-0.6f, 0.6f),
-					randRange(1.0f, 2.0f),
-					randRange(-0.4f, 0.4f)
+				particle.bActive = true;
+				particle.fLifeTime = m_fLifeTime;
+				particle.fSize = m_fSize;
+				particle.fAge = 0;
+				particle.moveType = m_eMoveType;
+				particle.color = m_BaseColor; // 주황 계열
+				D3DXVECTOR3 dir = {
+				cosf(D3DXToRadian(m_fAngle)),
+				0.f,
+				sinf(D3DXToRadian(m_fAngle))
 				};
-				break;
-			case PARTICLE_MOVE_TYPE::DUST:
-				particle.vVelocity = {
-					randRange(-0.3f, 0.3f),
-					randRange(0.1f, 0.3f),
-					randRange(-0.3f, 0.3f)
-				};
-				break;
-			default:
-				break;
+
+				particle.vVelocity = dir * randRange(3.0f, 4.0f);
+
+				m_fAngle = (360.f / m_EmitCount) * count;
+
+				if (m_fAngle >= 360.f)
+					m_fAngle = 0.f;
+
+				count++;
 			}
 			particle.vPos = m_vPos; //오브젝트 위치
-			break; // 한 개만 emit
+
+			if (count >= m_EmitCount) break;
+		}
+	}
+	else {
+		for (auto& particle : m_vecParticles)
+		{
+			if (!particle.bActive)
+			{
+				particle.bActive = true;
+				particle.fLifeTime = m_fLifeTime;
+				particle.fSize = m_fSize;
+				particle.fAge = 0;
+				particle.moveType = m_eMoveType;
+				particle.color = m_BaseColor; // 주황 계열
+
+				switch (particle.moveType)
+				{
+				case PARTICLE_MOVE_TYPE::FIRE:
+					particle.vVelocity = {
+						randRange(-0.6f, 0.6f),
+						randRange(1.0f, 2.0f),
+						randRange(-0.4f, 0.4f)
+					};
+					break;
+				case PARTICLE_MOVE_TYPE::DUST:
+					particle.vVelocity = {
+						randRange(-0.3f, 0.3f),
+						randRange(0.1f, 0.3f),
+						randRange(-0.3f, 0.3f)
+					};
+					break;
+				case PARTICLE_MOVE_TYPE::BREATH:
+					particle.vVelocity = {
+						m_vVelocity.x * randRange(1.1f, 2.6f),
+						m_vVelocity.y * randRange(1.1f, 2.6f),
+						m_vVelocity.z * randRange(1.1f, 2.6f)
+					};
+					break;
+
+				case PARTICLE_MOVE_TYPE::SPREAD:
+				{
+					D3DXVECTOR3 dir = {
+						cosf(D3DXToRadian(m_fAngle)),
+						0.f,
+						sinf(D3DXToRadian(m_fAngle))
+					};
+
+					particle.vVelocity = dir * randRange(3.0f, 4.0f);
+
+					m_fAngle += (360.f / m_EmitCount);
+					if (m_fAngle >= 360.f)
+						m_fAngle = 0.f;
+					break;
+				}
+				default:
+					break;
+				}
+				particle.vPos = m_vPos; //오브젝트 위치
+				break; // 한 개만 emit
+			}
 		}
 	}
 }
@@ -248,6 +322,81 @@ float CParticle::randRange(float min, float max)
 {
 	float t = (float)rand() / (float)RAND_MAX; // 0.0f ~ 1.0f
 	return min + t * (max - min);
+}
+
+int CParticle::Particle_Count()
+{
+	int count = 0;
+	for (auto& p : m_vecParticles) {
+		if (p.bActive) ++count;
+	}
+
+	return count;
+}
+
+void CParticle::Request_Emit()
+{
+	m_fElapsedEmit = 0;
+	m_fElapsedTime = 0;
+	m_eNowState = EMITTING;
+	m_fAngle = 0;
+
+	for (auto& p : m_vecParticles)
+		p.bActive = false;
+}
+void CParticle::PreSet_Dust(int MaxCount, float Interval, float lifeTime)
+{
+	m_eMoveType == DUST;
+	Set_Size(MaxCount);
+	m_fSpawnInterval = Interval;
+	m_fLifeTime = lifeTime;
+}
+
+void CParticle::PreSet_Fire(int MaxCount, float Interval, float lifeTime)
+{
+	m_eMoveType == FIRE;
+	Set_Size(MaxCount);
+	m_fSpawnInterval = Interval;
+	m_fLifeTime = lifeTime;
+}
+
+void CParticle::PreSet_Breath(_vec3 dir, int MaxCount, float Interval, float lifeTime, float speed)
+{
+	m_eMoveType == BREATH;
+	Set_Size(MaxCount);
+	m_fSpawnInterval = Interval;
+	m_fLifeTime = lifeTime;
+	m_fSpeed = speed;
+}
+
+void CParticle::PreSet_Radial(int MaxCount,float lifeTime)
+{
+	m_eMoveType == RADIAL;
+	Set_Size(MaxCount);
+	m_fSpawnInterval = lifeTime;
+	m_fLifeTime = lifeTime;
+	m_EmitCount = MaxCount/3;
+}
+
+void CParticle::PreSet_Spread(int MaxCount, float Interval, float lifeTime, float speed)
+{
+	m_eMoveType == SPREAD;
+	Set_Size(MaxCount);
+	m_fSpawnInterval = Interval;
+	m_fLifeTime = lifeTime;
+	m_fSpeed = speed;
+}
+
+void CParticle::PreSet_Loop(_bool loop)
+{
+	m_bLoop = true;
+}
+
+void CParticle::PreSet_Single(float EmitTime)
+{
+	m_bLoop = false;
+	m_fElapsedEmit = 0.f;
+	m_fEmitLife = EmitTime;
 }
 
 void CParticle::Free()
