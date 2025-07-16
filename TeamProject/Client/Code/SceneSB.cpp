@@ -84,14 +84,6 @@ void SceneSB::LateUpdate_Scene(const _float& fTimeDelta)
 SceneSB* SceneSB::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneSB* pScene = new SceneSB(pGraphicDev);
-
-	if (FAILED(pScene->Ready_Scene()))
-	{
-		Safe_Release(pScene);
-		MSG_BOX("SceneSB Create Failed");
-		return nullptr;
-	}
-
 	return pScene;
 }
 

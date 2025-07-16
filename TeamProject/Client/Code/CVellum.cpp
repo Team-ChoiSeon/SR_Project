@@ -50,7 +50,7 @@ HRESULT CVellum::Ready_GameObject()
         CMonsterPart* pPart = CMonsterPart::Create(m_pGraphicDev);
         if (!pPart)
         {
-            MSG_BOX("Vellum 파츠 생성 실패");
+            MSG_BOX("Vellum ?�츠 ?�성 ?�패");
             return E_FAIL;
         }
 
@@ -58,7 +58,7 @@ HRESULT CVellum::Ready_GameObject()
         _vec3 partPos = { 0.f, 30.f - 2.f * i, 0.f };
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
-        // 앞 파츠를 따라가게 연결
+        // ???�츠�??�라가�??�결
         if (pPrev)
             pPart->Set_Target(pPrev);
         
@@ -68,14 +68,14 @@ HRESULT CVellum::Ready_GameObject()
     }
 
     CFactory::Save_Prefab(this, "CVellum");
-    // 헤드 정보 설정
+    // ?�드 ?�보 ?�정
     m_pTransform = m_vPart[0]->Get_Component<CTransform>();
     m_pRigid = m_vPart[0]->Get_Component<CRigidBody>();
     m_pCol = m_vPart[0]->Get_Component<CCollider>();
 
     m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
 
-    // IDLE 상태 진입
+    // IDLE ?�태 진입
     m_pState = new CIdleState();
     m_pState->Enter(this);
 	return CGameObject::Ready_GameObject();;
@@ -126,7 +126,7 @@ void CVellum::Free()
 
 void CVellum::Change_Pattern(IVellumState* pState)
 {
-    // 기존 상태가 있다면 Exit 함수를 호출
+    // 기존 ?�태가 ?�다�?Exit ?�수�??�출
     if (m_pState) 
     {
         m_pState->Exit(this);
@@ -139,6 +139,11 @@ void CVellum::Change_Pattern(IVellumState* pState)
 
 
 
+
+void CVellum::On_Hit(const _vec3& hitpos)
+{
+
+}
 
 void CVellum::Key_Input(const _float& fTimeDelta)
 {
@@ -184,13 +189,13 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
-    //  삭제 : 메모리 누수 발생하니 되도록 사용하지 말것
+    //  ??�� : 메모�??�수 발생?�니 ?�도�??�용?��? 말것
     if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
     {
         m_vPart.clear();
     }
 
-    m_pTransform->Set_Pos(pos); // 적용
+    m_pTransform->Set_Pos(pos); // ?�용
 }
 
 REGISTER_GAMEOBJECT(CVellum)
