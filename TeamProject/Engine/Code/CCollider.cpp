@@ -418,20 +418,20 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 	return true;
 }
 
+//void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+//{
+//	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
+//		return;
+//
+//	// 위쪽에서 눌렀는지 확인
+//	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
+//	{
+//		m_pRigid->Set_OnGround(true);
+//	}
+//}
+
+
 void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
-{
-	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
-		return;
-
-	// 위쪽에서 눌렀는지 확인
-	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
-	{
-		m_pRigid->Set_OnGround(true);
-	}
-}
-
-/*
-* void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 {
 	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
 		return;
@@ -444,12 +444,12 @@ void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 	_vec3 vUp = { 0.f,1.f,0.f };
 	_float fDot = D3DXVec3Dot(&vPush, &vUp);
 
-	if (fDot < cosf(D3DX_PI / 6.f))
+	if (fDot > 0.5f)
 	{
 		m_pRigid->Set_OnGround(true);
 	}
 }
-*/
+
 
 
 void CCollider::Free()
