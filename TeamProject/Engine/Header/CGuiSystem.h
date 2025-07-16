@@ -35,7 +35,6 @@ private:
     LPDIRECT3DDEVICE9 m_pDevice;
     unordered_map<string, PANEL> m_PanelContainer;
     unordered_map<string, ImFont*> m_fontContainer;
-
 private:
     void Free();
 

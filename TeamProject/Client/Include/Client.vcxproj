@@ -157,6 +157,7 @@
     <ClInclude Include="..\Header\CCinematicCamera.h" />
     <ClInclude Include="..\Header\CDollyCamera.h" />
     <ClInclude Include="..\Header\CDiveState.h" />
+    <ClInclude Include="..\Header\CFireState.h" />
     <ClInclude Include="..\Header\CIdleState.h" />
     <ClInclude Include="..\Header\CMetalCube.h" />
     <ClInclude Include="..\Header\CImageUIObject.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="..\Header\CPlayerTriggerCube.h" />
     <ClInclude Include="..\Header\CProgressBar.h" />
     <ClInclude Include="..\Header\CSlotSensor.h" />
+    <ClInclude Include="..\Header\CSpinState.h" />
     <ClInclude Include="..\Header\CZoneSensor.h" />
     <ClInclude Include="..\Header\CSensor.h" />
     <ClInclude Include="..\Header\CSlotCube.h" />
@@ -211,6 +213,7 @@
     <ClCompile Include="..\Code\CCinematicCamera.cpp" />
     <ClCompile Include="..\Code\CDollyCamera.cpp" />
     <ClCompile Include="..\Code\CDiveState.cpp" />
+    <ClCompile Include="..\Code\CFireState.cpp" />
     <ClCompile Include="..\Code\CIdleState.cpp" />
     <ClCompile Include="..\Code\CMetalCube.cpp" />
     <ClCompile Include="..\Code\CImageUIObject.cpp" />
@@ -218,6 +221,7 @@
     <ClCompile Include="..\Code\CPlayerTriggerCube.cpp" />
     <ClCompile Include="..\Code\CProgressBar.cpp" />
     <ClCompile Include="..\Code\CSlotSensor.cpp" />
+    <ClCompile Include="..\Code\CSpinState.cpp" />
     <ClCompile Include="..\Code\CZoneSensor.cpp" />
     <ClCompile Include="..\Code\CSensor.cpp" />
     <ClCompile Include="..\Code\CSlotCube.cpp" />

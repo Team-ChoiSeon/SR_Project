@@ -80,7 +80,7 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	aabb.vMin = m_tAABB.vMin + m_tAABBOff.vMin;
 	aabb.vMax = m_tAABB.vMax + m_tAABBOff.vMax;
 
-	// 8°³ÀÇ ·ÎÄÃ ²ÀÁþÁ¡ ¡æ ¿ùµå º¯È¯
+	// 8ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	_vec3 corners[8] = {
 		{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z}, {aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
 		{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z}, {aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
@@ -91,7 +91,7 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	for (int i = 0; i < 8; ++i)
 		D3DXVec3TransformCoord(&corners[i], &corners[i], pWorld);
 
-	// AABB ¿ùµå ÁÂÇ¥ Àç°è»ê
+	// AABB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
 	m_tAABBWorld.vMin = m_tAABBWorld.vMax = corners[0];
 	for (int i = 1; i < 8; ++i)
 	{
@@ -103,14 +103,14 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 		m_tAABBWorld.vMax.z = max(m_tAABBWorld.vMax.z, corners[i].z);
 	}
 
-	// Bounding Á¤º¸ °è»ê
+	// Bounding ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	if (m_tBound.eType == BoundingType::OBB)
 	{
-		// OBB Ä³½Ì
-		// Update_Component()¿¡¼­ ¿ùµå ¸ÅÆ®¸¯½º º¯°æ °¨Áö ½Ã¿¡¸¸
+		// OBB Ä³ï¿½ï¿½
+		// Update_Component()ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¿ï¿½ï¿½ï¿½
 		if (memcmp(&m_matPrevWorld, pWorld, sizeof(_matrix)) != 0)
 		{
-			// Calc_Transform() È£Ãâ 
+			// Calc_Transform() È£ï¿½ï¿½ 
 			m_matPrevWorld = *pWorld;
 
 			_vec3 vHalf = (aabb.vMax - aabb.vMin) * 0.5f;
@@ -126,25 +126,25 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 
 	else
 	{
-		// AABBÀÌÁö¸¸ OBB °è»ê±â(Calc_Push_OBB)¸¦ À§ÇØ ²ÀÁþÁ¡ ÀúÀå
+		// AABBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ OBB ï¿½ï¿½ï¿½ï¿½(Calc_Push_OBB)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		m_tBound.vCorners.clear();
 		m_tBound.vCorners.reserve(8);
 		for (int i = 0; i < 8; ++i)
 			m_tBound.vCorners.push_back(corners[i]);
 
-		// Áß½É À§Ä¡ °»½Å
+		// ï¿½ß½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 		m_tBound.vCenter = (m_tAABBWorld.vMin + m_tAABBWorld.vMax) * 0.5f;
 
-		// ´ÜÀ§ º¤ÅÍ ¼³Á¤ (Ãà °íÁ¤)
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 		m_tBound.vAxisX = _vec3(1.f, 0.f, 0.f);
 		m_tBound.vAxisY = _vec3(0.f, 1.f, 0.f);
 		m_tBound.vAxisZ = _vec3(0.f, 0.f, 1.f);
 
-		// ¹ÝÁö¸§ ±æÀÌ °»½Å
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		m_tBound.vHalf = (m_tAABBWorld.vMax - m_tAABBWorld.vMin) * 0.5f;
 	}
 
-	// Ãæµ¹ ¸Å´ÏÀú µî·Ï
+	// ï¿½æµ¹ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
@@ -175,7 +175,7 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	// OBB
 	if(m_tBound.eType==BoundingType::OBB)
 	{
-		color = D3DCOLOR_ARGB(255, 255, 0, 0); // »¡°­
+		color = D3DCOLOR_ARGB(255, 255, 0, 0); // ï¿½ï¿½ï¿½ï¿½
 		for (int i = 0; i < 8; ++i)
 			pVertices[i] = { m_tBound.vCorners[i], color };
 
@@ -184,10 +184,10 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	}
 	
 	// AABB
-	m_pVB->Lock(0, 0, (void**)&pVertices, 0); // ´Ù½Ã Lock
+	m_pVB->Lock(0, 0, (void**)&pVertices, 0); // ï¿½Ù½ï¿½ Lock
 	_vec3 min = m_tAABBWorld.vMin;
 	_vec3 max = m_tAABBWorld.vMax;
-	color = D3DCOLOR_ARGB(255, 0, 255, 0); // ¿¬µÎ
+	color = D3DCOLOR_ARGB(255, 0, 255, 0); // ï¿½ï¿½ï¿½ï¿½
 
 	pVertices[0] = { {min.x, min.y, min.z}, color };
 	pVertices[1] = { {max.x, min.y, min.z}, color };
@@ -358,7 +358,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 		{
 			_vec3 bAxis = (&b.vAxisX)[j];
 			D3DXVec3Cross(&cross, &aAxis, &bAxis);
-			if (D3DXVec3LengthSq(&cross) > 0.0001f) // À¯È¿ÇÑ Ãà¸¸
+			if (D3DXVec3LengthSq(&cross) > 0.0001f) // ï¿½ï¿½È¿ï¿½ï¿½ ï¿½à¸¸
 			{
 				D3DXVec3Normalize(&cross, &cross);
 				vAxis.push_back(cross);
@@ -374,7 +374,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 		float minA = 0.f, maxA = 0.f;
 		float minB = 0.f, maxB = 0.f;
 
-		// A Åõ¿µ
+		// A ï¿½ï¿½ï¿½ï¿½
 		{
 			float dot = D3DXVec3Dot(&a.vCorners[0], &axis);
 			minA = maxA = dot;
@@ -386,7 +386,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 			}
 		}
 
-		// B Åõ¿µ
+		// B ï¿½ï¿½ï¿½ï¿½
 		{
 			float dot = D3DXVec3Dot(&b.vCorners[0], &axis);
 			minB = maxB = dot;
@@ -400,14 +400,14 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 
 		float overlap = min(maxA, maxB) - max(minA, minB);
 		if (overlap <= 0.f)
-			return false; // ºÐ¸® Ãà ¹ß°ß ¡æ Ãæµ¹ ¾Æ´Ô
+			return false; // ï¿½Ð¸ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ ï¿½æµ¹ ï¿½Æ´ï¿½
 
 		if (overlap < minOverlap)
 		{
 			minOverlap = overlap;
 			mtvAxis = axis;
 
-			// Áß½É ±âÁØ ¹æÇâ º¸Á¤
+			// ï¿½ß½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			_vec3 dir = a.vCenter - b.vCenter;
 			if (D3DXVec3Dot(&dir, &axis) < 0.f)
 				mtvAxis = -mtvAxis;
@@ -418,37 +418,37 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 	return true;
 }
 
-void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
-{
-	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
-		return;
-
-	// À§ÂÊ¿¡¼­ ´­·¶´ÂÁö È®ÀÎ
-	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
-	{
-		m_pRigid->Set_OnGround(true);
-	}
-}
-
-
 //void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 //{
 //	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
 //		return;
 //
-//	if (D3DXVec3LengthSq(&push) < 0.0001f)
-//		return;
-//
-//	_vec3 vPush = push;
-//	D3DXVec3Normalize(&vPush, &vPush);
-//	_vec3 vUp = { 0.f,1.f,0.f };
-//	_float fDot = D3DXVec3Dot(&vPush, &vUp);
-//
-//	if (fDot < cosf(D3DX_PI / 6.f))
+//	// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+//	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
 //	{
 //		m_pRigid->Set_OnGround(true);
 //	}
 //}
+
+
+void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+{
+	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
+		return;
+
+	if (D3DXVec3LengthSq(&push) < 0.0001f)
+		return;
+
+	_vec3 vPush = push;
+	D3DXVec3Normalize(&vPush, &vPush);
+	_vec3 vUp = { 0.f,1.f,0.f };
+	_float fDot = D3DXVec3Dot(&vPush, &vUp);
+
+	if (fDot > 0.5f)
+	{
+		m_pRigid->Set_OnGround(true);
+	}
+}
 
 
 

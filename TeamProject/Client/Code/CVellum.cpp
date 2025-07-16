@@ -41,43 +41,57 @@ CVellum* CVellum::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CVellum::Ready_GameObject()
 {
-    m_vPart.reserve(m_iPartCnt);
+    Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
+    m_pModel = Get_Component<CModel>();
 
-    CMonsterPart* pPrev = nullptr;
+    Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
+    m_pTransform = Get_Component<CTransform>();
+
+    Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+    m_pRigid = Get_Component<CRigidBody>();
+
+    Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
+    m_pCol = Get_Component<CCollider>();
+
+    m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });
+    m_pTransform->Set_Scale({ 1.33f, 1.33f, 1.33f });
+
+    m_pRigid->Set_OnGround(false);
+    m_pRigid->Set_UseGravity(false);
+    m_pRigid->Set_Mass(1.f);
+    m_pRigid->Set_Friction(1.f);
+    m_pRigid->Set_Bounce(0.f);
+
+    m_pCol->Set_ColTag(ColliderTag::NONE);
+    m_pCol->Set_ColType(ColliderType::PASSIVE);
+    m_pCol->Set_BoundType(BoundingType::OBB);
+
+
+    m_vPart.reserve(m_iPartCnt);
+    CGameObject* pTarget = this;
 
     for (int i = 0; i < m_iPartCnt; ++i)
     {
         CMonsterPart* pPart = CMonsterPart::Create(m_pGraphicDev);
-        if (!pPart)
-        {
-            MSG_BOX("Vellum 파츠 생성 실패");
-            return E_FAIL;
-        }
+        if (!pPart) return E_FAIL;
 
-        // 파츠 위치 초기화 (선형 배열 형태)
-        _vec3 partPos = { 0.f, 20.f - 2.f * i, 0.f };
+        // ���� ��ġ �ʱ�ȭ (���� �迭 ����)
+        _vec3 headPos = m_pTransform->Get_Info(INFO_POS);
+        _vec3 partPos = headPos + _vec3(0.f, 2.f * (i + 1), 0.f);
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
-        // 앞 파츠를 따라가게 연결
-        if (pPrev)
-            pPart->Set_Target(pPrev);
-        
+        pPart->Set_Target(pTarget);
         pPart->Set_Index(i, m_iPartCnt);
         m_vPart.push_back(pPart);
-        pPrev = pPart;
+        pTarget = pPart;
     }
-
-    CFactory::Save_Prefab(this, "CVellum");
-    // 헤드 정보 설정
-    m_pTransform = m_vPart[0]->Get_Component<CTransform>();
-    m_pRigid = m_vPart[0]->Get_Component<CRigidBody>();
-    m_pCol = m_vPart[0]->Get_Component<CCollider>();
 
     m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
 
-    // IDLE 상태 진입
     m_pState = new CIdleState();
     m_pState->Enter(this);
+
+    CFactory::Save_Prefab(this, "CVellum");
 	return CGameObject::Ready_GameObject();;
 }
 
@@ -126,7 +140,7 @@ void CVellum::Free()
 
 void CVellum::Change_Pattern(IVellumState* pState)
 {
-    // 기존 상태가 있다면 Exit 함수를 호출
+    // 기존 ?�태가 ?�다�?Exit ?�수�??�출
     if (m_pState) 
     {
         m_pState->Exit(this);
@@ -139,6 +153,11 @@ void CVellum::Change_Pattern(IVellumState* pState)
 
 
 
+
+void CVellum::On_Hit(const _vec3& hitpos)
+{
+
+}
 
 void CVellum::Key_Input(const _float& fTimeDelta)
 {
@@ -184,13 +203,13 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
-    //  삭제 : 메모리 누수 발생하니 되도록 사용하지 말것
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
-    {
-        m_vPart.clear();
-    }
+ 
+    //if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
+    //{
+    //    m_vPart.clear();
+    //}
 
-    m_pTransform->Set_Pos(pos); // 적용
+    m_pTransform->Set_Pos(pos); // ?�용
 }
 
 REGISTER_GAMEOBJECT(CVellum)

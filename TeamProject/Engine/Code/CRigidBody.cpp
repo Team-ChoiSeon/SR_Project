@@ -100,7 +100,8 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         else
         {
             // 여기서 튕겨 오르면 지면에서 떨어진 상태이므로 false 처리
-            m_bGround = false;
+            // m_bGround = false;
+            // -> On_Collision_Exit 으로 이관
         }
     }
     else if (m_bGround)

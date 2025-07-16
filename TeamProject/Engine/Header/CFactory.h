@@ -28,6 +28,8 @@ public:
     static CGameObject* DeSerializeObject(const json& inJson);
     static string ToString(const wstring& wstr);
     static wstring ToWString(const string& str);
+    static LAYERID stringToLayer(const string& wstr);
+
 private:
     static void Serialize_Transform(json& outJson, CTransform* comp);
     static void Serialize_Camera(json& outJson,CCamera* comp);
@@ -39,7 +41,6 @@ private:
     static void Serialize_Particle(json& outJson, CParticle* comp);
 
 private:
-    static LAYERID stringToLayer(const string& wstr);
 
 
     static unordered_map<wstring, CreatorFunc>& Get_Map();

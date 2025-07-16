@@ -29,6 +29,7 @@ HRESULT CLodingCube::Ready_GameObject()
     m_pCollider->Set_ColType(ColliderType::PASSIVE);
 
     m_pTransform->Set_Scale({ 0.1f, 0.1f, 0.1f });
+    //m_pTransform->Set_Scale({ 0.17f, 0.17f, 0.17f });
     //m_pTransform->Set_Scale({ 0.08f, 0.08f, 0.08f });
     m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 
