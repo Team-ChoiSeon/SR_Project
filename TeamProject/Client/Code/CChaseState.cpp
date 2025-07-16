@@ -28,6 +28,10 @@ void CChaseState::Update(const _float fTimeDelta, CVellum* pVellum)
 	pVellum->Get_HRigid()->Add_Force(dir * 5.f);
 
 	m_fPatternTime += fTimeDelta;
+	if (m_fPatternTime >= m_fSwitchTime / 2.f)
+	{
+		pVellum->Get_HCol()->Set_ColType(ColliderType::ACTIVE);
+	}
 	if (m_fPatternTime >= m_fSwitchTime)
 	{
 		pVellum->Change_Pattern(new CIdleState());
@@ -36,7 +40,7 @@ void CChaseState::Update(const _float fTimeDelta, CVellum* pVellum)
 
 void CChaseState::Exit(CVellum* pVellum)
 {
-	pVellum->Get_HCol()->Set_ColType(ColliderType::ACTIVE);
+	pVellum->Get_HCol()->Set_ColType(ColliderType::PASSIVE);
 	pVellum->Get_HRigid()->Stop_Motion();
 	OutputDebugString(L"Chase : Exit\n");
 }

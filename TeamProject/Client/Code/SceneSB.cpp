@@ -26,24 +26,14 @@ SceneSB::~SceneSB()
 HRESULT SceneSB::Ready_Scene()
 {
 
-	CScene::Ready_Scene();
+	//CScene::Ready_Scene();
 	Init_Layers();
 
 	// 1. 플레이어 (시점 고정)
 	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 20.f, -20.f });
-
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
-	// 2. 바닥 역할 (몬스터 착지용)
-	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
-	pTile->Get_Component<CTransform>()->Set_Scale({ 100.f, 5.f, 100.f });
-	pTile->Get_Component<CTransform>()->Set_PosY(0.f);
-
-	// 3-1. 떨어지는 몬스터
-	CMonster* pFallingMonster = CMonster::Create(m_pGraphicDev);
-	pFallingMonster->Get_Component<CTransform>()->Set_Pos({ 0.f, 8.f, 10.f }); // 공중, 약간 앞쪽
-	pFallingMonster->Get_Component<CTransform>()->Set_Scale({ 0.5f, 0.5f, 0.5f });
 
 	// 3-2. 벨룸
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
@@ -53,8 +43,6 @@ HRESULT SceneSB::Ready_Scene()
 
 	// 5. 플레이어 → 타겟 오브젝트
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"MyTile", pTile);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"FallingMonster", pFallingMonster);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
 
@@ -84,14 +72,6 @@ void SceneSB::LateUpdate_Scene(const _float& fTimeDelta)
 SceneSB* SceneSB::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneSB* pScene = new SceneSB(pGraphicDev);
-
-	if (FAILED(pScene->Ready_Scene()))
-	{
-		Safe_Release(pScene);
-		MSG_BOX("SceneSB Create Failed");
-		return nullptr;
-	}
-
 	return pScene;
 }
 

@@ -25,7 +25,7 @@ public:
 
 public:
 	void Follow_Target(_float fDeltaTime);
-	void Set_Target(CMonsterPart* pTarget) { m_pTarget = pTarget; }
+	void Set_Target(CGameObject* pTarget) { m_pTarget = pTarget; }
 	void Set_Index(int idx, int max) { m_iIdx = idx, m_iMax = max; }
 
 public:
@@ -33,12 +33,12 @@ public:
 
 private:
 	CModel* m_pModel = nullptr;
-
 	CTransform* m_pTransform = nullptr;
 	CRigidBody* m_pRigid = nullptr;
 	CCollider* m_pCol = nullptr;
 
-	CMonsterPart* m_pTarget = nullptr;
+	CGameObject* m_pTarget = nullptr;
+	_float m_fSpeed = 10.f;
 
 	int m_iIdx = 0;
 	int m_iMax = 0;

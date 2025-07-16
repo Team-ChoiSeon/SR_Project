@@ -39,12 +39,12 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
             pTransform->Set_Look(dir);
             pRigid->Add_Force(dir * 20.f);
         }
-        else // 목표에 도달했다면
+        else
         {
             m_ePhase = FirePhase::Charge;
             m_fPhaseTime = 0.f;
             pRigid->Stop_Motion();
-            // [수정] Charge 단계의 기준 위치를 여기서 한 번만 저장
+            
             m_vBasePos = pTransform->Get_Pos();
         }
         break;
@@ -52,8 +52,8 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
 
     case FirePhase::Charge:
     {
-        // [수정] 발사 방향은 Charge 시작 시 한 번만 계산하여 고정 (필요 시)
-        if (m_fPhaseTime <= fTimeDelta) // 이 단계의 첫 프레임일 때
+        
+        if (m_fPhaseTime <= fTimeDelta)
         {
             _vec3 diff = pTarget->Get_Component<CTransform>()->Get_Pos() - m_vBasePos;
             D3DXVec3Normalize(&m_vDir, &diff);
@@ -61,10 +61,9 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
 
         pTransform->Set_Look(m_vDir);
 
-        // [수정] 매번 현재 위치가 아닌, 고정된 m_vChargeBasePos를 기준으로 계산
         float fMaxlDist = 3.f;
         float fRatio = m_fPhaseTime / m_fChargeTime;
-        if (fRatio > 1.f) fRatio = 1.f; // 1을 넘지 않도록
+        if (fRatio > 1.f) fRatio = 1.f;
 
         _vec3 vPos = m_vBasePos - (m_vDir * fMaxlDist * fRatio);
         pTransform->Set_Pos(vPos);
