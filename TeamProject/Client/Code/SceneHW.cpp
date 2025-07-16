@@ -41,6 +41,8 @@ SceneHW::~SceneHW()
 
 HRESULT SceneHW::Ready_Scene()
 {
+
+
 	Init_Layers();
 
 	//===========================================================================================================//
@@ -137,7 +139,7 @@ HRESULT SceneHW::Ready_Scene()
 
 	TestMetal->Get_Component<CTransform>()->Set_Pos({ 0, -13, 80 });
 	TestMetal->Set_Info(m_pPlayer);
-	TestMagnet->Get_Component<CTransform>()->Set_Pos({ 0, -15, 50 });
+	TestMagnet->Get_Component<CTransform>()->Set_Pos({ 0, -13, 50 });
 	TestMagnet->Set_Info();
 	
 
@@ -168,7 +170,11 @@ SceneHW* SceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 int SceneHW::Update_Scene(const _float& fTimeDelta)
 {
-
+	if (m_bSceneFirst) //처음 시작시 업데이트를 지나치고 ftimedelta를 한번 무시하게 하여 오브젝트들이 중력을 과하게 받아서 떨어지는 현상 방지
+	{
+		m_bSceneFirst = false;
+		return S_OK;
+	}
 	CScene::Update_Scene(fTimeDelta);
 
 	//=================================================== Set Puzzles ==============================================================//

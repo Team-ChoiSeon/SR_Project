@@ -32,9 +32,11 @@ public:
 	static CMetalCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
-	void MovetoMagnetic(CGameObject* parentMagnet, const _float& fTimeDelta);
-	void GluetoMagnetic(const _float& fTimeDelta);
-	void DetectMagnet(const _float& fTimeDelta);
+	void DetectMagnetic(const _float& fTimeDelta);
+	void ApproachtoMagnetic(const _float& fTimeDelta);
+	void SyncMagnetic(const _float& fTimeDelta);
+	void DetachMagnetic(const _float& fTimeDelta);
+
 	//Getter, Setter Function
 
 private:
@@ -45,18 +47,20 @@ private:
 	CMainPlayer* m_pPlayer;
 
 	MetalZone	m_MZone;
-	CGameObject* m_pPickObj;
-	CMagneticCube* m_pPickMagnet;
-	CGameObject* m_pParentMagnet;
-	vector<CMagneticCube*> m_vecDetectedMagnets;
+	CGameObject*			m_pPickObj;
+	CMagneticCube*			m_pPickMagnet;
+	CGameObject*			m_pParentMagnet;
 
-	_vec3 m_vParentPrevPos;
-	_vec3 m_vParentPos;
-	_vec3 m_vGap;
-	_float m_fGap;
-	_vec3 m_vGlueGap;
-	_float m_fGlueGap;
+	_vec3					m_vParentPrePos;
+	_vec3					m_vParentPos;
+	_vec3					m_vGap;
+	_float					m_fGap;
+	_vec3					m_vSyncGap;
+	_float					m_fSyncGap;
 
-	_bool m_bGlue = false;
+	_bool					m_bIdle = true;
+	_bool					m_bApproach = false;
+	_bool					m_bSync = false;
+	_bool					m_bDetach = false;
 };
 

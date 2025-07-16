@@ -56,5 +56,6 @@ private:
 	CMetalCube*						m_pTestmetal;
 	_float								m_fTime;
 	bool								m_bCamPlayer;
+	_bool								m_bSceneFirst;
 };
 

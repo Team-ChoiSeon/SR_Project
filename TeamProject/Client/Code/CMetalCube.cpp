@@ -54,7 +54,19 @@ HRESULT CMetalCube::Ready_GameObject()
 
 _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
 {
-    DetectMagnet(fTimeDelta);
+    if (m_bIdle){
+        DetectMagnetic(fTimeDelta);
+    }
+    else if (m_bApproach) {
+        ApproachtoMagnetic(fTimeDelta);
+    }
+    else if (m_bSync) {
+        SyncMagnetic(fTimeDelta);
+    }
+    else if (m_bDetach) {
+        DetachMagnetic(fTimeDelta);
+    }
+
     CGameObject::Update_GameObject(fTimeDelta);
     return _int();
 }
@@ -92,75 +104,95 @@ void CMetalCube::Free()
     Safe_Release(m_pGraphicDev);
 }
 
-void CMetalCube::DetectMagnet(const _float& fTimeDelta)
+void CMetalCube::DetectMagnetic(const _float& fTimeDelta)
 {
-    if (m_pPickObj = m_pPlayer->Get_PickObj()) {
-        if (typeid(*m_pPickObj) == typeid(CMagneticCube)) {
-            if (
-                m_pPickObj->Get_Component<CTransform>()->Get_Pos().x > m_MZone._min.x &&
-                m_pPickObj->Get_Component<CTransform>()->Get_Pos().y > m_MZone._min.y &&
-                m_pPickObj->Get_Component<CTransform>()->Get_Pos().z > m_MZone._min.z &&
-                m_pPickObj->Get_Component<CTransform>()->Get_Pos().x < m_MZone._max.x &&
-                m_pPickObj->Get_Component<CTransform>()->Get_Pos().y < m_MZone._max.y &&
-                m_pPickObj->Get_Component<CTransform>()->Get_Pos().z < m_MZone._max.z)
-            {
-                if (m_pPlayer->Get_Hold()) {
-                    if (!m_bGlue)
-                        MovetoMagnetic(m_pPickObj, fTimeDelta);
-                    else
-                        GluetoMagnetic(fTimeDelta);
-                }
-                else
-                {
-                    m_pRigid->Set_UseGravity(true);
-                    m_pPickMagnet = nullptr;
-                    m_pPickObj = nullptr;
-                }
-            }
+    if ((m_pPickObj = m_pPlayer->Get_PickObj()) &&
+        (typeid(*m_pPickObj) == typeid(CMagneticCube)) &&
+        m_pPickObj->Get_Component<CTransform>()->Get_Pos().x > m_MZone._min.x &&
+        m_pPickObj->Get_Component<CTransform>()->Get_Pos().y > m_MZone._min.y &&
+        m_pPickObj->Get_Component<CTransform>()->Get_Pos().z > m_MZone._min.z &&
+        m_pPickObj->Get_Component<CTransform>()->Get_Pos().x < m_MZone._max.x &&
+        m_pPickObj->Get_Component<CTransform>()->Get_Pos().y < m_MZone._max.y &&
+        m_pPickObj->Get_Component<CTransform>()->Get_Pos().z < m_MZone._max.z){
+        if (!m_bApproach) {
+            m_pParentMagnet = m_pPickObj;
+            m_bApproach = true;
+            m_bIdle = false;
         }
     }
     else
     {
         m_pRigid->Set_UseGravity(true);
+        m_pParentMagnet = nullptr;
         m_pPickMagnet = nullptr;
         m_pPickObj = nullptr;
     }
 }
 
-void CMetalCube::MovetoMagnetic(CGameObject* parentMagnet, const _float& fTimeDelta)
+void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
 {
-    //붙는 동안에는 중력 끄기
     m_pRigid->Set_UseGravity(false);
-    m_bGlue = false;
-
-    m_pParentMagnet = parentMagnet;
     m_vParentPos = m_pParentMagnet->Get_Component<CTransform>()->Get_Pos();
     m_vGap = m_vParentPos - m_pTransform->Get_Pos();
     m_fGap = D3DXVec3Length(&m_vGap);
 
-    m_pTransform->Move_Pos(&m_vGap, 3.f, fTimeDelta);
 
-    if (m_pCollider->Get_ColState() == ColliderState::STAY)
+    if (m_pCollider->Get_ColState() == ColliderState::ENTER ||
+        m_pCollider->Get_ColState() == ColliderState::STAY)
     {
-        if (m_pCollider->Get_Other()->m_pOwner == m_pParentMagnet || typeid(*(m_pCollider->Get_Other()->m_pOwner)) == typeid(CMetalCube))
+        if (m_pCollider->Get_Other()->m_pOwner == m_pParentMagnet || 
+            typeid(*(m_pCollider->Get_Other()->m_pOwner)) == typeid(CMetalCube))
         {
-            m_vParentPrevPos = m_vParentPos;
-            m_vGlueGap = m_vParentPos - m_pTransform->Get_Pos();
-            m_fGlueGap = D3DXVec3Length(&m_vGlueGap);
-            m_bGlue = true;
+            m_vSyncGap = m_vParentPos - m_pTransform->Get_Pos();
+            m_fSyncGap = D3DXVec3Length(&m_vSyncGap);
+            m_bSync = true;
+            m_bApproach = false;
         }
     }
+    else
+        m_pTransform->Move_Pos(&m_vGap, 1.5f, fTimeDelta);
+
+
 }
 
-void CMetalCube::GluetoMagnetic(const _float& fTimeDelta)
+void CMetalCube::SyncMagnetic(const _float& fTimeDelta)
 {
+    if(m_pPlayer->Get_Hold())
+    {
         m_pRigid->Set_UseGravity(false);
         m_vParentPos = m_pParentMagnet->Get_Component<CTransform>()->Get_Pos();
 
-		_vec3 parentGap = m_vParentPos - m_vParentPrevPos;
+        _vec3 syncPos = m_vParentPos - m_vSyncGap;
 
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + parentGap);
+        m_pTransform->Set_Pos(syncPos);
 
+        m_pCollider->Set_ColType(ColliderType::ACTIVE);
+    }
+    else if (m_pPlayer->Get_MouseAway())
+    {
+        //m_pCollider->Set_ColType(ColliderType::PASSIVE);
+        m_bDetach = true;
+        m_bSync = false;
+    }
+}
+
+void CMetalCube::DetachMagnetic(const _float& fTimeDelta)
+{
+    m_pRigid->Set_UseGravity(true);
+    m_pRigid->Set_OnGround(false);
+    if (m_pPlayer->Get_MouseTap())
+    {
+        m_bDetach = false;
+        m_bIdle = true;
+    }
+    else
+    {
+        m_pParentMagnet = nullptr;
+        m_pPickMagnet = nullptr;
+        m_pPickObj = nullptr;
+        m_vSyncGap = { 0, 0, 0 };
+        m_vGap = { 0, 0, 0 };
+    }
 }
 
 REGISTER_GAMEOBJECT(CMetalCube)

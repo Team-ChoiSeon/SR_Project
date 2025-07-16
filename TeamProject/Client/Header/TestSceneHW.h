@@ -32,6 +32,9 @@ public:
 
 private:
 	//temp
+	void FloatingSet();
+	void DirectionSet();
+	void SlotSet();
 	//CPlayer*							m_pPlayer;
 	CMainPlayer* m_pPlayer;
 	CFirstviewFollowingCamera* m_pFFCam;
@@ -44,8 +47,10 @@ private:
 	CWeightButton* m_pWeightButton;
 	CTestTile* m_pTile;
 	CTimerButton* m_pTimerButton;
-
+	CSlotCube* m_pSlotCube;
 	_float								m_fTime;
 	bool						m_bCamPlayer;
+
+	bool						m_bSceneFirst =true;
 };
 

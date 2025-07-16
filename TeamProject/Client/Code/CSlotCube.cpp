@@ -100,6 +100,7 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 	CGameObject::Update_GameObject(fTimeDelta);
 	
 
+
 	return _int();
 }
 
@@ -145,7 +146,6 @@ void CSlotCube::Insert_Overlap(CSlotSensor* sensor, _float dist)
 
 void CSlotCube::PickMove()
 {
-
 	m_pRigid->Set_UseGravity(false);
 	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f }); 
 	m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vCursorDelta);

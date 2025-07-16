@@ -82,9 +82,16 @@ private:
 	_vec3 m_vPlaneNorm;
 	_vec3 m_vDragDistance;
 
-	_vec3 m_vPrevPickedPos;
-	_vec3 m_vPickedDist;
-	_float m_fPickedDist;
+	_vec3 m_vPickPoint;
+	_vec3 m_vPickPointGap;
+	_vec3 m_vPickObjPos;
+	_vec3 m_vPickPointDist;
+	_float m_fPickPointDist;
+	_vec3 m_vPickObjDist;
+	_float m_fPickObjDist;
+	_vec3 m_vPrePickObjPos;
+	_vec3 m_vPrePickPoint;
+
 	CCube* m_PickedCube;
 	CSwitch* m_PickedSwitch;
 	Ray* m_pRay;

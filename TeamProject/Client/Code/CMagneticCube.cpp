@@ -40,10 +40,10 @@ HRESULT CMagneticCube::Ready_GameObject()
     Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
     m_pRigid = Get_Component<CRigidBody>();
     m_pRigid->Set_Friction(0.f);
-    m_pRigid->Set_Mass(10.f);
+    m_pRigid->Set_Mass(1.f);
     m_pRigid->Set_Bounce(0.f);
-    m_pRigid->Set_OnGround(true);
-    m_pRigid->Set_UseGravity(false);
+    m_pRigid->Set_OnGround(false);
+    m_pRigid->Set_UseGravity(true);
 
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCollider = Get_Component<CCollider>();
@@ -62,6 +62,8 @@ _int CMagneticCube::Update_GameObject(const _float& fTimeDelta)
 {
     CGameObject::Update_GameObject(fTimeDelta);
     PickMove();
+    if(m_pRigid->Get_OnGround())
+        m_pCollider->Set_ColType(ColliderType::PASSIVE);
 	return _int();
 }
 
@@ -100,12 +102,17 @@ void CMagneticCube::PickMove()
 {
     if (m_bCurGrab)
     {
+        m_pCollider->Set_ColType(ColliderType::PASSIVE);
         m_pRigid->Set_UseGravity(false);
+        m_pRigid->Set_OnGround(true);
         m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
         m_pTransform->Set_Pos(m_pTransform->Get_Pos() +m_vCursorDelta);
     }
-    else
+    else {
+        m_pCollider->Set_ColType(ColliderType::ACTIVE);
         m_pRigid->Set_UseGravity(true);
+        m_pRigid->Set_OnGround(false);
+    }
 }
 
 REGISTER_GAMEOBJECT(CMagneticCube)
