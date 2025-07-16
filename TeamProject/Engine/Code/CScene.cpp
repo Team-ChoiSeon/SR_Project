@@ -19,8 +19,10 @@ void CScene::Init_Layers()
 {
     for (auto i = 0; i < LAYER_END; i++)
     {
-        CLayer* pLayer = CLayer::Create();
-        m_umLayer.insert({(LAYERID)i,pLayer});
+        if (m_umLayer.find((LAYERID)i) == m_umLayer.end()) {
+            CLayer* pLayer = CLayer::Create();
+            m_umLayer.insert({(LAYERID)i,pLayer});
+        }
     }
 }
 
@@ -79,6 +81,11 @@ void CScene::Exit_Scene()
 {
     CRenderMgr::Get_Instance()->Clear();
     CCollisionMgr::Get_Instance()->Clear();
+}
+
+HRESULT CScene::LoadScene(CScene* from, CScene* to)
+{
+    return E_FAIL;
 }
 
 
