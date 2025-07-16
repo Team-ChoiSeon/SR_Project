@@ -145,8 +145,9 @@ HRESULT SceneHW::Ready_Scene()
 
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
-	CSoundMgr::Get_Instance()->Load_Sound("Zelda", "../Bin/Resource/Sound/Zelda.wav");
-	CSoundMgr::Get_Instance()->Play("Zelda", "BGM", true);
+	//
+	// ::Get_Instance()->Load_Sound("Zelda", "../Bin/Resource/Sound/Zelda.wav");
+	//CSoundMgr::Get_Instance()->Play("Zelda", "BGM", true);
 
 	return S_OK;
 }
@@ -177,12 +178,16 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	//================================================= Debugging Codes ==========================================================//
 		
 	m_pTestmagnet = Get_Layer(LAYER_OBJECT)->Get_GameObject<CMagneticCube>(L"hwTestMagnet");
+	m_pTestmetal = Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"hwTestMetal");
 	_vec3 magpos = m_pTestmagnet->Get_Component<CTransform>()->Get_Pos();
+	_vec3 metalpos = m_pTestmetal->Get_Component<CTransform>()->Get_Pos();
+
 	CGuiSystem::Get_Instance()->RegisterPanel("Pos", [this]() {
 		// 간단한 GUI 창 하나 출력
 		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
 		ImGui::Begin("Magnet Pos ");
-		ImGui::Text("x: %3.f y: %3.f z: %3.f", m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().x, m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().y, m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().z);
+		ImGui::Text("Magnet Pos \nx: %3.f y: %3.f z: %3.f", m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().x, m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().y, m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().z);
+		ImGui::Text("Metal Pos \nx: %3.f y: %3.f z: %3.f", m_pTestmetal->Get_Component<CTransform>()->Get_Pos().x, m_pTestmetal->Get_Component<CTransform>()->Get_Pos().y, m_pTestmetal->Get_Component<CTransform>()->Get_Pos().z);
 
 		ImGui::End();
 		});

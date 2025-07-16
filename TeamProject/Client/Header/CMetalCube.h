@@ -32,7 +32,8 @@ public:
 	static CMetalCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
-	void GluetoMagnetic(CGameObject* parentMagnet, const _float& fTimeDelta);
+	void MovetoMagnetic(CGameObject* parentMagnet, const _float& fTimeDelta);
+	void GluetoMagnetic(const _float& fTimeDelta);
 	void DetectMagnet(const _float& fTimeDelta);
 	//Getter, Setter Function
 
@@ -48,5 +49,14 @@ private:
 	CMagneticCube* m_pPickMagnet;
 	CGameObject* m_pParentMagnet;
 	vector<CMagneticCube*> m_vecDetectedMagnets;
+
+	_vec3 m_vParentPrevPos;
+	_vec3 m_vParentPos;
+	_vec3 m_vGap;
+	_float m_fGap;
+	_vec3 m_vGlueGap;
+	_float m_fGlueGap;
+
+	_bool m_bGlue = false;
 };
 

@@ -29,7 +29,8 @@
 #include "CPickSwitch.h"
 #include "Engine_GUI.h"
 #include "CGuiSystem.h"
-
+#include "CMagneticCube.h"
+#include "CMetalCube.h"
 TestSceneHW::TestSceneHW(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CScene(pGraphicDev)
 {
@@ -43,16 +44,17 @@ HRESULT TestSceneHW::Ready_Scene()
 {
 	CUiMgr::Get_Instance()->Ready_UiMgr();
 	Init_Layers();
-	CFactory::DeSerializeScene(L"../../Scene/hwtest_1.json", this);
+	CFactory::DeSerializeScene(L"../../Scene/hwtest_2.json", this);
 
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1");
-	m_pPlayer->Get_Component<CTransform>()->Set_Pos({0, -8, -40});
 	m_pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	m_pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
 
 	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
 
-	m_pFFCam = Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"CFirstviewFollowingCamera_1");
+	//m_pFFCam = Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"CFirstviewFollowingCamera_1");
+	m_pFFCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"CFirstviewFollowingCamera_1", m_pFFCam);
 	m_pFFCam->Set_Target(m_pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 
@@ -61,16 +63,39 @@ HRESULT TestSceneHW::Ready_Scene()
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
 	Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1")->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
 
-	m_pDirectionalCube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1");
-	m_pDirectionalCube->Set_Info(m_pDirectionalCube->Get_Component<CTransform>()->Get_Pos(), { 0, 1, 0 }, 0.f,  7.f);
-	m_pFloatingCube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_1");
-	m_pFloatingCube->Set_Info(m_pFloatingCube->Get_Component<CTransform>()->Get_Pos(), { 1, 0, 0 }, 20.f, 3.f, 0.f);
-	m_pFloatingCube->Set_Loop();
+	//m_pDirectionalCube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1");
+	//m_pDirectionalCube->Set_Info(m_pDirectionalCube->Get_Component<CTransform>()->Get_Pos(), { 0, 1, 0 }, 0.f,  7.f);
+	//m_pFloatingCube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_1");
+	//m_pFloatingCube->Set_Info(m_pFloatingCube->Get_Component<CTransform>()->Get_Pos(), { 1, 0, 0 }, 20.f, 3.f, 0.f);
+	//m_pFloatingCube->Set_Loop();
 
 
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_1")->Set_Info(m_pPlayer, 0, 1);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Set_Info(m_pPlayer, 0, 1);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Get_Component<CTransform>()->Set_Pos({ 0, 700, 10 });
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_1")->Set_Info(m_pPlayer, 1, 1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_2")->Set_Info(m_pPlayer, 1, 2);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_3")->Set_Info(m_pPlayer, 2, 1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_4")->Set_Info(m_pPlayer, 2, 2);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Set_Info(m_pPlayer, 1, 1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_2")->Set_Info(m_pPlayer, 1, 2);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_3")->Set_Info(m_pPlayer, 2, 1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_4")->Set_Info(m_pPlayer, 2, 2);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_1")->Set_Info(m_pPlayer);
+
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1")->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_2")->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_3")->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_4")->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1")->Get_Component<CRigidBody>()->Set_OnGround(true);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_2")->Get_Component<CRigidBody>()->Set_OnGround(true);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_3")->Get_Component<CRigidBody>()->Set_OnGround(true);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_4")->Get_Component<CRigidBody>()->Set_OnGround(true);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_2")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_2")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_3")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_3")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_4")->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_4")->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
 

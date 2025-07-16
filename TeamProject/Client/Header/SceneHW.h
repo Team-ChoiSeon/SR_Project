@@ -13,6 +13,7 @@ class CPickSwitch;
 class CSlotCube;
 class CSlotSensor;
 class CMagneticCube;
+class CMetalCube;
 
 class SceneHW : public CScene
 {
@@ -52,6 +53,7 @@ private:
 	CSlotSensor*						m_pSlotSensor2;
 	CSlotSensor* m_pSlotSensor3;
 	CMagneticCube*						m_pTestmagnet;
+	CMetalCube*						m_pTestmetal;
 	_float								m_fTime;
 	bool								m_bCamPlayer;
 };

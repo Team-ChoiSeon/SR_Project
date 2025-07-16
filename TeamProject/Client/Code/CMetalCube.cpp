@@ -104,7 +104,18 @@ void CMetalCube::DetectMagnet(const _float& fTimeDelta)
                 m_pPickObj->Get_Component<CTransform>()->Get_Pos().y < m_MZone._max.y &&
                 m_pPickObj->Get_Component<CTransform>()->Get_Pos().z < m_MZone._max.z)
             {
-                GluetoMagnetic(m_pPickObj, fTimeDelta);
+                if (m_pPlayer->Get_Hold()) {
+                    if (!m_bGlue)
+                        MovetoMagnetic(m_pPickObj, fTimeDelta);
+                    else
+                        GluetoMagnetic(fTimeDelta);
+                }
+                else
+                {
+                    m_pRigid->Set_UseGravity(true);
+                    m_pPickMagnet = nullptr;
+                    m_pPickObj = nullptr;
+                }
             }
         }
     }
@@ -116,19 +127,39 @@ void CMetalCube::DetectMagnet(const _float& fTimeDelta)
     }
 }
 
-void CMetalCube::GluetoMagnetic(CGameObject* parentMagnet, const _float& fTimeDelta)
+void CMetalCube::MovetoMagnetic(CGameObject* parentMagnet, const _float& fTimeDelta)
 {
     //붙는 동안에는 중력 끄기
     m_pRigid->Set_UseGravity(false);
+    m_bGlue = false;
 
     m_pParentMagnet = parentMagnet;
-    _vec3 ParentPos = m_pParentMagnet->Get_Component<CTransform>()->Get_Pos();
-    _vec3 ParentScale = m_pParentMagnet->Get_Component<CTransform>()->Get_Scale();
-    _vec3 gap = ParentPos - m_pTransform->Get_Pos();
-    _float fgap = D3DXVec3Length(&gap);
+    m_vParentPos = m_pParentMagnet->Get_Component<CTransform>()->Get_Pos();
+    m_vGap = m_vParentPos - m_pTransform->Get_Pos();
+    m_fGap = D3DXVec3Length(&m_vGap);
 
-    m_pTransform->Move_Pos(&gap, 3.f, fTimeDelta);
+    m_pTransform->Move_Pos(&m_vGap, 3.f, fTimeDelta);
 
+    if (m_pCollider->Get_ColState() == ColliderState::STAY)
+    {
+        if (m_pCollider->Get_Other()->m_pOwner == m_pParentMagnet || typeid(*(m_pCollider->Get_Other()->m_pOwner)) == typeid(CMetalCube))
+        {
+            m_vParentPrevPos = m_vParentPos;
+            m_vGlueGap = m_vParentPos - m_pTransform->Get_Pos();
+            m_fGlueGap = D3DXVec3Length(&m_vGlueGap);
+            m_bGlue = true;
+        }
+    }
+}
+
+void CMetalCube::GluetoMagnetic(const _float& fTimeDelta)
+{
+        m_pRigid->Set_UseGravity(false);
+        m_vParentPos = m_pParentMagnet->Get_Component<CTransform>()->Get_Pos();
+
+		_vec3 parentGap = m_vParentPos - m_vParentPrevPos;
+
+		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + parentGap);
 
 }
 
