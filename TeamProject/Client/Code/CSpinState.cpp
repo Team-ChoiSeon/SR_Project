@@ -11,9 +11,10 @@
 void CSpinState::Enter(CVellum* pVellum)
 {
 	OutputDebugString(L"Spin : Enter\n");
-	if (pVellum->Get_HTransform()->Get_Pos().y < 20.f)
+	pVellum->Get_HCol()->Set_ColType(ColliderType::PASSIVE);
+	if (pVellum->Get_HTransform()->Get_Pos().y < 10.f)
 	{
-		pVellum->Get_HRigid()->Set_Velocity(_vec3(0.f, 10.f, 0.f));
+		pVellum->Get_HRigid()->Set_Velocity(_vec3(0.f, 5.f, 0.f));
 	}
 	m_fPatternTime = 0.f;
 	m_fSwitchTime = 3.f;
@@ -47,4 +48,5 @@ void CSpinState::Exit(CVellum* pVellum)
 		part->Get_Component<CRigidBody>()->Stop_Motion();
 		part->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 	}
+	pVellum->Get_HCol()->Set_ColType(ColliderType::PASSIVE);
 }

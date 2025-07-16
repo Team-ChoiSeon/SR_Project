@@ -41,41 +41,53 @@ CVellum* CVellum::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CVellum::Ready_GameObject()
 {
-    m_vPart.reserve(m_iPartCnt);
+    Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
+    m_pModel = Get_Component<CModel>();
 
-    CMonsterPart* pPrev = nullptr;
+    Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
+    m_pTransform = Get_Component<CTransform>();
+
+    Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
+    m_pRigid = Get_Component<CRigidBody>();
+
+    Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
+    m_pCol = Get_Component<CCollider>();
+
+    m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });
+    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
+
+    m_pRigid->Set_OnGround(false);
+    m_pRigid->Set_UseGravity(false);
+    m_pRigid->Set_Mass(1.f);
+    m_pRigid->Set_Friction(1.f);
+    m_pRigid->Set_Bounce(0.f);
+
+    m_pCol->Set_ColTag(ColliderTag::NONE);
+    m_pCol->Set_ColType(ColliderType::PASSIVE);
+    m_pCol->Set_BoundType(BoundingType::OBB);
+
+
+    m_vPart.reserve(m_iPartCnt);
+    CGameObject* pTarget = this;
 
     for (int i = 0; i < m_iPartCnt; ++i)
     {
         CMonsterPart* pPart = CMonsterPart::Create(m_pGraphicDev);
-        if (!pPart)
-        {
-            MSG_BOX("Vellum ?åÏ∏† ?ùÏÑ± ?§Ìå®");
-            return E_FAIL;
-        }
+        if (!pPart) return E_FAIL;
 
         // ∆ƒ√˜ ¿ßƒ° √ ±‚»≠ (º±«¸ πËø≠ «¸≈¬)
-        _vec3 partPos = { 0.f, 30.f - 2.f * i, 0.f };
+        _vec3 headPos = m_pTransform->Get_Info(INFO_POS);
+        _vec3 partPos = headPos + _vec3(0.f, 2.f * (i + 1), 0.f);
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
-        // ???åÏ∏†Î•??∞ÎùºÍ∞ÄÍ≤??∞Í≤∞
-        if (pPrev)
-            pPart->Set_Target(pPrev);
-        
+        pPart->Set_Target(pTarget);
         pPart->Set_Index(i, m_iPartCnt);
         m_vPart.push_back(pPart);
-        pPrev = pPart;
+        pTarget = pPart;
     }
-
-    
-    // ?§Îìú ?ïÎ≥¥ ?§Ï†ï
-    m_pTransform = m_vPart[0]->Get_Component<CTransform>();
-    m_pRigid = m_vPart[0]->Get_Component<CRigidBody>();
-    m_pCol = m_vPart[0]->Get_Component<CCollider>();
 
     m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
 
-    // IDLE ?ÅÌÉú ÏßÑÏûÖ
     m_pState = new CIdleState();
     m_pState->Enter(this);
 
@@ -191,11 +203,11 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
-    //  ??†ú : Î©îÎ™®Î¶??ÑÏàò Î∞úÏÉù?òÎãà ?òÎèÑÎ°??¨Ïö©?òÏ? ÎßêÍ≤É
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
-    {
-        m_vPart.clear();
-    }
+ 
+    //if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
+    //{
+    //    m_vPart.clear();
+    //}
 
     m_pTransform->Set_Pos(pos); // ?ÅÏö©
 }
