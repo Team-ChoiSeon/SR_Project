@@ -42,9 +42,8 @@ TestSceneHW::~TestSceneHW()
 
 HRESULT TestSceneHW::Ready_Scene()
 {
-	CUiMgr::Get_Instance()->Ready_UiMgr();
 	Init_Layers();
-	CFactory::DeSerializeScene(L"../../Scene/hwtest_2.json", this);
+	CUiMgr::Get_Instance()->Ready_UiMgr();
 
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"CMainPlayer_1");
 	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
@@ -73,13 +72,6 @@ HRESULT TestSceneHW::Ready_Scene()
 TestSceneHW* TestSceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	TestSceneHW* pScene = new TestSceneHW(pGraphicDev);
-
-	if (FAILED(pScene->Ready_Scene()))
-	{
-		Safe_Release(pScene);
-		MSG_BOX("TestSceneHW Create Failed");
-		return nullptr;
-	}
 
 	return pScene;
 }

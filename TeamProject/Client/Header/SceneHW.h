@@ -32,6 +32,9 @@ public:
 	static SceneHW* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void	Free();
 
+
+	virtual const wstring Get_ScenePath() { return L"../../Scene/empty.json"; }
+
 private:
 	//temp
 	//CPlayer*							m_pPlayer;

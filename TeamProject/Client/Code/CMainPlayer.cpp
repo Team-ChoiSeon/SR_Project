@@ -117,26 +117,28 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	//======================================== New Picking ===============================================//
 	
 	Picking_Init();
-	if (m_pPickObj) {
-		if (CInputMgr::Get_Instance()->Mouse_Tap(DIM_LB))
-		{
-			Tap_Picking();
-		}
-		else if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB))
-		{
-			Hold_Picking();
-		}
-		else if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB))
-		{
-			Away_Picking();
+	if(m_pCrosshair){
+		if (m_pPickObj) {
+			if (CInputMgr::Get_Instance()->Mouse_Tap(DIM_LB))
+			{
+				Tap_Picking();
+			}
+			else if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB))
+			{
+				Hold_Picking();
+			}
+			else if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB))
+			{
+				Away_Picking();
+			}
+			else
+			{
+				m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
+			}
 		}
 		else
-		{
-			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-		}
+			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 	}
-	else
-		m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
 
 	//=====================================================================================================//
 

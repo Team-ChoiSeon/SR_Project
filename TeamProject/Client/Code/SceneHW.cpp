@@ -158,13 +158,6 @@ SceneHW* SceneHW::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneHW* pScene = new SceneHW(pGraphicDev);
 
-	if (FAILED(pScene->Ready_Scene()))
-	{
-		Safe_Release(pScene);
-		MSG_BOX("SceneHW Create Failed");	
-		return nullptr;
-	}
-
 	return pScene;
 }
 
@@ -177,9 +170,21 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	}
 	CScene::Update_Scene(fTimeDelta);
 
+
+
+
+
 	//=================================================== Set Puzzles ==============================================================//
 	_bool Puzzel1 = m_pSlotSensor->Get_SensorState() && m_pSlotSensor2->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"hwTestFloat")->SetTrigger(m_pPickSwitch->Get_SwitchState());
+
+
+
+	//================================================= Change Scene =============================================================//
+	//CScene* pScene = SceneBG::Create(m_pGraphicDev);
+	//CSceneMgr::Get_Instance()->Set_Scene(pScene);
+
+
 
 	//================================================= Debugging Codes ==========================================================//
 		
@@ -252,4 +257,3 @@ void SceneHW::Free()
 {
 	CScene::Free();
 }
-

@@ -24,12 +24,12 @@ public:
 	//Basic Function
 	int		Update_Scene(const _float& fTimeDelta);
 	void	LateUpdate_Scene(const _float& fTimeDelta);
-	void	Render_Scene();
 
 	//Create, Release Function
 	static TestSceneHW* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void	Free();
 
+	virtual const wstring Get_ScenePath() { return L"../../Scene/hwtest_2.json"; }
 private:
 	//temp
 	void FloatingSet();
