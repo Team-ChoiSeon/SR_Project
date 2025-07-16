@@ -29,6 +29,9 @@ public:
 	CTransform*		Get_HTransform()	{ return m_pTransform; }
 	CRigidBody*		Get_HRigid()		{ return m_pRigid; }
 	CCollider*		Get_HCol()			{ return m_pCol; }
+
+	void Set_PatternIdx(int idx) { m_iIdx = idx; }
+	int Get_PatternIdx() { return m_iIdx; }
 	
 	CGameObject*	Get_Target()		{ return m_pTarget; }
 	const vector<CMonsterPart*>& Get_Part() const { return m_vPart; }
@@ -52,6 +55,8 @@ private:
 	CTransform* m_pTransform = nullptr;
 	CRigidBody* m_pRigid = nullptr;
 	CCollider*	m_pCol = nullptr;
+
+	int m_iIdx = 0;
 
 
 

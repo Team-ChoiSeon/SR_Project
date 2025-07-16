@@ -54,7 +54,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
 
      // 도달 체크 → phase = Wait;
     case DivePhase::In:
-        if (pTransform->Get_Pos().y < -10.f)
+        if (pTransform->Get_Pos().y < -20.f)
         {
             pRigid->Stop_Motion();
             m_eDPhase = DivePhase::Wait;
