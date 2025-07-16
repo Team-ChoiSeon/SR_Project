@@ -54,7 +54,7 @@ HRESULT CVellum::Ready_GameObject()
     m_pCol = Get_Component<CCollider>();
 
     m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });
-    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
+    m_pTransform->Set_Scale({ 1.33f, 1.33f, 1.33f });
 
     m_pRigid->Set_OnGround(false);
     m_pRigid->Set_UseGravity(false);

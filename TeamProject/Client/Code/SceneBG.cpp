@@ -15,7 +15,6 @@
 #include "CStairBlock.h"
 #include "CSceneMgr.h"
 
-#include "CVellum.h"
 
 SceneBG::SceneBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev), m_pPlayer(nullptr)
@@ -37,8 +36,6 @@ HRESULT SceneBG::Ready_Scene()
 	m_pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
 	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
 
-	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
 
 	//크로스 헤어 셋
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);

@@ -92,6 +92,10 @@ HRESULT CMonsterPart::Ready_GameObject()
 
 _int CMonsterPart::Update_GameObject(const _float& fTimeDelta)
 {
+    /*if (m_iIdx == 0)
+    {
+        m_pCol->Set_ColType(m_pTarget->Get_Component<CCollider>()->Get_ColType());
+    }*/
     Follow_Target(fTimeDelta);
     CGameObject::Update_GameObject(fTimeDelta);
     return 0;
