@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "CCube.h"
+#include "CCollider.h"
+#include "CRigidBody.h"
 
 CCube::CCube(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev), m_pModel(nullptr), m_pTransform(nullptr)
@@ -24,25 +26,25 @@ void CCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 }
 
-_bool CCube::Lay()
+void CCube::Set_Tap(bool Trigger)
 {
-    //if (m_bCurGrab)
-    //{
-    //    if (!m_bLay)
-    //    {
-    //        m_bLay = true;
-    //    }
-    //}
-    //else
-    //{
-    //    m_bLay = false;
-    //}
+	m_bTap = Trigger;
+    //if (!Trigger) return;
 
-    if (m_bPreGrab && !m_bCurGrab)
-    {
-        return true;
-    }
-    // 다음 프레임을 위해 prev 상태 갱신
-    m_bPreGrab = m_bCurGrab;
-    return false;
+    //if (CCollider* col = Get_Component<CCollider>())
+    //{
+    //    col->Set_ColType(ColliderType::PASSIVE);
+    //}
 }
+
+void CCube::Set_Away(bool Trigger)
+{
+    m_bAway = Trigger;
+    //if (!Trigger) return;
+
+    //if (CCollider* col = Get_Component<CCollider>())
+    //{
+    //    col->Set_ColType(ColliderType::ACTIVE);
+    //}
+}
+

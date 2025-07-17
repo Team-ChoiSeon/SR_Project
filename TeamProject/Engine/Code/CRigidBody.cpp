@@ -44,9 +44,9 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         return;
     }
 
+    // m_bGround = false; // ì¤‘ë ¥ê´€ë ¨ ë¡œì§ ì ìš© ì•ˆë  ì‹œ 
 
-
-    // Áß·Â Àû¿ë
+    // ì¤‘ë ¥ ì ìš©
     if (m_bGravity && !m_bGround)
     {
         m_vGforce = _vec3(0.f, -9.8f * m_fGravity, 0.f) * m_fMass;
@@ -56,7 +56,7 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         m_vGforce = _vec3(0.f, 0.f, 0.f);
     }
 
-    // ¿Ü·Â + Áß·Â
+    // ì™¸ë ¥ + ì¤‘ë ¥
     _vec3 totalForce = m_vEforce + m_vGforce;
 
     if (m_fMass > 0.f)
@@ -66,18 +66,18 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     }
 
 
-    // ÃÖ´ë ³«ÇÏ ¼Óµµ Á¦ÇÑ
+    // ìµœëŒ€ ë‚™í•˜ ì†ë„ ì œí•œ
     if (m_vVel.y < -50.f)
         m_vVel.y = -50.f;
 
 
 
-    // À§Ä¡ ¾÷µ¥ÀÌÆ®
+    // ìœ„ì¹˜ ì—…ë°ì´íŠ¸
     _vec3 vPos = m_pTransform->Get_Pos();
     vPos += m_vVel * fDeltaTime;
     m_pTransform->Set_Pos(vPos);
 
-    // È¸Àü ¹İ¿µ
+    // íšŒì „ ë°˜ì˜
     m_vAAcc = { m_vTorque.x / m_fInertia.x ,m_vTorque.y / m_fInertia.y ,m_vTorque.z / m_fInertia.z};
     m_vAVel += m_vAAcc * fDeltaTime;
     if (D3DXVec3LengthSq(&m_vAVel) > 0.f)
@@ -89,7 +89,7 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         m_pTransform->Rotate_Axis(axis, angle);
     }
 
-    // °¨¼è ¹× ÃÊ±âÈ­
+    // ê°ì‡  ë° ì´ˆê¸°í™”
     m_vAVel *= 0.995f;
     m_vTorque = _vec3(0.f, 0.f, 0.f);
     m_vEforce = _vec3(0.f, 0.f, 0.f);

@@ -4,6 +4,8 @@
 namespace Engine {
 	class CModel;
 	class CTransform;
+	class CRigidBody;
+	class CCollider;
 }
 class CCube : public CGameObject
 {
@@ -27,15 +29,16 @@ public:
 	
 	void Set_CursorVec(const _vec3& cursorvec) { m_vCursorDelta = cursorvec; }
 	void Set_Grab(bool Trigger) { m_bCurGrab = Trigger; }
-	void Set_Tap(bool Trigger) { m_bTap = Trigger; }
-	void Set_Away(bool Trigger) { m_bAway = Trigger; }
-	_bool Lay();
+	void Set_Tap(bool Trigger);
+	void Set_Away(bool Trigger);
 
 protected:
 	//Compute Function
 	//Variables
 	CModel* m_pModel;
 	CTransform* m_pTransform;
+	CCollider* m_pCollider;
+	CRigidBody* m_pRigid;
 
 	_vec3			m_vCursorDelta;
 	_bool			m_bCurGrab = false;
