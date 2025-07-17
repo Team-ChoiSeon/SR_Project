@@ -121,8 +121,8 @@ void CMetalCube::LateUpdate_GameObject(const _float& fTimeDelta)
 void CMetalCube::Set_Info(CMainPlayer* player)
 {
     m_pPlayer = player;
-    m_MZone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale() * 10;
-    m_MZone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale() * 10;
+    m_MZone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale() * 3;
+    m_MZone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale() * 3;
 }
 
 CMetalCube* CMetalCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -187,7 +187,7 @@ void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
         }
     }
     {
-        m_pTransform->Move_Pos(&m_vGap, 3.f, fTimeDelta);
+        m_pTransform->Move_Pos(&m_vGap, 2.f, fTimeDelta);
     }
 }
 
@@ -210,13 +210,14 @@ void CMetalCube::SyncMagnetic(const _float& fTimeDelta)
 
 void CMetalCube::DetachMagnetic(const _float& fTimeDelta)
 {
-    m_MZone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale() * 10;
-    m_MZone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale() * 10;
+    m_MZone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale() * 3;
+    m_MZone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale() * 3;
     m_pRigid->Set_UseGravity(true);
     m_pRigid->Set_OnGround(false);
     m_pParentMagnet = nullptr;
     m_pPickMagnet = nullptr;
     m_pPickObj = nullptr;
+	m_vParentPrePos = { 0, 0, 0 };
     m_vSyncGap = { 0, 0, 0 };
     m_vGap = { 0, 0, 0 };
     m_eState = METAL_STATE::IDLE;

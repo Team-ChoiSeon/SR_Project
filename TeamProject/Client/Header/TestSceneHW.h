@@ -35,6 +35,7 @@ private:
 	void FloatingSet();
 	void DirectionSet();
 	void SlotSet();
+	void MagnetSet();
 
 	CMainPlayer*						m_pPlayer;
 	CFirstviewFollowingCamera*			m_pFFCam;
