@@ -3,10 +3,14 @@
 #include "CFireState.h"
 #include "CIdleState.h"
 
+#include "CSceneMgr.h"
+
 #include "CVellum.h"
 #include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCollider.h"
+
+#include "CProjectile.h"
 
 void CFireState::Enter(CVellum* pVellum)
 {
@@ -94,13 +98,35 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
             D3DXVec3Lerp(&vCurrentPos, &vStartPos, &vTargetPos, fRatio);
             pTransform->Set_Pos(vCurrentPos);
         }
+        else
+        {
+            if (m_iFireCnt < 3)
+            {
+                m_fFireDelay += fTimeDelta;
+                if (m_fFireDelay > 0.5f)
+                {
+                    CProjectile* pProjectile = CProjectile::Create(pVellum->Get_Dev());
+                    pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + m_vDir * 3.f);
+                    pProjectile->Get_Component<CRigidBody>()->Add_Velocity(m_vDir * 15.f);
+                    CSceneMgr::Get_Instance()->Get_Scene()->
+                        Get_Layer(LAYER_OBJECT)->Add_GameObject(L"projectile" + to_wstring(m_iFireCnt), pProjectile);
 
-        // TODO: 투사체 발사 로직
+                    m_fFireDelay = 0.f;
+                    m_iFireCnt++;
+                }
+                
+            }
+            else
+                m_bFire = true;
+        }
 
         if (m_fPhaseTime >= m_fFireTime)
         {
             m_ePhase = FirePhase::Cooldown;
             m_fPhaseTime = 0.f;
+            m_iFireCnt = 0;
+            m_fFireDelay = 1.f;
+            m_bFire = false;
         }
         break;
     }

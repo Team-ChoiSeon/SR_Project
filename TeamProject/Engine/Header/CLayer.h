@@ -28,7 +28,7 @@ public:
 	// pLayer->Add_GameObject(L"SkyBox", pSkyBoxObj);
 	void	Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject);
 
-	const vector<OBJINFO>& Get_ObjVec() const { return m_vObject; }
+	const list<OBJINFO>& Get_ObjVec() const { return m_ObjectList; }
 	
 
 public:
@@ -45,9 +45,9 @@ private:
 
 
 private:
-	// 오브젝트 리스트를 담기 위한 벡터입니다.
-	// 이후 최적화 고려시에 vector -> unordered_map으로 변경
-	vector<OBJINFO>			m_vObject;
+	// 오브젝트 리스트를 담기 위한 리스트입니다.
+	// 이후 최적화 고려시에 list -> unordered_map으로 변경
+	list<OBJINFO>			m_ObjectList;
 };
 
 END
@@ -56,12 +56,12 @@ END
 template <typename T>
 T* CLayer::Get_GameObject(const wstring& wObjTag)
 {
-	auto iter = find_if(m_vObject.begin(), m_vObject.end(),
+	auto iter = find_if(m_ObjectList.begin(), m_ObjectList.end(),
 		[&](const OBJINFO& info) {
 			return info.szName == wObjTag;
 		});
 
-	if (iter != m_vObject.end())
+	if (iter != m_ObjectList.end())
 	{
 		if (iter->pObj == nullptr)
 		{

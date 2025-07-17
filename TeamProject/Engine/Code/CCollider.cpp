@@ -454,6 +454,10 @@ void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 
 void CCollider::Free()
 {
+	if (CCollisionMgr::Get_Instance())
+	{
+		CCollisionMgr::Get_Instance()->Remove_Collider(this);
+	}
 	Safe_Release(m_pVB);
 	Safe_Release(m_pIB);
 	Safe_Release(m_pGraphicDev);

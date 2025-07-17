@@ -164,6 +164,7 @@
     <ClInclude Include="..\Header\CLodingCube.h" />
     <ClInclude Include="..\Header\CPlayerTriggerCube.h" />
     <ClInclude Include="..\Header\CProgressBar.h" />
+    <ClInclude Include="..\Header\CProjectile.h" />
     <ClInclude Include="..\Header\CSlotSensor.h" />
     <ClInclude Include="..\Header\CSpinState.h" />
     <ClInclude Include="..\Header\CZoneSensor.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="..\Code\CLodingCube.cpp" />
     <ClCompile Include="..\Code\CPlayerTriggerCube.cpp" />
     <ClCompile Include="..\Code\CProgressBar.cpp" />
+    <ClCompile Include="..\Code\CProjectile.cpp" />
     <ClCompile Include="..\Code\CSlotSensor.cpp" />
     <ClCompile Include="..\Code\CSpinState.cpp" />
     <ClCompile Include="..\Code\CZoneSensor.cpp" />

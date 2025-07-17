@@ -17,17 +17,17 @@ void CLayer::Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject)
 	}
 
 	// 이미 동일 태그가 존재하는 경우 덮어쓰지 않기
-	auto it = std::find_if(m_vObject.begin(), m_vObject.end(),
+	auto it = std::find_if(m_ObjectList.begin(), m_ObjectList.end(),
 		[&](const OBJINFO& info) {
 			return info.szName == wObjTag;
 		});
-	if (it != m_vObject.end())
+	if (it != m_ObjectList.end())
 	{
 		MSG_BOX("[Layer] Add_GameObject : tag");
 		return;
 	}
 
-	m_vObject.push_back({ wObjTag, pGameObject });
+	m_ObjectList.push_back({ wObjTag, pGameObject });
 
 	return;
 }
@@ -42,12 +42,22 @@ _int CLayer::Update_Layer(const _float& fTimeDelta)
 {
 	_int	iResult(0);
 
-	for (auto& pObj : m_vObject)
+	for (auto iter = m_ObjectList.begin(); iter != m_ObjectList.end(); )
 	{
-		iResult = pObj.pObj->Update_GameObject(fTimeDelta);
+		iResult = iter->pObj->Update_GameObject(fTimeDelta);
 
 		if (iResult & 0x80000000)
 			return iResult;
+
+		if (iResult == 1)
+		{
+			Safe_Release(iter->pObj);
+			iter = m_ObjectList.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 
 	return iResult;
@@ -55,9 +65,10 @@ _int CLayer::Update_Layer(const _float& fTimeDelta)
 
 void CLayer::LateUpdate_Layer(const _float& fTimeDelta)
 {
-	for (auto& pObj : m_vObject)
+	for (auto& object : m_ObjectList)
 	{
-		pObj.pObj->LateUpdate_GameObject(fTimeDelta);
+		if (object.pObj)
+			object.pObj->LateUpdate_GameObject(fTimeDelta);
 	}
 }
 
@@ -84,9 +95,9 @@ CLayer* CLayer::Create()
 
 void CLayer::Free()
 {
-	for (auto& object : m_vObject)
+	for (auto& object : m_ObjectList)
 		Safe_Release(object.pObj);
-	m_vObject.clear();
+	m_ObjectList.clear();
 }
 
 

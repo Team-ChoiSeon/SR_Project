@@ -14,12 +14,19 @@ void CCollisionMgr::Update_Collision()
 {
 	set<ColliderPair, PairLess> setCurrCollisions;
 
-	for (size_t i = 0; i < m_vCol.size(); ++i)
+	for (auto iterA = m_ColList.begin(); iterA != m_ColList.end(); ++iterA)
 	{
-		for (size_t j = i + 1; j < m_vCol.size(); ++j)
+		auto iterB = iterA;
+		++iterB; // iterB는 항상 iterA의 다음부터 시작
+
+		for (; iterB != m_ColList.end(); ++iterB)
 		{
-			CCollider* pA = m_vCol[i];
-			CCollider* pB = m_vCol[j];
+			CCollider* pA = *iterA;
+			CCollider* pB = *iterB;
+
+			// 오브젝트가 이미 소멸되어 포인터가 nullptr이 된 경우를 대비
+			if (pA == nullptr || pB == nullptr)
+				continue;
 
 			if (!pA->Broad_Phase(pB))
 				continue;
@@ -63,30 +70,23 @@ void CCollisionMgr::Update_Collision()
 
 void CCollisionMgr::Add_Collider(CCollider* collider)
 {
-	auto iter = find_if(m_vCol.begin(), m_vCol.end(),
+	auto iter = find_if(m_ColList.begin(), m_ColList.end(),
 		[&collider](CCollider* data)->bool {
 			return data == collider;
 		});
 
-	if (iter == m_vCol.end())
-		m_vCol.push_back(collider);
+	if (iter == m_ColList.end())
+		m_ColList.push_back(collider);
 }
 
 void CCollisionMgr::Remove_Collider(CCollider* collider)
 {
-	auto iter = remove_if(m_vCol.begin(), m_vCol.end(),
-		[&collider](CCollider* data)->bool {
-			return data == collider;
-		});
-
-	if (iter != m_vCol.end()) {
-		m_vCol.erase(iter, m_vCol.end());
-	}
+	m_ColList.remove(collider);
 }
 
 void CCollisionMgr::Clear()
 {
-	m_vCol.clear();
+	m_ColList.clear();
 }
 
 void CCollisionMgr::Free()
