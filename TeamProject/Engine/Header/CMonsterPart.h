@@ -9,6 +9,7 @@ BEGIN(Engine)
 class CTransform;
 class CRigidBody;
 class CCollider;
+class CParticle;
 
 
 class ENGINE_DLL CMonsterPart : public CGameObject
@@ -42,6 +43,7 @@ private:
 	CTransform* m_pTransform = nullptr;
 	CRigidBody* m_pRigid = nullptr;
 	CCollider* m_pCol = nullptr;
+	CParticle* m_pParticle = nullptr;
 
 	CGameObject* m_pTarget = nullptr;
 	_float m_fSpeed = 10.f;

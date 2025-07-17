@@ -36,7 +36,6 @@ HRESULT BossScene::Ready_Scene()
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 20.f, -20.f });
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
-	//CImpulseCube* pImpulse = CImpulseCube::Create(m_pGraphicDev);
 	// 3-2. º§·ë
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
 
@@ -47,7 +46,6 @@ HRESULT BossScene::Ready_Scene()
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
-	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Impulse", pImpulse);
 
 
 

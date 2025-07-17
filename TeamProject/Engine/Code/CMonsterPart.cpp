@@ -3,6 +3,7 @@
 #include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCollider.h" 
+#include "CParticle.h"
 
 
 CMonsterPart::CMonsterPart(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -67,6 +68,13 @@ HRESULT CMonsterPart::Ready_GameObject()
         MSG_BOX("Part - CCollider creation failed!");
         return E_FAIL;
     }
+
+    Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
+    m_pParticle = Get_Component<CParticle>();
+    m_pParticle->Set_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
+    m_pParticle->Set_Type(PARTICLE_MOVE_TYPE::BREATH);
+    m_pParticle->Set_MaxParticle(200);
+    m_pParticle->Set_SpawnInterval(0.1f);
 
     m_pCol->Set_ColTag(ColliderTag::NONE);
     m_pCol->Set_ColType(ColliderType::PASSIVE);
@@ -164,5 +172,6 @@ void CMonsterPart::Free()
     Safe_Release(m_pTransform);
     Safe_Release(m_pRigid);
     Safe_Release(m_pCol);
+    Safe_Release(m_pParticle);
     m_pTarget = nullptr;
 }

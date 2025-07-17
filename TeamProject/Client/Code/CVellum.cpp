@@ -56,10 +56,13 @@ HRESULT CVellum::Ready_GameObject()
 
     Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
     m_pParticle = Get_Component<CParticle>();
-    m_pParticle->Set_Texture(L"T_SciFi1_Color5.png");
+    m_pParticle->Set_Texture(L"vecteezy_smoke-concept-design_9375129.png");
+    m_pParticle->Set_Type(PARTICLE_MOVE_TYPE::BREATH);
+    m_pParticle->Set_MaxParticle(200);
+    m_pParticle->Set_SpawnInterval(0.05f);
 
 
-    m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });
+    m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });  
     m_pTransform->Set_Scale({ 1.33f, 1.33f, 1.33f });
 
     m_pRigid->Set_OnGround(false);
@@ -157,6 +160,7 @@ void CVellum::Free()
     m_pTransform = nullptr;
     m_pRigid = nullptr;
     m_pCol = nullptr;
+    m_pParticle = nullptr;
 
     for (auto* pPart : m_vPart)
         Safe_Release(pPart);
