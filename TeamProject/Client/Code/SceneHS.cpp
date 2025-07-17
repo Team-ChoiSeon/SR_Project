@@ -171,12 +171,12 @@ SceneHS* SceneHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneHS* pScene = new SceneHS(pGraphicDev);
 
-	if (FAILED(pScene->Ready_Scene()))
-	{
-		Safe_Release(pScene);
-		MSG_BOX("SceneHW Create Failed");
-		return nullptr;
-	}
+	//if (FAILED(pScene->Ready_Scene()))
+	//{
+	//	Safe_Release(pScene);
+	//	MSG_BOX("SceneHW Create Failed");
+	//	return nullptr;
+	//}
 
 	return pScene;
 }

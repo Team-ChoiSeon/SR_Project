@@ -38,7 +38,7 @@ CSceneTestHS::~CSceneTestHS()
 HRESULT CSceneTestHS::Ready_Scene()
 {
 	Init_Layers();
-	CFactory::DeSerializeScene(L"../../Scene/SampleScene1.json", this);
+	//CFactory::DeSerializeScene(L"../../Scene/SampleScene1.json", this);
 	//CTestTile_1
 	
 	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"CTestTile_1")->Get_Component<CRigidBody>()->Set_OnGround(true);
@@ -129,23 +129,10 @@ CSceneTestHS* CSceneTestHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CSceneTestHS* pScene = new CSceneTestHS(pGraphicDev);
 
-	if (FAILED(pScene->Ready_Scene()))
-	{
-		Safe_Release(pScene);
-		MSG_BOX("SceneHW Create Failed");
-		return nullptr;
-	}
-
 	return pScene;
 }
 
 void CSceneTestHS::Free()
 {
-	Clear_Layers();
-
-	CPickingMgr::Destroy_Instance();
-	CUiMgr::Destroy_Instance();
-	CResourceMgr::Destroy_Instance();
-
 	CScene::Free();
 }
