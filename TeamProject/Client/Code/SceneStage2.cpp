@@ -83,7 +83,7 @@ HRESULT SceneStage2::Ready_Scene()
 		cube->Set_Info(pPlayer, i, i);
 	}
 
-	for (int i = 1; i < 9; i++) {
+	for (int i = 0; i < 9; i++) {
 		wstring name = L"CDcube1_" + to_wstring(i);
 		CDirectionalCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(name);
 		cube->Get_Component<CRigidBody>()->Set_UseGravity(false);
