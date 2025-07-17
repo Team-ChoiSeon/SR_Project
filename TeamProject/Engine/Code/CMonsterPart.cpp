@@ -36,7 +36,6 @@ CMonsterPart* CMonsterPart::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMonsterPart::Ready_GameObject()
 {
-    // 1. 모델 컴포넌트 추가 및 즉시 확인
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
     if (nullptr == m_pModel)
@@ -45,7 +44,6 @@ HRESULT CMonsterPart::Ready_GameObject()
         return E_FAIL;
     }
 
-    // 2. 트랜스폼 컴포넌트 추가 및 즉시 확인
     Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
     m_pTransform = Get_Component<CTransform>();
     if (nullptr == m_pTransform)
@@ -54,8 +52,6 @@ HRESULT CMonsterPart::Ready_GameObject()
         return E_FAIL;
     }
 
-    // 3. 리지드바디 컴포넌트 추가 및 즉시 확인
-    // 이제 m_pTransform이 nullptr이 아님이 보장됩니다.
     Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
     m_pRigid = Get_Component<CRigidBody>();
     if (nullptr == m_pRigid)
@@ -64,8 +60,6 @@ HRESULT CMonsterPart::Ready_GameObject()
         return E_FAIL;
     }
 
-    // 4. 콜라이더 컴포넌트 추가 및 즉시 확인
-    // 이제 m_pRigid가 nullptr이 아님이 보장됩니다.
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCol = Get_Component<CCollider>();
     if (nullptr == m_pCol)
@@ -74,7 +68,6 @@ HRESULT CMonsterPart::Ready_GameObject()
         return E_FAIL;
     }
 
-    // --- 모든 컴포넌트가 성공적으로 생성된 후 설정 코드 실행 ---
     m_pCol->Set_ColTag(ColliderTag::NONE);
     m_pCol->Set_ColType(ColliderType::PASSIVE);
     m_pCol->Set_BoundType(BoundingType::OBB);
@@ -93,11 +86,6 @@ HRESULT CMonsterPart::Ready_GameObject()
 
 _int CMonsterPart::Update_GameObject(const _float& fTimeDelta)
 {
-    if (m_bDelete)
-    {
-        return 1;
-    }
-
     Follow_Target(fTimeDelta);
     CGameObject::Update_GameObject(fTimeDelta);
     return 0;
@@ -113,18 +101,16 @@ void CMonsterPart::Follow_Target(_float fDeltaTime)
     if (!m_pTarget || !m_pTransform)
         return;
 
-    // 1. 내 위치와 타겟의 위치 가져오기
     const _vec3 myPos = m_pTransform->Get_Pos();
     const _vec3 targetPos = m_pTarget->Get_Component<CTransform>()->Get_Pos();
 
-    // 2. 타겟과의 방향 및 거리 계산
     _vec3 dir = myPos - targetPos;
     float dist = D3DXVec3Length(&dir);
 
     if (dist > 0.001f)
         D3DXVec3Normalize(&dir, &dir);
 
-    // 3. 목표 위치 계산
+
     //  타겟의 위치에서 dir 방향으로 baseDist만큼 떨어진 지점
     float baseDist = 2.0f;
     _vec3 movePos = myPos;
@@ -156,9 +142,7 @@ void CMonsterPart::Follow_Target(_float fDeltaTime)
 
 CGameObject* CMonsterPart::Get_Owner()
 {
-    // 현재 타겟부터 시작
     CGameObject* pCurrentTarget = m_pTarget;
-    // 다음 타겟을 임시로 저장할 변수
     CMonsterPart* pNextPart = nullptr;
 
     // 현재 타겟이 CMonsterPart 타입이라면 계속해서 다음 타겟을 찾아감

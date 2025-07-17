@@ -108,7 +108,6 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
 
     CMonsterPart* pPartToDestroy = nullptr;
 
-    // 1. Ãæµ¹ÇÑ ÆÄÃ÷ Ã£±â (ÀÌÀü°ú µ¿ÀÏ)
     for (CMonsterPart* pPart : m_vPart)
     {
         CCollider* pCollider = pPart->Get_Component<CCollider>();
@@ -123,14 +122,10 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
         }
     }
 
-    // 2. ÆÄ±«ÇÒ ÆÄÃ÷°¡ ÀÖ´Ù¸é
+
     if (pPartToDestroy)
     {
-        // 2-1. Ã¼ÀÎÀ» ¸ÕÀú Àç±¸¼º (°¡Àå Áß¿ä)
         Organize_Chain(pPartToDestroy);
-
-        // 2-2. Àç±¸¼ºÀÌ ³¡³­ ÈÄ, ÇØ´ç ÆÄÃ÷¿¡°Ô »èÁ¦ ½ÅÈ£¸¦ º¸³¿
-        pPartToDestroy->Reserve_Delete();
     }
 
     if (m_pState)
@@ -173,7 +168,6 @@ void CVellum::Free()
 
 void CVellum::Change_Pattern(IVellumState* pState)
 {
-    // ê¸°ì¡´ ?íƒœê°€ ?ˆë‹¤ë©?Exit ?¨ìˆ˜ë¥??¸ì¶œ
     if (m_pState) 
     {
         m_pState->Exit(this);
@@ -192,7 +186,7 @@ void CVellum::Organize_Chain(CMonsterPart* pPart)
     if (iter == m_vPart.end())
         return;
 
-    // 1. ¾Õ/µÚ ÆÄÃ÷ Ã£±â (·ÎÁ÷ µ¿ÀÏ)
+    // ¾Õ/µÚ ÆÄÃ÷ Ã£±â 
     size_t index = distance(m_vPart.begin(), iter);
     CGameObject* pPrecedingPart = nullptr;
     if (index == 0)
@@ -211,6 +205,7 @@ void CVellum::Organize_Chain(CMonsterPart* pPart)
         pSucceedingPart->Set_Target(pPrecedingPart);
     }
 
+    Safe_Release(*iter);
     m_vPart.erase(iter);
 
     for (size_t i = 0; i < m_vPart.size(); ++i)
@@ -261,22 +256,16 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
+    // ÀÓ½Ã »èÁ¦ ÄÚµç
     if (CInputMgr::Get_Instance()->Key_Away(DIK_1))
     {
         if (!m_vPart.empty() && m_vPart.size() > 1)
         {
-            CMonsterPart* pTargetPart = m_vPart[1]; // 1¹ø ÀÎµ¦½º ÆÄÃ÷¸¦ ¸ñÇ¥·Î
-
-            // VellumÀÇ Update ·ÎÁ÷°ú µ¿ÀÏÇÏ°Ô È£Ãâ
+            CMonsterPart* pTargetPart = m_vPart[1]; 
             Organize_Chain(pTargetPart);
-            pTargetPart->Reserve_Delete();
         }
     }
  
-    //if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
-    //{
-    //    m_vPart.clear();
-    //}
 
     m_pTransform->Set_Pos(pos); // ?ìš©
 }

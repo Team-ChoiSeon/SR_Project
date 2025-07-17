@@ -10,7 +10,6 @@ class CTransform;
 class CRigidBody;
 class CCollider;
 
-enum class PartState { NORMAL, BROKEN };
 
 class ENGINE_DLL CMonsterPart : public CGameObject
 {
@@ -30,13 +29,10 @@ public:
 	void Follow_Target(_float fDeltaTime);
 	void Set_Target(CGameObject* pTarget) { m_pTarget = pTarget; }
 	void Set_Index(int idx, int max) { m_iIdx = idx, m_iMax = max; }
-	void Set_State(PartState eState) { m_eState = eState; }
 
 	CGameObject* Get_Owner();
 	CGameObject* Get_Target() { return m_pTarget; }
-	PartState Get_State() const { return m_eState; }
 
-	void Reserve_Delete() { m_bDelete = true; }
 
 public:
 	virtual void Free();
@@ -50,8 +46,6 @@ private:
 	CGameObject* m_pTarget = nullptr;
 	_float m_fSpeed = 10.f;
 
-	bool m_bDelete = false;
-	PartState m_eState = PartState::NORMAL;
 
 	int m_iIdx = 0;
 	int m_iMax = 0;
