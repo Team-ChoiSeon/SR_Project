@@ -55,8 +55,8 @@ _int CStairBlock::Update_GameObject(const _float& fTimeDelta)
     CTransform* targetTrans = m_pTarget->Get_Component<CTransform>();
     _vec3 targetDistance = m_pTransform->Get_Pos() - targetTrans->Get_Pos();
 
-    constexpr float kTriggerX = 5.f;
-    constexpr float kTriggerZ = 5.f;
+    constexpr float kTriggerX = 1.f;
+    constexpr float kTriggerZ = 1.f;
     constexpr float kTriggerY = 0.f;
 
     if (targetDistance.y < kTriggerY &&
@@ -74,16 +74,32 @@ void CStairBlock::LateUpdate_GameObject(const _float& fTimeDelta)
 
     if (!m_bFindTarget) return;
 
-    if (m_fnowHeight < m_fDistance) {
-        _float moveAmount = fTimeDelta;
-        if (m_fnowHeight + moveAmount > m_fDistance)
-            moveAmount = m_fDistance - m_fnowHeight;
+    _float moveAmount = fTimeDelta;
 
-        m_fnowHeight += moveAmount;
+    if (fabs(m_fnowHeight + moveAmount) > fabs(m_fDistance))
+    {
+        moveAmount = fabs(m_fDistance) - fabs(m_fnowHeight);
+    }
 
-        _vec3 pos = m_pTransform->Get_Pos();
-        pos.y += moveAmount;
-        m_pTransform->Set_Pos(pos);
+    if (m_fDistance > 0.f)
+    {
+        if (m_fnowHeight < m_fDistance)
+        {
+            m_fnowHeight += moveAmount;
+            _vec3 pos = m_pTransform->Get_Pos();
+            pos.y += moveAmount;
+            m_pTransform->Set_Pos(pos);
+        }
+    }
+    else if (m_fDistance < 0.f)
+    {
+        if (m_fnowHeight > m_fDistance)
+        {
+            m_fnowHeight -= moveAmount;
+            _vec3 pos = m_pTransform->Get_Pos();
+            pos.y -= moveAmount;
+            m_pTransform->Set_Pos(pos);
+        }
     }
 }
 

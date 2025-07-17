@@ -12,6 +12,7 @@
 #include "CPickingMgr.h"
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
+#include "CRenderMgr.h"
 
 #include "CPlayer.h"
 #include "CMainPlayer.h"
@@ -25,6 +26,9 @@
 #include "CSlotCube.h"
 #include "CFloatingCube.h"
 #include "CStairBlock.h"
+#include "CSceneGate.h"
+
+#include "SceneBG.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -79,7 +83,7 @@ HRESULT SceneStage2::Ready_Scene()
 		cube->Set_Info(pPlayer, i, i);
 	}
 
-	for (int i = 1; i < 9; i++) {
+	for (int i = 0; i < 9; i++) {
 		wstring name = L"CDcube1_" + to_wstring(i);
 		CDirectionalCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(name);
 		cube->Get_Component<CRigidBody>()->Set_UseGravity(false);
@@ -91,9 +95,9 @@ HRESULT SceneStage2::Ready_Scene()
 		if (i == 0)
 			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 0.f, 15.f);
 		else if (i > 4)
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, 1.f }, 0.f, 5.f);
-		else
 			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, -1.f }, 0.f, 5.f);
+		else
+			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, 1.f }, 0.f, 5.f);
 	}
 
 	CFloatingCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube1_1");
@@ -102,21 +106,31 @@ HRESULT SceneStage2::Ready_Scene()
 	cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	cube->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 	cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
-	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { -1.f, 0.f, 0.f }, 39.f, 15.f, 0.5f);
+	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 1.f, 0.f, 0.f }, 39.f, 15.f, 0.5f);
 	cube->Set_Loop();
 	cube->SetTrigger(true);
 
 	CStairBlock* pStaircube1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CStairBlock>(L"CStair2_1");
-	pStaircube1->Set_Distance(-50.f);
+	pStaircube1->Set_Distance(-30.f);
 	CStairBlock* pStaircube2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CStairBlock>(L"CStair2_2");
-	pStaircube2->Set_Distance(25.f);
+	pStaircube2->Set_Distance(18.f);
 
 	return S_OK;
 }
 
 _int SceneStage2::Update_Scene(const _float& fTimeDelta)
 {
-	CScene::Update_Scene(fTimeDelta);
+
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate_1")->Get_InGate()) {
+		CScene* pScene = SceneBG::Create(m_pGraphicDev);
+		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+		CCollisionMgr::Get_Instance()->Clear();
+		CRenderMgr::Get_Instance()->Clear();
+	}
+	else {
+		CScene::Update_Scene(fTimeDelta);
+	}
+
 	return 0;
 }
 
