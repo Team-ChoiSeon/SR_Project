@@ -33,8 +33,13 @@ CTexture* CResourceMgr::Load_Texture(const wstring& texturePath)
 	if (it != m_umTexture.end())
 		return it->second; // 이미 로드된 텍스처 반환
 
-	wstring BasePath = L"../Bin/Resource/Texture/";
+	wstring BasePath = L"../Bin/Resource/Texture/Diffuse/";
 	wstring filePath = BasePath + texturePath;
+
+	if (texturePath.empty())
+		filePath = BasePath + L"Grey_Diffuse.PNG";
+	else
+		filePath = BasePath + texturePath;
 
 	CTexture* tex = CTexture::Create();
 	if (!tex) return nullptr;
@@ -57,16 +62,15 @@ CMesh* CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
 		return iter->second;
 	}
 
-	wstring BasePath = L"../Bin/Resource/Obj/";
-	wstring filePath = BasePath + key;
-
 	CMesh* mesh = CMesh::Create();
-	if (FAILED(mesh->LoadOBJ(pDevice, filePath))) {
+	wstring meshKey = key;
+	if (FAILED(mesh->LoadOBJ(pDevice, meshKey))) {
 		Safe_Release(mesh);
 		return nullptr;
 	}
-	mesh->Set_Key(key);
-	m_umMesh[key] = mesh;
+
+	mesh->Set_Key(meshKey);
+	m_umMesh[meshKey] = mesh;
 	return mesh;
 }
 
@@ -78,13 +82,28 @@ CMaterial* CResourceMgr::Load_Material(const wstring& mtlPath)
 		return iter->second;
 
 	// 경로 조합
+	wstring mtlKey = mtlPath;
 	wstring basePath = L"../Bin/Resource/Material/";
 	wstring fullPath = basePath + mtlPath;
 
-	ifstream in(fullPath, ios::binary);
+	ifstream in;
+
+	in.open(fullPath);
+
 	if (!in.is_open()) {
-		MSG_BOX("ResourceMgr::File Open Failed");
-		return nullptr;
+		fullPath = basePath + L"Default_A.mtl";
+		mtlKey = L"Default_A.mtl";
+		// 스트림 상태 초기화
+		in.clear();
+		in.open(fullPath);
+		if (!in.is_open()) {
+			MessageBoxW(0, L"Mtl Load Err", L"Err", MB_OK);
+		}
+		else {
+			auto iter = m_umMaterial.find(mtlKey);
+			if (iter != m_umMaterial.end())
+				return iter->second;
+		}
 	}
 
 	string utf8Line;
@@ -111,6 +130,11 @@ CMaterial* CResourceMgr::Load_Material(const wstring& mtlPath)
 		}
 	}
 
+	if (texturePath.empty()) {
+		MessageBoxW(0, L"MTL 파일에 텍스처 경로가 없습니다.", L"Error", MB_OK);
+		return nullptr;
+	}
+
 	// 텍스처 로드
 	CTexture* tex = Load_Texture(texturePath);
 	if (!tex) return nullptr;
@@ -120,10 +144,10 @@ CMaterial* CResourceMgr::Load_Material(const wstring& mtlPath)
 	if (!mat) return nullptr;
 
 	mat->Set_Diffuse(tex);
-	mat->Set_MaterialKey(mtlPath);
-	m_umMaterial[mtlPath] = mat;
+	mat->Set_MaterialKey(mtlKey);
+	m_umMaterial[mtlKey] = mat;
 
-	return mat; //  올바른 반환
+	return mat; 
 }
 
 
@@ -153,6 +177,7 @@ void CResourceMgr::Free()
 	m_umMesh.clear();
 
 	for (auto& [_, pRes] : m_umMaterial)
+
 		Safe_Release(pRes);
 	m_umMaterial.clear();
 
