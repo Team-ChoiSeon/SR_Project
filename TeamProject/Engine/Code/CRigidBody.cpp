@@ -44,6 +44,8 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         return;
     }
 
+    //m_bGround = false;
+
     // 중력 적용
     if (m_bGravity && !m_bGround)
     {
@@ -57,6 +59,34 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     // 외력 + 중력
     _vec3 totalForce = m_vEforce + m_vGforce;
 
+    //if (m_bGround && D3DXVec3LengthSq(&m_vVel) > 0.0001f)
+    //{
+    //    // 운동 마찰력 계산: N(수직항력) * u(마찰계수)
+    //    // 평지에서의 수직항력은 중력의 크기와 같다고 가정합니다.
+    //    float fNormalForce = m_fMass * 9.8f * m_fGravity;
+    //    float fFrictionMagnitude = fNormalForce * m_fFric;
+
+    //    // 마찰력 방향은 속도의 반대 방향
+    //    _vec3 vFrictionForce = -m_vVel;
+    //    vFrictionForce.y = 0.f; // 수평 마찰만 적용
+    //    D3DXVec3Normalize(&vFrictionForce, &vFrictionForce);
+
+    //    vFrictionForce *= fFrictionMagnitude;
+
+    //    // 마찰력이 현재 속도를 넘어 반대 방향으로 움직이게 하는 것을 방지
+    //    _vec3 vNextVel = m_vVel + (vFrictionForce / m_fMass) * fDeltaTime;
+    //    if (D3DXVec3Dot(&m_vVel, &vNextVel) < 0.f)
+    //    {
+    //        // 속도가 0이 되는 지점을 넘어서면 그냥 속도를 0으로 만듦
+    //        m_vVel.x = 0.f;
+    //        m_vVel.z = 0.f;
+    //    }
+    //    else
+    //    {
+    //        totalForce += vFrictionForce;
+    //    }
+    //}
+
     if (m_fMass > 0.f)
     {
         m_vAcc = totalForce / m_fMass;
@@ -69,23 +99,6 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         m_vVel.y = -50.f;
 
 
-    // 바닥에 있을 때의 처리 (마찰/감속 및 정지)
-    if (m_bGround)
-    {
-        // 미세한 움직임 방지
-        if (D3DXVec3LengthSq(&m_vVel) < 0.0001f)
-        {
-            m_vVel = _vec3(0.f, 0.f, 0.f);
-        }
-
-        // 수평 속도에만 감속을 적용
-        // m_fFric :1.0에 가까울수록 잘 미끄러짐
-        m_vVel.x *= m_fFric;
-        m_vVel.z *= m_fFric;
-
-        // 바닥에 있을 땐 수직 가속도를 0으로 초기화
-        m_vAcc.y = 0.f;
-    }
 
     // 위치 업데이트
     _vec3 vPos = m_pTransform->Get_Pos();
@@ -103,6 +116,7 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         D3DXVec3Normalize(&axis, &axis);
         m_pTransform->Rotate_Axis(axis, angle);
     }
+
     // 감쇠 및 초기화
     m_vAVel *= 0.995f;
     m_vTorque = _vec3(0.f, 0.f, 0.f);
