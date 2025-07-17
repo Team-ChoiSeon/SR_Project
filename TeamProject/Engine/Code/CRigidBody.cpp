@@ -59,33 +59,6 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     // 외력 + 중력
     _vec3 totalForce = m_vEforce + m_vGforce;
 
-    if (m_bGround)
-    {
-        // 현재 속도에서 수평 방향 성분만 추출
-        _vec3 vHorizontalVel = m_vVel;
-        vHorizontalVel.y = 0.f;
-
-        // 수평 속도가 조금이라도 있을 경우 (미끄러지고 있을 경우)
-        if (D3DXVec3LengthSq(&vHorizontalVel) > 0.0001f)
-        {
-            // 마찰력의 방향은 속도의 정반대
-            _vec3 vFrictionDir;
-            D3DXVec3Normalize(&vFrictionDir, &vHorizontalVel);
-            vFrictionDir *= -1.f;
-
-            // 마찰력의 크기 계산 (간단한 모델)
-            // 실제로는 수직항력(Normal Force)을 곱해야 하지만, 여기서는 중력을 기반으로 근사치 계산
-            float fNormalForce = m_fMass * 9.8f;
-            float fFrictionMagnitude = fNormalForce * m_fFric;
-
-            // 마찰 계수가 적용된 최종 마찰력
-            _vec3 vFrictionForce = vFrictionDir * fFrictionMagnitude;
-
-            // 최종 힘에 마찰력을 더해줌
-            totalForce += vFrictionForce;
-        }
-    }
-
     if (m_fMass > 0.f)
     {
         m_vAcc = totalForce / m_fMass;

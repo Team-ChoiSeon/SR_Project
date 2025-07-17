@@ -33,7 +33,7 @@ HRESULT BossScene::Ready_Scene()
 
 	// 1. 플레이어 (시점 고정)
 	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
-	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 20.f, -20.f });
+	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 100.f, -20.f });
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
 	// 3-2. 벨룸
