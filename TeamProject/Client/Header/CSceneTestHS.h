@@ -18,5 +18,7 @@ public:
 
 public:
 	virtual void Free();
+	virtual const wstring Get_ScenePath() { return L"../../Scene/SampleScene1.json"; };
+
 };
 
