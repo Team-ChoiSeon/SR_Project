@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
-#include "SceneSB.h"
+#include "BossScene.h"
+
 
 #include "CMainPlayer.h"
 #include "CMonster.h"
@@ -14,17 +15,17 @@
 #include "CSceneMgr.h"
 
 
-SceneSB::SceneSB(LPDIRECT3DDEVICE9 pGraphicDev)
+BossScene::BossScene(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
 {
 
 }
 
-SceneSB::~SceneSB()
+BossScene::~BossScene()
 {
 }
 
-HRESULT SceneSB::Ready_Scene()
+HRESULT BossScene::Ready_Scene()
 {
 
 	//CScene::Ready_Scene();
@@ -54,30 +55,30 @@ HRESULT SceneSB::Ready_Scene()
 	pCam->Set_Target(pPlayer);  // 1ÀÎÄª ½ÃÁ¡
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
-	
+
 
 	return S_OK;
 }
 
-_int SceneSB::Update_Scene(const _float& fTimeDelta)
+_int BossScene::Update_Scene(const _float& fTimeDelta)
 {
 	CScene::Update_Scene(fTimeDelta);
 	return 0;
 }
 
-void SceneSB::LateUpdate_Scene(const _float& fTimeDelta)
+void BossScene::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CScene::LateUpdate_Scene(fTimeDelta);
 
 }
 
-SceneSB* SceneSB::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+BossScene* BossScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	SceneSB* pScene = new SceneSB(pGraphicDev);
+	BossScene* pScene = new BossScene(pGraphicDev);
 	return pScene;
 }
 
-void SceneSB::Free()
+void BossScene::Free()
 {
 	CScene::Free();
 }

@@ -70,6 +70,9 @@ HRESULT CCollider::Ready_Component()
 }
 void CCollider::Update_Component(const _float& fTimeDelta)
 {
+	if (m_pRigid)
+		m_pRigid->Set_OnGround(false);
+
 	if (m_eState == ColliderState::ENTER) m_eState = ColliderState::STAY;
 	else if (m_eState == ColliderState::EXIT) m_eState = ColliderState::NONE;
 
@@ -492,54 +495,34 @@ void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 
 	if (!m_pRigid) return;
 
-	// 2. 속도 보정 및 상태 설정 (이하 동일)
-	_vec3 vPushDir = push;
-	D3DXVec3Normalize(&vPushDir, &vPushDir);
+	// 2. 탄성(Bounce) 반응 계산
+	_vec3 vVel = m_pRigid->Get_Velocity();
+	_vec3 vPushDir;
+	D3DXVec3Normalize(&vPushDir, &push);
 
-	if (D3DXVec3Dot(&vPushDir, &up) > 0.5f) // 수직 충돌 확인
+	float fVelDotNormal = D3DXVec3Dot(&vVel, &vPushDir);
+
+	// 물체가 충돌면으로 이동 중일 때만 반응
+	if (fVelDotNormal < 0.f)
 	{
-		m_pRigid->Set_OnGround(true);
+		// 2-1. 속도를 수직/수평 성분으로 분해
+		_vec3 vNormalVel = vPushDir * fVelDotNormal; // 수직 속도
+		_vec3 vTangentVel = vVel - vNormalVel;      // 수평 속도 (미끄러지는 속도)
 
-		_vec3 vVel = m_pRigid->Get_Velocity();
+		// 2-2. 수직 속도만 반발 계수를 적용하여 반사시킴
+		// 이렇게 하면 수평 속도는 보존되어 미끄러짐이 유지됩니다.
+		vNormalVel *= -m_pRigid->Get_Bounce();
 
-		if (vVel.y < 0.f)
+		// 2-3. 최종 속도 설정: 보존된 수평 속도와 반사된 수직 속도를 합침
+		m_pRigid->Set_Velocity(vTangentVel + vNormalVel);
+
+		// 2-4. 바닥 상태 설정
+		if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
 		{
-			const float fMinBounceVelocity = 1.0f;
-
-			if (vVel.y < -fMinBounceVelocity)
-			{
-				vVel.y *= -m_pRigid->Get_Bounce();
-			}
-			else
-			{
-				vVel.y = 0.f;
-			}
-			m_pRigid->Set_Velocity(vVel);
+			m_pRigid->Set_OnGround(true);
 		}
 	}
 }
-
-
-//void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
-//{
-//	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
-//		return;
-//
-//	if (D3DXVec3LengthSq(&push) < 0.0001f)
-//		return;
-//
-//	_vec3 vPush = push;
-//	D3DXVec3Normalize(&vPush, &vPush);
-//	_vec3 vUp = { 0.f,1.f,0.f };
-//	_float fDot = D3DXVec3Dot(&vPush, &vUp);
-//
-//	if (fDot > 0.5f)
-//	{
-//		m_pRigid->Set_OnGround(true);
-//	}
-//}
-
-
 
 void CCollider::Free()
 {

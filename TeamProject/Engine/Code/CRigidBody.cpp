@@ -44,7 +44,7 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         return;
     }
 
-    //m_bGround = false;
+
 
     // 중력 적용
     if (m_bGravity && !m_bGround)
@@ -59,33 +59,32 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     // 외력 + 중력
     _vec3 totalForce = m_vEforce + m_vGforce;
 
-    //if (m_bGround && D3DXVec3LengthSq(&m_vVel) > 0.0001f)
-    //{
-    //    // 운동 마찰력 계산: N(수직항력) * u(마찰계수)
-    //    // 평지에서의 수직항력은 중력의 크기와 같다고 가정합니다.
-    //    float fNormalForce = m_fMass * 9.8f * m_fGravity;
-    //    float fFrictionMagnitude = fNormalForce * m_fFric;
+    if (m_bGround)
+    {
+        // 현재 속도에서 수평 방향 성분만 추출
+        _vec3 vHorizontalVel = m_vVel;
+        vHorizontalVel.y = 0.f;
 
-    //    // 마찰력 방향은 속도의 반대 방향
-    //    _vec3 vFrictionForce = -m_vVel;
-    //    vFrictionForce.y = 0.f; // 수평 마찰만 적용
-    //    D3DXVec3Normalize(&vFrictionForce, &vFrictionForce);
+        // 수평 속도가 조금이라도 있을 경우 (미끄러지고 있을 경우)
+        if (D3DXVec3LengthSq(&vHorizontalVel) > 0.0001f)
+        {
+            // 마찰력의 방향은 속도의 정반대
+            _vec3 vFrictionDir;
+            D3DXVec3Normalize(&vFrictionDir, &vHorizontalVel);
+            vFrictionDir *= -1.f;
 
-    //    vFrictionForce *= fFrictionMagnitude;
+            // 마찰력의 크기 계산 (간단한 모델)
+            // 실제로는 수직항력(Normal Force)을 곱해야 하지만, 여기서는 중력을 기반으로 근사치 계산
+            float fNormalForce = m_fMass * 9.8f;
+            float fFrictionMagnitude = fNormalForce * m_fFric;
 
-    //    // 마찰력이 현재 속도를 넘어 반대 방향으로 움직이게 하는 것을 방지
-    //    _vec3 vNextVel = m_vVel + (vFrictionForce / m_fMass) * fDeltaTime;
-    //    if (D3DXVec3Dot(&m_vVel, &vNextVel) < 0.f)
-    //    {
-    //        // 속도가 0이 되는 지점을 넘어서면 그냥 속도를 0으로 만듦
-    //        m_vVel.x = 0.f;
-    //        m_vVel.z = 0.f;
-    //    }
-    //    else
-    //    {
-    //        totalForce += vFrictionForce;
-    //    }
-    //}
+            // 마찰 계수가 적용된 최종 마찰력
+            _vec3 vFrictionForce = vFrictionDir * fFrictionMagnitude;
+
+            // 최종 힘에 마찰력을 더해줌
+            totalForce += vFrictionForce;
+        }
+    }
 
     if (m_fMass > 0.f)
     {
@@ -121,6 +120,8 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     m_vAVel *= 0.995f;
     m_vTorque = _vec3(0.f, 0.f, 0.f);
     m_vEforce = _vec3(0.f, 0.f, 0.f);
+
+
 }
 
 void CRigidBody::Free()

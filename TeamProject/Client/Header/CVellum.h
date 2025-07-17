@@ -5,7 +5,10 @@
 #include "IVellumState.h"
 
 
-
+namespace Engine
+{
+	class CParticle;
+}
 
 class CVellum : public CGameObject
 {
@@ -57,6 +60,7 @@ private:
 	CTransform* m_pTransform = nullptr;
 	CRigidBody* m_pRigid = nullptr;
 	CCollider*	m_pCol = nullptr;
+	CParticle* m_pParticle = nullptr;
 
 	int m_iIdx = 0;
 

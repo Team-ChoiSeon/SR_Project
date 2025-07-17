@@ -5,6 +5,7 @@
 #include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCollider.h"
+#include "CParticle.h"
 
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
@@ -53,6 +54,11 @@ HRESULT CVellum::Ready_GameObject()
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCol = Get_Component<CCollider>();
 
+    Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
+    m_pParticle = Get_Component<CParticle>();
+    m_pParticle->Set_Texture(L"T_SciFi1_Color5.png");
+
+
     m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });
     m_pTransform->Set_Scale({ 1.33f, 1.33f, 1.33f });
 
@@ -77,7 +83,7 @@ HRESULT CVellum::Ready_GameObject()
 
         // 파츠 위치 초기화 (선형 배열 형태)
         _vec3 headPos = m_pTransform->Get_Info(INFO_POS);
-        _vec3 partPos = headPos + _vec3(0.f, 2.f * (i + 1), 0.f);
+        _vec3 partPos = headPos - _vec3(0.f, 2.f * (i + 1), 0.f);
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
         pPart->Set_Target(pTarget);
