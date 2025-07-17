@@ -5,7 +5,7 @@ struct MetalZone {
 	_vec3 _min;
 	_vec3 _max;
 };
-
+enum class METAL_STATE { IDLE, APPROACH, SYNC, DETACH };
 namespace Engine {
 	class CCollider;
 	class CRigidBody;
@@ -57,10 +57,6 @@ private:
 	_float					m_fGap;
 	_vec3					m_vSyncGap;
 	_float					m_fSyncGap;
-
-	_bool					m_bIdle = true;
-	_bool					m_bApproach = false;
-	_bool					m_bSync = false;
-	_bool					m_bDetach = false;
+	METAL_STATE				m_eState;
 };
 

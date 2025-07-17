@@ -193,15 +193,17 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	_vec3 magpos = m_pTestmagnet->Get_Component<CTransform>()->Get_Pos();
 	_vec3 metalpos = m_pTestmetal->Get_Component<CTransform>()->Get_Pos();
 
-	CGuiSystem::Get_Instance()->RegisterPanel("Pos", [this]() {
-		// 간단한 GUI 창 하나 출력
-		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-		ImGui::Begin("Magnet Pos ");
-		ImGui::Text("Magnet Pos \nx: %3.f y: %3.f z: %3.f", m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().x, m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().y, m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().z);
-		ImGui::Text("Metal Pos \nx: %3.f y: %3.f z: %3.f", m_pTestmetal->Get_Component<CTransform>()->Get_Pos().x, m_pTestmetal->Get_Component<CTransform>()->Get_Pos().y, m_pTestmetal->Get_Component<CTransform>()->Get_Pos().z);
+	//CGuiSystem::Get_Instance()->RegisterPanel("Pos", [this]() {
+	//	// 간단한 GUI 창 하나 출력
+	//	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+	//	ImGui::Begin("Magnet Pos ");
+	//	ImGui::Text("Magnet Pos \nx: %3.f y: %3.f z: %3.f", m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().x, m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().y, m_pTestmagnet->Get_Component<CTransform>()->Get_Pos().z);
+	//	ImGui::Text("Metal Pos \nx: %3.f y: %3.f z: %3.f", m_pTestmetal->Get_Component<CTransform>()->Get_Pos().x, m_pTestmetal->Get_Component<CTransform>()->Get_Pos().y, m_pTestmetal->Get_Component<CTransform>()->Get_Pos().z);
 
-		ImGui::End();
-		});
+	//	ImGui::End();
+	//	});
+
+
 	_vec3 playerpos = m_pPlayer->GetPos();
 	//_vec3 fcubepos = m_pFloatingCube->Get_Component<CTransform>()->Get_Pos();
 	//_vec3 dcubepos = m_pDirectionalCube->Get_Component<CTransform>()->Get_Pos();
