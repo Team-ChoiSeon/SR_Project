@@ -486,8 +486,13 @@ void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
 	}
 }
 
+void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+{
+	m_pOwner->Get_Component<CTransform>()->Move_Pos(&push, 1.f, 1.f);
+
 	if (!m_pRigid) return;
 
+	// 2. 속도 보정 및 상태 설정 (이하 동일)
 	_vec3 vPushDir = push;
 	D3DXVec3Normalize(&vPushDir, &vPushDir);
 
@@ -501,19 +506,16 @@ void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
 		{
 			const float fMinBounceVelocity = 1.0f;
 
-			// 빠르게 부딪혔을 때: 탄성 적용
 			if (vVel.y < -fMinBounceVelocity)
 			{
 				vVel.y *= -m_pRigid->Get_Bounce();
 			}
-			// 살포시 내려앉았을 때: 진동 방지를 위해 속도 0으로
 			else
 			{
 				vVel.y = 0.f;
 			}
 			m_pRigid->Set_Velocity(vVel);
 		}
-		// 위로 움직이는 중(점프 등)일때는 속도를 건드리지 않습니다
 	}
 }
 
