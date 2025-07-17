@@ -100,23 +100,33 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         }
         else
         {
-            if (!m_bFire)
+            if (m_iFireCnt < 3)
             {
-                CProjectile* pProjectile = CProjectile::Create(pVellum->Get_Dev());
-                pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + m_vDir * 3.f);
-                pProjectile->Get_Component<CRigidBody>()->Add_Velocity(m_vDir * 10.f);
-                CSceneMgr::Get_Instance()->Get_Scene()->
-                    Get_Layer(LAYER_OBJECT)->Add_GameObject(L"projectile", pProjectile);
+                m_fFireDelay += fTimeDelta;
+                if (m_fFireDelay > 0.5f)
+                {
+                    CProjectile* pProjectile = CProjectile::Create(pVellum->Get_Dev());
+                    pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + m_vDir * 3.f);
+                    pProjectile->Get_Component<CRigidBody>()->Add_Velocity(m_vDir * 15.f);
+                    CSceneMgr::Get_Instance()->Get_Scene()->
+                        Get_Layer(LAYER_OBJECT)->Add_GameObject(L"projectile" + to_wstring(m_iFireCnt), pProjectile);
 
+                    m_fFireDelay = 0.f;
+                    m_iFireCnt++;
+                }
+                
             }
-            m_bFire = true;
+            else
+                m_bFire = true;
         }
 
-        // TODO: 투사체 발사 로직
         if (m_fPhaseTime >= m_fFireTime)
         {
             m_ePhase = FirePhase::Cooldown;
             m_fPhaseTime = 0.f;
+            m_iFireCnt = 0;
+            m_fFireDelay = 1.f;
+            m_bFire = false;
         }
         break;
     }

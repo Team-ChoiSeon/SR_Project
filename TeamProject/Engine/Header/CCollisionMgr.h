@@ -21,7 +21,7 @@ public:
 	void Clear();
 
 private:
-	vector<CCollider*> m_vCol;
+	list<CCollider*> m_ColList;
 
 	using ColliderPair = pair<CCollider*, CCollider*>;
 	struct PairLess {
