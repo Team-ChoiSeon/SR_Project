@@ -153,12 +153,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\BossScene.h" />
     <ClInclude Include="..\Header\CChaseState.h" />
     <ClInclude Include="..\Header\CCinematicCamera.h" />
     <ClInclude Include="..\Header\CDollyCamera.h" />
     <ClInclude Include="..\Header\CDiveState.h" />
     <ClInclude Include="..\Header\CFireState.h" />
     <ClInclude Include="..\Header\CIdleState.h" />
+    <ClInclude Include="..\Header\CIntroState.h" />
     <ClInclude Include="..\Header\CMetalCube.h" />
     <ClInclude Include="..\Header\CImageUIObject.h" />
     <ClInclude Include="..\Header\CLodingCube.h" />
@@ -211,12 +213,14 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\BossScene.cpp" />
     <ClCompile Include="..\Code\CChaseState.cpp" />
     <ClCompile Include="..\Code\CCinematicCamera.cpp" />
     <ClCompile Include="..\Code\CDollyCamera.cpp" />
     <ClCompile Include="..\Code\CDiveState.cpp" />
     <ClCompile Include="..\Code\CFireState.cpp" />
     <ClCompile Include="..\Code\CIdleState.cpp" />
+    <ClCompile Include="..\Code\CIntroState.cpp" />
     <ClCompile Include="..\Code\CMetalCube.cpp" />
     <ClCompile Include="..\Code\CImageUIObject.cpp" />
     <ClCompile Include="..\Code\CLodingCube.cpp" />

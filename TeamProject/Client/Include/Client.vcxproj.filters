@@ -169,6 +169,12 @@
     <Filter Include="03. Scene\DebugScene\Logo">
       <UniqueIdentifier>{11859b5b-3fe4-42a7-bffa-734c123776a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Vellum\State\INTRO">
+      <UniqueIdentifier>{9dcb92a4-8123-4b3e-b9d6-4a84a9a968c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\ReleaseScene\99. BossScene">
+      <UniqueIdentifier>{5d6eac98-61f7-4ddb-b5ff-74ceb4c4670d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -339,6 +345,12 @@
     <ClInclude Include="..\Header\SceneStage2.h">
       <Filter>03. Scene\DebugScene\SceneHS</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CIntroState.h">
+      <Filter>04. GameObjects\Vellum\State\INTRO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BossScene.h">
+      <Filter>03. Scene\ReleaseScene\99. BossScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -496,6 +508,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\SceneStage2.cpp">
       <Filter>03. Scene\DebugScene\SceneHS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CIntroState.cpp">
+      <Filter>04. GameObjects\Vellum\State\INTRO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BossScene.cpp">
+      <Filter>03. Scene\ReleaseScene\99. BossScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

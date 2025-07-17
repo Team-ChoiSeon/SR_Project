@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
-#include "SceneSB.h"
+#include "BossScene.h"
+
 
 #include "CMainPlayer.h"
 #include "CMonster.h"
@@ -14,17 +15,17 @@
 #include "CSceneMgr.h"
 
 
-SceneSB::SceneSB(LPDIRECT3DDEVICE9 pGraphicDev)
+BossScene::BossScene(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
 {
 
 }
 
-SceneSB::~SceneSB()
+BossScene::~BossScene()
 {
 }
 
-HRESULT SceneSB::Ready_Scene()
+HRESULT BossScene::Ready_Scene()
 {
 
 	//CScene::Ready_Scene();
@@ -35,7 +36,6 @@ HRESULT SceneSB::Ready_Scene()
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 100.f, -20.f });
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
-	//CImpulseCube* pImpulse = CImpulseCube::Create(m_pGraphicDev);
 	// 3-2. º§·ë
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
 
@@ -46,7 +46,6 @@ HRESULT SceneSB::Ready_Scene()
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
-	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Impulse", pImpulse);
 
 
 
@@ -54,30 +53,30 @@ HRESULT SceneSB::Ready_Scene()
 	pCam->Set_Target(pPlayer);  // 1ÀÎÄª ½ÃÁ¡
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
-	
+
 
 	return S_OK;
 }
 
-_int SceneSB::Update_Scene(const _float& fTimeDelta)
+_int BossScene::Update_Scene(const _float& fTimeDelta)
 {
 	CScene::Update_Scene(fTimeDelta);
 	return 0;
 }
 
-void SceneSB::LateUpdate_Scene(const _float& fTimeDelta)
+void BossScene::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CScene::LateUpdate_Scene(fTimeDelta);
 
 }
 
-SceneSB* SceneSB::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+BossScene* BossScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	SceneSB* pScene = new SceneSB(pGraphicDev);
+	BossScene* pScene = new BossScene(pGraphicDev);
 	return pScene;
 }
 
-void SceneSB::Free()
+void BossScene::Free()
 {
 	CScene::Free();
 }

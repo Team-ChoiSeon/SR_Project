@@ -100,14 +100,17 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         }
         else
         {
-            if (m_iFireCnt < 3)
+            if (m_iFireCnt < 7)
             {
                 m_fFireDelay += fTimeDelta;
-                if (m_fFireDelay > 0.5f)
+                if (m_fFireDelay > 0.3f)
                 {
+                    _vec3 vFireDir = Get_TargetDir(pVellum);
+                    pTransform->Set_Look(vFireDir);
+
                     CProjectile* pProjectile = CProjectile::Create(pVellum->Get_Dev());
-                    pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + m_vDir * 3.f);
-                    pProjectile->Get_Component<CRigidBody>()->Add_Velocity(m_vDir * 15.f);
+                    pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + vFireDir * 3.f);
+                    pProjectile->Get_Component<CRigidBody>()->Add_Velocity(vFireDir * 20.f);
                     CSceneMgr::Get_Instance()->Get_Scene()->
                         Get_Layer(LAYER_OBJECT)->Add_GameObject(L"projectile" + to_wstring(m_iFireCnt), pProjectile);
 
@@ -148,4 +151,21 @@ void CFireState::Exit(CVellum* pVellum)
 {
     OutputDebugString(L"Fire : Exit\n");
     pVellum->Get_HRigid()->Stop_Motion();
+}
+
+_vec3 CFireState::Get_TargetDir(CVellum* pVellum)
+{
+    CGameObject* pTarget = pVellum->Get_Target();
+    CTransform* pMyTransform = pVellum->Get_HTransform();
+
+    if (!pTarget || !pMyTransform)
+        return _vec3(0.f, 0.f, 0.f);
+
+    _vec3 vDir;
+    _vec3 vTargetPos = pTarget->Get_Component<CTransform>()->Get_Pos();
+    _vec3 vMyPos = pMyTransform->Get_Pos();
+    _vec3 vDiff = vTargetPos - vMyPos;
+    D3DXVec3Normalize(&vDir, &vDiff);
+
+    return vDir;
 }
