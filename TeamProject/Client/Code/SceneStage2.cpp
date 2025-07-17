@@ -12,6 +12,7 @@
 #include "CPickingMgr.h"
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
+#include "CRenderMgr.h"
 
 #include "CPlayer.h"
 #include "CMainPlayer.h"
@@ -25,6 +26,9 @@
 #include "CSlotCube.h"
 #include "CFloatingCube.h"
 #include "CStairBlock.h"
+#include "CSceneGate.h"
+
+#include "SceneBG.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -116,7 +120,17 @@ HRESULT SceneStage2::Ready_Scene()
 
 _int SceneStage2::Update_Scene(const _float& fTimeDelta)
 {
-	CScene::Update_Scene(fTimeDelta);
+
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate_1")->Get_InGate()) {
+		CScene* pScene = SceneBG::Create(m_pGraphicDev);
+		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+		CCollisionMgr::Get_Instance()->Clear();
+		CRenderMgr::Get_Instance()->Clear();
+	}
+	else {
+		CScene::Update_Scene(fTimeDelta);
+	}
+
 	return 0;
 }
 
