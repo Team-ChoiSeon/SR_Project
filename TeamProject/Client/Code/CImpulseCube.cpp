@@ -63,7 +63,7 @@ _int CImpulseCube::Update_GameObject(const _float& fTimeDelta)
 
 	////Deubbing Code
 	//CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
-	//	// °£´ÜÇÑ GUI Ã¢ ÇÏ³ª Ãâ·Â
+	//	// Â°Â£Â´ÃœÃ‡Ã‘ GUI ÃƒÂ¢ Ã‡ÃÂ³Âª ÃƒÃ¢Â·Ã‚
 	//	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
 	//	if (m_pRigid->Get_OnGround()) {
 	//		ImGui::Begin("on Ground");

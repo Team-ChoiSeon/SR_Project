@@ -8,6 +8,7 @@
 
 
 class CGameObject;
+const _vec3 up(0.f, 1.f, 0.f);
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CComponent(pGraphicDev)
@@ -80,7 +81,6 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	aabb.vMin = m_tAABB.vMin + m_tAABBOff.vMin;
 	aabb.vMax = m_tAABB.vMax + m_tAABBOff.vMax;
 
-	// 8���� ���� ������ �� ���� ��ȯ
 	_vec3 corners[8] = {
 		{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z}, {aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
 		{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z}, {aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
@@ -132,19 +132,19 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 		for (int i = 0; i < 8; ++i)
 			m_tBound.vCorners.push_back(corners[i]);
 
-		// �߽� ��ġ ����
+
 		m_tBound.vCenter = (m_tAABBWorld.vMin + m_tAABBWorld.vMax) * 0.5f;
 
-		// ���� ���� ���� (�� ����)
+
 		m_tBound.vAxisX = _vec3(1.f, 0.f, 0.f);
 		m_tBound.vAxisY = _vec3(0.f, 1.f, 0.f);
 		m_tBound.vAxisZ = _vec3(0.f, 0.f, 1.f);
 
-		// ������ ���� ����
+
 		m_tBound.vHalf = (m_tAABBWorld.vMax - m_tAABBWorld.vMin) * 0.5f;
 	}
 
-	// �浹 �Ŵ��� ���
+
 	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
@@ -175,7 +175,7 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	// OBB
 	if(m_tBound.eType==BoundingType::OBB)
 	{
-		color = D3DCOLOR_ARGB(255, 255, 0, 0); // ����
+		color = D3DCOLOR_ARGB(255, 255, 0, 0); 
 		for (int i = 0; i < 8; ++i)
 			pVertices[i] = { m_tBound.vCorners[i], color };
 
@@ -184,11 +184,10 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	}
 	
 	// AABB
-	m_pVB->Lock(0, 0, (void**)&pVertices, 0); // �ٽ� Lock
+	m_pVB->Lock(0, 0, (void**)&pVertices, 0); 
 	_vec3 min = m_tAABBWorld.vMin;
 	_vec3 max = m_tAABBWorld.vMax;
-	color = D3DCOLOR_ARGB(255, 0, 255, 0); // ����
-
+	color = D3DCOLOR_ARGB(255, 0, 255, 0); 
 	pVertices[0] = { {min.x, min.y, min.z}, color };
 	pVertices[1] = { {max.x, min.y, min.z}, color };
 	pVertices[2] = { {max.x, max.y, min.z}, color };
@@ -206,41 +205,7 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 void CCollider::On_Collision_Enter(CCollider* pOther)
 {
 	m_pOther = pOther;
-	ColliderType oType = pOther->Get_ColType();
-	if (m_eType == ColliderType::TRIGGER || oType == ColliderType::TRIGGER)
-		return;
-
-	_vec3 push(0.f, 0.f, 0.f);
-	bool pushed = false;
-
-	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
-	{
-		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
-			pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
-		else
-			pushed = Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push);
-
-		if (pushed)
-		{
-			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
-				pTransform->Set_Pos(pTransform->Get_Pos() + push);
-			Handle_Ground(pOther, push);
-		}
-	}
-	else if (m_eType == ColliderType::ACTIVE && oType == ColliderType::ACTIVE)
-	{
-		pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
-		if (!pushed || !m_pRigid || !pOther->m_pRigid)
-			return;
-
-		if (auto pTransform = m_pOwner->Get_Component<CTransform>())
-			pTransform->Set_Pos(pTransform->Get_Pos() + push);
-
-		float m1 = m_pRigid->Get_Mass(), m2 = pOther->m_pRigid->Get_Mass();
-		float total = m1 + m2;
-		m_pRigid->Add_Force(push * (m2 / total) * 1000.f);
-		pOther->m_pRigid->Add_Force(-push * (m1 / total) * 1000.f);
-	}
+	Handle_Collision(pOther);
 
 	if (m_eState == ColliderState::NONE || m_eState == ColliderState::EXIT)
 		m_eState = ColliderState::ENTER;
@@ -248,39 +213,8 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 
 void CCollider::On_Collision_Stay(CCollider* pOther)
 {
-	ColliderType oType = pOther->Get_ColType();
-	if (m_eType == ColliderType::ACTIVE && (oType == ColliderType::PASSIVE || oType == ColliderType::ACTIVE))
-	{
-		_vec3 push(0.f, 0.f, 0.f);
-		bool pushed = false;
-
-		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
-			pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
-		else
-			pushed = Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push);
-
-		if (pushed)
-		{
-
-			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
-			{
-				pTransform->Set_Pos(pTransform->Get_Pos() + push);
-			}
-				
-
-			if (oType == ColliderType::ACTIVE && m_pRigid && pOther->m_pRigid)
-			{
-				float m1 = m_pRigid->Get_Mass(), m2 = pOther->m_pRigid->Get_Mass();
-				float total = m1 + m2;
-				m_pRigid->Add_Force(push * (m2 / total) * 1000.f);
-				pOther->m_pRigid->Add_Force(-push * (m1 / total) * 1000.f);
-			}
-
-			Handle_Ground(pOther, push);
-		}
-	}
-
-	m_eState = (m_eState == ColliderState::NONE) ? ColliderState::ENTER : ColliderState::STAY;
+	Handle_Collision(pOther);
+	m_eState = ColliderState::STAY;
 }
 
 void CCollider::On_Collision_Exit(CCollider* pOther)
@@ -358,7 +292,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 		{
 			_vec3 bAxis = (&b.vAxisX)[j];
 			D3DXVec3Cross(&cross, &aAxis, &bAxis);
-			if (D3DXVec3LengthSq(&cross) > 0.0001f) // ��ȿ�� �ุ
+			if (D3DXVec3LengthSq(&cross) > 0.0001f)
 			{
 				D3DXVec3Normalize(&cross, &cross);
 				vAxis.push_back(cross);
@@ -374,7 +308,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 		float minA = 0.f, maxA = 0.f;
 		float minB = 0.f, maxB = 0.f;
 
-		// A ����
+
 		{
 			float dot = D3DXVec3Dot(&a.vCorners[0], &axis);
 			minA = maxA = dot;
@@ -386,7 +320,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 			}
 		}
 
-		// B ����
+
 		{
 			float dot = D3DXVec3Dot(&b.vCorners[0], &axis);
 			minB = maxB = dot;
@@ -400,14 +334,13 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 
 		float overlap = min(maxA, maxB) - max(minA, minB);
 		if (overlap <= 0.f)
-			return false; // �и� �� �߰� �� �浹 �ƴ�
+			return false;
 
 		if (overlap < minOverlap)
 		{
 			minOverlap = overlap;
 			mtvAxis = axis;
 
-			// �߽� ���� ���� ����
 			_vec3 dir = a.vCenter - b.vCenter;
 			if (D3DXVec3Dot(&dir, &axis) < 0.f)
 				mtvAxis = -mtvAxis;
@@ -418,15 +351,169 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 	return true;
 }
 
-void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+void CCollider::Handle_Collision(CCollider* pOther)
 {
-	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
+	ColliderType oType = pOther->Get_ColType();
+	if (m_eType != ColliderType::ACTIVE || oType == ColliderType::TRIGGER)
 		return;
 
-	// ���ʿ��� �������� Ȯ��
-	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
+	_vec3 push(0.f, 0.f, 0.f);
+	if (Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push))
+	{
+		// 바닥 전용 처리
+		if (pOther->Get_ColTag() == ColliderTag::GROUND)
+		{
+			Handle_Ground(pOther, push);
+		}
+		
+		else
+		{
+			Handle_Active(pOther, push);
+		}
+	}
+}
+
+
+// 둘중 하나 이상이 ACTIVE일때의 처리
+void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
+{
+	CRigidBody* pRigid1 = m_pRigid;
+	CRigidBody* pRigid2 = pOther->m_pRigid;
+
+	// 내 Rigidbody가 없으면 아무 처리도 하지 않음
+	if (!pRigid1) return;
+
+	// --- Case 1: 상대가 움직이지 않는 PASSIVE 물체일 경우 ---
+	if (pOther->Get_ColType() == ColliderType::PASSIVE || pRigid2 == nullptr)
+	{
+		// 위치 보정: 나만 100% 밀려남
+		m_pOwner->Get_Component<CTransform>()->Move_Pos(&push, 1.f, 1.f);
+
+		// 속도 보정: 수직으로 부딪혔을 때만 내 수직 속도를 0으로 만들어 진동 방지
+		_vec3 vPushDir = push;
+		D3DXVec3Normalize(&vPushDir, &vPushDir);
+		if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
+		{
+			pRigid1->Set_OnGround(true);
+
+			_vec3 vVel = pRigid1->Get_Velocity();
+			if (vVel.y < 0.f)
+			{
+				vVel.y = 0.f;
+				pRigid1->Set_Velocity(vVel);
+			}
+		}
+	}
+	// --- Case 2: 둘 다 움직이는 ACTIVE 물체일 경우 ---
+	else
+	{
+		// 충돌 방향을 미리 계산하여 수직/수평 여부 판단
+		_vec3 vPushDir = push;
+		D3DXVec3Normalize(&vPushDir, &vPushDir);
+		float fVerticality = abs(D3DXVec3Dot(&vPushDir, &up));
+
+		// --- 2-1: 수직에 가까운 충돌 (쌓기) ---
+		// 안정성을 위해 한쪽이 미는 '우선순위' 방식을 사용
+		if (fVerticality > 0.7f)
+		{
+			CTransform* pTransform1 = m_pOwner->Get_Component<CTransform>();
+			CTransform* pTransform2 = pOther->m_pOwner->Get_Component<CTransform>();
+
+			// Y축 위치를 기준으로 더 높은 쪽(Pushed)을 결정
+			CGameObject* pPushedObject = (pTransform1->Get_Pos().y > pTransform2->Get_Pos().y) ? m_pOwner : pOther->m_pOwner;
+
+			// push 벡터 방향을 항상 '아래에서 위로' 향하도록 보정
+			_vec3 vFinalPush = push;
+			if (m_pOwner != pPushedObject) // 내가 아래쪽(Pusher)이었다면 push 방향을 뒤집음
+			{
+				vFinalPush = -vFinalPush;
+			}
+
+			// 위쪽(Pushed) 오브젝트의 위치와 속도만 보정하여 안정화
+			CTransform* pPushedTransform = pPushedObject->Get_Component<CTransform>();
+			CRigidBody* pPushedRigid = pPushedObject->Get_Component<CRigidBody>();
+
+			if (pPushedTransform) pPushedTransform->Move_Pos(&vFinalPush, 1.f, 1.f);
+
+			if (pPushedRigid)
+			{
+				pPushedRigid->Set_OnGround(true);
+				_vec3 vVel = pPushedRigid->Get_Velocity();
+				if (vVel.y < 0.f)
+				{
+					vVel.y = 0.f;
+					pPushedRigid->Set_Velocity(vVel);
+				}
+			}
+		}
+		// --- 2-2: 수평에 가까운 충돌 (밀기) ---
+		// 물리적인 느낌을 위해 '충격량'을 전달하는 방식을 사용
+		else
+		{
+			// 위치 보정: 질량에 따라 공평하게 분배
+			float m1 = pRigid1->Get_Mass();
+			float m2 = pRigid2->Get_Mass();
+			float totalMass = m1 + m2;
+
+			if (totalMass > 0.f)
+			{
+				_vec3 vMyPush = push * (m2 / totalMass);
+				_vec3 vOtherPush = -push * (m1 / totalMass);
+				m_pOwner->Get_Component<CTransform>()->Move_Pos(&vMyPush, 1.f, 1.f);
+				pOther->m_pOwner->Get_Component<CTransform>()->Move_Pos(&vOtherPush, 1.f, 1.f);
+			}
+
+			// 충격량 기반 속도 교환 (1차원 탄성 충돌 공식)
+			_vec3 vVel1 = pRigid1->Get_Velocity();
+			_vec3 vVel2 = pRigid2->Get_Velocity();
+
+			// 충돌 축에 대한 각 속도의 성분
+			float v1_on_axis = D3DXVec3Dot(&vVel1, &vPushDir);
+			float v2_on_axis = D3DXVec3Dot(&vVel2, &vPushDir);
+
+			// 충돌 후 새로운 속도 성분 계산
+			float v1_new_on_axis = (v1_on_axis * (m1 - m2) + 2 * m2 * v2_on_axis) / totalMass;
+			float v2_new_on_axis = (v2_on_axis * (m2 - m1) + 2 * m1 * v1_on_axis) / totalMass;
+
+			// 실제 속도 변화량(충격량) 계산
+			float impulse1 = v1_new_on_axis - v1_on_axis;
+			float impulse2 = v2_new_on_axis - v2_on_axis;
+
+			// 계산된 충격량을 각 Rigidbody에 Add_Velocity로 적용
+			pRigid1->Add_Velocity(vPushDir * impulse1);
+			pRigid2->Add_Velocity(vPushDir * impulse2);
+		}
+	}
+}
+
+	if (!m_pRigid) return;
+
+	_vec3 vPushDir = push;
+	D3DXVec3Normalize(&vPushDir, &vPushDir);
+
+	if (D3DXVec3Dot(&vPushDir, &up) > 0.5f) // 수직 충돌 확인
 	{
 		m_pRigid->Set_OnGround(true);
+
+		_vec3 vVel = m_pRigid->Get_Velocity();
+
+		if (vVel.y < 0.f)
+		{
+			const float fMinBounceVelocity = 1.0f;
+
+			// 빠르게 부딪혔을 때: 탄성 적용
+			if (vVel.y < -fMinBounceVelocity)
+			{
+				vVel.y *= -m_pRigid->Get_Bounce();
+			}
+			// 살포시 내려앉았을 때: 진동 방지를 위해 속도 0으로
+			else
+			{
+				vVel.y = 0.f;
+			}
+			m_pRigid->Set_Velocity(vVel);
+		}
+		// 위로 움직이는 중(점프 등)일때는 속도를 건드리지 않습니다
 	}
 }
 
