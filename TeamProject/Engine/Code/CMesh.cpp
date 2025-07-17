@@ -42,8 +42,8 @@ HRESULT CMesh::LoadOBJ(LPDIRECT3DDEVICE9 pDevice, wstring& path)
 	in.open(basePath);
 
 	if (!in.is_open()) {
-		in.open("../Bin/Resource/Obj/Default_A.obj");
-		path = L"Default_A.obj";
+		in.open("../Bin/Resource/Obj/Tile_A.obj");
+		path = L"Tile_A.obj";
 		if (!in.is_open()) {
 			MessageBoxW(0, L"Mesh Load Err", L"Err", MB_OK);
 			return E_FAIL;
