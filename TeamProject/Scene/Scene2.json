@@ -15,8 +15,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Wall_Stone_Hieroglyphs.mtl",
-                            "mesh": "Wall_Stone_Hieroglyphs.obj",
+                            "matKey": "Cube_A.mtl",
+                            "mesh": "Cube_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -26,7 +26,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -99,8 +99,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "medieval_blocks_05.mtl",
-                            "mesh": "medieval_blocks_05.obj",
+                            "matKey": "Cube_B.mtl",
+                            "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -110,7 +110,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -183,8 +183,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Sand_008.mtl",
-                            "mesh": "Sand_008.obj",
+                            "matKey": "Cube_C.mtl",
+                            "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -194,7 +194,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -267,8 +267,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Rock_Cliff.mtl",
-                            "mesh": "Rock_Cliff.obj",
+                            "matKey": "Cube_D.mtl",
+                            "mesh": "Cube_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -278,7 +278,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -351,8 +351,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Slate_Floor.mtl",
-                            "mesh": "Slate_Floor.obj",
+                            "matKey": "Cube_F.mtl",
+                            "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -362,7 +362,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -441,9 +441,8 @@
                             "ColTag": 0,
                             "ColType": 2
                         },
-                        "CGhostModel": null,
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -515,9 +514,8 @@
                             "ColTag": 0,
                             "ColType": 2
                         },
-                        "CGhostModel": null,
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -589,9 +587,8 @@
                             "ColTag": 0,
                             "ColType": 2
                         },
-                        "CGhostModel": null,
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -663,9 +660,8 @@
                             "ColTag": 0,
                             "ColType": 2
                         },
-                        "CGhostModel": null,
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -737,9 +733,8 @@
                             "ColTag": 0,
                             "ColType": 2
                         },
-                        "CGhostModel": null,
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -811,9 +806,8 @@
                             "ColTag": 0,
                             "ColType": 2
                         },
-                        "CGhostModel": null,
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -859,7 +853,7 @@
                         "CTransform": {
                             "position": [
                                 0.0,
-                                -1.2190769910812378,
+                                -0.22646379470825195,
                                 -27.0
                             ],
                             "rotation": [
@@ -886,8 +880,8 @@
                             "ColType": 1
                         },
                         "CModel": {
-                            "matKey": "Wall_Stone_Hieroglyphs.mtl",
-                            "mesh": "Wall_Stone_Hieroglyphs.obj",
+                            "matKey": "Cube_A.mtl",
+                            "mesh": "Cube_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -897,7 +891,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -971,7 +965,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "Sand_007.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -981,7 +975,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1055,7 +1049,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "Sand_007.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1065,7 +1059,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1139,7 +1133,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "Sand_007.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1149,7 +1143,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1223,7 +1217,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "Sand_007.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1233,7 +1227,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1307,7 +1301,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "Sand_007.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1317,7 +1311,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1391,7 +1385,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "Sand_007.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1401,7 +1395,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1474,8 +1468,8 @@
                             "ColType": 1
                         },
                         "CModel": {
-                            "matKey": "medieval_blocks_05.mtl",
-                            "mesh": "medieval_blocks_05.obj",
+                            "matKey": "Cube_B.mtl",
+                            "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1485,7 +1479,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1558,18 +1552,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Block_d.mtl",
+                            "mesh": "Block_d.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                5.800000190734863,
+                                16.799999237060547,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1643,7 +1637,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "Sand_007.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1653,7 +1647,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1727,7 +1721,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "Sand_007.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1737,7 +1731,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1810,8 +1804,8 @@
                             "ColType": 1
                         },
                         "CModel": {
-                            "matKey": "Sand_008.mtl",
-                            "mesh": "Sand_008.obj",
+                            "matKey": "Cube_C.mtl",
+                            "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1821,7 +1815,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1894,18 +1888,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "medieval_blocks_05.mtl",
-                            "mesh": "medieval_blocks_05.obj",
+                            "matKey": "Block_f.mtl",
+                            "mesh": "Block_f.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                6.300000190734863,
+                                9.399999618530273,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1978,8 +1972,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "medieval_blocks_06.mtl",
-                            "mesh": "medieval_blocks_06.obj",
+                            "matKey": "Block_f.mtl",
+                            "mesh": "Block_f.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -1989,7 +1983,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2062,8 +2056,8 @@
                             "ColType": 1
                         },
                         "CModel": {
-                            "matKey": "Rock_Cliff.mtl",
-                            "mesh": "Rock_Cliff.obj",
+                            "matKey": "Cube_D.mtl",
+                            "mesh": "Cube_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -2073,7 +2067,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2146,8 +2140,8 @@
                             "ColType": 1
                         },
                         "CModel": {
-                            "matKey": "Slate_Floor.mtl",
-                            "mesh": "Slate_Floor.obj",
+                            "matKey": "Cube_F.mtl",
+                            "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -2157,7 +2151,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2230,18 +2224,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_C.mtl",
+                            "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                2.4000000953674316,
+                                1.899999976158142,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2319,7 +2313,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -2329,7 +2323,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2406,18 +2400,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "BrickRoad.mtl",
-                            "mesh": "BrickRoad.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                5.400000095367432,
+                                2.0,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2484,24 +2478,47 @@
                     "Layer": "TILE",
                     "class": "CTestTile",
                     "components": {
+                        "CCamera": {
+                            "eye": [
+                                -4.708810806274414,
+                                8.704839706420898,
+                                76.72126007080078
+                            ],
+                            "far": 200.0,
+                            "fov": 45.0,
+                            "look": [
+                                0.0,
+                                4.719505159300752e-05,
+                                -25.932403564453125
+                            ],
+                            "near": 0.10000000149011612,
+                            "pitch": 0.0,
+                            "roll": 0.0,
+                            "up": [
+                                0.0,
+                                0.9999999403953552,
+                                1.8199257283413317e-06
+                            ],
+                            "yaw": 0.0
+                        },
                         "CCollider": {
                             "BoundType": 0,
                             "ColTag": 1,
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Brick_Wall_009.mtl",
-                            "mesh": "Brick_Wall_009.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                14.300000190734863,
+                                26.399999618530273,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2547,7 +2564,7 @@
                         "CTransform": {
                             "position": [
                                 -4.708810806274414,
-                                3.7893435955047607,
+                                8.704839706420898,
                                 76.72126007080078
                             ],
                             "rotation": [
@@ -2574,18 +2591,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Brick_Wall_009.mtl",
-                            "mesh": "Brick_Wall_009.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                9.149999618530273,
+                                21.899999618530273,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2658,18 +2675,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Brick_Wall_009.mtl",
-                            "mesh": "Brick_Wall_009.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                9.199999809265137,
+                                15.399999618530273,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2742,18 +2759,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "medieval_blocks_06.mtl",
-                            "mesh": "medieval_blocks_06.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                14.5,
+                                8.800000190734863,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2826,18 +2843,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "BrickRoad.mtl",
-                            "mesh": "BrickRoad.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                5.5,
+                                1.600000023841858,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2910,18 +2927,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "BrickRoad.mtl",
-                            "mesh": "BrickRoad.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
+                                5.099999904632568,
                                 1.0,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2994,18 +3011,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "medieval_blocks_06.mtl",
-                            "mesh": "medieval_blocks_06.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                15.0,
+                                9.399999618530273,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3078,18 +3095,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "medieval_blocks_06.mtl",
-                            "mesh": "medieval_blocks_06.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                11.800000190734863,
+                                8.300000190734863,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3162,18 +3179,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "BrickRoad.mtl",
-                            "mesh": "BrickRoad.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
-                                1.0,
+                                2.4000000953674316,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3218,9 +3235,9 @@
                         },
                         "CTransform": {
                             "position": [
-                                1.0,
+                                1.0000001192092896,
                                 -3.72810697555542,
-                                54.44997787475586
+                                54.261383056640625
                             ],
                             "rotation": [
                                 0.0,
@@ -3246,18 +3263,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "BrickRoad.mtl",
-                            "mesh": "BrickRoad.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
-                                1.0,
+                                3.200000047683716,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3307,14 +3324,14 @@
                                 52.29998779296875
                             ],
                             "rotation": [
-                                0.0999985858798027,
+                                0.09999708831310272,
                                 -0.0,
                                 0.0
                             ],
                             "scale": [
                                 5.246723175048828,
-                                0.9999872446060181,
-                                0.9999872446060181
+                                0.9999739527702332,
+                                0.9999739527702332
                             ]
                         }
                     },
@@ -3330,18 +3347,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "BrickRoad.mtl",
-                            "mesh": "BrickRoad.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
-                                1.0,
+                                3.4000000953674316,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3414,18 +3431,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Brick_Wall_009.mtl",
-                            "mesh": "Brick_Wall_009.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                18.100000381469727,
+                                3.200000047683716,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3498,18 +3515,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Brick_Wall_009.mtl",
-                            "mesh": "Brick_Wall_009.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                18.5,
+                                3.799999952316284,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3582,8 +3599,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Sand_005.mtl",
-                            "mesh": "Sand_005.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -3593,7 +3610,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3666,18 +3683,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                13.199999809265137,
+                                1.100000023841858,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3750,18 +3767,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                9.800000190734863,
+                                2.4000000953674316,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3834,18 +3851,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                2.799999952316284,
+                                8.800000190734863,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3918,18 +3935,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                4.199999809265137,
+                                10.399999618530273,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4002,18 +4019,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                14.0,
+                                5.599999904632568,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4086,18 +4103,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                15.800000190734863,
+                                5.599999904632568,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4170,18 +4187,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                14.699999809265137,
+                                12.300000190734863,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4254,18 +4271,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                13.100000381469727,
+                                14.699999809265137,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4338,18 +4355,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Sand_005.mtl",
-                            "mesh": "Sand_005.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                13.899999618530273,
+                                3.0999999046325684,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4422,18 +4439,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Sand_005.mtl",
-                            "mesh": "Sand_005.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                22.299999237060547,
+                                2.5999999046325684,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4506,18 +4523,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Sand_005.mtl",
-                            "mesh": "Sand_005.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                15.100000381469727,
+                                2.799999952316284,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4590,18 +4607,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Sand_005.mtl",
-                            "mesh": "Sand_005.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                18.399999618530273,
+                                2.5999999046325684,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4674,8 +4691,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -4685,7 +4702,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4759,7 +4776,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Cat.mtl",
-                            "mesh": "Concrete_Cat.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -4769,7 +4786,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4843,7 +4860,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Cat.mtl",
-                            "mesh": "Concrete_Cat.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -4853,7 +4870,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4927,7 +4944,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Cat.mtl",
-                            "mesh": "Concrete_Cat.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -4937,7 +4954,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5011,7 +5028,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Cat.mtl",
-                            "mesh": "Concrete_Cat.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5021,7 +5038,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5095,7 +5112,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Cat.mtl",
-                            "mesh": "Concrete_Cat.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5105,7 +5122,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5179,7 +5196,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Cat.mtl",
-                            "mesh": "Concrete_Cat.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5189,7 +5206,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5263,7 +5280,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Cat.mtl",
-                            "mesh": "Concrete_Cat.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5273,7 +5290,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5347,7 +5364,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Cat.mtl",
-                            "mesh": "Concrete_Cat.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5357,7 +5374,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5430,8 +5447,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Sand_005.mtl",
-                            "mesh": "Sand_005.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5441,7 +5458,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5514,18 +5531,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                6.400000095367432,
+                                4.5,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5598,18 +5615,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                8.399999618530273,
+                                8.5,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5683,7 +5700,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5693,7 +5710,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5767,7 +5784,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5777,7 +5794,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5850,8 +5867,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5861,7 +5878,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5934,8 +5951,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_J.mtl",
+                            "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -5945,7 +5962,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6018,18 +6035,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                13.0,
+                                3.799999952316284,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6102,18 +6119,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                15.800000190734863,
+                                3.799999952316284,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6187,7 +6204,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -6197,7 +6214,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6270,18 +6287,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                14.300000190734863,
+                                4.800000190734863,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6354,18 +6371,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                15.699999809265137,
+                                3.799999952316284,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6438,18 +6455,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                20.799999237060547,
+                                3.0999999046325684,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6522,18 +6539,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                21.100000381469727,
+                                15.699999809265137,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6607,7 +6624,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -6617,7 +6634,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6691,7 +6708,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -6701,7 +6718,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6775,7 +6792,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -6785,7 +6802,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6859,7 +6876,7 @@
                         },
                         "CModel": {
                             "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -6869,7 +6886,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6942,18 +6959,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_H.mtl",
+                            "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                15.800000190734863,
+                                30.0,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7026,18 +7043,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                2.5999999046325684,
+                                5.199999809265137,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7111,7 +7128,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -7121,7 +7138,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7194,18 +7211,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_H.mtl",
+                            "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                10.5,
+                                2.299999952316284,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7278,18 +7295,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_H.mtl",
+                            "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                5.199999809265137,
+                                4.0,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7362,18 +7379,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                9.399999618530273,
+                                3.799999952316284,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7447,7 +7464,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -7457,7 +7474,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7530,8 +7547,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "medieval_blocks_06.mtl",
-                            "mesh": "medieval_blocks_06.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -7541,7 +7558,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7614,18 +7631,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_H.mtl",
+                            "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                9.100000381469727,
+                                11.199999809265137,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7698,18 +7715,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Rock_Cliff.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                7.400000095367432,
+                                2.799999952316284,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7782,18 +7799,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_H.mtl",
+                            "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                6.800000190734863,
+                                5.400000095367432,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7866,18 +7883,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_H.mtl",
+                            "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                7.300000190734863,
+                                7.900000095367432,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7950,18 +7967,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_H.mtl",
+                            "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                14.800000190734863,
+                                2.0,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8034,18 +8051,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Block.mtl",
-                            "mesh": "Concrete_Block.obj",
+                            "matKey": "Tile_H.mtl",
+                            "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                5.300000190734863,
+                                16.600000381469727,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8118,18 +8135,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_D.mtl",
+                            "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                7.800000190734863,
+                                4.0,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8203,7 +8220,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_005.mtl",
-                            "mesh": "Sand_005.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -8213,7 +8230,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8287,7 +8304,7 @@
                         },
                         "CModel": {
                             "matKey": "Rock_Cliff.mtl",
-                            "mesh": "Rock_Cliff.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -8297,7 +8314,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8371,7 +8388,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_005.mtl",
-                            "mesh": "medieval_blocks_05.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -8381,7 +8398,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8455,7 +8472,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_007.mtl",
-                            "mesh": "Sand_007.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -8465,7 +8482,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8539,7 +8556,7 @@
                         },
                         "CModel": {
                             "matKey": "Sand_005.mtl",
-                            "mesh": "Sand_005.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -8549,7 +8566,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8622,18 +8639,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_H.mtl",
+                            "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                3.299999952316284,
+                                6.099999904632568,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8706,18 +8723,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                12.699999809265137,
+                                7.800000190734863,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8791,7 +8808,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -8801,7 +8818,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8874,8 +8891,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "medieval_blocks_05.mtl",
-                            "mesh": "medieval_blocks_05.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -8885,7 +8902,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8958,18 +8975,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Concrete_Cat.mtl",
-                            "mesh": "Concrete_Cat.obj",
+                            "matKey": "Tile_B.mtl",
+                            "mesh": "Tile_B.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                7.800000190734863,
+                                5.300000190734863,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9042,18 +9059,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_F.mtl",
+                            "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                7.400000095367432,
+                                7.900000095367432,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9126,8 +9143,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9137,7 +9154,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9210,18 +9227,18 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "matKey": "Tile_F.mtl",
+                            "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
-                                1.0,
-                                1.0,
+                                4.0,
+                                3.799999952316284,
                                 0.0,
                                 0.0
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9295,7 +9312,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9305,7 +9322,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9379,7 +9396,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9389,7 +9406,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9463,7 +9480,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9473,7 +9490,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9547,7 +9564,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9557,7 +9574,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9631,7 +9648,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9641,7 +9658,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9715,7 +9732,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9725,7 +9742,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9799,7 +9816,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9809,7 +9826,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9883,7 +9900,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9893,7 +9910,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9967,7 +9984,7 @@
                         },
                         "CModel": {
                             "matKey": "Wall_Stone_Hieroglyphs.mtl",
-                            "mesh": "Wall_Stone_Hieroglyphs.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -9977,7 +9994,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10050,8 +10067,8 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "Sand_008.mtl",
-                            "mesh": "Sand_008.obj",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -10061,7 +10078,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10135,7 +10152,7 @@
                         },
                         "CModel": {
                             "matKey": "Rock_Cliff.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -10145,7 +10162,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10219,7 +10236,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -10229,7 +10246,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10303,7 +10320,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -10313,7 +10330,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10387,7 +10404,7 @@
                         },
                         "CModel": {
                             "matKey": "DirtObj.mtl",
-                            "mesh": "DirtObj.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -10397,7 +10414,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10471,7 +10488,7 @@
                         },
                         "CModel": {
                             "matKey": "bright_desert.mtl",
-                            "mesh": "bright_desert.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -10481,7 +10498,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10555,7 +10572,7 @@
                         },
                         "CModel": {
                             "matKey": "bright_desert.mtl",
-                            "mesh": "bright_desert.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -10565,7 +10582,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10639,7 +10656,7 @@
                         },
                         "CModel": {
                             "matKey": "bright_desert.mtl",
-                            "mesh": "bright_desert.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -10649,7 +10666,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10723,7 +10740,7 @@
                         },
                         "CModel": {
                             "matKey": "bright_desert.mtl",
-                            "mesh": "bright_desert.obj",
+                            "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -10733,7 +10750,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": false
+                            "validInGame": true
                         },
                         "CRigidBody": {
                             "Accelator": [

@@ -91,9 +91,9 @@ HRESULT SceneStage2::Ready_Scene()
 		if (i == 0)
 			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 0.f, 15.f);
 		else if (i > 4)
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, 1.f }, 0.f, 5.f);
-		else
 			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, -1.f }, 0.f, 5.f);
+		else
+			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, 1.f }, 0.f, 5.f);
 	}
 
 	CFloatingCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube1_1");
@@ -102,14 +102,14 @@ HRESULT SceneStage2::Ready_Scene()
 	cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	cube->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 	cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
-	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { -1.f, 0.f, 0.f }, 39.f, 15.f, 0.5f);
+	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 1.f, 0.f, 0.f }, 39.f, 15.f, 0.5f);
 	cube->Set_Loop();
 	cube->SetTrigger(true);
 
 	CStairBlock* pStaircube1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CStairBlock>(L"CStair2_1");
-	pStaircube1->Set_Distance(-50.f);
+	pStaircube1->Set_Distance(-30.f);
 	CStairBlock* pStaircube2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CStairBlock>(L"CStair2_2");
-	pStaircube2->Set_Distance(25.f);
+	pStaircube2->Set_Distance(18.f);
 
 	return S_OK;
 }
