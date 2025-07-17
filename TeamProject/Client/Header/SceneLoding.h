@@ -7,6 +7,7 @@ class DummyCube;
 class CFirstviewFollowingCamera;
 class CCrosshairUIObject;
 class CMainPlayer;
+class CTestTile;
 
 namespace Engine {
 	class CScene;
@@ -28,6 +29,7 @@ public:
 	virtual	HRESULT	Ready_Scene()override;
 	virtual	_int	Update_Scene(const _float& fTimeDelta)override;
 	virtual	void	LateUpdate_Scene(const _float& fTimeDelta)override;
+	virtual void Set_Cam();
 
 	virtual HRESULT LoadScene(CScene* from, CScene* to); //1
 private:
@@ -56,6 +58,10 @@ private:
 	CScene* m_pTo  = nullptr;
 
 	CLayer* m_ReadingLayer;
+
+	_vec3 DummyPos;
+	CFirstviewFollowingCamera* m_pCam;
+	CTestTile* m_pTarget;
 public:
 	virtual void Free();
 };

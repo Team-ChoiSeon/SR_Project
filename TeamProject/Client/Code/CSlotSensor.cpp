@@ -108,13 +108,9 @@ void CSlotSensor::Insert_Slot()
 {
     if (m_pSlotted)
         return;
-    if (m_pPlayer->Get_Hold()) {
-        m_pPickObj = m_pPlayer->Get_PickObj();
-        if (m_pPickObj)
-        {
-            m_pPickSlot = dynamic_cast<CSlotCube*>(m_pPickObj);
-        }
-    }
+    if (m_pPickObj = m_pPlayer->Get_PickObj()) {
+        m_pPickSlot = dynamic_cast<CSlotCube*>(m_pPickObj);
+    }   
     else if (m_pPickSlot)
     {
         if (m_pPickSlot->Get_PuzzleID() == m_iPuzzleID &&

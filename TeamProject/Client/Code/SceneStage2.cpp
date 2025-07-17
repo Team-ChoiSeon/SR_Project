@@ -28,7 +28,7 @@
 #include "CStairBlock.h"
 #include "CSceneGate.h"
 
-#include "SceneBG.h"
+#include "SceneSB.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -44,8 +44,10 @@ SceneStage2::~SceneStage2()
 
 HRESULT SceneStage2::Ready_Scene()
 {
-	Init_Layers();
-
+	//Init_Layers();
+	for (auto& tile : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
+		tile.pObj->Get_Component<CRigidBody>()->Set_UseGravity(false);
+	}
 	CMainPlayer* pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"MainPlayer");
 	pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
@@ -115,6 +117,7 @@ HRESULT SceneStage2::Ready_Scene()
 	CStairBlock* pStaircube2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CStairBlock>(L"CStair2_2");
 	pStaircube2->Set_Distance(18.f);
 
+	
 	return S_OK;
 }
 
@@ -122,7 +125,7 @@ _int SceneStage2::Update_Scene(const _float& fTimeDelta)
 {
 
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate_1")->Get_InGate()) {
-		CScene* pScene = SceneBG::Create(m_pGraphicDev);
+		CScene* pScene = SceneSB::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 		CCollisionMgr::Get_Instance()->Clear();
 		CRenderMgr::Get_Instance()->Clear();
@@ -131,6 +134,17 @@ _int SceneStage2::Update_Scene(const _float& fTimeDelta)
 		CScene::Update_Scene(fTimeDelta);
 	}
 
+	//for (int i = 1; i < 6; i++) {
+	//	wstring name = L"CQuestCube_" + to_wstring(i);
+	//	CSlotCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(name);
+	//	m_bClear = cube->Get_Slotted();
+	//}
+	//
+	//if (m_bClear) {
+	//	CTestTile* tile = Get_Layer(LAYER_TILE)->Get_GameObject<CTestTile>(L"CTestTile_4");
+	//	_vec3 pos = tile->Get_Component<CTransform>()->Get_Pos();
+	//	tile->Get_Component<CTransform>()->Set_PosY(pos.y+fTimeDelta);
+	//}
 	return 0;
 }
 
