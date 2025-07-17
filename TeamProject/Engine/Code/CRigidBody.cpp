@@ -44,7 +44,7 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
         return;
     }
 
-    //m_bGround = false;
+    m_bGround = false;
 
     // 중력 적용
     if (m_bGravity && !m_bGround)
