@@ -48,7 +48,7 @@ HRESULT CMagneticCube::Ready_GameObject()
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCollider = Get_Component<CCollider>();
     m_pCollider->Set_ColTag(ColliderTag::NONE);
-    m_pCollider->Set_ColType(ColliderType::ACTIVE);
+    m_pCollider->Set_ColType(ColliderType::PASSIVE);
     m_pCollider->Set_BoundType(BoundingType::AABB);
 
     Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
@@ -64,6 +64,9 @@ _int CMagneticCube::Update_GameObject(const _float& fTimeDelta)
     PickMove();
     if(m_pRigid->Get_OnGround())
         m_pCollider->Set_ColType(ColliderType::PASSIVE);
+    else
+        m_pCollider->Set_ColType(ColliderType::ACTIVE);
+
 	return _int();
 }
 
@@ -108,8 +111,8 @@ void CMagneticCube::PickMove()
         m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
         m_pTransform->Set_Pos(m_pTransform->Get_Pos() +m_vCursorDelta);
     }
-    else {
-        m_pCollider->Set_ColType(ColliderType::ACTIVE);
+    else
+    {
         m_pRigid->Set_UseGravity(true);
         m_pRigid->Set_OnGround(false);
     }

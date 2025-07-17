@@ -418,37 +418,37 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 	return true;
 }
 
-//void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
-//{
-//	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
-//		return;
-//
-//	// ���ʿ��� �������� Ȯ��
-//	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
-//	{
-//		m_pRigid->Set_OnGround(true);
-//	}
-//}
-
-
 void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 {
 	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
 		return;
 
-	if (D3DXVec3LengthSq(&push) < 0.0001f)
-		return;
-
-	_vec3 vPush = push;
-	D3DXVec3Normalize(&vPush, &vPush);
-	_vec3 vUp = { 0.f,1.f,0.f };
-	_float fDot = D3DXVec3Dot(&vPush, &vUp);
-
-	if (fDot > 0.5f)
+	// ���ʿ��� �������� Ȯ��
+	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
 	{
 		m_pRigid->Set_OnGround(true);
 	}
 }
+
+
+//void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+//{
+//	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
+//		return;
+//
+//	if (D3DXVec3LengthSq(&push) < 0.0001f)
+//		return;
+//
+//	_vec3 vPush = push;
+//	D3DXVec3Normalize(&vPush, &vPush);
+//	_vec3 vUp = { 0.f,1.f,0.f };
+//	_float fDot = D3DXVec3Dot(&vPush, &vUp);
+//
+//	if (fDot > 0.5f)
+//	{
+//		m_pRigid->Set_OnGround(true);
+//	}
+//}
 
 
 

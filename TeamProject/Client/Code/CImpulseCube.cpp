@@ -39,7 +39,7 @@ HRESULT CImpulseCube::Ready_GameObject()
 	m_pRigid = Get_Component<CRigidBody>();
 	m_pRigid->Set_OnGround(false);
 	m_pRigid->Set_UseGravity(true);
-	m_pRigid->Set_Bounce(0.9f);
+	m_pRigid->Set_Bounce(0.1f);
 	m_pRigid->Set_Friction(0.1f);
 	m_pRigid->Set_Mass(1.f);
 
@@ -48,7 +48,7 @@ HRESULT CImpulseCube::Ready_GameObject()
 	m_pCollider = Get_Component<CCollider>();
 	m_pCollider->Set_ColTag(ColliderTag::NONE);
 	m_pCollider->Set_ColType(ColliderType::ACTIVE);
-	m_pCollider->Set_BoundType(BoundingType::OBB);
+	m_pCollider->Set_BoundType(BoundingType::AABB);
 
 
 
@@ -61,7 +61,7 @@ _int CImpulseCube::Update_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::Update_GameObject(fTimeDelta);
 
-	//Deubbing Code
+	////Deubbing Code
 	//CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
 	//	// 간단한 GUI 창 하나 출력
 	//	ImGui::SetNextWindowSize(ImVec2{ 200,200 });

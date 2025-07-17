@@ -32,26 +32,8 @@
     <Filter Include="03. Scene">
       <UniqueIdentifier>{7a1af6c0-b0d1-400e-ab0e-b9bbea314936}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Scene\SceneHW">
-      <UniqueIdentifier>{8ee7b265-de06-42fa-b2df-530547d8c75a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObjects\TestObject">
       <UniqueIdentifier>{2a140a9a-97a3-471c-9b0b-edf3b173ce36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Scene\SceneBG">
-      <UniqueIdentifier>{c74caa5e-84d0-4710-867f-b83dd80b2fde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Scene\SceneSB">
-      <UniqueIdentifier>{a78f37b4-b766-4b5b-b73e-e4dc44afd86b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Scene\SceneHS">
-      <UniqueIdentifier>{7f201cda-42bf-44b8-ab2a-bcbfba2287c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Scene\SceneDH">
-      <UniqueIdentifier>{58c69da1-fbb4-48b5-8347-2f12d35ab13c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Scene\Logo">
-      <UniqueIdentifier>{11859b5b-3fe4-42a7-bffa-734c123776a2}</UniqueIdentifier>
     </Filter>
     <Filter Include="04. GameObjects\TestUI">
       <UniqueIdentifier>{484eb73b-8f04-4925-aa39-3d1a9fded025}</UniqueIdentifier>
@@ -75,9 +57,6 @@
     </Filter>
     <Filter Include="04. GameObjects\TestTile">
       <UniqueIdentifier>{48b919c7-4a5f-44ae-b69b-234078cfeb74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Scene\SceneHS\test">
-      <UniqueIdentifier>{c6e88d43-7f86-41a2-8f56-2908c917d0b2}</UniqueIdentifier>
     </Filter>
     <Filter Include="04. GameObjects\SceneTrigger">
       <UniqueIdentifier>{3a1afc33-49d1-4228-97fa-6a78e8d46b99}</UniqueIdentifier>
@@ -160,6 +139,36 @@
     <Filter Include="04. GameObjects\Projectile">
       <UniqueIdentifier>{0a2554f9-dc36-48fb-8630-9d88a089771c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene\ReleaseScene">
+      <UniqueIdentifier>{6778aa9e-b208-4458-bb08-ce7e4535c203}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\ReleaseScene\01. LoadingScene">
+      <UniqueIdentifier>{aeed829b-ae26-43f5-90a6-012ece4c57fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\DebugScene">
+      <UniqueIdentifier>{ee0d7539-929a-4b0c-8faa-9f3b6f9c52c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\DebugScene\SceneSB">
+      <UniqueIdentifier>{a78f37b4-b766-4b5b-b73e-e4dc44afd86b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\DebugScene\SceneBG">
+      <UniqueIdentifier>{c74caa5e-84d0-4710-867f-b83dd80b2fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\DebugScene\SceneDH">
+      <UniqueIdentifier>{58c69da1-fbb4-48b5-8347-2f12d35ab13c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\DebugScene\SceneHS">
+      <UniqueIdentifier>{7f201cda-42bf-44b8-ab2a-bcbfba2287c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\DebugScene\test">
+      <UniqueIdentifier>{c6e88d43-7f86-41a2-8f56-2908c917d0b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\DebugScene\SceneHW">
+      <UniqueIdentifier>{8ee7b265-de06-42fa-b2df-530547d8c75a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\DebugScene\Logo">
+      <UniqueIdentifier>{11859b5b-3fe4-42a7-bffa-734c123776a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -193,22 +202,19 @@
       <Filter>04. GameObjects\TestObject</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Logo.h">
-      <Filter>03. Scene\Logo</Filter>
+      <Filter>03. Scene\DebugScene\Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SceneBG.h">
-      <Filter>03. Scene\SceneBG</Filter>
+      <Filter>03. Scene\DebugScene\SceneBG</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SceneDH.h">
-      <Filter>03. Scene\SceneDH</Filter>
+      <Filter>03. Scene\DebugScene\SceneDH</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SceneHW.h">
-      <Filter>03. Scene\SceneHW</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\SceneHS.h">
-      <Filter>03. Scene\SceneHS</Filter>
+      <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SceneSB.h">
-      <Filter>03. Scene\SceneSB</Filter>
+      <Filter>03. Scene\DebugScene\SceneSB</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CLightObject.h">
       <Filter>04. GameObjects\TestLight</Filter>
@@ -241,10 +247,10 @@
       <Filter>04. GameObjects\TestTile</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSceneTestHS.h">
-      <Filter>03. Scene\SceneHS\test</Filter>
+      <Filter>03. Scene\DebugScene\test</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TestSceneHW.h">
-      <Filter>03. Scene\SceneHW</Filter>
+      <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSceneGate.h">
       <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
@@ -295,7 +301,7 @@
       <Filter>04. GameObjects\TestUI\Loding\LodingCube</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SceneLoding.h">
-      <Filter>03. Scene\SceneHS\test</Filter>
+      <Filter>03. Scene\DebugScene\test</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCinematicCamera.h">
       <Filter>04. GameObjects\CameraObejct\CinematicCamera</Filter>
@@ -327,6 +333,9 @@
     <ClInclude Include="..\Header\CProjectile.h">
       <Filter>04. GameObjects\Projectile</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\SceneHS.h">
+      <Filter>03. Scene\DebugScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -351,22 +360,19 @@
       <Filter>04. GameObjects\TestObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Logo.cpp">
-      <Filter>03. Scene\Logo</Filter>
+      <Filter>03. Scene\DebugScene\Logo</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SceneBG.cpp">
-      <Filter>03. Scene\SceneBG</Filter>
+      <Filter>03. Scene\DebugScene\SceneBG</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SceneDH.cpp">
-      <Filter>03. Scene\SceneDH</Filter>
+      <Filter>03. Scene\DebugScene\SceneDH</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SceneHW.cpp">
-      <Filter>03. Scene\SceneHW</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\SceneHS.cpp">
-      <Filter>03. Scene\SceneHS</Filter>
+      <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SceneSB.cpp">
-      <Filter>03. Scene\SceneSB</Filter>
+      <Filter>03. Scene\DebugScene\SceneSB</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CLightObject.cpp">
       <Filter>04. GameObjects\TestLight</Filter>
@@ -399,10 +405,10 @@
       <Filter>04. GameObjects\TestTile</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSceneTestHS.cpp">
-      <Filter>03. Scene\SceneHS\test</Filter>
+      <Filter>03. Scene\DebugScene\test</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TestSceneHW.cpp">
-      <Filter>03. Scene\SceneHW</Filter>
+      <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSceneGate.cpp">
       <Filter>04. GameObjects\SceneTrigger\SceneGate</Filter>
@@ -453,7 +459,7 @@
       <Filter>04. GameObjects\TestUI\Loding\LodingCube</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SceneLoding.cpp">
-      <Filter>03. Scene\SceneHS\test</Filter>
+      <Filter>03. Scene\DebugScene\test</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCinematicCamera.cpp">
       <Filter>04. GameObjects\CameraObejct\CinematicCamera</Filter>
@@ -481,6 +487,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CProjectile.cpp">
       <Filter>04. GameObjects\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneHS.cpp">
+      <Filter>03. Scene\DebugScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
