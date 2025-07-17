@@ -200,6 +200,7 @@
     <ClInclude Include="..\Header\SceneHW.h" />
     <ClInclude Include="..\Header\SceneLoding.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
+    <ClInclude Include="..\Header\SceneStage2.h" />
     <ClInclude Include="..\Header\TestSceneHW.h" />
     <ClInclude Include="..\Header\CPickSwitch.h" />
     <ClInclude Include="Client.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="..\Code\SceneHW.cpp" />
     <ClCompile Include="..\Code\SceneLoding.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
+    <ClCompile Include="..\Code\SceneStage2.cpp" />
     <ClCompile Include="..\Code\TestSceneHW.cpp" />
     <ClCompile Include="..\Code\CPickSwitch.cpp" />
     <ClCompile Include="Client.cpp" />

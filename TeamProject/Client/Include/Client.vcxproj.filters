@@ -246,9 +246,6 @@
     <ClInclude Include="..\Header\CTestTile.h">
       <Filter>04. GameObjects\TestTile</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CSceneTestHS.h">
-      <Filter>03. Scene\DebugScene\test</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\TestSceneHW.h">
       <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClInclude>
@@ -300,9 +297,6 @@
     <ClInclude Include="..\Header\CLodingCube.h">
       <Filter>04. GameObjects\TestUI\Loding\LodingCube</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\SceneLoding.h">
-      <Filter>03. Scene\DebugScene\test</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CCinematicCamera.h">
       <Filter>04. GameObjects\CameraObejct\CinematicCamera</Filter>
     </ClInclude>
@@ -334,7 +328,16 @@
       <Filter>04. GameObjects\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SceneHS.h">
-      <Filter>03. Scene\DebugScene</Filter>
+      <Filter>03. Scene\DebugScene\SceneHS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSceneTestHS.h">
+      <Filter>03. Scene\DebugScene\SceneHS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneLoding.h">
+      <Filter>03. Scene\ReleaseScene\01. LoadingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneStage2.h">
+      <Filter>03. Scene\DebugScene\SceneHS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -404,9 +407,6 @@
     <ClCompile Include="..\Code\CTestTile.cpp">
       <Filter>04. GameObjects\TestTile</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CSceneTestHS.cpp">
-      <Filter>03. Scene\DebugScene\test</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\TestSceneHW.cpp">
       <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClCompile>
@@ -458,9 +458,6 @@
     <ClCompile Include="..\Code\CLodingCube.cpp">
       <Filter>04. GameObjects\TestUI\Loding\LodingCube</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\SceneLoding.cpp">
-      <Filter>03. Scene\DebugScene\test</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CCinematicCamera.cpp">
       <Filter>04. GameObjects\CameraObejct\CinematicCamera</Filter>
     </ClCompile>
@@ -489,7 +486,16 @@
       <Filter>04. GameObjects\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SceneHS.cpp">
-      <Filter>03. Scene\DebugScene</Filter>
+      <Filter>03. Scene\DebugScene\SceneHS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSceneTestHS.cpp">
+      <Filter>03. Scene\DebugScene\SceneHS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneLoding.cpp">
+      <Filter>03. Scene\ReleaseScene\01. LoadingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneStage2.cpp">
+      <Filter>03. Scene\DebugScene\SceneHS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
