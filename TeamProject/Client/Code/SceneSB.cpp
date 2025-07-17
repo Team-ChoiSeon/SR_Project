@@ -44,7 +44,7 @@ HRESULT SceneSB::Ready_Scene()
 	// 5. 플레이어 → 타겟 오브젝트
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
-	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
 
 
 
