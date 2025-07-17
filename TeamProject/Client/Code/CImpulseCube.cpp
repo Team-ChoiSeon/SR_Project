@@ -40,7 +40,7 @@ HRESULT CImpulseCube::Ready_GameObject()
 	m_pRigid->Set_OnGround(false);
 	m_pRigid->Set_UseGravity(true);
 	m_pRigid->Set_Bounce(0.9f);
-	m_pRigid->Set_Friction(0.1f);
+	m_pRigid->Set_Friction(0.8f);
 	m_pRigid->Set_Mass(1.f);
 
 

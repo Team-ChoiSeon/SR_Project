@@ -57,57 +57,33 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     // 외력 + 중력
     _vec3 totalForce = m_vEforce + m_vGforce;
 
-    // 마찰력 : 지면 위에서만
-    if (m_bGround)
+    if (m_fMass > 0.f)
     {
-        _vec3 friction = -m_vVel;
-        friction.y = 0.f; // y축 마찰 무시 (점프/낙하 방해 방지)
-        friction *= m_fFric;
-        totalForce += friction;
+        m_vAcc = totalForce / m_fMass;
+        m_vVel += m_vAcc * fDeltaTime;
     }
 
 
-    if (m_fMass == 0.f) return;
-    // F = m * a  =>  a = F / m
-    m_vAcc = totalForce / m_fMass;
-    // 속도 업데이트
-    m_vVel += m_vAcc * fDeltaTime;
-
-    // 최대 속도 제한
-    if (m_vVel.y < -50.f)  
+    // 최대 낙하 속도 제한
+    if (m_vVel.y < -50.f)
         m_vVel.y = -50.f;
 
-    // 지면에서 미세한 움직임 컷팅
+
+    // 바닥에 있을 때의 처리 (마찰/감속 및 정지)
     if (m_bGround)
     {
-        if (D3DXVec3LengthSq(&m_vVel) < 0.001f)
+        // 미세한 움직임 방지
+        if (D3DXVec3LengthSq(&m_vVel) < 0.0001f)
+        {
             m_vVel = _vec3(0.f, 0.f, 0.f);
-
-        if (D3DXVec3LengthSq(&m_vAcc) < 0.01f)
-            m_vAcc = _vec3(0.f, 0.f, 0.f);
-    }
-
-    // 낙하 처리 : 탄성 적용
-    if (m_bGround && m_vVel.y < 0.f)
-    {
-        m_vVel.y *= -m_fBnc;
-
-        if (fabs(m_vVel.y) < 0.05f)
-        {
-            m_vVel.y = 0.f;
-            m_vAcc.y = 0.f;
         }
-        else
-        {
-            // 여기서 튕겨 오르면 지면에서 떨어진 상태이므로 false 처리
-            // m_bGround = false;
-            // -> On_Collision_Exit 으로 이관
-        }
-    }
-    else if (m_bGround)
-    {
-        // 땅 위에 충분히 닿았고 속도가 작다면 확실히 고정
-        m_vVel.y = 0.f;
+
+        // 수평 속도에만 감속을 적용
+        // m_fFric :1.0에 가까울수록 잘 미끄러짐
+        m_vVel.x *= m_fFric;
+        m_vVel.z *= m_fFric;
+
+        // 바닥에 있을 땐 수직 가속도를 0으로 초기화
         m_vAcc.y = 0.f;
     }
 
@@ -130,10 +106,7 @@ void CRigidBody::Update_Component(const _float& fDeltaTime)
     // 감쇠 및 초기화
     m_vAVel *= 0.995f;
     m_vTorque = _vec3(0.f, 0.f, 0.f);
-
-
     m_vEforce = _vec3(0.f, 0.f, 0.f);
-
 }
 
 void CRigidBody::Free()

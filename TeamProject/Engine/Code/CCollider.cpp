@@ -8,6 +8,7 @@
 
 
 class CGameObject;
+const _vec3 up(0.f, 1.f, 0.f);
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CComponent(pGraphicDev)
@@ -80,7 +81,6 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	aabb.vMin = m_tAABB.vMin + m_tAABBOff.vMin;
 	aabb.vMax = m_tAABB.vMax + m_tAABBOff.vMax;
 
-	// 8���� ���� ������ �� ���� ��ȯ
 	_vec3 corners[8] = {
 		{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z}, {aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
 		{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z}, {aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
@@ -206,41 +206,7 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 void CCollider::On_Collision_Enter(CCollider* pOther)
 {
 	m_pOther = pOther;
-	ColliderType oType = pOther->Get_ColType();
-	if (m_eType == ColliderType::TRIGGER || oType == ColliderType::TRIGGER)
-		return;
-
-	_vec3 push(0.f, 0.f, 0.f);
-	bool pushed = false;
-
-	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
-	{
-		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
-			pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
-		else
-			pushed = Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push);
-
-		if (pushed)
-		{
-			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
-				pTransform->Set_Pos(pTransform->Get_Pos() + push);
-			Handle_Ground(pOther, push);
-		}
-	}
-	else if (m_eType == ColliderType::ACTIVE && oType == ColliderType::ACTIVE)
-	{
-		pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
-		if (!pushed || !m_pRigid || !pOther->m_pRigid)
-			return;
-
-		if (auto pTransform = m_pOwner->Get_Component<CTransform>())
-			pTransform->Set_Pos(pTransform->Get_Pos() + push);
-
-		float m1 = m_pRigid->Get_Mass(), m2 = pOther->m_pRigid->Get_Mass();
-		float total = m1 + m2;
-		m_pRigid->Add_Force(push * (m2 / total) * 1000.f);
-		pOther->m_pRigid->Add_Force(-push * (m1 / total) * 1000.f);
-	}
+	Handle_Collision(pOther);
 
 	if (m_eState == ColliderState::NONE || m_eState == ColliderState::EXIT)
 		m_eState = ColliderState::ENTER;
@@ -248,39 +214,8 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 
 void CCollider::On_Collision_Stay(CCollider* pOther)
 {
-	ColliderType oType = pOther->Get_ColType();
-	if (m_eType == ColliderType::ACTIVE && (oType == ColliderType::PASSIVE || oType == ColliderType::ACTIVE))
-	{
-		_vec3 push(0.f, 0.f, 0.f);
-		bool pushed = false;
-
-		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
-			pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
-		else
-			pushed = Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push);
-
-		if (pushed)
-		{
-
-			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
-			{
-				pTransform->Set_Pos(pTransform->Get_Pos() + push);
-			}
-				
-
-			if (oType == ColliderType::ACTIVE && m_pRigid && pOther->m_pRigid)
-			{
-				float m1 = m_pRigid->Get_Mass(), m2 = pOther->m_pRigid->Get_Mass();
-				float total = m1 + m2;
-				m_pRigid->Add_Force(push * (m2 / total) * 1000.f);
-				pOther->m_pRigid->Add_Force(-push * (m1 / total) * 1000.f);
-			}
-
-			Handle_Ground(pOther, push);
-		}
-	}
-
-	m_eState = (m_eState == ColliderState::NONE) ? ColliderState::ENTER : ColliderState::STAY;
+	Handle_Collision(pOther);
+	m_eState = ColliderState::STAY;
 }
 
 void CCollider::On_Collision_Exit(CCollider* pOther)
@@ -358,7 +293,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 		{
 			_vec3 bAxis = (&b.vAxisX)[j];
 			D3DXVec3Cross(&cross, &aAxis, &bAxis);
-			if (D3DXVec3LengthSq(&cross) > 0.0001f) // ��ȿ�� �ุ
+			if (D3DXVec3LengthSq(&cross) > 0.0001f)
 			{
 				D3DXVec3Normalize(&cross, &cross);
 				vAxis.push_back(cross);
@@ -418,35 +353,123 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 	return true;
 }
 
-//void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
-//{
-//	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
-//		return;
-//
-//	// ���ʿ��� �������� Ȯ��
-//	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
-//	{
-//		m_pRigid->Set_OnGround(true);
-//	}
-//}
+void CCollider::Handle_Collision(CCollider* pOther)
+{
+	ColliderType oType = pOther->Get_ColType();
+	if (m_eType != ColliderType::ACTIVE || oType == ColliderType::TRIGGER)
+		return;
+
+	_vec3 push(0.f, 0.f, 0.f);
+	if (Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push))
+	{
+		// 바닥 전용 처리
+		if (pOther->Get_ColTag() == ColliderTag::GROUND)
+		{
+			Handle_Ground(pOther, push);
+		}
+		
+		else
+		{
+			Handle_Active(pOther, push);
+		}
+	}
+}
+
+
+// 둘중 하나 이상이 ACTIVE일때의 처리
+void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
+{
+	CRigidBody* pRigid1 = m_pRigid;
+	CRigidBody* pRigid2 = pOther->m_pRigid;
+
+	if (!pRigid1) return;
+	
+	// 상대가 PASSIVE
+	if (pOther->Get_ColType() == ColliderType::PASSIVE || pRigid2 == nullptr)
+	{
+		// 위치 보정
+		m_pOwner->Get_Component<CTransform>()->Move_Pos(&push, 1.f, 1.f);
+
+		// 수직 속도0 -> 진동 방지
+		_vec3 vPushDir = push;
+		D3DXVec3Normalize(&vPushDir, &vPushDir);
+		if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
+		{
+			_vec3 vVel = pRigid1->Get_Velocity();
+			if (vVel.y < 0.f)
+			{
+				vVel.y = 0.f;
+				pRigid1->Set_Velocity(vVel);
+			}
+		}
+	}
+	// 둘다 ACTIVE
+	else
+	{
+		CTransform* pTransform1 = m_pOwner->Get_Component<CTransform>();
+		CTransform* pTransform2 = pOther->m_pOwner->Get_Component<CTransform>();
+
+		// Pusher, Pushed : 우선순위
+		CGameObject* pPushedObject = (pTransform1->Get_Pos().y > pTransform2->Get_Pos().y) ? m_pOwner : pOther->m_pOwner;
+
+		// push 벡터 : 아래에서 위
+		_vec3 vFinalPush = push;
+		// Pusher이었다면, push는 아래
+		if (m_pOwner != pPushedObject)
+		{
+			vFinalPush = -vFinalPush;
+		}
+
+		// Pushed 위치,속도 보정
+		CTransform* pPushedTransform = pPushedObject->Get_Component<CTransform>();
+		CRigidBody* pPushedRigid = pPushedObject->Get_Component<CRigidBody>();
+
+		if (pPushedTransform) pPushedTransform->Move_Pos(&vFinalPush, 1.f, 1.f);
+
+		if (pPushedRigid)
+		{
+			_vec3 vPushDir = vFinalPush;
+			D3DXVec3Normalize(&vPushDir, &vPushDir);
+			if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
+			{
+				_vec3 vVel = pPushedRigid->Get_Velocity();
+				if (vVel.y < 0.f)
+				{
+					vVel.y = 0.f;
+					pPushedRigid->Set_Velocity(vVel);
+				}
+			}
+		}
+	}
+}
 
 
 void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 {
-	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
-		return;
+	m_pOwner->Get_Component<CTransform>()->Move_Pos(&push, 1.f, 1.f);
 
-	if (D3DXVec3LengthSq(&push) < 0.0001f)
-		return;
+	if (!m_pRigid) return;
 
-	_vec3 vPush = push;
-	D3DXVec3Normalize(&vPush, &vPush);
-	_vec3 vUp = { 0.f,1.f,0.f };
-	_float fDot = D3DXVec3Dot(&vPush, &vUp);
+	// 2. 속도 보정 및 상태 설정
+	_vec3 vPushDir = push;
+	D3DXVec3Normalize(&vPushDir, &vPushDir);
 
-	if (fDot > 0.5f)
+	if (D3DXVec3Dot(&vPushDir, &up) > 0.5f) // 수직 충돌 확인
 	{
 		m_pRigid->Set_OnGround(true);
+
+		_vec3 vVel = m_pRigid->Get_Velocity();
+		const float fMinBounceVelocity = 1.0f;
+
+		if (vVel.y < -fMinBounceVelocity) // 빠르게 부딪혔을 때: 탄성 적용
+		{
+			vVel.y *= -m_pRigid->Get_Bounce();
+		}
+		else // 살포시 내려앉았을 때: 진동 방지를 위해 속도 0으로
+		{
+			vVel.y = 0.f;
+		}
+		m_pRigid->Set_Velocity(vVel);
 	}
 }
 
