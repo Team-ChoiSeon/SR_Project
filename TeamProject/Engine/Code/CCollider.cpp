@@ -486,11 +486,6 @@ void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
 	}
 }
 
-
-void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
-{
-	m_pOwner->Get_Component<CTransform>()->Move_Pos(&push, 1.f, 1.f);
-
 	if (!m_pRigid) return;
 
 	_vec3 vPushDir = push;
@@ -521,6 +516,26 @@ void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 		// 위로 움직이는 중(점프 등)일때는 속도를 건드리지 않습니다
 	}
 }
+
+
+//void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+//{
+//	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
+//		return;
+//
+//	if (D3DXVec3LengthSq(&push) < 0.0001f)
+//		return;
+//
+//	_vec3 vPush = push;
+//	D3DXVec3Normalize(&vPush, &vPush);
+//	_vec3 vUp = { 0.f,1.f,0.f };
+//	_float fDot = D3DXVec3Dot(&vPush, &vUp);
+//
+//	if (fDot > 0.5f)
+//	{
+//		m_pRigid->Set_OnGround(true);
+//	}
+//}
 
 
 

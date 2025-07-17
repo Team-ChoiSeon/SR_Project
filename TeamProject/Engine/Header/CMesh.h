@@ -21,7 +21,7 @@ public:
 public:
 	HRESULT Ready_Mesh();
 
-	HRESULT LoadOBJ(LPDIRECT3DDEVICE9 pDevice, const wstring& path);
+	HRESULT LoadOBJ(LPDIRECT3DDEVICE9 pDevice,  wstring& path);
 	virtual LPDIRECT3DVERTEXBUFFER9 Get_VertexBuffer() const { return m_pVB; };
 	virtual LPDIRECT3DINDEXBUFFER9 Get_IndexBuffer() const { return m_pIB; };
 	virtual const wstring& Get_Key() { return m_wKey; }

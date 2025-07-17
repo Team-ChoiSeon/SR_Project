@@ -29,27 +29,15 @@ public:
 	static TestSceneHW* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void	Free();
 
-	virtual const wstring Get_ScenePath() { return L"../../Scene/hwtest_2.json"; }
+	virtual const wstring Get_ScenePath() { return L"../../Scene/Stage_hw_1.json"; }
 private:
 	//temp
 	void FloatingSet();
 	void DirectionSet();
 	void SlotSet();
-	//CPlayer*							m_pPlayer;
-	CMainPlayer* m_pPlayer;
-	CFirstviewFollowingCamera* m_pFFCam;
-	CFirstviewFollowingCamera* m_pdummycam;
-	DummyCube* m_pDummy;
-	CFloatingCube* m_pFloatingCube;
-	CDirectionalCube* m_pDirectionalCube;
-	CDirectionalCube* m_pOnewayCube;
-	CImpulseCube* m_pImpulseCube;
-	CWeightButton* m_pWeightButton;
-	CTestTile* m_pTile;
-	CTimerButton* m_pTimerButton;
-	CSlotCube* m_pSlotCube;
-	_float								m_fTime;
-	bool						m_bCamPlayer;
+
+	CMainPlayer*						m_pPlayer;
+	CFirstviewFollowingCamera*			m_pFFCam;
 
 	bool						m_bSceneFirst =true;
 };

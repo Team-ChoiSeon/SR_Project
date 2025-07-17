@@ -28,7 +28,7 @@ CFirstviewFollowingCamera::CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicD
 	m_pCamera->Set_Fov(D3DX_PI * 0.25f);
 	m_pCamera->Set_Aspect(WINCX / (WINCY * 1.f));
 	m_pCamera->Set_Near(0.1f);
-	m_pCamera->Set_Far(1000.f);
+	m_pCamera->Set_Far(5000.f);
 
 	CFactory::Save_Prefab(this, "CFirstviewFollowingCamera");
 }
