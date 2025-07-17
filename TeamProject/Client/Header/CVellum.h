@@ -22,8 +22,9 @@ public:
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
-	void On_Hit(const _vec3& hitpos);
+	void Organize_Chain(CMonsterPart* pPart);
 	void Key_Input(const _float& fTimeDelta);
+
 
 	static CVellum* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
@@ -47,7 +48,7 @@ public:
 private:
 	int m_iHP = 100;			// 체력
 	_float m_fInvTime = 1.f;	// 무적 타이머
-	int m_iPartCnt = 10;			// 머리 제외 파츠 개수
+	int m_iPartCnt = 9;			// 머리 제외 파츠 개수
 	vector<CMonsterPart*> m_vPart;
 
 	IVellumState* m_pState = nullptr;

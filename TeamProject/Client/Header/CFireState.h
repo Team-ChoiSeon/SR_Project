@@ -8,6 +8,7 @@ public:
 	virtual void Enter(CVellum* pVellum)override;
 	virtual void Update(const _float fTimeDelta, CVellum* pVellum)override;
 	virtual void Exit(CVellum* pVellum)override;
+    _vec3 Get_TargetDir(CVellum* pVellum);
 
 private:
 	FirePhase m_ePhase = FirePhase::Prepare;
@@ -23,6 +24,6 @@ private:
     _vec3       m_vDir;                // 발사 방향
     bool        m_bFire = false;
     int m_iFireCnt = 0;
-    float m_fFireDelay = 1.f;
+    float m_fFireDelay = 0.0f;
 };
 

@@ -4,6 +4,7 @@
 #include "CRigidBody.h"
 #include "CCollider.h" 
 
+
 CMonsterPart::CMonsterPart(LPDIRECT3DDEVICE9 pGraphicDev)
     :CGameObject(pGraphicDev)
 {
@@ -92,10 +93,11 @@ HRESULT CMonsterPart::Ready_GameObject()
 
 _int CMonsterPart::Update_GameObject(const _float& fTimeDelta)
 {
-    /*if (m_iIdx == 0)
+    if (m_bDelete)
     {
-        m_pCol->Set_ColType(m_pTarget->Get_Component<CCollider>()->Get_ColType());
-    }*/
+        return 1;
+    }
+
     Follow_Target(fTimeDelta);
     CGameObject::Update_GameObject(fTimeDelta);
     return 0;
@@ -150,6 +152,25 @@ void CMonsterPart::Follow_Target(_float fDeltaTime)
     _vec3 lookDir = targetPos - myPos;
     D3DXVec3Normalize(&lookDir, &lookDir);
     m_pTransform->Set_Look(lookDir);
+}
+
+CGameObject* CMonsterPart::Get_Owner()
+{
+    // 현재 타겟부터 시작
+    CGameObject* pCurrentTarget = m_pTarget;
+    // 다음 타겟을 임시로 저장할 변수
+    CMonsterPart* pNextPart = nullptr;
+
+    // 현재 타겟이 CMonsterPart 타입이라면 계속해서 다음 타겟을 찾아감
+    // dynamic_cast를 통해 CMonsterPart로 변환이 성공하는 동안 반복
+    while (pNextPart = dynamic_cast<CMonsterPart*>(pCurrentTarget))
+    {
+        pCurrentTarget = pNextPart->Get_Target();
+    }
+
+    // 루프가 끝나면 pCurrentTarget은 더 이상 CMonsterPart가 아닌 최종 타겟(즉, Vellum)을 가리킴
+    // 마지막으로 CVellum 타입으로 캐스팅하여 반환
+    return pCurrentTarget;
 }
 
 

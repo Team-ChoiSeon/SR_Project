@@ -103,8 +103,35 @@ HRESULT CVellum::Ready_GameObject()
 
 int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
-    
     if (m_vPart.empty()) return -1;
+
+
+    CMonsterPart* pPartToDestroy = nullptr;
+
+    // 1. 충돌한 파츠 찾기 (이전과 동일)
+    for (CMonsterPart* pPart : m_vPart)
+    {
+        CCollider* pCollider = pPart->Get_Component<CCollider>();
+        if (pCollider && pCollider->Get_ColState() == Engine::ColliderState::ENTER)
+        {
+            CCollider* pOther = pCollider->Get_Other();
+            if (pOther && pOther->Get_ColTag() == Engine::ColliderTag::ATTACK)
+            {
+                pPartToDestroy = pPart;
+                break;
+            }
+        }
+    }
+
+    // 2. 파괴할 파츠가 있다면
+    if (pPartToDestroy)
+    {
+        // 2-1. 체인을 먼저 재구성 (가장 중요)
+        Organize_Chain(pPartToDestroy);
+
+        // 2-2. 재구성이 끝난 후, 해당 파츠에게 삭제 신호를 보냄
+        pPartToDestroy->Reserve_Delete();
+    }
 
     if (m_pState)
         m_pState->Update(fTimeDelta, this);
@@ -159,10 +186,35 @@ void CVellum::Change_Pattern(IVellumState* pState)
 
 
 
-
-void CVellum::On_Hit(const _vec3& hitpos)
+void CVellum::Organize_Chain(CMonsterPart* pPart)
 {
+    auto iter = find(m_vPart.begin(), m_vPart.end(), pPart);
+    if (iter == m_vPart.end())
+        return;
 
+    // 1. 앞/뒤 파츠 찾기 (로직 동일)
+    size_t index = distance(m_vPart.begin(), iter);
+    CGameObject* pPrecedingPart = nullptr;
+    if (index == 0)
+    {
+        pPrecedingPart = this;
+    }
+    else
+    {
+        pPrecedingPart = m_vPart[index - 1];
+    }
+
+    CMonsterPart* pSucceedingPart = (index + 1 < m_vPart.size()) ? m_vPart[index + 1] : nullptr;
+
+    if (pSucceedingPart)
+    {
+        pSucceedingPart->Set_Target(pPrecedingPart);
+    }
+
+    m_vPart.erase(iter);
+
+    for (size_t i = 0; i < m_vPart.size(); ++i)
+        m_vPart[i]->Set_Index(i, m_vPart.size());
 }
 
 void CVellum::Key_Input(const _float& fTimeDelta)
@@ -209,6 +261,17 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
+    if (CInputMgr::Get_Instance()->Key_Away(DIK_1))
+    {
+        if (!m_vPart.empty() && m_vPart.size() > 1)
+        {
+            CMonsterPart* pTargetPart = m_vPart[1]; // 1번 인덱스 파츠를 목표로
+
+            // Vellum의 Update 로직과 동일하게 호출
+            Organize_Chain(pTargetPart);
+            pTargetPart->Reserve_Delete();
+        }
+    }
  
     //if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
     //{
