@@ -65,8 +65,14 @@ CMesh* CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
 	CMesh* mesh = CMesh::Create();
 	wstring meshKey = key;
 	if (FAILED(mesh->LoadOBJ(pDevice, meshKey))) {
-		Safe_Release(mesh);
-		return nullptr;
+		auto iter = m_umMesh.find(meshKey);
+		if (iter != m_umMesh.end()) {
+			return iter->second;
+		}
+		else {
+			Safe_Release(mesh);
+			return nullptr;
+		}
 	}
 
 	mesh->Set_Key(meshKey);
