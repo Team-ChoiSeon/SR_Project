@@ -54,6 +54,7 @@ HRESULT CMainApp::Ready_MainApp()
 
 	CUiMgr::Get_Instance()->Ready_UiMgr();
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
+	CLightMgr::Get_Instance()->Ready_Light(m_pGraphicDev);
 
 	// CameraMgr, LightMgr, CollisionMgr 초기화는 필요시 추가
 	CSoundMgr::Get_Instance()->Ready_Sound();
@@ -77,7 +78,7 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 
 	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
 	CCollisionMgr::Get_Instance()->Update_Collision();
-
+	CLightMgr::Get_Instance()->UpdateLights(fTimeDelta);
 	CSceneMgr::Get_Instance()->Update_Scene(fTimeDelta);
 
 	CSoundMgr::Get_Instance()->Update_Sound();
