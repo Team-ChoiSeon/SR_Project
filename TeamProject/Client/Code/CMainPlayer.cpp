@@ -113,8 +113,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		m_bCursorMove = !m_bCursorMove;
 	}
 	if (m_bCursorMove)
-		CursorRotate();
-
+		CursorRotate(fTimeDelta);
 	if (CInputMgr::Get_Instance()->Key_Hold(DIK_LSHIFT)) {
 		m_fMoveSpeed = 30.f;
 	}
@@ -144,7 +143,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		else
 		{
 			if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB) &&
-				CPickingMgr::Get_Instance()->Get_HitNearObject(100.f) == nullptr)
+				CPickingMgr::Get_Instance()->Get_HitNearObject(m_fMaxPickDist) == nullptr)
 			{
 				auto prevPickCube = dynamic_cast<CCube*>(m_pPrevPickObj);
 				if (prevPickCube) {
@@ -160,6 +159,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	}
 
 	//=====================================================================================================//
+
 
 
 	//Ray* pRay = CPickingMgr::Get_Instance()->Get_Ray();
@@ -313,7 +313,7 @@ void CMainPlayer::Picking_Init()
 	m_bMouseAway = false;													//어웨이 초기화
 	m_bObjHold = false;														//홀드 초기화			//문제시 삭제
 	m_pRay = CPickingMgr::Get_Instance()->Get_Ray();						//ray 계산
-	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);		//Pickobj 계산
+	m_pPickObj = CPickingMgr::Get_Instance()->Get_HitNearObject(m_fMaxPickDist);		//Pickobj 계산
 
 
 	m_PickedCube = dynamic_cast<CCube*>(m_pPickObj);						//큐브인지 확인
@@ -415,7 +415,7 @@ void CMainPlayer::Away_Picking()
 }
 
 
-void CMainPlayer::CursorRotate()
+void CMainPlayer::CursorRotate(const _float& fTimeDelta)
 {
 	//Ŀ�� ����
 	ShowCursor(false);
@@ -429,11 +429,14 @@ void CMainPlayer::CursorRotate()
 	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X);
 	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y);
 
-	float sensitivity = 300.f;
-	float rx = dx / sensitivity;
-	float ry = dy / sensitivity;
+	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ dy, dx, 0.f } * fTimeDelta);
 
-	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ ry, rx, 0.f });
+	_float scroll = CInputMgr::Get_Instance()->Get_DIMouseMove(DIMD_Z);
+	m_fPickPointDist = m_fPickPointDist + scroll * fTimeDelta;
+	if (m_fPickPointDist <= 3.f)
+		m_fPickPointDist = 3.f;
+	else if (m_fPickPointDist >= m_fMaxPickDist)
+		m_fPickPointDist = m_fMaxPickDist;
 }
 
 

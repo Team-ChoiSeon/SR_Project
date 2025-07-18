@@ -10,6 +10,7 @@
 #include "CMainPlayer.h"
 #include "CPickingMgr.h"
 #include "CCameraMgr.h"
+#include "CInputMgr.h"
 
 CMagneticCube::CMagneticCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -49,10 +50,15 @@ HRESULT CMagneticCube::Ready_GameObject()
     m_pCollider = Get_Component<CCollider>();
     m_pCollider->Set_ColTag(ColliderTag::NONE);
     m_pCollider->Set_ColType(ColliderType::PASSIVE);
-    m_pCollider->Set_BoundType(BoundingType::AABB);
+    m_pCollider->Set_BoundType(BoundingType::OBB);
 
     Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
     m_pPick = Get_Component<CPickTarget>();
+
+    //_matrix matRot;
+    //_vec3 Angle = { 0.f, 45.f, 0.f };
+    //D3DXMatrixRotationYawPitchRoll(&matRot, Angle.y, Angle.x, Angle.z);
+    //m_pTransform->Set_RotMatrix(&matRot);
 
     CFactory::Save_Prefab(this, "CMagneticCube");
 	return S_OK;
@@ -60,16 +66,20 @@ HRESULT CMagneticCube::Ready_GameObject()
 
 _int CMagneticCube::Update_GameObject(const _float& fTimeDelta)
 {
-    CGameObject::Update_GameObject(fTimeDelta);
     PickMove();
-    _matrix matRot;
-    _vec3 Angle = { 0.f, 45.f, 0.f };
-    D3DXMatrixRotationYawPitchRoll(&matRot, Angle.y, Angle.x, Angle.z);
-	m_pTransform->Set_RotMatrix(&matRot);
+
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
+        m_pRigid->Set_Torque({ 0.f, 45.f, 0.f });
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
+        m_pRigid->Add_Torque({ 0.f, -45.f, 0.f });
+
     if(m_pRigid->Get_OnGround())
         m_pCollider->Set_ColType(ColliderType::PASSIVE);
-    else
+    else {
         m_pCollider->Set_ColType(ColliderType::ACTIVE);
+        m_pRigid->Set_UseGravity(true);
+    }
+    CGameObject::Update_GameObject(fTimeDelta);
 
 	return _int();
 }

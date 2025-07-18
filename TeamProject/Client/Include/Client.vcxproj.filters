@@ -169,6 +169,9 @@
     <Filter Include="03. Scene\DebugScene\Logo">
       <UniqueIdentifier>{11859b5b-3fe4-42a7-bffa-734c123776a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Cube\LowGravityCube">
+      <UniqueIdentifier>{5f30a635-4903-4f6e-a30d-7cf88eadb9a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -339,6 +342,9 @@
     <ClInclude Include="..\Header\SceneStage2.h">
       <Filter>03. Scene\DebugScene\SceneHS</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLowGravityCube.h">
+      <Filter>04. GameObjects\Cube\LowGravityCube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -496,6 +502,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\SceneStage2.cpp">
       <Filter>03. Scene\DebugScene\SceneHS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLowGravityCube.cpp">
+      <Filter>04. GameObjects\Cube\LowGravityCube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

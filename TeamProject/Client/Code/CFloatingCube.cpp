@@ -90,6 +90,8 @@ _int CFloatingCube::Update_GameObject(const _float& fTimeDelta)
 		{
 			if (!m_bSleep)
 				Move(fTimeDelta);
+			else
+				Sleep(fTimeDelta);
 		}
 	}
 	else
@@ -140,6 +142,7 @@ void CFloatingCube::Set_Info(const _vec3& vStartPos, const _vec3& vDirection, co
 	m_fSpeed = fSpeed;
 	m_fSleepTime = SleepTime;
 	m_bBackward = false;
+	m_bSleep = true;
 	ComputeEndPos();
 
 }
@@ -183,7 +186,7 @@ void CFloatingCube::Move(const _float& fTimeDelta)
 	_float fTravelDist = D3DXVec3Length(&vNowStartGap);
 	_float fTotalDist = D3DXVec3Length(&vEndStartGap);
 
-	//=============================== Move by Transfrom===============================//
+	//=============================== Move by Transfrom ===============================//
 	if (fTravelDist < fTotalDist)
 	{
 		m_pTransform->Move_Pos(&m_vDirection, m_fSpeed, fTimeDelta);
@@ -237,7 +240,7 @@ void CFloatingCube::MoveBack(const _float& fTimeDelta)
 	_float fTravelDist = D3DXVec3Length(&vNowStartGap);
 	_float fTotalDist = D3DXVec3Length(&vEndStartGap);
 
-	//=============================== Move by Transfrom===============================//
+	//=============================== Move by Transfrom ===============================//
 
 	if (fTravelDist < fTotalDist)
 	{

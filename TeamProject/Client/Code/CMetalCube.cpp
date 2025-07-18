@@ -40,7 +40,7 @@ HRESULT CMetalCube::Ready_GameObject()
     Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
     m_pRigid = Get_Component<CRigidBody>();
     m_pRigid->Set_Friction(0.f);
-    m_pRigid->Set_Mass(100.f);
+    m_pRigid->Set_Mass(1.f);
     m_pRigid->Set_Bounce(0.f);
     m_pRigid->Set_OnGround(false);
     m_pRigid->Set_UseGravity(true);

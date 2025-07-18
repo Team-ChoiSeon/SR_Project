@@ -46,7 +46,7 @@ protected:
 	//Utility Function
 	void KeyInput(const _float& fTimeDelta);
 	void Update_State(const _float& fTimeDelta);
-	void CursorRotate();
+	void CursorRotate(const _float& fTimeDelta);
 
 private:
 	//Compute Function
@@ -92,6 +92,7 @@ private:
 	_vec3 m_vPrePickObjPos;
 	_vec3 m_vPrePickPoint;
 	_vec3 m_vCursorRotate;
+	_float m_fMaxPickDist = 20.f;
 
 	CCube* m_PickedCube;
 	CSwitch* m_PickedSwitch;

@@ -28,6 +28,7 @@
 #include "CMetalCube.h"
 #include "CGuiSystem.h"
 #include "Engine_GUI.h"
+#include "CLowGravityCube.h"
 
 
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) 
@@ -65,6 +66,7 @@ HRESULT SceneHW::Ready_Scene()
 	auto TestFloat = CFloatingCube::Create(m_pGraphicDev);
 	auto TestMagnet = CMagneticCube::Create(m_pGraphicDev);
 	auto TestMetal = CMetalCube::Create(m_pGraphicDev);
+	m_pLowGravityCube = CLowGravityCube::Create(m_pGraphicDev);
 	//m_pWeightButton = CWeightButton::Create(m_pGraphicDev);
 	//m_pTimerButton = CTimerButton::Create(m_pGraphicDev);
 
@@ -95,6 +97,7 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"hwPlayer")->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwTestMagnet", TestMagnet);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwTestMetal", TestMetal);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwLowGravityCube", m_pLowGravityCube);
 
 	//======================================== Set Obejct Initial Informations ===================================================================//
 
@@ -142,6 +145,7 @@ HRESULT SceneHW::Ready_Scene()
 	TestMagnet->Get_Component<CTransform>()->Set_Pos({ 0, -13, 50 });
 	TestMagnet->Set_Info();
 	
+	m_pLowGravityCube->Get_Component<CTransform>()->Set_Pos({ -30.f, -15.f, -30.f });
 
 	//=================================================== Manager Setteings ========================================================//
 

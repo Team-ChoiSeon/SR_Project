@@ -28,7 +28,7 @@ HRESULT CSlotSensor::Ready_GameObject()
     m_pTransform = Get_Component<CTransform>();
     m_pTransform->Ready_Component();
     m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
-    m_pTransform->Set_Angle({ 0.f, 0.25f, 0.f });
+    m_pTransform->Set_Angle({ 0.f, 0.f, 0.f });
     m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
 
 
@@ -45,7 +45,7 @@ HRESULT CSlotSensor::Ready_GameObject()
     m_pCollider = Get_Component<CCollider>();
     m_pCollider->Set_ColTag(ColliderTag::NONE);
     m_pCollider->Set_ColType(ColliderType::TRIGGER);
-    m_pCollider->Set_BoundType(BoundingType::OBB);
+    m_pCollider->Set_BoundType(BoundingType::AABB);
 
     m_bSensorOn = false;
 
