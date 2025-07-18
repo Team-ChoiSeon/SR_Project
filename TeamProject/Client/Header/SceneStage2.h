@@ -22,5 +22,10 @@ public:
 	virtual void Free();
 	virtual const wstring Get_ScenePath() { return L"../../Scene/Scene2.json"; };
 
+private:
+	void FloatingSet();
+	void DirectionSet();
+	void SlotSet();
+	void StairSet();
 };
 
