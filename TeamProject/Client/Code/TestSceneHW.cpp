@@ -120,14 +120,41 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	//===========================================================================================================//
 	//Debugging Codes
 
-	CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
-		// 간단한 GUI 창 하나 출력
-		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-		ImGui::Begin("IMGUI");
-		ImGui::Text(to_string(m_pPlayer->Get_Component<CTransform>()->Get_Pos().y).c_str());
-		ImGui::End();
-		});
+	//CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
+	//	// 간단한 GUI 창 하나 출력
+	//	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+	//	ImGui::Begin("IMGUI");
+	//	ImGui::Text(to_string(m_pPlayer->Get_Component<CTransform>()->Get_Pos().y).c_str());
+	//	ImGui::End();
+	//	});
 
+	auto state = Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"CMetalCube_1")->m_eState;
+		//Deubbing Code
+	 CGuiSystem::Get_Instance()->RegisterPanel("state", [state]() {
+ 		// 간단한 GUI 창 하나 출력
+ 		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+		 switch (state)
+		 {
+		 case METAL_STATE::IDLE:
+			 ImGui::Begin("IDLE");
+			 break;
+		 case METAL_STATE::APPROACH:
+			 ImGui::Begin("APPROACH");
+			 break;
+		 case METAL_STATE::SYNC:
+			 ImGui::Begin("SYNC");
+			 break;
+		 case METAL_STATE::DETACH:
+			 ImGui::Begin("DETACH");
+		 }
+		 //if (m_pRigid->Get_OnGround())
+		 //    ImGui::Begin("On Ground");
+		 //else if (!m_pRigid->Get_OnGround())
+		 //    ImGui::Begin("Not On Ground");
+
+ 		ImGui::End();
+
+ 		});
 	//_vec3 playerpos = m_pPlayer->GetPos();
 
 	//wchar_t buf1[128];
@@ -188,7 +215,7 @@ void TestSceneHW::FloatingSet()
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_9")->Get_Component<CTransform>()->Set_Scale({ 4.f, 0.4f, 2.98f });
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_10")->Set_Info(Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_10")->Get_Component<CTransform>()->Get_Pos() , { 0, 1, 0 }, 1, 0.7f, 0);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_11")->Set_Info(Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_11")->Get_Component<CTransform>()->Get_Pos() , { 0, 1, 0 }, 50, 10, 2);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_11")->Set_Info(Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_11")->Get_Component<CTransform>()->Get_Pos() + _vec3{36, 0, -5}, {0, 1, 0}, 40, 10, 2);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_12")->Set_Info(Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_12")->Get_Component<CTransform>()->Get_Pos() , { 0, 0.88f, 1.f }, 61, 5, 2);
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_11")->Set_Loop();

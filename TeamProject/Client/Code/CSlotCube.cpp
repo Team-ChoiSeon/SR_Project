@@ -94,8 +94,6 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 		else if (m_FitSlot != nullptr)
 			m_FitSlot->Set_SlottedCube(nullptr);
 		m_pRigid->Set_UseGravity(true);
-		//m_pRigid->Set_OnGround(false);
-		m_bFirstPick = true;
 	}
 	CGameObject::Update_GameObject(fTimeDelta);
 	

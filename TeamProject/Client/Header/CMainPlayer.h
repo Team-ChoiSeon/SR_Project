@@ -91,6 +91,7 @@ private:
 	_float m_fPickObjDist;
 	_vec3 m_vPrePickObjPos;
 	_vec3 m_vPrePickPoint;
+	_vec3 m_vCursorRotate;
 
 	CCube* m_PickedCube;
 	CSwitch* m_PickedSwitch;

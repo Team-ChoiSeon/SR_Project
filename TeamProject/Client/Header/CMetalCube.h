@@ -39,6 +39,7 @@ public:
 
 	//Getter, Setter Function
 
+	METAL_STATE				m_eState;
 private:
 
 	//Variables
@@ -57,6 +58,5 @@ private:
 	_float					m_fGap;
 	_vec3					m_vSyncGap;
 	_float					m_fSyncGap;
-	METAL_STATE				m_eState;
 };
 

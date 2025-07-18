@@ -62,6 +62,10 @@ _int CMagneticCube::Update_GameObject(const _float& fTimeDelta)
 {
     CGameObject::Update_GameObject(fTimeDelta);
     PickMove();
+    _matrix matRot;
+    _vec3 Angle = { 0.f, 45.f, 0.f };
+    D3DXMatrixRotationYawPitchRoll(&matRot, Angle.y, Angle.x, Angle.z);
+	m_pTransform->Set_RotMatrix(&matRot);
     if(m_pRigid->Get_OnGround())
         m_pCollider->Set_ColType(ColliderType::PASSIVE);
     else

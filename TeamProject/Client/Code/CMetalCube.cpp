@@ -42,8 +42,8 @@ HRESULT CMetalCube::Ready_GameObject()
     m_pRigid->Set_Friction(0.f);
     m_pRigid->Set_Mass(100.f);
     m_pRigid->Set_Bounce(0.f);
-    m_pRigid->Set_OnGround(true);
-    m_pRigid->Set_UseGravity(false);
+    m_pRigid->Set_OnGround(false);
+    m_pRigid->Set_UseGravity(true);
 
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCollider = Get_Component<CCollider>();
@@ -81,35 +81,38 @@ _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
 
     if (m_pRigid->Get_OnGround())
         m_pCollider->Set_ColType(ColliderType::PASSIVE);
-    else
+    else {
         m_pCollider->Set_ColType(ColliderType::ACTIVE);
+		m_pRigid->Set_UseGravity(true);
+		m_pRigid->Set_OnGround(false);
+    }
 
-    //Deubbing Code
-    CGuiSystem::Get_Instance()->RegisterPanel("state", [this]() {
-    	// 간단한 GUI 창 하나 출력
-    	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-        switch (m_eState)
-        {
-        case METAL_STATE::IDLE:
-            ImGui::Begin("IDLE");
-            break;
-        case METAL_STATE::APPROACH:
-            ImGui::Begin("APPROACH");
-            break;
-        case METAL_STATE::SYNC:
-            ImGui::Begin("SYNC");
-            break;
-        case METAL_STATE::DETACH:
-            ImGui::Begin("DETACH");
-        }
-        //if (m_pRigid->Get_OnGround())
-        //    ImGui::Begin("On Ground");
-        //else if (!m_pRigid->Get_OnGround())
-        //    ImGui::Begin("Not On Ground");
+    ////Deubbing Code
+    //CGuiSystem::Get_Instance()->RegisterPanel("state", [this]() {
+    //	// 간단한 GUI 창 하나 출력
+    //	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+    //    switch (m_eState)
+    //    {
+    //    case METAL_STATE::IDLE:
+    //        ImGui::Begin("IDLE");
+    //        break;
+    //    case METAL_STATE::APPROACH:
+    //        ImGui::Begin("APPROACH");
+    //        break;
+    //    case METAL_STATE::SYNC:
+    //        ImGui::Begin("SYNC");
+    //        break;
+    //    case METAL_STATE::DETACH:
+    //        ImGui::Begin("DETACH");
+    //    }
+    //    //if (m_pRigid->Get_OnGround())
+    //    //    ImGui::Begin("On Ground");
+    //    //else if (!m_pRigid->Get_OnGround())
+    //    //    ImGui::Begin("Not On Ground");
 
-    	ImGui::End();
+    //	ImGui::End();
 
-    	});
+    //	});
     return _int();
 }
 
@@ -148,6 +151,8 @@ void CMetalCube::Free()
 
 void CMetalCube::DetectMagnetic(const _float& fTimeDelta)
 {
+    m_MZone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale() * 3;
+    m_MZone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale() * 3;
     if (m_pPlayer->Get_Hold() &&
         (m_pPickObj = m_pPlayer->Get_PickObj()) &&
         (typeid(*m_pPickObj) == typeid(CMagneticCube)) &&
@@ -181,7 +186,7 @@ void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
         {
             m_vSyncGap = m_vParentPos - m_pTransform->Get_Pos();
             m_fSyncGap = D3DXVec3Length(&m_vSyncGap);
-            m_pCollider->Set_ColType(ColliderType::ACTIVE);
+            m_pCollider->Set_ColType(ColliderType::TRIGGER);
             m_eState = METAL_STATE::SYNC;
             return;
         }
@@ -193,12 +198,12 @@ void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
 
 void CMetalCube::SyncMagnetic(const _float& fTimeDelta)
 {
-    if (m_pPlayer->Get_MouseAway())
+    if (static_cast<CMagneticCube*>(m_pParentMagnet)->Get_Away())
     {
         m_eState = METAL_STATE::DETACH;
         return;
     }
-    else if(m_pPlayer->Get_Hold())
+    else if(static_cast<CMagneticCube*>(m_pParentMagnet)->Get_Grab())
     {
         m_pRigid->Set_UseGravity(false);
         m_vParentPos = m_pParentMagnet->Get_Component<CTransform>()->Get_Pos();
@@ -210,8 +215,6 @@ void CMetalCube::SyncMagnetic(const _float& fTimeDelta)
 
 void CMetalCube::DetachMagnetic(const _float& fTimeDelta)
 {
-    m_MZone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale() * 3;
-    m_MZone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale() * 3;
     m_pRigid->Set_UseGravity(true);
     m_pRigid->Set_OnGround(false);
     m_pParentMagnet = nullptr;

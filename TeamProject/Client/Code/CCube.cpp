@@ -29,22 +29,10 @@ void CCube::LateUpdate_GameObject(const _float& fTimeDelta)
 void CCube::Set_Tap(bool Trigger)
 {
 	m_bTap = Trigger;
-    //if (!Trigger) return;
-
-    //if (CCollider* col = Get_Component<CCollider>())
-    //{
-    //    col->Set_ColType(ColliderType::PASSIVE);
-    //}
 }
 
 void CCube::Set_Away(bool Trigger)
 {
     m_bAway = Trigger;
-    //if (!Trigger) return;
-
-    //if (CCollider* col = Get_Component<CCollider>())
-    //{
-    //    col->Set_ColType(ColliderType::ACTIVE);
-    //}
 }
 

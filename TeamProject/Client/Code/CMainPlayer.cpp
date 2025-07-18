@@ -76,6 +76,11 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 
 void CMainPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	if (m_pPrevPickObj)
+	{
+		m_pPrevPickObj->Get_Component<CTransform>()->Set_Angle(
+			m_pPrevPickObj->Get_Component<CTransform>()->Get_Angle() + m_pTransform->Get_Angle());
+	}
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -137,7 +142,21 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 			}
 		}
 		else
+		{
+			if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB) &&
+				CPickingMgr::Get_Instance()->Get_HitNearObject(100.f) == nullptr)
+			{
+				auto prevPickCube = dynamic_cast<CCube*>(m_pPrevPickObj);
+				if (prevPickCube) {
+					m_vDragDistance = { 0.f, 0.f, 0.f };
+					prevPickCube->Set_Grab(false);
+					prevPickCube->Set_Away(true);
+					prevPickCube->Set_CursorVec(m_vDragDistance);
+					prevPickCube->Get_Component<CTransform>()->Set_Pos(prevPickCube->Get_Component<CTransform>()->Get_Pos());
+				}
+			}
 			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
+		}
 	}
 
 	//=====================================================================================================//
@@ -289,6 +308,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 
 void CMainPlayer::Picking_Init()
 {
+	m_pPrevPickObj = m_pPickObj;											//이전 픽 오브젝트 저장
 	m_bMouseTap = false;													//탭 초기화
 	m_bMouseAway = false;													//어웨이 초기화
 	m_bObjHold = false;														//홀드 초기화			//문제시 삭제
@@ -353,6 +373,8 @@ void CMainPlayer::Hold_Picking()
 	m_vPrePickPoint = MovedPoint;
 	m_vPrePickObjPos = MovedObjPos;
 
+	_vec3 angle = { D3DXToDegree(m_pTransform->Get_Angle().x), D3DXToDegree(m_pTransform->Get_Angle().y), D3DXToDegree(m_pTransform->Get_Angle().z) };
+	pPickTrans->Set_Angle(pPickTrans->Get_Angle() - angle);
 	//m_vPickPoint = m_pRay->_direction * CPickingMgr::Get_Instance()->Get_HitTargetList().front()._distance;
 	//m_vPickedDist = pMainCam->Get_Component<CTransform>()->Get_Pos() - m_vPickPoint;
 	//m_vPickObjDist = pMainCam->Get_Component<CTransform>()->Get_Pos() - pPickTrans->Get_Pos();
@@ -376,18 +398,18 @@ void CMainPlayer::Hold_Picking()
 
 void CMainPlayer::Away_Picking()
 {
+	if (m_PickedCube) {
+		m_PickedCube->Set_Away(true);
+	}
+	if (m_PickedSwitch)
+		m_PickedSwitch->Set_Away(true);
+
 	m_bObjHold = false;
 	m_bMouseAway = true;
 	m_vDragDistance = { 0,0,0 };
 	m_pPickObj = nullptr;
 	m_PickedCube = nullptr;
 	m_PickedSwitch = nullptr;
-
-
-	if (m_PickedCube)
-		m_PickedCube->Set_Away(true);
-	if (m_PickedSwitch)
-		m_PickedSwitch->Set_Away(true);
 
 	m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
 }
@@ -412,7 +434,6 @@ void CMainPlayer::CursorRotate()
 	float ry = dy / sensitivity;
 
 	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ ry, rx, 0.f });
-
 }
 
 
