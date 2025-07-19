@@ -142,10 +142,10 @@ void CSlotCube::Insert_Overlap(CSlotSensor* sensor, _float dist)
 
 void CSlotCube::PickMove()
 {
-	m_pRigid->Set_UseGravity(false);
+	//m_pRigid->Set_UseGravity(false);
 	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f }); 
 	m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vCursorDelta);
-
+	m_vCursorDelta = {0,0,0};
 	m_FitSlot = nullptr;
 	m_vecDetected_Slot.clear();
 }
@@ -165,6 +165,7 @@ _bool CSlotCube::Check_Overlap()
 
 	CSlotSensor* FitSlot = Slotiter->first;
 	m_FitSlot = FitSlot;
+	m_bSlotted = true;
 	return true;
 }
 

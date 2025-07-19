@@ -33,6 +33,7 @@ public:
 	_int Get_PuzzleID() { return m_iPuzzleID; }
 	_int Get_SlotID() { return m_iSlotID; }
 	_bool Get_Lay() { return m_bLay; }
+	_bool Get_Slotted() { return m_bSlotted; }
 
 	//Utility Function
 	void Insert_Overlap(CSlotSensor* sensor, _float dist);

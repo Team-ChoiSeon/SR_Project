@@ -5,6 +5,7 @@
 #include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCollider.h"
+#include "CParticle.h"
 
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
@@ -53,7 +54,15 @@ HRESULT CVellum::Ready_GameObject()
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCol = Get_Component<CCollider>();
 
-    m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });
+    Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
+    m_pParticle = Get_Component<CParticle>();
+    m_pParticle->Set_Texture(L"blackSmoke00.png");
+    m_pParticle->PreSet_Fire(300, 1.f, 0.3f);
+    m_pParticle->Set_Speed(2.f);
+    m_pParticle->Set_Offset({ 0.f, -0.5f, 0.f });
+
+
+    m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });  
     m_pTransform->Set_Scale({ 1.33f, 1.33f, 1.33f });
 
     m_pRigid->Set_OnGround(false);
@@ -77,7 +86,7 @@ HRESULT CVellum::Ready_GameObject()
 
         // ∆ƒ√˜ ¿ßƒ° √ ±‚»≠ (º±«¸ πËø≠ «¸≈¬)
         _vec3 headPos = m_pTransform->Get_Info(INFO_POS);
-        _vec3 partPos = headPos + _vec3(0.f, 2.f * (i + 1), 0.f);
+        _vec3 partPos = headPos - _vec3(0.f, 2.f * (i + 1), 0.f);
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
         pPart->Set_Target(pTarget);
@@ -97,8 +106,30 @@ HRESULT CVellum::Ready_GameObject()
 
 int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
-    
     if (m_vPart.empty()) return -1;
+
+
+    CMonsterPart* pPartToDestroy = nullptr;
+
+    for (CMonsterPart* pPart : m_vPart)
+    {
+        CCollider* pCollider = pPart->Get_Component<CCollider>();
+        if (pCollider && pCollider->Get_ColState() == Engine::ColliderState::ENTER)
+        {
+            CCollider* pOther = pCollider->Get_Other();
+            if (pOther && pOther->Get_ColTag() == Engine::ColliderTag::ATTACK)
+            {
+                pPartToDestroy = pPart;
+                break;
+            }
+        }
+    }
+
+
+    if (pPartToDestroy)
+    {
+        Organize_Chain(pPartToDestroy);
+    }
 
     if (m_pState)
         m_pState->Update(fTimeDelta, this);
@@ -129,6 +160,7 @@ void CVellum::Free()
     m_pTransform = nullptr;
     m_pRigid = nullptr;
     m_pCol = nullptr;
+    m_pParticle = nullptr;
 
     for (auto* pPart : m_vPart)
         Safe_Release(pPart);
@@ -140,7 +172,6 @@ void CVellum::Free()
 
 void CVellum::Change_Pattern(IVellumState* pState)
 {
-    // Í∏∞Ï°¥ ?ÅÌÉúÍ∞Ä ?àÎã§Î©?Exit ?®ÏàòÎ•??∏Ï∂ú
     if (m_pState) 
     {
         m_pState->Exit(this);
@@ -153,10 +184,36 @@ void CVellum::Change_Pattern(IVellumState* pState)
 
 
 
-
-void CVellum::On_Hit(const _vec3& hitpos)
+void CVellum::Organize_Chain(CMonsterPart* pPart)
 {
+    auto iter = find(m_vPart.begin(), m_vPart.end(), pPart);
+    if (iter == m_vPart.end())
+        return;
 
+    // æ’/µ⁄ ∆ƒ√˜ √£±‚ 
+    size_t index = distance(m_vPart.begin(), iter);
+    CGameObject* pPrecedingPart = nullptr;
+    if (index == 0)
+    {
+        pPrecedingPart = this;
+    }
+    else
+    {
+        pPrecedingPart = m_vPart[index - 1];
+    }
+
+    CMonsterPart* pSucceedingPart = (index + 1 < m_vPart.size()) ? m_vPart[index + 1] : nullptr;
+
+    if (pSucceedingPart)
+    {
+        pSucceedingPart->Set_Target(pPrecedingPart);
+    }
+
+    Safe_Release(*iter);
+    m_vPart.erase(iter);
+
+    for (size_t i = 0; i < m_vPart.size(); ++i)
+        m_vPart[i]->Set_Index(i, m_vPart.size());
 }
 
 void CVellum::Key_Input(const _float& fTimeDelta)
@@ -203,11 +260,16 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
+    // ¿”Ω√ ªË¡¶ ƒ⁄µÁ
+    if (CInputMgr::Get_Instance()->Key_Away(DIK_1))
+    {
+        if (!m_vPart.empty() && m_vPart.size() > 1)
+        {
+            CMonsterPart* pTargetPart = m_vPart[1]; 
+            Organize_Chain(pTargetPart);
+        }
+    }
  
-    //if (CInputMgr::Get_Instance()->Key_Down(DIK_R))
-    //{
-    //    m_vPart.clear();
-    //}
 
     m_pTransform->Set_Pos(pos); // ?ÅÏö©
 }

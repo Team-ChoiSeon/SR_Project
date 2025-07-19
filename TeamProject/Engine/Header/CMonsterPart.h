@@ -3,11 +3,14 @@
 
 #include "CModel.h"
 
+
 BEGIN(Engine)
 
 class CTransform;
 class CRigidBody;
 class CCollider;
+class CParticle;
+
 
 class ENGINE_DLL CMonsterPart : public CGameObject
 {
@@ -28,6 +31,10 @@ public:
 	void Set_Target(CGameObject* pTarget) { m_pTarget = pTarget; }
 	void Set_Index(int idx, int max) { m_iIdx = idx, m_iMax = max; }
 
+	CGameObject* Get_Owner();
+	CGameObject* Get_Target() { return m_pTarget; }
+
+
 public:
 	virtual void Free();
 
@@ -36,9 +43,11 @@ private:
 	CTransform* m_pTransform = nullptr;
 	CRigidBody* m_pRigid = nullptr;
 	CCollider* m_pCol = nullptr;
+	CParticle* m_pParticle = nullptr;
 
 	CGameObject* m_pTarget = nullptr;
 	_float m_fSpeed = 10.f;
+
 
 	int m_iIdx = 0;
 	int m_iMax = 0;

@@ -39,6 +39,7 @@ public:
 
 	virtual HRESULT LoadScene(CScene* from, CScene* to);
 	virtual const wstring Get_ScenePath() { return L""; };
+	virtual void Set_Cam() {};
 
 protected:
 	unordered_map<LAYERID, CLayer*>			m_umLayer;

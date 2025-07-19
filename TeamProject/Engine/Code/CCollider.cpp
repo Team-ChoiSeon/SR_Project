@@ -70,6 +70,9 @@ HRESULT CCollider::Ready_Component()
 }
 void CCollider::Update_Component(const _float& fTimeDelta)
 {
+	if (m_pRigid)
+		m_pRigid->Set_OnGround(false);
+
 	if (m_eState == ColliderState::ENTER) m_eState = ColliderState::STAY;
 	else if (m_eState == ColliderState::EXIT) m_eState = ColliderState::NONE;
 
@@ -380,16 +383,15 @@ void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
 	CRigidBody* pRigid1 = m_pRigid;
 	CRigidBody* pRigid2 = pOther->m_pRigid;
 
-	// 내 Rigidbody가 없으면 아무 처리도 하지 않음
 	if (!pRigid1) return;
 
-	// --- Case 1: 상대가 움직이지 않는 PASSIVE 물체일 경우 ---
+	// 상대가 PASSIVE일 경우 ---
 	if (pOther->Get_ColType() == ColliderType::PASSIVE || pRigid2 == nullptr)
 	{
-		// 위치 보정: 나만 100% 밀려남
+	
 		m_pOwner->Get_Component<CTransform>()->Move_Pos(&push, 1.f, 1.f);
 
-		// 속도 보정: 수직으로 부딪혔을 때만 내 수직 속도를 0으로 만들어 진동 방지
+		// 속도 보정: 진동 방지
 		_vec3 vPushDir = push;
 		D3DXVec3Normalize(&vPushDir, &vPushDir);
 		if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
@@ -404,15 +406,15 @@ void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
 			}
 		}
 	}
-	// --- Case 2: 둘 다 움직이는 ACTIVE 물체일 경우 ---
+	// 둘 다 ACTIVE
 	else
 	{
-		// 충돌 방향을 미리 계산하여 수직/수평 여부 판단
+		// 수직/수평 여부 판단
 		_vec3 vPushDir = push;
 		D3DXVec3Normalize(&vPushDir, &vPushDir);
 		float fVerticality = abs(D3DXVec3Dot(&vPushDir, &up));
 
-		// --- 2-1: 수직에 가까운 충돌 (쌓기) ---
+		// 수직에 가까운
 		// 안정성을 위해 한쪽이 미는 '우선순위' 방식을 사용
 		if (fVerticality > 0.7f)
 		{
@@ -422,7 +424,7 @@ void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
 			// Y축 위치를 기준으로 더 높은 쪽(Pushed)을 결정
 			CGameObject* pPushedObject = (pTransform1->Get_Pos().y > pTransform2->Get_Pos().y) ? m_pOwner : pOther->m_pOwner;
 
-			// push 벡터 방향을 항상 '아래에서 위로' 향하도록 보정
+			// push 벡터 방향 아래에서 위로
 			_vec3 vFinalPush = push;
 			if (m_pOwner != pPushedObject) // 내가 아래쪽(Pusher)이었다면 push 방향을 뒤집음
 			{
@@ -463,25 +465,12 @@ void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
 				pOther->m_pOwner->Get_Component<CTransform>()->Move_Pos(&vOtherPush, 1.f, 1.f);
 			}
 
-			// 충격량 기반 속도 교환 (1차원 탄성 충돌 공식)
 			_vec3 vVel1 = pRigid1->Get_Velocity();
 			_vec3 vVel2 = pRigid2->Get_Velocity();
 
-			// 충돌 축에 대한 각 속도의 성분
-			float v1_on_axis = D3DXVec3Dot(&vVel1, &vPushDir);
-			float v2_on_axis = D3DXVec3Dot(&vVel2, &vPushDir);
-
-			// 충돌 후 새로운 속도 성분 계산
-			float v1_new_on_axis = (v1_on_axis * (m1 - m2) + 2 * m2 * v2_on_axis) / totalMass;
-			float v2_new_on_axis = (v2_on_axis * (m2 - m1) + 2 * m1 * v1_on_axis) / totalMass;
-
-			// 실제 속도 변화량(충격량) 계산
-			float impulse1 = v1_new_on_axis - v1_on_axis;
-			float impulse2 = v2_new_on_axis - v2_on_axis;
-
-			// 계산된 충격량을 각 Rigidbody에 Add_Velocity로 적용
-			pRigid1->Add_Velocity(vPushDir * impulse1);
-			pRigid2->Add_Velocity(vPushDir * impulse2);
+			// 서로의 속도를 교환하고 일부를 감쇠시킵니다.
+			pRigid1->Set_Velocity(vVel2 * 0.8f);
+			pRigid2->Set_Velocity(vVel1 * 0.8f);
 		}
 	}
 }
@@ -492,54 +481,34 @@ void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 
 	if (!m_pRigid) return;
 
-	// 2. 속도 보정 및 상태 설정 (이하 동일)
-	_vec3 vPushDir = push;
-	D3DXVec3Normalize(&vPushDir, &vPushDir);
+	_vec3 vVel = m_pRigid->Get_Velocity();
 
-	if (D3DXVec3Dot(&vPushDir, &up) > 0.5f) // 수직 충돌 확인
+	_vec3 vPushDir;
+	D3DXVec3Normalize(&vPushDir, &push);
+
+	float fVelDotNormal = D3DXVec3Dot(&vVel, &vPushDir);
+
+	// 물체가 충돌면으로 이동 중일 때만 반응
+	if (fVelDotNormal < 0.f)
 	{
-		m_pRigid->Set_OnGround(true);
+		// 2-1. 속도를 수직/수평 성분으로 분해
+		_vec3 vNormalVel = vPushDir * fVelDotNormal; // 수직 속도
+		_vec3 vTangentVel = vVel - vNormalVel;      // 수평 속도 (미끄러지는 속도)
 
-		_vec3 vVel = m_pRigid->Get_Velocity();
+		// 2-2. 수직 속도만 반발 계수를 적용하여 반사시킴
+		// 이렇게 하면 수평 속도는 보존되어 미끄러짐이 유지됩니다.
+		vNormalVel *= -m_pRigid->Get_Bounce();
 
-		if (vVel.y < 0.f)
+		// 2-3. 최종 속도 설정: 보존된 수평 속도와 반사된 수직 속도를 합침
+		m_pRigid->Set_Velocity(vTangentVel + vNormalVel);
+
+		// 2-4. 바닥 상태 설정
+		if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
 		{
-			const float fMinBounceVelocity = 1.0f;
-
-			if (vVel.y < -fMinBounceVelocity)
-			{
-				vVel.y *= -m_pRigid->Get_Bounce();
-			}
-			else
-			{
-				vVel.y = 0.f;
-			}
-			m_pRigid->Set_Velocity(vVel);
+			m_pRigid->Set_OnGround(true);
 		}
 	}
 }
-
-
-//void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
-//{
-//	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
-//		return;
-//
-//	if (D3DXVec3LengthSq(&push) < 0.0001f)
-//		return;
-//
-//	_vec3 vPush = push;
-//	D3DXVec3Normalize(&vPush, &vPush);
-//	_vec3 vUp = { 0.f,1.f,0.f };
-//	_float fDot = D3DXVec3Dot(&vPush, &vUp);
-//
-//	if (fDot > 0.5f)
-//	{
-//		m_pRigid->Set_OnGround(true);
-//	}
-//}
-
-
 
 void CCollider::Free()
 {

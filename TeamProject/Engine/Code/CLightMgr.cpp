@@ -31,7 +31,7 @@ HRESULT CLightMgr::Ready_Light(LPDIRECT3DDEVICE9 pDevice)
     m_BaseLight.Direction = dir;
     m_BaseLight.Diffuse = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);  // 흰색 디퓨즈
     m_BaseLight.Specular = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.f);
-    m_BaseLight.Ambient = D3DXCOLOR(0.7f, 0.7f, 0.7f, 1.f); // 약한 앰비언트
+    m_BaseLight.Ambient = D3DXCOLOR(0.6f, 0.6f, 0.6f, 1.f); // 약한 앰비언트
 
     // 0번 라이트로 적용
     m_pDevice->SetLight(0, &m_BaseLight);
@@ -47,14 +47,14 @@ void CLightMgr::AddLight(CLight* pLight)
 
 void CLightMgr::UpdateLights(const _float& fTimeDelta)
 {
-    if (CGameObject* pCam = CCameraMgr::Get_Instance()->Get_MainCamera()) {
-       _vec3 vCamLook=  pCam->Get_Component<CTransform>()->Get_Info(INFO_LOOK);
-       vCamLook *=cosf(D3DXToRadian(fAngle));
-       m_BaseLight.Direction = vCamLook;
-    }
-    else {
-        m_BaseLight.Direction = { 0.f,1.f,0.f };
-    }
+   //if (CGameObject* pCam = CCameraMgr::Get_Instance()->Get_MainCamera()) {
+   //   _vec3 vCamLook=  pCam->Get_Component<CTransform>()->Get_Info(INFO_LOOK);
+   //   vCamLook *=cosf(D3DXToRadian(fAngle));
+   //   m_BaseLight.Direction = vCamLook;
+   //}
+   //else {
+   //    m_BaseLight.Direction = { 0.f,1.f,0.f };
+   //}
     //std::list<CLight*> sortedLights(m_LightList);
     //
     //sortedLights.remove_if([](CLight* light) {

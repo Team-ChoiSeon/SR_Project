@@ -37,8 +37,8 @@ public:
 	bool Get_MouseTap() { return m_bMouseTap; }
 	bool Get_MouseAway() { return m_bMouseAway; }
 	_vec3 Get_DragDistance() { return m_vDragDistance; }
-	CGameObject* Get_PickObj() { return m_pPickObj; }
-	CGameObject* Get_PrevPickObj() { return m_pPrevPickObj; }
+	CGameObject* Get_PickObj() { return m_pPickedObj; }
+	CGameObject* Get_PrevPickObj() { return m_pPickedObj; }
 
 	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; };
 
@@ -49,6 +49,7 @@ protected:
 	void CursorRotate(const _float& fTimeDelta);
 
 private:
+	void Check_Picking();
 	//Compute Function
 	void Picking_Init();
 	void Tap_Picking();
@@ -61,8 +62,8 @@ private:
 	CModel* m_pModel = nullptr;
 	CCollider* m_pCollider = nullptr;
 	CRigidBody* m_pRigid = nullptr;
-	CGameObject* m_pPickObj = nullptr;
-	CGameObject* m_pPrevPickObj = nullptr;
+	CGameObject* m_pHitObject = nullptr;
+	CGameObject* m_pPickedObj = nullptr;
 
 	CCrosshairUIObject* m_pCrosshair = nullptr;
 
@@ -91,6 +92,10 @@ private:
 	_float m_fMaxPickDist = 20.f;
 
 	_float m_fPickPointDist;
+
+	_vec3 m_vLastPos;
+	_vec3 distancePos;//юс╫ц
+	_vec3 vDistance;
 
 	CCube* m_PickedCube;
 	CSwitch* m_PickedSwitch;

@@ -37,7 +37,7 @@ CTexture* CResourceMgr::Load_Texture(const wstring& texturePath)
 	wstring filePath = BasePath + texturePath;
 
 	if (texturePath.empty())
-		filePath = BasePath + L"T_SciFi_Greebles_Vol01_Panels_01_BC.PNG";
+		filePath = BasePath + L"Grey_Diffuse.PNG";
 	else
 		filePath = BasePath + texturePath;
 
@@ -98,8 +98,8 @@ CMaterial* CResourceMgr::Load_Material(const wstring& mtlPath)
 	in.open(fullPath);
 
 	if (!in.is_open()) {
-		fullPath = basePath + L"Tile_A.mtl";
-		mtlKey = L"Tile_A.mtl";
+		fullPath = basePath + L"Default_A.mtl";
+		mtlKey = L"Default_A.mtl";
 		// 스트림 상태 초기화
 		in.clear();
 		in.open(fullPath);

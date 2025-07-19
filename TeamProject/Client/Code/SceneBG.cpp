@@ -28,22 +28,22 @@ SceneBG::~SceneBG()
 
 HRESULT SceneBG::Ready_Scene()
 {
-	Init_Layers();
+	Init_Layer();
 
-	//ÇÃ·¹ÀÌ¾î ¼Â
+	//í”Œë ˆì´ì–´ ì…‹
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"MainPlayer");
 	m_pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	m_pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
 	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
 
 
-	//Å©·Î½º Çì¾î ¼Â
+	//í¬ë¡œìŠ¤ í—¤ì–´ ì…‹
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);
 	CUiMgr::Get_Instance()->AddUI(cross);
 	m_pPlayer->Set_Crosshair(cross);
 
-	//Ä«¸Þ¶ó ¼Â
+	//ì¹´ë©”ë¼ ì…‹
 	FFCam* pCam = FFCam::Create(m_pGraphicDev);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
 	pCam->Set_Target(m_pPlayer);
@@ -72,7 +72,7 @@ void SceneBG::LateUpdate_Scene(const _float& fTimeDelta)
 
 void SceneBG::TileLayer_Set()
 {
-	//Å¸ÀÏ Å¥ºê ¸ðµÎ Áß·Â ¹«È¿È­
+	//íƒ€ì¼ íë¸Œ ëª¨ë‘ ì¤‘ë ¥ ë¬´íš¨í™”
 	for (OBJINFO obj : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
 		obj.pObj->Get_Component<CRigidBody>()->Set_UseGravity(false);
 		obj.pObj->Get_Component<CRigidBody>()->Set_OnGround(true);
@@ -133,7 +133,7 @@ void SceneBG::Stair_Set()
 
 void SceneBG::Test_Panel()
 {
-	// °£´ÜÇÑ GUI Ã¢ ÇÏ³ª Ãâ·Â
+	// ê°„ë‹¨í•œ GUI ì°½ í•˜ë‚˜ ì¶œë ¥
 	ImGui::Begin("Test Panel");
 	ImGui::Text("Hello, ImGui!");
 	static float f = 0.0f;
