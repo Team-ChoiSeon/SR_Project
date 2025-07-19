@@ -6,7 +6,7 @@ BEGIN(Engine)
 class CRigidBody;
 
 enum class ColliderType		{ PASSIVE, ACTIVE, TRIGGER };
-enum class ColliderTag		{ NONE, GROUND, WALL, PLATFORM };
+enum class ColliderTag		{ NONE, GROUND, WALL, PLATFORM, ATTACK };
 enum class BoundingType		{ AABB, OBB };
 enum class ColliderState	{ NONE, ENTER, STAY, EXIT };
 
@@ -86,7 +86,7 @@ public:
 public:
 	virtual HRESULT Ready_Component()override;
 	virtual void Update_Component(const _float& fTimeDelta) override;
-	virtual void LateUpdate_Component() override;
+	virtual void LateUpdate_Component(const _float& fTimeDelta) override;
 	void Render(LPDIRECT3DDEVICE9 pDevice);
 	// pCollider : other
 	// ex) change color, set flag
@@ -94,9 +94,13 @@ public:
 	void On_Collision_Stay(CCollider* pCollider);
 	void On_Collision_Exit(CCollider* pCollider);
 
+	bool Broad_Phase(CCollider* pOther);
+	bool Narrow_Phase(CCollider* pOther, _vec3& push);
 	bool Calc_Push_AABB(const AABB& a, const AABB& b, _vec3& push);
 	bool Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& push);
 
+	void Handle_Collision(CCollider* pOther);
+	void Handle_Active(CCollider* pOther, const _vec3& push);
 	void Handle_Ground(CCollider* pOther, const _vec3& push);
 
 	virtual void Free();
@@ -105,6 +109,7 @@ private:
 	AABB m_tAABB = { {-1,-1,-1},{1,1,1} };
 	AABB m_tAABBOff = { {0, 0, 0}, {0, 0, 0} };
 	AABB m_tAABBWorld;
+	_matrix m_matPrevWorld = {};
 
 	BoundInfo m_tBound;
 
@@ -120,4 +125,6 @@ private:
 };
 
 END
+
+
 

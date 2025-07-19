@@ -1,6 +1,8 @@
 #pragma once
 #include "pch.h"
 #include "SceneBG.h"
+#include "Engine_GUI.h"
+#include "CGuiSystem.h"
 #include "CFactory.h"
 #include "CFirstviewFollowingCamera.h"
 #include "CMainPlayer.h"
@@ -12,6 +14,7 @@
 #include "CUiMgr.h"
 #include "CStairBlock.h"
 #include "CSceneMgr.h"
+
 
 SceneBG::SceneBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev), m_pPlayer(nullptr)
@@ -25,23 +28,22 @@ SceneBG::~SceneBG()
 
 HRESULT SceneBG::Ready_Scene()
 {
-	Init_Layers();
-	CFactory::DeSerializeScene(L"../../Scene/Merge_Scene.json", this);
-	//CFactory::DeSerializeScene(L"../../Scene/Jahyeon.json", this);
+	Init_Layer();
 
-	//ÇÃ·¹ÀÌ¾î ¼Â
+	//í”Œë ˆì´ì–´ ì…‹
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"MainPlayer");
 	m_pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	m_pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
 	CSceneMgr::Get_Instance()->Set_Player(m_pPlayer);
 
-	//Å©·Î½º Çì¾î ¼Â
+
+	//í¬ë¡œìŠ¤ í—¤ì–´ ì…‹
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);
 	CUiMgr::Get_Instance()->AddUI(cross);
 	m_pPlayer->Set_Crosshair(cross);
 
-	//Ä«¸Þ¶ó ¼Â
+	//ì¹´ë©”ë¼ ì…‹
 	FFCam* pCam = FFCam::Create(m_pGraphicDev);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
 	pCam->Set_Target(m_pPlayer);
@@ -51,6 +53,7 @@ HRESULT SceneBG::Ready_Scene()
 	Step_StoneSet();
 	Moving_StoneSet();
 	Stair_Set();
+	
 
 	return S_OK;
 }
@@ -64,11 +67,12 @@ _int SceneBG::Update_Scene(const _float& fTimeDelta)
 void SceneBG::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CScene::LateUpdate_Scene(fTimeDelta);
+
 }
 
 void SceneBG::TileLayer_Set()
 {
-	//Å¸ÀÏ Å¥ºê ¸ðµÎ Áß·Â ¹«È¿È­
+	//íƒ€ì¼ íë¸Œ ëª¨ë‘ ì¤‘ë ¥ ë¬´íš¨í™”
 	for (OBJINFO obj : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
 		obj.pObj->Get_Component<CRigidBody>()->Set_UseGravity(false);
 		obj.pObj->Get_Component<CRigidBody>()->Set_OnGround(true);
@@ -110,10 +114,12 @@ void SceneBG::Moving_StoneSet()
 	CFloatingCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Moving_Stone1");
 	cube->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	cube->Get_Component<CRigidBody>()->Set_OnGround(true);
-	cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::PLATFORM);
+	cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	cube->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+	cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
 	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, -1.f }, 39.f, 20.f, 0.5f);
 	cube->Set_Loop();
+	cube->SetTrigger(true);
 }
 
 void SceneBG::Stair_Set()
@@ -125,16 +131,26 @@ void SceneBG::Stair_Set()
 	}
 }
 
+void SceneBG::Test_Panel()
+{
+	// ê°„ë‹¨í•œ GUI ì°½ í•˜ë‚˜ ì¶œë ¥
+	ImGui::Begin("Test Panel");
+	ImGui::Text("Hello, ImGui!");
+	static float f = 0.0f;
+	ImGui::SliderFloat("Float Value", &f, 0.0f, 1.0f);
+	ImGui::End();
+}
+
 SceneBG* SceneBG::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	SceneBG* pScene = new SceneBG(pGraphicDev);
 
-	if (FAILED(pScene->Ready_Scene()))
-	{
-		Safe_Release(pScene);
-		MSG_BOX("SceneHW Create Failed");
-		return nullptr;
-	}
+	//if (FAILED(pScene->Ready_Scene()))
+	//{
+	//	Safe_Release(pScene);
+	//	MSG_BOX("SceneBG Create Failed");
+	//	return nullptr;
+	//}
 
 	return pScene;
 }

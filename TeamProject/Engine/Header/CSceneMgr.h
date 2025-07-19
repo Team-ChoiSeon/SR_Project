@@ -16,17 +16,23 @@ private:
 	virtual		~CSceneMgr();
 
 public:
-	HRESULT			Set_Scene(CScene* pScene);
-	HRESULT			Set_Player(CGameObject* pPlayer);
-
-	CScene*			Get_Scene() { return m_pScene; }
-	CGameObject*	Get_Player() { return m_pPlayer; }
+	HRESULT Ready_SceneManager(CScene* pScene);
 
 	_int			Update_Scene(const _float& fTimeDelta);
 	void			LateUpdate_Scene(const _float& fTimeDelta);
 
+public:
+	HRESULT			Set_Scene(CScene* pScene);
+	void			Set_LoadingScene(CScene* pScene);
+	HRESULT			Set_Player(CGameObject* pPlayer);
+
+	CScene* Get_Scene() { return m_pCurScene; }
+	CGameObject* Get_Player() { return m_pPlayer; }
+	void			Set_CurrentScene(CScene* pScene);
+
 private:
-	CScene* m_pScene = nullptr;
+	CScene* m_pCurScene = nullptr;
+	CScene* m_pLoading = nullptr;
 	CGameObject* m_pPlayer = nullptr;
 
 public:

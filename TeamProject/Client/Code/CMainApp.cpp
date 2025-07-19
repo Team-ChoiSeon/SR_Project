@@ -7,8 +7,10 @@
 #include "CTimeMgr.h"
 #include "CFrameMgr.h"
 #include "CInputMgr.h"
+#include "CSoundMgr.h"
 
 #include "CSceneMgr.h"
+#include "SceneLoding.h"
 #include "CScene.h"
 #include "Logo.h"
 
@@ -23,7 +25,7 @@
 #include "CCameraMgr.h"
 #include "CLightMgr.h"
 
-
+#include "CGuiSystem.h"
 
 
 CMainApp::CMainApp()
@@ -52,12 +54,20 @@ HRESULT CMainApp::Ready_MainApp()
 
 	CUiMgr::Get_Instance()->Ready_UiMgr();
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
+	CLightMgr::Get_Instance()->Ready_Light(m_pGraphicDev);
 
 	// CameraMgr, LightMgr, CollisionMgr 초기화는 필요시 추가
+	CSoundMgr::Get_Instance()->Ready_Sound();
 
+	//CSoundMgr::Get_Instance()->Play("test", "BGM");
+
+	//First Scene Setting
 	m_pScene = Logo::Create(m_pGraphicDev);
-	CSceneMgr::Get_Instance()->Set_Scene(m_pScene);
-
+	CSceneMgr::Get_Instance()->Ready_SceneManager(m_pScene);
+	SceneLoding* loadingScene = SceneLoding::Create(m_pGraphicDev);
+	//Loading Scene Setting
+	CSceneMgr::Get_Instance()->Set_LoadingScene(loadingScene);
+	CGuiSystem::Get_Instance()->Ready_GUI(g_hWnd);
 	return S_OK;
 }
 
@@ -68,8 +78,10 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 
 	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
 	CCollisionMgr::Get_Instance()->Update_Collision();
-
+	CLightMgr::Get_Instance()->UpdateLights(fTimeDelta);
 	CSceneMgr::Get_Instance()->Update_Scene(fTimeDelta);
+
+	CSoundMgr::Get_Instance()->Update_Sound();
 
 	return 0;
 }
@@ -90,6 +102,8 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
 	CRenderMgr::Get_Instance()->Render(m_pGraphicDev);
+	CGuiSystem::Get_Instance()->Render_GUI();
+	
 	m_pDeviceClass->Render_End();
 }
 
@@ -115,6 +129,7 @@ void CMainApp::Free()
 
 	// 3. 그 외 매니저들
 	CInputMgr::Get_Instance()->Destroy_Instance();
+	CSoundMgr::Get_Instance()->Destroy_Instance();
 	CFrameMgr::Get_Instance()->Destroy_Instance();
 	CTimeMgr::Get_Instance()->Destroy_Instance();
 
@@ -127,6 +142,9 @@ void CMainApp::Free()
 	CShaderMgr::Get_Instance()->Destroy_Instance();
 	CGraphicDev::Get_Instance()->Destroy_Instance();
 
-	Safe_Release(m_pGraphicDev);
+	//5. GUI 시스템(디버그)
+	CGuiSystem::Get_Instance()->Destroy_Instance();
+
+	Safe_Release(m_pDeviceClass);
 	Safe_Release(m_pDeviceClass);
 }

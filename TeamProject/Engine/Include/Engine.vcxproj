@@ -114,9 +114,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_EXPORTS;IMGUI_API=__declspec(dllexport);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Header; ../../Base; ../../ThirdParty;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../ThirdParty;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;../../ThirdParty/FMOD;../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -125,10 +125,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;../../ThirdParty/FMOD/fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(SolutionDir)copy.bat"</Command>
+      <Command>call "$(SolutionDir)copy.bat" $(ConfigurationName)
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,9 +138,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_EXPORTS;IMGUI_API=__declspec(dllexport);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Header; ../../Base; ../../ThirdParty;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../ThirdParty;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;y;;../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,13 +148,17 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;../../ThirdParty/FMOD/fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>call "$(SolutionDir)copy.bat"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\ThirdParty\FMOD\fmod.hpp" />
+    <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_dx9.h" />
+    <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="..\..\ThirdParty\Imgui\imgui.h" />
     <ClInclude Include="..\..\ThirdParty\json.hpp" />
     <ClInclude Include="..\Header\CCamera.h" />
     <ClInclude Include="..\Header\CCameraMgr.h" />
@@ -161,11 +166,14 @@
     <ClInclude Include="..\Header\CCollisionMgr.h" />
     <ClInclude Include="..\Header\CComponent.h" />
     <ClInclude Include="..\Header\CCubeTex.h" />
+    <ClInclude Include="..\Header\CDodeTex.h" />
     <ClInclude Include="..\Header\CFactory.h" />
     <ClInclude Include="..\Header\CFrame.h" />
     <ClInclude Include="..\Header\CFrameMgr.h" />
     <ClInclude Include="..\Header\CGameObject.h" />
     <ClInclude Include="..\Header\CGraphicDev.h" />
+    <ClInclude Include="..\Header\CGuiSystem.h" />
+    <ClInclude Include="..\Header\CIcosaTex.h" />
     <ClInclude Include="..\Header\CInputMgr.h" />
     <ClInclude Include="..\Header\CLayer.h" />
     <ClInclude Include="..\Header\CLight.h" />
@@ -173,6 +181,8 @@
     <ClInclude Include="..\Header\CMesh.h" />
     <ClInclude Include="..\Header\CModel.h" />
     <ClInclude Include="..\Header\CLightMgr.h" />
+    <ClInclude Include="..\Header\CMonsterPart.h" />
+    <ClInclude Include="..\Header\CParticle.h" />
     <ClInclude Include="..\Header\CPickingMgr.h" />
     <ClInclude Include="..\Header\CPickTarget.h" />
     <ClInclude Include="..\Header\CRcCube.h" />
@@ -183,6 +193,7 @@
     <ClInclude Include="..\Header\CScene.h" />
     <ClInclude Include="..\Header\CSceneMgr.h" />
     <ClInclude Include="..\Header\CShaderMgr.h" />
+    <ClInclude Include="..\Header\CSoundMgr.h" />
     <ClInclude Include="..\Header\CTexture.h" />
     <ClInclude Include="..\Header\CTimeMgr.h" />
     <ClInclude Include="..\Header\CTimer.h" />
@@ -194,23 +205,33 @@
     <ClInclude Include="..\Header\Engine_Define.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
     <ClInclude Include="..\Header\Engine_Function.h" />
+    <ClInclude Include="..\Header\Engine_GUI.h" />
     <ClInclude Include="..\Header\Engine_Macro.h" />
     <ClInclude Include="..\Header\Engine_Model.h" />
     <ClInclude Include="..\Header\Engine_Struct.h" />
     <ClInclude Include="..\Header\Engine_Typedef.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_dx9.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\Code\CCamera.cpp" />
     <ClCompile Include="..\Code\CCameraMgr.cpp" />
     <ClCompile Include="..\Code\CCollider.cpp" />
     <ClCompile Include="..\Code\CCollisionMgr.cpp" />
     <ClCompile Include="..\Code\CComponent.cpp" />
     <ClCompile Include="..\Code\CCubeTex.cpp" />
+    <ClCompile Include="..\Code\CDodeTex.cpp" />
     <ClCompile Include="..\Code\CFactory.cpp" />
     <ClCompile Include="..\Code\CFrame.cpp" />
     <ClCompile Include="..\Code\CFrameMgr.cpp" />
     <ClCompile Include="..\Code\CGameObject.cpp" />
     <ClCompile Include="..\Code\CGraphicDev.cpp" />
+    <ClCompile Include="..\Code\CGuiSystem.cpp" />
+    <ClCompile Include="..\Code\CIcosaTex.cpp" />
     <ClCompile Include="..\Code\CInputMgr.cpp" />
     <ClCompile Include="..\Code\CLayer.cpp" />
     <ClCompile Include="..\Code\CLight.cpp" />
@@ -218,6 +239,8 @@
     <ClCompile Include="..\Code\CMesh.cpp" />
     <ClCompile Include="..\Code\CModel.cpp" />
     <ClCompile Include="..\Code\CLightMgr.cpp" />
+    <ClCompile Include="..\Code\CMonsterPart.cpp" />
+    <ClCompile Include="..\Code\CParticle.cpp" />
     <ClCompile Include="..\Code\CPickingMgr.cpp" />
     <ClCompile Include="..\Code\CPickTarget.cpp" />
     <ClCompile Include="..\Code\CRcCube.cpp" />
@@ -228,6 +251,7 @@
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSceneMgr.cpp" />
     <ClCompile Include="..\Code\CShaderMgr.cpp" />
+    <ClCompile Include="..\Code\CSoundMgr.cpp" />
     <ClCompile Include="..\Code\CTexture.cpp" />
     <ClCompile Include="..\Code\CTimeMgr.cpp" />
     <ClCompile Include="..\Code\CTimer.cpp" />

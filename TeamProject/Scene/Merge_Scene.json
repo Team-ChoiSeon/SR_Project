@@ -4,7 +4,176 @@
             "objects": []
         },
         "DEFAULT": {
-            "objects": []
+            "objects": [
+                {
+                    "Layer": "DEFAULT",
+                    "class": "CImpulseCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 0,
+                            "ColType": 1
+                        },
+                        "CModel": {
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "DirtObj.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": true
+                        },
+                        "CTransform": {
+                            "position": [
+                                0.5339071750640869,
+                                22.168251037597656,
+                                34.20661926269531
+                            ],
+                            "rotation": [
+                                0.0,
+                                -0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CImpulseCube_1"
+                },
+                {
+                    "Layer": "DEFAULT",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "DirtObj.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                11.546236991882324,
+                                20.168004989624023,
+                                0.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                -0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                29.341739654541016
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_5"
+                }
+            ]
         },
         "LIGHT": {
             "objects": []
@@ -15,6 +184,11 @@
                     "Layer": "OBJECT",
                     "class": "CDirectionalCube",
                     "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 1
+                        },
                         "CModel": {
                             "matKey": "Wood_Pathway.mtl",
                             "mesh": "Wood_Pathway.obj",
@@ -216,6 +390,25 @@
                                 0.0
                             ]
                         },
+                        "CParticle": {
+                            "Particle_Type": 0,
+                            "base_color": [
+                                255,
+                                255,
+                                160,
+                                100
+                            ],
+                            "life_time": 3.5,
+                            "max_particles": 100,
+                            "offset": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "size": 1.5,
+                            "spawn_interval": 2.1500000953674316,
+                            "texture_path": "dirt_disp_4k.png"
+                        },
                         "CPickable": {
                             "validInGame": true
                         },
@@ -319,9 +512,14 @@
                     "Layer": "OBJECT",
                     "class": "CDirectionalCube",
                     "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 0,
+                            "ColType": 1
+                        },
                         "CModel": {
-                            "matKey": "Slate_Floor.mtl",
-                            "mesh": "Slate_Floor.obj",
+                            "matKey": "Sand_005.mtl",
+                            "mesh": "Sand_005.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 14.399999618530273,
@@ -335,19 +533,19 @@
                         },
                         "CTransform": {
                             "position": [
-                                46.56175231933594,
-                                15.57905387878418,
-                                -19.142751693725586
+                                58.44049072265625,
+                                19.77431869506836,
+                                -18.0
                             ],
                             "rotation": [
                                 0.0,
                                 -0.0,
-                                0.0
+                                0.2994336187839508
                             ],
                             "scale": [
-                                11.717320442199707,
-                                5.0,
-                                5.0
+                                27.0002384185791,
+                                1.7170833349227905,
+                                4.0
                             ]
                         }
                     },
@@ -358,8 +556,8 @@
                     "class": "CStairBlock",
                     "components": {
                         "CModel": {
-                            "matKey": "Stone_Tiles.mtl",
-                            "mesh": "Stone_Tiles.obj",
+                            "matKey": "Sand_007.mtl",
+                            "mesh": "Sand_005.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 15.0,
@@ -379,13 +577,13 @@
                             ],
                             "rotation": [
                                 0.0,
-                                0.9999997019767761,
-                                0.9999996423721313
+                                -0.0,
+                                0.0
                             ],
                             "scale": [
-                                5.0,
-                                15.000001907348633,
-                                5.0
+                                5.000119209289551,
+                                15.000018119812012,
+                                5.000319004058838
                             ]
                         }
                     },
@@ -396,8 +594,8 @@
                     "class": "CStairBlock",
                     "components": {
                         "CModel": {
-                            "matKey": "Stone_Tiles.mtl",
-                            "mesh": "Stone_Tiles.obj",
+                            "matKey": "Sand_007.mtl",
+                            "mesh": "Sand_007.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 15.0,
@@ -434,8 +632,8 @@
                     "class": "CStairBlock",
                     "components": {
                         "CModel": {
-                            "matKey": "Stone_Tiles.mtl",
-                            "mesh": "Stone_Tiles.obj",
+                            "matKey": "Sand_007.mtl",
+                            "mesh": "Sand_007.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 15.0,
@@ -472,8 +670,8 @@
                     "class": "CStairBlock",
                     "components": {
                         "CModel": {
-                            "matKey": "Stone_Tiles.mtl",
-                            "mesh": "Stone_Tiles.obj",
+                            "matKey": "Sand_007.mtl",
+                            "mesh": "Sand_007.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 15.0,
@@ -555,9 +753,14 @@
                     "Layer": "TILE",
                     "class": "CTestTile",
                     "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 1
+                        },
                         "CModel": {
-                            "matKey": "Slate_Floor.mtl",
-                            "mesh": "Slate_Floor.obj",
+                            "matKey": "Sand_007.mtl",
+                            "mesh": "Sand_007.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 19.100000381469727,
@@ -568,6 +771,47 @@
                         },
                         "CPickable": {
                             "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
                         },
                         "CTransform": {
                             "position": [
@@ -728,9 +972,9 @@
                                 4.511593193218949e-13
                             ],
                             "rotation": [
-                                -179.99989318847656,
+                                180.0,
                                 -89.99994659423828,
-                                -179.99989318847656
+                                180.0
                             ],
                             "scale": [
                                 40.0,
@@ -930,6 +1174,90 @@
                         }
                     },
                     "name": "CTestTile_1"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "DirtObj.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                -2.0,
+                                0.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                -0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_2"
                 }
             ]
         },

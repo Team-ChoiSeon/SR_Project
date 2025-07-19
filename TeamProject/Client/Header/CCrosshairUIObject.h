@@ -2,11 +2,11 @@
 #include "CGameObject.h"
 #include "CUiImage.h"
 
-class CTexture;
 
 namespace Engine {
 	class CTransform;
 	class CModel;
+	class CTexture;
 }
 class CCrosshairUIObject : public Engine::CGameObject
 {
@@ -21,7 +21,7 @@ public:
 public:
 	virtual HRESULT Ready_GameObject() override;
 	virtual _int Update_GameObject(const _float& fTimeDelta) override;
-	virtual void Render_GameObject() override;
+	virtual void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
 	CROSSHAIR_STATE Get_State() { return m_eState; };
 

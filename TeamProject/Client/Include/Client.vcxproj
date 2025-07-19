@@ -116,19 +116,19 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>IMGUI_API=__declspec(dllimport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;../../ThirdParty/FMOD;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;../../ThirdParty/Imgui/;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../Reference/Library</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;Engine.lib;../../ThirdParty/FMOD/fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../../Reference/Library;../../ThirdParty/FMOD</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,24 +137,44 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>IMGUI_API=__declspec(dllimport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;../../ThirdParty/Imgui/;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;Engine.lib;../../ThirdParty/FMOD/fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../Reference/Library</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Header\CActiveTrigger.h" />
+    <ClInclude Include="..\Header\BossScene.h" />
+    <ClInclude Include="..\Header\CChaseState.h" />
+    <ClInclude Include="..\Header\CCinematicCamera.h" />
+    <ClInclude Include="..\Header\CDollyCamera.h" />
+    <ClInclude Include="..\Header\CDiveState.h" />
+    <ClInclude Include="..\Header\CFireState.h" />
+    <ClInclude Include="..\Header\CIdleState.h" />
+    <ClInclude Include="..\Header\CIntroState.h" />
+    <ClInclude Include="..\Header\CMetalCube.h" />
+    <ClInclude Include="..\Header\CImageUIObject.h" />
+    <ClInclude Include="..\Header\CLodingCube.h" />
+    <ClInclude Include="..\Header\CPlayerTriggerCube.h" />
+    <ClInclude Include="..\Header\CProgressBar.h" />
+    <ClInclude Include="..\Header\CProjectile.h" />
+    <ClInclude Include="..\Header\CSlotSensor.h" />
+    <ClInclude Include="..\Header\CSpinState.h" />
+    <ClInclude Include="..\Header\CZoneSensor.h" />
+    <ClInclude Include="..\Header\CSensor.h" />
+    <ClInclude Include="..\Header\CSlotCube.h" />
+    <ClInclude Include="..\Header\CTrigger.h" />
     <ClInclude Include="..\Header\CBlock.h" />
+    <ClInclude Include="..\Header\CSwitch.h" />
     <ClInclude Include="..\Header\CCameraObject.h" />
     <ClInclude Include="..\Header\CCrosshairUIObject.h" />
     <ClInclude Include="..\Header\CDirectionalCube.h" />
@@ -170,28 +190,51 @@
     <ClInclude Include="..\Header\CStairBlock.h" />
     <ClInclude Include="..\Header\CTestLightMeshObject.h" />
     <ClInclude Include="..\Header\CCube.h" />
-    <ClInclude Include="..\Header\CTimerButton.h" />
-    <ClInclude Include="..\Header\CWeightButton.h" />
+    <ClInclude Include="..\Header\CVellum.h" />
     <ClInclude Include="..\Header\CTestTile.h" />
     <ClInclude Include="..\Header\DummyCube.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\CMainPlayer.h" />
+    <ClInclude Include="..\Header\CMagneticCube.h" />
     <ClInclude Include="..\Header\SceneBG.h" />
     <ClInclude Include="..\Header\SceneDH.h" />
     <ClInclude Include="..\Header\SceneHS.h" />
     <ClInclude Include="..\Header\SceneHW.h" />
+    <ClInclude Include="..\Header\SceneLoding.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
+    <ClInclude Include="..\Header\SceneStage2.h" />
     <ClInclude Include="..\Header\TestSceneHW.h" />
-    <ClInclude Include="..\Header\CToggleButton.h" />
+    <ClInclude Include="..\Header\CPickSwitch.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="IVellumState.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Code\CActiveTrigger.cpp" />
+    <ClCompile Include="..\Code\BossScene.cpp" />
+    <ClCompile Include="..\Code\CChaseState.cpp" />
+    <ClCompile Include="..\Code\CCinematicCamera.cpp" />
+    <ClCompile Include="..\Code\CDollyCamera.cpp" />
+    <ClCompile Include="..\Code\CDiveState.cpp" />
+    <ClCompile Include="..\Code\CFireState.cpp" />
+    <ClCompile Include="..\Code\CIdleState.cpp" />
+    <ClCompile Include="..\Code\CIntroState.cpp" />
+    <ClCompile Include="..\Code\CMetalCube.cpp" />
+    <ClCompile Include="..\Code\CImageUIObject.cpp" />
+    <ClCompile Include="..\Code\CLodingCube.cpp" />
+    <ClCompile Include="..\Code\CPlayerTriggerCube.cpp" />
+    <ClCompile Include="..\Code\CProgressBar.cpp" />
+    <ClCompile Include="..\Code\CProjectile.cpp" />
+    <ClCompile Include="..\Code\CSlotSensor.cpp" />
+    <ClCompile Include="..\Code\CSpinState.cpp" />
+    <ClCompile Include="..\Code\CZoneSensor.cpp" />
+    <ClCompile Include="..\Code\CSensor.cpp" />
+    <ClCompile Include="..\Code\CSlotCube.cpp" />
+    <ClCompile Include="..\Code\CTrigger.cpp" />
     <ClCompile Include="..\Code\CBlock.cpp" />
+    <ClCompile Include="..\Code\CSwitch.cpp" />
     <ClCompile Include="..\Code\CCameraObject.cpp" />
     <ClCompile Include="..\Code\CCrosshairUIObject.cpp" />
     <ClCompile Include="..\Code\CDirectionalCube.cpp" />
@@ -207,19 +250,21 @@
     <ClCompile Include="..\Code\CStairBlock.cpp" />
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp" />
     <ClCompile Include="..\Code\CCube.cpp" />
-    <ClCompile Include="..\Code\CTimerButton.cpp" />
-    <ClCompile Include="..\Code\CWeightButton.cpp" />
+    <ClCompile Include="..\Code\CVellum.cpp" />
     <ClCompile Include="..\Code\CTestTile.cpp" />
     <ClCompile Include="..\Code\DummyCube.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\CMainPlayer.cpp" />
+    <ClCompile Include="..\Code\CMagneticCube.cpp" />
     <ClCompile Include="..\Code\SceneBG.cpp" />
     <ClCompile Include="..\Code\SceneDH.cpp" />
     <ClCompile Include="..\Code\SceneHS.cpp" />
     <ClCompile Include="..\Code\SceneHW.cpp" />
+    <ClCompile Include="..\Code\SceneLoding.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
+    <ClCompile Include="..\Code\SceneStage2.cpp" />
     <ClCompile Include="..\Code\TestSceneHW.cpp" />
-    <ClCompile Include="..\Code\CToggleButton.cpp" />
+    <ClCompile Include="..\Code\CPickSwitch.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

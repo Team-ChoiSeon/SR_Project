@@ -15,12 +15,15 @@ public:
 	virtual ~CUiImage();
 
 public:
-	HRESULT Ready_Image();
+	//HRESULT Ready_Image();
+	virtual HRESULT Ready_Component()override;
 	virtual void Update_Component(const _float& fTimeDelta) override;
-	virtual void LateUpdate_Component() override;
+	virtual void LateUpdate_Component(const _float& fTimeDelta) override;
 	virtual void Render(LPDIRECT3DDEVICE9 pDevice) override;
 
 	void Set_Texture(CTexture* pTex);
+	void Set_RenderSize(_float width, _float height);
+
 	LPDIRECT3DTEXTURE9 Get_Texture() const;
 
 	static CUiImage* Create(LPDIRECT3DDEVICE9 pGraphicDev);

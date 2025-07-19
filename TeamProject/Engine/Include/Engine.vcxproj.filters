@@ -115,6 +115,27 @@
     <Filter Include="01. Managers\11. ShaderMgr">
       <UniqueIdentifier>{fa8a89c2-5d64-4e62-9fcd-817aeb3cde34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Managers\12. SoundMgr">
+      <UniqueIdentifier>{ccaf2c00-62f4-4b1f-b5f0-6aa97eaaeb38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\MonsterPart">
+      <UniqueIdentifier>{00f2ecb3-2a4e-4dd9-a6f4-71287eb2fa62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\Mesh\CDodeTex">
+      <UniqueIdentifier>{abb3b1db-172a-42b3-bda1-7d99b2994a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resources\Mesh\CIcosaTex">
+      <UniqueIdentifier>{31c96d2e-8f34-4517-a1be-273beb7aa506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\09. Particle">
+      <UniqueIdentifier>{048f00a9-e1d7-4a42-ab8c-409947d971b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\13. GUISystem">
+      <UniqueIdentifier>{a1b3818c-4b5e-40b3-bd66-ff3461c7e8b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\13. GUISystem\Imgui">
+      <UniqueIdentifier>{6748df94-7294-4d42-897e-4a5c26276cb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -243,11 +264,44 @@
     <ClInclude Include="..\Header\CRigidBody.h">
       <Filter>02. Components\08. RigidBody</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\json.hpp">
-      <Filter>03. GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CShaderMgr.h">
       <Filter>01. Managers\11. ShaderMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSoundMgr.h">
+      <Filter>01. Managers\12. SoundMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\FMOD\fmod.hpp">
+      <Filter>01. Managers\12. SoundMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\json.hpp">
+      <Filter>03. GameObject\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMonsterPart.h">
+      <Filter>03. GameObject\MonsterPart</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDodeTex.h">
+      <Filter>06. Resources\Mesh\CDodeTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CIcosaTex.h">
+      <Filter>06. Resources\Mesh\CIcosaTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CParticle.h">
+      <Filter>02. Components\09. Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_GUI.h">
+      <Filter>99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CGuiSystem.h">
+      <Filter>01. Managers\13. GUISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\Imgui\imgui.h">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_dx9.h">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.h">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -358,6 +412,42 @@
     </ClCompile>
     <ClCompile Include="..\Code\CShaderMgr.cpp">
       <Filter>01. Managers\11. ShaderMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSoundMgr.cpp">
+      <Filter>01. Managers\12. SoundMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonsterPart.cpp">
+      <Filter>03. GameObject\MonsterPart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDodeTex.cpp">
+      <Filter>06. Resources\Mesh\CDodeTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CIcosaTex.cpp">
+      <Filter>06. Resources\Mesh\CIcosaTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CParticle.cpp">
+      <Filter>02. Components\09. Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CGuiSystem.cpp">
+      <Filter>01. Managers\13. GUISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_draw.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_tables.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\imgui_widgets.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_dx9.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.cpp">
+      <Filter>01. Managers\13. GUISystem\Imgui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

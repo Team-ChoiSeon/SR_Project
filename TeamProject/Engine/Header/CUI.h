@@ -14,12 +14,14 @@ public:
 	virtual ~CUI();
 
 public:
-	HRESULT			Ready_UI();
-	virtual void	Update_Component(const _float& fTimeDelta) = 0;
-	virtual void	LateUpdate_Component() = 0;
+	//HRESULT			Ready_UI();
+	/*virtual void	Update_Component(const _float& fTimeDelta) = 0;
+	virtual void	LateUpdate_Component() = 0;*/
+
+	virtual HRESULT Ready_Component()override;
+	virtual void	Update_Component(const _float& fTimeDelta) override = 0;
+	virtual void	LateUpdate_Component(const _float& fTimeDelta)override = 0;
 	virtual void	Render(LPDIRECT3DDEVICE9 pDevice) = 0;
-
-
 
 	void Set_Position(const D3DXVECTOR2& pos) { m_vPosition = pos; }
 	void Set_Scale(const D3DXVECTOR2& scale) { m_vScale = scale; }

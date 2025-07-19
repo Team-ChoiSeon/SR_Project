@@ -8,6 +8,7 @@
 
 
 class CGameObject;
+const _vec3 up(0.f, 1.f, 0.f);
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CComponent(pGraphicDev)
@@ -69,6 +70,9 @@ HRESULT CCollider::Ready_Component()
 }
 void CCollider::Update_Component(const _float& fTimeDelta)
 {
+	if (m_pRigid)
+		m_pRigid->Set_OnGround(false);
+
 	if (m_eState == ColliderState::ENTER) m_eState = ColliderState::STAY;
 	else if (m_eState == ColliderState::EXIT) m_eState = ColliderState::NONE;
 
@@ -80,7 +84,6 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	aabb.vMin = m_tAABB.vMin + m_tAABBOff.vMin;
 	aabb.vMax = m_tAABB.vMax + m_tAABBOff.vMax;
 
-	// 8∞≥¿« ∑Œƒ√ ≤¿¡˛¡° °Ê ø˘µÂ ∫Ø»Ø
 	_vec3 corners[8] = {
 		{aabb.vMin.x, aabb.vMin.y, aabb.vMin.z}, {aabb.vMax.x, aabb.vMin.y, aabb.vMin.z},
 		{aabb.vMax.x, aabb.vMax.y, aabb.vMin.z}, {aabb.vMin.x, aabb.vMax.y, aabb.vMin.z},
@@ -91,7 +94,7 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 	for (int i = 0; i < 8; ++i)
 		D3DXVec3TransformCoord(&corners[i], &corners[i], pWorld);
 
-	// AABB ø˘µÂ ¡¬«• ¿Á∞ËªÍ
+	// AABB ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩ«• ÔøΩÔøΩÔøΩÔøΩ
 	m_tAABBWorld.vMin = m_tAABBWorld.vMax = corners[0];
 	for (int i = 1; i < 8; ++i)
 	{
@@ -103,44 +106,52 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 		m_tAABBWorld.vMax.z = max(m_tAABBWorld.vMax.z, corners[i].z);
 	}
 
-	// Bounding ¡§∫∏ ∞ËªÍ
+	// Bounding ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩ
 	if (m_tBound.eType == BoundingType::OBB)
 	{
-		// OBB ∞ËªÍ (√‡ πÊ«‚ π›¡ˆ∏ß ∞ËªÍ π◊ ∫Ø»Ø)
-		_vec3 vHalf = (aabb.vMax - aabb.vMin) * 0.5f;
-		_vec3 vScale = {
-			D3DXVec3Length((_vec3*)&pWorld->_11),
-			D3DXVec3Length((_vec3*)&pWorld->_21),
-			D3DXVec3Length((_vec3*)&pWorld->_31)
-		};
-		m_tBound.vHalf = _vec3(vHalf.x * vScale.x, vHalf.y * vScale.y, vHalf.z * vScale.z);
-		m_tBound.Calc_Transform(*pWorld);
+		// OBB ƒ≥ÔøΩÔøΩ
+		// Update_Component()ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩ∆ÆÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩ√øÔøΩÔøΩÔøΩ
+		if (memcmp(&m_matPrevWorld, pWorld, sizeof(_matrix)) != 0)
+		{
+			// Calc_Transform() »£ÔøΩÔøΩ 
+			m_matPrevWorld = *pWorld;
+
+			_vec3 vHalf = (aabb.vMax - aabb.vMin) * 0.5f;
+			_vec3 vScale = {
+				D3DXVec3Length((_vec3*)&pWorld->_11),
+				D3DXVec3Length((_vec3*)&pWorld->_21),
+				D3DXVec3Length((_vec3*)&pWorld->_31)
+			};
+			m_tBound.vHalf = _vec3(vHalf.x * vScale.x, vHalf.y * vScale.y, vHalf.z * vScale.z);
+			m_tBound.Calc_Transform(*pWorld);
+		}
 	}
+
 	else
 	{
-		// AABB¿Ã¡ˆ∏∏ OBB ∞ËªÍ±‚(Calc_Push_OBB)∏¶ ¿ß«ÿ ≤¿¡˛¡° ¿˙¿Â
+		// AABBÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ OBB ÔøΩÔøΩÔøΩÔøΩ(Calc_Push_OBB)ÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ
 		m_tBound.vCorners.clear();
 		m_tBound.vCorners.reserve(8);
 		for (int i = 0; i < 8; ++i)
 			m_tBound.vCorners.push_back(corners[i]);
 
-		// ¡ﬂΩ… ¿ßƒ° ∞ªΩ≈
+
 		m_tBound.vCenter = (m_tAABBWorld.vMin + m_tAABBWorld.vMax) * 0.5f;
 
-		// ¥‹¿ß ∫§≈Õ º≥¡§ (√‡ ∞Ì¡§)
+
 		m_tBound.vAxisX = _vec3(1.f, 0.f, 0.f);
 		m_tBound.vAxisY = _vec3(0.f, 1.f, 0.f);
 		m_tBound.vAxisZ = _vec3(0.f, 0.f, 1.f);
 
-		// π›¡ˆ∏ß ±Ê¿Ã ∞ªΩ≈
+
 		m_tBound.vHalf = (m_tAABBWorld.vMax - m_tAABBWorld.vMin) * 0.5f;
 	}
 
-	// √Êµπ ∏≈¥œ¿˙ µÓ∑œ
+
 	CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
-void CCollider::LateUpdate_Component()
+void CCollider::LateUpdate_Component(const _float& fTimeDelta)
 {
 	CRenderMgr::Get_Instance()->Add_Collider(this);
 }
@@ -153,52 +164,8 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->SetTransform(D3DTS_VIEW, pView);
 	pDevice->SetTransform(D3DTS_PROJECTION, pProj);
 
-	CTransform* pTransform = m_pOwner->Get_Component<CTransform>();
-	if (pTransform == nullptr)
-	{
-		MSG_BOX("CModel::Render : pTransform is nullptr");
-		return;
-	}
-
-	if (!m_pVB || !m_pIB) return;
-
 	VTXLINE* pVertices = nullptr;
 	m_pVB->Lock(0, 0, (void**)&pVertices, 0);
-
-	bool bHasOffset = (m_tAABBOff.vMin != _vec3(0.f, 0.f, 0.f) || m_tAABBOff.vMax != _vec3(0.f, 0.f, 0.f));
-	D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255); // ±‚∫ª »Úªˆ
-	if (m_tBound.eType == BoundingType::AABB)
-	{
-		color = bHasOffset ? D3DCOLOR_ARGB(255, 0, 255, 0)     // AABB + Offset : ø¨µŒ
-			: D3DCOLOR_ARGB(255, 0, 128, 0);     // AABB + No Offset : ¬£¿∫ √ ∑œ
-	}
-	else if (m_tBound.eType == BoundingType::OBB)
-	{
-		color = bHasOffset ? D3DCOLOR_ARGB(255, 255, 0, 0)     // OBB + Offset : ª°∞≠
-			: D3DCOLOR_ARGB(255, 128, 0, 0);     // OBB + No Offset : ¬£¿∫ ª°∞≠
-	}
-
-	if (m_tBound.eType == BoundingType::OBB)
-	{
-		for (int i = 0; i < 8; ++i)
-			pVertices[i] = { m_tBound.vCorners[i], color };
-	}
-	else // AABBøÎ
-	{
-		_vec3 min = m_tAABBWorld.vMin;
-		_vec3 max = m_tAABBWorld.vMax;
-
-		pVertices[0] = { {min.x, min.y, min.z}, color };
-		pVertices[1] = { {max.x, min.y, min.z}, color };
-		pVertices[2] = { {max.x, max.y, min.z}, color };
-		pVertices[3] = { {min.x, max.y, min.z}, color };
-		pVertices[4] = { {min.x, min.y, max.z}, color };
-		pVertices[5] = { {max.x, min.y, max.z}, color };
-		pVertices[6] = { {max.x, max.y, max.z}, color };
-		pVertices[7] = { {min.x, max.y, max.z}, color };
-	}
-
-	m_pVB->Unlock();
 
 	_matrix matIdentity;
 	D3DXMatrixIdentity(&matIdentity);
@@ -206,47 +173,42 @@ void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->SetFVF(FVF_LINE);
 	pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VTXLINE));
 	pDevice->SetIndices(m_pIB);
+
+	D3DCOLOR color;
+	// OBB
+	if(m_tBound.eType==BoundingType::OBB)
+	{
+		color = D3DCOLOR_ARGB(255, 255, 0, 0); 
+		for (int i = 0; i < 8; ++i)
+			pVertices[i] = { m_tBound.vCorners[i], color };
+
+		m_pVB->Unlock();
+		pDevice->DrawIndexedPrimitive(D3DPT_LINELIST, 0, 0, 8, 0, 12);
+	}
+	
+	// AABB
+	m_pVB->Lock(0, 0, (void**)&pVertices, 0); 
+	_vec3 min = m_tAABBWorld.vMin;
+	_vec3 max = m_tAABBWorld.vMax;
+	color = D3DCOLOR_ARGB(255, 0, 255, 0); 
+	pVertices[0] = { {min.x, min.y, min.z}, color };
+	pVertices[1] = { {max.x, min.y, min.z}, color };
+	pVertices[2] = { {max.x, max.y, min.z}, color };
+	pVertices[3] = { {min.x, max.y, min.z}, color };
+	pVertices[4] = { {min.x, min.y, max.z}, color };
+	pVertices[5] = { {max.x, min.y, max.z}, color };
+	pVertices[6] = { {max.x, max.y, max.z}, color };
+	pVertices[7] = { {min.x, max.y, max.z}, color };
+
+	m_pVB->Unlock();
 	pDevice->DrawIndexedPrimitive(D3DPT_LINELIST, 0, 0, 8, 0, 12);
+
 }
 
 void CCollider::On_Collision_Enter(CCollider* pOther)
 {
 	m_pOther = pOther;
-	ColliderType oType = pOther->Get_ColType();
-	if (m_eType == ColliderType::TRIGGER || oType == ColliderType::TRIGGER)
-		return;
-
-	_vec3 push(0.f, 0.f, 0.f);
-	bool pushed = false;
-
-	if (m_eType == ColliderType::ACTIVE && oType == ColliderType::PASSIVE)
-	{
-		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
-			pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
-		else
-			pushed = Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push);
-
-		if (pushed)
-		{
-			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
-				pTransform->Set_Pos(pTransform->Get_Pos() + push);
-			Handle_Ground(pOther, push);
-		}
-	}
-	else if (m_eType == ColliderType::ACTIVE && oType == ColliderType::ACTIVE)
-	{
-		pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
-		if (!pushed || !m_pRigid || !pOther->m_pRigid)
-			return;
-
-		if (auto pTransform = m_pOwner->Get_Component<CTransform>())
-			pTransform->Set_Pos(pTransform->Get_Pos() + push);
-
-		float m1 = m_pRigid->Get_Mass(), m2 = pOther->m_pRigid->Get_Mass();
-		float total = m1 + m2;
-		m_pRigid->Add_Force(push * (m2 / total) * 1000.f);
-		pOther->m_pRigid->Add_Force(-push * (m1 / total) * 1000.f);
-	}
+	Handle_Collision(pOther);
 
 	if (m_eState == ColliderState::NONE || m_eState == ColliderState::EXIT)
 		m_eState = ColliderState::ENTER;
@@ -254,35 +216,8 @@ void CCollider::On_Collision_Enter(CCollider* pOther)
 
 void CCollider::On_Collision_Stay(CCollider* pOther)
 {
-	ColliderType oType = pOther->Get_ColType();
-	if (m_eType == ColliderType::ACTIVE && (oType == ColliderType::PASSIVE || oType == ColliderType::ACTIVE))
-	{
-		_vec3 push(0.f, 0.f, 0.f);
-		bool pushed = false;
-
-		if (m_tBound.eType == BoundingType::AABB && pOther->Get_Bound().eType == BoundingType::AABB)
-			pushed = Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
-		else
-			pushed = Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push);
-
-		if (pushed)
-		{
-			if (auto pTransform = m_pOwner->Get_Component<CTransform>())
-				pTransform->Set_Pos(pTransform->Get_Pos() + push);
-
-			if (oType == ColliderType::ACTIVE && m_pRigid && pOther->m_pRigid)
-			{
-				float m1 = m_pRigid->Get_Mass(), m2 = pOther->m_pRigid->Get_Mass();
-				float total = m1 + m2;
-				m_pRigid->Add_Force(push * (m2 / total) * 1000.f);
-				pOther->m_pRigid->Add_Force(-push * (m1 / total) * 1000.f);
-			}
-
-			Handle_Ground(pOther, push);
-		}
-	}
-
-	m_eState = (m_eState == ColliderState::NONE) ? ColliderState::ENTER : ColliderState::STAY;
+	Handle_Collision(pOther);
+	m_eState = ColliderState::STAY;
 }
 
 void CCollider::On_Collision_Exit(CCollider* pOther)
@@ -296,6 +231,27 @@ void CCollider::On_Collision_Exit(CCollider* pOther)
 	}
 
 	m_eState = ColliderState::EXIT;
+}
+
+bool CCollider::Broad_Phase(CCollider* pOther)
+{
+	const AABB& a = this->Get_AABBW();
+	const AABB& b = pOther->Get_AABBW();
+
+	return !(a.vMax.x < b.vMin.x || a.vMin.x > b.vMax.x ||
+		a.vMax.y < b.vMin.y || a.vMin.y > b.vMax.y ||
+		a.vMax.z < b.vMin.z || a.vMin.z > b.vMax.z);
+}
+
+bool CCollider::Narrow_Phase(CCollider* pOther, _vec3& push)
+{
+	const auto& myBound = this->Get_Bound();
+	const auto& otherBound = pOther->Get_Bound();
+
+	if (myBound.eType == BoundingType::AABB && otherBound.eType == BoundingType::AABB)
+		return Calc_Push_AABB(Get_AABBW(), pOther->Get_AABBW(), push);
+	else
+		return Calc_Push_OBB(myBound, otherBound, push);
 }
 
 bool CCollider::Calc_Push_AABB(const AABB& a, const AABB& b, _vec3& push)
@@ -339,7 +295,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 		{
 			_vec3 bAxis = (&b.vAxisX)[j];
 			D3DXVec3Cross(&cross, &aAxis, &bAxis);
-			if (D3DXVec3LengthSq(&cross) > 0.0001f) // ¿Ø»ø«— √‡∏∏
+			if (D3DXVec3LengthSq(&cross) > 0.0001f)
 			{
 				D3DXVec3Normalize(&cross, &cross);
 				vAxis.push_back(cross);
@@ -355,7 +311,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 		float minA = 0.f, maxA = 0.f;
 		float minB = 0.f, maxB = 0.f;
 
-		// A ≈ıøµ
+
 		{
 			float dot = D3DXVec3Dot(&a.vCorners[0], &axis);
 			minA = maxA = dot;
@@ -367,7 +323,7 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 			}
 		}
 
-		// B ≈ıøµ
+
 		{
 			float dot = D3DXVec3Dot(&b.vCorners[0], &axis);
 			minB = maxB = dot;
@@ -381,14 +337,13 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 
 		float overlap = min(maxA, maxB) - max(minA, minB);
 		if (overlap <= 0.f)
-			return false; // ∫–∏Æ √‡ πﬂ∞ﬂ °Ê √Êµπ æ∆¥‘
+			return false;
 
 		if (overlap < minOverlap)
 		{
 			minOverlap = overlap;
 			mtvAxis = axis;
 
-			// ¡ﬂΩ… ±‚¡ÿ πÊ«‚ ∫∏¡§
 			_vec3 dir = a.vCenter - b.vCenter;
 			if (D3DXVec3Dot(&dir, &axis) < 0.f)
 				mtvAxis = -mtvAxis;
@@ -399,21 +354,168 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 	return true;
 }
 
-void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+void CCollider::Handle_Collision(CCollider* pOther)
 {
-	if (!m_pRigid || pOther->Get_ColTag() != ColliderTag::GROUND)
+	ColliderType oType = pOther->Get_ColType();
+	if (m_eType != ColliderType::ACTIVE || oType == ColliderType::TRIGGER)
 		return;
 
-	// ¿ß¬ ø°º≠ ¥≠∑∂¥¬¡ˆ »Æ¿Œ
-	if (push.y > 0.f && push.y > abs(push.x) && push.y > abs(push.z))
+	_vec3 push(0.f, 0.f, 0.f);
+	if (Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push))
 	{
-		m_pRigid->Set_OnGround(true);
+		// Î∞îÎã• Ï†ÑÏö© Ï≤òÎ¶¨
+		if (pOther->Get_ColTag() == ColliderTag::GROUND)
+		{
+			Handle_Ground(pOther, push);
+		}
+		
+		else
+		{
+			Handle_Active(pOther, push);
+		}
 	}
 }
 
 
+// ÎëòÏ§ë ÌïòÎÇò Ïù¥ÏÉÅÏù¥ ACTIVEÏùºÎïåÏùò Ï≤òÎ¶¨
+void CCollider::Handle_Active(CCollider* pOther, const _vec3& push)
+{
+	CRigidBody* pRigid1 = m_pRigid;
+	CRigidBody* pRigid2 = pOther->m_pRigid;
+
+	if (!pRigid1) return;
+
+	// ÏÉÅÎåÄÍ∞Ä PASSIVEÏùº Í≤ΩÏö∞ ---
+	if (pOther->Get_ColType() == ColliderType::PASSIVE || pRigid2 == nullptr)
+	{
+	
+		m_pOwner->Get_Component<CTransform>()->Move_Pos(&push, 1.f, 1.f);
+
+		// ÏÜçÎèÑ Î≥¥Ï†ï: ÏßÑÎèô Î∞©ÏßÄ
+		_vec3 vPushDir = push;
+		D3DXVec3Normalize(&vPushDir, &vPushDir);
+		if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
+		{
+			pRigid1->Set_OnGround(true);
+
+			_vec3 vVel = pRigid1->Get_Velocity();
+			if (vVel.y < 0.f)
+			{
+				vVel.y = 0.f;
+				pRigid1->Set_Velocity(vVel);
+			}
+		}
+	}
+	// Îëò Îã§ ACTIVE
+	else
+	{
+		// ÏàòÏßÅ/ÏàòÌèâ Ïó¨Î∂Ä ÌåêÎã®
+		_vec3 vPushDir = push;
+		D3DXVec3Normalize(&vPushDir, &vPushDir);
+		float fVerticality = abs(D3DXVec3Dot(&vPushDir, &up));
+
+		// ÏàòÏßÅÏóê Í∞ÄÍπåÏö¥
+		// ÏïàÏ†ïÏÑ±ÏùÑ ÏúÑÌï¥ ÌïúÏ™ΩÏù¥ ÎØ∏Îäî 'Ïö∞ÏÑ†ÏàúÏúÑ' Î∞©ÏãùÏùÑ ÏÇ¨Ïö©
+		if (fVerticality > 0.7f)
+		{
+			CTransform* pTransform1 = m_pOwner->Get_Component<CTransform>();
+			CTransform* pTransform2 = pOther->m_pOwner->Get_Component<CTransform>();
+
+			// YÏ∂ï ÏúÑÏπòÎ•º Í∏∞Ï§ÄÏúºÎ°ú Îçî ÎÜíÏùÄ Ï™Ω(Pushed)ÏùÑ Í≤∞Ï†ï
+			CGameObject* pPushedObject = (pTransform1->Get_Pos().y > pTransform2->Get_Pos().y) ? m_pOwner : pOther->m_pOwner;
+
+			// push Î≤°ÌÑ∞ Î∞©Ìñ• ÏïÑÎûòÏóêÏÑú ÏúÑÎ°ú
+			_vec3 vFinalPush = push;
+			if (m_pOwner != pPushedObject) // ÎÇ¥Í∞Ä ÏïÑÎûòÏ™Ω(Pusher)Ïù¥ÏóàÎã§Î©¥ push Î∞©Ìñ•ÏùÑ Îí§ÏßëÏùå
+			{
+				vFinalPush = -vFinalPush;
+			}
+
+			// ÏúÑÏ™Ω(Pushed) Ïò§Î∏åÏ†ùÌä∏Ïùò ÏúÑÏπòÏôÄ ÏÜçÎèÑÎßå Î≥¥Ï†ïÌïòÏó¨ ÏïàÏ†ïÌôî
+			CTransform* pPushedTransform = pPushedObject->Get_Component<CTransform>();
+			CRigidBody* pPushedRigid = pPushedObject->Get_Component<CRigidBody>();
+
+			if (pPushedTransform) pPushedTransform->Move_Pos(&vFinalPush, 1.f, 1.f);
+
+			if (pPushedRigid)
+			{
+				pPushedRigid->Set_OnGround(true);
+				_vec3 vVel = pPushedRigid->Get_Velocity();
+				if (vVel.y < 0.f)
+				{
+					vVel.y = 0.f;
+					pPushedRigid->Set_Velocity(vVel);
+				}
+			}
+		}
+		// --- 2-2: ÏàòÌèâÏóê Í∞ÄÍπåÏö¥ Ï∂©Îèå (Î∞ÄÍ∏∞) ---
+		// Î¨ºÎ¶¨Ï†ÅÏù∏ ÎäêÎÇåÏùÑ ÏúÑÌï¥ 'Ï∂©Í≤©Îüâ'ÏùÑ Ï†ÑÎã¨ÌïòÎäî Î∞©ÏãùÏùÑ ÏÇ¨Ïö©
+		else
+		{
+			// ÏúÑÏπò Î≥¥Ï†ï: ÏßàÎüâÏóê Îî∞Îùº Í≥µÌèâÌïòÍ≤å Î∂ÑÎ∞∞
+			float m1 = pRigid1->Get_Mass();
+			float m2 = pRigid2->Get_Mass();
+			float totalMass = m1 + m2;
+
+			if (totalMass > 0.f)
+			{
+				_vec3 vMyPush = push * (m2 / totalMass);
+				_vec3 vOtherPush = -push * (m1 / totalMass);
+				m_pOwner->Get_Component<CTransform>()->Move_Pos(&vMyPush, 1.f, 1.f);
+				pOther->m_pOwner->Get_Component<CTransform>()->Move_Pos(&vOtherPush, 1.f, 1.f);
+			}
+
+			_vec3 vVel1 = pRigid1->Get_Velocity();
+			_vec3 vVel2 = pRigid2->Get_Velocity();
+
+			// ÏÑúÎ°úÏùò ÏÜçÎèÑÎ•º ÍµêÌôòÌïòÍ≥† ÏùºÎ∂ÄÎ•º Í∞êÏá†ÏãúÌÇµÎãàÎã§.
+			pRigid1->Set_Velocity(vVel2 * 0.8f);
+			pRigid2->Set_Velocity(vVel1 * 0.8f);
+		}
+	}
+}
+
+void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
+{
+	m_pOwner->Get_Component<CTransform>()->Move_Pos(&push, 1.f, 1.f);
+
+	if (!m_pRigid) return;
+
+	_vec3 vVel = m_pRigid->Get_Velocity();
+
+	_vec3 vPushDir;
+	D3DXVec3Normalize(&vPushDir, &push);
+
+	float fVelDotNormal = D3DXVec3Dot(&vVel, &vPushDir);
+
+	// Î¨ºÏ≤¥Í∞Ä Ï∂©ÎèåÎ©¥ÏúºÎ°ú Ïù¥Îèô Ï§ëÏùº ÎïåÎßå Î∞òÏùë
+	if (fVelDotNormal < 0.f)
+	{
+		// 2-1. ÏÜçÎèÑÎ•º ÏàòÏßÅ/ÏàòÌèâ ÏÑ±Î∂ÑÏúºÎ°ú Î∂ÑÌï¥
+		_vec3 vNormalVel = vPushDir * fVelDotNormal; // ÏàòÏßÅ ÏÜçÎèÑ
+		_vec3 vTangentVel = vVel - vNormalVel;      // ÏàòÌèâ ÏÜçÎèÑ (ÎØ∏ÎÅÑÎü¨ÏßÄÎäî ÏÜçÎèÑ)
+
+		// 2-2. ÏàòÏßÅ ÏÜçÎèÑÎßå Î∞òÎ∞ú Í≥ÑÏàòÎ•º Ï†ÅÏö©ÌïòÏó¨ Î∞òÏÇ¨ÏãúÌÇ¥
+		// Ïù¥Î†áÍ≤å ÌïòÎ©¥ ÏàòÌèâ ÏÜçÎèÑÎäî Î≥¥Ï°¥ÎêòÏñ¥ ÎØ∏ÎÅÑÎü¨ÏßêÏù¥ Ïú†ÏßÄÎê©ÎãàÎã§.
+		vNormalVel *= -m_pRigid->Get_Bounce();
+
+		// 2-3. ÏµúÏ¢Ö ÏÜçÎèÑ ÏÑ§Ï†ï: Î≥¥Ï°¥Îêú ÏàòÌèâ ÏÜçÎèÑÏôÄ Î∞òÏÇ¨Îêú ÏàòÏßÅ ÏÜçÎèÑÎ•º Ìï©Ïπ®
+		m_pRigid->Set_Velocity(vTangentVel + vNormalVel);
+
+		// 2-4. Î∞îÎã• ÏÉÅÌÉú ÏÑ§Ï†ï
+		if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
+		{
+			m_pRigid->Set_OnGround(true);
+		}
+	}
+}
+
 void CCollider::Free()
 {
+	if (CCollisionMgr::Get_Instance())
+	{
+		CCollisionMgr::Get_Instance()->Remove_Collider(this);
+	}
 	Safe_Release(m_pVB);
 	Safe_Release(m_pIB);
 	Safe_Release(m_pGraphicDev);

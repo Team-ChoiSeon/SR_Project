@@ -1,0 +1,26 @@
+{
+    "layers": {
+        "CAMERA": {
+            "objects": []
+        },
+        "DEFAULT": {
+            "objects": []
+        },
+        "LIGHT": {
+            "objects": []
+        },
+        "OBJECT": {
+            "objects": []
+        },
+        "PLAYER": {
+            "objects": []
+        },
+        "TILE": {
+            "objects": []
+        },
+        "UI": {
+            "objects": []
+        }
+    },
+    "scene_name": "empty"
+}

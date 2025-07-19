@@ -21,7 +21,7 @@ CUI::~CUI()
 	Free();
 }
 
-HRESULT CUI::Ready_UI()
+HRESULT CUI::Ready_Component()
 {
 	// if (!m_pGraphicDev)
 	// {
@@ -35,15 +35,7 @@ HRESULT CUI::Ready_UI()
 	return S_OK;
 }
 
-void CUI::Update_Component(const _float& fTimeDelta)
-{
 
-}
-
-void CUI::LateUpdate_Component()
-{
-
-}
 
 void CUI::Render(LPDIRECT3DDEVICE9 pDevice)
 {

@@ -1,6 +1,7 @@
 #include "CMesh.h"
 #include "CFactory.h"
 #include "CGraphicDev.h"
+#include "CResourceMgr.h"
 CMesh::CMesh() : m_pVB(nullptr), m_pIB(nullptr),
 m_dwVtxSize(0), m_dwTriCnt(0), m_dwVtxCnt(0), m_dwFVF(0), m_dwIdxSize(0)
 {
@@ -28,17 +29,31 @@ HRESULT CMesh::Ready_Mesh()
 	return S_OK;
 }
 
-HRESULT CMesh::LoadOBJ(LPDIRECT3DDEVICE9 pDevice, const wstring& path)
+HRESULT CMesh::LoadOBJ(LPDIRECT3DDEVICE9 pDevice, wstring& path)
 {
-	//wstring basePath = L"../Bin/Resource/Obj/";
+	wstring BasePath = L"../Bin/Resource/Obj/";
+	wstring filePath = BasePath + path;
 
 	//파일 열기
-	//CFactory::
-	string basePath = CFactory::ToString(path); 
-	ifstream in(basePath);
+	string basePath = CFactory::ToString(filePath);
+
+	//파일 열기
+	ifstream in;
+	in.open(basePath);
+
 	if (!in.is_open()) {
-		return E_FAIL;
+		in.open("../Bin/Resource/Obj/Default_A.obj");
+		path = L"Default_A.obj";
+		if (!in.is_open()) {
+			MessageBoxW(0, L"Mesh Load Err", L"Err", MB_OK);
+			return E_FAIL;
+		}
+		else {
+			if (CResourceMgr::Get_Instance()->Get_Mesh(path))
+			return E_FAIL;
+		}
 	}
+
 
 	vector<D3DXVECTOR3> positions;
 	vector<D3DXVECTOR3> normals;

@@ -28,7 +28,7 @@ CFirstviewFollowingCamera::CFirstviewFollowingCamera(LPDIRECT3DDEVICE9 pGraphicD
 	m_pCamera->Set_Fov(D3DX_PI * 0.25f);
 	m_pCamera->Set_Aspect(WINCX / (WINCY * 1.f));
 	m_pCamera->Set_Near(0.1f);
-	m_pCamera->Set_Far(1000.f);
+	m_pCamera->Set_Far(5000.f);
 
 	CFactory::Save_Prefab(this, "CFirstviewFollowingCamera");
 }
@@ -51,7 +51,9 @@ HRESULT CFirstviewFollowingCamera::Ready_GameObject()
 int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 {
 	//Get and Change Target Angle, Set transform same as target
-	m_pTransform->Set_Pos(m_pTargetTransform->Get_Pos());
+	_vec3 vTargetPos = m_pTargetTransform->Get_Pos();
+	vTargetPos.y += 1.f;
+	m_pTransform->Set_Pos(vTargetPos);
 	m_pTransform->Set_Angle(m_pTargetTransform->Get_Angle());
 	m_pTransform->Set_Look(m_pTargetTransform->Get_Info(INFO_LOOK));
 
@@ -67,7 +69,7 @@ int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 void CFirstviewFollowingCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component();
+		pComponent.second->LateUpdate_Component(fTimeDelta);
 }
 
 void CFirstviewFollowingCamera::Render_GameObject()

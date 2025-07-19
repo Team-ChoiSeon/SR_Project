@@ -40,11 +40,12 @@ public:
 
 private:
 	//Compute Function
-	void SyncVelPlayer();
+	void SyncVelPlayer(const _float& fTimeDelta);
 	void ComputeEndPos();
 	void Move(const _float& fTimeDelta);
 	void MoveBack(const _float& fTimeDelta);
 	void Sleep(const _float fTimeDelta);
+	void Stop(const _float& fTimeDelta);
 
 	//Variables
 	CCollider* m_pCollider;
@@ -55,13 +56,15 @@ private:
 	_vec3 m_vEndPos;
 	_vec3 m_vConstVelPos;
 	_vec3 m_vDescVelPos;
+	_vec3 m_vPrePos;
 	_float m_fMaxDistance = 5.f;
 	_float m_fSpeed = 10.f;
 	_float m_fSleepTime  = 0.f;
 	_float m_fTime = 0.f;
 
-	bool m_bOn = false;	
-	bool m_bGoBack = false;
-	bool m_bBackward = false;
+	_bool m_bOn = false;	
+	_bool m_bSleep = false;
+	_bool m_bGoBack = false;
+	_bool m_bBackward = false;
 };
 

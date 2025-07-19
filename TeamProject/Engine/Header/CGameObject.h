@@ -4,6 +4,7 @@
 #include "CModel.h"
 #include "CCamera.h"
 #include "CUI.h"
+#include "CSoundMgr.h"
 
 BEGIN(Engine)
 

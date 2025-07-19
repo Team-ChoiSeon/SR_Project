@@ -2,6 +2,7 @@
 #include "CRenderMgr.h"
 #include "CTransform.h"
 #include "CCameraMgr.h"
+#include "CLightMgr.h"
 
 CModel::CModel(LPDIRECT3DDEVICE9 pDevice)
 	: CComponent(pDevice), m_uvScale{1.f,1.f,0.f,0.f}
@@ -28,7 +29,7 @@ CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice)
 	return instance;
 }
 
-void CModel::LateUpdate_Component()
+void CModel::LateUpdate_Component(const _float& fTimeDelta)
 {
 	OutputDebugString("[CModel] LateUpdate_Component 호출됨\n");
 	CRenderMgr::Get_Instance()->Add_Model(this);
@@ -72,8 +73,19 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 		D3DXMATRIX world = *(pTransform->Get_WorldMatrix());
 		D3DXMATRIX view = *(CCameraMgr::Get_Instance()->Get_MainViewMatrix());
 		D3DXMATRIX proj = *(CCameraMgr::Get_Instance()->Get_MainProjectionMatrix());
-		D3DXMATRIX wvp = world * view * proj;
-		shader->SetMatrix("g_matWorldViewProj", &wvp);
+
+		shader->SetMatrix("g_matWorld", &world);
+		shader->SetMatrix("g_matView", &view);
+		shader->SetMatrix("g_matProj", &proj);
+
+		D3DLIGHT9 pLight = CLightMgr::Get_Instance()->Get_MainLight();
+		_vec3 vLightDir = pLight.Direction;
+		vLightDir *= -1.f;
+
+		shader->SetVector("g_LightDir", reinterpret_cast<D3DXVECTOR4*>(&vLightDir));
+		shader->SetVector("g_LightColor", reinterpret_cast<D3DXVECTOR4*>(&pLight.Diffuse));
+		shader->SetVector("g_Ambient", reinterpret_cast<D3DXVECTOR4*>(&pLight.Ambient));
+
 		_vec4 tmp = { 1.f,1.f,0.f,0.f };
 		if (m_uvScale == tmp){
 			D3DXVECTOR4 transScale(scale.x, scale.y, 0.f, 0.f); // Z, W는 임시값
@@ -118,5 +130,4 @@ void CModel::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pMesh);
 	Safe_Release(m_pMaterial);
-	// Safe_Release(m_pTexture);
 }

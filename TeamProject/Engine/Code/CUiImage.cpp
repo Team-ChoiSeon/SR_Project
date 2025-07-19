@@ -20,7 +20,7 @@ CUiImage::~CUiImage()
 	Free(); 
 }
 
-HRESULT CUiImage::Ready_Image()
+HRESULT CUiImage::Ready_Component()
 {
 	if (FAILED(D3DXCreateSprite(m_pGraphicDev, &m_pSprite)))
 		return E_FAIL;
@@ -32,7 +32,7 @@ void CUiImage::Update_Component(const _float& fTimeDelta)
 {
 }
 
-void CUiImage::LateUpdate_Component() 
+void CUiImage::LateUpdate_Component(const _float& fTimeDelta)
 {
 	CRenderMgr::Get_Instance()->Add_UI(this);
 }
@@ -54,7 +54,7 @@ void CUiImage::Render(LPDIRECT3DDEVICE9 pDevice)
 		float height = static_cast<float>(desc.Height);
 
 		D3DXVECTOR2 scale = m_vScale;
-		D3DXVECTOR2 center(width * 0.5f, height * 0.5f);
+		D3DXVECTOR2 center(width, height);
 		D3DXVECTOR2 pos = m_vPosition;
 
 		D3DXMATRIX mat;
@@ -77,6 +77,19 @@ void CUiImage::Set_Texture(CTexture* pTex)
 
 }
 
+void CUiImage::Set_RenderSize(_float width, _float height)
+{
+	if (!m_Texture) return;
+
+	D3DSURFACE_DESC desc;
+	m_Texture->GetLevelDesc(0, &desc);
+
+	m_vScale = {
+		width / static_cast<_float>(desc.Width),
+		height / static_cast<_float>(desc.Height)
+	};
+}
+
 LPDIRECT3DTEXTURE9 CUiImage::Get_Texture() const
 {
 	return m_Texture;
@@ -86,7 +99,7 @@ CUiImage* CUiImage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CUiImage* pUiImage = new CUiImage(pGraphicDev);
 
-	if (FAILED(pUiImage->Ready_Image()))
+	if (FAILED(pUiImage->Ready_Component()))
 	{
 	    Safe_Release(pUiImage);
 	    MSG_BOX("UI Create Failed");
