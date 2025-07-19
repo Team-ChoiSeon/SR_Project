@@ -62,7 +62,7 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
                 pRigid->Stop_Motion();
                 m_vBase = pTransform->Get_Pos();
 
-                m_ePhase = IntroPhase::Roar;
+                m_ePhase = IntroPhase::Charge;
                 
                 
             }
