@@ -221,10 +221,9 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 	// 3. CModel
 	if (jComponents.contains("CModel")) {
 		CModel* model = obj->Get_Component<CModel>();
-		const auto& jModel = jComponents["CModel"];
 		if (model) {
-			wstring meshKey = L"Default_A.obj";
-			wstring matKey = L"Default_A.mtl";
+			wstring meshKey = L"DirtObj.obj";
+			wstring matKey = L"DirtObj.mtl";
 			wstring shaderPath = L"g_UVScale.fx";
 
 			if (jComponents["CModel"].contains("mesh"))
@@ -255,10 +254,6 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 				model->Set_UVScale(uvScale);
 			}
 
-			if (jComponents["CModel"].contains("Alpha") )
-			{
-				model->Set_Alpha(jModel["Alpha"]);
-			}
 		}
 	}
 
@@ -414,13 +409,13 @@ void CFactory::Serialize_Camera(nlohmann::json& outJson, CCamera* comp)
 	outJson["znear"] = zNear;
 	outJson["zfar"] = zFar;
 }
+
 void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 {
 	if (!comp) {
 		// nullptr이면 기본값 지정
-		outJson["mesh"] = "Defualt_A.obj";
-		outJson["matKey"] = "Defualt_A.mtl";
-		outJson["shader"] = "g_UVScale.fx";
+		outJson["mesh"] = "Brick_Wall_009.obj";
+		outJson["matKey"] = "Brick_Wall_009.mtl";
 		return;
 	}
 
@@ -431,23 +426,15 @@ void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 	if (mesh)
 		outJson["mesh"] = ToString(mesh->Get_Key());
 	else
-		outJson["mesh"] = "Defualt_A.obj";
+		outJson["mesh"] = "Brick_Wall_009.obj";
 
 	// material 없으면 기본값
 	if (material)
 		outJson["matKey"] = ToString(material->Get_MatrialKey());
 	else
-		outJson["matKey"] = "Defualt_A.mtl";
+		outJson["matKey"] = "Brick_Wall_009.mtl";
 
-	// shader 키도 CModel 아래로 직접 넣기 (역직렬화에 맞춤)
-	if (material && material->Get_Effect()) {
-		outJson["shader"] = ToString(material->Get_ShaderKey());
-	}
-	else {
-		outJson["shader"] = "g_UVScale.fx"; // 기본값
-	}
-	outJson["Alpha"] = comp->Get_Alpha(); // float 값
-	// 머티리얼 내부 텍스처 키들만 material 블록에
+	// 머티리얼 내부 텍스처 키
 	if (material)
 	{
 		json jMat;
@@ -462,6 +449,10 @@ void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 
 		if (CTexture* tex = material->Get_Roughness()) {
 			jMat["roughness"] = ToString(tex->Get_Key());
+		}
+
+		if (LPD3DXEFFECT effect = material->Get_Effect()) {
+			jMat["shader"] = ToString(material->Get_ShaderKey());
 		}
 
 		outJson["material"] = jMat;

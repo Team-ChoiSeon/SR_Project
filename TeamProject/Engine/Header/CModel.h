@@ -29,18 +29,17 @@ public:
     
     void Render(LPDIRECT3DDEVICE9 pDevice);
     HRESULT Set_Model(const wstring& meshType, const wstring& matType);
-    void Set_Alpha(float alpha) { m_fAlpha = alpha; };
-    void Set_UVScale(_vec4 uvScale) { m_uvScale = uvScale; };
 
     //void Set_Mesh(CMesh* pMesh) { m_pMesh = pMesh; }
     //void Set_Material(CMaterial* pMaterial) { m_pMaterial = pMaterial; }
 
     CMesh* Get_Mesh() { return m_pMesh; }
     CMaterial* Get_Material() { return m_pMaterial; }
-    float Get_Alpha() { return m_fAlpha; }
+    void Set_UVScale(_vec4 _uvScale) { m_uvScale = _uvScale; }
 public:
-    RENDER_PASS Get_RenderPass() { return m_ePass; };
+    RENDER_PASS Get_RenderPass() { return RENDER_PASS::RP_OPAQUE; };
     virtual void Free()override;
+
 private:
     template<typename T>
     void Safe_Change(T& lhs, T rhs);
@@ -48,8 +47,6 @@ private:
     CMesh* m_pMesh = nullptr;
     CMaterial* m_pMaterial = nullptr; // material include texture
     _vec4 m_uvScale;
-    _float m_fAlpha =1.f;
-    RENDER_PASS m_ePass = RENDER_PASS::RP_OPAQUE;
 
 };
 

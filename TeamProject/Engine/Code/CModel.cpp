@@ -31,11 +31,9 @@ CModel* CModel::Create(LPDIRECT3DDEVICE9 pDevice)
 
 void CModel::LateUpdate_Component(const _float& fTimeDelta)
 {
-	if (m_fAlpha < 1.f) {
-		m_ePass = RENDER_PASS::RP_TRANSPARENT;
-	}
-
+	OutputDebugString("[CModel] LateUpdate_Component È£ÃâµÊ\n");
 	CRenderMgr::Get_Instance()->Add_Model(this);
+	OutputDebugString("[CModel] µî·ÏµÊ\n");
 }
 
 void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
@@ -87,7 +85,6 @@ void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
 		shader->SetVector("g_LightDir", reinterpret_cast<D3DXVECTOR4*>(&vLightDir));
 		shader->SetVector("g_LightColor", reinterpret_cast<D3DXVECTOR4*>(&pLight.Diffuse));
 		shader->SetVector("g_Ambient", reinterpret_cast<D3DXVECTOR4*>(&pLight.Ambient));
-		shader->SetFloat("g_Alpha", m_fAlpha);
 
 		_vec4 tmp = { 1.f,1.f,0.f,0.f };
 		if (m_uvScale == tmp){
