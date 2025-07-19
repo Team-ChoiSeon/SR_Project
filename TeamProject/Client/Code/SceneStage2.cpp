@@ -14,7 +14,6 @@
 #include "CSceneMgr.h"
 #include "CRenderMgr.h"
 
-#include "CPlayer.h"
 #include "CMainPlayer.h"
 #include "CLightObject.h"
 #include "CTestLightMeshObject.h"

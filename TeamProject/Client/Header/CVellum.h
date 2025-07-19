@@ -48,7 +48,7 @@ public:
 private:
 	int m_iHP = 100;			// 체력
 	_float m_fInvTime = 1.f;	// 무적 타이머
-	int m_iPartCnt = 9;			// 머리 제외 파츠 개수
+	int m_iPartCnt = 14;			// 머리 제외 파츠 개수
 	vector<CMonsterPart*> m_vPart;
 
 	IVellumState* m_pState = nullptr;

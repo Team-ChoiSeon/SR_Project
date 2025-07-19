@@ -17,9 +17,6 @@
     <Filter Include="04. GameObjects">
       <UniqueIdentifier>{ab7604f5-dc2e-4079-a511-01ca857fdab1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\TestPlayer">
-      <UniqueIdentifier>{59dd0850-c33f-45f5-8a15-5279976fcc02}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObjects\TestLight">
       <UniqueIdentifier>{f0f59b2f-0432-4248-b0e8-e754b52cb41f}</UniqueIdentifier>
     </Filter>
@@ -154,9 +151,6 @@
     <Filter Include="03. Scene\DebugScene\SceneBG">
       <UniqueIdentifier>{c74caa5e-84d0-4710-867f-b83dd80b2fde}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Scene\DebugScene\SceneDH">
-      <UniqueIdentifier>{58c69da1-fbb4-48b5-8347-2f12d35ab13c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Scene\DebugScene\SceneHS">
       <UniqueIdentifier>{7f201cda-42bf-44b8-ab2a-bcbfba2287c8}</UniqueIdentifier>
     </Filter>
@@ -213,9 +207,6 @@
     <ClInclude Include="..\Header\SceneBG.h">
       <Filter>03. Scene\DebugScene\SceneBG</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\SceneDH.h">
-      <Filter>03. Scene\DebugScene\SceneDH</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\SceneHW.h">
       <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClInclude>
@@ -230,9 +221,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTestLightMeshObject.h">
       <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CPlayer.h">
-      <Filter>04. GameObjects\TestPlayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CMonster.h">
       <Filter>04. GameObjects\TestObject</Filter>
@@ -380,9 +368,6 @@
     <ClCompile Include="..\Code\SceneBG.cpp">
       <Filter>03. Scene\DebugScene\SceneBG</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\SceneDH.cpp">
-      <Filter>03. Scene\DebugScene\SceneDH</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\SceneHW.cpp">
       <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClCompile>
@@ -397,9 +382,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp">
       <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CPlayer.cpp">
-      <Filter>04. GameObjects\TestPlayer</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMonster.cpp">
       <Filter>04. GameObjects\TestObject</Filter>

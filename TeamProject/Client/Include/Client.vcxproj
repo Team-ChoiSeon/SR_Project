@@ -184,7 +184,6 @@
     <ClInclude Include="..\Header\CLightObject.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMonster.h" />
-    <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CSceneGate.h" />
     <ClInclude Include="..\Header\CSceneTestHS.h" />
     <ClInclude Include="..\Header\CStairBlock.h" />
@@ -197,7 +196,6 @@
     <ClInclude Include="..\Header\CMainPlayer.h" />
     <ClInclude Include="..\Header\CMagneticCube.h" />
     <ClInclude Include="..\Header\SceneBG.h" />
-    <ClInclude Include="..\Header\SceneDH.h" />
     <ClInclude Include="..\Header\SceneHS.h" />
     <ClInclude Include="..\Header\SceneHW.h" />
     <ClInclude Include="..\Header\SceneLoding.h" />
@@ -244,7 +242,6 @@
     <ClCompile Include="..\Code\CLightObject.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
-    <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CSceneGate.cpp" />
     <ClCompile Include="..\Code\CSceneTestHS.cpp" />
     <ClCompile Include="..\Code\CStairBlock.cpp" />
@@ -257,7 +254,6 @@
     <ClCompile Include="..\Code\CMainPlayer.cpp" />
     <ClCompile Include="..\Code\CMagneticCube.cpp" />
     <ClCompile Include="..\Code\SceneBG.cpp" />
-    <ClCompile Include="..\Code\SceneDH.cpp" />
     <ClCompile Include="..\Code\SceneHS.cpp" />
     <ClCompile Include="..\Code\SceneHW.cpp" />
     <ClCompile Include="..\Code\SceneLoding.cpp" />

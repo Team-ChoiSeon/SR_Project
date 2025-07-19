@@ -13,7 +13,6 @@
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
 
-#include "CPlayer.h"
 #include "CMainPlayer.h"
 #include "CLightObject.h"
 #include "CTestLightMeshObject.h"
