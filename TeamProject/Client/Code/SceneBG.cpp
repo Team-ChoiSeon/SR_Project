@@ -14,6 +14,7 @@
 #include "CUiMgr.h"
 #include "CStairBlock.h"
 #include "CSceneMgr.h"
+#include "CParticle.h"
 
 
 SceneBG::SceneBG(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -28,8 +29,6 @@ SceneBG::~SceneBG()
 
 HRESULT SceneBG::Ready_Scene()
 {
-	Init_Layer();
-
 	//플레이어 셋
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"MainPlayer");
 	m_pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
@@ -120,6 +119,8 @@ void SceneBG::Moving_StoneSet()
 	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, -1.f }, 39.f, 20.f, 0.5f);
 	cube->Set_Loop();
 	cube->SetTrigger(true);
+	cube->Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
+
 }
 
 void SceneBG::Stair_Set()
