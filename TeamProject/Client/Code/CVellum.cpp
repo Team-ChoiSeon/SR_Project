@@ -132,17 +132,9 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
         Organize_Chain(pPartToDestroy);
     }
 
-    CGameObject* pPlayer = CSceneMgr::Get_Instance()->Get_Player();
-    CTransform* pTransform = pPlayer->Get_Component<CTransform>();
-    _float fX = pTransform->Get_Pos().x;
-    _float fZ = pTransform->Get_Pos().z;
-    if ((fX > -60.f && fX < 60.f)
-        && (fZ>-60.f && fZ<60.f))
-    {
-        if (m_pState)
-            m_pState->Update(fTimeDelta, this);
-    }
-    
+
+    if (m_pState)
+        m_pState->Update(fTimeDelta, this);
 
     Key_Input(fTimeDelta);
 
