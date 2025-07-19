@@ -39,6 +39,7 @@ public:
 	
 	CGameObject*	Get_Target()		{ return m_pTarget; }
 	const vector<CMonsterPart*>& Get_Part() const { return m_vPart; }
+	const int Get_PartCnt() const { return m_iPartCnt; }
 
 	LPDIRECT3DDEVICE9 Get_Dev() { return m_pGraphicDev; }
 

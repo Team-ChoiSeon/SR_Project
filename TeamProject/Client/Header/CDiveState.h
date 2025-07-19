@@ -13,5 +13,6 @@ public:
 private:
     DivePhase m_eDPhase = DivePhase::Ready;
     _float m_fSearch = 0.f;
+    int m_iCnt = 0;
 };
 
