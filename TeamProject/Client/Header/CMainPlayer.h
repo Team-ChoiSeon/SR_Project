@@ -14,7 +14,7 @@ class CSwitch;
 class CMainPlayer : public CGameObject
 {
 public:
-	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL  };  // 필요시에 더 추가
+	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_HIT, PLAYER_DEAD, PLAYER_RESPAWN, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL, PLAYER_END };  // 필요시에 더 추가
 private:
 	CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CMainPlayer();
@@ -33,7 +33,7 @@ public:
 
 	//Gettter, Setter Function
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
-	bool Get_Hold() { return m_bObjHold;  }
+	bool Get_Hold() { return m_bObjHold; }
 	bool Get_MouseTap() { return m_bMouseTap; }
 	bool Get_MouseAway() { return m_bMouseAway; }
 	_vec3 Get_DragDistance() { return m_vDragDistance; }
@@ -55,6 +55,9 @@ private:
 	void Tap_Picking();
 	void Hold_Picking();
 	void Away_Picking();
+
+	void Playr_Hiting();
+	void Playr_Dieing();
 
 
 	CTransform* m_pTransform = nullptr;
@@ -103,4 +106,9 @@ private:
 
 	PLAYER_STATE m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	PLAYER_STATE m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
+
+	_int m_iHP = 0; //플레이어 HP
+	bool m_bInvincible = false; // 무적 여부
+	_float m_fInvincibleTime = 0.f;
+	const _float m_fMaxInvincibleTime = 5.0f;
 };

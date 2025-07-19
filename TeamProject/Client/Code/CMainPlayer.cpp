@@ -64,8 +64,25 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 {
-
 	m_fJumpTime += fTimeDelta;
+	Update_State(fTimeDelta);
+
+	if (m_bInvincible)
+	{
+		m_fInvincibleTime += fTimeDelta;
+		if (m_fInvincibleTime >= m_fMaxInvincibleTime)
+		{
+			m_bInvincible = false;
+			m_fInvincibleTime = 0.f;
+			Change_State(PLAYER_STATE::PLAYER_IDLE);
+		}
+	}
+
+	if (m_eCurState == PLAYER_STATE::PLAYER_DEAD) {
+		return S_OK;
+	}
+
+	
 	KeyInput(fTimeDelta);
 	CGameObject::Update_GameObject(fTimeDelta);
 	Update_State(fTimeDelta);
@@ -427,18 +444,26 @@ void CMainPlayer::CursorRotate()
 
 void CMainPlayer::Update_State(const _float& fTimeDelta)
 {
-	// 	switch (m_eCurState)
-	// 	{
-	// 	case PLAYER_STATE::PLAYER_IDLE:
-	// 		break;
-	// 	case PLAYER_STATE::PLAYER_MOVE:
-	// 		break;
-	// 	case PLAYER_STATE::PLAYER_JUMP:
-	// 		break;
-	// 	case PLAYER_STATE::PLAYER_FALL:
-	// 		break;
-	// 	}
-	// 
+	switch (m_eCurState)
+	{
+	case PLAYER_STATE::PLAYER_IDLE:
+		break;
+	case PLAYER_STATE::PLAYER_MOVE:
+		break;
+	case PLAYER_STATE::PLAYER_JUMP:
+		break;
+	case PLAYER_STATE::PLAYER_FALL:
+		break;
+	case PLAYER_STATE::PLAYER_HIT:
+		Playr_Hiting();
+		break;
+	case PLAYER_STATE::PLAYER_DEAD:
+		Playr_Dieing();
+		break;
+	case PLAYER_STATE::PLAYER_RESPAWN:
+		break;
+	}
+	
 }
 
 void CMainPlayer::Change_State(PLAYER_STATE eNewState)
@@ -449,5 +474,30 @@ void CMainPlayer::Change_State(PLAYER_STATE eNewState)
 	m_ePrevState = m_eCurState;
 	m_eCurState = eNewState;
 }
+
+void  CMainPlayer::Playr_Hiting()
+{
+	if (m_bInvincible)
+		return;
+
+	--m_iHP;
+	if (m_iHP <= 0)
+	{
+		m_iHP = 0;
+		Change_State(PLAYER_STATE::PLAYER_DEAD);
+	}
+	else
+	{
+		Change_State(PLAYER_STATE::PLAYER_HIT);
+		m_bInvincible = true;
+		m_fInvincibleTime = 0.f;
+	}
+}
+
+void  CMainPlayer::Playr_Dieing()
+{
+	// 죽음 처리
+}
+
 
 REGISTER_GAMEOBJECT(CMainPlayer)
