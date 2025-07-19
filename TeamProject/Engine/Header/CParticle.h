@@ -64,8 +64,8 @@ public:
     void Set_Speed(float speed) { m_fSpeed = speed; };
     void Set_Offset(_vec3 offSet) { m_vOffset = offSet; };
     void Set_SpawnInterval(float spawn) { m_fSpawnInterval = spawn; };
-    void Set_MaxParticle(int count) { m_iMaxParticles = count; };
-    void Set_Size(float size) { m_fSize = size; m_vecParticles.resize(size); };
+    void Set_MaxParticle(int count);
+    void Set_Size(float size) { m_fSize = size;  };
     void Set_LifeTime(float lifeTime) { m_fLifeTime = lifeTime; };
     void Request_Emit();
 
@@ -74,7 +74,7 @@ public:
     void PreSet_Dust(int MaxCount, float Interval, float lifeTime);
     void PreSet_Fire(int MaxCount, float Interval, float lifeTime);
     void PreSet_Breath(_vec3 dir , int MaxCount, float Interval, float lifeTime, float speed);
-    void PreSet_Radial(int MaxCount, float lifeTime);
+    void PreSet_Radial(int MaxCount, float Interval, float lifeTime, _vec3 axis);
     void PreSet_Spread(int MaxCount, float Interval, float lifeTime, float speed);
     void PreSet_Loop(_bool loop);
     void PreSet_Single(float EmitTime);
@@ -98,6 +98,8 @@ private:
     _vec3 m_vVelocity = { 0.f,0.f,0.f };  // Direction of movement
     _vec3 m_vPos = { 0.f,0.f,0.f };       // Calculated from owner's transform
     _vec3 m_vOffset = { 0.f,0.f,0.f };    // Offset from owner's position
+    _vec3 m_vAxis = { 0,1,0 };
+
     D3DCOLOR m_BaseColor = D3DCOLOR_ARGB(255, 255, 160, 100); // Bright orange
 
     _bool m_bLoop;                       // Looping enabled?
