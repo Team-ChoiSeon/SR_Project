@@ -55,20 +55,19 @@ HRESULT SceneLoding::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"RotateCube", m_pRotateCube);
 
 	//Ä«¸Þ¶ó Å¸°Ù
-	CTestTile* m_pCamTargetDummy = CTestTile::Create(m_pGraphicDev);
+	m_pTarget = CTestTile::Create(m_pGraphicDev);
 	_vec3 vCubePos = m_pRotateCube->Get_Component<CTransform>()->Get_Pos();
-	_vec3 vDummyPos = vCubePos + _vec3(-1.38f, -0.12f, -3.3f);
+	DummyPos = vCubePos + _vec3(-1.38f, -0.12f, -3.3f);
 	//_vec3 vDummyPos = vCubePos + _vec3(-0.7f, 0.85f, -3.f);
 
-	m_pCamTargetDummy->Get_Component<CTransform>()->Set_Pos(vDummyPos);
-	m_pCamTargetDummy->Get_Component<CTransform>()->Set_ScaleY(2.f);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"CamTargetDummy", m_pCamTargetDummy);
-	CFirstviewFollowingCamera* pDummyCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
-	pDummyCam->Set_Target(m_pCamTargetDummy);
+	m_pTarget->Get_Component<CTransform>()->Set_Pos(DummyPos);
+	m_pTarget->Get_Component<CTransform>()->Set_ScaleY(2.f);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"CamTargetDummy", m_pTarget);
+	m_pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 
-	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"DummyCam", pDummyCam);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"DummyTarget", m_pCamTargetDummy);
-	CCameraMgr::Get_Instance()->Set_MainCamera(pDummyCam);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"DummyCam", m_pCam);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"DummyTarget", m_pTarget);
+	CCameraMgr::Get_Instance()->Set_MainCamera(m_pCam);
 
 	return S_OK;
 }
@@ -112,6 +111,13 @@ _int SceneLoding::Update_Scene(const _float& fTimeDelta)
 void SceneLoding::LateUpdate_Scene(const _float& fTimeDelta)
 {
 	CScene::LateUpdate_Scene(fTimeDelta);
+}
+
+void SceneLoding::Set_Cam()
+{
+	m_pCam->Set_Target(m_pTarget);
+	CCameraMgr::Get_Instance()->Set_MainCamera(m_pCam);
+
 }
 
 SceneLoding* SceneLoding::Create(LPDIRECT3DDEVICE9 pGraphicDev)

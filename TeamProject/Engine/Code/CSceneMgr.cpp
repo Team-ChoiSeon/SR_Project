@@ -29,7 +29,7 @@ HRESULT CSceneMgr::Set_Scene(CScene* pScene)
  
     CScene* prevScene = m_pCurScene;
     m_pCurScene = m_pLoading;
-
+    m_pLoading->Set_Cam();
     HRESULT hr = m_pLoading->LoadScene(prevScene,pScene);
 
     if (FAILED(hr)) {

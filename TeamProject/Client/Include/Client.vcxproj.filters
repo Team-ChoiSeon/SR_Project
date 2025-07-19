@@ -175,6 +175,9 @@
     <Filter Include="03. Scene\ReleaseScene\99. BossScene">
       <UniqueIdentifier>{5d6eac98-61f7-4ddb-b5ff-74ceb4c4670d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\MainPlayer">
+      <UniqueIdentifier>{2749e137-2fec-4edf-bd8d-36f0a6c31d01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -194,9 +197,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CMainApp.h">
       <Filter>02. MainApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CMainPlayer.h">
-      <Filter>04. GameObjects\TestPlayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCameraObject.h">
       <Filter>04. GameObjects\CameraObejct</Filter>
@@ -351,6 +351,9 @@
     <ClInclude Include="..\Header\BossScene.h">
       <Filter>03. Scene\ReleaseScene\99. BossScene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CMainPlayer.h">
+      <Filter>04. GameObjects\MainPlayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -361,9 +364,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMainApp.cpp">
       <Filter>02. MainApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CMainPlayer.cpp">
-      <Filter>04. GameObjects\TestPlayer</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCameraObject.cpp">
       <Filter>04. GameObjects\CameraObejct</Filter>
@@ -514,6 +514,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\BossScene.cpp">
       <Filter>03. Scene\ReleaseScene\99. BossScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMainPlayer.cpp">
+      <Filter>04. GameObjects\MainPlayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
