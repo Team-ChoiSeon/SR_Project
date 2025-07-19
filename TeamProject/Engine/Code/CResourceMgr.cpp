@@ -25,6 +25,13 @@ HRESULT CResourceMgr::Ready_Resource()
 		return E_FAIL;
 
 	m_pGraphicDev->AddRef();
+
+	Load_Texture(L"T_SciFi_Greebles_Vol01_Panels_04_BC.PNG");
+	Load_Texture(L"T_SciFi_Greebles_Vol01_Panels_06_BC.PNG");
+	Load_Texture(L"T_SciFi_Greebles_Vol01_Panels_09_BC.PNG");
+	Load_Texture(L"T_SciFi_Greebles_Vol01_Panels_07_BC.PNG");
+
+
 }
 
 CTexture* CResourceMgr::Load_Texture(const wstring& texturePath)
@@ -53,6 +60,27 @@ CTexture* CResourceMgr::Load_Texture(const wstring& texturePath)
 	m_umTexture[texturePath] = tex;
 
 	return tex; // 성공 시 텍스처 반환
+}
+
+void CResourceMgr::PreLoad_Font()
+{
+	m_umFont.insert({ L"나눔", Load_Font(L"NanumSquareNeo-bRg", L"../..ThirdParty/NanumSquareNeo-bRg.ttf" ) });
+	m_umFont.insert({ L"프리텐다드", Load_Font(L"Pretendard-Regular",L"../..ThirdParty/Pretendard-Regular.ttf") });
+	m_umFont.insert({ L"여주", Load_Font(L"YeojuCeramic TTF",L"../..ThirdParty/YeojuCeramic TTF") });
+}
+
+
+ID3DXFont* CResourceMgr::Load_Font(const wstring& key, const wstring& path)
+{
+	ID3DXFont* g_pFont = nullptr;
+
+	AddFontResourceExW(path.c_str(), FR_PRIVATE, 0);
+
+	D3DXCreateFontW(m_pGraphicDev, 24, 0, FW_NORMAL, 1, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE, key.c_str(), &g_pFont);
+
+	return g_pFont;
 }
 
 CMesh* CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
@@ -177,6 +205,13 @@ wstring CResourceMgr::ToWString(const string& str)
 }
 
 
+void CResourceMgr::Free_Font()
+{
+	RemoveFontResourceExW(L"../..ThirdParty/NanumSquareNeo-bRg.ttf", FR_PRIVATE, 0);
+	RemoveFontResourceExW(L"../..ThirdParty/Pretendard-Regular.ttf", FR_PRIVATE, 0);
+	RemoveFontResourceExW(L"../..ThirdParty/YeojuCeramic TTF.ttf", FR_PRIVATE, 0);
+
+}
 void CResourceMgr::Free()
 {
 	for (auto& [_, pRes] : m_umMesh)
@@ -191,4 +226,7 @@ void CResourceMgr::Free()
 	for (auto& [_, pRes] : m_umTexture)
 		Safe_Release(pRes);
 	m_umTexture.clear();
+
+	Free_Font();
+	m_umFont.clear();
 }

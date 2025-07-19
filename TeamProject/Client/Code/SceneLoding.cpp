@@ -75,8 +75,8 @@ _int SceneLoding::Update_Scene(const _float& fTimeDelta)
 {
 	m_fProgressTimer += fTimeDelta;
 
-	m_fProgress = min(m_fProgress, layerCount);
-	float ProgressPer = static_cast<float>(m_fProgress) / layerCount;
+	m_fProgress = min(m_fProgress, m_fMaxProgress);
+	float ProgressPer = static_cast<float>(m_fProgress) / m_fMaxProgress;
 	Get_Layer(LAYER_UI)->Get_GameObject<CProgressBar>(L"ProgressBar")->Set_Progress(ProgressPer);
 
 	if (currentLayerIter == jLayers.end())
@@ -157,7 +157,14 @@ HRESULT SceneLoding::LoadScene(CScene* from, CScene* to)
 	CloseHandle(hFile);
 
 	json jScene = json::parse(jsonText);
+	
 	jLayers = jScene["layers"];
+
+	for (auto& layer : jLayers) {
+		auto& jObjects = layer["objects"];
+		m_fMaxProgress += static_cast<float>(jObjects.size());
+	}
+
 	currentLayerIter = jLayers.begin(); // 처음부터
 	layerCount = jLayers.size();
 
@@ -194,8 +201,6 @@ void SceneLoding::LoadObject()
 	if (currentObjectIter == jObjects.end()) {
 		m_eNowStep = LOADING_STEP::LOAD_LAYER;
 		++currentLayerIter;
-		m_fProgress += 1.f;
-		m_fProgressTimer = 0.f;
 		layerCount++;
 		return;
 	}
@@ -211,6 +216,8 @@ void SceneLoding::LoadObject()
 	{
 		string nameStr = currentObjectIter->value("name", "");
 		m_ReadingLayer->Add_GameObject(CFactory::ToWString(nameStr), obj);
+		m_fProgress += 1.f;
+		m_fProgressTimer = 0.f;
 	}
 
 	++currentObjectIter;
@@ -229,7 +236,7 @@ void SceneLoding::Change_Scene()
 	ObjectsCount = 0;
 	jLayers = nullptr;
 	jObjects = nullptr;
-
+	m_fMaxProgress = 0;
 	m_fProgressTimer = 0;
 }
 

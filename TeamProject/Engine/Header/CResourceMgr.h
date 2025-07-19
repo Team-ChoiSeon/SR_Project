@@ -39,7 +39,9 @@ public:
 
 	HRESULT Load_GameObject(const wstring& filePath);
 
-
+	void PreLoad_Font();
+	void Free_Font();
+	ID3DXFont* Load_Font(const wstring& key, const wstring& path);
 
 	// 이름 기반 조회
 	CMesh* Get_Mesh(const wstring& key)
@@ -71,11 +73,6 @@ public:
 
 	string ToString(const wstring& wstr);
 	wstring ToWString(const string& str);
-	LAYERID ToLayer(const wstring& wstr);
-
-private:
-	// Extract FileName From FilePath
-	wstring Get_FileName(const wstring& filePath);
 
 
 private:
@@ -87,6 +84,7 @@ private:
 	unordered_map<wstring, CMesh*> m_umMesh;
 	unordered_map<wstring, CMaterial*> m_umMaterial;
 	unordered_map<wstring, CTexture*> m_umTexture;
+	unordered_map<wstring, ID3DXFont*> m_umFont;
 
 	LPDIRECT3DDEVICE9 m_pGraphicDev = nullptr;
 };
