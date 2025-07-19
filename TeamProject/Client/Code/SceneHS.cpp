@@ -24,6 +24,9 @@
 #include "CSceneGate.h"
 #include "CCinematicCamera.h"
 #include "CDollyCamera.h"
+#include "CSlotCube.h"
+#include "CSlotCube_Auto.h"
+#include "CSlotSensor.h"
 
 #include "SceneHW.h"
 #include "SceneBG.h"
@@ -116,6 +119,27 @@ HRESULT SceneHS::Ready_Scene()
 	CCameraMgr::Get_Instance()->Set_MainCamera(Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam"));
 	//CCameraMgr::Get_Instance()->Set_MainCamera(pDollyCam);
 	//CCameraMgr::Get_Instance()->Set_MainCamera(pCineCam);
+
+	CSlotCube* m_pSlotCube = CSlotCube::Create(m_pGraphicDev);
+	CSlotCube_Auto* m_pSlotCube2 = CSlotCube_Auto::Create(m_pGraphicDev);
+	CSlotSensor* m_pSlotSensor = CSlotSensor::Create(m_pGraphicDev);
+	CSlotSensor* m_pSlotSensor2 = CSlotSensor::Create(m_pGraphicDev);
+
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor", m_pSlotSensor);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor2", m_pSlotSensor2);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube", m_pSlotCube);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube2", m_pSlotCube2);
+
+	m_pSlotCube->Get_Component<CTransform>()->Set_Pos({ 0.f, -0.f, -10.f });
+	m_pSlotCube->Set_Info(pPlayer, 0, 0);
+	m_pSlotCube2->Get_Component<CTransform>()->Set_Pos({ -3.f, 0.f, -10.f });
+	m_pSlotCube2->Set_Info(pPlayer, 0, 1);
+
+	m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -10.f, -8.f, -10.f });
+	m_pSlotSensor->Set_Info(pPlayer, 0, 0);
+	m_pSlotSensor2->Get_Component<CTransform>()->Set_Pos({ -12.f, -8.f, -10.f });
+	m_pSlotSensor2->Set_Info(pPlayer, 0, 1);
+	m_pSlotSensor2->Set_PlayerPick(false);
 
 	return S_OK;
 }

@@ -354,6 +354,9 @@
     <ClInclude Include="..\Header\CMainPlayer.h">
       <Filter>04. GameObjects\MainPlayer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSlotCube_Auto.h">
+      <Filter>04. GameObjects\Cube\SlotCube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -517,6 +520,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMainPlayer.cpp">
       <Filter>04. GameObjects\MainPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlotCube_Auto.cpp">
+      <Filter>04. GameObjects\Cube\SlotCube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
