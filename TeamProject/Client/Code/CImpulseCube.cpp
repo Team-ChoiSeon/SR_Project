@@ -27,7 +27,7 @@ HRESULT CImpulseCube::Ready_GameObject()
 	m_pTransform = Get_Component<CTransform>();
 	m_pTransform->Ready_Component();
 	m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
-	m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });
+	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
@@ -39,8 +39,8 @@ HRESULT CImpulseCube::Ready_GameObject()
 	m_pRigid = Get_Component<CRigidBody>();
 	m_pRigid->Set_OnGround(false);
 	m_pRigid->Set_UseGravity(true);
-	m_pRigid->Set_Bounce(0.1f);
-	m_pRigid->Set_Friction(0.1f);
+	m_pRigid->Set_Bounce(0.5f);
+	m_pRigid->Set_Friction(0.f);
 	m_pRigid->Set_Mass(1.f);
 
 
@@ -98,7 +98,6 @@ void CImpulseCube::Free()
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pCollider);
-	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pRigid);
 }
 

@@ -28,10 +28,6 @@ HRESULT CSlotSensor::Ready_GameObject()
     m_pTransform = Get_Component<CTransform>();
     m_pTransform->Ready_Component();
     m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
-    m_pTransform->Set_Angle({ 0.f, 0.f, 0.f });
-    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
-
-
 
     Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
     m_pRigid = Get_Component<CRigidBody>();
@@ -82,11 +78,9 @@ CSlotSensor* CSlotSensor::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CSlotSensor::Free()
 {
-    Safe_Release(m_pPlayer);
     Safe_Release(m_pTransform);
     Safe_Release(m_pRigid);
     Safe_Release(m_pCollider);
-    Safe_Release(m_pGraphicDev);
 }
 
 _bool CSlotSensor::Detect()

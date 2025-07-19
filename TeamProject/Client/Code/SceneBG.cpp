@@ -92,11 +92,11 @@ void SceneBG::Step_StoneSet()
 		cube->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 		cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
 		if(i == 6)
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), {0.f, 0.f, -1.f}, 0.f, 4.f);
+			cube->Set_Info({0.f, 0.f, -1.f}, 0.f, 4.f);
 		else if(i==7)
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, 1.f }, 0.f, 4.f);
+			cube->Set_Info({ 0.f, 0.f, 1.f }, 0.f, 4.f);
 		else
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, -1.f }, 0.f, 2.f);
+			cube->Set_Info({ 0.f, 0.f, -1.f }, 0.f, 2.f);
 	}
 
 	wstring name = L"Grabing_Stone1";
@@ -106,7 +106,7 @@ void SceneBG::Step_StoneSet()
 	cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	cube->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 	cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
-	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { -1.f, 0.f, 0.f }, 0.f, 15.f);
+	cube->Set_Info({ -1.f, 0.f, 0.f }, 0.f, 15.f);
 }
 
 void SceneBG::Moving_StoneSet()
@@ -117,7 +117,7 @@ void SceneBG::Moving_StoneSet()
 	cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	cube->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 	cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
-	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, -1.f }, 39.f, 20.f, 0.5f);
+	cube->Set_Info({ 0.f, 0.f, -1.f }, 39.f, 20.f, 0.5f);
 	cube->Set_Loop();
 	cube->SetTrigger(true);
 }

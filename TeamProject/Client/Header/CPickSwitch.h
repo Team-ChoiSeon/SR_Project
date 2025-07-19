@@ -25,6 +25,5 @@ private:
 	// Compute Function
 	void Init() override;
 
-	// Variables
 };
 

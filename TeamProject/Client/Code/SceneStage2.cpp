@@ -76,7 +76,7 @@ HRESULT SceneStage2::Ready_Scene()
 		cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::NONE);
 		cube->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
 		cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
-		cube->Set_Info(pPlayer, i, i);
+		cube->Set_Info( i, i);
 	}
 
 	for (int i = 1; i < 9; i++) {
@@ -89,11 +89,11 @@ HRESULT SceneStage2::Ready_Scene()
 		cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
 
 		if (i == 0)
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 0.f, 15.f);
+			cube->Set_Info({ 0.f, 1.f, 0.f }, 0.f, 15.f);
 		else if (i > 4)
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, 1.f }, 0.f, 5.f);
+			cube->Set_Info({ 0.f, 0.f, 1.f }, 0.f, 5.f);
 		else
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, -1.f }, 0.f, 5.f);
+			cube->Set_Info({ 0.f, 0.f, -1.f }, 0.f, 5.f);
 	}
 
 	CFloatingCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube1_1");
@@ -102,7 +102,7 @@ HRESULT SceneStage2::Ready_Scene()
 	cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	cube->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 	cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
-	cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { -1.f, 0.f, 0.f }, 39.f, 15.f, 0.5f);
+	cube->Set_Info( { -1.f, 0.f, 0.f }, 39.f, 15.f, 0.5f);
 	cube->Set_Loop();
 	cube->SetTrigger(true);
 

@@ -31,8 +31,6 @@ HRESULT CMetalCube::Ready_GameObject()
     m_pTransform = Get_Component<CTransform>();
     m_pTransform->Ready_Component();
     m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
-    m_pTransform->Set_Angle({ 0.f, 0.f, 0.f });
-    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
 
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
@@ -57,10 +55,6 @@ HRESULT CMetalCube::Ready_GameObject()
 
 _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
 {
-
-
-   
-
     CGameObject::Update_GameObject(fTimeDelta);    
     
     switch (m_eState)
@@ -146,7 +140,6 @@ void CMetalCube::Free()
     Safe_Release(m_pModel);
     Safe_Release(m_pRigid);
     Safe_Release(m_pCollider);
-    Safe_Release(m_pGraphicDev);
 }
 
 void CMetalCube::DetectMagnetic(const _float& fTimeDelta)
@@ -172,7 +165,6 @@ void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
     m_pRigid->Set_UseGravity(false);
     m_vParentPos = m_pParentMagnet->Get_Component<CTransform>()->Get_Pos();
     m_vGap = m_vParentPos - m_pTransform->Get_Pos();
-    m_fGap = D3DXVec3Length(&m_vGap);
     if (m_pPlayer->Get_MouseAway())
     {
         m_eState = METAL_STATE::DETACH;
@@ -185,7 +177,6 @@ void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
             typeid(*col) == typeid(CMetalCube)))
         {
             m_vSyncGap = m_vParentPos - m_pTransform->Get_Pos();
-            m_fSyncGap = D3DXVec3Length(&m_vSyncGap);
             m_pCollider->Set_ColType(ColliderType::TRIGGER);
             m_eState = METAL_STATE::SYNC;
             return;

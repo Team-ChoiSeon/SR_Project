@@ -57,10 +57,10 @@ HRESULT CSlotCube::Ready_GameObject()
 
 	Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
 	m_pPick = Get_Component<CPickTarget>();
+
+
 	m_FitSlot = nullptr;
 	
-	m_bFirstPick = true;
-
 	CFactory::Save_Prefab(this, "CSlotCube");
 	return S_OK;
 }
@@ -126,12 +126,10 @@ void CSlotCube::Free()
 	Safe_Release(m_pRigid);
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pPick);
-	Safe_Release(m_pGraphicDev);
 }
 
-void CSlotCube::Set_Info(CMainPlayer* mainplayer, const _int puzzleID, const _int slotID)
+void CSlotCube::Set_Info(const _int puzzleID, const _int slotID)
 {
-	m_pPlayer = mainplayer;
 	m_iPuzzleID = puzzleID;
 	m_iSlotID = slotID;
 }

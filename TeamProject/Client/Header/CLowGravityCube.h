@@ -23,9 +23,6 @@ public:
 	static CLowGravityCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
-	//Getter, Setter Function
-
-
 private:
 	//Compute Function
 	void Detect();

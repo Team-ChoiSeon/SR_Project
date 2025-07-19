@@ -30,14 +30,13 @@ HRESULT CFloatingCube::Ready_GameObject()
 
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
-	m_pTransform->Set_Scale({ 1.f, 0.3f, 1.f });
-	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
+	m_pTransform->Ready_Component();
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
 	m_pRigid->Set_Friction(0.f);
-	m_pRigid->Set_Mass(10.f);
+	m_pRigid->Set_Mass(1.f);
 	m_pRigid->Set_Bounce(0.f);
 	m_pRigid->Set_OnGround(true);
 	m_pRigid->Set_UseGravity(false);
@@ -129,14 +128,12 @@ void CFloatingCube::Free()
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pCollider);
-	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pRigid);
 }
 
-void CFloatingCube::Set_Info(const _vec3& vStartPos, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime)
+void CFloatingCube::Set_Info(const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime)
 {
-	m_vStartPos = vStartPos;
-	m_pTransform->Set_Pos(m_vStartPos);
+	m_vStartPos = m_pTransform->Get_Pos();
 	m_vDirection = vDirection;
 	m_fMaxDistance = fMax;
 	m_fSpeed = fSpeed;

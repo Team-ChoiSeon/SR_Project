@@ -27,7 +27,7 @@ public:
 	void Free() override;
 
 	//Getter, Setter Function
-	void Set_Info(CMainPlayer* player, const _int ID, const _int Seuqence);
+	void Set_Info(const _int ID, const _int Seuqence);
 
 
 	_int Get_PuzzleID() { return m_iPuzzleID; }
@@ -42,6 +42,7 @@ private:
 	_bool Check_Overlap();
 	void PickMove();
 	void Fit(const _float& fTimeDelta);
+
 	//Variables
 	CCollider* m_pCollider;
 	CRigidBody* m_pRigid;
@@ -52,11 +53,7 @@ private:
 	_int		m_iPuzzleID;
 	_int		m_iSlotID;
 	_bool		m_bSlotted;
-	CMainPlayer* m_pPlayer;
-	_bool		m_bFirstPick;
 
-	_vec3		m_vDist;
-	_float		m_fDist;
 	static CSlotCube* s_pPickedCube;
 };
 

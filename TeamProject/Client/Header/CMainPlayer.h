@@ -54,6 +54,7 @@ private:
 	void Tap_Picking();
 	void Hold_Picking();
 	void Away_Picking();
+	void Clear_Picking();
 
 
 	CTransform* m_pTransform = nullptr;
@@ -65,17 +66,17 @@ private:
 
 	CCrosshairUIObject* m_pCrosshair = nullptr;
 
-	float m_fMoveSpeed;
-	float m_fJumpPower = 20.f;
+	_float m_fMoveSpeed;
+	_float m_fJumpPower = 20.f;
 	_float m_fJumpTime = 5.f;
 
-	float m_fWidth;
-	float m_fDepth;
+	_float m_fWidth;
+	_float m_fDepth;
 
-	bool m_bCursorMove;
-	bool m_bObjHold = false;
-	bool m_bMouseTap = false;
-	bool m_bMouseAway = false;
+	_bool m_bCursorMove;
+	_bool m_bObjHold = false;
+	_bool m_bMouseTap = false;
+	_bool m_bMouseAway = false;
 
 	_vec3 m_vLastPt;
 	_vec3 m_vPlanePt;
@@ -86,13 +87,10 @@ private:
 	_vec3 m_vPickPointGap;
 	_vec3 m_vPickObjPos;
 	_vec3 m_vPickPointDist;
-	_float m_fPickPointDist;
-	_vec3 m_vPickObjDist;
-	_float m_fPickObjDist;
 	_vec3 m_vPrePickObjPos;
-	_vec3 m_vPrePickPoint;
-	_vec3 m_vCursorRotate;
 	_float m_fMaxPickDist = 20.f;
+
+	_float m_fPickPointDist;
 
 	CCube* m_PickedCube;
 	CSwitch* m_PickedSwitch;

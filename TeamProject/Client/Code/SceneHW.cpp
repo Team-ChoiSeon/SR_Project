@@ -107,31 +107,31 @@ HRESULT SceneHW::Ready_Scene()
 	m_pPlayer->Get_Component<CTransform>()->Set_Scale({ 1.f, 1.f, 1.f });
 	m_pFFCam->Set_Target(m_pPlayer);
 
-	m_pFloatingCube->Set_Info({ -20.f, 0.f, 50.f }, { 1.f, 0.f, 0.f }, 40.f, 20.f, 1.5f);
+	m_pFloatingCube->Set_Info({ 1.f, 0.f, 0.f }, 40.f, 20.f, 1.5f);
 	m_pFloatingCube->SetTrigger(true);
 	m_pFloatingCube->Set_Loop();
-	m_pFloatingCube2->Set_Info({ 20.f, 10.f, 30.f }, { 0.f, 1.f, 0.f }, 20.f, 10.f, 1.5f);
+	m_pFloatingCube2->Set_Info({ 0.f, 1.f, 0.f }, 20.f, 10.f, 1.5f);
 	m_pFloatingCube2->Set_Loop();
-	TestFloat->Set_Info({ 20.f, -10.f ,0.f }, { 0.f, 0.f, -1.f }, 10.f, 5.f, 0.f);
+	TestFloat->Set_Info({ 0.f, 0.f, -1.f }, 10.f, 5.f, 0.f);
 	TestFloat->SetTrigger(false);
 	TestFloat->Set_Loop();
 
 	pGround->Get_Component<CTransform>()->Set_Scale({ 100.f, 5.f, 100.f });
 	pGround->Get_Component<CTransform>()->Set_Pos({ 0.f, -20.f, 0.f });
 
-	m_pDirectionalCube->Set_Info({ 0.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
-	m_pOnewayCube->Set_Info({ -10.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, 20.f);
+	m_pDirectionalCube->Set_Info({ 1.f, 0.f, 0.f }, -10.f, 10.f);
+	m_pOnewayCube->Set_Info({ 1.f, 0.f, 0.f }, 20.f);
 
 	m_pImpulseCube->Set_Info({ 0.f, 0.f, 20.f });
 
 	m_pPickSwitch->Get_Component<CTransform>()->Set_Pos({ 50.f, -15.f, 10.f });
 
 	m_pSlotCube->Get_Component<CTransform>()->Set_Pos({ 0.f, -0.f, -10.f });
-	m_pSlotCube->Set_Info(m_pPlayer, 0, 0);
+	m_pSlotCube->Set_Info( 0, 0);
 	m_pSlotCube2->Get_Component<CTransform>()->Set_Pos({ -3.f, 0.f, -10.f });
-	m_pSlotCube2->Set_Info(m_pPlayer, 0, 1);
+	m_pSlotCube2->Set_Info( 0, 1);
 	m_pSlotCube3->Get_Component<CTransform>()->Set_Pos({ -6.f, 0.f, -10.f });
-	m_pSlotCube3->Set_Info(m_pPlayer, 1, 0);
+	m_pSlotCube3->Set_Info( 1, 0);
 
 	m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -10.f, -15.f, -10.f });
 	m_pSlotSensor->Set_Info(m_pPlayer, 0, 0);

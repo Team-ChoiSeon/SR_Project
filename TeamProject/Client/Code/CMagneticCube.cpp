@@ -32,8 +32,6 @@ HRESULT CMagneticCube::Ready_GameObject()
     m_pTransform = Get_Component<CTransform>();
     m_pTransform->Ready_Component();
     m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
-    m_pTransform->Set_Angle({ 0.f, 0.f, 0.f });
-    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
 
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
@@ -50,7 +48,7 @@ HRESULT CMagneticCube::Ready_GameObject()
     m_pCollider = Get_Component<CCollider>();
     m_pCollider->Set_ColTag(ColliderTag::NONE);
     m_pCollider->Set_ColType(ColliderType::PASSIVE);
-    m_pCollider->Set_BoundType(BoundingType::OBB);
+    m_pCollider->Set_BoundType(BoundingType::AABB);
 
     Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
     m_pPick = Get_Component<CPickTarget>();
@@ -112,7 +110,6 @@ void CMagneticCube::Free()
     Safe_Release(m_pRigid);
     Safe_Release(m_pCollider);
     Safe_Release(m_pPick);
-    Safe_Release(m_pGraphicDev);
 }
 
 void CMagneticCube::PickMove()

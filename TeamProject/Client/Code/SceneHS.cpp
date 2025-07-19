@@ -62,7 +62,7 @@ HRESULT SceneHS::Ready_Scene()
 	pWall->Get_Component<CRigidBody>()->Set_UseGravity(false);
 
 	CDirectionalCube* pOnewayCube = CDirectionalCube::Create(m_pGraphicDev);
-	pOnewayCube->Set_Info({ -10.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, 20.f);
+	pOnewayCube->Set_Info({ 1.f, 0.f, 0.f }, 20.f);
 	pOnewayCube->Get_Component<CRigidBody>()->Set_Friction(0.f);
 	pOnewayCube->Get_Component<CRigidBody>()->Set_Mass(10.f);
 	pOnewayCube->Get_Component<CRigidBody>()->Set_Bounce(0.1f);
@@ -70,7 +70,7 @@ HRESULT SceneHS::Ready_Scene()
 	pOnewayCube->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	
 	CDirectionalCube* pDirectionalCube = CDirectionalCube::Create(m_pGraphicDev);
-	pDirectionalCube->Set_Info({ 5.f, 0.f, 0.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
+	pDirectionalCube->Set_Info({ 1.f, 0.f, 0.f }, -10.f, 10.f);
 	pDirectionalCube->Set_Grab(true);
 
 	CCrosshairUIObject* pCrosshair = CCrosshairUIObject::Create(m_pGraphicDev);

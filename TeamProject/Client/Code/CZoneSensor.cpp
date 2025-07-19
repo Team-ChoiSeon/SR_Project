@@ -5,6 +5,7 @@
 #include "CRigidBody.h"
 #include "CCollider.h"
 #include "CMainPlayer.h"
+#include "CFactory.h"
 
 CZoneSensor::CZoneSensor(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CSensor(pGraphicDev)
@@ -39,11 +40,13 @@ HRESULT CZoneSensor::Ready_GameObject()
 
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCollider = Get_Component<CCollider>();
-    m_pCollider->Set_ColTag(ColliderTag::NONE);
+    m_pCollider->Set_ColTag(ColliderTag::GROUND);
     m_pCollider->Set_ColType(ColliderType::TRIGGER);
     m_pCollider->Set_BoundType(BoundingType::AABB);
 
     m_bSensorOn = false;
+
+	CFactory::Save_Prefab(this, "CZoneSensor");
 	return S_OK;
 }
 
@@ -97,3 +100,6 @@ _bool CZoneSensor::DetectObj(CGameObject* gameobj)
     }
 	return false;
 }
+
+
+REGISTER_GAMEOBJECT(CZoneSensor)

@@ -24,8 +24,8 @@ public:
 	void Free() override;
 
 	//Getter, Setter Function
-	void Set_Info(const _vec3& startpos,  const _vec3& axis, const _float& mindistance, const _float& maxdistance);
-	void Set_Info(const _vec3& startpos, const _vec3& direction, const _float& maxdistance);
+	void Set_Info(const _vec3& axis, const _float& mindistance, const _float& maxdistance);
+	void Set_Info(const _vec3& direction, const _float& maxdistance);
 	
 private:
 	//Compute Function
@@ -50,6 +50,5 @@ private:
 	_float			m_fCurDistance;
 
 	_bool			m_bOneway;
-	
 };
 

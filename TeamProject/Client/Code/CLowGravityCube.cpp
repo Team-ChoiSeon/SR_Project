@@ -6,6 +6,7 @@
 #include "CCollider.h"
 #include "CTestTile.h"
 #include "CMainPlayer.h"
+#include "CFactory.h"
 
 CLowGravityCube::CLowGravityCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -27,8 +28,6 @@ HRESULT CLowGravityCube::Ready_GameObject()
 	m_pTransform = Get_Component<CTransform>();
 	m_pTransform->Ready_Component();
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
-	m_pTransform->Set_Angle({ 0.f, 0.f, 0.f });
-	m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
 
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
 	m_pModel = Get_Component<CModel>();
@@ -37,7 +36,7 @@ HRESULT CLowGravityCube::Ready_GameObject()
 	m_pRigid = Get_Component<CRigidBody>();
 	m_pRigid->Set_Friction(0.f);
 	m_pRigid->Set_Mass(1.f);
-	m_pRigid->Set_Bounce(0.7f);
+	m_pRigid->Set_Bounce(0.f);
 	m_pRigid->Set_OnGround(true);
 	m_pRigid->Set_UseGravity(false);
 
@@ -49,6 +48,8 @@ HRESULT CLowGravityCube::Ready_GameObject()
 
 	m_pColTarget = nullptr;
 	m_pPreColTarget = nullptr;
+
+	CFactory::Save_Prefab(this, "CLowGravityCube");
 	return S_OK;
 }
 
@@ -84,7 +85,6 @@ void CLowGravityCube::Free()
 	Safe_Release(m_pModel);
 	Safe_Release(m_pRigid);
 	Safe_Release(m_pCollider);
-	Safe_Release(m_pGraphicDev);
 }
 
 void CLowGravityCube::Detect()
@@ -125,3 +125,6 @@ void CLowGravityCube::Restoration()
 		}
 	}
 }
+
+
+REGISTER_GAMEOBJECT(CLowGravityCube)

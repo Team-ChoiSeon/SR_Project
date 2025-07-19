@@ -93,7 +93,6 @@ void CPickSwitch::Free()
     Safe_Release(m_pRigid);
     Safe_Release(m_pCollider);
     Safe_Release(m_pPick);
-    Safe_Release(m_pGraphicDev);
 }
 
 void CPickSwitch::Init()

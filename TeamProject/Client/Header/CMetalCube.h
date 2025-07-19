@@ -55,8 +55,6 @@ private:
 	_vec3					m_vParentPrePos;
 	_vec3					m_vParentPos;
 	_vec3					m_vGap;
-	_float					m_fGap;
 	_vec3					m_vSyncGap;
-	_float					m_fSyncGap;
 };
 
