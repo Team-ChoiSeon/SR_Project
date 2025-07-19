@@ -28,7 +28,7 @@ SceneBG::~SceneBG()
 
 HRESULT SceneBG::Ready_Scene()
 {
-	Init_Layer();
+	Init_Layers();
 
 	//플레이어 셋
 	m_pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"MainPlayer");

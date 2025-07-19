@@ -14,7 +14,7 @@ class CSwitch;
 class CMainPlayer : public CGameObject
 {
 public:
-	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL  };  // 필요시에 더 추가
+	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL };  // ??¿?½?¿¡ ´? ?ß°¡
 private:
 	CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CMainPlayer();
@@ -33,7 +33,7 @@ public:
 
 	//Gettter, Setter Function
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
-	bool Get_Hold() { return m_bObjHold;  }
+	bool Get_Hold() { return m_bObjHold; }
 	bool Get_MouseTap() { return m_bMouseTap; }
 	bool Get_MouseAway() { return m_bMouseAway; }
 	_vec3 Get_DragDistance() { return m_vDragDistance; }
@@ -46,7 +46,7 @@ protected:
 	//Utility Function
 	void KeyInput(const _float& fTimeDelta);
 	void Update_State(const _float& fTimeDelta);
-	void CursorRotate(const _float& fTimeDelta);
+	void CursorRotate();
 
 private:
 	void Check_Picking();
@@ -55,7 +55,6 @@ private:
 	void Tap_Picking();
 	void Hold_Picking();
 	void Away_Picking();
-	void Clear_Picking();
 
 
 	CTransform* m_pTransform = nullptr;
@@ -67,17 +66,17 @@ private:
 
 	CCrosshairUIObject* m_pCrosshair = nullptr;
 
-	_float m_fMoveSpeed;
-	_float m_fJumpPower = 20.f;
+	float m_fMoveSpeed;
+	float m_fJumpPower = 20.f;
 	_float m_fJumpTime = 5.f;
 
-	_float m_fWidth;
-	_float m_fDepth;
+	float m_fWidth;
+	float m_fDepth;
 
-	_bool m_bCursorMove;
-	_bool m_bObjHold = false;
-	_bool m_bMouseTap = false;
-	_bool m_bMouseAway = false;
+	bool m_bCursorMove;
+	bool m_bObjHold = false;
+	bool m_bMouseTap = false;
+	bool m_bMouseAway = false;
 
 	_vec3 m_vLastPt;
 	_vec3 m_vPlanePt;
@@ -88,13 +87,14 @@ private:
 	_vec3 m_vPickPointGap;
 	_vec3 m_vPickObjPos;
 	_vec3 m_vPickPointDist;
-	_vec3 m_vPrePickObjPos;
-	_float m_fMaxPickDist = 20.f;
-
 	_float m_fPickPointDist;
+	_vec3 m_vPickObjDist;
+	_float m_fPickObjDist;
+	_vec3 m_vPrePickObjPos;
+	_vec3 m_vPrePickPoint;
 
 	_vec3 m_vLastPos;
-	_vec3 distancePos;//임시
+	_vec3 distancePos;
 	_vec3 vDistance;
 
 	CCube* m_PickedCube;

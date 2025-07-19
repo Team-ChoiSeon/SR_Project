@@ -135,15 +135,15 @@ void SceneStage2::FloatingSet()
 	pMoveCube1_1->Get_Component<CCollider>()->Set_ColTag(ColliderTag::GROUND);
 	pMoveCube1_1->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
 	pMoveCube1_1->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
-	pMoveCube1_1->Set_Info(pMoveCube1_1->Get_Component<CTransform>()->Get_Pos(), { 1.f, 0.f, 0.f }, 39.f, 15.f, 0.5f);
+	pMoveCube1_1->Set_Info({ 1.f, 0.f, 0.f }, 39.f, 15.f, 0.5f);
 	pMoveCube1_1->Set_Loop();
 	pMoveCube1_1->SetTrigger(true);
 
 	CFloatingCube* pMainQuestMove_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_1");
 	CFloatingCube* pMainQuestMove_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_2");
 
-	pMainQuestMove_1->Set_Info(pMainQuestMove_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 10.f, 5.f, 0.5f);
-	pMainQuestMove_2->Set_Info(pMainQuestMove_2->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 3.f, 5.f, 0.5f);
+	pMainQuestMove_1->Set_Info({ 0.f, 1.f, 0.f }, 10.f, 5.f, 0.5f);
+	pMainQuestMove_2->Set_Info({ 0.f, 1.f, 0.f }, 3.f, 5.f, 0.5f);
 }
 
 void SceneStage2::DirectionSet()
@@ -158,11 +158,11 @@ void SceneStage2::DirectionSet()
 		cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
 
 		if (i == 0)
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 0.f, 15.f);
+			cube->Set_Info({ 0.f, 1.f, 0.f }, 0.f, 15.f);
 		else if (i > 4)
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, -1.f }, 0.f, 5.f);
+			cube->Set_Info({ 0.f, 0.f, -1.f }, 0.f, 5.f);
 		else
-			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 0.f, 1.f }, 0.f, 5.f);
+			cube->Set_Info({ 0.f, 0.f, 1.f }, 0.f, 5.f);
 	}
 }
 
