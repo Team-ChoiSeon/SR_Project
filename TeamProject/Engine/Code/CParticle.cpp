@@ -89,7 +89,6 @@ void CParticle::Update_Component(const _float& fTimeDelta)
 			break;
 		case PARTICLE_MOVE_TYPE::RADIAL:
 			particle.fSize += 0.4f * fTimeDelta;
-			particle.vVelocity.y -= 0.1f * fTimeDelta; // 중력
 			break;
 		default:
 			break;
@@ -166,21 +165,24 @@ void CParticle::Render_Particle()
 	for (const auto& particle : m_vecParticles)
 	{
 		if (!particle.bActive) continue;
+		const int maxVertexCount = 6 * m_iMaxParticles;
+		if (vtxCount + 6 > maxVertexCount)
+			break;
 
 		const float half = particle.fSize * 0.5f;
-		const D3DXVECTOR3& c = particle.vPos;
+		const _vec3& c = particle.vPos;
 
 		// 빌보드 회전 벡터 계산
-		D3DXVECTOR3 vLook = camPos - c;
+		_vec3 vLook = camPos - c;
 		D3DXVec3Normalize(&vLook, &vLook);
 
-		D3DXVECTOR3 vUp(0.f, 1.f, 0.f);
-		D3DXVECTOR3 vRight;
+		_vec3 vUp(0.f, 1.f, 0.f);
+		_vec3 vRight;
 		D3DXVec3Cross(&vRight, &vUp, &vLook);
 		D3DXVec3Normalize(&vRight, &vRight);
 
 		// 다시 up 보정 (직교화)
-		D3DXVECTOR3 vTrueUp;
+		_vec3 vTrueUp;
 		D3DXVec3Cross(&vTrueUp, &vLook, &vRight);
 
 		// 정점 6개 (두 삼각형)
@@ -213,6 +215,7 @@ void CParticle::Emit_Particle()
 
 	if (m_eMoveType == PARTICLE_MOVE_TYPE::RADIAL) {
 		int count = 0;
+		_matrix RotateMat;
 		for (auto& particle : m_vecParticles) {
 			if (!particle.bActive)
 			{
@@ -222,15 +225,20 @@ void CParticle::Emit_Particle()
 				particle.fAge = 0;
 				particle.moveType = m_eMoveType;
 				particle.color = m_BaseColor; // 주황 계열
-				D3DXVECTOR3 dir = {
-				cosf(D3DXToRadian(m_fAngle)),
-				0.f,
-				sinf(D3DXToRadian(m_fAngle))
-				};
+				_vec3 defaultDir; // 기준 벡터
+				if (fabs(m_vAxis.y) > 0.99f)
+					defaultDir = _vec3(1.f, 0.f, 0.f); // X축
+				else
+					defaultDir = _vec3(0.f, 1.f, 0.f); // Y축
 
-				particle.vVelocity = dir * randRange(3.0f, 4.0f);
+				D3DXVec3Normalize(&m_vAxis, &m_vAxis);
+				// 회전 행렬 생성: m_vAxis 축을 기준으로 m_fAngle만큼 회전
+				D3DXMatrixRotationAxis(&RotateMat, &m_vAxis, D3DXToRadian(m_fAngle));
 
-				m_fAngle = (360.f / m_EmitCount) * count;
+				_vec3 rotatedDir;
+				D3DXVec3TransformNormal(&rotatedDir, &defaultDir, &RotateMat);
+				particle.vVelocity = rotatedDir;
+				m_fAngle = (360.f / max(m_EmitCount, 1)) * count;
 
 				if (m_fAngle >= 360.f)
 					m_fAngle = 0.f;
@@ -288,7 +296,8 @@ void CParticle::Emit_Particle()
 
 					particle.vVelocity = dir * randRange(3.0f, 4.0f);
 
-					m_fAngle += (360.f / m_EmitCount);
+					m_fAngle = (360.f / max(m_EmitCount, 1));
+
 					if (m_fAngle >= 360.f)
 						m_fAngle = 0.f;
 					break;
@@ -333,7 +342,18 @@ int CParticle::Particle_Count()
 
 	return count;
 }
-
+void CParticle::Set_MaxParticle(int count)
+{
+	m_iMaxParticles = count;
+	m_vecParticles.resize(m_iMaxParticles);
+	m_pGraphicDev->CreateVertexBuffer(
+		sizeof(VTXPARTICLE) * 6 * m_iMaxParticles,
+		D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY,
+		FVF_PARTICLE,
+		D3DPOOL_DEFAULT,
+		&m_pVB,
+		nullptr);
+}
 void CParticle::Request_Emit()
 {
 	m_fElapsedEmit = 0;
@@ -347,7 +367,7 @@ void CParticle::Request_Emit()
 void CParticle::PreSet_Dust(int MaxCount, float Interval, float lifeTime)
 {
 	m_eMoveType == DUST;
-	Set_Size(MaxCount);
+	Set_MaxParticle(MaxCount);
 	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
 }
@@ -355,7 +375,7 @@ void CParticle::PreSet_Dust(int MaxCount, float Interval, float lifeTime)
 void CParticle::PreSet_Fire(int MaxCount, float Interval, float lifeTime)
 {
 	m_eMoveType == FIRE;
-	Set_Size(MaxCount);
+	Set_MaxParticle(MaxCount);
 	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
 }
@@ -363,25 +383,26 @@ void CParticle::PreSet_Fire(int MaxCount, float Interval, float lifeTime)
 void CParticle::PreSet_Breath(_vec3 dir, int MaxCount, float Interval, float lifeTime, float speed)
 {
 	m_eMoveType == BREATH;
-	Set_Size(MaxCount);
+	Set_MaxParticle(MaxCount);
 	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
 	m_fSpeed = speed;
 }
 
-void CParticle::PreSet_Radial(int MaxCount,float lifeTime)
+void CParticle::PreSet_Radial(int MaxCount,float Interval, float lifeTime, _vec3 axis)
 {
-	m_eMoveType == RADIAL;
-	Set_Size(MaxCount);
-	m_fSpawnInterval = lifeTime;
+	m_eMoveType = RADIAL;
+	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
+	Set_MaxParticle(MaxCount);
 	m_EmitCount = MaxCount/3;
+	m_vAxis = axis;
 }
 
 void CParticle::PreSet_Spread(int MaxCount, float Interval, float lifeTime, float speed)
 {
 	m_eMoveType == SPREAD;
-	Set_Size(MaxCount);
+	Set_MaxParticle(MaxCount);
 	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
 	m_fSpeed = speed;
