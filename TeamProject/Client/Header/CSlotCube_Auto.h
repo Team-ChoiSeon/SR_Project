@@ -27,7 +27,7 @@ public:
 	void Free() override;
 
 	//Getter, Setter Function
-	void Set_Info(CMainPlayer* player, const _int puzzleID, const _int slotID);
+	void Set_Info( const _int puzzleID, const _int slotID);
 
 	_int Get_PuzzleID() { return m_iPuzzleID; }
 	_int Get_SlotID() { return m_iSlotID; }
@@ -50,5 +50,4 @@ private:
 	_int		m_iPuzzleID;
 	_int		m_iSlotID;
 	_bool		m_bSlotted = false;
-	CMainPlayer* m_pPlayer;
 };

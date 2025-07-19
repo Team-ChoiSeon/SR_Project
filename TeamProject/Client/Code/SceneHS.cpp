@@ -133,7 +133,7 @@ HRESULT SceneHS::Ready_Scene()
 	m_pSlotCube->Get_Component<CTransform>()->Set_Pos({ 0.f, -0.f, -10.f });
 	m_pSlotCube->Set_Info(pPlayer, 0, 0);
 	m_pSlotCube2->Get_Component<CTransform>()->Set_Pos({ -3.f, 0.f, -10.f });
-	m_pSlotCube2->Set_Info(pPlayer, 0, 1);
+	m_pSlotCube2->Set_Info( 0, 1);
 
 	m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -10.f, -8.f, -10.f });
 	m_pSlotSensor->Set_Info(pPlayer, 0, 0);

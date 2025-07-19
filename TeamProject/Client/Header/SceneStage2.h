@@ -27,5 +27,10 @@ private:
 	void DirectionSet();
 	void SlotSet();
 	void StairSet();
+	
+	void Set_Triggers();
+
+	vector<int> AnswerSwitch3_1 = { 1, 2, 3, 4 };
+	vector<int> InputSwitch3_1;
 };
 

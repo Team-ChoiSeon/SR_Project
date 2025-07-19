@@ -92,9 +92,8 @@ void CSlotCube_Auto::Free()
 	Safe_Release(m_pGraphicDev);
 }
 
-void CSlotCube_Auto::Set_Info(CMainPlayer* player, const _int puzzleID, const _int slotID)
+void CSlotCube_Auto::Set_Info(const _int puzzleID, const _int slotID)
 {
-	m_pPlayer = player;
 	m_iPuzzleID = puzzleID;
 	m_iSlotID = slotID;
 }
