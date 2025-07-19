@@ -76,7 +76,7 @@ HRESULT CMonsterPart::Ready_GameObject()
     m_pParticle->Set_MaxParticle(200);
     m_pParticle->Set_SpawnInterval(0.1f);
 
-    m_pCol->Set_ColTag(ColliderTag::NONE);
+    m_pCol->Set_ColTag(ColliderTag::MONSTER);
     m_pCol->Set_ColType(ColliderType::PASSIVE);
     m_pCol->Set_BoundType(BoundingType::OBB);
 

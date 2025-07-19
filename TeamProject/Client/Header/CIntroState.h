@@ -16,8 +16,8 @@ private:
     _float m_fAmp = 0.f;
     _float m_fAngle = 0.f;
 
-    _float m_fChargeTime = 5.f;
-    _float m_fRoarTime = 0.f;
+    _float m_fChargeTime = 3.f;
+    _float m_fRoarTime = 5.f;
     _float m_fPhaseTime = 0.f;
 
     _vec3       m_vBase;

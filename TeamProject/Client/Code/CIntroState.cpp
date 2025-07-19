@@ -19,16 +19,16 @@ void CIntroState::Enter(CVellum* pVellum)
     m_fFreq = 3.f;
     m_fAmp = 5.f;
     m_fAngle = 0.f;
-    m_fRoarTime = 1.f;
     m_vBase = { 0.f, 25.f, 0.f };
 }
 
 void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
 {
+    m_fPhaseTime += fTimeDelta;
     CGameObject* pTarget = pVellum->Get_Target();
     CTransform* pTransform = pVellum->Get_HTransform();
     CRigidBody* pRigid = pVellum->Get_HRigid();
-
+    if (!pTransform || !pRigid || !pTarget) return;
     
     _float fRadian;
     _float fX; _float fY; _float fZ;
@@ -49,7 +49,7 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
             && (Z > -60.f && Z < 60.f))
         {
             // 들어왔을때 중앙으로 이동후 다음패턴
-            m_fPhaseTime += fTimeDelta;
+            
             _vec3 vDiff = m_vBase - pTransform->Get_Pos();
             m_vDir = vDiff;
             D3DXVec3Normalize(&m_vDir, &m_vDir);
@@ -58,9 +58,13 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
 
             if (D3DXVec3LengthSq(&vDiff) < 1.f)
             {
-                pRigid->Stop_Motion();
-                m_ePhase = IntroPhase::Roar;
                 m_fPhaseTime = 0.f;
+                pRigid->Stop_Motion();
+                m_vBase = pTransform->Get_Pos();
+
+                m_ePhase = IntroPhase::Roar;
+                
+                
             }
         }
         else
@@ -78,7 +82,6 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
 
     case IntroPhase::Charge:
     {
-        m_fPhaseTime += fTimeDelta;
         if (m_fPhaseTime <= fTimeDelta)
         {
             _vec3 diff = pTarget->Get_Component<CTransform>()->Get_Pos() - m_vBase;
@@ -104,7 +107,6 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
 
     case IntroPhase::Roar:
     {
-        m_fPhaseTime += fTimeDelta;
         // Lunge
         float fLungeDuration = 0.25f;
         if (m_fPhaseTime < fLungeDuration)

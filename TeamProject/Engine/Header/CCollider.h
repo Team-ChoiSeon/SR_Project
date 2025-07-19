@@ -6,7 +6,7 @@ BEGIN(Engine)
 class CRigidBody;
 
 enum class ColliderType		{ PASSIVE, ACTIVE, TRIGGER };
-enum class ColliderTag		{ NONE, GROUND, WALL, PLATFORM, ATTACK };
+enum class ColliderTag		{ NONE, PLAYER, MONSTER, GROUND, WALL, PLATFORM, ATTACK };
 enum class BoundingType		{ AABB, OBB };
 enum class ColliderState	{ NONE, ENTER, STAY, EXIT };
 

@@ -72,7 +72,7 @@ HRESULT CVellum::Ready_GameObject()
     m_pRigid->Set_Friction(1.f);
     m_pRigid->Set_Bounce(0.f);
 
-    m_pCol->Set_ColTag(ColliderTag::NONE);
+    m_pCol->Set_ColTag(ColliderTag::MONSTER);
     m_pCol->Set_ColType(ColliderType::PASSIVE);
     m_pCol->Set_BoundType(BoundingType::OBB);
 

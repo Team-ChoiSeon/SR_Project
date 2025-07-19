@@ -20,7 +20,7 @@ void CFireState::Enter(CVellum* pVellum)
     m_fPhaseTime = 0.f;
 
     // 공격 위치 설정
-    m_vPos = { 0.f, 10.f, 0.f };
+    m_vPos = { 0.f, 25.f, 0.f };
 }
 
 void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
@@ -49,7 +49,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
             m_fPhaseTime = 0.f;
             pRigid->Stop_Motion();
             
-            m_vBasePos = pTransform->Get_Pos();
+            m_vBase = pTransform->Get_Pos();
         }
         break;
     }
@@ -59,7 +59,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         
         if (m_fPhaseTime <= fTimeDelta)
         {
-            _vec3 diff = pTarget->Get_Component<CTransform>()->Get_Pos() - m_vBasePos;
+            _vec3 diff = pTarget->Get_Component<CTransform>()->Get_Pos() - m_vBase;
             D3DXVec3Normalize(&m_vDir, &diff);
         }
 
@@ -69,7 +69,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         float fRatio = m_fPhaseTime / m_fChargeTime;
         if (fRatio > 1.f) fRatio = 1.f;
 
-        _vec3 vPos = m_vBasePos - (m_vDir * fMaxlDist * fRatio);
+        _vec3 vPos = m_vBase - (m_vDir * fMaxlDist * fRatio);
         pTransform->Set_Pos(vPos);
 
         if (m_fPhaseTime >= m_fChargeTime)
@@ -88,9 +88,9 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         {
             float fLungeDist = 2.0f;
             // 시작점: 뒤로 최대로 물러난 위치
-            _vec3 vStartPos = m_vBasePos - (m_vDir * 2.f);
+            _vec3 vStartPos = m_vBase - (m_vDir * 2.f);
             // 목표점: 기준 위치보다 더 앞으로 나간 위치
-            _vec3 vTargetPos = m_vBasePos + (m_vDir * fLungeDist);
+            _vec3 vTargetPos = m_vBase + (m_vDir * fLungeDist);
 
             _vec3 vCurrentPos;
             float fRatio = m_fPhaseTime / fLungeDuration;
@@ -109,11 +109,12 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
                     pTransform->Set_Look(vFireDir);
 
                     CProjectile* pProjectile = CProjectile::Create(pVellum->Get_Dev());
-                    pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + vFireDir * 3.f);
+                    pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + vFireDir * 5.f);
                     pProjectile->Get_Component<CRigidBody>()->Add_Velocity(vFireDir * 20.f);
                     CSceneMgr::Get_Instance()->Get_Scene()->
                         Get_Layer(LAYER_OBJECT)->Add_GameObject(L"projectile" + to_wstring(m_iFireCnt), pProjectile);
 
+                    //OutputDebugString(L"Fire : Shoot~\n");
                     m_fFireDelay = 0.f;
                     m_iFireCnt++;
                 }
