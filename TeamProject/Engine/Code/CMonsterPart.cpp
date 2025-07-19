@@ -76,11 +76,11 @@ HRESULT CMonsterPart::Ready_GameObject()
     m_pParticle->Set_MaxParticle(200);
     m_pParticle->Set_SpawnInterval(0.1f);
 
-    m_pCol->Set_ColTag(ColliderTag::NONE);
+    m_pCol->Set_ColTag(ColliderTag::MONSTER);
     m_pCol->Set_ColType(ColliderType::PASSIVE);
     m_pCol->Set_BoundType(BoundingType::OBB);
 
-    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
+    m_pTransform->Set_Scale({ 2.f, 2.f, 2.f });
 
     m_pRigid->Set_OnGround(false);
     m_pRigid->Set_UseGravity(false);
@@ -120,7 +120,7 @@ void CMonsterPart::Follow_Target(_float fDeltaTime)
 
 
     //  타겟의 위치에서 dir 방향으로 baseDist만큼 떨어진 지점
-    float baseDist = 2.0f;
+    float baseDist = 3.7f;
     _vec3 movePos = myPos;
 
     // 밀어내기

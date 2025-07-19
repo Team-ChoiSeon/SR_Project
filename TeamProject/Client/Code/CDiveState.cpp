@@ -13,6 +13,7 @@ void CDiveState::Enter(CVellum* pVellum)
     OutputDebugString(L"Dive : Enter\n");
     m_eDPhase = DivePhase::Ready;
     m_fSearch = 0.f;
+    m_iCnt = pVellum->Get_PartCnt();
     pVellum->Get_HCol()->Set_ColType(ColliderType::PASSIVE);
     if (pVellum->Get_HTransform()->Get_Pos().y < 30.f)
         pVellum->Get_HRigid()->Set_Velocity(_vec3(0.f, 10.f, 0.f));
@@ -54,7 +55,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
 
      // 도달 체크 → phase = Wait;
     case DivePhase::In:
-        if (pTransform->Get_Pos().y < -20.f)
+        if (pTransform->Get_Pos().y < -m_iCnt * 4.f)
         {
             pRigid->Stop_Motion();
             m_eDPhase = DivePhase::Wait;
@@ -84,7 +85,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
 
      // 상승 
     case DivePhase::Out:
-        if (pTransform->Get_Pos().y > 20.f)
+        if (pTransform->Get_Pos().y > m_iCnt * 4.f)
         {
             pRigid->Stop_Motion();
             OutputDebugString(L"Out\n");
@@ -95,7 +96,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
 
     }
 
-    if (pTransform->Get_Pos().y > 20.f && m_eDPhase == DivePhase::Out)
+    if (pTransform->Get_Pos().y > m_iCnt * 4.f && m_eDPhase == DivePhase::Out)
     {
 
         pVellum->Change_Pattern(new CIdleState());

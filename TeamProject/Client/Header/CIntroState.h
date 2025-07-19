@@ -1,5 +1,6 @@
 #pragma once
 #include "IVellumState.h"
+enum class IntroPhase {Orbit, Charge, Roar};
 class CIntroState : public IVellumState
 {
 public:
@@ -8,6 +9,17 @@ public:
     virtual void Exit(CVellum* pVellum)override;
 
 private:
-    _float m_fPatternTime = 0.f;
-    _float m_fSwitchTime = 5.f;
+    IntroPhase m_ePhase = IntroPhase::Orbit;
+    _float m_fRad = 0.f;
+    _float m_fASpeed = 0.f;
+    _float m_fFreq = 0.f;
+    _float m_fAmp = 0.f;
+    _float m_fAngle = 0.f;
+
+    _float m_fChargeTime = 3.f;
+    _float m_fRoarTime = 5.f;
+    _float m_fPhaseTime = 0.f;
+
+    _vec3       m_vBase;
+    _vec3       m_vDir;                // 발사 방향
 };
