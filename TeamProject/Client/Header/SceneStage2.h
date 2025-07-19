@@ -20,7 +20,7 @@ private:
 	_bool m_bClear;
 public:
 	virtual void Free();
-	virtual const wstring Get_ScenePath() { return L"../../Scene/Scene2.json"; };
+	virtual const wstring Get_ScenePath() { return L"../../Scene/Merge_Scene.json"; };
 
 private:
 	void FloatingSet();
