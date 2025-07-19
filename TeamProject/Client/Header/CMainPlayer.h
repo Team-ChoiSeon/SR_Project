@@ -37,8 +37,8 @@ public:
 	bool Get_MouseTap() { return m_bMouseTap; }
 	bool Get_MouseAway() { return m_bMouseAway; }
 	_vec3 Get_DragDistance() { return m_vDragDistance; }
-	CGameObject* Get_PickObj() { return m_pPickedObj; }
-	CGameObject* Get_PrevPickObj() { return m_pPickedObj; }
+	CGameObject* Get_PickObj() { return m_pPickObj; }
+	CGameObject* Get_PrevPickObj() { return m_pPrevPickObj; }
 
 	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; };
 
@@ -97,6 +97,8 @@ private:
 	_vec3 distancePos;//юс╫ц
 	_vec3 vDistance;
 
+	CGameObject* m_pPickObj;
+	CGameObject* m_pPrevPickObj;
 	CCube* m_PickedCube;
 	CSwitch* m_PickedSwitch;
 	Ray* m_pRay;

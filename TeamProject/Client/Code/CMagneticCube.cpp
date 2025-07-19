@@ -66,11 +66,6 @@ _int CMagneticCube::Update_GameObject(const _float& fTimeDelta)
 {
     PickMove();
 
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
-        m_pRigid->Set_Torque({ 0.f, 45.f, 0.f });
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
-        m_pRigid->Add_Torque({ 0.f, -45.f, 0.f });
-
     if(m_pRigid->Get_OnGround())
         m_pCollider->Set_ColType(ColliderType::PASSIVE);
     else {

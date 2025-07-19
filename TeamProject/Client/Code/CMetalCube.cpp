@@ -81,32 +81,32 @@ _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
 		m_pRigid->Set_OnGround(false);
     }
 
-    ////Deubbing Code
-    //CGuiSystem::Get_Instance()->RegisterPanel("state", [this]() {
-    //	// 간단한 GUI 창 하나 출력
-    //	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-    //    switch (m_eState)
-    //    {
-    //    case METAL_STATE::IDLE:
-    //        ImGui::Begin("IDLE");
-    //        break;
-    //    case METAL_STATE::APPROACH:
-    //        ImGui::Begin("APPROACH");
-    //        break;
-    //    case METAL_STATE::SYNC:
-    //        ImGui::Begin("SYNC");
-    //        break;
-    //    case METAL_STATE::DETACH:
-    //        ImGui::Begin("DETACH");
-    //    }
-    //    //if (m_pRigid->Get_OnGround())
-    //    //    ImGui::Begin("On Ground");
-    //    //else if (!m_pRigid->Get_OnGround())
-    //    //    ImGui::Begin("Not On Ground");
+    //Deubbing Code
+    CGuiSystem::Get_Instance()->RegisterPanel("state", [this]() {
+    	// 간단한 GUI 창 하나 출력
+    	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+        switch (m_eState)
+        {
+        case METAL_STATE::IDLE:
+            ImGui::Begin("IDLE");
+            break;
+        case METAL_STATE::APPROACH:
+            ImGui::Begin("APPROACH");
+            break;
+        case METAL_STATE::SYNC:
+            ImGui::Begin("SYNC");
+            break;
+        case METAL_STATE::DETACH:
+            ImGui::Begin("DETACH");
+        }
+        //if (m_pRigid->Get_OnGround())
+        //    ImGui::Begin("On Ground");
+        //else if (!m_pRigid->Get_OnGround())
+        //    ImGui::Begin("Not On Ground");
 
-    //	ImGui::End();
+    	ImGui::End();
 
-    //	});
+    	});
     return _int();
 }
 
