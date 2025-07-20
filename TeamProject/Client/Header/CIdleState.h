@@ -12,7 +12,7 @@ public:
 
 private:
     _float   m_fPatternTime = 0.f;
-    _float   m_fSwitchTime = 3.f;
+    _float   m_fSwitchTime = 1.f;
     VPattern m_ePattern = VPattern::NONE;
     IVellumState* m_pNext = nullptr;
 

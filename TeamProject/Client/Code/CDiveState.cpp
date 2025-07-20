@@ -42,7 +42,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
     {
     // force → phase = DiveIn;
     case DivePhase::Ready:
-        if (fDist < 5.f)
+        if (fDist < 7.5f)
         {
             pRigid->Stop_Motion();
             m_fSearch = 0.f;
@@ -50,13 +50,13 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             OutputDebugString(L"Ready->In\n");
         }
         m_fSearch += fTimeDelta;
-        if (m_fSearch > 1.f)
+        if (m_fSearch > 0.5f)
         {
             pRigid->Stop_Motion();
             m_fSearch = 0.f;
         }
 
-        pRigid->Add_Force(diff * 10.f);
+        pRigid->Add_Force(diff * 20.f);
         break;
 
      // 도달 체크 → phase = Wait;
@@ -69,12 +69,12 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             CTestTile* pTile = Calc_Tile(pTransform->Get_Pos(), pVellum);
             if (pTile) pTile->Set_Destroy(true);
         }
-        pRigid->Add_Force({ 0.f,-1.f * 15.f, 0.f });
+        pRigid->Add_Force({ 0.f,-1.f * 20.f, 0.f });
         break;
 
      // 시간 경과 → phase = DiveOut;
     case DivePhase::Wait:
-        if (fDist < 5.f)
+        if (fDist < 7.5f)
         {
             pRigid->Stop_Motion();
             m_eDPhase = DivePhase::Out;
@@ -88,7 +88,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             m_fSearch = 0.f;
         }
 
-        pRigid->Add_Force(diff * 10.f);
+        pRigid->Add_Force(diff * 20.f);
         break;
 
      // 상승 
@@ -101,7 +101,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             if (pTile) pTile->Set_Destroy(true);
 
         }
-        pRigid->Add_Force({ 0.f,1.f * 15.f, 0.f });
+        pRigid->Add_Force({ 0.f,1.f * 20.f, 0.f });
         break;
 
     }
