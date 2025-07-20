@@ -13,6 +13,7 @@
 
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
+#include "CUiMgr.h"
 
 
 BossScene::BossScene(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -35,6 +36,11 @@ HRESULT BossScene::Ready_Scene()
 	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 30.f, -75.f });
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+
+	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
+	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);
+	CUiMgr::Get_Instance()->AddUI(cross);
+	pPlayer->Set_Crosshair(cross);
 
 	// 3-2. º§·ë
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);

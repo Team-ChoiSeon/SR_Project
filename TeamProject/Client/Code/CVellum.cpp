@@ -58,12 +58,12 @@ HRESULT CVellum::Ready_GameObject()
     Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
     m_pParticle = Get_Component<CParticle>();
     m_pParticle->Set_Texture(L"blackSmoke00.png");
-    m_pParticle->Set_Type(PARTICLE_MOVE_TYPE::BREATH);
-    m_pParticle->Set_MaxParticle(200);
-    m_pParticle->Set_SpawnInterval(0.1f);
+    m_pParticle->PreSet_Radial(300, 2.f, 1.f, m_pTransform->Get_Info(INFO_LOOK));
+    m_pParticle->Set_Speed(10.f);
+    m_pParticle->Set_Size(1.7f);
 
 
-    m_pTransform->Set_Pos({ 0.f, 33.f, 60.f });  
+    m_pTransform->Set_Pos(VSTART);
     m_pTransform->Set_Scale({ 3.f, 3.f, 3.f });
 
     m_pRigid->Set_OnGround(false);
