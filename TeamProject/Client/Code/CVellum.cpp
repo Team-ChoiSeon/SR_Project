@@ -109,6 +109,19 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
     if (m_vPart.empty()) return -1;
 
+    m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
+
+    // 매번 플레이어 바라보게
+    _vec3 TargetPos;
+    if(m_pTarget)
+        TargetPos = m_pTarget->Get_Component<CTransform>()->Get_Pos();
+    _vec3 vDiff = TargetPos - m_pTransform->Get_Pos();
+    _vec3 vDir;
+    D3DXVec3Normalize(&vDir, &vDiff);
+    m_pTransform->Set_Look(vDir);
+
+
+    m_pParticle->PreSet_Radial(300, 2.f, 1.f, m_pTransform->Get_Info(INFO_LOOK));
 
     CMonsterPart* pPartToDestroy = nullptr;
 

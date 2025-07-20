@@ -23,7 +23,6 @@ void CChaseState::Update(const _float fTimeDelta, CVellum* pVellum)
 
 	D3DXVec3Normalize(&dir, &dir);
 
-	pVellum->Get_HTransform()->Set_Look(dir);
 	pVellum->Get_HRigid()->Add_Torque(dir * 30.f);
 	pVellum->Get_HRigid()->Add_Force(dir * 5.f);
 
