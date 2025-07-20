@@ -56,5 +56,6 @@ private:
 	_vec3					m_vParentPos;
 	_vec3					m_vGap;
 	_vec3					m_vSyncGap;
+	_int					m_iColCount = 1;
 };
 

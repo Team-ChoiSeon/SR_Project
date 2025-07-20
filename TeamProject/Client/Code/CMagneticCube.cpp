@@ -53,11 +53,6 @@ HRESULT CMagneticCube::Ready_GameObject()
     Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
     m_pPick = Get_Component<CPickTarget>();
 
-    //_matrix matRot;
-    //_vec3 Angle = { 0.f, 45.f, 0.f };
-    //D3DXMatrixRotationYawPitchRoll(&matRot, Angle.y, Angle.x, Angle.z);
-    //m_pTransform->Set_RotMatrix(&matRot);
-
     CFactory::Save_Prefab(this, "CMagneticCube");
 	return S_OK;
 }

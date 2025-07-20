@@ -24,6 +24,7 @@ public:
 	void Free() override;
 
 	void SetTrigger(bool Trigger) { m_bOn = Trigger; }
+	void SetGoBack(bool GoBack) { m_bGoBack = GoBack; }
 
 	//Getter, Setter Function
 	void Set_StartPos(const _vec3& vStartPos) { m_vStartPos = vStartPos; }

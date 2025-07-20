@@ -81,32 +81,33 @@ _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
 		m_pRigid->Set_OnGround(false);
     }
 
-    ////Deubbing Code
-    //CGuiSystem::Get_Instance()->RegisterPanel("state", [this]() {
-    //	// 간단한 GUI 창 하나 출력
-    //	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-    //    switch (m_eState)
-    //    {
-    //    case METAL_STATE::IDLE:
-    //        ImGui::Begin("IDLE");
-    //        break;
-    //    case METAL_STATE::APPROACH:
-    //        ImGui::Begin("APPROACH");
-    //        break;
-    //    case METAL_STATE::SYNC:
-    //        ImGui::Begin("SYNC");
-    //        break;
-    //    case METAL_STATE::DETACH:
-    //        ImGui::Begin("DETACH");
-    //    }
-    //    //if (m_pRigid->Get_OnGround())
-    //    //    ImGui::Begin("On Ground");
-    //    //else if (!m_pRigid->Get_OnGround())
-    //    //    ImGui::Begin("Not On Ground");
+    //Deubbing Code
+    CGuiSystem::Get_Instance()->RegisterPanel("state", [this]() {
+    	// 간단한 GUI 창 하나 출력
+    	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+        switch (m_eState)
+        {
+        case METAL_STATE::IDLE:
+            ImGui::Begin("IDLE");
+            break;
+        case METAL_STATE::APPROACH:
+            ImGui::Begin("APPROACH");
+            break;
+        case METAL_STATE::SYNC:
+            ImGui::Begin("SYNC");
+            break;
+        case METAL_STATE::DETACH:
+            ImGui::Begin("DETACH");
+        }
+        ImGui::InputFloat3("##synk", m_vSyncGap, "%.1f");
+        //if (m_pRigid->Get_OnGround())
+        //    ImGui::Begin("On Ground");
+        //else if (!m_pRigid->Get_OnGround())
+        //    ImGui::Begin("Not On Ground");
 
-    //	ImGui::End();
+    	ImGui::End();
 
-    //	});
+    	});
     return _int();
 }
 
@@ -144,9 +145,10 @@ void CMetalCube::Free()
 
 void CMetalCube::DetectMagnetic(const _float& fTimeDelta)
 {
+    m_iColCount = 1;
     m_MZone._min = m_pTransform->Get_Pos() - m_pTransform->Get_Scale() * 3;
     m_MZone._max = m_pTransform->Get_Pos() + m_pTransform->Get_Scale() * 3;
-    if (m_pPlayer->Get_Hold() &&
+    if (
         (m_pPickObj = m_pPlayer->Get_PickObj()) &&
         (typeid(*m_pPickObj) == typeid(CMagneticCube)) &&
         m_pPickObj->Get_Component<CTransform>()->Get_Pos().x > m_MZone._min.x &&
@@ -165,7 +167,7 @@ void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
     m_pRigid->Set_UseGravity(false);
     m_vParentPos = m_pParentMagnet->Get_Component<CTransform>()->Get_Pos();
     m_vGap = m_vParentPos - m_pTransform->Get_Pos();
-    if (m_pPlayer->Get_MouseAway())
+    if (m_pPlayer->Get_PickObj() == nullptr)
     {
         m_eState = METAL_STATE::DETACH;
         return;
@@ -174,32 +176,34 @@ void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
         auto col = m_pCollider->Get_Other()->m_pOwner;
         if (typeid(*col) != typeid(CTestTile) &&
             (m_pCollider->Get_Other()->m_pOwner == m_pParentMagnet ||
-            typeid(*col) == typeid(CMetalCube)))
+                typeid(*col) == typeid(CMetalCube)))
         {
             m_vSyncGap = m_vParentPos - m_pTransform->Get_Pos();
-            m_pCollider->Set_ColType(ColliderType::TRIGGER);
             m_eState = METAL_STATE::SYNC;
             return;
         }
     }
-    {
+    
         m_pTransform->Move_Pos(&m_vGap, 2.f, fTimeDelta);
-    }
+    
 }
 
 void CMetalCube::SyncMagnetic(const _float& fTimeDelta)
 {
-    if (static_cast<CMagneticCube*>(m_pParentMagnet)->Get_Away())
+    if (m_pPlayer->Get_PickObj() == nullptr)
     {
         m_eState = METAL_STATE::DETACH;
         return;
     }
-    else if(static_cast<CMagneticCube*>(m_pParentMagnet)->Get_Grab())
+    else if (static_cast<CMagneticCube*>(m_pParentMagnet)->Get_Grab())
     {
         m_pRigid->Set_UseGravity(false);
         m_vParentPos = m_pParentMagnet->Get_Component<CTransform>()->Get_Pos();
 
-        _vec3 syncPos = m_vParentPos - m_vSyncGap;
+        _float gapdistance = 0.3f;
+        _vec3 normalsync;
+        D3DXVec3Normalize(&normalsync, &m_vSyncGap);
+        _vec3 syncPos = m_vParentPos - m_vSyncGap - normalsync * gapdistance;
         m_pTransform->Set_Pos(syncPos);
     }
 }
