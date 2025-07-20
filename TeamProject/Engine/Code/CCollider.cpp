@@ -147,13 +147,14 @@ void CCollider::Update_Component(const _float& fTimeDelta)
 		m_tBound.vHalf = (m_tAABBWorld.vMax - m_tAABBWorld.vMin) * 0.5f;
 	}
 
-
-	CCollisionMgr::Get_Instance()->Add_Collider(this);
+	if(m_bActive)
+		CCollisionMgr::Get_Instance()->Add_Collider(this);
 }
 
 void CCollider::LateUpdate_Component(const _float& fTimeDelta)
 {
-	CRenderMgr::Get_Instance()->Add_Collider(this);
+	if(m_bActive)
+		CRenderMgr::Get_Instance()->Add_Collider(this);
 }
 
 void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)

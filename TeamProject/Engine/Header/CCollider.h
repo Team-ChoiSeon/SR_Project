@@ -72,6 +72,7 @@ public:
 
 		m_tBound.vHalf = vOffset;
 	}
+	void Set_Active(bool active) { m_bActive = active; }
 
 	ColliderType Get_ColType()			const { return m_eType; }
 	ColliderTag  Get_ColTag()			const { return m_eTag; }
@@ -82,6 +83,7 @@ public:
 	const BoundingType& Get_BoundType() const { return m_tBound.eType; }
 	// 예외처리는 가져오는 곳에서 직접 수행
 	CCollider* Get_Other()				const { return m_pOther; }
+	bool Get_Active()					const { return m_bActive; }
 
 public:
 	virtual HRESULT Ready_Component()override;
@@ -122,6 +124,8 @@ private:
 
 	CRigidBody* m_pRigid = nullptr;
 	CCollider* m_pOther = nullptr;
+
+	bool m_bActive = true;
 };
 
 END

@@ -34,8 +34,8 @@ void CModel::LateUpdate_Component(const _float& fTimeDelta)
 	if (m_fAlpha < 1.f) {
 		m_ePass = RENDER_PASS::RP_TRANSPARENT;
 	}
-
-	CRenderMgr::Get_Instance()->Add_Model(this);
+	if(m_bActive)
+		CRenderMgr::Get_Instance()->Add_Model(this);
 }
 
 void CModel::Render(LPDIRECT3DDEVICE9 m_pDevice)
