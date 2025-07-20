@@ -16,7 +16,7 @@
 #include "CMonster.h"
 #include "CTestTile.h"
 #include "CCollisionMgr.h"
-#include "CPlayer.h"
+
 #include "CRigidBody.h"
 #include "CCrosshairUIObject.h"
 #include "CUiMgr.h"

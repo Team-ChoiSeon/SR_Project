@@ -1,15 +1,15 @@
 #pragma once
 #include "CScene.h"
-class SceneStage2 :
+class SceneStage3 :
 	public CScene
 {
 private:
-	explicit SceneStage2(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit SceneStage3(LPDIRECT3DDEVICE9 pGraphicDev);
 public:
-	virtual ~SceneStage2();
+	virtual ~SceneStage3();
 
 public:
-	static SceneStage2* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static SceneStage3* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 public:
 	virtual			HRESULT		Ready_Scene()override;
@@ -20,17 +20,15 @@ private:
 	_bool m_bClear;
 public:
 	virtual void Free();
-	virtual const wstring Get_ScenePath() { return L"../../Scene/Scene2.json"; };
+	virtual const wstring Get_ScenePath() { return L"../../Scene/Scene3.json"; };
 
 private:
 	void FloatingSet();
 	void DirectionSet();
 	void SlotSet();
 	void StairSet();
-	
+
 	void Set_Triggers();
 
-	vector<int> AnswerSwitch3_1 = { 1, 2, 3, 4 };
-	vector<int> InputSwitch3_1;
 };
 

@@ -20,7 +20,7 @@ private:
 
     // 발사에 필요한 정보
     _vec3       m_vPos;                // 발사 시작 위치
-    _vec3       m_vBasePos;
+    _vec3       m_vBase;
     _vec3       m_vDir;                // 발사 방향
     bool        m_bFire = false;
     int m_iFireCnt = 0;

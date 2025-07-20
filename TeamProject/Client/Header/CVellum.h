@@ -39,6 +39,7 @@ public:
 	
 	CGameObject*	Get_Target()		{ return m_pTarget; }
 	const vector<CMonsterPart*>& Get_Part() const { return m_vPart; }
+	const int Get_PartCnt() const { return m_iPartCnt; }
 
 	LPDIRECT3DDEVICE9 Get_Dev() { return m_pGraphicDev; }
 
@@ -48,7 +49,7 @@ public:
 private:
 	int m_iHP = 100;			// 체력
 	_float m_fInvTime = 1.f;	// 무적 타이머
-	int m_iPartCnt = 9;			// 머리 제외 파츠 개수
+	int m_iPartCnt = 14;			// 머리 제외 파츠 개수
 	vector<CMonsterPart*> m_vPart;
 
 	IVellumState* m_pState = nullptr;

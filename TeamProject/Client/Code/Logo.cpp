@@ -5,11 +5,11 @@
 #include "CSceneMgr.h"
 #include "CInputMgr.h"
 #include "SceneBG.h"
-#include "SceneDH.h"
 #include "SceneHS.h"
 #include "SceneHW.h"
 #include "SceneSB.h"
 #include "TestSceneHW.h"
+#include "BossScene.h"
 
 #include "CSceneTestHS.h"
 #include "SceneStage2.h"
@@ -42,8 +42,6 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 	}
 	else if(CInputMgr::Get_Instance()->Key_Tap(DIK_F2))
 	{
-		CScene* pScene = SceneDH::Create(m_pGraphicDev);
-		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 	}
 	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F3))
 	{
@@ -57,7 +55,7 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 	}
 	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F5))
 	{
-		CScene* pScene = SceneSB::Create(m_pGraphicDev);
+		CScene* pScene = BossScene::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 	}
 	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F6))

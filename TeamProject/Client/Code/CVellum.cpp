@@ -11,6 +11,7 @@
 #include "CSceneMgr.h"
 
 #include "CIdleState.h"
+#include "CIntroState.h"
 
 #include "CFactory.h"
 
@@ -57,13 +58,13 @@ HRESULT CVellum::Ready_GameObject()
     Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
     m_pParticle = Get_Component<CParticle>();
     m_pParticle->Set_Texture(L"blackSmoke00.png");
-    m_pParticle->PreSet_Fire(300, 1.f, 0.3f);
-    m_pParticle->Set_Speed(2.f);
-    m_pParticle->Set_Offset({ 0.f, -0.5f, 0.f });
+    m_pParticle->Set_Type(PARTICLE_MOVE_TYPE::BREATH);
+    m_pParticle->Set_MaxParticle(200);
+    m_pParticle->Set_SpawnInterval(0.1f);
 
 
-    m_pTransform->Set_Pos({ 0.f, 20.f, 0.f });  
-    m_pTransform->Set_Scale({ 1.33f, 1.33f, 1.33f });
+    m_pTransform->Set_Pos({ 0.f, 33.f, 60.f });  
+    m_pTransform->Set_Scale({ 3.f, 3.f, 3.f });
 
     m_pRigid->Set_OnGround(false);
     m_pRigid->Set_UseGravity(false);
@@ -71,7 +72,7 @@ HRESULT CVellum::Ready_GameObject()
     m_pRigid->Set_Friction(1.f);
     m_pRigid->Set_Bounce(0.f);
 
-    m_pCol->Set_ColTag(ColliderTag::NONE);
+    m_pCol->Set_ColTag(ColliderTag::MONSTER);
     m_pCol->Set_ColType(ColliderType::PASSIVE);
     m_pCol->Set_BoundType(BoundingType::OBB);
 
@@ -86,7 +87,7 @@ HRESULT CVellum::Ready_GameObject()
 
         // 파츠 위치 초기화 (선형 배열 형태)
         _vec3 headPos = m_pTransform->Get_Info(INFO_POS);
-        _vec3 partPos = headPos - _vec3(0.f, 2.f * (i + 1), 0.f);
+        _vec3 partPos = headPos - _vec3(0.f, 4.f * (i + 1), 0.f);
         pPart->Get_Component<CTransform>()->Set_Pos(partPos);
 
         pPart->Set_Target(pTarget);
@@ -97,7 +98,7 @@ HRESULT CVellum::Ready_GameObject()
 
     m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
 
-    m_pState = new CIdleState();
+    m_pState = new CIntroState();
     m_pState->Enter(this);
 
     CFactory::Save_Prefab(this, "CVellum");
@@ -130,6 +131,7 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
     {
         Organize_Chain(pPartToDestroy);
     }
+
 
     if (m_pState)
         m_pState->Update(fTimeDelta, this);

@@ -168,6 +168,7 @@
     <ClInclude Include="..\Header\CPlayerTriggerCube.h" />
     <ClInclude Include="..\Header\CProgressBar.h" />
     <ClInclude Include="..\Header\CProjectile.h" />
+    <ClInclude Include="..\Header\CSlotCube_Auto.h" />
     <ClInclude Include="..\Header\CSlotSensor.h" />
     <ClInclude Include="..\Header\CSpinState.h" />
     <ClInclude Include="..\Header\CZoneSensor.h" />
@@ -185,7 +186,6 @@
     <ClInclude Include="..\Header\CLightObject.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMonster.h" />
-    <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CSceneGate.h" />
     <ClInclude Include="..\Header\CSceneTestHS.h" />
     <ClInclude Include="..\Header\CStairBlock.h" />
@@ -198,12 +198,12 @@
     <ClInclude Include="..\Header\CMainPlayer.h" />
     <ClInclude Include="..\Header\CMagneticCube.h" />
     <ClInclude Include="..\Header\SceneBG.h" />
-    <ClInclude Include="..\Header\SceneDH.h" />
     <ClInclude Include="..\Header\SceneHS.h" />
     <ClInclude Include="..\Header\SceneHW.h" />
     <ClInclude Include="..\Header\SceneLoding.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
     <ClInclude Include="..\Header\SceneStage2.h" />
+    <ClInclude Include="..\Header\SceneStage3.h" />
     <ClInclude Include="..\Header\TestSceneHW.h" />
     <ClInclude Include="..\Header\CPickSwitch.h" />
     <ClInclude Include="Client.h" />
@@ -229,6 +229,7 @@
     <ClCompile Include="..\Code\CPlayerTriggerCube.cpp" />
     <ClCompile Include="..\Code\CProgressBar.cpp" />
     <ClCompile Include="..\Code\CProjectile.cpp" />
+    <ClCompile Include="..\Code\CSlotCube_Auto.cpp" />
     <ClCompile Include="..\Code\CSlotSensor.cpp" />
     <ClCompile Include="..\Code\CSpinState.cpp" />
     <ClCompile Include="..\Code\CZoneSensor.cpp" />
@@ -246,7 +247,6 @@
     <ClCompile Include="..\Code\CLightObject.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp" />
-    <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CSceneGate.cpp" />
     <ClCompile Include="..\Code\CSceneTestHS.cpp" />
     <ClCompile Include="..\Code\CStairBlock.cpp" />
@@ -259,12 +259,12 @@
     <ClCompile Include="..\Code\CMainPlayer.cpp" />
     <ClCompile Include="..\Code\CMagneticCube.cpp" />
     <ClCompile Include="..\Code\SceneBG.cpp" />
-    <ClCompile Include="..\Code\SceneDH.cpp" />
     <ClCompile Include="..\Code\SceneHS.cpp" />
     <ClCompile Include="..\Code\SceneHW.cpp" />
     <ClCompile Include="..\Code\SceneLoding.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
     <ClCompile Include="..\Code\SceneStage2.cpp" />
+    <ClCompile Include="..\Code\SceneStage3.cpp" />
     <ClCompile Include="..\Code\TestSceneHW.cpp" />
     <ClCompile Include="..\Code\CPickSwitch.cpp" />
     <ClCompile Include="Client.cpp" />

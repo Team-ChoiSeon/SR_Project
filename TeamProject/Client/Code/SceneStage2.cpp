@@ -14,7 +14,6 @@
 #include "CSceneMgr.h"
 #include "CRenderMgr.h"
 
-#include "CPlayer.h"
 #include "CMainPlayer.h"
 #include "CLightObject.h"
 #include "CTestLightMeshObject.h"
@@ -27,6 +26,8 @@
 #include "CFloatingCube.h"
 #include "CStairBlock.h"
 #include "CSceneGate.h"
+#include "CPickSwitch.h"
+#include "CSlotCube_Auto.h"
 
 #include "SceneSB.h"
 
@@ -44,11 +45,15 @@ SceneStage2::~SceneStage2()
 
 HRESULT SceneStage2::Ready_Scene()
 {
-	//Init_Layers();
+
+	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
+	CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
+	CSoundMgr::Get_Instance()->Play("BGM1", "SFX", true);
+	
+	Init_Layers();
 	for (auto& tile : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
 		tile.pObj->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	}
-
 
 	CMainPlayer* pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"MainPlayer");
 	pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
@@ -83,27 +88,8 @@ _int SceneStage2::Update_Scene(const _float& fTimeDelta)
 		CRenderMgr::Get_Instance()->Clear();
 	}
 	else {
-		/// ���� ���� (���� 5�� ������)
-		_int iMainQuest = 0;
-		for (int i = 1; i < 6; i++) {
-			wstring name = L"CSlotQuest_" + to_wstring(i);
-			CSlotSensor* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(name);
-			if (cube->Get_SensorState())
-			{
-				++iMainQuest;
-			}
-		}
-		CFloatingCube* pMainQuestMove_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_1");
-		CFloatingCube* pMainQuestMove_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_2");
 
-		if (iMainQuest == 5) {
-			pMainQuestMove_1->SetTrigger(true);
-			pMainQuestMove_2->SetTrigger(true);
-		}
-		else {
-			pMainQuestMove_1->SetTrigger(false);
-			pMainQuestMove_2->SetTrigger(false);
-		}
+		Set_Triggers();
 
 		CScene::Update_Scene(fTimeDelta);
 	}
@@ -142,8 +128,31 @@ void SceneStage2::FloatingSet()
 	CFloatingCube* pMainQuestMove_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_1");
 	CFloatingCube* pMainQuestMove_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_2");
 
-	pMainQuestMove_1->Set_Info({ 0.f, 1.f, 0.f }, 10.f, 5.f, 0.5f);
-	pMainQuestMove_2->Set_Info({ 0.f, 1.f, 0.f }, 3.f, 5.f, 0.5f);
+	pMainQuestMove_1->Set_Info(pMainQuestMove_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 10.f, 2.f, 0.5f);
+	pMainQuestMove_2->Set_Info(pMainQuestMove_2->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 3.f, 2.f, 0.5f);
+
+	for (int i = 1; i < 5; i++)
+	{
+		wstring name = L"CStageDoorMove_" + to_wstring(i);
+		CFloatingCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(name);
+		cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 10.f, 2.f, 0.5f);
+	}
+	for (int i = 1; i < 5; i++)
+	{
+		wstring name = L"CDoorMove3_" + to_wstring(i);
+		CFloatingCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(name);
+		cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 15.f, 2.f, 0.5f);
+	}
+
+	CFloatingCube* CMoveCube3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_1");
+	CMoveCube3_1->Set_Info(CMoveCube3_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 3.f, 2.f, 0.5f);
+
+	CFloatingCube* CMoveCube3_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_2");
+	CMoveCube3_2->Set_Info(CMoveCube3_2->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 10.f, 2.f, 0.5f);
+
+	CFloatingCube* CDoorMove4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove4_1");
+	CDoorMove4_1->Set_Info(CDoorMove4_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 15.f, 2.f, 0.5f);
+
 }
 
 void SceneStage2::DirectionSet()
@@ -163,6 +172,13 @@ void SceneStage2::DirectionSet()
 			cube->Set_Info({ 0.f, 0.f, -1.f }, 0.f, 5.f);
 		else
 			cube->Set_Info({ 0.f, 0.f, 1.f }, 0.f, 5.f);
+	}
+
+	for (int i = 1; i < 4; i++) {
+		wstring name = L"CDcube3_" + to_wstring(i);
+		CDirectionalCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(name);
+
+		cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 0.f, 4.3f);
 	}
 }
 
@@ -191,6 +207,34 @@ void SceneStage2::SlotSet()
 		cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
 		cube->Set_Info( i, i);
 	}
+
+	CSlotSensor* CSlotSensor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_1");
+	CSlotSensor3_1->Set_Info(pPlayer, 0, 0);
+	CSlotSensor3_1->Set_PlayerPick(false);
+
+	CSlotCube_Auto* SlotCube_Auto3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube_Auto>(L"CSlotCube_Auto3_1");
+	SlotCube_Auto3_1->Set_Info(0, 0);
+
+	CSlotSensor* CSlotSensor3_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_2");
+	CSlotSensor3_2->Set_Info(pPlayer, 1, 1);
+	CSlotSensor3_2->Set_PlayerPick(false);
+
+	CSlotCube_Auto* SlotCube_Auto3_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube_Auto>(L"CSlotCube_Auto3_2");
+	SlotCube_Auto3_2->Set_Info(1, 1);
+
+
+	CSlotSensor* CSlotSensor4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor4_1");
+	CSlotSensor4_1->Set_Info(pPlayer, 2, 2);
+	CSlotSensor4_1->Set_PlayerPick(false);
+
+	CSlotCube_Auto* CSlotCube_Auto4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube_Auto>(L"CSlotCube_Auto4_1");
+	CSlotCube_Auto4_1->Set_Info(2, 2);
+
+	CSlotSensor* CSlotSensor4_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor4_2");
+	CSlotSensor4_2->Set_Info(pPlayer, 8, 8);
+
+	CSlotCube* CSlotCube4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube4_1");
+	CSlotCube4_1->Set_Info(pPlayer, 8, 8);
 }
 
 void SceneStage2::StairSet()
@@ -199,6 +243,98 @@ void SceneStage2::StairSet()
 	pStaircube1->Set_Distance(-30.f);
 	CStairBlock* pStaircube2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CStairBlock>(L"CStair2_2");
 	pStaircube2->Set_Distance(18.f);
+}
+
+void SceneStage2::Set_Triggers()
+{
+	/// ���� ���� (���� 5�� ������) - �� ���ڸ��� �������� ��� ����
+	_int iMainQuest = 0;
+	for (int i = 1; i < 6; i++) {
+		wstring name = L"CSlotQuest_" + to_wstring(i);
+		CSlotSensor* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(name);
+		if (cube->Get_SensorState())
+		{
+			if (i < 5)
+			{
+				wstring DoorName = L"CStageDoorMove_" + to_wstring(i);
+				CFloatingCube* DoorCube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(DoorName);
+				DoorCube->SetTrigger(true);
+			}
+
+			++iMainQuest;
+		}
+	}
+	CFloatingCube* pMainQuestMove_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_1");
+	CFloatingCube* pMainQuestMove_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_2");
+
+	if (iMainQuest == 5) {
+		pMainQuestMove_1->SetTrigger(true);
+		pMainQuestMove_2->SetTrigger(true);
+	}
+	else {
+		pMainQuestMove_1->SetTrigger(false);
+		pMainQuestMove_2->SetTrigger(false);
+	}
+	///
+	/// 3��°�� Ʈ�� ����
+	// 1�ܰ� ����ġ
+	_bool bPickSwitch3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch_3_1")->Get_SwitchState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_1")->SetTrigger(bPickSwitch3_1);
+	
+	// 2�ܰ� ���� �б�
+	CSlotSensor* CSlotSensor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_1");
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_2")->SetTrigger(CSlotSensor3_1->Get_SensorState());
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_1")->SetTrigger(CSlotSensor3_1->Get_SensorState());
+
+	// 3�ܰ� ���� ����ġ ���� ���߱�
+	for (int i = 1; i < 5; ++i)
+	{
+		wstring name = L"CPickSwitch3_2_" + to_wstring(i);
+		auto* pSwitch = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(name);
+
+		if (pSwitch->Get_SwitchState())
+		{
+			if (find(InputSwitch3_1.begin(), InputSwitch3_1.end(), i) == InputSwitch3_1.end())
+			{
+				InputSwitch3_1.push_back(i);
+			}
+		}
+	}
+	if (InputSwitch3_1.size() == 4)
+	{
+		if (InputSwitch3_1 == AnswerSwitch3_1)
+		{
+			Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_3")->SetTrigger(true);
+		}
+		else
+		{
+			for (int i = 1; i < 5; ++i) {
+				wstring name = L"CPickSwitch3_2_" + to_wstring(i);
+				auto* pSwitch = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(name);
+				pSwitch->Set_SwitchState(false);
+			}
+		}
+		InputSwitch3_1.clear();
+	}
+
+	// 4�ܰ� ���� ť�� ������ ��ư
+	_bool bPickSwitch3_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch3_3")->Get_SwitchState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_2")->SetTrigger(bPickSwitch3_3);
+
+	CSlotSensor* CSlotSensor3_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_2");
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_4")->SetTrigger(CSlotSensor3_2->Get_SensorState());
+
+	// 4��° �� �̷�
+
+	_bool bSlotSensor4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor4_1")->Get_SensorState();
+	_bool bSlotSensor4_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor4_2")->Get_SensorState();
+
+	if (bSlotSensor4_1 && bSlotSensor4_2) {
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove4_1")->SetTrigger(true);
+
+	}
+
+	/// 
 }
 
 SceneStage2* SceneStage2::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -210,5 +346,6 @@ SceneStage2* SceneStage2::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void SceneStage2::Free()
 {
+	CSoundMgr::Get_Instance()->Stop("BGM1");
 	CScene::Free();
 }

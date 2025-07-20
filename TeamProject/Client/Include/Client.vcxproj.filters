@@ -17,9 +17,6 @@
     <Filter Include="04. GameObjects">
       <UniqueIdentifier>{ab7604f5-dc2e-4079-a511-01ca857fdab1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObjects\TestPlayer">
-      <UniqueIdentifier>{59dd0850-c33f-45f5-8a15-5279976fcc02}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. GameObjects\TestLight">
       <UniqueIdentifier>{f0f59b2f-0432-4248-b0e8-e754b52cb41f}</UniqueIdentifier>
     </Filter>
@@ -154,9 +151,6 @@
     <Filter Include="03. Scene\DebugScene\SceneBG">
       <UniqueIdentifier>{c74caa5e-84d0-4710-867f-b83dd80b2fde}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Scene\DebugScene\SceneDH">
-      <UniqueIdentifier>{58c69da1-fbb4-48b5-8347-2f12d35ab13c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Scene\DebugScene\SceneHS">
       <UniqueIdentifier>{7f201cda-42bf-44b8-ab2a-bcbfba2287c8}</UniqueIdentifier>
     </Filter>
@@ -180,6 +174,15 @@
     </Filter>
     <Filter Include="04. GameObjects\MainPlayer">
       <UniqueIdentifier>{2749e137-2fec-4edf-bd8d-36f0a6c31d01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\ReleaseScene\02. StageScene">
+      <UniqueIdentifier>{ba9928d8-9fb7-4a25-b62e-9da26195a5dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\ReleaseScene\02. StageScene\Stage2">
+      <UniqueIdentifier>{07624a63-0753-4fd8-9e1c-3b9aaabe2d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\ReleaseScene\02. StageScene\Stage3">
+      <UniqueIdentifier>{cfd80ae4-cc02-4182-8ad1-9ac4c144a9e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -216,9 +219,6 @@
     <ClInclude Include="..\Header\SceneBG.h">
       <Filter>03. Scene\DebugScene\SceneBG</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\SceneDH.h">
-      <Filter>03. Scene\DebugScene\SceneDH</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\SceneHW.h">
       <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClInclude>
@@ -233,9 +233,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTestLightMeshObject.h">
       <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CPlayer.h">
-      <Filter>04. GameObjects\TestPlayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CMonster.h">
       <Filter>04. GameObjects\TestObject</Filter>
@@ -360,6 +357,15 @@
     <ClInclude Include="..\Header\CMainPlayer.h">
       <Filter>04. GameObjects\MainPlayer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSlotCube_Auto.h">
+      <Filter>04. GameObjects\Cube\SlotCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneStage2.h">
+      <Filter>03. Scene\ReleaseScene\02. StageScene\Stage2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SceneStage3.h">
+      <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -386,9 +392,6 @@
     <ClCompile Include="..\Code\SceneBG.cpp">
       <Filter>03. Scene\DebugScene\SceneBG</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\SceneDH.cpp">
-      <Filter>03. Scene\DebugScene\SceneDH</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\SceneHW.cpp">
       <Filter>03. Scene\DebugScene\SceneHW</Filter>
     </ClCompile>
@@ -403,9 +406,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTestLightMeshObject.cpp">
       <Filter>04. GameObjects\TestLight\TestLightObject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CPlayer.cpp">
-      <Filter>04. GameObjects\TestPlayer</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CMonster.cpp">
       <Filter>04. GameObjects\TestObject</Filter>
@@ -526,6 +526,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMainPlayer.cpp">
       <Filter>04. GameObjects\MainPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlotCube_Auto.cpp">
+      <Filter>04. GameObjects\Cube\SlotCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneStage2.cpp">
+      <Filter>03. Scene\ReleaseScene\02. StageScene\Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneStage3.cpp">
+      <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
