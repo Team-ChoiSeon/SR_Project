@@ -58,6 +58,11 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_fPickPointDist = 0.f;
 	m_vPickObjDist = { 0.f, 0.f, 0.f };
 	m_vPickPointDist = { 0.f, 0.f, 0.f };
+
+	CSoundMgr::Get_Instance()->Load_Sound("jump", "../Bin/Resource/Sound/Jump1.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("Walking1", "../Bin/Resource/Sound/Walking_Wood1.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("Landing1", "../Bin/Resource/Sound/Landing_Wood1.mp3");
+
 	CFactory::Save_Prefab(this, "CMainPlayer");
 	return S_OK;
 }
@@ -82,10 +87,24 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 		return S_OK;
 	}
 
-	
+
+
+
+
+
 	KeyInput(fTimeDelta);
 	CGameObject::Update_GameObject(fTimeDelta);
 	Update_State(fTimeDelta);
+
+	//if (m_pRigid->Get_OnGround()) {
+	//	if (!m_bOnGroundFirst) {
+	//		CSoundMgr::Get_Instance()->Play("Landing1", "SFX", false);
+	//		m_bOnGroundFirst = true;
+	//	}
+	//}
+	//else {
+	//	m_bOnGroundFirst = false;
+	//}
 
 	//CGuiSystem::Get_Instance()->RegisterPanel("Drag Info",
 	//	[this]() {
@@ -177,6 +196,21 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	if (D3DXVec3Length(&moveDir) > 0.f) {
 		D3DXVec3Normalize(&moveDir, &moveDir);
 		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + moveDir * m_fMoveSpeed * fTimeDelta);
+
+		if (!m_bWalkingSound)
+		{
+			if (m_pRigid->Get_OnGround()) {
+				CSoundMgr::Get_Instance()->Play("Walking1", "SFX", true);
+				m_bWalkingSound = true;
+			}
+		}
+	}
+	else {
+		if (m_bWalkingSound)
+		{
+			CSoundMgr::Get_Instance()->Stop("Walking1");
+			m_bWalkingSound = false;
+		}
 	}
 
 	// 나중에 삭제
@@ -193,6 +227,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 				m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower, 0.f));
 				m_pRigid->Set_OnGround(false);
 				m_fJumpTime = 0.f;
+				CSoundMgr::Get_Instance()->Play("jump", "SFX", false);
 			}
 		}
 	}

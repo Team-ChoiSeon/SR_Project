@@ -111,4 +111,8 @@ private:
 	bool m_bInvincible = false; // 무적 여부
 	_float m_fInvincibleTime = 0.f;
 	const _float m_fMaxInvincibleTime = 5.0f;
+
+	_bool m_bWalkingSound = false; // 걷는중
+	_bool m_bOnGroundFirst = false;
+
 };

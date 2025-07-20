@@ -45,6 +45,12 @@ SceneStage2::~SceneStage2()
 
 HRESULT SceneStage2::Ready_Scene()
 {
+
+	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
+	CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
+	CSoundMgr::Get_Instance()->Play("BGM1", "SFX", true);
+	
+
 	//Init_Layers();
 	for (auto& tile : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
 		tile.pObj->Get_Component<CRigidBody>()->Set_UseGravity(false);
@@ -342,5 +348,6 @@ SceneStage2* SceneStage2::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void SceneStage2::Free()
 {
+	CSoundMgr::Get_Instance()->Stop("BGM1");
 	CScene::Free();
 }
