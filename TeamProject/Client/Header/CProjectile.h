@@ -7,6 +7,7 @@ namespace Engine
 	class CTransform;
 	class CRigidBody;
 	class CCollider;
+	class CParticle;
 }
 
 
@@ -35,6 +36,7 @@ private:
 	CTransform* m_pTransform = nullptr;
 	CRigidBody* m_pRigid = nullptr;
 	CCollider* m_pCol = nullptr;
+	CParticle* m_pParticle = nullptr;
 
 	_float m_fLifeTime = 10.f;
 };

@@ -14,6 +14,7 @@
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
 #include "CUiMgr.h"
+#include "CResourceMgr.h"
 
 
 BossScene::BossScene(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -59,7 +60,9 @@ HRESULT BossScene::Ready_Scene()
 	pCam->Set_Target(pPlayer);  // 1ÀÎÄª ½ÃÁ¡
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
-
+	CResourceMgr::Get_Instance()->Load_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
+	CResourceMgr::Get_Instance()->Load_Texture(L"blackSmoke00.png");
+	CResourceMgr::Get_Instance()->Load_Texture(L"projectile.png");
 
 	return S_OK;
 }

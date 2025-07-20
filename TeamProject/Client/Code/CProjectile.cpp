@@ -6,6 +6,9 @@
 #include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCollider.h"
+#include "CParticle.h"
+
+#include "CFactory.h"
 
 CProjectile::CProjectile(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
@@ -44,6 +47,14 @@ HRESULT CProjectile::Ready_GameObject()
 	m_pCol->Set_ColType(ColliderType::PASSIVE);
 	m_pCol->Set_BoundType(BoundingType::OBB);
 
+	Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
+	m_pParticle = Get_Component<CParticle>();
+	m_pParticle->Set_Texture(L"projectile.png");
+	m_pParticle->PreSet_Fire(300, 0.03f, 1.f);
+	m_pParticle->Set_Speed(2.f);
+	m_pParticle->Set_Size(3.f);
+
+	CFactory::Save_Prefab(this, "CProjectile");
 	return CGameObject::Ready_GameObject();
 }
 
@@ -87,3 +98,5 @@ void CProjectile::Free()
 	Safe_Release(m_pCol);
 	CGameObject::Free();
 }
+
+REGISTER_GAMEOBJECT(CProjectile);
