@@ -50,12 +50,10 @@ HRESULT SceneStage2::Ready_Scene()
 	CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
 	CSoundMgr::Get_Instance()->Play("BGM1", "SFX", true);
 	
-
-	//Init_Layers();
+	Init_Layers();
 	for (auto& tile : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
 		tile.pObj->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	}
-
 
 	CMainPlayer* pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"MainPlayer");
 	pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
