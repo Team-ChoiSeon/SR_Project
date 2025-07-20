@@ -52,6 +52,9 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_pRigid->Set_Friction(10.f);
 	m_pRigid->Set_Gravity(5.f);
 
+	m_pCollider->Set_ColTag(ColliderTag::PLAYER);
+	m_pCollider->Set_ColType(ColliderType::ACTIVE);
+
 	m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
 	m_fPickObjDist = 0.f;
