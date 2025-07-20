@@ -1,4 +1,5 @@
 #include "CCollisionMgr.h"
+#include "CGameObject.h"
 
 IMPLEMENT_SINGLETON(CCollisionMgr)
 
@@ -66,10 +67,35 @@ void CCollisionMgr::Update_Collision()
 	}
 
 	m_setPrevCollisions = move(setCurrCollisions);
+	Clear();
 }
+
+
 
 void CCollisionMgr::Add_Collider(CCollider* collider)
 {
+	// ▼▼▼▼▼▼▼▼▼▼ 이 디버깅 코드를 추가해주세요 ▼▼▼▼▼▼▼▼▼▼
+	if (collider)
+	{
+		CGameObject* pOwner = collider->m_pOwner; // CCollider에 Get_Owner()가 있어야 합니다.
+		if (pOwner)
+		{
+			char szBuffer[256] = "";
+			sprintf_s(szBuffer, "Collider Added: Addr=0x%p, OwnerType=%s, OwnerAddr=0x%p\n",
+				collider,
+				pOwner->Get_Type(), // 1단계에서 추가한 함수 사용
+				pOwner);
+			OutputDebugStringA(szBuffer); // Visual Studio의 '출력' 창에서 확인
+		}
+		else
+		{
+			// 소유자가 없는 콜라이더가 추가되는 경우
+			char szBuffer[128] = "";
+			sprintf_s(szBuffer, "Collider Added: Addr=0x%p, Owner is NULL!\n", collider);
+			OutputDebugStringA(szBuffer);
+		}
+	}
+	// ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 	auto iter = find_if(m_ColList.begin(), m_ColList.end(),
 		[&collider](CCollider* data)->bool {
 			return data == collider;

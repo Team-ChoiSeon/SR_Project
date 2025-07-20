@@ -66,6 +66,9 @@ HRESULT CCollider::Ready_Component()
 
 	m_pIB->Unlock();
 
+	//if (m_bActive)
+	//	CCollisionMgr::Get_Instance()->Add_Collider(this);
+
 	return S_OK;
 }
 void CCollider::Update_Component(const _float& fTimeDelta)
@@ -155,6 +158,7 @@ void CCollider::LateUpdate_Component(const _float& fTimeDelta)
 {
 	if(m_bActive)
 		CRenderMgr::Get_Instance()->Add_Collider(this);
+	
 }
 
 void CCollider::Render(LPDIRECT3DDEVICE9 pDevice)
@@ -357,19 +361,29 @@ bool CCollider::Calc_Push_OBB(const BoundInfo& a, const BoundInfo& b, _vec3& pus
 
 void CCollider::Handle_Collision(CCollider* pOther)
 {
+	if (this == pOther) return; // 자기 자신과의 충돌은 무시
 	ColliderType oType = pOther->Get_ColType();
 	if (m_eType != ColliderType::ACTIVE || oType == ColliderType::TRIGGER)
 		return;
 
 	_vec3 push(0.f, 0.f, 0.f);
-	if (Calc_Push_OBB(Get_Bound(), pOther->Get_Bound(), push))
+	bool bCollided = Narrow_Phase(pOther, push);
+
+	if (bCollided)
 	{
-		// 바닥 전용 처리
+		// ▼▼▼▼▼▼▼▼▼▼ 디버그 메시지를 주소값으로 변경 ▼▼▼▼▼▼▼▼▼▼
+		/*char szBuffer[256] = "";
+		sprintf_s(szBuffer,
+			"Collision!\nMy Addr: 0x%p (Tag:%d)\nOther Addr: 0x%p (Tag:%d)",
+			this, (int)this->Get_ColTag(),
+			pOther, (int)pOther->Get_ColTag());
+		MSG_BOX(szBuffer);*/
+		// ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
 		if (pOther->Get_ColTag() == ColliderTag::GROUND)
 		{
 			Handle_Ground(pOther, push);
 		}
-		
 		else
 		{
 			Handle_Active(pOther, push);
@@ -482,32 +496,28 @@ void CCollider::Handle_Ground(CCollider* pOther, const _vec3& push)
 
 	if (!m_pRigid) return;
 
-	_vec3 vVel = m_pRigid->Get_Velocity();
-
 	_vec3 vPushDir;
 	D3DXVec3Normalize(&vPushDir, &push);
 
+	// 1. 먼저 바닥 충돌 상태를 확인하고 설정합니다.
+	// push 벡터가 위쪽을 향하고 있다면 바닥으로 간주합니다.
+	if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
+	{
+		m_pRigid->Set_OnGround(true);
+	}
+
+	// 2. 그 다음, 물체의 속도에 따른 물리 반응을 처리합니다.
+	_vec3 vVel = m_pRigid->Get_Velocity();
 	float fVelDotNormal = D3DXVec3Dot(&vVel, &vPushDir);
 
-	// 물체가 충돌면으로 이동 중일 때만 반응
+	// 물체가 충돌면으로 이동 중일 때만 속도를 반사시킵니다.
 	if (fVelDotNormal < 0.f)
 	{
-		// 2-1. 속도를 수직/수평 성분으로 분해
-		_vec3 vNormalVel = vPushDir * fVelDotNormal; // 수직 속도
-		_vec3 vTangentVel = vVel - vNormalVel;      // 수평 속도 (미끄러지는 속도)
+		_vec3 vNormalVel = vPushDir * fVelDotNormal;
+		_vec3 vTangentVel = vVel - vNormalVel;
 
-		// 2-2. 수직 속도만 반발 계수를 적용하여 반사시킴
-		// 이렇게 하면 수평 속도는 보존되어 미끄러짐이 유지됩니다.
 		vNormalVel *= -m_pRigid->Get_Bounce();
-
-		// 2-3. 최종 속도 설정: 보존된 수평 속도와 반사된 수직 속도를 합침
 		m_pRigid->Set_Velocity(vTangentVel + vNormalVel);
-
-		// 2-4. 바닥 상태 설정
-		if (D3DXVec3Dot(&vPushDir, &up) > 0.5f)
-		{
-			m_pRigid->Set_OnGround(true);
-		}
 	}
 }
 
