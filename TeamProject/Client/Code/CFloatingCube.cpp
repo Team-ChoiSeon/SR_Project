@@ -144,6 +144,19 @@ void CFloatingCube::Set_Info(const _vec3& vDirection, const _float& fMax, const 
 
 }
 
+void CFloatingCube::Set_Info(const _vec3& vStart, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime)
+{
+	m_vStartPos = vStart;
+	m_pTransform->Set_Pos(m_vStartPos);
+	m_vDirection = vDirection;
+	m_fMaxDistance = fMax;
+	m_fSpeed = fSpeed;
+	m_fSleepTime = SleepTime;
+	m_bBackward = false;
+	m_bSleep = true;
+	ComputeEndPos();
+}
+
 void CFloatingCube::SyncVelPlayer(const _float& fTimeDelta)
 {
 	CCollider* pOtherCol = m_pCollider->Get_Other();

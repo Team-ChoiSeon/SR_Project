@@ -64,26 +64,11 @@ HRESULT TestSceneHW::Ready_Scene()
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
 	m_pPlayer->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
 
-
-	//==============================================TestScene1=========================================//
-	////Scene Setting
+	//Object Setting
 	FloatingSet();
 	DirectionSet();
 	SlotSet();
 	MagnetSet();
-
-
-	////temp
-	//auto gravitycube = CLowGravityCube::Create(m_pGraphicDev);
-	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"gravitycube", gravitycube);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"gravitycube")->Get_Component<CTransform>()->Set_Pos({ 0.f, 21.f, -5.f });
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"gravitycube")->Get_Component<CTransform>()->Set_Scale({1.f, 0.2f, 1.f });
-
-	//auto zonesensor = CZoneSensor::Create(m_pGraphicDev);
-	//Get_Layer(LAYER_OBJECT)->Add_GameObject(L"zonesensor", zonesensor);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"zonesensor")->Get_Component<CTransform>()->Set_Pos({ 10.f, 21.f, -5.f });
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"zonesensor")->Get_Component<CTransform>()->Set_Scale({ 1.f, 0.2f, 1.f });
-	//============================================================================================================//
 
 	return S_OK;
 }
@@ -117,52 +102,14 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	_bool room3SlotPuzzle = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor1")->Get_SensorState() &&
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor2")->Get_SensorState();
 
-	//==============================================TestScene1=========================================//
-	//_bool Floating1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch_1")->Get_SwitchState();
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_1")->SetTrigger(Floating1);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_2")->SetTrigger(Floating1);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_3")->SetTrigger(Floating1);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_13")->SetTrigger(Floating1);
-
-	//_bool Floating2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch_2")->Get_SwitchState();
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_4")->SetTrigger(Floating2);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_5")->SetTrigger(Floating2);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_6")->SetTrigger(Floating2);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_7")->SetTrigger(Floating2);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_8")->SetTrigger(Floating2);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_9")->SetTrigger(Floating2);
-
-	//_bool Floating3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch_3")->Get_SwitchState();
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_10")->SetTrigger(Floating3);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_11")->SetTrigger(Floating3);
-
-	//_bool bPuzzle1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_1")->Get_SensorState() &&
-	//	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_2")->Get_SensorState() &&
-	//	Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_3")->Get_SensorState();
-
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_12")->SetTrigger(bPuzzle1);
-
 	CScene::Update_Scene(fTimeDelta);
-
-
 
 	//===========================================================================================================//
 	//Debugging Codes
 
-	//CGuiSystem::Get_Instance()->RegisterPanel("velocity", [this]() {
-	//	// 간단한 GUI 창 하나 출력
-	//	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-	//	ImGui::Begin("IMGUI");
-	//	ImGui::Text(to_string(m_pPlayer->Get_Component<CTransform>()->Get_Pos().y).c_str());
-	//	ImGui::End();
-	//	});
-
-	//auto state = Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"CMetalCube_1")->m_eState;
-	//_bool zonesensor = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"zonesensor")->Get_SensorState();
-	////Deubbing Code
 	// CGuiSystem::Get_Instance()->RegisterPanel("state", [zonesensor]() {
- //		// 간단한 GUI 창 하나 출력
- //		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+	//		// 간단한 GUI 창 하나 출력
+	//		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
 	//	if (zonesensor)
 	//		ImGui::Begin("TRUE");
 	//	else
@@ -187,24 +134,6 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	//	 //    ImGui::Begin("Not On Ground");
 
  //		ImGui::End();
-
- 	//	});
-	//_vec3 playerpos = m_pPlayer->GetPos();
-
-	//wchar_t buf1[128];
-	//swprintf_s(buf1, 128, L"Player Pos : %.3f, %.3f, %.3f\n", playerpos.x, playerpos.y, playerpos.z);
-	//OutputDebugStringW(buf1);
-	//_vec3 slotpos = m_pSlotCube->Get_Component<CTransform>()->Get_Pos();
-	//_bool slotground = m_pSlotCube->Get_Component<CRigidBody>()->Get_OnGround();
-
-	//wchar_t buf1[128];
-	//swprintf_s(buf1, 128, L"Cube Pos : %.3f, %.3f, %.3f\n", slotpos.x, slotpos.y, slotpos.z);
-	//OutputDebugStringW(buf1);
-
-	//if(slotground)
-	//	OutputDebugStringW(L"Cube On Ground\n");
-	//else
-	//	OutputDebugStringW(L"Cube Not On Ground\n");
 	//===========================================================================================================//
 
 
@@ -230,64 +159,45 @@ void TestSceneHW::FloatingSet()
 {	
 	//SlidingDoor
 	{
+		//Room1
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room1_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room1_SlidingDoor1")->Set_Loop();
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->Set_Loop();
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->Set_Loop();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room1_SlidingDoor1")->SetTrigger(true);
+		//Path1
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->Set_Loop();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->SetTrigger(true);
+		//Room2
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->Set_Loop();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->SetTrigger(true);
+		//Room3
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->Set_Loop();
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->SetTrigger(true);
+		//Path2
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_SlidingDoor1")->Set_Loop();
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_SlidingDoor1")->SetTrigger(true);
+
+		//Room4
 	}
 
-	//Elevatior
+	//Elevator
 	{
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_Floating1")->Set_Info({ 1, 0, 0 }, 3, 3, 0);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->Set_Info({ 1, 0, 0 }, 10, 5, 1.5f);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_Floating1")->Set_Info({ 1, 0, 0 }, 10, 5, 1.5f);
 	}
-
-
-	//==============================================TestScene1=========================================//
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_1")->Set_Info( { 1, 0, 0 }, 5, 3, 0);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_2")->Set_Info( { 1, 0, 0 }, 5, 3, 0);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_3")->Set_Info( { 1, 0, 0 }, 5, 3, 0);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_13")->Set_Info( { 1, 0, 0 }, 5, 3, 0);
-
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_4")->Set_Info( { 0, 1, 0 }, 20.6f, 10, 0);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_5")->Set_Info( { 0, 1, 0 }, 20.6f, 9, 0);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_6")->Set_Info( { 0, 1, 0 }, 20.6f, 8, 0);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_7")->Set_Info( { 0, 1, 0 }, 20.6f, 7, 0);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_8")->Set_Info( { 0, 1, 0 }, 20.6f, 6, 0);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_9")->Set_Info( { 0, 1, 0 }, 20.6f, 5, 0);
-	//
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_4")->Get_Component<CTransform>()->Set_Scale({ 4.f, 0.4f, 3.98f });
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_5")->Get_Component<CTransform>()->Set_Scale({ 4.f, 0.4f, 3.98f });
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_6")->Get_Component<CTransform>()->Set_Scale({ 4.f, 0.4f, 3.98f });
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_7")->Get_Component<CTransform>()->Set_Scale({ 4.f, 0.4f, 3.98f });
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_8")->Get_Component<CTransform>()->Set_Scale({ 4.f, 0.4f, 3.98f });
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_9")->Get_Component<CTransform>()->Set_Scale({ 4.f, 0.4f, 3.98f });
-
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_10")->Set_Info( { 0, 1, 0 }, 1, 0.7f, 0);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_11")->Set_Info( {0, 1, 0}, 40, 10, 2);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_12")->Set_Info( { 0, 0.88f, 1.f }, 61, 5, 2);
-
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_11")->Set_Loop();
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube_12")->Set_Loop();
-	//============================================================================================================//
 }
 
 void TestSceneHW::DirectionSet()
-{	
-	//==============================================TestScene1===========================================================//
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1")->Set_Info( { 0, 1, 0 }, 0.f, 5.f);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_2")->Set_Info( { 0, 1, 0 }, 0.f, 5.f);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_3")->Set_Info( { 0, 1, 0 }, 0.f, 5.f);
-
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_4")->Set_Info( { -1, 0, 0 }, 0.f, 20.f);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_5")->Set_Info( { 1, 0, 0 }, 0.f, 20.f);
-	//===================================================================================================================//
+{
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"Room4_DirectionalDoor")->Set_Info({ 0, 0, -1 }, 10);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"Room4_Directional1")->Set_Info({ 1, 0, 0 }, 3.8f);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"Room4_Directional2")->Set_Info({ 1, 0, 0 }, 3.8f);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"Room4_Direcitonal3")->Set_Info({ 1, 0, 0 }, 3.8f);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"Room4_Driectional4")->Set_Info({ 1, 0, 0 }, 3.8f);
 }
 
 void TestSceneHW::SlotSet()
@@ -304,39 +214,16 @@ void TestSceneHW::SlotSet()
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"Room3_SlotCube1")->Set_Info(3, 1);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor2")->Set_Info(m_pPlayer, 3, 2);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"Room3_SlotCube2")->Set_Info(3, 2);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor3")->Set_Info(m_pPlayer, 3, 3);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"Room3_SlotCube3")->Set_Info(3, 3);
 	}
-
-	//==============================================TestScene1===========================================================//
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_1")->Set_Info(m_pPlayer, 1, 1);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_2")->Set_Info(m_pPlayer, 1, 2);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor_3")->Set_Info(m_pPlayer, 1, 3);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_1")->Set_Info( 1, 1);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_2")->Set_Info( 1, 2);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube_3")->Set_Info( 1, 3);
-	//===================================================================================================================//
 }
 
 void TestSceneHW::MagnetSet()
 {
-
-	//==============================================TestScene1===========================================================//
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMagneticCube>(L"CMagneticCube_1")->Get_Component<CCollider>()->Set_BoundType(BoundingType::OBB);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMagneticCube>(L"CMagneticCube_2")->Get_Component<CCollider>()->Set_BoundType(BoundingType::OBB);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMagneticCube>(L"CMagneticCube_3")->Get_Component<CCollider>()->Set_BoundType(BoundingType::OBB);
-
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_1")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_2")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_3")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_4")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_5")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_6")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_7")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_8")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_9")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_10")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_11")->Set_Info(m_pPlayer);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject <CMetalCube>(L"CMetalCube_12")->Set_Info(m_pPlayer);
-
-	//====================================================================================================================//
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"Room4_MetalCube1")->Set_Info(m_pPlayer);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"Room4_MetalCube2")->Set_Info(m_pPlayer);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"Room4_MetalCube3")->Set_Info(m_pPlayer);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"Room4_MetalCube4")->Set_Info(m_pPlayer);
 }
 

@@ -59,9 +59,9 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_vPickObjDist = { 0.f, 0.f, 0.f };
 	m_vPickPointDist = { 0.f, 0.f, 0.f };
 
-	CSoundMgr::Get_Instance()->Load_Sound("jump", "../Bin/Resource/Sound/Jump1.mp3");
-	CSoundMgr::Get_Instance()->Load_Sound("Walking1", "../Bin/Resource/Sound/Walking_Wood1.mp3");
-	CSoundMgr::Get_Instance()->Load_Sound("Landing1", "../Bin/Resource/Sound/Landing_Wood1.mp3");
+	//CSoundMgr::Get_Instance()->Load_Sound("jump", "../Bin/Resource/Sound/Jump1.mp3");
+	//CSoundMgr::Get_Instance()->Load_Sound("Walking1", "../Bin/Resource/Sound/Walking_Wood1.mp3");
+	//CSoundMgr::Get_Instance()->Load_Sound("Landing1", "../Bin/Resource/Sound/Landing_Wood1.mp3");
 
 	CFactory::Save_Prefab(this, "CMainPlayer");
 	return S_OK;
@@ -200,7 +200,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		if (!m_bWalkingSound)
 		{
 			if (m_pRigid->Get_OnGround()) {
-				CSoundMgr::Get_Instance()->Play("Walking1", "SFX", true);
+				//CSoundMgr::Get_Instance()->Play("Walking1", "SFX", true);
 				m_bWalkingSound = true;
 			}
 		}
@@ -208,7 +208,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 	else {
 		if (m_bWalkingSound)
 		{
-			CSoundMgr::Get_Instance()->Stop("Walking1");
+			//CSoundMgr::Get_Instance()->Stop("Walking1");
 			m_bWalkingSound = false;
 		}
 	}
@@ -227,7 +227,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 				m_pRigid->Add_Velocity(_vec3(0.f, m_fJumpPower, 0.f));
 				m_pRigid->Set_OnGround(false);
 				m_fJumpTime = 0.f;
-				CSoundMgr::Get_Instance()->Play("jump", "SFX", false);
+				//CSoundMgr::Get_Instance()->Play("jump", "SFX", false);
 			}
 		}
 	}

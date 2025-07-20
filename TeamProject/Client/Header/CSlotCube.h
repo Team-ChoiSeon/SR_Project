@@ -28,6 +28,7 @@ public:
 
 	//Getter, Setter Function
 	void Set_Info(const _int ID, const _int Seuqence);
+	void Set_Info(CMainPlayer* player, const _int ID, const _int Seuqence);
 
 
 	_int Get_PuzzleID() { return m_iPuzzleID; }
@@ -48,6 +49,7 @@ private:
 	CCollider* m_pCollider;
 	CRigidBody* m_pRigid;
 	CPickTarget* m_pPick;
+	CMainPlayer* m_pPlayer;
 
 	CSlotSensor* m_FitSlot;
 	unordered_map<CSlotSensor*, _float> m_vecDetected_Slot;

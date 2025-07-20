@@ -97,12 +97,36 @@ void CDirectionalCube::Set_Info(const _vec3& axis, const _float& mindistance, co
 	m_bOneway = false;
 	ComputeMinMaxPos();
 
-	CFactory::Save_Prefab(this, "CDirectionalCube");
 }
 
 void CDirectionalCube::Set_Info( const _vec3& axis, const _float& maxdistance)
 {
 	m_vStartPos = m_pTransform->Get_Pos();
+	D3DXVec3Normalize(&m_vDefaultAxis, &axis);
+	m_fMaxDistance = maxdistance;
+	m_vMoveDelta = { 0.f, 0.f, 0.f };
+	m_vCursorDelta = { 0.f, 0.f, 0.f };
+	m_bOneway = true;
+	ComputeEndPos();
+}
+
+void CDirectionalCube::Set_Info(const _vec3& start, const _vec3& axis, const _float& mindistance, const _float& maxdistance)
+{
+	m_vStartPos = start;
+	m_pTransform->Set_Pos(m_vStartPos);
+	D3DXVec3Normalize(&m_vDefaultAxis, &axis);
+	m_fMinDistance = mindistance;
+	m_fMaxDistance = maxdistance;
+	m_vMoveDelta = { 0.f, 0.f, 0.f };
+	m_vCursorDelta = { 0.f, 0.f, 0.f };
+	m_bOneway = false;
+	ComputeMinMaxPos();
+}
+
+void CDirectionalCube::Set_Info(const _vec3& start, const _vec3& axis, const _float& maxdistance)
+{
+	m_vStartPos = start;
+	m_pTransform->Set_Pos(m_vStartPos);
 	D3DXVec3Normalize(&m_vDefaultAxis, &axis);
 	m_fMaxDistance = maxdistance;
 	m_vMoveDelta = { 0.f, 0.f, 0.f };

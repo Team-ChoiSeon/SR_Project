@@ -134,6 +134,13 @@ void CSlotCube::Set_Info(const _int puzzleID, const _int slotID)
 	m_iSlotID = slotID;
 }
 
+void CSlotCube::Set_Info(CMainPlayer* player, const _int ID, const _int Seuqence)
+{
+	m_pPlayer = player;
+	m_iPuzzleID = ID;
+	m_iSlotID = Seuqence;
+}
+
 
 void CSlotCube::Insert_Overlap(CSlotSensor* sensor, _float dist)
 {
