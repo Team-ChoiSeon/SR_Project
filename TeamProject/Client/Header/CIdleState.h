@@ -1,7 +1,7 @@
 #pragma once
 #include "IVellumState.h"
 
-enum class VPattern { DIVE, FIRE, CHASE, SPIN, NONE };
+enum class VPattern { FIRE, DIVE, CHASE, SPIN, NONE };
 
 class CIdleState : public IVellumState
 {

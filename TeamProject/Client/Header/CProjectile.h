@@ -8,9 +8,10 @@ namespace Engine
 	class CRigidBody;
 	class CCollider;
 	class CParticle;
+	class CPickTarget;
 }
 
-
+enum class EProjectileState{MSHOT, GROUND, HOLD, PSHOT};
 
 class CProjectile : public CGameObject
 {
@@ -29,6 +30,13 @@ public:
 	static CProjectile* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
+	void Pick(CTransform* pTransform);
+	void Throw(const _vec3& vDir, const _float& fSpeed);
+	EProjectileState Get_State() const { return m_eState; }
+
+private:
+	bool Check_Ray(_float& fDist);
+
 
 
 private:
@@ -38,6 +46,11 @@ private:
 	CCollider* m_pCol = nullptr;
 	CParticle* m_pParticle = nullptr;
 
+	CPickTarget* m_pPickTarget = nullptr;
+	CTransform* m_pPickerTransform = nullptr;
+
 	_float m_fLifeTime = 30.f;
+
+	EProjectileState m_eState = EProjectileState::MSHOT;
 };
 

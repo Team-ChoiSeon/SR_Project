@@ -33,6 +33,9 @@ void CPickTarget::Update_Component(const _float& fTimeDelta)
 
 void CPickTarget::LateUpdate_Component(const _float& fTimeDelta)
 {
+	if (!m_bActive)
+		return;
+
 	if (Check_Collision())
 		Add_HitInfo();
 }
