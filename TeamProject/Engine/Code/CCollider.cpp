@@ -66,8 +66,6 @@ HRESULT CCollider::Ready_Component()
 
 	m_pIB->Unlock();
 
-	//if (m_bActive)
-	//	CCollisionMgr::Get_Instance()->Add_Collider(this);
 
 	return S_OK;
 }
@@ -371,15 +369,6 @@ void CCollider::Handle_Collision(CCollider* pOther)
 
 	if (bCollided)
 	{
-		// ▼▼▼▼▼▼▼▼▼▼ 디버그 메시지를 주소값으로 변경 ▼▼▼▼▼▼▼▼▼▼
-		/*char szBuffer[256] = "";
-		sprintf_s(szBuffer,
-			"Collision!\nMy Addr: 0x%p (Tag:%d)\nOther Addr: 0x%p (Tag:%d)",
-			this, (int)this->Get_ColTag(),
-			pOther, (int)pOther->Get_ColTag());
-		MSG_BOX(szBuffer);*/
-		// ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
-
 		if (pOther->Get_ColTag() == ColliderTag::GROUND)
 		{
 			Handle_Ground(pOther, push);
