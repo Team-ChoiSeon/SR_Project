@@ -38,6 +38,6 @@ private:
 	CCollider* m_pCol = nullptr;
 	CParticle* m_pParticle = nullptr;
 
-	_float m_fLifeTime = 10.f;
+	_float m_fLifeTime = 30.f;
 };
 

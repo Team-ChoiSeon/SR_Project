@@ -36,7 +36,7 @@ HRESULT CProjectile::Ready_GameObject()
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
 	m_pRigid->Set_OnGround(false);
-	m_pRigid->Set_UseGravity(false);
+	m_pRigid->Set_UseGravity(true);
 	m_pRigid->Set_Bounce(0);
 	m_pRigid->Set_Friction(1);
 	m_pRigid->Set_Mass(1.f);
@@ -44,7 +44,7 @@ HRESULT CProjectile::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCol = Get_Component<CCollider>();
 	m_pCol->Set_ColTag(ColliderTag::MONSTER);
-	m_pCol->Set_ColType(ColliderType::PASSIVE);
+	m_pCol->Set_ColType(ColliderType::ACTIVE);
 	m_pCol->Set_BoundType(BoundingType::OBB);
 
 	Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
@@ -66,7 +66,8 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 		m_pCol->Get_ColState() == ColliderState::STAY)
 	{
 		if (m_pCol->Get_Other()->Get_ColTag() != ColliderTag::ATTACK &&
-			m_pCol->Get_Other()->Get_ColTag() != ColliderTag::MONSTER)
+			m_pCol->Get_Other()->Get_ColTag() != ColliderTag::MONSTER &&
+			m_pCol->Get_Other()->Get_ColTag() != ColliderTag::GROUND)
 		{
 			return 1;
 		}
