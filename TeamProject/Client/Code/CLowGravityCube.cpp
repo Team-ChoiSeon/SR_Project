@@ -105,9 +105,9 @@ void CLowGravityCube::Push()
 	if (m_pColTarget) {
 		if (m_bFirstCol) {
 			m_fColGravity = m_pColTarget->Get_Component<CRigidBody>()->Get_Gravity();
-			m_pColTarget->Get_Component<CRigidBody>()->Set_Gravity(m_fColGravity * 0.3f);
+			m_pColTarget->Get_Component<CRigidBody>()->Set_Gravity(m_fColGravity * 0.5f);
 		}
-		m_pColTarget->Get_Component<CRigidBody>()->Add_Velocity({ 0.f, 1.f, 0.f });
+		m_pColTarget->Get_Component<CRigidBody>()->Add_Velocity({ 0.f, 5.f, 0.f });
 		m_pPreColTarget = m_pColTarget;
 		m_pColTarget = nullptr;
 		m_bFirstCol = false;

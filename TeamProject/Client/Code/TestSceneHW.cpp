@@ -56,7 +56,7 @@ HRESULT TestSceneHW::Ready_Scene()
 	m_pFFCam = Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"CFirstviewFollowingCamera_1");
 	m_pFFCam->Set_Target(m_pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
-	m_pFFCam->Get_Component<CCamera>()->Set_Far(1000.f);
+	m_pFFCam->Get_Component<CCamera>()->Set_Far(300.f);
 
 	//UI Setting
 	CUiMgr::Get_Instance()->Ready_UiMgr();
@@ -87,20 +87,34 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room1_SlidingDoor1")->SetGoBack(!door1);
 
 	//Path1
-	_bool door2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Path1_DoorSwitch1")->Get_SwitchState();
+	_bool door2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Path1_DoorSwitch1")->Get_SwitchState() &&
+		!Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->SetGoBack(!door2);
 
 	//Room2
 	_bool room2Switch1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Room2_Switch1")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_Floating1")->SetTrigger(room2Switch1);
-	_bool room2Slotsensor1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room2_SlotSensor1")->Get_SensorState();
+	_bool room2Slotsensor1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room2_SlotSensor1")->Get_SensorState() &&
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->SetGoBack(!room2Slotsensor1);
 
 	//Room3
 	_bool room3Switch1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Room3_Switch1")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->SetTrigger(room3Switch1);
-	_bool room3SlotPuzzle = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor1")->Get_SensorState() &&
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor2")->Get_SensorState();
+	_bool room3SlotPuzzle1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor1")->Get_SensorState() &&
+							Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor2")->Get_SensorState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating2")->SetTrigger(room3SlotPuzzle1);
+	_bool room3SlotPuzzle2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor3")->Get_SensorState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->SetGoBack(!room3SlotPuzzle2);
+
+	//Path2
+	_bool path2Elevtor1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path2_FloatingSensor1")->Get_SensorState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_Floating1")->SetTrigger(path2Elevtor1);
+	_bool path2Door1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path2_DoorSensor")->Get_SensorState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_SlidingDoor1")->SetGoBack(!path2Door1);
+
+
+
 
 	CScene::Update_Scene(fTimeDelta);
 
@@ -163,18 +177,22 @@ void TestSceneHW::FloatingSet()
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room1_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room1_SlidingDoor1")->Set_Loop();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room1_SlidingDoor1")->SetTrigger(true);
+
 		//Path1
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->Set_Loop();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->SetTrigger(true);
+
 		//Room2
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->Set_Loop();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->SetTrigger(true);
+
 		//Room3
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 20, 20, 0);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->Set_Loop();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->SetTrigger(true);
+
 		//Path2
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_SlidingDoor1")->Set_Info({ 0, 1, 0 }, 15, 20, 0);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_SlidingDoor1")->Set_Loop();
@@ -185,9 +203,15 @@ void TestSceneHW::FloatingSet()
 
 	//Elevator
 	{
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_Floating1")->Set_Info({ 1, 0, 0 }, 3, 3, 0);
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->Set_Info({ 1, 0, 0 }, 10, 5, 1.5f);
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_Floating1")->Set_Info({ 1, 0, 0 }, 10, 5, 1.5f);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_Floating1")->Set_Info({ 1, 0, 0 }, 5, 3, 0);
+
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->Set_Info({ 0, 1, 0 }, 20, 5, 1.5f);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->Set_Loop();
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating2")->Set_Info({ 0, 1, 0 }, 20, 5, 1.5f);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating2")->Set_Loop();
+
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_Floating1")->Set_Info({ 0, 1, 0 }, 20, 5, 1.5f);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_Floating1")->Set_Loop();
 	}
 }
 
