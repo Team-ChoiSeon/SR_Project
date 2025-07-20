@@ -28,6 +28,7 @@
 #include "CSceneGate.h"
 #include "CPickSwitch.h"
 #include "CSlotCube_Auto.h"
+#include "CPlayerTriggerCube.h"
 
 #include "SceneSB.h"
 
@@ -95,7 +96,16 @@ void SceneStage3::LateUpdate_Scene(const _float& fTimeDelta)
 
 void SceneStage3::FloatingSet()
 {
+	CFloatingCube* CDoor1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_1");
+	CDoor1_1->Set_Info(CDoor1_1->Get_Component<CTransform>()->Get_Pos(), { -1.f, 0.f, 0.f }, 5.f, 15.f, 0.5f);
+	CFloatingCube* CDoor1_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_2");
+	CDoor1_2->Set_Info(CDoor1_2->Get_Component<CTransform>()->Get_Pos(), { 1.f, 0.f, 0.f }, 5.f, 15.f, 0.5f);
 	
+	CFloatingCube* CDoor1_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_3");
+	CDoor1_3->Set_Info(CDoor1_3->Get_Component<CTransform>()->Get_Pos(), { -1.f, 0.f, 0.f }, 5.f, 15.f, 0.5f);
+	CFloatingCube* CDoor1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_4");
+	CDoor1_4->Set_Info(CDoor1_4->Get_Component<CTransform>()->Get_Pos(), { 1.f, 0.f, 0.f }, 5.f, 15.f, 0.5f);
+
 }
 
 void SceneStage3::DirectionSet()
@@ -110,11 +120,25 @@ void SceneStage3::SlotSet()
 
 void SceneStage3::StairSet()
 {
-
+	CStairBlock* CStairBlock1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CStairBlock>(L"CStairBlock1_1");
+	CStairBlock1_1->Set_Distance(-32.f);
 }
 
 void SceneStage3::Set_Triggers()
 {
+	// 첫번째 문
+	_bool bDoorTrigger1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPlayerTriggerCube>(L"CDoorTrigger1_1")->Get_InGate();
+
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_1")->SetTrigger(bDoorTrigger1_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_2")->SetTrigger(bDoorTrigger1_1);
+
+	// 두번째 문
+	_bool bDoorTrigger1_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPlayerTriggerCube>(L"CDoorTrigger1_2")->Get_InGate();
+
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_3")->SetTrigger(bDoorTrigger1_2);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_4")->SetTrigger(bDoorTrigger1_2);
+
+
 
 }
 
