@@ -62,9 +62,18 @@ CTexture* CResourceMgr::Load_Texture(const wstring& texturePath)
 	return tex; // 성공 시 텍스처 반환
 }
 
+ID3DXFont* CResourceMgr::Get_Font(const wstring& key)
+{
+	auto iter = m_umFont.find(key);
+	if (iter == m_umFont.end())
+		return nullptr;
+
+	return iter->second;
+}
+
 void CResourceMgr::PreLoad_Font()
 {
-	m_umFont.insert({ L"나눔", Load_Font(L"NanumSquareNeo-bRg", L"../..ThirdParty/NanumSquareNeo-bRg.ttf" ) });
+	m_umFont.insert({ L"나눔", Load_Font(L"NanumSquareNeo-bRg", L"../..ThirdParty/NanumSquareNeo-bRg.ttf") });
 	m_umFont.insert({ L"프리텐다드", Load_Font(L"Pretendard-Regular",L"../..ThirdParty/Pretendard-Regular.ttf") });
 	m_umFont.insert({ L"여주", Load_Font(L"YeojuCeramic TTF",L"../..ThirdParty/YeojuCeramic TTF") });
 }
@@ -182,7 +191,7 @@ CMaterial* CResourceMgr::Load_Material(const wstring& mtlPath)
 	mat->Set_MaterialKey(mtlKey);
 	m_umMaterial[mtlKey] = mat;
 
-	return mat; 
+	return mat;
 }
 
 

@@ -23,10 +23,10 @@ HRESULT CLodingCube::Ready_GameObject()
     Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
     m_pRigid = Get_Component<CRigidBody>();
 
-    Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
-    m_pCollider = Get_Component<CCollider>();
-    m_pCollider->Set_ColTag(ColliderTag::NONE);
-    m_pCollider->Set_ColType(ColliderType::PASSIVE);
+  // Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
+  // m_pCollider = Get_Component<CCollider>();
+  // m_pCollider->Set_ColTag(ColliderTag::NONE);
+  // m_pCollider->Set_ColType(ColliderType::PASSIVE);
 
     m_pTransform->Set_Scale({ 0.1f, 0.1f, 0.1f });
     //m_pTransform->Set_Scale({ 0.17f, 0.17f, 0.17f });
@@ -84,7 +84,6 @@ void CLodingCube::Free()
 {
     Safe_Release(m_pRigid);
     Safe_Release(m_pModel);
-    Safe_Release(m_pCollider);
     Safe_Release(m_pTransform);
 
     CGameObject::Free();

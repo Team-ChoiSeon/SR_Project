@@ -25,23 +25,15 @@ public:
 
 	// [Mesh Register]
 	// 
-	template <typename MeshT>
-	CMesh* Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key);
-	CMesh* Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key);
 
-	// [Material Register]
-	// 
+	CMesh* Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key);
+	
 	CMaterial* Load_Material(const wstring& mtlPath);
-
-	// [Texture Register]
-	// 
 	CTexture* Load_Texture(const wstring& filePath);
 
-	HRESULT Load_GameObject(const wstring& filePath);
-
+	ID3DXFont* Get_Font(const wstring& key);
 	void PreLoad_Font();
 	void Free_Font();
-	ID3DXFont* Load_Font(const wstring& key, const wstring& path);
 
 	// 이름 기반 조회
 	CMesh* Get_Mesh(const wstring& key)
@@ -52,7 +44,6 @@ public:
 		}
 		return nullptr;
 	}
-
 	CMaterial* Get_Material(const wstring& key)
 	{
 		auto iter = m_umMaterial.find(key);
@@ -76,6 +67,8 @@ public:
 
 
 private:
+	ID3DXFont* Load_Font(const wstring& key, const wstring& path);
+
 	virtual void Free();
 
 private:
@@ -91,24 +84,24 @@ private:
 
 END
 
-template<typename MeshType>
-inline CMesh* CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
-{
-	static_assert(std::is_base_of<CMesh, MeshType>::value, "MeshType must derive from CMesh");
-
-	auto it = m_umMesh.find(key);
-	if (it != m_umMesh.end())
-		return it->second; // Already loaded
-
-	MeshType* pMesh = MeshType::Create(pDevice);
-	if (!pMesh) return nullptr;
-
-	if (!pMesh->LoadOBJ(pDevice, key)) // 로딩 실패시 nullptr 반환
-	{
-		Safe_Release(pMesh);
-		return nullptr;
-	}
-
-	m_umMesh[key] = pMesh;
-	return pMesh;
-}
+//emplate<typename MeshType>
+//nline CMesh* CResourceMgr::Load_Mesh(LPDIRECT3DDEVICE9 pDevice, const wstring& key)
+//
+//	static_assert(std::is_base_of<CMesh, MeshType>::value, "MeshType must derive from CMesh");
+//
+//	auto it = m_umMesh.find(key);
+//	if (it != m_umMesh.end())
+//		return it->second; // Already loaded
+//
+//	MeshType* pMesh = MeshType::Create(pDevice);
+//	if (!pMesh) return nullptr;
+//
+//	if (!pMesh->LoadOBJ(pDevice, key)) // 로딩 실패시 nullptr 반환
+//	{
+//		Safe_Release(pMesh);
+//		return nullptr;
+//	}
+//
+//	m_umMesh[key] = pMesh;
+//	return pMesh;
+//

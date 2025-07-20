@@ -167,7 +167,6 @@ void CRenderMgr::Clear()
 	m_vCol.clear();
 	m_vUI.clear();
 	m_vParticles.clear();
-
 }
 
 

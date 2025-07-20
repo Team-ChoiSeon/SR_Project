@@ -201,6 +201,7 @@
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\CUiImage.h" />
     <ClInclude Include="..\Header\CUiMgr.h" />
+    <ClInclude Include="..\Header\CUiQuad.h" />
     <ClInclude Include="..\Header\CVIBuffer.h" />
     <ClInclude Include="..\Header\Engine_Define.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
@@ -259,6 +260,7 @@
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\CUiImage.cpp" />
     <ClCompile Include="..\Code\CUiMgr.cpp" />
+    <ClCompile Include="..\Code\CUiQuad.cpp" />
     <ClCompile Include="..\Code\CVIBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

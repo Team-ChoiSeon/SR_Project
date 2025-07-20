@@ -172,6 +172,15 @@
     <Filter Include="04. GameObjects\MainPlayer">
       <UniqueIdentifier>{2749e137-2fec-4edf-bd8d-36f0a6c31d01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\TestUI\UIPanel">
+      <UniqueIdentifier>{f5300f1c-cad7-4425-ba7c-554a1a4411a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\UIPanel\ScenePanel">
+      <UniqueIdentifier>{a70de2a2-c658-4cdc-a498-c1327fb3ebde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\UIPanel\Dialogue">
+      <UniqueIdentifier>{d578c288-8506-4795-97dc-1bae8edc9379}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -342,6 +351,12 @@
     <ClInclude Include="..\Header\CMainPlayer.h">
       <Filter>04. GameObjects\MainPlayer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CScenePanel.h">
+      <Filter>04. GameObjects\TestUI\UIPanel\ScenePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDialogue.h">
+      <Filter>04. GameObjects\TestUI\UIPanel\Dialogue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -499,6 +514,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMainPlayer.cpp">
       <Filter>04. GameObjects\MainPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CScenePanel.cpp">
+      <Filter>04. GameObjects\TestUI\UIPanel\ScenePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDialogue.cpp">
+      <Filter>04. GameObjects\TestUI\UIPanel\Dialogue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

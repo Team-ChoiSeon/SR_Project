@@ -32,7 +32,7 @@ public:
 	const D3DXVECTOR2& Get_Scale() const { return m_vScale; }
 	const _bool& IsVisible() const { return m_bVisible; }
 
-private:
+protected:
 	virtual void Free()override;
 
 protected:	

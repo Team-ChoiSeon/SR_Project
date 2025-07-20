@@ -136,6 +136,9 @@
     <Filter Include="01. Managers\13. GUISystem\Imgui">
       <UniqueIdentifier>{6748df94-7294-4d42-897e-4a5c26276cb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\06. UI\UIQuad">
+      <UniqueIdentifier>{ade73681-3b15-402a-a03a-3f4b3536b2af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -303,6 +306,9 @@
     <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.h">
       <Filter>01. Managers\13. GUISystem\Imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CUiQuad.h">
+      <Filter>02. Components\06. UI\UIQuad</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -448,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.cpp">
       <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUiQuad.cpp">
+      <Filter>02. Components\06. UI\UIQuad</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
