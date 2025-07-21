@@ -54,6 +54,7 @@ HRESULT CProjectile::Ready_GameObject()
 	m_pCol->Set_ColType(ColliderType::ACTIVE);
 	m_pCol->Set_BoundType(BoundingType::AABB);
 
+
 	Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
 	m_pParticle = Get_Component<CParticle>();
 	m_pParticle->Set_Texture(L"projectile.png");
@@ -87,7 +88,6 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 				m_eState = EProjectileState::GROUND;
 				m_pRigid->Stop_Motion();
 				m_pRigid->Set_UseGravity(false);
-				m_pCol->Set_ColType(ColliderType::PASSIVE);
 				m_pPickTarget->Set_Active(true);
 			}
 		}
@@ -95,25 +95,11 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 
 	case EProjectileState::GROUND:
 	{
-		//auto pInputMgr = CInputMgr::Get_Instance();
-		//if (!pInputMgr) break;
-
-		//float fDistance = 0.f;
-		//if (Check_Ray(fDistance))
-		//{
-		//	// 거리가 10.f 이내일 때만 상호작용 가능
-		//	if (fDistance <= 10.f)
-		//	{
-		//		if (pInputMgr->Mouse_Tap(DIM_LB))
-		//		{
-		//			CMainPlayer* pPlayer = static_cast<CMainPlayer*>(CSceneMgr::Get_Instance()->Get_Player());
-		//			if (pPlayer && pPlayer->Get_PickObj() == nullptr)
-		//			{
-		//				Pick(pPlayer->Get_Component<CTransform>());
-		//			}
-		//		}
-		//	}
-		//}
+		if (m_bGrab)
+		{
+			m_eState = EProjectileState::HOLD;
+			m_pPickTarget->Set_Active(false);
+		}
 	}
 		break;
 
@@ -127,7 +113,7 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 		m_pRigid->Set_UseGravity(false);
 		m_pCol->Set_ColType(ColliderType::PASSIVE);
 
-		if (m_pPickerTransform)
+		if (m_bGrab && m_pPickerTransform)
 		{
 			const _vec3& vPlayerPos = m_pPickerTransform->Get_Pos();
 			const _vec3& vPlayerLook = m_pPickerTransform->Get_Info(INFO_LOOK);
@@ -136,7 +122,7 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 			m_pTransform->Set_Look(vPlayerLook);
 		}
 
-		if (pInputMgr->Mouse_Away(DIM_LB))
+		if (!m_bGrab && pInputMgr->Mouse_Away(DIM_LB))
 		{
 			CGameObject* pMainCamObj = pCameraMgr->Get_MainCamera();
 			if (pMainCamObj)
@@ -279,6 +265,26 @@ bool CProjectile::Check_Ray(_float& fDist)
 	fDist = (tMin > 0.f) ? tMin : 0.f;
 
 	return true;
+}
+
+void CProjectile::Set_Grab(bool bGrab)
+{
+	m_bGrab = bGrab;
+
+
+	if (bGrab)
+	{
+		if (m_eState == EProjectileState::GROUND)
+		{
+			auto pPlayer = static_cast<CMainPlayer*>(CSceneMgr::Get_Instance()->Get_Player());
+			if (pPlayer)
+				m_pPickerTransform = pPlayer->Get_Component<CTransform>();
+		}
+	}
+	else
+	{
+		m_pPickerTransform = nullptr;
+	}
 }
 
 REGISTER_GAMEOBJECT(CProjectile);

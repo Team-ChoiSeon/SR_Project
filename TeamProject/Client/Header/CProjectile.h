@@ -30,6 +30,7 @@ public:
 	static CProjectile* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
+	void Set_Grab(bool bGrab);
 	void Pick(CTransform* pTransform);
 	void Throw(const _vec3& vDir, const _float& fSpeed);
 	EProjectileState Get_State() const { return m_eState; }
@@ -52,5 +53,6 @@ private:
 	_float m_fLifeTime = 30.f;
 
 	EProjectileState m_eState = EProjectileState::MSHOT;
+	bool m_bGrab = false;
 };
 

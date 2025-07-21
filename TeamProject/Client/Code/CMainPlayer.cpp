@@ -4,6 +4,7 @@
 
 #include "CCube.h"
 #include "CSwitch.h"
+#include "CProjectile.h"
 #include "CCameraObject.h"
 
 #include "CVIBuffer.h"
@@ -229,6 +230,8 @@ void CMainPlayer::Check_Picking()
 	if (m_pPickedObj) {
 		auto* pPickCubeObj = dynamic_cast<CCube*>(m_pPickedObj);
 		auto* pPickSwitchObj = dynamic_cast<CSwitch*>(m_pPickedObj);
+		auto* pPickProjectileObj = dynamic_cast<CProjectile*>(m_pPickedObj);
+
 		if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB))
 		{
 			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
@@ -261,6 +264,10 @@ void CMainPlayer::Check_Picking()
 				pPickSwitchObj->Set_Grab(true);
 				pPickSwitchObj->Set_CursorVec(m_vDragDistance);
 			}
+			if (pPickProjectileObj) {
+				pPickProjectileObj->Set_Grab(true);
+
+			}
 		}
 
 		if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)){
@@ -270,6 +277,9 @@ void CMainPlayer::Check_Picking()
 			}
 			if (pPickSwitchObj) {
 				pPickSwitchObj->Set_Grab(false);
+			}
+			if (pPickProjectileObj) {
+				pPickProjectileObj->Set_Grab(false);
 			}
 		}
 	}
