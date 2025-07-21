@@ -156,7 +156,6 @@
     <ClInclude Include="..\Header\BossScene.h" />
     <ClInclude Include="..\Header\CChaseState.h" />
     <ClInclude Include="..\Header\CCinematicCamera.h" />
-    <ClInclude Include="..\Header\CDialogue.h" />
     <ClInclude Include="..\Header\CDollyCamera.h" />
     <ClInclude Include="..\Header\CDiveState.h" />
     <ClInclude Include="..\Header\CFireState.h" />
@@ -168,7 +167,7 @@
     <ClInclude Include="..\Header\CPlayerTriggerCube.h" />
     <ClInclude Include="..\Header\CProgressBar.h" />
     <ClInclude Include="..\Header\CProjectile.h" />
-    <ClInclude Include="..\Header\CScenePanel.h" />
+    <ClInclude Include="..\Header\CSlotCube_Auto.h" />
     <ClInclude Include="..\Header\CSlotSensor.h" />
     <ClInclude Include="..\Header\CSpinState.h" />
     <ClInclude Include="..\Header\CZoneSensor.h" />
@@ -203,6 +202,7 @@
     <ClInclude Include="..\Header\SceneLoding.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
     <ClInclude Include="..\Header\SceneStage2.h" />
+    <ClInclude Include="..\Header\SceneStage3.h" />
     <ClInclude Include="..\Header\TestSceneHW.h" />
     <ClInclude Include="..\Header\CPickSwitch.h" />
     <ClInclude Include="Client.h" />
@@ -216,7 +216,6 @@
     <ClCompile Include="..\Code\BossScene.cpp" />
     <ClCompile Include="..\Code\CChaseState.cpp" />
     <ClCompile Include="..\Code\CCinematicCamera.cpp" />
-    <ClCompile Include="..\Code\CDialogue.cpp" />
     <ClCompile Include="..\Code\CDollyCamera.cpp" />
     <ClCompile Include="..\Code\CDiveState.cpp" />
     <ClCompile Include="..\Code\CFireState.cpp" />
@@ -228,7 +227,7 @@
     <ClCompile Include="..\Code\CPlayerTriggerCube.cpp" />
     <ClCompile Include="..\Code\CProgressBar.cpp" />
     <ClCompile Include="..\Code\CProjectile.cpp" />
-    <ClCompile Include="..\Code\CScenePanel.cpp" />
+    <ClCompile Include="..\Code\CSlotCube_Auto.cpp" />
     <ClCompile Include="..\Code\CSlotSensor.cpp" />
     <ClCompile Include="..\Code\CSpinState.cpp" />
     <ClCompile Include="..\Code\CZoneSensor.cpp" />
@@ -263,6 +262,7 @@
     <ClCompile Include="..\Code\SceneLoding.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
     <ClCompile Include="..\Code\SceneStage2.cpp" />
+    <ClCompile Include="..\Code\SceneStage3.cpp" />
     <ClCompile Include="..\Code\TestSceneHW.cpp" />
     <ClCompile Include="..\Code\CPickSwitch.cpp" />
     <ClCompile Include="Client.cpp" />
