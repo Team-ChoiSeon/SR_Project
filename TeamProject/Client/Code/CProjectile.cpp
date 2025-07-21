@@ -109,7 +109,7 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 				{
 					m_eState = EProjectileState::GROUND;
 					m_pRigid->Stop_Motion();
-					m_pRigid->Set_UseGravity(false);
+					m_pRigid->Set_OnGround(true);
 					m_pPickTarget->Set_Active(true);
 				}
 			}

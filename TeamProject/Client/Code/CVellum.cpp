@@ -45,7 +45,7 @@ HRESULT CVellum::Ready_GameObject()
 {
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
-    //m_pModel->Set_Model(L"Head.obj", L"Head.mtl");
+    m_pModel->Set_Model(L"Head_Smile.obj", L"Head_Smile.mtl");
 
     Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
     m_pTransform = Get_Component<CTransform>();

@@ -64,6 +64,26 @@ HRESULT BossScene::Ready_Scene()
 	CResourceMgr::Get_Instance()->Load_Texture(L"blackSmoke00.png");
 	CResourceMgr::Get_Instance()->Load_Texture(L"projectile.png");
 
+	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Smile.obj");
+	CResourceMgr::Get_Instance()->Load_Material(L"Head_Smile.mtl");
+	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Smile.png");
+
+	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Fire.obj");
+	CResourceMgr::Get_Instance()->Load_Material(L"Head_Fire.mtl");
+	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Fire.png");
+
+	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Dead.obj");
+	CResourceMgr::Get_Instance()->Load_Material(L"Head_Dead.mtl");
+	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Dead.png");
+
+	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Hit.obj");
+	CResourceMgr::Get_Instance()->Load_Material(L"Head_Hit.mtl");
+	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Hit.png");
+
+	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Sleep.obj");
+	CResourceMgr::Get_Instance()->Load_Material(L"Head_Sleep.mtl");
+	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Sleep.png");
+
 	return S_OK;
 }
 
