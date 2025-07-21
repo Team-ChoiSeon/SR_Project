@@ -31,6 +31,7 @@ public:
 	void Free() override;
 
 	void Set_Grab(bool bGrab);
+	void Set_CursorVec(const _vec3& cursorvec) { m_vCursorDelta = cursorvec; }
 	void Pick(CTransform* pTransform);
 	void Throw(const _vec3& vDir, const _float& fSpeed);
 	EProjectileState Get_State() const { return m_eState; }
@@ -54,5 +55,6 @@ private:
 
 	EProjectileState m_eState = EProjectileState::MSHOT;
 	bool m_bGrab = false;
+	_vec3 m_vCursorDelta;
 };
 

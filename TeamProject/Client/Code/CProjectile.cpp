@@ -83,11 +83,16 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 		if (m_pCol->Get_ColState() == ColliderState::ENTER || m_pCol->Get_ColState() == ColliderState::STAY)
 		{
 			CCollider* pOther = m_pCol->Get_Other();
+			if (m_eState == EProjectileState::PSHOT && pOther->Get_ColTag() == ColliderTag::MONSTER)
+			{
+				pOther->Set_ColState(ColliderState::ENTER);
+				return 1; 
+			}
+
 			if (pOther && pOther->Get_ColTag() == ColliderTag::GROUND)
 			{
 				m_eState = EProjectileState::GROUND;
 				m_pRigid->Stop_Motion();
-				m_pRigid->Set_UseGravity(false);
 				m_pPickTarget->Set_Active(true);
 			}
 		}
@@ -98,43 +103,22 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 		if (m_bGrab)
 		{
 			m_eState = EProjectileState::HOLD;
-			m_pPickTarget->Set_Active(false);
 		}
 	}
 		break;
 
 	case EProjectileState::HOLD:
 	{
-		auto pInputMgr = CInputMgr::Get_Instance();
-		auto pCameraMgr = CCameraMgr::Get_Instance();
-		if (!pInputMgr || !pCameraMgr) break;
-
-		m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
 		m_pRigid->Set_UseGravity(false);
-		m_pCol->Set_ColType(ColliderType::PASSIVE);
-
-		if (m_bGrab && m_pPickerTransform)
+		if (D3DXVec3LengthSq(&m_vCursorDelta) > 0.f)
 		{
-			const _vec3& vPlayerPos = m_pPickerTransform->Get_Pos();
-			const _vec3& vPlayerLook = m_pPickerTransform->Get_Info(INFO_LOOK);
-			_vec3 vNewPos = vPlayerPos + (vPlayerLook * 1.5f) + _vec3(0.f, 0.5f, 0.f);
-			m_pTransform->Set_Pos(vNewPos);
-			m_pTransform->Set_Look(vPlayerLook);
+			m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vCursorDelta);
 		}
-
-		if (!m_bGrab && pInputMgr->Mouse_Away(DIM_LB))
+		m_vCursorDelta = { 0.f, 0.f, 0.f };
+		if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB))
 		{
-			CGameObject* pMainCamObj = pCameraMgr->Get_MainCamera();
-			if (pMainCamObj)
-			{
-				CTransform* pCamTransform = pMainCamObj->Get_Component<CTransform>();
-				if (pCamTransform)
-				{
-					_vec3 vLook = pCamTransform->Get_Info(INFO_LOOK);
-					D3DXVec3Normalize(&vLook, &vLook);
-					Throw(vLook, 50.f);
-				}
-			}
+			Set_Grab(false);
+			m_pCol->Set_ColTag(ColliderTag::ATTACK);
 		}
 	}
 	break;
@@ -271,9 +255,9 @@ void CProjectile::Set_Grab(bool bGrab)
 {
 	m_bGrab = bGrab;
 
-
 	if (bGrab)
 	{
+		if (m_pCol) m_pCol->Set_Active(false);
 		if (m_eState == EProjectileState::GROUND)
 		{
 			auto pPlayer = static_cast<CMainPlayer*>(CSceneMgr::Get_Instance()->Get_Player());
@@ -281,9 +265,21 @@ void CProjectile::Set_Grab(bool bGrab)
 				m_pPickerTransform = pPlayer->Get_Component<CTransform>();
 		}
 	}
-	else
+	else 
 	{
-		m_pPickerTransform = nullptr;
+		if (m_pCol) m_pCol->Set_Active(true);
+		auto pCameraMgr = CCameraMgr::Get_Instance();
+		CGameObject* pMainCamObj = pCameraMgr->Get_MainCamera();
+		if (pMainCamObj)
+		{
+			CTransform* pCamTransform = pMainCamObj->Get_Component<CTransform>();
+			if (pCamTransform)
+			{
+				_vec3 vLook = pCamTransform->Get_Info(INFO_LOOK);
+				D3DXVec3Normalize(&vLook, &vLook);
+				Throw(vLook, 50.f);
+			}
+		}
 	}
 }
 

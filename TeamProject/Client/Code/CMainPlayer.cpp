@@ -266,6 +266,7 @@ void CMainPlayer::Check_Picking()
 			}
 			if (pPickProjectileObj) {
 				pPickProjectileObj->Set_Grab(true);
+				pPickProjectileObj->Set_CursorVec(m_vDragDistance);
 
 			}
 		}
