@@ -15,6 +15,9 @@
 #include "CCameraMgr.h"
 #include "CMainPlayer.h"
 
+#include "CVellum.h"
+#include "CMonsterPart.h"
+
 #include "CFactory.h"
 
 CProjectile::CProjectile(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -80,20 +83,35 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 		if (m_fLifeTime <= 0.f)
 			return 1;
 
-		if (m_pCol->Get_ColState() == ColliderState::ENTER || m_pCol->Get_ColState() == ColliderState::STAY)
+		if (m_pCol->Get_ColState() == ColliderState::ENTER)
 		{
 			CCollider* pOther = m_pCol->Get_Other();
-			if (m_eState == EProjectileState::PSHOT && pOther->Get_ColTag() == ColliderTag::MONSTER)
+			if (pOther)
 			{
-				pOther->Set_ColState(ColliderState::ENTER);
-				return 1; 
-			}
+				if (m_eState == EProjectileState::PSHOT && pOther->Get_ColTag() == ColliderTag::MONSTER)
+				{
+					CGameObject* pOtherObject = pOther->m_pOwner;
+					CMonsterPart* pPart = dynamic_cast<CMonsterPart*>(pOtherObject);
 
-			if (pOther && pOther->Get_ColTag() == ColliderTag::GROUND)
-			{
-				m_eState = EProjectileState::GROUND;
-				m_pRigid->Stop_Motion();
-				m_pPickTarget->Set_Active(true);
+					if (pPart)
+					{
+						CVellum* pVellum = CSceneMgr::Get_Instance()->Get_Scene()->
+						Get_Layer(LAYER_OBJECT)->Get_GameObject<CVellum>(L"Vellum");
+						if (pVellum)
+						{
+							pVellum->Organize_Chain(pPart);
+						}
+					}
+					return 1;
+				}
+
+				if (pOther->Get_ColTag() == ColliderTag::GROUND)
+				{
+					m_eState = EProjectileState::GROUND;
+					m_pRigid->Stop_Motion();
+					m_pRigid->Set_UseGravity(false);
+					m_pPickTarget->Set_Active(true);
+				}
 			}
 		}
 		break;

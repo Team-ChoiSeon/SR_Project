@@ -45,6 +45,7 @@ HRESULT CVellum::Ready_GameObject()
 {
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
+    //m_pModel->Set_Model(L"Head.obj", L"Head.mtl");
 
     Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
     m_pTransform = Get_Component<CTransform>();
@@ -120,32 +121,7 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
     D3DXVec3Normalize(&vDir, &vDiff);
     m_pTransform->Set_Look(vDir);
 
-
     m_pParticle->PreSet_Radial(300, 2.f, 1.f, m_pTransform->Get_Info(INFO_LOOK));
-
-    CMonsterPart* pPartToDestroy = nullptr;
-
-    for (CMonsterPart* pPart : m_vPart)
-    {
-        CCollider* pCollider = pPart->Get_Component<CCollider>();
-        if (pCollider->Get_ColState() == Engine::ColliderState::ENTER ||
-            pCollider->Get_ColState() == Engine::ColliderState::STAY)
-        {
-            CCollider* pOther = pCollider->Get_Other();
-            if (pOther && pOther->Get_ColTag() == Engine::ColliderTag::ATTACK)
-            {
-                pPartToDestroy = pPart;
-                break;
-            }
-        }
-    }
-
-
-    if (pPartToDestroy)
-    {
-        Organize_Chain(pPartToDestroy);
-    }
-
 
     if (m_pState)
         m_pState->Update(fTimeDelta, this);
