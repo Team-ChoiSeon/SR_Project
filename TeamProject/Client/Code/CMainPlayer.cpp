@@ -310,9 +310,11 @@ void CMainPlayer::Check_Picking()
 				pPickSwitchObj->Set_Grab(true);
 				pPickSwitchObj->Set_CursorVec(m_vDragDistance);
 			}
+
+			m_bObjHold = true;
 		}
 
-		if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)){
+		if (CInputMgr::Get_Instance()->Mouse_Away(DIM_LB)) {
 			m_pPickedObj = nullptr;
 			if (pPickCubeObj) {
 				pPickCubeObj->Set_Grab(false);
@@ -338,7 +340,7 @@ void CMainPlayer::Check_Picking()
 			m_vLastPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
 			m_pPickedObj = m_pHitObject;
 			_vec3 myPos = pCamTransform->Get_Pos();
-			 vDistance = myPos - m_vLastPt;
+			vDistance = myPos - m_vLastPt;
 		}
 	}
 	else {

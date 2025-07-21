@@ -10,6 +10,7 @@
 #include "CMainPlayer.h"
 #include "CPickingMgr.h"
 #include "CCameraMgr.h"
+#include "CInputMgr.h"
 
 CMagneticCube::CMagneticCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -31,8 +32,6 @@ HRESULT CMagneticCube::Ready_GameObject()
     m_pTransform = Get_Component<CTransform>();
     m_pTransform->Ready_Component();
     m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
-    m_pTransform->Set_Angle({ 0.f, 0.f, 0.f });
-    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
 
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
@@ -60,12 +59,20 @@ HRESULT CMagneticCube::Ready_GameObject()
 
 _int CMagneticCube::Update_GameObject(const _float& fTimeDelta)
 {
-    CGameObject::Update_GameObject(fTimeDelta);
     PickMove();
+
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
+        m_pRigid->Set_Torque({ 0.f, 45.f, 0.f });
+    if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
+        m_pRigid->Add_Torque({ 0.f, -45.f, 0.f });
+
     if(m_pRigid->Get_OnGround())
         m_pCollider->Set_ColType(ColliderType::PASSIVE);
-    else
+    else {
         m_pCollider->Set_ColType(ColliderType::ACTIVE);
+        m_pRigid->Set_UseGravity(true);
+    }
+    CGameObject::Update_GameObject(fTimeDelta);
 
 	return _int();
 }
@@ -98,7 +105,6 @@ void CMagneticCube::Free()
     Safe_Release(m_pRigid);
     Safe_Release(m_pCollider);
     Safe_Release(m_pPick);
-    Safe_Release(m_pGraphicDev);
 }
 
 void CMagneticCube::PickMove()
