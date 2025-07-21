@@ -128,7 +128,8 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
     for (CMonsterPart* pPart : m_vPart)
     {
         CCollider* pCollider = pPart->Get_Component<CCollider>();
-        if (pCollider && pCollider->Get_ColState() == Engine::ColliderState::ENTER)
+        if (pCollider->Get_ColState() == Engine::ColliderState::ENTER ||
+            pCollider->Get_ColState() == Engine::ColliderState::STAY)
         {
             CCollider* pOther = pCollider->Get_Other();
             if (pOther && pOther->Get_ColTag() == Engine::ColliderTag::ATTACK)
