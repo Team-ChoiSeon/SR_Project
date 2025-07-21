@@ -27,6 +27,7 @@ public:
 	void Key_Input(const _float& fTimeDelta);
 
 
+
 	static CVellum* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free();
 
@@ -48,7 +49,9 @@ public:
 	void Change_Pattern(IVellumState* pState);
 
 private:
-	_float m_fDeadTime = 10.f;
+	_float m_fDeadTime = 5.f;
+	bool m_bDead = false;
+
 	int m_iPartCnt = 14;			// 머리 제외 파츠 개수
 	vector<CMonsterPart*> m_vPart;
 

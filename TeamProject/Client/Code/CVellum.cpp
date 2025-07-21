@@ -110,7 +110,7 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
     if (m_bDead) m_fDeadTime -= fTimeDelta;
     if (m_fDeadTime < 0.f) return 1;
-    if (m_vPart.empty())
+    if (m_vPart.empty() && !m_bDead)
     {
         if (m_pCol->Get_ColState() == ColliderState::ENTER ||
             m_pCol->Get_ColState() == ColliderState::STAY)
@@ -119,6 +119,8 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
             if (pOther && pOther->Get_ColTag() == ColliderTag::ATTACK)
             {
                 m_bDead = true;
+                /*m_pState = new CDeadState();
+                m_pState->Enter(this);*/
             }
         }
     }
