@@ -106,6 +106,5 @@ REGISTER_GAMEOBJECT(CMirrorSlotCube)
 // cMirrorSlotCube->Set_Player(pPlayer); -> 플레이어 설정
 // cMirrorSlotCube->Set_Follow(true); -> 플레이어위치기반 반전을 할것인지 안할것인지
 // cMirrorSlotCube->Set_MirrorPlane(_vec3(-15.f, 0.f, 0.f), _vec3(1.f, 0.f, 0.f)); 
-					//Set_Follow(true)시에만 이후 세팅
 					//첫번째는 반사 평면위치 플레이어 위치 기준으로 - 는 왼쪽 +는 오른쪽 앞뒤도 동일
 					//두번째는 반사 할 방향 _vec3(1.f, 0.f, 0.f)); X축 기반, _vec3(0.f, 0.f, 1.f)); Z축 기반
