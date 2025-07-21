@@ -1,6 +1,8 @@
 #pragma once
 #include "CGameObject.h"
+#include "UIPanel.h"
 class CHealthBar;
+class CHealthIcon;
 class CMainPlayer;
 
 namespace Engine {
@@ -22,19 +24,18 @@ public:
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 
 private:
-	void Compute_ScreenToWorld();
 
 private://component Caching
 	CTransform* m_pTransform;
 	CUiQuad* m_pQuad;
+
 	CMainPlayer* m_pPlayer = nullptr;
 	CCamera* m_pMainCam= nullptr;
 
-	_vec3 m_vScreen;
-	_vec3 m_vWorldPos;
-	_vec2 m_vTest;
+	UIPanel m_tPanel;
 private:
 	CHealthBar* m_pHealthBar;
+	CHealthIcon* m_pHealthIcon;
 private:
 	void Free();
 };

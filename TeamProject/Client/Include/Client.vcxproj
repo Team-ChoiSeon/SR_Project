@@ -161,6 +161,7 @@
     <ClInclude Include="..\Header\CDiveState.h" />
     <ClInclude Include="..\Header\CFireState.h" />
     <ClInclude Include="..\Header\CHealthBar.h" />
+    <ClInclude Include="..\Header\CHealthIcon.h" />
     <ClInclude Include="..\Header\CIdleState.h" />
     <ClInclude Include="..\Header\CLowGravityCube.h" />
     <ClInclude Include="..\Header\CIntroState.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="..\Header\SceneStage3.h" />
     <ClInclude Include="..\Header\TestSceneHW.h" />
     <ClInclude Include="..\Header\CPickSwitch.h" />
+    <ClInclude Include="..\Header\UIPanel.h" />
     <ClInclude Include="CHealthPanel.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -226,6 +228,7 @@
     <ClCompile Include="..\Code\CDiveState.cpp" />
     <ClCompile Include="..\Code\CFireState.cpp" />
     <ClCompile Include="..\Code\CHealthBar.cpp" />
+    <ClCompile Include="..\Code\CHealthIcon.cpp" />
     <ClCompile Include="..\Code\CIdleState.cpp" />
     <ClCompile Include="..\Code\CLowGravityCube.cpp" />
     <ClCompile Include="..\Code\CIntroState.cpp" />
@@ -274,6 +277,7 @@
     <ClCompile Include="..\Code\SceneStage3.cpp" />
     <ClCompile Include="..\Code\TestSceneHW.cpp" />
     <ClCompile Include="..\Code\CPickSwitch.cpp" />
+    <ClCompile Include="..\Code\UIPanel.cpp" />
     <ClCompile Include="CHealthPanel.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">

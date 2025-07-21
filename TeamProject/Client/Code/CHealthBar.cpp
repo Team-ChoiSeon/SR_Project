@@ -2,7 +2,6 @@
 #include "CHealthBar.h"
 #include "CUiQuad.h"
 #include "CTransform.h"
-#include "CResourceMgr.h"
 
 
 CHealthBar::CHealthBar(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -28,16 +27,19 @@ CHealthBar* CHealthBar::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CHealthBar::Ready_GameObject()
 {
-	m_pHealthBar = Add_Component<CUiQuad>(ID_DYNAMIC,m_pGraphicDev);
+	m_pQuad = Add_Component<CUiQuad>(ID_DYNAMIC,m_pGraphicDev);
 	m_pTransform= Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-	m_pHealthBar->Set_Texture(L"UI/bar_health_full_straight.png");
-	m_pTransform->Set_Scale({ .4f,.05f,1 });
+	m_pQuad->Set_Texture(L"UI/bar_health_full_straight.png");
+
+	m_tPanel.Set_Size({ 200,40 });
 	return S_OK;
 }
 
 _int CHealthBar::Update_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::Update_GameObject(fTimeDelta);
+	m_pTransform->Set_Scale(m_tPanel.Get_WorldScale());
+	m_pTransform->Set_Pos({ m_tPanel.Get_WorldPos(WINCX, WINCY) });
 	return 0;
 }
 
@@ -46,9 +48,9 @@ void CHealthBar::LateUpdate_GameObject(const _float& fTimeDelta)
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CHealthBar::Set_Pos(_vec3 vCriteria, _vec3 vPos)
+void CHealthBar::Set_Pivot(_vec2 vCriteria)
 {
-	m_pTransform->Set_Pos(vCriteria + vPos);
+	m_tPanel.Set_Pos(vCriteria);
 }
 
 void CHealthBar::Free()

@@ -134,4 +134,4 @@ CSceneTestHS* CSceneTestHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CSceneTestHS::Free()
 {
 	CScene::Free();
-}
+}	

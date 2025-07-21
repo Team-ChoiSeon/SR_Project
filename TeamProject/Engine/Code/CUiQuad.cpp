@@ -75,17 +75,6 @@ void CUiQuad::Update_Component(const _float& fTimeDelta)
 {
 	if (!m_pTransform)
 		m_pTransform = m_pOwner->Get_Component<CTransform>();
-
-	CGameObject* mainCam = CCameraMgr::Get_Instance()->Get_MainCamera();
-	CCamera* pCam = mainCam->Get_Component<CCamera>();
-	
-	_vec3 right = pCam->Get_Info(INFO_RIGHT); // 화면 기준 X축
-	_vec3 up = pCam->Get_Info(INFO_UP);    // 화면 기준 Y축
-
-	D3DXVec3Normalize(&right, &right);
-	D3DXVec3Normalize(&up, &up);
- 	_vec3 pos = m_pTransform->Get_Pos();
-	
 }
 
 
@@ -101,23 +90,16 @@ void CUiQuad::Render(LPDIRECT3DDEVICE9 pDevice)
 
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
+	
+	pDevice->SetTransform(D3DTS_WORLD, m_pTransform->Get_WorldMatrix());
+
 	_matrix viewNoRot;
 	D3DXMatrixIdentity(&viewNoRot);
-	
-	pDevice->SetTransform(D3DTS_WORLD, &viewNoRot);
+	pDevice->SetTransform(D3DTS_VIEW, &viewNoRot);
 
-	_matrix camView = *(CCameraMgr::Get_Instance()->Get_MainViewMatrix());
-
-	 viewNoRot = camView;
-	//회전은 정점으로 주자.
-	// 회전 성분 제거 → 단위 행렬로
-	viewNoRot._11 = 1.f; viewNoRot._12 = 0.f; viewNoRot._13 = 0.f;
-	viewNoRot._21 = 0.f; viewNoRot._22 = 1.f; viewNoRot._23 = 0.f;
-	viewNoRot._31 = 0.f; viewNoRot._32 = 0.f; viewNoRot._33 = 1.f;
-
-	pDevice->SetTransform(D3DTS_VIEW, &camView);
-	// pDevice에 세팅
-
+	_matrix projMat;
+	D3DXMatrixOrthoLH(&projMat, WINCX, WINCY, 0, 1);
+	pDevice->SetTransform(D3DTS_PROJECTION, &projMat);
 
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 	pDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
@@ -133,6 +115,7 @@ void CUiQuad::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->SetIndices(m_pIB);
 
 	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
+
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
@@ -143,32 +126,6 @@ void CUiQuad::Render(LPDIRECT3DDEVICE9 pDevice)
 void CUiQuad::Set_Texture(const wstring& key)
 {
 	m_pTexture = CResourceMgr::Get_Instance()->Load_Texture(key);
-}
-
-void CUiQuad::Set_QuadPos(_vec3 pos, _vec2 scale)
-{
-	VTXTEX* pVertices = nullptr;
-
-	if (FAILED(m_pVB->Lock(0, 0, (void**)&pVertices, D3DLOCK_DISCARD)))
-		return;
-
-	// 1. 카메라 방향 벡터 가져오기
-	CCamera* pCam = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CCamera>();
-	const D3DXVECTOR3& camRight = pCam->Get_Right();  // x축
-	const D3DXVECTOR3& camUp = pCam->Get_Up();     // y축
-
-	// 2. 크기에 맞게 스케일링
-	D3DXVECTOR3 vRight = camRight * (scale.x * 0.5f);
-	D3DXVECTOR3 vUp = camUp * (scale.y * 0.5f);
-
-
-	// 정점 순서: LT, LB, RB, RT (시계 or 반시계는 렌더 상태 맞춰서)
-	pVertices[0] = { pos - vRight - vUp, {0.f, 1.f} }; // LB
-	pVertices[1] = { pos - vRight + vUp, {0.f, 0.f} }; // LT
-	pVertices[2] = { pos + vRight + vUp, {1.f, 0.f} }; // RT
-	pVertices[3] = { pos + vRight - vUp, {1.f, 1.f} }; // RB
-
-	m_pVB->Unlock();
 }
 
 

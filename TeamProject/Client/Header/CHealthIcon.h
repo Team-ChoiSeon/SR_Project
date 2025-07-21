@@ -6,14 +6,14 @@ namespace Engine {
     class CUiQuad;
 }
 
-class CHealthBar :
+class CHealthIcon :
     public Engine::CGameObject
 {
 private:
-    explicit CHealthBar(LPDIRECT3DDEVICE9 pGraphicDev);
-    virtual ~CHealthBar();
+    explicit CHealthIcon(LPDIRECT3DDEVICE9 pGraphicDev);
+    virtual ~CHealthIcon();
 public:
-    static CHealthBar* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+    static CHealthIcon* Create(LPDIRECT3DDEVICE9 pGraphicDev);
     virtual			HRESULT		Ready_GameObject();
     virtual			_int		Update_GameObject(const _float& fTimeDelta);
     virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
@@ -25,7 +25,6 @@ private:
     CTransform* m_pTransform = nullptr;
     CUiQuad* m_pQuad = nullptr;
     UIPanel m_tPanel;
-
 private:
     void Free();
 };
