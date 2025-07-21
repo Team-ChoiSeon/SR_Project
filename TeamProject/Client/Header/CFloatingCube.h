@@ -34,6 +34,7 @@ public:
 	void Set_SleepTime(const _float& SleepTime) { m_fSleepTime = SleepTime; }
 	void Set_Info(const _vec3& vStartPos, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime);
 	void Set_Loop() { m_bBackward = true; }
+	void Set_GoBack(_bool bGoBack) { m_bGoBack = bGoBack; }
 
 	_bool Get_Loop() { return m_bBackward; }
 	_float Get_SleepTime() { return m_fTime; }

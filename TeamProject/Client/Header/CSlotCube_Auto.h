@@ -11,7 +11,7 @@ class CMainPlayer;
 
 class CSlotCube_Auto : public CCube
 {
-private:
+protected:
 	explicit CSlotCube_Auto(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CSlotCube_Auto(const CSlotCube_Auto& rhs);
 	virtual ~CSlotCube_Auto();
@@ -37,11 +37,11 @@ public:
 	//Utility Function
 	void Insert_Overlap(CSlotSensor* sensor, _float dist);
 
-private:
+protected:
 	_bool Check_Overlap();
 	void Fit(const _float& fTimeDelta);
 
-private:
+protected:
 	CCollider* m_pCollider;
 	CRigidBody* m_pRigid;
 
