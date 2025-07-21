@@ -106,6 +106,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         {
             if (m_iFireCnt < 7)
             {
+                pVellum->Get_Component<CModel>()->Set_Model(L"Head_Fire.obj", L"Head_Fire.mtl");
                 m_fFireDelay += fTimeDelta;
                 if (m_fFireDelay > 0.3f)
                 {
@@ -141,6 +142,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
 
     case FirePhase::Cooldown:
     {
+        pVellum->Get_Component<CModel>()->Set_Model(L"Head_Smile.obj", L"Head_Smile.mtl");
         if (m_fPhaseTime >= m_fCoolTime)
         {
             pVellum->Change_Pattern(new CIdleState());

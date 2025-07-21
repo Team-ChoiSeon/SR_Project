@@ -178,6 +178,7 @@ void CVellum::Change_Pattern(IVellumState* pState)
 
 void CVellum::Organize_Chain(CMonsterPart* pPart)
 {
+    m_pModel->Set_Model(L"Head_Hit.obj", L"Head_Hit.mtl");
     auto iter = find(m_vPart.begin(), m_vPart.end(), pPart);
     if (iter == m_vPart.end())
         return;

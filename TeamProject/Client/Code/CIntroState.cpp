@@ -13,6 +13,7 @@
 void CIntroState::Enter(CVellum* pVellum)
 {
     OutputDebugString(L"Intro : Enter\n");
+    pVellum->Get_Component<CModel>()->Set_Model(L"Head_Sleep.obj", L"Head_Sleep.mtl");
     m_ePhase = IntroPhase::Orbit;
     m_fRad = 15.f;
     m_fASpeed = 40.f;
@@ -49,7 +50,7 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
             && (Z > -60.f && Z < 60.f))
         {
             // 들어왔을때 중앙으로 이동후 다음패턴
-            
+            pVellum->Get_Component<CModel>()->Set_Model(L"Head_Smile.obj", L"Head_Smile.mtl");
             _vec3 vDiff = m_vBase - pTransform->Get_Pos();
             m_vDir = vDiff;
             D3DXVec3Normalize(&m_vDir, &m_vDir);
@@ -110,6 +111,7 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
 
     case IntroPhase::Roar:
     {
+        pVellum->Get_Component<CModel>()->Set_Model(L"Head_Fire.obj", L"Head_Fire.mtl");
         // Lunge
         float fLungeDuration = 0.25f;
         if (m_fPhaseTime < fLungeDuration)
