@@ -12,7 +12,9 @@
 
 #include "CIdleState.h"
 #include "CIntroState.h"
+#include "CDeadState.h"
 
+#include "CGuiSystem.h"
 #include "CFactory.h"
 
 
@@ -46,6 +48,7 @@ HRESULT CVellum::Ready_GameObject()
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
     m_pModel->Set_Model(L"Head_Smile.obj", L"Head_Smile.mtl");
+    m_pModel->Get_Material()->Set_Shader(L"g_UVScale.fx");
 
     Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
     m_pTransform = Get_Component<CTransform>();
@@ -108,9 +111,18 @@ HRESULT CVellum::Ready_GameObject()
 
 int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
-    if (m_bDead) m_fDeadTime -= fTimeDelta;
-    if (m_fDeadTime < 0.f) return 1;
-    if (m_vPart.empty() && !m_bDead)
+    //CGuiSystem::Get_Instance()->RegisterPanel("model Info",
+    //	[this]() {
+    //		ImGui::Begin("model", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+    //        ImGui::Text("alpha : %s ", m_pModel->Get_Material()->Get_ShaderKey().c_str());
+    //		ImGui::End();
+    //	}
+    //);
+    //wstring name = m_pModel->Get_Material()->Get_ShaderKey();
+    //OutputDebugStringW(name.c_str());
+
+    if (m_bDead) return 1;
+    if (m_vPart.empty())
     {
         if (m_pCol->Get_ColState() == ColliderState::ENTER ||
             m_pCol->Get_ColState() == ColliderState::STAY)
@@ -118,14 +130,11 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
             CCollider* pOther = m_pCol->Get_Other();
             if (pOther && pOther->Get_ColTag() == ColliderTag::ATTACK)
             {
-                m_bDead = true;
-                /*m_pState = new CDeadState();
-                m_pState->Enter(this);*/
+                if (dynamic_cast<CDeadState*>(m_pState) == nullptr)
+                    Change_Pattern(new CDeadState());
             }
         }
     }
-
-    
 
     m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
 

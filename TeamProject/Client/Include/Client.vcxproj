@@ -156,6 +156,7 @@
     <ClInclude Include="..\Header\BossScene.h" />
     <ClInclude Include="..\Header\CChaseState.h" />
     <ClInclude Include="..\Header\CCinematicCamera.h" />
+    <ClInclude Include="..\Header\CDeadState.h" />
     <ClInclude Include="..\Header\CDollyCamera.h" />
     <ClInclude Include="..\Header\CDiveState.h" />
     <ClInclude Include="..\Header\CFireState.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="..\Code\BossScene.cpp" />
     <ClCompile Include="..\Code\CChaseState.cpp" />
     <ClCompile Include="..\Code\CCinematicCamera.cpp" />
+    <ClCompile Include="..\Code\CDeadState.cpp" />
     <ClCompile Include="..\Code\CDollyCamera.cpp" />
     <ClCompile Include="..\Code\CDiveState.cpp" />
     <ClCompile Include="..\Code\CFireState.cpp" />

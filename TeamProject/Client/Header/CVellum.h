@@ -45,13 +45,12 @@ public:
 
 	LPDIRECT3DDEVICE9 Get_Dev() { return m_pGraphicDev; }
 
+	void Set_Dead(bool bDead) { m_bDead = bDead; }
+
 public:
 	void Change_Pattern(IVellumState* pState);
 
 private:
-	_float m_fDeadTime = 5.f;
-	bool m_bDead = false;
-
 	int m_iPartCnt = 14;			// 머리 제외 파츠 개수
 	vector<CMonsterPart*> m_vPart;
 
@@ -68,6 +67,8 @@ private:
 	CParticle* m_pParticle = nullptr;
 
 	int m_iIdx = 0;
+
+	bool m_bDead = false;
 
 
 
