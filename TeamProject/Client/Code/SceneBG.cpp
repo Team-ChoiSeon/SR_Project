@@ -45,6 +45,7 @@ HRESULT SceneBG::Ready_Scene()
 	CUiMgr::Get_Instance()->AddUI(cross);
 	CUiMgr::Get_Instance()->AddUI(cross);
 	pPlayer->Set_Crosshair(cross);
+	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
 	FFCam* pCam = FFCam::Create(m_pGraphicDev);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);

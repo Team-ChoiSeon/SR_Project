@@ -392,9 +392,6 @@
     <ClCompile Include="..\Code\CUiMgr.cpp">
       <Filter>01. Managers\08. UiMgr</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CUI.cpp">
-      <Filter>02. Components\06. UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CUiImage.cpp">
       <Filter>02. Components\06. UI\UiImage</Filter>
     </ClCompile>
@@ -457,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CUiQuad.cpp">
       <Filter>02. Components\06. UI\UIQuad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUI.cpp">
+      <Filter>02. Components\06. UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

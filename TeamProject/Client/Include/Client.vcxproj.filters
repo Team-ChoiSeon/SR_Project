@@ -184,6 +184,15 @@
     <Filter Include="03. Scene\ReleaseScene\02. StageScene\Stage3">
       <UniqueIdentifier>{cfd80ae4-cc02-4182-8ad1-9ac4c144a9e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\TestUI\Loding\ScenePanel">
+      <UniqueIdentifier>{4b99c9e3-3af6-4694-a8fb-26dd557e874b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\HealthPanel">
+      <UniqueIdentifier>{729eb6da-2e1f-4646-a0b6-d68ff631d8ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\HealthPanel\Bar">
+      <UniqueIdentifier>{c89dfaa2-6e33-4346-9b30-901f76a9f7d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -366,6 +375,18 @@
     <ClInclude Include="..\Header\SceneStage3.h">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDialogue.h">
+      <Filter>04. GameObjects\TestUI\Loding\ScenePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CScenePanel.h">
+      <Filter>04. GameObjects\TestUI\Loding\ScenePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="CHealthPanel.h">
+      <Filter>04. GameObjects\TestUI\HealthPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHealthBar.h">
+      <Filter>04. GameObjects\TestUI\HealthPanel\Bar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -535,6 +556,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\SceneStage3.cpp">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDialogue.cpp">
+      <Filter>04. GameObjects\TestUI\Loding\ScenePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CScenePanel.cpp">
+      <Filter>04. GameObjects\TestUI\Loding\ScenePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="CHealthPanel.cpp">
+      <Filter>04. GameObjects\TestUI\HealthPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHealthBar.cpp">
+      <Filter>04. GameObjects\TestUI\HealthPanel\Bar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

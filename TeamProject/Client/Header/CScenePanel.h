@@ -16,7 +16,7 @@ public:
 	virtual			void		Render_GameObject() {};
 
 private:
-	vector<CGameObject*> m_vecUI;
+	unordered_map<wstring,CGameObject*> m_vecUI;
 public:
 	virtual void Free();
 };

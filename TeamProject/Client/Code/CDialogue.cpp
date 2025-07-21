@@ -40,4 +40,5 @@ void CDialogue::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void CDialogue::Free()
 {
+	Safe_Release(m_pGraphicDev);
 }

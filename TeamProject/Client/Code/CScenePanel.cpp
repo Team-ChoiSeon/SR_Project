@@ -2,9 +2,8 @@
 #include "CScenePanel.h"
 #include "CTransform.h"
 #include "CResourceMgr.h"
-#include "CDialogue.h"
-#include "CUiQuad.h"
 #include "CResourceMgr.h"
+#include "CHealthPanel.h"
 
 CScenePanel::CScenePanel(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev)
@@ -29,8 +28,8 @@ CScenePanel* CScenePanel::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CScenePanel::Ready_GameObject()
 {
-    CDialogue* dialogue = CDialogue::Create(m_pGraphicDev);
-    m_vecUI.push_back(dialogue);
+    CHealthPanel* CHealthPanel = CHealthPanel::Create(m_pGraphicDev);
+    m_vecUI.insert({ L"Health_UI",CHealthPanel});
     return S_OK;
 }
 
@@ -38,7 +37,7 @@ _int CScenePanel::Update_GameObject(const _float& fTimeDelta)
 {
     CGameObject::Update_GameObject(fTimeDelta);
     for (auto& ui : m_vecUI) {
-        ui->Update_GameObject(fTimeDelta);
+        ui.second->Update_GameObject(fTimeDelta);
     }
     return 0;
 }
@@ -47,14 +46,14 @@ void CScenePanel::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     CGameObject::LateUpdate_GameObject(fTimeDelta);
     for (auto& ui : m_vecUI) {
-        ui->LateUpdate_GameObject(fTimeDelta);
+        ui.second->LateUpdate_GameObject(fTimeDelta);
     }
 }
 
 void CScenePanel::Free()
 {
     for (auto& ui : m_vecUI) {
-        Safe_Release(ui);
+        Safe_Release(ui.second);
     }
     CGameObject::Free();
 }

@@ -19,8 +19,9 @@ public:
     void Update_Component(const _float& fTimeDelta) override;
     void LateUpdate_Component(const _float& fTimeDelta) override;
     void Render(LPDIRECT3DDEVICE9 pDevice) override;
+    void Set_Texture(const wstring& key);
+    void Set_QuadPos(_vec3 pos, _vec2 scale);
 
-    void Set_Texture(CTexture* tex) { m_pTexture = tex; };
 private:
     CTransform* m_pTransform = nullptr;
     CTexture* m_pTexture = nullptr;
