@@ -1,4 +1,5 @@
 #include "CCollisionMgr.h"
+#include "CGameObject.h"
 
 IMPLEMENT_SINGLETON(CCollisionMgr)
 
@@ -66,7 +67,10 @@ void CCollisionMgr::Update_Collision()
 	}
 
 	m_setPrevCollisions = move(setCurrCollisions);
+	Clear();
 }
+
+
 
 void CCollisionMgr::Add_Collider(CCollider* collider)
 {

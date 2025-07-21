@@ -73,7 +73,7 @@ HRESULT CMonsterPart::Ready_GameObject()
     m_pParticle = Get_Component<CParticle>();
     m_pParticle->Set_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
     m_pParticle->Set_Type(PARTICLE_MOVE_TYPE::BREATH);
-    m_pParticle->Set_MaxParticle(200);
+    m_pParticle->Set_MaxParticle(300);
     m_pParticle->Set_SpawnInterval(0.1f);
 
     m_pCol->Set_ColTag(ColliderTag::MONSTER);

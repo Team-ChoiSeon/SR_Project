@@ -11,6 +11,8 @@ namespace Engine {
 
 class CCube;
 class CSwitch;
+class CProjectile;
+
 class CMainPlayer : public CGameObject
 {
 public:
@@ -102,6 +104,8 @@ private:
 
 	CCube* m_PickedCube;
 	CSwitch* m_PickedSwitch;
+	CProjectile* m_PickedProjectile = nullptr;
+
 	Ray* m_pRay;
 
 	PLAYER_STATE m_eCurState = PLAYER_STATE::PLAYER_IDLE;

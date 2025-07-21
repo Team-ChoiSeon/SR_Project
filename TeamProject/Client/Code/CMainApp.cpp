@@ -77,10 +77,11 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 	CPickingMgr::Get_Instance()->Update_Picking(fTimeDelta);
 
 	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
-	CCollisionMgr::Get_Instance()->Update_Collision();
-	CLightMgr::Get_Instance()->UpdateLights(fTimeDelta);
+	
 	CSceneMgr::Get_Instance()->Update_Scene(fTimeDelta);
+	CCollisionMgr::Get_Instance()->Update_Collision();
 
+	CLightMgr::Get_Instance()->UpdateLights(fTimeDelta);
 	CSoundMgr::Get_Instance()->Update_Sound();
 
 	return 0;
