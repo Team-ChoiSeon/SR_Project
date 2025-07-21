@@ -203,7 +203,7 @@ void TestSceneHW::FloatingSet()
 
 	//Elevator
 	{
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_Floating1")->Set_Info({ 1, 0, 0 }, 5, 3, 0);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_Floating1")->Set_Info({ 1, 0, 0 }, 10, 4, 0);
 
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->Set_Info({ 0, 1, 0 }, 20, 5, 1.5f);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->Set_Loop();
@@ -247,7 +247,5 @@ void TestSceneHW::MagnetSet()
 {
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"Room4_MetalCube1")->Set_Info(m_pPlayer);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"Room4_MetalCube2")->Set_Info(m_pPlayer);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"Room4_MetalCube3")->Set_Info(m_pPlayer);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CMetalCube>(L"Room4_MetalCube4")->Set_Info(m_pPlayer);
 }
 
