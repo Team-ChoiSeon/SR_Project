@@ -32,6 +32,7 @@ public:
 	void Set_Tap(bool Trigger) { m_bTap = Trigger; }
 	void Set_Away(bool Trigger) { m_bAway = Trigger; }
 	void Set_CursorVec(const _vec3& cursorvec) { m_vCursorDelta = cursorvec; }
+	void Set_SwitchState(_bool bState) { m_bButtonOn = bState; }
 
 	_bool	Get_Grab() { return m_bGrab; }
 	_bool	Get_Tap() { return m_bTap; }
@@ -54,6 +55,7 @@ protected:
 	_bool				m_bInit = false;
 	_bool				m_bReusable = true;
 	_bool				m_bPressed = false;
+
 	_bool				m_bGrab = false;
 	_bool				m_bTap = false;
 	_bool				m_bAway = false;
@@ -61,7 +63,5 @@ protected:
 	_vec3				m_vCursorDelta;
 	_vec3				m_vOriginalScale;
 	_vec3				m_vOriginalPos;
-
-
 };
 

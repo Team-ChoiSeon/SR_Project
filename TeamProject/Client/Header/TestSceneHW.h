@@ -29,9 +29,9 @@ public:
 	static TestSceneHW* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void	Free();
 
-	virtual const wstring Get_ScenePath() { return L"../../Scene/Stage_hw_1.json"; }
+	virtual const wstring Get_ScenePath() { return L"../../Scene/Stage_hw_2.json"; }
 private:
-	//temp
+	//Setting
 	void FloatingSet();
 	void DirectionSet();
 	void SlotSet();
@@ -39,7 +39,5 @@ private:
 
 	CMainPlayer*						m_pPlayer;
 	CFirstviewFollowingCamera*			m_pFFCam;
-
-	bool						m_bSceneFirst =true;
 };
 

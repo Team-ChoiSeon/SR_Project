@@ -14,6 +14,7 @@ class CSlotCube;
 class CSlotSensor;
 class CMagneticCube;
 class CMetalCube;
+class CLowGravityCube;
 
 class SceneHW : public CScene
 {
@@ -57,6 +58,7 @@ private:
 	CSlotSensor* m_pSlotSensor3;
 	CMagneticCube*						m_pTestmagnet;
 	CMetalCube*						m_pTestmetal;
+	CLowGravityCube* m_pLowGravityCube;
 	_float								m_fTime;
 	bool								m_bCamPlayer;
 	_bool								m_bSceneFirst;

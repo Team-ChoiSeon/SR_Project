@@ -5,58 +5,49 @@ namespace Engine
 {
 	class CCollider;
 	class CRigidBody;
-	class CPickTarget;
 }
 class CSlotSensor;
 class CMainPlayer;
-class CSlotCube : public CCube
+
+class CSlotCube_Auto : public CCube
 {
 private:
-	explicit CSlotCube(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CSlotCube(const CSlotCube& rhs);
-	virtual ~CSlotCube();
+	explicit CSlotCube_Auto(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CSlotCube_Auto(const CSlotCube_Auto& rhs);
+	virtual ~CSlotCube_Auto();
 
 public:
 	//Basic Function
-	HRESULT Ready_GameObject()override;
+	HRESULT Ready_GameObject() override;
 	_int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
 	//Create, Release Function
-	static CSlotCube* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CSlotCube_Auto* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void Free() override;
 
 	//Getter, Setter Function
-	void Set_Info(const _int ID, const _int Seuqence);
-	void Set_Info(CMainPlayer* player, const _int ID, const _int Seuqence);
-
+	void Set_Info( const _int puzzleID, const _int slotID);
 
 	_int Get_PuzzleID() { return m_iPuzzleID; }
 	_int Get_SlotID() { return m_iSlotID; }
-	_bool Get_Lay() { return m_bLay; }
+
 	_bool Get_Slotted() { return m_bSlotted; }
 
 	//Utility Function
 	void Insert_Overlap(CSlotSensor* sensor, _float dist);
 
 private:
-	//Compute Function
 	_bool Check_Overlap();
-	void PickMove();
 	void Fit(const _float& fTimeDelta);
 
-	//Variables
+private:
 	CCollider* m_pCollider;
 	CRigidBody* m_pRigid;
-	CPickTarget* m_pPick;
-	CMainPlayer* m_pPlayer;
 
 	CSlotSensor* m_FitSlot;
 	unordered_map<CSlotSensor*, _float> m_vecDetected_Slot;
 	_int		m_iPuzzleID;
 	_int		m_iSlotID;
-	_bool		m_bSlotted;
-
-	static CSlotCube* s_pPickedCube;
+	_bool		m_bSlotted = false;
 };
-

@@ -6,10 +6,11 @@
 #include "CCollider.h"
 #include "CMainPlayer.h"
 #include "CSlotCube.h"
+#include "CSlotCube_Auto.h"
 #include "CInputMgr.h"
 #include "CFactory.h"
 CSlotSensor::CSlotSensor(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CSensor(pGraphicDev), m_pSlotted(nullptr)
+	: CSensor(pGraphicDev), m_pSlotted(nullptr), m_pSlotted_Auto(nullptr)
 {
 }
 
@@ -28,10 +29,6 @@ HRESULT CSlotSensor::Ready_GameObject()
     m_pTransform = Get_Component<CTransform>();
     m_pTransform->Ready_Component();
     m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
-    m_pTransform->Set_Angle({ 0.f, 0.25f, 0.f });
-    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
-
-
 
     Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
     m_pRigid = Get_Component<CRigidBody>();
@@ -45,7 +42,7 @@ HRESULT CSlotSensor::Ready_GameObject()
     m_pCollider = Get_Component<CCollider>();
     m_pCollider->Set_ColTag(ColliderTag::NONE);
     m_pCollider->Set_ColType(ColliderType::TRIGGER);
-    m_pCollider->Set_BoundType(BoundingType::OBB);
+    m_pCollider->Set_BoundType(BoundingType::AABB);
 
     m_bSensorOn = false;
 
@@ -82,11 +79,9 @@ CSlotSensor* CSlotSensor::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CSlotSensor::Free()
 {
-    Safe_Release(m_pPlayer);
     Safe_Release(m_pTransform);
     Safe_Release(m_pRigid);
     Safe_Release(m_pCollider);
-    Safe_Release(m_pGraphicDev);
 }
 
 _bool CSlotSensor::Detect()
@@ -106,45 +101,97 @@ void CSlotSensor::Set_Info(CMainPlayer* player, const _int puzzleID, const _int 
 
 void CSlotSensor::Insert_Slot()
 {
-    if (m_pSlotted)
-        return;
-    if (m_pPickObj = m_pPlayer->Get_PickObj()) {
-        m_pPickSlot = dynamic_cast<CSlotCube*>(m_pPickObj);
-    }   
-    else if (m_pPickSlot)
+    if (m_bPlayerPick)
     {
-        if (m_pPickSlot->Get_PuzzleID() == m_iPuzzleID &&
-            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().x > m_Zone._min.x &&
-            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().y > m_Zone._min.y &&
-            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().z > m_Zone._min.z &&
-            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().x < m_Zone._max.x &&
-            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().y < m_Zone._max.y &&
-            m_pPickSlot->Get_Component<CTransform>()->Get_Pos().z < m_Zone._max.z)
-        {
-            _vec3 vDist = m_pPickSlot->Get_Component<CTransform>()->Get_Pos() - m_pTransform->Get_Pos();
-            _float fDist = D3DXVec3Length(&vDist);
-            m_pPickSlot->Insert_Overlap(this, fDist);
+        if (m_pSlotted)
+            return;
+        if (m_pPickObj = m_pPlayer->Get_PickObj()) {
+            m_pPickSlot = dynamic_cast<CSlotCube*>(m_pPickObj);
         }
-        m_pPickObj = nullptr;
-        m_pPickSlot = nullptr;
+        else if (m_pPickSlot)
+        {
+            if (m_pPickSlot->Get_PuzzleID() == m_iPuzzleID &&
+                m_pPickSlot->Get_Component<CTransform>()->Get_Pos().x > m_Zone._min.x &&
+                m_pPickSlot->Get_Component<CTransform>()->Get_Pos().y > m_Zone._min.y &&
+                m_pPickSlot->Get_Component<CTransform>()->Get_Pos().z > m_Zone._min.z &&
+                m_pPickSlot->Get_Component<CTransform>()->Get_Pos().x < m_Zone._max.x &&
+                m_pPickSlot->Get_Component<CTransform>()->Get_Pos().y < m_Zone._max.y &&
+                m_pPickSlot->Get_Component<CTransform>()->Get_Pos().z < m_Zone._max.z)
+            {
+                _vec3 vDist = m_pPickSlot->Get_Component<CTransform>()->Get_Pos() - m_pTransform->Get_Pos();
+                _float fDist = D3DXVec3Length(&vDist);
+                m_pPickSlot->Insert_Overlap(this, fDist);
+            }
+            m_pPickObj = nullptr;
+            m_pPickSlot = nullptr;
+        }
+    }
+    else {
+        if (m_pSlotted_Auto)
+            return;
+        
+        CCollider* pOtherCol = m_pCollider->Get_Other();
+        if (pOtherCol)
+        {
+            CGameObject* pOtherObj = pOtherCol->m_pOwner;
+            if (pOtherObj)
+            {
+                CSlotCube_Auto* pAutoCube = dynamic_cast<CSlotCube_Auto*>(pOtherObj);
+                if (pAutoCube)
+                {
+                    m_pPickSlot_Auto = pAutoCube;
+                }
+            }
+        }
+        else if (m_pPickSlot_Auto){
+            if (m_pPickSlot_Auto->Get_PuzzleID() == m_iPuzzleID &&
+                m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos().x > m_Zone._min.x &&
+                m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos().y > m_Zone._min.y &&
+                m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos().z > m_Zone._min.z &&
+                m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos().x < m_Zone._max.x &&
+                m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos().y < m_Zone._max.y &&
+                m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos().z < m_Zone._max.z)
+            {
+                _vec3 vDist = m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos() - m_pTransform->Get_Pos();
+                _float fDist = D3DXVec3Length(&vDist);
+                m_pPickSlot_Auto->Insert_Overlap(this, fDist);
+            }
+            m_pPickSlot_Auto = nullptr;
+        }
     }
 }
 
 bool CSlotSensor::Check_Slot()
 {
-    if (m_pSlotted)
+    if (m_bPlayerPick)
     {
-        // 1) 현재 할당된 큐브가 여전히 영역 안에 있나 확인
-        _vec3 pos = m_pSlotted->Get_Component<CTransform>()->Get_Pos();
-        if (pos.x < m_Zone._min.x || pos.y < m_Zone._min.y || pos.z < m_Zone._min.z ||
-            pos.x > m_Zone._max.x || pos.y > m_Zone._max.y || pos.z > m_Zone._max.z)
+        if (m_pSlotted)
         {
-            // 영역 밖으로 나갔으니 해제
-            m_pSlotted = nullptr;
-            return false;
+            // 1) 현재 할당된 큐브가 여전히 영역 안에 있나 확인
+            _vec3 pos = m_pSlotted->Get_Component<CTransform>()->Get_Pos();
+            if (pos.x < m_Zone._min.x || pos.y < m_Zone._min.y || pos.z < m_Zone._min.z ||
+                pos.x > m_Zone._max.x || pos.y > m_Zone._max.y || pos.z > m_Zone._max.z)
+            {
+                // 영역 밖으로 나갔으니 해제
+                m_pSlotted = nullptr;
+                return false;
+            }
+            // 2) 여전히 올바른 슬롯 ID인지 확인
+            return dynamic_cast<CSlotCube*>(m_pSlotted)->Get_SlotID() == m_iSlotID;
         }
-        // 2) 여전히 올바른 슬롯 ID인지 확인
-        return dynamic_cast<CSlotCube*>(m_pSlotted)->Get_SlotID() == m_iSlotID;
+    }
+    else {
+        if (m_pSlotted_Auto)
+        {
+            _vec3 pos = m_pSlotted_Auto->Get_Component<CTransform>()->Get_Pos();
+            if (pos.x < m_Zone._min.x || pos.y < m_Zone._min.y || pos.z < m_Zone._min.z ||
+                pos.x > m_Zone._max.x || pos.y > m_Zone._max.y || pos.z > m_Zone._max.z)
+            {
+                m_pSlotted_Auto = nullptr;
+                return false;
+            }
+            return dynamic_cast<CSlotCube_Auto*>(m_pSlotted_Auto)->Get_SlotID() == m_iSlotID;
+        }
     }
     return false;
 }

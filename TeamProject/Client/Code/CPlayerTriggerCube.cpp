@@ -50,6 +50,9 @@ HRESULT CPlayerTriggerCube::Ready_GameObject()
 	//m_pTransform->Set_Scale({ 2.f, 2.f, 2.f });
 	m_pTransform->Set_Scale({ 4.f, 2.f, 5.f });
 
+
+	CFactory::Save_Prefab(this, "CPlayerTriggerCube");
+
 	return S_OK;
 }
 
@@ -105,4 +108,4 @@ void CPlayerTriggerCube::Free()
 	CGameObject::Free();
 }
 
-// REGISTER_GAMEOBJECT(CSceneGate)
+REGISTER_GAMEOBJECT(CPlayerTriggerCube)
