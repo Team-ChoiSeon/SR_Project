@@ -181,6 +181,12 @@
     <Filter Include="03. Scene\ReleaseScene\02. StageScene\Stage3">
       <UniqueIdentifier>{cfd80ae4-cc02-4182-8ad1-9ac4c144a9e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\Cube\SlotCube\SlotCube_Auto">
+      <UniqueIdentifier>{07a671ae-1485-43c2-8f8e-6eb91d72083f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\Cube\SlotCube\SlotCube_Auto\MirrorSlotCube">
+      <UniqueIdentifier>{28da8190-8412-4cef-b043-754e7f9b1642}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -348,14 +354,17 @@
     <ClInclude Include="..\Header\CMainPlayer.h">
       <Filter>04. GameObjects\MainPlayer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CSlotCube_Auto.h">
-      <Filter>04. GameObjects\Cube\SlotCube</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\SceneStage2.h">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage2</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SceneStage3.h">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlotCube_Auto.h">
+      <Filter>04. GameObjects\Cube\SlotCube\SlotCube_Auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMirrorSlotCube.h">
+      <Filter>04. GameObjects\Cube\SlotCube\SlotCube_Auto\MirrorSlotCube</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -512,14 +521,17 @@
     <ClCompile Include="..\Code\CMainPlayer.cpp">
       <Filter>04. GameObjects\MainPlayer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CSlotCube_Auto.cpp">
-      <Filter>04. GameObjects\Cube\SlotCube</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\SceneStage2.cpp">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage2</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SceneStage3.cpp">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlotCube_Auto.cpp">
+      <Filter>04. GameObjects\Cube\SlotCube\SlotCube_Auto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMirrorSlotCube.cpp">
+      <Filter>04. GameObjects\Cube\SlotCube\SlotCube_Auto\MirrorSlotCube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
