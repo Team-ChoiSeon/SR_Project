@@ -38,10 +38,14 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         _vec3 diff = m_vPos - pTransform->Get_Pos();
         if (D3DXVec3LengthSq(&diff) > 1.f)
         {
-            _vec3 dir = diff;
-            D3DXVec3Normalize(&dir, &dir);
-            pTransform->Set_Look(dir);
-            pRigid->Add_Force(dir * 20.f);
+            _vec3 dir;
+            D3DXVec3Normalize(&dir, &diff);
+            // 튀어나가지 않기 위한 제동
+            _vec3 vVel = pRigid->Get_Velocity();
+            _vec3 vBreak = -vVel;
+            pRigid->Add_Force(dir * 20.f + vBreak);
+            if (D3DXVec3LengthSq(&vVel) > 0.001f)
+                pTransform->Set_Look(vVel);
         }
         else
         {

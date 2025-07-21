@@ -33,6 +33,9 @@ public:
 	void Set_RayCheckType(RAYCHECKTYPE eRayCheckType) { m_eRayCheckType = eRayCheckType; }
 	//void Set_RayBoundTri(Ray_Tri* boundtri) { m_pRayTri = boundtri; }
 
+	void Set_Active(bool bActive) { m_bActive = bActive; }
+	bool Get_Active() const { return m_bActive; }
+
 private:
 	//Compute Function
 	void TranslationIntoLocal();
@@ -46,6 +49,7 @@ private:
 	RAYCHECKTYPE			m_eRayCheckType;
 	Ray_Hit					m_RayHitInfo;
 	CCollider*				m_pCollider = nullptr;
+	bool					m_bActive = true;
 
 };
 

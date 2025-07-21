@@ -91,6 +91,7 @@ void SceneBG::SlotSet()
 		cube->Get_Component<CCollider>()->Set_ColTag(ColliderTag::NONE);
 		cube->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
 		cube->Get_Component<CCollider>()->Set_BoundType(BoundingType::AABB);
+
 		cube->Set_Info(pPlayer, i, i);
 	}
 }
