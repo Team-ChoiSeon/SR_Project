@@ -108,7 +108,22 @@ HRESULT CVellum::Ready_GameObject()
 
 int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
-    if (m_vPart.empty()) return -1;
+    if (m_bDead) m_fDeadTime -= fTimeDelta;
+    if (m_fDeadTime < 0.f) return 1;
+    if (m_vPart.empty())
+    {
+        if (m_pCol->Get_ColState() == ColliderState::ENTER ||
+            m_pCol->Get_ColState() == ColliderState::STAY)
+        {
+            CCollider* pOther = m_pCol->Get_Other();
+            if (pOther && pOther->Get_ColTag() == ColliderTag::ATTACK)
+            {
+                m_bDead = true;
+            }
+        }
+    }
+
+    
 
     m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
 
@@ -266,5 +281,6 @@ void CVellum::Key_Input(const _float& fTimeDelta)
 
     m_pTransform->Set_Pos(pos); // ?ÅÏö©
 }
+
 
 REGISTER_GAMEOBJECT(CVellum)
