@@ -4,6 +4,7 @@
 
 #include "CCube.h"
 #include "CSwitch.h"
+#include "CProjectile.h"
 #include "CCameraObject.h"
 
 #include "CVIBuffer.h"
@@ -51,6 +52,9 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_pRigid->Set_Mass(6.f);
 	m_pRigid->Set_Friction(10.f);
 	m_pRigid->Set_Gravity(5.f);
+
+	m_pCollider->Set_ColTag(ColliderTag::PLAYER);
+	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
 	m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
@@ -151,6 +155,10 @@ void CMainPlayer::Free()
 
 void CMainPlayer::KeyInput(const _float& fTimeDelta)
 {
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_H)) {
+		Set_Hp(m_iMaxHp);
+	}
+
 	if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB)) {
 		m_bCursorMove = !m_bCursorMove;
 	}
@@ -278,6 +286,8 @@ void CMainPlayer::Check_Picking()
 	if (m_pPickedObj) {
 		auto* pPickCubeObj = dynamic_cast<CCube*>(m_pPickedObj);
 		auto* pPickSwitchObj = dynamic_cast<CSwitch*>(m_pPickedObj);
+		auto* pPickProjectileObj = dynamic_cast<CProjectile*>(m_pPickedObj);
+
 		if (CInputMgr::Get_Instance()->Mouse_Hold(DIM_LB))
 		{
 			m_pCrosshair->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
@@ -310,6 +320,11 @@ void CMainPlayer::Check_Picking()
 				pPickSwitchObj->Set_Grab(true);
 				pPickSwitchObj->Set_CursorVec(m_vDragDistance);
 			}
+			if (pPickProjectileObj) {
+				pPickProjectileObj->Set_Grab(true);
+				pPickProjectileObj->Set_CursorVec(m_vDragDistance);
+
+			}
 
 			m_bObjHold = true;
 		}
@@ -321,6 +336,9 @@ void CMainPlayer::Check_Picking()
 			}
 			if (pPickSwitchObj) {
 				pPickSwitchObj->Set_Grab(false);
+			}
+			if (pPickProjectileObj) {
+				pPickProjectileObj->Set_Grab(false);
 			}
 		}
 	}

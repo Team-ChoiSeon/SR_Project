@@ -26,6 +26,7 @@
 #include "CSlotCube.h"
 #include "CSlotCube_Auto.h"
 #include "CSlotSensor.h"
+#include "CMirrorSlotCube.h"
 
 #include "SceneHW.h"
 #include "SceneBG.h"
@@ -49,8 +50,9 @@ HRESULT SceneHS::Ready_Scene()
 	Init_Layers();
 
 	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
-	pPlayer->Get_Component<CTransform>()->Set_Pos({ -20.f, 20.f, -20.f });
-
+	//pPlayer->Get_Component<CTransform>()->Set_Pos({ -20.f, 20.f, -20.f });
+	pPlayer->Get_Component<CTransform>()->Set_Pos({ -10.f, 20.f, -10.f });
+	
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
 	pTile->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 50.f });
 	pTile->Get_Component<CTransform>()->Set_PosY(-20.f);
@@ -134,11 +136,32 @@ HRESULT SceneHS::Ready_Scene()
 	m_pSlotCube2->Get_Component<CTransform>()->Set_Pos({ -3.f, 0.f, -10.f });
 	m_pSlotCube2->Set_Info( 0, 1);
 
-	m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -10.f, -8.f, -10.f });
+	//m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -10.f, -8.f, -10.f });
+	m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -20.f, 20.f, -20.f });
 	m_pSlotSensor->Set_Info(pPlayer, 0, 0);
-	m_pSlotSensor2->Get_Component<CTransform>()->Set_Pos({ -12.f, -8.f, -10.f });
+	//m_pSlotSensor2->Get_Component<CTransform>()->Set_Pos({ -12.f, -8.f, -10.f });
+	m_pSlotSensor2->Get_Component<CTransform>()->Set_Pos({ -22.f, 20.f, -20.f });
 	m_pSlotSensor2->Set_Info(pPlayer, 0, 1);
 	m_pSlotSensor2->Set_PlayerPick(false);
+
+	
+	CMirrorSlotCube* cMirrorSlotCube = CMirrorSlotCube::Create(m_pGraphicDev);
+	cMirrorSlotCube->Get_Component<CTransform>()->Set_Pos({ -14.f, 20.f, -10.f });
+	cMirrorSlotCube->Set_Info(2, 2);
+	cMirrorSlotCube->Set_Player(pPlayer);
+	cMirrorSlotCube->Set_Follow(true);
+	cMirrorSlotCube->Set_MirrorPlane(_vec3(-15.f, 0.f, 0.f), _vec3(1.f, 0.f, 0.f));
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"MirrorSlotCube", cMirrorSlotCube);
+
+	CSlotSensor* m_pSlotSensor3 = CSlotSensor::Create(m_pGraphicDev);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor3", m_pSlotSensor3);
+	m_pSlotSensor3->Get_Component<CTransform>()->Set_Pos({ -10.f, -3.f, 10.f });
+	m_pSlotSensor3->Get_Component<CTransform>()->Set_Scale({ .8f, 2.f, .8f });
+	m_pSlotSensor3->Set_Info(pPlayer, 2, 2);
+	m_pSlotSensor3->Set_PlayerPick(false);
+
+
+
 
 	return S_OK;
 }
@@ -160,6 +183,11 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 		CRenderMgr::Get_Instance()->Clear();
 	}
 	else {
+
+		if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"hwSlotSensor3")->Get_SensorState()) {
+			Get_Layer(LAYER_OBJECT)->Get_GameObject<CMirrorSlotCube>(L"MirrorSlotCube")->Set_Follow(false);
+		}
+
 		CScene::Update_Scene(fTimeDelta);
 	}
 

@@ -58,12 +58,12 @@ HRESULT CVellum::Ready_GameObject()
     Add_Component<CParticle>(ID_DYNAMIC, m_pGraphicDev);
     m_pParticle = Get_Component<CParticle>();
     m_pParticle->Set_Texture(L"blackSmoke00.png");
-    m_pParticle->Set_Type(PARTICLE_MOVE_TYPE::BREATH);
-    m_pParticle->Set_MaxParticle(200);
-    m_pParticle->Set_SpawnInterval(0.1f);
+    m_pParticle->PreSet_Radial(300, 3.f, 1.f, m_pTransform->Get_Info(INFO_LOOK));
+    m_pParticle->Set_Speed(9.f);
+    m_pParticle->Set_Size(2.f);
 
 
-    m_pTransform->Set_Pos({ 0.f, 33.f, 60.f });  
+    m_pTransform->Set_Pos(VSTART);
     m_pTransform->Set_Scale({ 3.f, 3.f, 3.f });
 
     m_pRigid->Set_OnGround(false);
@@ -109,13 +109,27 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
     if (m_vPart.empty()) return -1;
 
+    m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
+
+    // 매번 플레이어 바라보게
+    _vec3 TargetPos;
+    if(m_pTarget)
+        TargetPos = m_pTarget->Get_Component<CTransform>()->Get_Pos();
+    _vec3 vDiff = TargetPos - m_pTransform->Get_Pos();
+    _vec3 vDir;
+    D3DXVec3Normalize(&vDir, &vDiff);
+    m_pTransform->Set_Look(vDir);
+
+
+    m_pParticle->PreSet_Radial(300, 2.f, 1.f, m_pTransform->Get_Info(INFO_LOOK));
 
     CMonsterPart* pPartToDestroy = nullptr;
 
     for (CMonsterPart* pPart : m_vPart)
     {
         CCollider* pCollider = pPart->Get_Component<CCollider>();
-        if (pCollider && pCollider->Get_ColState() == Engine::ColliderState::ENTER)
+        if (pCollider->Get_ColState() == Engine::ColliderState::ENTER ||
+            pCollider->Get_ColState() == Engine::ColliderState::STAY)
         {
             CCollider* pOther = pCollider->Get_Other();
             if (pOther && pOther->Get_ColTag() == Engine::ColliderTag::ATTACK)
