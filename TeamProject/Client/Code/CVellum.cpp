@@ -280,7 +280,7 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
-    // 임시 삭제 코든
+    // 임시 삭제 코드
     if (CInputMgr::Get_Instance()->Key_Away(DIK_1))
     {
         if (!m_vPart.empty() && m_vPart.size() > 1)
@@ -288,6 +288,10 @@ void CVellum::Key_Input(const _float& fTimeDelta)
             CMonsterPart* pTargetPart = m_vPart[1]; 
             Organize_Chain(pTargetPart);
         }
+    }
+    if (CInputMgr::Get_Instance()->Key_Away(DIK_GRAVE))
+    {
+        Change_Pattern(new CDeadState());
     }
  
 

@@ -15,6 +15,7 @@
 void CDeadState::Enter(CVellum* pVellum)
 {
     pVellum->Get_Component<CModel>()->Set_Model(L"Head_Dead.obj", L"Head_Dead.mtl");
+    pVellum->Get_Component<CModel>()->Get_Material()->Set_Shader(L"g_UVScale.fx");
 	// sound
 	m_fDeadTime = 0.f;
     m_fDuration = 10.f;
