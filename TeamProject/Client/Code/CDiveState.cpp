@@ -20,10 +20,12 @@ void CDiveState::Enter(CVellum* pVellum)
     pVellum->Get_HCol()->Set_ColType(ColliderType::PASSIVE);
     if (pVellum->Get_HTransform()->Get_Pos().y < 30.f)
         pVellum->Get_HRigid()->Set_Velocity(_vec3(0.f, 10.f, 0.f));
+    m_fSpeed = 20.f;
 }
 
 void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
 {
+    m_fPartRatio = pVellum->Get_PartCnt() / (pVellum->Get_PartCnt() - pVellum->Get_Part().size() +1);
     CRigidBody* pRigid = pVellum->Get_HRigid();
     CTransform* pTransform = pVellum->Get_HTransform();
 
@@ -56,7 +58,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             m_fSearch = 0.f;
         }
 
-        pRigid->Add_Force(diff * 30.f);
+        pRigid->Add_Force(diff * 30.f * sqrtf(1.f + m_fPartRatio));
         break;
 
      // 도달 체크 → phase = Wait;
@@ -69,7 +71,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             CTestTile* pTile = Calc_Tile(pTransform->Get_Pos(), pVellum);
             if (pTile) pTile->Set_Destroy(true);
         }
-        pRigid->Add_Force({ 0.f,-1.f * 30.f, 0.f });
+        pRigid->Add_Force({ 0.f,-1.f * 30.f * sqrtf(1.f + m_fPartRatio), 0.f });
         break;
 
      // 시간 경과 → phase = DiveOut;
@@ -88,7 +90,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             m_fSearch = 0.f;
         }
 
-        pRigid->Add_Force(diff * 20.f);
+        pRigid->Add_Force(diff * 20.f * sqrtf(1.f + m_fPartRatio));
         break;
 
      // 상승 
@@ -101,7 +103,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             if (pTile) pTile->Set_Destroy(true);
 
         }
-        pRigid->Add_Force({ 0.f,1.f * 20.f, 0.f });
+        pRigid->Add_Force({ 0.f,1.f * 20.f * sqrtf(1.f + m_fPartRatio), 0.f });
         break;
 
     }

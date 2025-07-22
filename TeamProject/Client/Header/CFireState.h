@@ -18,6 +18,9 @@ private:
     _float      m_fFireTime = 5.f;     // 발사 단계 시간
     _float      m_fCoolTime = 1.f;     // 후딜레이 시간
 
+    _float      m_fSpeed = 20.f;
+    _float      m_fPartRatio = 0.f;
+
     // 발사에 필요한 정보
     _vec3       m_vPos;                // 발사 시작 위치
     _vec3       m_vBase;
