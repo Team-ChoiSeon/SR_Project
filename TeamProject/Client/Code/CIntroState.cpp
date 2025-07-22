@@ -14,6 +14,7 @@ void CIntroState::Enter(CVellum* pVellum)
 {
     OutputDebugString(L"Intro : Enter\n");
     pVellum->Get_Component<CModel>()->Set_Model(L"Head_Sleep.obj", L"Head_Sleep.mtl");
+    pVellum->Get_Component<CModel>()->Get_Material()->Set_Shader(L"g_UVScale.fx");
     m_ePhase = IntroPhase::Orbit;
     m_fRad = 15.f;
     m_fASpeed = 40.f;
