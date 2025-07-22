@@ -4,7 +4,94 @@
             "objects": []
         },
         "DEFAULT": {
-            "objects": []
+            "objects": [
+                {
+                    "Layer": "DEFAULT",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "Default_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                0.0,
+                                -2.0,
+                                92.554443359375
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_112"
+                }
+            ]
         },
         "LIGHT": {
             "objects": []
@@ -96,79 +183,6 @@
                         }
                     },
                     "name": "CStairBlock1_1"
-                },
-                {
-                    "Layer": "OBJECT",
-                    "class": "CPlayerTriggerCube",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 0,
-                            "ColType": 2
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                1.2000001668930054,
-                                0.9999955892562866,
-                                -8.51750659942627
-                            ],
-                            "rotation": [
-                                0.0,
-                                -0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                7.0,
-                                2.0,
-                                3.0
-                            ]
-                        }
-                    },
-                    "name": "CDoorTrigger1_1"
                 },
                 {
                     "Layer": "OBJECT",
@@ -341,79 +355,6 @@
                         }
                     },
                     "name": "CDoor1_2"
-                },
-                {
-                    "Layer": "OBJECT",
-                    "class": "CPlayerTriggerCube",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 0,
-                            "ColType": 2
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                1.1020816564559937,
-                                -30.956634521484375,
-                                -14.657892227172852
-                            ],
-                            "rotation": [
-                                0.0,
-                                -0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                4.0,
-                                2.0,
-                                3.5000014305114746
-                            ]
-                        }
-                    },
-                    "name": "CDoorTrigger1_2"
                 },
                 {
                     "Layer": "OBJECT",
@@ -1132,7 +1073,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                -26.899999618530273,
+                                -27.100000381469727,
                                 -31.232757568359375,
                                 37.637943267822266
                             ],
@@ -1218,7 +1159,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                -26.899999618530273,
+                                -27.100000381469727,
                                 -27.52369499206543,
                                 45.94368362426758
                             ],
@@ -1304,7 +1245,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                -26.899999618530273,
+                                -27.100000381469727,
                                 -23.719985961914063,
                                 54.239871978759766
                             ],
@@ -1390,7 +1331,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                -26.899999618530273,
+                                -27.100000381469727,
                                 -20.719987869262695,
                                 47.34010696411133
                             ],
@@ -1476,7 +1417,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                -26.899999618530273,
+                                -27.100000381469727,
                                 -19.81999397277832,
                                 38.740108489990234
                             ],
@@ -1562,7 +1503,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                -26.899999618530273,
+                                -27.100000381469727,
                                 -23.420013427734375,
                                 30.640098571777344
                             ],
@@ -1648,7 +1589,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                -26.899999618530273,
+                                -27.100000381469727,
                                 -25.32000732421875,
                                 66.94000244140625
                             ],
@@ -1734,7 +1675,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                28.899999618530273,
+                                29.100000381469727,
                                 -31.229999542236328,
                                 37.63999938964844
                             ],
@@ -1762,7 +1703,7 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "Alpha": 1.0,
+                            "Alpha": 0.009999999776482582,
                             "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
@@ -1820,7 +1761,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                28.899999618530273,
+                                29.100000381469727,
                                 -27.520000457763672,
                                 45.939998626708984
                             ],
@@ -1906,7 +1847,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                28.899999618530273,
+                                29.100000381469727,
                                 -23.719999313354492,
                                 51.94003677368164
                             ],
@@ -1934,7 +1875,7 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "Alpha": 1.0,
+                            "Alpha": 0.009999999776482582,
                             "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
@@ -1992,7 +1933,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                28.899999618530273,
+                                29.100000381469727,
                                 -20.719999313354492,
                                 47.34000015258789
                             ],
@@ -2078,7 +2019,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                28.899999618530273,
+                                29.100000381469727,
                                 -19.81999969482422,
                                 38.7400016784668
                             ],
@@ -2106,7 +2047,7 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "Alpha": 1.0,
+                            "Alpha": 0.009999999776482582,
                             "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
@@ -2164,7 +2105,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                28.899999618530273,
+                                29.100000381469727,
                                 -23.420000076293945,
                                 30.639999389648438
                             ],
@@ -2192,7 +2133,7 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "Alpha": 1.0,
+                            "Alpha": 0.009999999776482582,
                             "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_F.mtl",
                             "mesh": "Cube_F.obj",
@@ -2250,7 +2191,7 @@
                         },
                         "CTransform": {
                             "position": [
-                                28.899999618530273,
+                                29.100000381469727,
                                 -25.31999969482422,
                                 66.9400405883789
                             ],
@@ -4537,6 +4478,238 @@
                         }
                     },
                     "name": "CFloatingCube2_1_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CPickSwitch",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_G.mtl",
+                            "mesh": "Cube_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                0.9089318513870239,
+                                -8.5814790725708,
+                                28.67018699645996
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                0.800000011920929,
+                                0.4000000059604645,
+                                0.4000000059604645
+                            ]
+                        }
+                    },
+                    "name": "CPickSwitch2_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.2000000476837158,
+                                1.0,
+                                -8.520000457763672
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                7.0,
+                                2.0,
+                                3.0
+                            ]
+                        }
+                    },
+                    "name": "CDoorTrigger1_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.100000023841858,
+                                -30.959999084472656,
+                                -14.65999984741211
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                4.0,
+                                2.0,
+                                3.5
+                            ]
+                        }
+                    },
+                    "name": "CDoorTrigger1_2"
                 }
             ]
         },
