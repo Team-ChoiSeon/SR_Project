@@ -30,7 +30,7 @@ public:
     // 이펙트의 속성을 설정하는 함수
     void Set_EffectProperties(float fLifeTime, float fSize, _bool bLoop);
     void Set_YOffset(float fOffsetY) { m_fOffsetY = fOffsetY; }
-
+    void Set_Color(D3DCOLOR color) { m_BaseColor = color; }
     _bool Is_Playing() const { return m_bIsActive; }
 
 private:
@@ -45,6 +45,7 @@ private:
     float m_fAge = 0.f;
     bool m_bIsActive = false;
     bool m_bLoop = false;
+    D3DCOLOR m_BaseColor = D3DCOLOR_ARGB(255, 255, 255, 255);
 
     // UV 애니메이션 정보
     int m_iAnimFramesX = 1;

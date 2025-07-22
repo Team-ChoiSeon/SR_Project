@@ -71,9 +71,10 @@ HRESULT CVellum::Ready_GameObject()
 
     Add_Component<CEffect>(ID_DYNAMIC, m_pGraphicDev);
     m_pEffect = Get_Component<CEffect>();
-    m_pEffect->Set_SpriteSheet(L"AOE1.png", 3, 1, 10.f);
+    m_pEffect->Set_SpriteSheet(L"AOE1.png", 3, 1, 15.f);
     m_pEffect->Set_YOffset(0.1f);
-    m_pEffect->Set_EffectProperties(3.f, 9.f, true);
+    m_pEffect->Set_EffectProperties(0.2f, 9.f, true);
+    m_pEffect->Set_Color(D3DCOLOR_ARGB(255, 255, 0, 0));
 
 
     m_pTransform->Set_Pos(VSTART);

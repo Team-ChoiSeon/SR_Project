@@ -118,13 +118,30 @@ void CEffect::Render_Effect()
 {
     if (!m_pGraphicDev || !m_pTexture || !m_pVB || !m_bIsActive)
         return;
+    // 렌더 상태 저장 (복원용)
+    DWORD dwZWriteEnable, dwAlphaBlendEnable, dwCullMode;
+    m_pGraphicDev->GetRenderState(D3DRS_ZWRITEENABLE, &dwZWriteEnable);
+    m_pGraphicDev->GetRenderState(D3DRS_ALPHABLENDENABLE, &dwAlphaBlendEnable);
+    m_pGraphicDev->GetRenderState(D3DRS_CULLMODE, &dwCullMode);
 
+    DWORD dwColorOp, dwAlphaOp;
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_COLOROP, &dwColorOp);
+    m_pGraphicDev->GetTextureStageState(0, D3DTSS_ALPHAOP, &dwAlphaOp);
     // 렌더 상태 설정
     m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 양면 렌더링
+    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
     m_pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
     m_pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     m_pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+
 
     m_pTexture->Bind(m_pGraphicDev, 0);
     m_pGraphicDev->SetFVF(FVF_PARTICLE);
@@ -164,7 +181,7 @@ void CEffect::Render_Effect()
     _vec3 v4 = { c.x + half, c.y, c.z - half }; // 우하
     _vec2 uv4 = { u + fFrameWidth, v + fFrameHeight };
 
-    D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 255, 255);
+    D3DCOLOR color = m_BaseColor;
 
     // 버텍스 버퍼 채우기 (삼각형 2개)
     pVertices[0] = { v2, color, uv2 };
@@ -177,15 +194,18 @@ void CEffect::Render_Effect()
 
     m_pVB->Unlock();
 
-    // 그리기
+    // 그리기 및 렌더 상태 복구
     m_pGraphicDev->SetStreamSource(0, m_pVB, 0, sizeof(VTXPARTICLE));
     m_pGraphicDev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
 
-    // 렌더 상태 복구
+
     m_pGraphicDev->SetTexture(0, nullptr);
-    m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-    m_pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+    m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, dwZWriteEnable);
+    m_pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, dwAlphaBlendEnable);
+    m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, dwCullMode);
+
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_COLOROP, dwColorOp);
+    m_pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, dwAlphaOp);
 }
 
 void CEffect::Free()
