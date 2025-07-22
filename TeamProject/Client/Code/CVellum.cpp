@@ -6,6 +6,7 @@
 #include "CRigidBody.h"
 #include "CCollider.h"
 #include "CParticle.h"
+#include "CEffect.h"
 
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
@@ -68,6 +69,12 @@ HRESULT CVellum::Ready_GameObject()
     m_pParticle->Set_Speed(9.f);
     m_pParticle->Set_Size(2.f);
 
+    Add_Component<CEffect>(ID_DYNAMIC, m_pGraphicDev);
+    m_pEffect = Get_Component<CEffect>();
+    m_pEffect->Set_SpriteSheet(L"AOE1.png", 3, 1, 10.f);
+    m_pEffect->Set_YOffset(0.1f);
+    m_pEffect->Set_EffectProperties(3.f, 9.f, true);
+
 
     m_pTransform->Set_Pos(VSTART);
     m_pTransform->Set_Scale({ 3.f, 3.f, 3.f });
@@ -113,16 +120,22 @@ HRESULT CVellum::Ready_GameObject()
 
 int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
-    //CGuiSystem::Get_Instance()->RegisterPanel("model Info",
+    //CGuiSystem::Get_Instance()->RegisterPanel("test effect",
     //	[this]() {
-    //		ImGui::Begin("model", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-    //        ImGui::Text("alpha : %s ", m_pModel->Get_Material()->Get_ShaderKey().c_str());
+    //		ImGui::Begin("effect", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+    //        ImGui::Text("pos %1.1f, %1.1f, %1.1f", m_pEffect->m_vPosXZ.x, m_pEffect->m_fOffsetY, m_pEffect->m_vPosXZ.y);
     //		ImGui::End();
     //	}
     //);
-    //wstring name = m_pModel->Get_Material()->Get_ShaderKey();
-    //OutputDebugStringW(name.c_str());
 
+
+
+    if (!m_pEffect->Is_Playing())
+    {
+        m_pEffect->Play();
+    }
+ 
+    
 
 
     if (m_bDead) return 1;

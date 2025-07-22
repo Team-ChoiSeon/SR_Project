@@ -3,10 +3,12 @@
 #include "CResourceMgr.h"
 #include "CTexture.h"
 
+#include "CTransform.h"
+
 // FVF 및 Vertex 구조체 선언 (엔진의 다른 곳에 정의되어 있어야 함)
 // 예시:
-// struct VTXPARTICLE { _vec3 vPos; D3DCOLOR dwColor; _vec2 vTexUV; };
-// const D3DFVF FVF_PARTICLE = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1;
+struct VTXPARTICLE { _vec3 vPos; D3DCOLOR dwColor; _vec2 vTexUV; };
+const _ulong FVF_PARTICLE = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1;
 
 
 BEGIN(Engine)
@@ -49,6 +51,16 @@ HRESULT CEffect::Ready_Component()
 
 void CEffect::Update_Component(const _float& fTimeDelta)
 {
+    if (m_pOwner)
+    {
+        CTransform* pOwnerTransform = m_pOwner->Get_Component<CTransform>();
+        if (pOwnerTransform)
+        {
+            const _vec3& ownerPos = pOwnerTransform->Get_Pos();
+            m_vPosXZ = { ownerPos.x, ownerPos.z };
+        }
+    }
+
     if (!m_bIsActive)
         return;
 
@@ -80,9 +92,8 @@ void CEffect::LateUpdate_Component(const _float& fTimeDelta)
         CRenderMgr::Get_Instance()->Add_Effect(this); // 렌더 매니저에 이펙트 렌더러 목록 추가 기능 필요
 }
 
-void CEffect::Play(const _vec2& vPosXZ)
+void CEffect::Play()
 {
-    m_vPosXZ = vPosXZ;
     m_fAge = 0.f;
     m_fCurrentFrame = 0.f;
     m_bIsActive = true;

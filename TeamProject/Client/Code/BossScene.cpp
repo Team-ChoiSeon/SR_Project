@@ -88,6 +88,7 @@ HRESULT BossScene::Ready_Scene()
 	CResourceMgr::Get_Instance()->Load_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
 	CResourceMgr::Get_Instance()->Load_Texture(L"blackSmoke00.png");
 	CResourceMgr::Get_Instance()->Load_Texture(L"projectile.png");
+	CResourceMgr::Get_Instance()->Load_Texture(L"AOE1.png");
 
 
 

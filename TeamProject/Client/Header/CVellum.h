@@ -4,6 +4,8 @@
 
 #include "IVellumState.h"
 
+#include "CEffect.h"
+
 #define VSTART _vec3{ 0.f, 33.f, 60.f }
 
 namespace Engine
@@ -65,6 +67,7 @@ private:
 	CRigidBody* m_pRigid = nullptr;
 	CCollider*	m_pCol = nullptr;
 	CParticle* m_pParticle = nullptr;
+	CEffect* m_pEffect = nullptr;
 
 	int m_iIdx = 0;
 

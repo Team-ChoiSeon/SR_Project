@@ -22,7 +22,7 @@ public:
 
 public:
     // 이펙트 재생을 시작하는 함수 (XZ 평면 좌표 사용)
-    void Play(const _vec2& vPosXZ);
+    void Play();
 
     // 시각적 표현을 설정하는 함수
     void Set_SpriteSheet(const std::wstring& textureKey, int framesX, int framesY, float speed);
