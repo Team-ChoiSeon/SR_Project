@@ -67,6 +67,30 @@ void CSoundMgr::Load_Sound(const string& key, const string& filepath)
     }
 }
 
+void CSoundMgr::Unload_Sound(const string& key)
+{
+    // 1. 만약 해당 키의 사운드가 재생 중이라면 정지시킵니다.
+// Stop 함수 내부에서 m_mapChannel에서도 제거됩니다.
+    Stop(key);
+
+    // 2. 사운드 맵에서 해당 키를 찾습니다.
+    auto iterSound = m_mapSound.find(key);
+    if (iterSound != m_mapSound.end())
+    {
+        // 3. FMOD 사운드 리소스를 해제합니다.
+        iterSound->second->release();
+        // 4. 사운드 맵에서 제거합니다.
+        m_mapSound.erase(iterSound);
+    }
+
+    // 5. 볼륨 맵에 저장된 설정이 있다면 함께 제거합니다.
+    auto iterVolume = m_mapVolume.find(key);
+    if (iterVolume != m_mapVolume.end())
+    {
+        m_mapVolume.erase(iterVolume);
+    }
+}
+
 void CSoundMgr::Update_Sound()
 {
     if (m_pSystem)
