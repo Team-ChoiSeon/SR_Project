@@ -56,7 +56,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             m_fSearch = 0.f;
         }
 
-        pRigid->Add_Force(diff * 20.f);
+        pRigid->Add_Force(diff * 30.f);
         break;
 
      // 도달 체크 → phase = Wait;
@@ -69,7 +69,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             CTestTile* pTile = Calc_Tile(pTransform->Get_Pos(), pVellum);
             if (pTile) pTile->Set_Destroy(true);
         }
-        pRigid->Add_Force({ 0.f,-1.f * 20.f, 0.f });
+        pRigid->Add_Force({ 0.f,-1.f * 30.f, 0.f });
         break;
 
      // 시간 경과 → phase = DiveOut;
