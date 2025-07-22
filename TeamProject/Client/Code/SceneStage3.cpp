@@ -84,8 +84,16 @@ HRESULT SceneStage3::Ready_Scene()
 _int SceneStage3::Update_Scene(const _float& fTimeDelta)
 {
 
-	Set_Triggers();
-	CScene::Update_Scene(fTimeDelta);
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate")->Get_InGate()) {
+		CScene* pScene = SceneSB::Create(m_pGraphicDev);
+		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+		CCollisionMgr::Get_Instance()->Clear();
+		CRenderMgr::Get_Instance()->Clear();
+	}
+	else {
+		Set_Triggers();
+		CScene::Update_Scene(fTimeDelta);
+	}
 
 	return 0;
 }
@@ -131,6 +139,18 @@ void SceneStage3::FloatingSet()
 	CFloatingCube1_1->Set_Info(CFloatingCube1_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, -1.f, 0.f }, 5.f, 5.f, 0.5f);
 	CFloatingCube* CDoor2_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor2_1");
 	CDoor2_1->Set_Info(CDoor2_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, -1.f, 0.f }, 12.f, 5.f, 0.5f);
+
+	for (int i = 1; i < 13; i++) {
+		wstring name = L"CFloatingCube2_" + to_wstring(i);
+		CFloatingCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(name);
+		cube->Set_Loop();
+		//cube->SetTrigger(true);
+		cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 20.f, 5.f, 0.5f);
+	}
+
+	CFloatingCube* CFloatingCube2_1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1_1");
+	CFloatingCube2_1_1->Set_Info(CFloatingCube2_1_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, -1.f, 0.f }, 25.f, 5.f, 0.5f);
+	//CFloatingCube2_1_1->SetTrigger(true);
 }
 
 void SceneStage3::DirectionSet()
@@ -163,6 +183,9 @@ void SceneStage3::SlotSet()
 
 	CSlotCube* CSlotCube2_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube>(L"CSlotCube2_1");
 	CSlotCube2_1->Set_Info(pPlayer, 5, 5);
+
+	CSlotSensor* CSlotSensor2_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor2_1");
+	CSlotSensor2_1->Set_Info(pPlayer, 5, 5);
 }
 
 void SceneStage3::StairSet()

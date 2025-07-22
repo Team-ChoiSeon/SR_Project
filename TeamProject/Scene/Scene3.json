@@ -4,1040 +4,7 @@
             "objects": []
         },
         "DEFAULT": {
-            "objects": [
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 0.17599999904632568,
-                            "Normal": "Tile_G.PNG",
-                            "matKey": "Tile_G.mtl",
-                            "mesh": "Tile_G.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                1.0,
-                                -24.370635986328125,
-                                65.6502685546875
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                0.20000000298023224,
-                                14.0,
-                                40.0
-                            ]
-                        }
-                    },
-                    "name": "CGlassTile1_1"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "Default_A.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                8.699999809265137,
-                                -13.709985733032227,
-                                18.059988021850586
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                2.0,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_85"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Tile_G.PNG",
-                            "matKey": "Tile_G.mtl",
-                            "mesh": "Tile_G.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                1.0,
-                                -7.402356147766113,
-                                54.80000305175781
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                8.0,
-                                0.30000001192092896,
-                                8.0
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_86"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Tile_H.PNG",
-                            "matKey": "Tile_H.mtl",
-                            "mesh": "Tile_H.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                -2.3374202251434326,
-                                -7.037781238555908,
-                                52.721900939941406
-                            ],
-                            "rotation": [
-                                0.0,
-                                45.0,
-                                0.0
-                            ],
-                            "scale": [
-                                3.999999523162842,
-                                0.800000011920929,
-                                0.9999998807907104
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_87"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Tile_H.PNG",
-                            "matKey": "Tile_H.mtl",
-                            "mesh": "Cube_H.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                3.280586004257202,
-                                -7.223062515258789,
-                                51.326133728027344
-                            ],
-                            "rotation": [
-                                0.0,
-                                135.0,
-                                0.0
-                            ],
-                            "scale": [
-                                3.999999523162842,
-                                1.0,
-                                0.9999998807907104
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_88"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
-                            "matKey": "Cube_H.mtl",
-                            "mesh": "Cube_H.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                1.0,
-                                -6.399996280670166,
-                                55.0
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_89"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Tile_H.PNG",
-                            "matKey": "Tile_H.mtl",
-                            "mesh": "Tile_H.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                -1.009246826171875,
-                                -7.21999979019165,
-                                58.27220916748047
-                            ],
-                            "rotation": [
-                                0.0,
-                                135.0,
-                                0.0
-                            ],
-                            "scale": [
-                                3.999999523162842,
-                                1.0,
-                                0.9999998807907104
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_90"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Tile_H.PNG",
-                            "matKey": "Tile_H.mtl",
-                            "mesh": "Tile_H.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                4.641940593719482,
-                                -7.21999979019165,
-                                56.857208251953125
-                            ],
-                            "rotation": [
-                                0.0,
-                                45.0,
-                                0.0
-                            ],
-                            "scale": [
-                                3.999999523162842,
-                                1.0,
-                                0.9999998807907104
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_91"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Tile_I.PNG",
-                            "matKey": "Tile_I.mtl",
-                            "mesh": "Tile_I.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                1.100000023841858,
-                                -7.5357513427734375,
-                                46.0074577331543
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                9.819999694824219,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_92"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Tile_I.PNG",
-                            "matKey": "Tile_I.mtl",
-                            "mesh": "Tile_I.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                1.100000023841858,
-                                -7.539999961853027,
-                                63.72216796875
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                9.819999694824219,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_93"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "Default_A.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                -7.699995040893555,
-                                -7.539999961853027,
-                                54.79999923706055
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                8.100000381469727
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_94"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "Default_A.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                9.900001525878906,
-                                -7.539999961853027,
-                                54.79999923706055
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                7.999999523162842
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_95"
-                }
-            ]
+            "objects": []
         },
         "LIGHT": {
             "objects": []
@@ -2108,7 +1075,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -2194,7 +1161,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -2280,7 +1247,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -2624,7 +1591,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_F.mtl",
                             "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
@@ -2710,7 +1677,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -2796,7 +1763,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -2882,7 +1849,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -3226,7 +2193,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_F.mtl",
                             "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
@@ -3312,7 +2279,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -3484,7 +2451,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_F.mtl",
                             "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
@@ -4306,6 +3273,1270 @@
                         }
                     },
                     "name": "CMirrorTriggerCube1_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CSlotSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 0,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                -3.3706016540527344,
+                                55.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.25,
+                                0.0
+                            ],
+                            "scale": [
+                                0.9999828338623047,
+                                1.0,
+                                0.9999828338623047
+                            ]
+                        }
+                    },
+                    "name": "CSlotSensor2_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_E.mtl",
+                            "mesh": "Cube_E.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -1.8491891622543335,
+                                8.4399995803833,
+                                52.22917938232422
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                3.999999523162842,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_E.mtl",
+                            "mesh": "Cube_E.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                3.7192351818084717,
+                                8.4399995803833,
+                                51.76923751831055
+                            ],
+                            "rotation": [
+                                0.0,
+                                135.0,
+                                0.0
+                            ],
+                            "scale": [
+                                3.999999523162842,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_2"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_E.mtl",
+                            "mesh": "Cube_E.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -1.4161125421524048,
+                                8.4399995803833,
+                                57.8638916015625
+                            ],
+                            "rotation": [
+                                0.0,
+                                135.0,
+                                0.0
+                            ],
+                            "scale": [
+                                3.999999523162842,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_3"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_E.mtl",
+                            "mesh": "Cube_E.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                4.081815719604492,
+                                8.4399995803833,
+                                57.41817092895508
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                3.999999523162842,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_4"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.21400000154972076,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_B.mtl",
+                            "mesh": "Cube_B.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0199999809265137,
+                                8.4399995803833,
+                                46.0099983215332
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                9.0,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_5"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_B.mtl",
+                            "mesh": "Cube_B.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.100000023841858,
+                                8.4399995803833,
+                                63.720001220703125
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                9.0,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_6"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_B.mtl",
+                            "mesh": "Cube_B.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -7.699999809265137,
+                                8.4399995803833,
+                                54.79999923706055
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                0.30000001192092896,
+                                15.0,
+                                9.0
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_7"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_B.mtl",
+                            "mesh": "Cube_B.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                9.899999618530273,
+                                8.4399995803833,
+                                54.79999923706055
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                0.30000001192092896,
+                                15.0,
+                                9.0
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_8"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_F.mtl",
+                            "mesh": "Cube_F.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -9.65212345123291,
+                                6.699999809265137,
+                                44.4121208190918
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                15.0,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_9"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_F.mtl",
+                            "mesh": "Cube_F.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                11.726841926574707,
+                                6.700835704803467,
+                                65.46318817138672
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                15.0,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_10"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_F.mtl",
+                            "mesh": "Cube_F.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                11.361882209777832,
+                                6.699999809265137,
+                                44.03187561035156
+                            ],
+                            "rotation": [
+                                0.0,
+                                135.0,
+                                0.0
+                            ],
+                            "scale": [
+                                15.0,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_11"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.2150000035762787,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_F.mtl",
+                            "mesh": "Cube_F.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -9.430130004882813,
+                                6.699999809265137,
+                                65.52989196777344
+                            ],
+                            "rotation": [
+                                0.0,
+                                135.0,
+                                0.0
+                            ],
+                            "scale": [
+                                15.0,
+                                15.0,
+                                0.30000001192092896
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_12"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CSceneGate",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 0,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.4574074745178223,
+                                24.236568450927734,
+                                -20.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                7.0,
+                                7.0,
+                                7.0
+                            ]
+                        }
+                    },
+                    "name": "CSceneGate"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CFloatingCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "Default_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.2358039617538452,
+                                18.053119659423828,
+                                18.475635528564453
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                11.000005722045898,
+                                0.30000001192092896,
+                                7.699995040893555
+                            ]
+                        }
+                    },
+                    "name": "CFloatingCube2_1_1"
                 }
             ]
         },
@@ -4412,7 +4643,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -4471,7 +4702,7 @@
                             "position": [
                                 0.9546862244606018,
                                 2.1000003814697266,
-                                107.07048797607422
+                                153.06875610351563
                             ],
                             "rotation": [
                                 0.0,
@@ -4901,7 +5132,7 @@
                             "position": [
                                 1.0,
                                 19.000036239624023,
-                                0.0
+                                -18.058456420898438
                             ],
                             "rotation": [
                                 0.0,
@@ -4911,7 +5142,7 @@
                             "scale": [
                                 10.0,
                                 1.0,
-                                10.0
+                                29.081972122192383
                             ]
                         }
                     },
@@ -5702,7 +5933,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -5788,7 +6019,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -5874,7 +6105,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -6046,7 +6277,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -6132,7 +6363,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -6218,7 +6449,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -6792,8 +7023,8 @@
                         "CTransform": {
                             "position": [
                                 1.0,
-                                -11.143576622009277,
-                                56.06285095214844
+                                -10.543574333190918,
+                                56.762840270996094
                             ],
                             "rotation": [
                                 0.0,
@@ -6801,9 +7032,9 @@
                                 0.0
                             ],
                             "scale": [
-                                25.33465576171875,
-                                1.0,
-                                30.0
+                                50.83439254760742,
+                                1.6000001430511475,
+                                31.000003814697266
                             ]
                         }
                     },
@@ -6906,7 +7137,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -11624,6 +11855,2414 @@
                         }
                     },
                     "name": "CTestTile_84"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Default_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                15.0,
+                                55.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                5.300000190734863,
+                                1.0,
+                                5.300000190734863
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_102"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                16.0,
+                                55.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                10.0,
+                                1.0,
+                                10.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_103"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Default_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                18.0,
+                                55.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                18.0,
+                                1.0,
+                                18.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_104"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "Default_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                8.699999809265137,
+                                -13.709985733032227,
+                                18.059988021850586
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                2.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_85"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                -7.402356147766113,
+                                54.80000305175781
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                8.0,
+                                0.30000001192092896,
+                                8.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_86"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.17599999904632568,
+                            "Normal": "Tile_G.PNG",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                -24.370635986328125,
+                                65.6502685546875
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                0.20000000298023224,
+                                14.0,
+                                40.0
+                            ]
+                        }
+                    },
+                    "name": "CGlassTile1_1"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Tile_H.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -2.33607816696167,
+                                -7.037781238555908,
+                                52.720558166503906
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                3.999999523162842,
+                                0.800000011920929,
+                                0.9999998807907104
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_87"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Cube_H.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                3.280586004257202,
+                                -7.223062515258789,
+                                51.326133728027344
+                            ],
+                            "rotation": [
+                                0.0,
+                                135.0,
+                                0.0
+                            ],
+                            "scale": [
+                                3.999999523162842,
+                                1.0,
+                                0.9999998807907104
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_88"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_H.mtl",
+                            "mesh": "Cube_H.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                -6.399996280670166,
+                                55.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_89"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Tile_H.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -1.009246826171875,
+                                -7.21999979019165,
+                                58.27220916748047
+                            ],
+                            "rotation": [
+                                0.0,
+                                135.0,
+                                0.0
+                            ],
+                            "scale": [
+                                3.999999523162842,
+                                1.0,
+                                0.9999998807907104
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_90"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Tile_H.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                4.641940593719482,
+                                -7.21999979019165,
+                                56.857208251953125
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                3.999999523162842,
+                                1.0,
+                                0.9999998807907104
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_91"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Tile_I.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0201858282089233,
+                                -7.5357513427734375,
+                                46.0074577331543
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                9.819999694824219,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_92"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Tile_I.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.100000023841858,
+                                -7.533412933349609,
+                                63.72216796875
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                9.819999694824219,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_93"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "Default_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -7.699995040893555,
+                                -7.539999961853027,
+                                54.79999923706055
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                8.100000381469727
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_94"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "Default_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                9.900001525878906,
+                                -7.539999961853027,
+                                54.79999923706055
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                7.999999523162842
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_95"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Tile_J.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -10.192502975463867,
+                                -8.551072120666504,
+                                44.95158386230469
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                15.000006675720215,
+                                1.0,
+                                0.9999998807907104
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_96"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Tile_J.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                12.353155136108398,
+                                -8.550000190734863,
+                                64.84182739257813
+                            ],
+                            "rotation": [
+                                0.0,
+                                45.0,
+                                0.0
+                            ],
+                            "scale": [
+                                15.0,
+                                1.0,
+                                0.9999998807907104
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_97"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Tile_J.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                11.006916999816895,
+                                -8.550000190734863,
+                                43.68414306640625
+                            ],
+                            "rotation": [
+                                0.0,
+                                135.0,
+                                0.0
+                            ],
+                            "scale": [
+                                15.0,
+                                1.0,
+                                0.9999998807907104
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_98"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "Default_A.mtl",
+                            "mesh": "Tile_J.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -8.766984939575195,
+                                -8.550000190734863,
+                                66.19316101074219
+                            ],
+                            "rotation": [
+                                0.0,
+                                135.0,
+                                0.0
+                            ],
+                            "scale": [
+                                15.0,
+                                1.0,
+                                0.9999998807907104
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_99"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                -9.00000286102295,
+                                54.79999923706055
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                24.0,
+                                1.0,
+                                24.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_100"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                8.600000381469727,
+                                12.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -48.34246826171875,
+                                11.11799430847168,
+                                56.39985275268555
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                20.0,
+                                31.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_101"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                28.975971221923828,
+                                26.59266471862793
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                10.0,
+                                10.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_109"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                28.979999542236328,
+                                -27.16415786743164
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                10.0,
+                                10.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_110"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                38.956111907958984,
+                                0.5734643936157227
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                10.500003814697266,
+                                1.0,
+                                28.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_111"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                10.199999809265137,
+                                9.300000190734863,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -30.69759178161621,
+                                5.9394426345825195,
+                                25.0144100189209
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                19.882226943969727,
+                                15.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_105"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                10.399999618530273,
+                                10.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                32.17726516723633,
+                                5.940000057220459,
+                                25.010000228881836
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                19.8799991607666,
+                                15.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_106"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
+                            "matKey": "Tile_G.mtl",
+                            "mesh": "Tile_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.0,
+                                18.72724723815918,
+                                56.7599983215332
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                50.83000183105469,
+                                0.30000001192092896,
+                                31.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_107"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
+                            "matKey": "Tile_E.mtl",
+                            "mesh": "Tile_E.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                9.199999809265137,
+                                4.699999809265137,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                49.519691467285156,
+                                11.119998931884766,
+                                56.400001525878906
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                20.0,
+                                31.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_108"
                 }
             ]
         },
