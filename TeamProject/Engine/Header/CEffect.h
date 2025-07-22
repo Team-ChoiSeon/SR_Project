@@ -22,15 +22,16 @@ public:
 
 public:
     // 이펙트 재생을 시작하는 함수 (XZ 평면 좌표 사용)
-    void Play();
+    void Play(const _vec2& vPosXZ, float fLifeTime);
 
     // 시각적 표현을 설정하는 함수
     void Set_SpriteSheet(const std::wstring& textureKey, int framesX, int framesY, float speed);
 
     // 이펙트의 속성을 설정하는 함수
-    void Set_EffectProperties(float fLifeTime, float fSize, _bool bLoop);
+    void Set_EffectProperties(float fSize, _bool bLoop);
     void Set_YOffset(float fOffsetY) { m_fOffsetY = fOffsetY; }
     void Set_Color(D3DCOLOR color) { m_BaseColor = color; }
+    void Set_Active(bool active) { m_bIsActive = active; }
     _bool Is_Playing() const { return m_bIsActive; }
 
 private:
@@ -58,3 +59,15 @@ private:
 };
 
 END
+
+/*
+
+fLifeTime = 총 프레임 수 / speed
+사용 예시
+16프레임짜리 폭발 애니메이션을 초당 20프레임(speed = 20.f)의 속도로 재생하고 싶을 경우:
+
+애니메이션 재생 시간: 16 / 20.f = 0.8초
+
+설정할 LifeTime: 0.8f
+
+*/

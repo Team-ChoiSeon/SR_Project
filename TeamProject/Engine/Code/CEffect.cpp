@@ -51,22 +51,11 @@ HRESULT CEffect::Ready_Component()
 
 void CEffect::Update_Component(const _float& fTimeDelta)
 {
-    if (m_pOwner)
-    {
-        CTransform* pOwnerTransform = m_pOwner->Get_Component<CTransform>();
-        if (pOwnerTransform)
-        {
-            const _vec3& ownerPos = pOwnerTransform->Get_Pos();
-            m_vPosXZ = { ownerPos.x, ownerPos.z };
-        }
-    }
-
     if (!m_bIsActive)
         return;
 
     // 1. 수명 계산
     m_fAge += fTimeDelta;
-
     // 2. 애니메이션 프레임 계산
     m_fCurrentFrame += m_fAnimationSpeed * fTimeDelta;
 
@@ -92,8 +81,10 @@ void CEffect::LateUpdate_Component(const _float& fTimeDelta)
         CRenderMgr::Get_Instance()->Add_Effect(this); // 렌더 매니저에 이펙트 렌더러 목록 추가 기능 필요
 }
 
-void CEffect::Play()
+void CEffect::Play(const _vec2& vPosXZ, float fLifeTime)
 {
+    m_vPosXZ = vPosXZ;         // 위치를 이 때 한 번만 설정
+    m_fLifeTime = fLifeTime;   // 수명을 이 때 설정
     m_fAge = 0.f;
     m_fCurrentFrame = 0.f;
     m_bIsActive = true;
@@ -107,9 +98,8 @@ void CEffect::Set_SpriteSheet(const std::wstring& textureKey, int framesX, int f
     m_fAnimationSpeed = speed;
 }
 
-void CEffect::Set_EffectProperties(float fLifeTime, float fSize, _bool bLoop)
+void CEffect::Set_EffectProperties(float fSize, _bool bLoop)
 {
-    m_fLifeTime = fLifeTime;
     m_fSize = fSize;
     m_bLoop = bLoop;
 }

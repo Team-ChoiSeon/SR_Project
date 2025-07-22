@@ -25,6 +25,8 @@ public:
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
+	void Load_Resource();
+
 	void Organize_Chain(CMonsterPart* pPart);
 	void Key_Input(const _float& fTimeDelta);
 

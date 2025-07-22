@@ -51,7 +51,7 @@ private:
 	CPickTarget* m_pPickTarget = nullptr;
 	CTransform* m_pPickerTransform = nullptr;
 
-	_float m_fLifeTime = 10.f;
+	_float m_fLifeTime = 5.f;
 
 	EProjectileState m_eState = EProjectileState::MSHOT;
 	bool m_bGrab = false;

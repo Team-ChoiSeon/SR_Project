@@ -10,6 +10,7 @@
 
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
+#include "CResourceMgr.h"
 
 #include "CIdleState.h"
 #include "CIntroState.h"
@@ -47,6 +48,7 @@ CVellum* CVellum::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CVellum::Ready_GameObject()
 {
+    Load_Resource();
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
     m_pModel->Set_Model(L"Head_Smile.obj", L"Head_Smile.mtl");
@@ -71,9 +73,9 @@ HRESULT CVellum::Ready_GameObject()
 
     Add_Component<CEffect>(ID_DYNAMIC, m_pGraphicDev);
     m_pEffect = Get_Component<CEffect>();
-    m_pEffect->Set_SpriteSheet(L"AOE1.png", 3, 1, 15.f);
+    m_pEffect->Set_SpriteSheet(L"AOE1.png", 3, 1, 1.f);
     m_pEffect->Set_YOffset(0.1f);
-    m_pEffect->Set_EffectProperties(0.2f, 9.f, true);
+    m_pEffect->Set_EffectProperties(9.f * D3DX_PI, false);
     m_pEffect->Set_Color(D3DCOLOR_ARGB(255, 255, 0, 0));
 
 
@@ -128,16 +130,6 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
     //		ImGui::End();
     //	}
     //);
-
-
-
-    if (!m_pEffect->Is_Playing())
-    {
-        m_pEffect->Play();
-    }
- 
-    
-
 
     if (m_bDead) return 1;
     if (m_vPart.empty())
@@ -207,6 +199,33 @@ void CVellum::LateUpdate_GameObject(const _float& fTimeDelta)
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
     for (auto* pPart : m_vPart)
         pPart->LateUpdate_GameObject(fTimeDelta);
+}
+
+void CVellum::Load_Resource()
+{
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Smile.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Smile.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Smile.png");
+
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Fire.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Fire.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Fire.png");
+
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Dead.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Dead.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Dead.png");
+
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Hit.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Hit.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Hit.png");
+
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Sleep.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Sleep.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Sleep.png");
+
+    CResourceMgr::Get_Instance()->Load_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
+    CResourceMgr::Get_Instance()->Load_Texture(L"blackSmoke00.png");
+    CResourceMgr::Get_Instance()->Load_Texture(L"AOE1.png");
 }
 
 

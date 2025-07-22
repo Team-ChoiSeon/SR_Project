@@ -30,25 +30,6 @@ BossScene::~BossScene()
 
 HRESULT BossScene::Ready_Scene()
 {
-	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Smile.obj");
-	CResourceMgr::Get_Instance()->Load_Material(L"Head_Smile.mtl");
-	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Smile.png");
-
-	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Fire.obj");
-	CResourceMgr::Get_Instance()->Load_Material(L"Head_Fire.mtl");
-	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Fire.png");
-
-	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Dead.obj");
-	CResourceMgr::Get_Instance()->Load_Material(L"Head_Dead.mtl");
-	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Dead.png");
-
-	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Hit.obj");
-	CResourceMgr::Get_Instance()->Load_Material(L"Head_Hit.mtl");
-	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Hit.png");
-
-	CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Sleep.obj");
-	CResourceMgr::Get_Instance()->Load_Material(L"Head_Sleep.mtl");
-	CResourceMgr::Get_Instance()->Load_Texture(L"Head_Sleep.png");
 	//CScene::Ready_Scene();
 	Init_Layers();
 
@@ -64,8 +45,6 @@ HRESULT BossScene::Ready_Scene()
 
 	CCinematicCamera* pCine = CCinematicCamera::Create(m_pGraphicDev);
 	pCine->Set_Target(pPlayer);
-
-
 
 	// 3-2. º§·ë
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
@@ -84,13 +63,6 @@ HRESULT BossScene::Ready_Scene()
 	// 6. Ä«¸Þ¶ó Å¸°ÙÀº ÇÃ·¹ÀÌ¾î
 	pCam->Set_Target(pPlayer);  // 1ÀÎÄª ½ÃÁ¡
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
-
-	CResourceMgr::Get_Instance()->Load_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
-	CResourceMgr::Get_Instance()->Load_Texture(L"blackSmoke00.png");
-	CResourceMgr::Get_Instance()->Load_Texture(L"projectile.png");
-	CResourceMgr::Get_Instance()->Load_Texture(L"AOE1.png");
-
-
 
 	return S_OK;
 }

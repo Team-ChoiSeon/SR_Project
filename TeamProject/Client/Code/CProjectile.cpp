@@ -13,8 +13,9 @@
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
 #include "CCameraMgr.h"
-#include "CMainPlayer.h"
+#include "CResourceMgr.h"
 
+#include "CMainPlayer.h"
 #include "CVellum.h"
 #include "CMonsterPart.h"
 
@@ -36,6 +37,8 @@ CProjectile::~CProjectile()
 
 HRESULT CProjectile::Ready_GameObject()
 {
+	CResourceMgr::Get_Instance()->Load_Texture(L"projectile.png");
+
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
 	m_pModel = Get_Component<CModel>();
 

@@ -28,6 +28,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
     m_fPartRatio = pVellum->Get_PartCnt() / (pVellum->Get_PartCnt() - pVellum->Get_Part().size() +1);
     CRigidBody* pRigid = pVellum->Get_HRigid();
     CTransform* pTransform = pVellum->Get_HTransform();
+    CEffect* pEffect = pVellum->Get_Component<CEffect>();
 
     _vec3 vVel = pRigid->Get_Velocity();
     if (D3DXVec3LengthSq(&vVel) > 0.001f)   pTransform->Set_Look(vVel);
@@ -50,15 +51,18 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             m_fSearch = 0.f;
             m_eDPhase = DivePhase::In;
             OutputDebugString(L"Ready->In\n");
+            _vec3 vPos = pTransform->Get_Pos();
+            pEffect->Play({ vPos.x, vPos.z }, 3.f);
         }
         m_fSearch += fTimeDelta;
         if (m_fSearch > 0.5f)
         {
             pRigid->Stop_Motion();
             m_fSearch = 0.f;
+            
         }
 
-        pRigid->Add_Force(diff * 30.f * sqrtf(1.f + m_fPartRatio));
+        pRigid->Add_Force(diff * 10.f * sqrtf(1.f + m_fPartRatio));
         break;
 
      // 도달 체크 → phase = Wait;
@@ -71,13 +75,15 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             CTestTile* pTile = Calc_Tile(pTransform->Get_Pos(), pVellum);
             if (pTile) pTile->Set_Destroy(true);
         }
-        pRigid->Add_Force({ 0.f,-1.f * 30.f * sqrtf(1.f + m_fPartRatio), 0.f });
+        pRigid->Add_Force({ 0.f,-1.f * 10.f * sqrtf(1.f + m_fPartRatio), 0.f });
         break;
 
      // 시간 경과 → phase = DiveOut;
     case DivePhase::Wait:
         if (fDist < 7.5f)
         {
+            _vec3 vPos = pTransform->Get_Pos();
+            pEffect->Play({ vPos.x, vPos.z }, 3.f);
             pRigid->Stop_Motion();
             m_eDPhase = DivePhase::Out;
             m_fSearch = 0.f;
@@ -90,11 +96,12 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             m_fSearch = 0.f;
         }
 
-        pRigid->Add_Force(diff * 20.f * sqrtf(1.f + m_fPartRatio));
+        pRigid->Add_Force(diff * 10.f * sqrtf(1.f + m_fPartRatio));
         break;
 
      // 상승 
     case DivePhase::Out:
+
         if (pTransform->Get_Pos().y > m_iCnt * 4.f)
         {
             pRigid->Stop_Motion();
@@ -103,7 +110,7 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
             if (pTile) pTile->Set_Destroy(true);
 
         }
-        pRigid->Add_Force({ 0.f,1.f * 20.f * sqrtf(1.f + m_fPartRatio), 0.f });
+        pRigid->Add_Force({ 0.f,1.f * 10.f * sqrtf(1.f + m_fPartRatio), 0.f });
         break;
 
     }
