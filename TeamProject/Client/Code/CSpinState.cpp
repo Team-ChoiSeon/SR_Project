@@ -20,6 +20,7 @@ void CSpinState::Enter(CVellum* pVellum)
 	m_fPatternTime = 0.f;
 	m_fSwitchTime = 8.f;
 	m_fSpeed = 150.f;
+    m_fFireSpeed = 15.f;
 	m_fFireDelay = 0.f;
 	m_fAngle = 0.f;
     m_bRotationStarted = false;
@@ -94,7 +95,7 @@ void CSpinState::Update(const _float fTimeDelta, CVellum* pVellum)
         pParts[i]->Get_Component<CTransform>()->Set_Look(vLookDir);
     }
 
-    const float fFireInterval = 1.f;
+    const float fFireInterval = 2.f;
     m_fFireDelay += fTimeDelta;
     
     if (m_fFireDelay >= fFireInterval)
@@ -112,7 +113,7 @@ void CSpinState::Update(const _float fTimeDelta, CVellum* pVellum)
             CProjectile* pProjectile = CProjectile::Create(pVellum->Get_Dev());
 
             pProjectile->Get_Component<CTransform>()->Set_Pos(vPartPos + vFireDir * 1.5f);
-            pProjectile->Get_Component<CRigidBody>()->Add_Velocity(vFireDir * 5.f);
+            pProjectile->Get_Component<CRigidBody>()->Add_Velocity(vFireDir * m_fFireSpeed);
 
             
             static int iProjectileCnt = 0;
@@ -120,6 +121,7 @@ void CSpinState::Update(const _float fTimeDelta, CVellum* pVellum)
                 Get_Layer(LAYER_OBJECT)->Add_GameObject(L"SpinProjectile_" + to_wstring(iProjectileCnt++), pProjectile);
             
         }
+        m_fFireSpeed *= 0.66f;
     }
 
     m_fPatternTime += fTimeDelta;

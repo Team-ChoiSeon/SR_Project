@@ -9,6 +9,7 @@ public:
 
 private:
     _float m_fSpeed = 0.f;
+    _float m_fFireSpeed = 0.f;
     _float m_fPatternTime = 0.f;
     _float m_fSwitchTime = 3.f;
 
