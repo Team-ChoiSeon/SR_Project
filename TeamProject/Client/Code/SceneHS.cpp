@@ -26,6 +26,7 @@
 #include "CSlotCube.h"
 #include "CSlotCube_Auto.h"
 #include "CSlotSensor.h"
+#include "CMirrorSlotCube.h"
 
 #include "SceneHW.h"
 #include "SceneBG.h"
@@ -50,6 +51,9 @@ HRESULT SceneHS::Ready_Scene()
 
 	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ -20.f, 20.f, -20.f });
+
+	//CMirrorSlotCube* cMirrorSlotCube = CMirrorSlotCube::Create(m_pGraphicDev);
+	//cMirrorSlotCube->Get_Component<CTransform>()->Set_Pos({ 20.f, 20.f, -20.f });
 
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
 	pTile->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 50.f });
