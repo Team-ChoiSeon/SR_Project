@@ -155,6 +155,10 @@ void CMainPlayer::Free()
 
 void CMainPlayer::KeyInput(const _float& fTimeDelta)
 {
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_H)) {
+		Set_Hp(m_iMaxHp);
+	}
+
 	if (CInputMgr::Get_Instance()->Key_Tap(DIK_TAB)) {
 		m_bCursorMove = !m_bCursorMove;
 	}

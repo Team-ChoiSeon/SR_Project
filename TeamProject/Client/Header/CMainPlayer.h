@@ -41,8 +41,10 @@ public:
 	_vec3 Get_DragDistance() { return m_vDragDistance; }
 	CGameObject* Get_PickObj() { return m_pPickedObj; }
 	CGameObject* Get_PrevPickObj() { return m_pPickedObj; }
+	_int Get_Hp() { return m_iHP; }
 
-	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; };
+	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; }
+	void Set_Hp(_int iHp) { m_iHP = iHp; if (m_iHP > m_iMaxHp) { m_iHP = m_iMaxHp; } }
 
 protected:
 	//Utility Function
@@ -111,7 +113,8 @@ private:
 	PLAYER_STATE m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	PLAYER_STATE m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
 
-	_int m_iHP = 0; //�÷��̾� HP
+	_int m_iHP = 10; //�÷��̾� HP
+	_int m_iMaxHp = 10;
 	bool m_bInvincible = false; // ���� ����
 	_float m_fInvincibleTime = 0.f;
 	const _float m_fMaxInvincibleTime = 5.0f;

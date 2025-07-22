@@ -165,6 +165,7 @@
     <ClInclude Include="..\Header\CMetalCube.h" />
     <ClInclude Include="..\Header\CImageUIObject.h" />
     <ClInclude Include="..\Header\CLodingCube.h" />
+    <ClInclude Include="..\Header\CMirrorSlotCube.h" />
     <ClInclude Include="..\Header\CPlayerTriggerCube.h" />
     <ClInclude Include="..\Header\CProgressBar.h" />
     <ClInclude Include="..\Header\CProjectile.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="..\Code\CMetalCube.cpp" />
     <ClCompile Include="..\Code\CImageUIObject.cpp" />
     <ClCompile Include="..\Code\CLodingCube.cpp" />
+    <ClCompile Include="..\Code\CMirrorSlotCube.cpp" />
     <ClCompile Include="..\Code\CPlayerTriggerCube.cpp" />
     <ClCompile Include="..\Code\CProgressBar.cpp" />
     <ClCompile Include="..\Code\CProjectile.cpp" />
