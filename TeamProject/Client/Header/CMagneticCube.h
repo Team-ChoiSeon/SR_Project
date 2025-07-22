@@ -35,5 +35,7 @@ private:
 	CCollider*			m_pDetectCollider;
 	CRigidBody*			m_pRigid;
 	CPickTarget*		m_pPick;
+
+	_float m_fColSoundCooldown;
 };
 

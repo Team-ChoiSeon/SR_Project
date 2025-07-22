@@ -40,6 +40,10 @@ public:
 	_bool Get_Loop() { return m_bBackward; }
 	_float Get_SleepTime() { return m_fTime; }
 
+	//Utility Function
+	void PlayDoorSound(const _bool& OnTrigger, const _bool& OffTrigger);
+	void PlayElevatorSound(const _bool& OnTrigger, const _bool& OffTrigger);
+
 private:
 	//Compute Function
 	void SyncVelPlayer(const _float& fTimeDelta);

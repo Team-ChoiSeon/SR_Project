@@ -54,15 +54,13 @@ HRESULT CDirectionalCube::Ready_GameObject()
 _int CDirectionalCube::Update_GameObject(const _float& fTimeDelta)
 {
 	Move();
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->Update_Component(fTimeDelta);
+	CGameObject::Update_GameObject(fTimeDelta);
 	return S_OK;
 }
 
 void CDirectionalCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component(fTimeDelta);
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 CDirectionalCube* CDirectionalCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -156,6 +154,19 @@ void CDirectionalCube::Move()
 		{
 			ComputeMoveVecIntoAxisMoveVec();
 			m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vMoveDelta);
+			if (!m_bSoundPlayed)
+			{
+				CSoundMgr::Get_Instance()->Play("CubeDrag", "SFX", true);
+				m_bSoundPlayed = true;
+			}
+		}
+		else
+		{
+			if (m_bSoundPlayed)
+			{
+				CSoundMgr::Get_Instance()->Stop("CubeDrag");
+				m_bSoundPlayed = false;
+			}
 		}
 
 		_vec3 NowPos = m_pTransform->Get_Pos();
@@ -180,6 +191,20 @@ void CDirectionalCube::Move()
 
 			if (fDelta > 0.f)
 				m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vMoveDelta);
+		
+			if (!m_bSoundPlayed)
+			{
+				CSoundMgr::Get_Instance()->Play("CubeDrag", "SFX", true);
+				m_bSoundPlayed = true;
+			}
+		}
+		else
+		{
+			if (m_bSoundPlayed)
+			{
+				CSoundMgr::Get_Instance()->Stop("CubeDrag");
+				m_bSoundPlayed = false;
+			}
 		}
 		_vec3 vNowPos = m_pTransform->Get_Pos();
 		_vec3 vNowGap = vNowPos - m_vStartPos;

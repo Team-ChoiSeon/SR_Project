@@ -52,5 +52,6 @@ private:
 	_float			m_fCurDistance;
 
 	_bool			m_bOneway;
+	_bool			m_bSoundPlayed = false;
 };
 

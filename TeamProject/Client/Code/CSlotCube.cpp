@@ -14,7 +14,7 @@
 #include "Engine_GUI.h"
 #include "CGuiSystem.h"
 #include "CCameraMgr.h"
-CSlotCube* CSlotCube::s_pPickedCube = nullptr;
+#include "CSlotSensor.h"
 CSlotCube::CSlotCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
 {
@@ -69,21 +69,6 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 {
 	if (m_bCurGrab)
 	{
-		if (s_pPickedCube == nullptr) {
-			s_pPickedCube = this;
-		}
-		else if (s_pPickedCube != this) {
-			m_bCurGrab = false;
-		}
-	}
-	else
-	{
-		if (s_pPickedCube == this)
-			s_pPickedCube = nullptr;
-	}
-
-	if (m_bCurGrab)
-	{
 		PickMove();
 	}	
 	else
@@ -94,7 +79,13 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 		else if (m_FitSlot != nullptr)
 			m_FitSlot->Set_SlottedCube(nullptr);
 		m_pRigid->Set_UseGravity(true);
+
+		if(m_pCollider->Get_ColState() == ColliderState::ENTER)
+		PlayColSound(1);
+
+		//PlayDragSound();
 	}
+	Update_Cube(fTimeDelta);
 	CGameObject::Update_GameObject(fTimeDelta);
 	
 
@@ -149,7 +140,7 @@ void CSlotCube::Insert_Overlap(CSlotSensor* sensor, _float dist)
 
 void CSlotCube::PickMove()
 {
-	//m_pRigid->Set_UseGravity(false);
+	m_pRigid->Set_UseGravity(false);
 	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f }); 
 	m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vCursorDelta);
 	m_vCursorDelta = {0,0,0};

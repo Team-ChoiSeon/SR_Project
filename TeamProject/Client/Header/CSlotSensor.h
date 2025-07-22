@@ -42,6 +42,7 @@ private:
 	//Compute Function
 	void Insert_Slot();
 	bool Check_Slot();
+	void AlphaUp(const _float& fTimeDelta);
 
 	//Variables
 	DetectZone		m_Zone;
@@ -56,5 +57,11 @@ private:
 	CSlotCube_Auto* m_pPickSlot_Auto = nullptr;
 
 	_bool m_bPlayerPick = true;
+	_bool m_bCheckID = false;
+	_bool m_bWrong = false;
+
+	_float m_fOriginAlpah = 0.f;
+	_bool m_bAlphaLerp = false;
+
 };
 

@@ -157,6 +157,24 @@ void CFloatingCube::Set_Info(const _vec3& vStart, const _vec3& vDirection, const
 	ComputeEndPos();
 }
 
+void CFloatingCube::PlayDoorSound(const _bool& OnTrigger, const _bool& OffTrigger)
+{
+	if (OnTrigger)
+	{
+		CSoundMgr::Get_Instance()->Play("DoorOpen1");
+		CSoundMgr::Get_Instance()->Play("DoorOpen2");
+	}
+	if (OffTrigger)
+	{
+		CSoundMgr::Get_Instance()->Play("DoorClose1");
+		CSoundMgr::Get_Instance()->Play("DoorOpen2");
+	}
+}
+
+void CFloatingCube::PlayElevatorSound(const _bool& OnTrigger, const _bool& OffTrigger)
+{
+}
+
 void CFloatingCube::SyncVelPlayer(const _float& fTimeDelta)
 {
 	CCollider* pOtherCol = m_pCollider->Get_Other();

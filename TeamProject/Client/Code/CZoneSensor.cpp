@@ -45,6 +45,7 @@ HRESULT CZoneSensor::Ready_GameObject()
     m_pCollider->Set_BoundType(BoundingType::AABB);
 
     m_bSensorOn = false;
+    m_bPreSensorOn = false;
 
 	CFactory::Save_Prefab(this, "CZoneSensor");
 	return S_OK;
@@ -53,6 +54,9 @@ HRESULT CZoneSensor::Ready_GameObject()
 _int CZoneSensor::Update_GameObject(const _float& fTimeDelta)
 {
     m_bSensorOn = Detect();
+    m_bOnEdge = (m_bSensorOn && !m_bPreSensorOn);
+    m_bOffEdge = !m_bSensorOn && m_bPreSensorOn;
+    m_bPreSensorOn = m_bSensorOn;
 	CGameObject::Update_GameObject(fTimeDelta);
 	return _int();
 }
@@ -83,23 +87,23 @@ void CZoneSensor::Free()
 
 _bool CZoneSensor::Detect()
 {
-    if (auto othercol = m_pCollider->Get_Other())
-    {
-        if (typeid(*(othercol->m_pOwner)) == typeid(CMainPlayer))
-            return true;
-    }
-    return false;
+    const AABB& aabb = m_pCollider->Get_AABBW();
+
+    const _vec3  targetPos = m_pDetectTarget->Get_Component<CTransform>()->Get_Pos();
+
+    return  (targetPos.x >= aabb.vMin.x && targetPos.x <= aabb.vMax.x) &&
+        (targetPos.z >= aabb.vMin.z && targetPos.z <= aabb.vMax.z);
+
+    //Get_OtherÀÌ º¤ÅÍ·Î ¹Ù²î¸é ¹Ù²ð¿¹Á¤
+    //if (auto othercol = m_pCollider->Get_Other())
+    //{
+    //    if (typeid(*(othercol->m_pOwner)) == typeid(CMainPlayer))
+    //        return true;
+    //}
+    //return false;
 }
 
-_bool CZoneSensor::DetectObj(CGameObject* gameobj)
-{
-    if (auto othercol = m_pCollider->Get_Other())
-    {
-        if (typeid(*(othercol->m_pOwner)) == typeid(gameobj))
-            return true;
-    }
-	return false;
-}
+
 
 
 REGISTER_GAMEOBJECT(CZoneSensor)

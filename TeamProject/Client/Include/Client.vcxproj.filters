@@ -184,6 +184,9 @@
     <Filter Include="03. Scene\ReleaseScene\02. StageScene\Stage3">
       <UniqueIdentifier>{cfd80ae4-cc02-4182-8ad1-9ac4c144a9e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene\ReleaseScene\02. StageScene\Stage1">
+      <UniqueIdentifier>{88bc52bb-939c-417e-8167-6f306b37579f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -366,6 +369,9 @@
     <ClInclude Include="..\Header\SceneStage3.h">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\SceneStage1.h">
+      <Filter>03. Scene\ReleaseScene\02. StageScene\Stage1</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -535,6 +541,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\SceneStage3.cpp">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SceneStage1.cpp">
+      <Filter>03. Scene\ReleaseScene\02. StageScene\Stage1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
