@@ -97,6 +97,50 @@ void CTransform::Rotate_Axis(const _vec3& axis, const _float& fAngle)
 	m_matRot = matRot * m_matRot; // 누적 회전만 저장
 }
 
+void CTransform::Set_Look(const _vec3& vLook)
+{
+	_vec3 Look;
+	D3DXVec3Normalize(&Look, &vLook);
+
+	_vec3 WUp = _vec3(0.f, 1.f, 0.f);
+	_vec3 Right;
+	D3DXVec3Cross(&Right, &WUp, &Look);
+
+	// 짐벌락 방지
+	if (D3DXVec3LengthSq(&Right) < 0.001f)
+	{
+		// Look이 위를 향할 때 -> Right를 월드 X축으로 설정
+		if (Look.y > 0.f)
+		{
+			_vec3 WForward = _vec3(0.f, 0.f, 1.f);
+			D3DXVec3Cross(&Right, &WForward, &Look);
+		}
+		// Look이 아래를 향할 때 -> Right를 월드 -X축으로 설정
+		else
+		{
+			_vec3 WBack = _vec3(0.f, 0.f, -1.f);
+			D3DXVec3Cross(&Right, &WBack, &Look);
+		}
+	}
+
+	D3DXVec3Normalize(&Right, &Right);
+
+	_vec3 Up;
+	D3DXVec3Cross(&Up, &Look, &Right);
+	D3DXVec3Normalize(&Up, &Up);
+
+	// 행렬 갱신
+	D3DXMatrixIdentity(&m_matRot);
+	memcpy(m_matRot.m[0], &Right, sizeof(_vec3));
+	memcpy(m_matRot.m[1], &Up, sizeof(_vec3));
+	memcpy(m_matRot.m[2], &Look, sizeof(_vec3));
+
+	// m_vInfo 갱신
+	m_vInfo[INFO_RIGHT] = Right;
+	m_vInfo[INFO_UP] = Up;
+	m_vInfo[INFO_LOOK] = Look;
+}
+
 CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CTransform* pTransform = new CTransform(pGraphicDev);

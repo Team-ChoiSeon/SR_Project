@@ -11,10 +11,12 @@ namespace Engine {
 
 class CCube;
 class CSwitch;
+class CProjectile;
+
 class CMainPlayer : public CGameObject
 {
 public:
-	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_HIT, PLAYER_DEAD, PLAYER_RESPAWN, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL, PLAYER_END };  // ÇÊ¿ä½Ã¿¡ ´õ Ãß°¡
+	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_HIT, PLAYER_DEAD, PLAYER_RESPAWN, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL, PLAYER_END };  // ï¿½Ê¿ï¿½Ã¿ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½
 private:
 	CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CMainPlayer();
@@ -97,22 +99,24 @@ private:
 	_vec3 m_vPrePickPoint;
 
 	_vec3 m_vLastPos;
-	_vec3 distancePos;//ÀÓ½Ã
+	_vec3 distancePos;
 	_vec3 vDistance;
 
 	CCube* m_PickedCube;
 	CSwitch* m_PickedSwitch;
+	CProjectile* m_PickedProjectile = nullptr;
+
 	Ray* m_pRay;
 
 	PLAYER_STATE m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	PLAYER_STATE m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
 
-	_int m_iHP = 0; //ÇÃ·¹ÀÌ¾î HP
-	bool m_bInvincible = false; // ¹«Àû ¿©ºÎ
+	_int m_iHP = 0; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ HP
+	bool m_bInvincible = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	_float m_fInvincibleTime = 0.f;
 	const _float m_fMaxInvincibleTime = 5.0f;
 
-	_bool m_bWalkingSound = false; // °È´ÂÁß
+	_bool m_bWalkingSound = false; // ï¿½È´ï¿½ï¿½ï¿½
 	_bool m_bOnGroundFirst = false;
 
 };

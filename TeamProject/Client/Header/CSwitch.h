@@ -55,6 +55,7 @@ protected:
 	_bool				m_bInit = false;
 	_bool				m_bReusable = true;
 	_bool				m_bPressed = false;
+
 	_bool				m_bGrab = false;
 	_bool				m_bTap = false;
 	_bool				m_bAway = false;
@@ -62,7 +63,5 @@ protected:
 	_vec3				m_vCursorDelta;
 	_vec3				m_vOriginalScale;
 	_vec3				m_vOriginalPos;
-
-
 };
 

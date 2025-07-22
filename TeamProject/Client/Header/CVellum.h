@@ -4,6 +4,7 @@
 
 #include "IVellumState.h"
 
+#define VSTART _vec3{ 0.f, 33.f, 60.f }
 
 namespace Engine
 {

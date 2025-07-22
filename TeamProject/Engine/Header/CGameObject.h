@@ -22,6 +22,8 @@ public:
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject() {};
+
+	virtual const char* Get_Type() const { return typeid(*this).name(); }
 	/*virtual			void		Deserialize(const json& j);*/
 
 public:

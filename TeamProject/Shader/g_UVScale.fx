@@ -105,10 +105,26 @@ float4 PS_Main(VS_OUT input) : COLOR0
 }
 
 // ===== 기법 정의 =====
-technique Default
+technique Opaque
 {
     pass P0
     {
+        CullMode = CCW; // 기본 컬링 모드 사용
+        VertexShader = compile vs_2_0 VS_Main();
+        PixelShader = compile ps_2_0 PS_Main();
+    }
+}
+
+technique Transparent
+{
+    pass P0
+    {
+        CullMode = NONE; // 컬링 끄기
+        ZWriteEnable = FALSE; // Z버퍼 쓰기 끄기 (순서 문제 방지)
+        AlphaBlendEnable = TRUE;
+        SrcBlend = SrcAlpha;
+        DestBlend = InvSrcAlpha;
+
         VertexShader = compile vs_2_0 VS_Main();
         PixelShader = compile ps_2_0 PS_Main();
     }

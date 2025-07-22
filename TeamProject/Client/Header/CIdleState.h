@@ -1,7 +1,7 @@
 #pragma once
 #include "IVellumState.h"
 
-enum class VPattern { DIVE, FIRE, CHASE, SPIN, NONE };
+enum class VPattern { FIRE, DIVE, CHASE, SPIN, NONE };
 
 class CIdleState : public IVellumState
 {
@@ -12,7 +12,7 @@ public:
 
 private:
     _float   m_fPatternTime = 0.f;
-    _float   m_fSwitchTime = 3.f;
+    _float   m_fSwitchTime = 1.f;
     VPattern m_ePattern = VPattern::NONE;
     IVellumState* m_pNext = nullptr;
 

@@ -366,7 +366,7 @@ void CParticle::Request_Emit()
 }
 void CParticle::PreSet_Dust(int MaxCount, float Interval, float lifeTime)
 {
-	m_eMoveType == DUST;
+	m_eMoveType = DUST;
 	Set_MaxParticle(MaxCount);
 	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
@@ -374,7 +374,7 @@ void CParticle::PreSet_Dust(int MaxCount, float Interval, float lifeTime)
 
 void CParticle::PreSet_Fire(int MaxCount, float Interval, float lifeTime)
 {
-	m_eMoveType == FIRE;
+	m_eMoveType = FIRE;
 	Set_MaxParticle(MaxCount);
 	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
@@ -382,7 +382,7 @@ void CParticle::PreSet_Fire(int MaxCount, float Interval, float lifeTime)
 
 void CParticle::PreSet_Breath(_vec3 dir, int MaxCount, float Interval, float lifeTime, float speed)
 {
-	m_eMoveType == BREATH;
+	m_eMoveType = BREATH;
 	Set_MaxParticle(MaxCount);
 	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
@@ -401,7 +401,7 @@ void CParticle::PreSet_Radial(int MaxCount,float Interval, float lifeTime, _vec3
 
 void CParticle::PreSet_Spread(int MaxCount, float Interval, float lifeTime, float speed)
 {
-	m_eMoveType == SPREAD;
+	m_eMoveType = SPREAD;
 	Set_MaxParticle(MaxCount);
 	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
