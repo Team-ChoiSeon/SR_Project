@@ -30,7 +30,8 @@ HRESULT CHealthLine::Ready_GameObject()
 	m_pTransform = Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pQuad->Set_Texture(L"UI/TXUI_healthbar_line_overlay.png");
 
-	m_tPanel.Set_Size({ 150,25 });
+	m_tPanel.Set_Size({ 150,20 });
+	m_pTransform->Rotate_Axis({ 0,0,1 }, D3DXToRadian(3.f));
 
 	return S_OK;
 }

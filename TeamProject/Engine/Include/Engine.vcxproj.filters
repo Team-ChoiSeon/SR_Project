@@ -139,6 +139,9 @@
     <Filter Include="02. Components\06. UI\UIQuad">
       <UniqueIdentifier>{ade73681-3b15-402a-a03a-3f4b3536b2af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\10. SkyBox">
+      <UniqueIdentifier>{7215942b-f3a6-48ae-9c69-8c44fd153005}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -309,6 +312,9 @@
     <ClInclude Include="..\Header\CUiQuad.h">
       <Filter>02. Components\06. UI\UIQuad</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSkyBox.h">
+      <Filter>02. Components\10. SkyBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -457,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CUI.cpp">
       <Filter>02. Components\06. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSkyBox.cpp">
+      <Filter>02. Components\10. SkyBox</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

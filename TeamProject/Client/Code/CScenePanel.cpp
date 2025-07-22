@@ -29,15 +29,15 @@ CScenePanel* CScenePanel::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CScenePanel::Ready_GameObject()
 {
     CHealthPanel* CHealthPanel = CHealthPanel::Create(m_pGraphicDev);
-    m_vecUI.insert({ L"Health_UI",CHealthPanel});
+    m_umUI.insert({ L"Health_UI",CHealthPanel});
     return S_OK;
 }
 
 _int CScenePanel::Update_GameObject(const _float& fTimeDelta)
 {
     CGameObject::Update_GameObject(fTimeDelta);
-    for (auto& ui : m_vecUI) {
-        ui.second->Update_GameObject(fTimeDelta);
+    for (auto& ui : m_umUI) {
+            ui.second->Update_GameObject(fTimeDelta);
     }
     return 0;
 }
@@ -45,14 +45,14 @@ _int CScenePanel::Update_GameObject(const _float& fTimeDelta)
 void CScenePanel::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     CGameObject::LateUpdate_GameObject(fTimeDelta);
-    for (auto& ui : m_vecUI) {
+    for (auto& ui : m_umUI) {
         ui.second->LateUpdate_GameObject(fTimeDelta);
     }
 }
 
 void CScenePanel::Free()
 {
-    for (auto& ui : m_vecUI) {
+    for (auto& ui : m_umUI) {
         Safe_Release(ui.second);
     }
     CGameObject::Free();

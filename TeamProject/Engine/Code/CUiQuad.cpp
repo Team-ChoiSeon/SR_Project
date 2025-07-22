@@ -130,9 +130,18 @@ void CUiQuad::Render(LPDIRECT3DDEVICE9 pDevice)
 		pDevice->SetTransform(D3DTS_WORLD, &worldMat);
 		pDevice->SetTransform(D3DTS_VIEW, &viewNoRot);
 		pDevice->SetTransform(D3DTS_PROJECTION, &projMat);
-		if (m_pTexture)
+
+		if (m_pTexHandle)
+			pDevice->SetTexture(0, m_pTexHandle);
+		else if(m_pTexture)
 			pDevice->SetTexture(0, m_pTexture->Get_Texture());
+
 		DrawQuad(pDevice);
+
+		_matrix matCamView = *(CCameraMgr::Get_Instance()->Get_MainViewMatrix());
+		_matrix matCamProj = *(CCameraMgr::Get_Instance()->Get_MainProjectionMatrix());
+		pDevice->SetTransform(D3DTS_VIEW, &matCamView);
+		pDevice->SetTransform(D3DTS_PROJECTION, &matCamProj);
 	}
 
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -157,6 +166,11 @@ void CUiQuad::Set_Texture(const wstring& key)
 void CUiQuad::Set_Shader(const wstring& key)
 {
 	m_pEffect = CShaderMgr::Get_Instance()->GetShader(key);
+}
+
+void CUiQuad::Set_TextureHandle(LPDIRECT3DBASETEXTURE9 tex)
+{
+	m_pTexHandle = tex;
 }
 
 

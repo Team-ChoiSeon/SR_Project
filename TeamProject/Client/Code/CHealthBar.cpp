@@ -32,6 +32,7 @@ HRESULT CHealthBar::Ready_GameObject()
 	m_pQuad->Set_Texture(L"UI/bar_health_full_straight.png");
 	m_pQuad->Set_Shader(L"g_UIShader.fx");
 	m_tPanel.Set_Size({ 150,20 });
+	m_pTransform->Rotate_Axis({ 0,0,1 }, D3DXToRadian(3.f));
 	return S_OK;
 }
 

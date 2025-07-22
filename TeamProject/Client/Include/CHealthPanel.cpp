@@ -38,10 +38,14 @@ HRESULT CHealthPanel::Ready_GameObject()
 	m_pHealthLine = CHealthLine::Create(m_pGraphicDev);
 
 	m_pTransform = Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-
-	m_tPanel.Set_Size({ 400,100 });
-	m_tPanel.Set_Anchor(UIPanel::Anchor::Left, { 0,0 });
-	m_tPanel.Set_Anchor(UIPanel::Anchor::Bottom, { 0,WINCY });
+	m_pQuad = Add_Component<CUiQuad>(ID_DYNAMIC, m_pGraphicDev);
+	m_pQuad->Set_Texture(L"UI/CinematicBar.png");
+	m_pQuad->Set_Shader(L"g_UIShader.fx");
+	m_pQuad->Set_Alpha(0.4);
+	m_tPanel.Set_Size({ 220,50 });
+	m_tPanel.Set_Anchor(UIPanel::Anchor::Left, { -10,0 });
+	m_tPanel.Set_Anchor(UIPanel::Anchor::Bottom, { 0,WINCY-10 });
+	m_pTransform->Rotate_Axis({ 0,0,1 }, D3DXToRadian(3.f));
 
 	return S_OK;
 }
@@ -53,27 +57,27 @@ _int CHealthPanel::Update_GameObject(const _float& fTimeDelta)
 			m_pPlayer = static_cast<CMainPlayer*>(obj);
 		}
 	}
+	m_pTransform->Set_Scale(m_tPanel.Get_WorldScale());
+	m_pTransform->Set_Pos({ m_tPanel.Get_WorldPos(WINCX, WINCY) });
 
 	CGameObject::Update_GameObject(fTimeDelta);
 
-	m_pTransform->Set_Scale(m_tPanel.Get_WorldScale());
-	m_pTransform->Set_Pos({ m_tPanel.Get_WorldPos(WINCX, WINCY) });
-	_vec2 tmp = m_tPanel.LC() + _vec2(20, 0);
+	_vec2 tmp = m_tPanel.LC() + _vec2(16,6);
 	m_pHealthIcon->Set_Pivot(tmp);
 
-	tmp += _vec2(35, 0);
+	tmp = m_tPanel.LC()+_vec2(55, 0);
 	m_pHealthBar->Set_Pivot(tmp);
-
 	m_pHealthLine->Set_Pivot(m_pHealthBar->Get_Panel().LC());
+
 	m_pHealthBar->Update_GameObject(fTimeDelta);
 	m_pHealthIcon->Update_GameObject(fTimeDelta);
-	m_pHealthLine->Update_GameObject(fTimeDelta);
+	//m_pHealthLine->Update_GameObject(fTimeDelta);
+	//
 
-
-	if(CInputMgr::Get_Instance()->Key_Tap(DIK_I)){
-		tmpHealth -= 0.1f;
-		m_pHealthBar->Set_Ratio(tmpHealth);
-	}
+	//if(CInputMgr::Get_Instance()->Key_Tap(DIK_I)){
+	//	tmpHealth -= 0.1f;
+	//	m_pHealthBar->Set_Ratio(tmpHealth);
+	//}
 
 	return 0;
 }

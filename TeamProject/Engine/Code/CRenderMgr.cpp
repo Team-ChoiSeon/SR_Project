@@ -1,6 +1,7 @@
 #include "CRenderMgr.h"
 #include "CCollisionMgr.h"
 #include "CParticle.h"
+#include "CSkyBox.h"
 
 IMPLEMENT_SINGLETON(CRenderMgr)
 
@@ -40,7 +41,10 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
 	//pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	
+
+	if (m_pSkyBox)
+		m_pSkyBox->Render(pDevice);
+
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_SHADOW)])
 		renderer->Render(pDevice);
 
@@ -77,7 +81,7 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	//for (auto& renderer : m_vCol)
 		//renderer->Render(pDevice);
 
-
+	
 	Clear();
 }
 
@@ -147,6 +151,11 @@ void CRenderMgr::Add_UI(CUI* ui)
 		m_vUI.push_back(ui);
 }
 
+void CRenderMgr::Add_SkyBox(CSkyBox* skyBox)
+{
+	m_pSkyBox = skyBox;
+}
+
 void CRenderMgr::Remove_UI(CUI* ui)
 {
 	auto iter = remove_if(m_vUI.begin(), m_vUI.end(),
@@ -167,6 +176,7 @@ void CRenderMgr::Clear()
 	m_vCol.clear();
 	m_vUI.clear();
 	m_vParticles.clear();
+	m_pSkyBox = nullptr;
 }
 
 

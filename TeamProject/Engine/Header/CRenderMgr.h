@@ -7,6 +7,7 @@
 
 BEGIN(Engine)
 class CParticle;
+class CSkyBox;
 
 class ENGINE_DLL CRenderMgr : public CBase
 {
@@ -28,6 +29,7 @@ public:
 	void Add_ParticleRenderer(CParticle* particle);
 
 	void Add_UI(CUI* ui);
+	void Add_SkyBox(CSkyBox* skyBox);
 	void Remove_UI(CUI* ui);
 	void Clear();
 
@@ -36,7 +38,7 @@ private:
 	vector<CCollider*> m_vCol;
 	vector<CUI*> m_vUI;
 	vector<CParticle*> m_vParticles;
-
+	CSkyBox* m_pSkyBox;
 private:
 	virtual void Free() override;
 

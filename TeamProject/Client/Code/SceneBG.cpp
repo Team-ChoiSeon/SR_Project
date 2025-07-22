@@ -18,6 +18,7 @@
 #include "CParticle.h"
 #include "CParticle.h"
 #include "CScenePanel.h"
+#include "CSkyBox.h"
 
 SceneBG::SceneBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev), m_pPlayer(nullptr)
@@ -38,22 +39,24 @@ HRESULT SceneBG::Ready_Scene()
 	pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+	
 	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
+	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
+
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);
-	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
-	CUiMgr::Get_Instance()->AddUI(cross);
-	CUiMgr::Get_Instance()->AddUI(cross);
 	pPlayer->Set_Crosshair(cross);
-	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+
 
 	FFCam* pCam = FFCam::Create(m_pGraphicDev);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
 	pCam->Set_Target(pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
+	pCam->Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	pCam->Get_Component<CSkyBox>()->Set_Texture(L"burger1.dds");
+	pCam->Get_Component<CTransform>()->Set_Scale({500,500,500 });
 	SlotSet();
-
 	return S_OK;
 }
 

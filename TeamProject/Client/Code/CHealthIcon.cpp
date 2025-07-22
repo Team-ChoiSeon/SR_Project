@@ -30,7 +30,7 @@ HRESULT CHealthIcon::Ready_GameObject()
 	m_pQuad = Add_Component<CUiQuad>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pQuad->Set_Texture(L"UI/icon_health_straight.png");
-
+	m_pTransform->Rotate_Axis({ 0,0,1 }, D3DXToRadian(3.f));
 	m_tPanel.Set_Size({ 30,30 });
 	return S_OK;
 }
@@ -52,7 +52,6 @@ void CHealthIcon::LateUpdate_GameObject(const _float& fTimeDelta)
 void CHealthIcon::Set_Pivot(_vec2 vCriteria)
 {
 	m_tPanel.Set_Anchor(UIPanel::Anchor::LeftCenter, vCriteria);
-	m_tPanel.RT();
 }
 
 void CHealthIcon::Free()
