@@ -123,6 +123,8 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
     //wstring name = m_pModel->Get_Material()->Get_ShaderKey();
     //OutputDebugStringW(name.c_str());
 
+
+
     if (m_bDead) return 1;
     if (m_vPart.empty())
     {
@@ -154,10 +156,28 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
 
     m_pParticle->PreSet_Radial(300, 2.f, 1.f, m_pTransform->Get_Info(INFO_LOOK));
 
-    if (m_pState)
-        m_pState->Update(fTimeDelta, this);
+    
 
     Key_Input(fTimeDelta);
+
+    if (dynamic_cast<CIntroState*>(m_pState) != nullptr)
+    {
+        m_pState->Update(fTimeDelta, this);
+
+    }
+    else
+    {
+        CTransform* pTransform = m_pTarget->Get_Component<CTransform>();
+        _float X = pTransform->Get_Pos().x;
+        _float Z = pTransform->Get_Pos().z;
+        if ((X > -60.f && X < 60.f)
+            && (Z > -60.f && Z < 60.f))
+        {
+            if (m_pState)
+                m_pState->Update(fTimeDelta, this);
+        }
+    }
+    
 
 	CGameObject::Update_GameObject(fTimeDelta);
     for (auto* pPart : m_vPart)

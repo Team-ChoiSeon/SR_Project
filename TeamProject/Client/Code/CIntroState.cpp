@@ -7,8 +7,10 @@
 #include "CRigidBody.h"
 
 #include "CVellum.h"
+#include "CCinematicCamera.h"
 
 #include "CSceneMgr.h"
+#include "CInputMgr.h"
 
 void CIntroState::Enter(CVellum* pVellum)
 {
@@ -21,7 +23,7 @@ void CIntroState::Enter(CVellum* pVellum)
     m_fFreq = 3.f;
     m_fAmp = 5.f;
     m_fAngle = 0.f;
-    m_vBase = { 0.f, 25.f, 0.f };
+    m_vBase = { 0.f, 15.f, 0.f };
 }
 
 void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
@@ -50,6 +52,10 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
         if ((X > -60.f && X < 60.f)
             && (Z > -60.f && Z < 60.f))
         {
+            CSceneMgr::Get_Instance()->Get_Scene()->Get_Layer(LAYER_CAMERA)
+                ->Get_GameObject<CCinematicCamera>(L"Cinematic")->Start_Cinematic();
+            pTarget->Get_Component<CTransform>()->Set_Pos({0.f,5.f,-59.f});
+            pTarget->Get_Component<CRigidBody>()->Set_UseGravity(false);
             // 들어왔을때 중앙으로 이동후 다음패턴
             pVellum->Get_Component<CModel>()->Set_Model(L"Head_Smile.obj", L"Head_Smile.mtl");
             _vec3 vDiff = m_vBase - pTransform->Get_Pos();
@@ -87,6 +93,7 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
 
     case IntroPhase::Charge:
     {
+
         if (m_fPhaseTime <= fTimeDelta)
         {
             _vec3 diff = pTarget->Get_Component<CTransform>()->Get_Pos() - m_vBase;
@@ -143,4 +150,7 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
 
 void CIntroState::Exit(CVellum* pVellum)
 {
+    CSceneMgr::Get_Instance()->Get_Scene()->Get_Layer(LAYER_CAMERA)
+        ->Get_GameObject<CCinematicCamera>(L"Cinematic")->End_Cinematic();
+    pVellum->Get_Target()->Get_Component<CRigidBody>()->Set_UseGravity(true);
 }

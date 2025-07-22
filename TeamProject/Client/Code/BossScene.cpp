@@ -10,6 +10,7 @@
 #include "CTestTile.h"
 #include "CVellum.h"
 #include "CImpulseCube.h"
+#include "CCinematicCamera.h"
 
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
@@ -61,6 +62,11 @@ HRESULT BossScene::Ready_Scene()
 	CUiMgr::Get_Instance()->AddUI(cross);
 	pPlayer->Set_Crosshair(cross);
 
+	CCinematicCamera* pCine = CCinematicCamera::Create(m_pGraphicDev);
+	pCine->Set_Target(pPlayer);
+
+
+
 	// 3-2. 벨룸
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
 
@@ -70,6 +76,7 @@ HRESULT BossScene::Ready_Scene()
 	// 5. 플레이어 → 타겟 오브젝트
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"Cinematic", pCine);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
 
 
