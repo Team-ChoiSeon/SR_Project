@@ -162,6 +162,7 @@
     <ClInclude Include="..\Header\CFireState.h" />
     <ClInclude Include="..\Header\CHealthBar.h" />
     <ClInclude Include="..\Header\CHealthIcon.h" />
+    <ClInclude Include="..\Header\CHealthLine.h" />
     <ClInclude Include="..\Header\CIdleState.h" />
     <ClInclude Include="..\Header\CLowGravityCube.h" />
     <ClInclude Include="..\Header\CIntroState.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="..\Code\CFireState.cpp" />
     <ClCompile Include="..\Code\CHealthBar.cpp" />
     <ClCompile Include="..\Code\CHealthIcon.cpp" />
+    <ClCompile Include="..\Code\CHealthLine.cpp" />
     <ClCompile Include="..\Code\CIdleState.cpp" />
     <ClCompile Include="..\Code\CLowGravityCube.cpp" />
     <ClCompile Include="..\Code\CIntroState.cpp" />

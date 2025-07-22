@@ -16,11 +16,13 @@ public:
 
 public:
 	_vec2 LT()	const { return _vec2(vPos.x - (0.5f * vSize.x), vPos.y - (0.5f * vSize.y)); }
+	_vec2 LC()	const { return _vec2(vPos.x - (0.5f * vSize.x), vPos.y ); }
 	_vec2 LB()	const { return _vec2(vPos.x - (0.5f * vSize.x), vPos.y + (0.5f * vSize.y)); }
 	_vec2 RT()	const { return _vec2(vPos.x + (0.5f * vSize.x), vPos.y - (0.5f * vSize.y)); }
+	_vec2 RC()	const { return _vec2(vPos.x + (0.5f * vSize.x), vPos.y ); }
 	_vec2 RB()	const { return _vec2(vPos.x + (0.5f * vSize.x), vPos.y + (0.5f * vSize.y)); }
 
-	enum class Anchor { Left, Right, Top, Bottom, Center };
+	enum class Anchor { Left, Right, Top, Bottom, Center, LeftCenter,RightCenter,TopCenter,BottomCenter };
 	void Set_Anchor(Anchor _anchor, _vec2 _pivot);
 
 	_vec3 Get_WorldPos(_long _wincx, _long _wincy) {

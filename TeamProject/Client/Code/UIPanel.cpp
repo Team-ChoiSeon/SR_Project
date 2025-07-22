@@ -4,6 +4,7 @@
 
 UIPanel::UIPanel()
 {
+	
 }
 
 UIPanel::UIPanel(_vec2 pos, _vec2 size)
@@ -33,6 +34,14 @@ void UIPanel::Set_Anchor(Anchor _anchor, _vec2 _pivot)
 		break;
 	case Anchor::Center:
 		vPos.x = _pivot.x;
+		vPos.y = _pivot.y;
+		break;	
+	case Anchor::LeftCenter:
+		vPos.x = _pivot.x + vSize.x * 0.5f;
+		vPos.y = _pivot.y;
+		break;
+	case Anchor::RightCenter:
+		vPos.x = _pivot.x - vSize.x * 0.5f;
 		vPos.y = _pivot.y;
 		break;
 	default:

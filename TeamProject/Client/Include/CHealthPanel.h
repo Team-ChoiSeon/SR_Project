@@ -3,6 +3,7 @@
 #include "UIPanel.h"
 class CHealthBar;
 class CHealthIcon;
+class CHealthLine;
 class CMainPlayer;
 
 namespace Engine {
@@ -33,9 +34,12 @@ private://component Caching
 	CCamera* m_pMainCam= nullptr;
 
 	UIPanel m_tPanel;
+
+	_float tmpHealth = 1.0f;
 private:
-	CHealthBar* m_pHealthBar;
-	CHealthIcon* m_pHealthIcon;
+	CHealthBar* m_pHealthBar = nullptr;
+	CHealthIcon* m_pHealthIcon = nullptr;
+	CHealthLine* m_pHealthLine = nullptr;
 private:
 	void Free();
 };

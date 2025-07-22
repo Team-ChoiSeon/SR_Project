@@ -20,7 +20,8 @@ public:
 
 public:
     void Set_Pivot(_vec2 vCriteria);
-
+    UIPanel& Get_Panel() { return m_tPanel; };
+    void Set_Ratio(_float ratio);
 private:
     CTransform* m_pTransform = nullptr;
     CUiQuad* m_pQuad = nullptr;

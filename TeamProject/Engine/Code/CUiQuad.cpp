@@ -3,7 +3,7 @@
 #include "CRenderMgr.h"
 #include "CTransform.h"
 #include "CCameraMgr.h"
-
+#include "CShaderMgr.h"
 CUiQuad::CUiQuad(LPDIRECT3DDEVICE9 pGraphicDev)
  : CUI(pGraphicDev),m_pDevice(pGraphicDev)
 {
@@ -89,43 +89,74 @@ void CUiQuad::Render(LPDIRECT3DDEVICE9 pDevice)
 	if (!m_pTransform) return;
 
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
-	
-	pDevice->SetTransform(D3DTS_WORLD, m_pTransform->Get_WorldMatrix());
-
-	_matrix viewNoRot;
-	D3DXMatrixIdentity(&viewNoRot);
-	pDevice->SetTransform(D3DTS_VIEW, &viewNoRot);
-
-	_matrix projMat;
-	D3DXMatrixOrthoLH(&projMat, WINCX, WINCY, 0, 1);
-	pDevice->SetTransform(D3DTS_PROJECTION, &projMat);
-
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 	pDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
 	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
+	_matrix worldMat = *m_pTransform->Get_WorldMatrix();
 
-	if(m_pTexture)
-		pDevice->SetTexture(0, m_pTexture->Get_Texture());
-	pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VTXTEX));
-	pDevice->SetFVF(FVF_TEX);
-	pDevice->SetIndices(m_pIB);
+	_matrix viewNoRot;
+	D3DXMatrixIdentity(&viewNoRot);
+	_matrix projMat;
+	D3DXMatrixOrthoLH(&projMat, WINCX, WINCY, 0, 1);
 
-	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
+	if (m_pEffect) {
+		D3DXHANDLE hWorld = m_pEffect->GetParameterByName(nullptr, "g_matWorld");
+		D3DXHANDLE hView = m_pEffect->GetParameterByName(nullptr, "g_matView");
+		D3DXHANDLE hProj = m_pEffect->GetParameterByName(nullptr, "g_matProj");
+		D3DXHANDLE hDiffuse = m_pEffect->GetParameterByName(nullptr, "g_DiffuseTex");
+		D3DXHANDLE hAlpha = m_pEffect->GetParameterByName(nullptr, "g_Alpha");
+		D3DXHANDLE hRatio = m_pEffect->GetParameterByName(nullptr, "g_Ratio");
+
+		m_pEffect->SetMatrix(hWorld, &worldMat);
+		m_pEffect->SetMatrix(hView, &viewNoRot);
+		m_pEffect->SetMatrix(hProj, &projMat);
+		_vec4 ClipRatio = { m_fRatio.x,m_fRatio.y,1.f,1.f };
+		m_pEffect->SetVector(hRatio, &ClipRatio);
+
+		if (m_pTexture)
+			m_pEffect->SetTexture(hDiffuse, m_pTexture->Get_Texture());
+
+		m_pEffect->SetFloat(hAlpha, m_fAlpha); // 혹은 UI 알파값
+		m_pEffect->Begin(0, 0);
+		m_pEffect->BeginPass(0);
+			DrawQuad(pDevice);
+		m_pEffect->EndPass();
+		m_pEffect->End();
+	}
+	else {
+		pDevice->SetTransform(D3DTS_WORLD, &worldMat);
+		pDevice->SetTransform(D3DTS_VIEW, &viewNoRot);
+		pDevice->SetTransform(D3DTS_PROJECTION, &projMat);
+		if (m_pTexture)
+			pDevice->SetTexture(0, m_pTexture->Get_Texture());
+		DrawQuad(pDevice);
+	}
 
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+}
 
+void CUiQuad::DrawQuad(LPDIRECT3DDEVICE9 pDevice)
+{
+	pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VTXTEX));
+	pDevice->SetFVF(FVF_TEX);
+	pDevice->SetIndices(m_pIB);
+	pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
 }
 
 void CUiQuad::Set_Texture(const wstring& key)
 {
 	m_pTexture = CResourceMgr::Get_Instance()->Load_Texture(key);
+}
+
+void CUiQuad::Set_Shader(const wstring& key)
+{
+	m_pEffect = CShaderMgr::Get_Instance()->GetShader(key);
 }
 
 

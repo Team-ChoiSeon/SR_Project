@@ -396,6 +396,9 @@
     <ClInclude Include="..\Header\CHealthIcon.h">
       <Filter>04. GameObjects\TestUI\HealthPanel\Icon</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CHealthLine.h">
+      <Filter>04. GameObjects\TestUI\HealthPanel\Bar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -583,6 +586,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHealthIcon.cpp">
       <Filter>04. GameObjects\TestUI\HealthPanel\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHealthLine.cpp">
+      <Filter>04. GameObjects\TestUI\HealthPanel\Bar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
