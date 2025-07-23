@@ -7,6 +7,7 @@
 #include "CTestTile.h"
 #include "CMainPlayer.h"
 #include "CFactory.h"
+#include "CZoneSensor.h"
 
 CLowGravityCube::CLowGravityCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -93,7 +94,8 @@ void CLowGravityCube::Detect()
 	if (pOtherCol)
 	{
 		auto colObj = pOtherCol->m_pOwner;
-		if (typeid(*(colObj)) != typeid(CTestTile))
+		if (typeid(*(colObj)) != typeid(CTestTile) &&
+			typeid(*(colObj)) != typeid(CZoneSensor))
 		{
 			m_pColTarget = colObj;
 		}
@@ -105,7 +107,7 @@ void CLowGravityCube::Push()
 	if (m_pColTarget) {
 		if (m_bFirstCol) {
 			m_fColGravity = m_pColTarget->Get_Component<CRigidBody>()->Get_Gravity();
-			m_pColTarget->Get_Component<CRigidBody>()->Set_Gravity(m_fColGravity * 0.5f);
+			m_pColTarget->Get_Component<CRigidBody>()->Set_Gravity(m_pColTarget->Get_Component<CRigidBody>()->Get_Gravity() * 0.5f);
 		}
 		m_pColTarget->Get_Component<CRigidBody>()->Add_Velocity({ 0.f, 5.f, 0.f });
 		m_pPreColTarget = m_pColTarget;
@@ -119,7 +121,7 @@ void CLowGravityCube::Restoration()
 	if (m_pPreColTarget)
 	{
 		if (m_pPreColTarget->Get_Component<CRigidBody>()->Get_OnGround()) {
-			m_pPreColTarget->Get_Component<CRigidBody>()->Set_Gravity(m_fColGravity);
+			m_pPreColTarget->Get_Component<CRigidBody>()->Set_Gravity(m_pPreColTarget->Get_Component<CRigidBody>()->Get_Gravity() * 2);
 			m_pPreColTarget = nullptr;
 			m_bFirstCol = true;
 		}

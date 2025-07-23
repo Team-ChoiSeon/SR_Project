@@ -55,6 +55,25 @@ HRESULT CMetalCube::Ready_GameObject()
 
 _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
 {
+    if (m_fColSoundCooldown > 0.f)
+        m_fColSoundCooldown -= fTimeDelta;
+    
+    if (m_pRigid->Get_OnGround()) {
+    }
+    else {
+        m_pCollider->Set_ColType(ColliderType::ACTIVE);
+        m_pRigid->Set_UseGravity(true);
+        if (m_pCollider->Get_ColState() == ColliderState::ENTER
+            && m_fColSoundCooldown <= 0.f)
+        {
+            if (typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMetalCube)&&
+                typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMagneticCube))
+            {
+                PlayColSound(4);
+                m_fColSoundCooldown = 0.1f;
+            }
+        }
+    }
     CGameObject::Update_GameObject(fTimeDelta);    
     
     switch (m_eState)
@@ -73,47 +92,13 @@ _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
     }
 
 
-    if (m_pRigid->Get_OnGround())
-        m_pCollider->Set_ColType(ColliderType::PASSIVE);
-    else {
-        m_pCollider->Set_ColType(ColliderType::ACTIVE);
-		m_pRigid->Set_UseGravity(true);
-		m_pRigid->Set_OnGround(false);
-    }
-
-    //Deubbing Code
-    CGuiSystem::Get_Instance()->RegisterPanel("state", [this]() {
-    	// 간단한 GUI 창 하나 출력
-    	ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-        switch (m_eState)
-        {
-        case METAL_STATE::IDLE:
-            ImGui::Begin("IDLE");
-            break;
-        case METAL_STATE::APPROACH:
-            ImGui::Begin("APPROACH");
-            break;
-        case METAL_STATE::SYNC:
-            ImGui::Begin("SYNC");
-            break;
-        case METAL_STATE::DETACH:
-            ImGui::Begin("DETACH");
-        }
-        ImGui::InputFloat3("##synk", m_vSyncGap, "%.1f");
-        //if (m_pRigid->Get_OnGround())
-        //    ImGui::Begin("On Ground");
-        //else if (!m_pRigid->Get_OnGround())
-        //    ImGui::Begin("Not On Ground");
-
-    	ImGui::End();
-
-    	});
     return _int();
 }
 
 void CMetalCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     CGameObject::LateUpdate_GameObject(fTimeDelta);
+
 }
 
 void CMetalCube::Set_Info(CMainPlayer* player)
@@ -178,6 +163,8 @@ void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
             (m_pCollider->Get_Other()->m_pOwner == m_pParentMagnet ||
                 typeid(*col) == typeid(CMetalCube)))
         {
+            PlayColSound(2);
+            PlayColSound(3);
             m_vSyncGap = m_vParentPos - m_pTransform->Get_Pos();
             m_eState = METAL_STATE::SYNC;
             return;
@@ -211,7 +198,6 @@ void CMetalCube::SyncMagnetic(const _float& fTimeDelta)
 void CMetalCube::DetachMagnetic(const _float& fTimeDelta)
 {
     m_pRigid->Set_UseGravity(true);
-    m_pRigid->Set_OnGround(false);
     m_pParentMagnet = nullptr;
     m_pPickMagnet = nullptr;
     m_pPickObj = nullptr;

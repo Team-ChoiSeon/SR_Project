@@ -27,8 +27,7 @@ void CSwitch::SwitchOn(bool trigger)
             if (!m_bPressed)
             {
                 m_bPressed = true;
-                m_bButtonOn = !m_bButtonOn;
-               //CSoundMgr::Get_Instance()->Play("active", "EFFECT", false);
+                m_bSwitchOn = !m_bSwitchOn;
             }
         }
         else
@@ -38,7 +37,7 @@ void CSwitch::SwitchOn(bool trigger)
     }
     else
     {
-        m_bButtonOn = true;
+        m_bSwitchOn = true;
     }
 }
 
@@ -48,10 +47,10 @@ void CSwitch::Pressing(const _float& fTimeDelta)
     _float pressScale = m_vOriginalScale.y * 0.5f;
     _float curScale = m_pTransform->Get_Scale().y;
 
-    if (m_bButtonOn && curScale > pressScale) {
+    if (m_bSwitchOn && curScale > pressScale) {
         curScale = max(curScale - fTimeDelta, pressScale);
     }
-    else if (!m_bButtonOn && curScale < m_vOriginalScale.y) {
+    else if (!m_bSwitchOn && curScale < m_vOriginalScale.y) {
         curScale = min(curScale + fTimeDelta, m_vOriginalScale.y);
     }
 

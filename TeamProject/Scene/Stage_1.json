@@ -17,7 +17,7 @@
                             "look": [
                                 0.0,
                                 0.0,
-                                1.0
+                                0.9999999403953552
                             ],
                             "near": 0.10000000149011612,
                             "pitch": 0.0,
@@ -189,7 +189,7 @@
                                 0.0,
                                 0.0
                             ],
-                            "Friction": 0.0,
+                            "Friction": 0.699999988079071,
                             "Inertia": [
                                 1.0,
                                 1.0,
@@ -256,7 +256,7 @@
                                 0.0,
                                 0.0
                             ],
-                            "Bounciness": 0.3,
+                            "Bounciness": 0.0,
                             "ExternalForce": [
                                 0.0,
                                 0.0,
@@ -814,7 +814,7 @@
                             "ColType": 1
                         },
                         "CModel": {
-                            "Alpha": 1.0,
+                            "Alpha": 0.5009999871253967,
                             "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_B.mtl",
                             "mesh": "Cube_B.obj",
@@ -845,13 +845,13 @@
                                 0.0,
                                 0.0
                             ],
-                            "Bounciness": 0.3,
+                            "Bounciness": 0.30000001192092896,
                             "ExternalForce": [
                                 0.0,
                                 0.0,
                                 0.0
                             ],
-                            "Friction": 0.0,
+                            "Friction": 0.699999988079071,
                             "Inertia": [
                                 1.0,
                                 1.0,
@@ -1158,7 +1158,7 @@
                             "ColType": 1
                         },
                         "CModel": {
-                            "Alpha": 1.0,
+                            "Alpha": 0.5009999871253967,
                             "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
@@ -1195,7 +1195,7 @@
                                 0.0,
                                 0.0
                             ],
-                            "Friction": 0.0,
+                            "Friction": 0.699999988079071,
                             "Inertia": [
                                 1.0,
                                 1.0,
@@ -1771,7 +1771,7 @@
                                 0.0,
                                 0.0
                             ],
-                            "Friction": 0.0,
+                            "Friction": 0.699999988079071,
                             "Inertia": [
                                 1.0,
                                 1.0,
@@ -2024,8 +2024,8 @@
                         },
                         "CTransform": {
                             "position": [
-                                25.200031280517578,
-                                3.0,
+                                13.0,
+                                6.0,
                                 100.0
                             ],
                             "rotation": [
@@ -2034,9 +2034,9 @@
                                 0.0
                             ],
                             "scale": [
-                                7.0,
-                                1.0,
-                                7.0
+                                20.0,
+                                5.0,
+                                30.0
                             ]
                         }
                     },
@@ -3130,7 +3130,7 @@
                         "CTransform": {
                             "position": [
                                 79.0,
-                                20.0,
+                                22.0,
                                 15.0
                             ],
                             "rotation": [
@@ -3140,7 +3140,7 @@
                             ],
                             "scale": [
                                 7.0,
-                                1.0,
+                                5.0,
                                 5.0
                             ]
                         }
@@ -3203,7 +3203,7 @@
                         "CTransform": {
                             "position": [
                                 0.0,
-                                3.0,
+                                5.0,
                                 62.09998321533203
                             ],
                             "rotation": [
@@ -3213,7 +3213,7 @@
                             ],
                             "scale": [
                                 7.0,
-                                1.0,
+                                5.0,
                                 7.0
                             ]
                         }
@@ -5244,6 +5244,79 @@
                         }
                     },
                     "name": "Room4_SceneGate"
+                },
+                {
+                    "Layer": "DEFAULT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                65.0,
+                                20.0,
+                                100.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                30.0,
+                                20.0,
+                                30.0
+                            ]
+                        }
+                    },
+                    "name": "Room3_ZoneSensor"
                 }
             ]
         },
@@ -5394,7 +5467,7 @@
                         "CTransform": {
                             "position": [
                                 0.0,
-                                4.0,
+                                5.0,
                                 28.0
                             ],
                             "rotation": [
@@ -5404,7 +5477,7 @@
                             ],
                             "scale": [
                                 8.0,
-                                1.0,
+                                5.0,
                                 10.0
                             ]
                         }
@@ -12047,5 +12120,5 @@
             "objects": []
         }
     },
-    "scene_name": "Stage_hw_2"
+    "scene_name": "Stage_1"
 }

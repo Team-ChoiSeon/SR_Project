@@ -19,12 +19,12 @@ public:
 
 	//Core Function
 	_bool Detect() override;
-	_bool DetectObj(CGameObject* gameobj);
 
 	//Getter, Setter Function
+	void Set_DetectTarget(CGameObject* target) { m_pDetectTarget = target; }
 
 private:
-
+	CGameObject* m_pDetectTarget;
 
 };
 

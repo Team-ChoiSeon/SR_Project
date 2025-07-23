@@ -54,13 +54,13 @@ HRESULT CDirectionalCube::Ready_GameObject()
 _int CDirectionalCube::Update_GameObject(const _float& fTimeDelta)
 {
 	Move();
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->Update_Component(fTimeDelta);
+	CGameObject::Update_GameObject(fTimeDelta);
 	return S_OK;
 }
 
 void CDirectionalCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 	_vec3 pos = m_pTransform->Get_Pos();
 
 	if (m_bLockX) pos.x = m_vStartPos.x;
@@ -69,16 +69,12 @@ void CDirectionalCube::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	m_pTransform->Set_Pos(pos);
 
-	// velocityµµ ¬˜¥‹
+	// velocityÎèÑ Ï∞®Îã®
 	_vec3 velocity = m_pRigid->Get_Velocity();
 	if (m_bLockX) velocity.x = 0.f;
 	if (m_bLockY) velocity.y = 0.f;
 	if (m_bLockZ) velocity.z = 0.f;
 	m_pRigid->Set_Velocity(velocity);
-
-
-	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
-		pComponent.second->LateUpdate_Component(fTimeDelta);
 }
 
 CDirectionalCube* CDirectionalCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -113,7 +109,7 @@ void CDirectionalCube::Set_Info(const _vec3& axis, const _float& mindistance, co
 	m_bOneway = false;
 	ComputeMinMaxPos();
 
-	// √‡ ∞Ì¡§
+	// Ï∂ï Í≥†Ï†ï
 	m_bLockX = (fabs(m_vDefaultAxis.x) < 0.0001f);
 	m_bLockY = (fabs(m_vDefaultAxis.y) < 0.0001f);
 	m_bLockZ = (fabs(m_vDefaultAxis.z) < 0.0001f);
@@ -129,7 +125,7 @@ void CDirectionalCube::Set_Info( const _vec3& axis, const _float& maxdistance)
 	m_bOneway = true;
 	ComputeEndPos();
 
-	// √‡ ∞Ì¡§
+	// Ï∂ï Í≥†Ï†ï
 	m_bLockX = (fabs(m_vDefaultAxis.x) < 0.0001f);
 	m_bLockY = (fabs(m_vDefaultAxis.y) < 0.0001f);
 	m_bLockZ = (fabs(m_vDefaultAxis.z) < 0.0001f);
@@ -147,7 +143,7 @@ void CDirectionalCube::Set_Info(const _vec3& start, const _vec3& axis, const _fl
 	m_bOneway = false;
 	ComputeMinMaxPos();
 
-	// √‡ ∞Ì¡§
+	// Ï∂ï Í≥†Ï†ï
 	m_bLockX = (fabs(m_vDefaultAxis.x) < 0.0001f);
 	m_bLockY = (fabs(m_vDefaultAxis.y) < 0.0001f);
 	m_bLockZ = (fabs(m_vDefaultAxis.z) < 0.0001f);
@@ -164,7 +160,7 @@ void CDirectionalCube::Set_Info(const _vec3& start, const _vec3& axis, const _fl
 	m_bOneway = true;
 	ComputeEndPos();
 
-	// √‡ ∞Ì¡§
+	// Ï∂ï Í≥†Ï†ï
 	m_bLockX = (fabs(m_vDefaultAxis.x) < 0.0001f);
 	m_bLockY = (fabs(m_vDefaultAxis.y) < 0.0001f);
 	m_bLockZ = (fabs(m_vDefaultAxis.z) < 0.0001f);
@@ -191,6 +187,19 @@ void CDirectionalCube::Move()
 		{
 			ComputeMoveVecIntoAxisMoveVec();
 			m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vMoveDelta);
+			if (!m_bSoundPlayed)
+			{
+				CSoundMgr::Get_Instance()->Play("CubeDrag", "SFX", true);
+				m_bSoundPlayed = true;
+			}
+		}
+		else
+		{
+			if (m_bSoundPlayed)
+			{
+				CSoundMgr::Get_Instance()->Stop("CubeDrag");
+				m_bSoundPlayed = false;
+			}
 		}
 
 		_vec3 NowPos = m_pTransform->Get_Pos();
@@ -215,6 +224,20 @@ void CDirectionalCube::Move()
 
 			if (fDelta > 0.f)
 				m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vMoveDelta);
+		
+			if (!m_bSoundPlayed)
+			{
+				CSoundMgr::Get_Instance()->Play("CubeDrag", "SFX", true);
+				m_bSoundPlayed = true;
+			}
+		}
+		else
+		{
+			if (m_bSoundPlayed)
+			{
+				CSoundMgr::Get_Instance()->Stop("CubeDrag");
+				m_bSoundPlayed = false;
+			}
 		}
 		_vec3 vNowPos = m_pTransform->Get_Pos();
 		_vec3 vNowGap = vNowPos - m_vStartPos;

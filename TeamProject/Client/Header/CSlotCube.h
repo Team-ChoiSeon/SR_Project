@@ -56,6 +56,7 @@ private:
 	_int		m_iPuzzleID;
 	_int		m_iSlotID;
 	_bool		m_bSlotted;
+	_bool		m_bPreOnground = false;
 
 	static CSlotCube* s_pPickedCube;
 };

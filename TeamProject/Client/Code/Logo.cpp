@@ -12,6 +12,7 @@
 #include "BossScene.h"
 
 #include "CSceneTestHS.h"
+#include "SceneStage1.h"
 #include "SceneStage2.h"
 #include "SceneLoding.h"
 
@@ -67,7 +68,7 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 	}
 	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F7))
 	{
-		CScene* pScene = TestSceneHW::Create(m_pGraphicDev);
+		CScene* pScene = SceneStage1::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 	}
 	

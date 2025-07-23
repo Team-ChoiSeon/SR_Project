@@ -1,11 +1,11 @@
 #pragma once
 #include "CGameObject.h"
+#include "CCollider.h"
 
 namespace Engine {
 	class CModel;
 	class CTransform;
 	class CRigidBody;
-	class CCollider;
 }
 class CCube : public CGameObject
 {
@@ -18,6 +18,7 @@ public:
 	virtual HRESULT Ready_GameObject() override = 0;
 	virtual _int Update_GameObject(const _float& fTimeDelta) override = 0;
 	virtual void LateUpdate_GameObject(const _float& fTimeDelta) override = 0;
+	_int Update_Cube(const _float& fTimeDelta);
 
 	//Create, Release Function
 	virtual void Free() = 0;
@@ -34,6 +35,8 @@ public:
 
 protected:
 	//Compute Function
+	void PlayColSound(int i);
+	void PlayDragSound();
 	//Variables
 	CModel* m_pModel;
 	CTransform* m_pTransform;
@@ -46,5 +49,8 @@ protected:
 	_bool			m_bTap = false;
 	_bool			m_bAway = false;
 	_bool			m_bLay = false;
+	_vec3			m_vPrePos = { 0, 0, 0 };
+	_bool			m_bPreGround = false;
+	_bool			m_bMoveEdge = false;
 };
 

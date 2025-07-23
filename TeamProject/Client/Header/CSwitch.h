@@ -26,14 +26,17 @@ public:
 	void Free() override = 0;
 
 	// Getter, Setter Function
-	const _bool Get_SwitchState() const { return m_bButtonOn; }
+	const _bool Get_SwitchState() const { return m_bSwitchOn; }
+	const _bool Get_OnEdge() const { return m_bOnEdge; }
+	const _bool Get_OffEdge() const { return m_bOffEdge; }
+
 	void Set_Button() { m_bReusable = false; }
 	void Set_Grab(const _bool grab) { m_bGrab = grab; }
 	void Set_Tap(bool Trigger) { m_bTap = Trigger; }
 	void Set_Away(bool Trigger) { m_bAway = Trigger; }
 	void Set_CursorVec(const _vec3& cursorvec) { m_vCursorDelta = cursorvec; }
-	void Set_SwitchState(_bool bState) { m_bButtonOn = bState; }
-
+	void Set_SwitchState(_bool bState) { m_bSwitchOn = bState; }
+	
 	_bool	Get_Grab() { return m_bGrab; }
 	_bool	Get_Tap() { return m_bTap; }
 	_bool	Get_Away() { return  m_bAway; }
@@ -51,7 +54,10 @@ protected:
 	CRigidBody*			m_pRigid;
 	CPickTarget*		m_pPick;
 
-	_bool				m_bButtonOn = false;
+	_bool				m_bSwitchOn = false;
+	_bool				m_bPreSwitchOn = false;
+	_bool				m_bOnEdge = false;
+	_bool				m_bOffEdge = false;
 	_bool				m_bInit = false;
 	_bool				m_bReusable = true;
 	_bool				m_bPressed = false;

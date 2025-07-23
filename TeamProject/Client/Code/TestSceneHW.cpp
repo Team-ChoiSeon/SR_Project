@@ -59,7 +59,7 @@ HRESULT TestSceneHW::Ready_Scene()
 	m_pFFCam = Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"CFirstviewFollowingCamera_1");
 	m_pFFCam->Set_Target(m_pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
-	m_pFFCam->Get_Component<CCamera>()->Set_Far(300.f);
+	m_pFFCam->Get_Component<CCamera>()->Set_Far(1000.f);
 
 	//UI Setting
 	CUiMgr::Get_Instance()->Ready_UiMgr();
@@ -101,14 +101,14 @@ int TestSceneHW::Update_Scene(const _float& fTimeDelta)
 
 		//Path1
 		_bool door2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Path1_DoorSwitch1")->Get_SwitchState() &&
-			!Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Get_SensorState();
+						Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path1_DoorSensor1")->Get_SensorState();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->SetGoBack(!door2);
 
 		//Room2
 		_bool room2Switch1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Room2_Switch1")->Get_SwitchState();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_Floating1")->SetTrigger(room2Switch1);
 		_bool room2Slotsensor1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room2_SlotSensor1")->Get_SensorState() &&
-			Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Get_SensorState();
+									Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Get_SensorState();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->SetGoBack(!room2Slotsensor1);
 
 		//Room3

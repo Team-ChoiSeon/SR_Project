@@ -27,6 +27,8 @@ public:
 	virtual void Free() override = 0;
 
 	// Getter, Setter Function
+	const _bool Get_OnEdge() const { return m_bOnEdge; }
+	const _bool Get_OffEdge() const { return m_bOffEdge; }
 	const _bool Get_SensorState() const { return m_bSensorOn; }
 
 	// Compute Function
@@ -35,6 +37,9 @@ public:
 protected:
 	// Variables
 	_bool			m_bSensorOn;
+	_bool			m_bPreSensorOn;
+	_bool			m_bOnEdge;
+	_bool			m_bOffEdge;
 	CGameObject*	m_pDetectedGameObject;
 
 	CTransform*		m_pTransform;

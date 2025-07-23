@@ -44,7 +44,12 @@ HRESULT CSlotSensor::Ready_GameObject()
     m_pCollider->Set_ColType(ColliderType::TRIGGER);
     m_pCollider->Set_BoundType(BoundingType::AABB);
 
+    Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
+    m_pModel = Get_Component < CModel>();
+    m_pModel->Set_Alpha(0.1f);
+
     m_bSensorOn = false;
+    m_bPreSensorOn = false;
 
     CFactory::Save_Prefab(this, "CSlotSensor"); 
     
@@ -56,12 +61,33 @@ _int CSlotSensor::Update_GameObject(const _float& fTimeDelta)
 {
     Insert_Slot();
     CGameObject::Update_GameObject(fTimeDelta);
-	return _int();
+    m_bOnEdge = !m_bPreSensorOn && m_bSensorOn;
+    m_bOffEdge = m_bPreSensorOn && !m_bSensorOn;
+    m_bPreSensorOn = m_bSensorOn;
+
+    if (m_bOffEdge)
+        m_bAlphaLerp = false;
+    return _int();
 }
 
 void CSlotSensor::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     m_bSensorOn = Detect();
+    if (m_pSlotted)
+    {
+        if (m_bOnEdge) {
+            CSoundMgr::Get_Instance()->Play("Correct"); 
+            m_fOriginAlpah = m_pSlotted->Get_Component<CModel>()->Get_Alpha();
+            m_bAlphaLerp = true;
+        }
+         else if (!m_bCheckID && !m_bWrong)
+        {
+            CSoundMgr::Get_Instance()->Play("Wrong");
+            m_bWrong = true;
+        }
+    }
+    if(m_bAlphaLerp && m_pSlotted)
+        AlphaUp(fTimeDelta);
     CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
@@ -82,6 +108,7 @@ void CSlotSensor::Free()
     Safe_Release(m_pTransform);
     Safe_Release(m_pRigid);
     Safe_Release(m_pCollider);
+    Safe_Release(m_pModel);
 }
 
 _bool CSlotSensor::Detect()
@@ -167,17 +194,19 @@ bool CSlotSensor::Check_Slot()
     {
         if (m_pSlotted)
         {
-            // 1) 현재 할당된 큐브가 여전히 영역 안에 있나 확인
+            // 현재 할당된 큐브가 여전히 영역 안에 있나 확인
             _vec3 pos = m_pSlotted->Get_Component<CTransform>()->Get_Pos();
             if (pos.x < m_Zone._min.x || pos.y < m_Zone._min.y || pos.z < m_Zone._min.z ||
                 pos.x > m_Zone._max.x || pos.y > m_Zone._max.y || pos.z > m_Zone._max.z)
             {
                 // 영역 밖으로 나갔으니 해제
+                m_pSlotted->Get_Component<CModel>()->Set_Alpha(m_fOriginAlpah);
                 m_pSlotted = nullptr;
+                m_bWrong = false;
                 return false;
             }
-            // 2) 여전히 올바른 슬롯 ID인지 확인
-            return dynamic_cast<CSlotCube*>(m_pSlotted)->Get_SlotID() == m_iSlotID;
+            m_bCheckID = m_pSlotted->Get_SlotID() == m_iSlotID;
+            return m_bCheckID;
         }
     }
     else {
@@ -194,6 +223,19 @@ bool CSlotSensor::Check_Slot()
         }
     }
     return false;
+}
+
+void CSlotSensor::AlphaUp(const _float& fTimeDelta)
+{
+    _float nowalpha = m_pSlotted->Get_Component<CModel>()->Get_Alpha();
+    if (nowalpha <= 1)
+        nowalpha += fTimeDelta;
+    else {
+        nowalpha = 1;
+        m_bAlphaLerp = false;
+    }
+
+    m_pSlotted->Get_Component<CModel>()->Set_Alpha(nowalpha);
 }
 
 
