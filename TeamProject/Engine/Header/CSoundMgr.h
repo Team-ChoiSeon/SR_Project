@@ -17,6 +17,7 @@ private:
 public:
 	HRESULT Ready_Sound();
 	void Load_Sound(const string& key, const string& filepath);
+	void Unload_Sound(const string& key);
 	void Update_Sound();
 	
 	void Play(const string& key, const string& group = "SFX", bool loop = false);

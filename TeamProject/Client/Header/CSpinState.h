@@ -9,7 +9,14 @@ public:
 
 private:
     _float m_fSpeed = 0.f;
-    _float   m_fPatternTime = 0.f;
-    _float   m_fSwitchTime = 3.f;
+    _float m_fFireSpeed = 0.f;
+    _float m_fPatternTime = 0.f;
+    _float m_fSwitchTime = 3.f;
+
+    _float m_fFireTime = 5.f;     // 발사 단계 시간
+    _float m_fFireDelay = 0.0f;
+
+    _float m_fAngle = 0.f;
+    bool    m_bRotationStarted = false;
 };
 

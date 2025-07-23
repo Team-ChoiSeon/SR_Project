@@ -16,10 +16,11 @@ private:
     _float m_fAmp = 0.f;
     _float m_fAngle = 0.f;
 
-    _float m_fChargeTime = 1.5f;
+    _float m_fChargeTime = 2.3f;
     _float m_fRoarTime = 3.f;
     _float m_fPhaseTime = 0.f;
 
     _vec3       m_vBase;
     _vec3       m_vDir;                // 발사 방향
+    _vec3 m_vPlayerStartPos;
 };
