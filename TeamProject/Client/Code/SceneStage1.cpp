@@ -304,7 +304,7 @@ void SceneStage1::SoundSet()
 	CSoundMgr::Get_Instance()->Load_Sound("CubeDrag", "../Bin/Resource/Sound/Cube/MetalDrag_5.wav");
 	CSoundMgr::Get_Instance()->Load_Sound("ElevatorStart", "../Bin/Resource/Sound/Cube/ElevatorStart_1.wav");
 	CSoundMgr::Get_Instance()->Load_Sound("ElevatorMove", "../Bin/Resource/Sound/Cube/ElevatorMove_2.wav");
-	CSoundMgr::Get_Instance()->Set_Volume("ElevatorMove", 0.5f);
+	CSoundMgr::Get_Instance()->Set_Volume("ElevatorMove", 0.2f);
 
 	CSoundMgr::Get_Instance()->Load_Sound("Correct", "../Bin/Resource/Sound/Puzzle/Correct_3.wav");
 	CSoundMgr::Get_Instance()->Load_Sound("Wrong", "../Bin/Resource/Sound/Puzzle/Wrong_2.mp3");
@@ -409,8 +409,6 @@ void SceneStage1::Room3Update(const _float& fTimeDelta)
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->PlayElevatorSound();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating2")->PlayElevatorSound();
 	}
-
-
 }
 
 void SceneStage1::Path2Update(const _float& fTimeDelta)

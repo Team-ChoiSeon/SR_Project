@@ -57,17 +57,22 @@ _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
 {
     if (m_fColSoundCooldown > 0.f)
         m_fColSoundCooldown -= fTimeDelta;
-    if (m_pCollider->Get_ColState() == ColliderState::ENTER
-        && m_fColSoundCooldown <= 0.f)
-    {
-        PlayColSound(4);
-        m_fColSoundCooldown = 0.1f;
-    }
+    
     if (m_pRigid->Get_OnGround()) {
     }
     else {
         m_pCollider->Set_ColType(ColliderType::ACTIVE);
         m_pRigid->Set_UseGravity(true);
+        if (m_pCollider->Get_ColState() == ColliderState::ENTER
+            && m_fColSoundCooldown <= 0.f)
+        {
+            if (typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMetalCube)&&
+                typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMagneticCube))
+            {
+                PlayColSound(4);
+                m_fColSoundCooldown = 0.1f;
+            }
+        }
     }
     CGameObject::Update_GameObject(fTimeDelta);    
     
