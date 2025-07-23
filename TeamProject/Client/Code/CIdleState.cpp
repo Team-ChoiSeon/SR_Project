@@ -12,6 +12,7 @@
 void CIdleState::Enter(CVellum* pVellum)
 {
 	OutputDebugString(L"Idle : Enter\n");
+	pVellum->Get_Component<CModel>()->Set_Model(L"Head_Smile.obj", L"Head_Smile.mtl");
 	m_fPatternTime = 0.f;
 }
 

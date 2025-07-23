@@ -136,6 +136,9 @@
     <Filter Include="01. Managers\13. GUISystem\Imgui">
       <UniqueIdentifier>{6748df94-7294-4d42-897e-4a5c26276cb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\10. Effect">
+      <UniqueIdentifier>{5b61609f-d728-4ce4-bf16-657fba654603}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -303,6 +306,9 @@
     <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.h">
       <Filter>01. Managers\13. GUISystem\Imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEffect.h">
+      <Filter>02. Components\10. Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -448,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.cpp">
       <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEffect.cpp">
+      <Filter>02. Components\10. Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

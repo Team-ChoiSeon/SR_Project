@@ -7,6 +7,7 @@
 
 BEGIN(Engine)
 class CParticle;
+class CEffect;
 
 class ENGINE_DLL CRenderMgr : public CBase
 {
@@ -26,6 +27,7 @@ public:
 	void Add_Collider(CCollider* collider);
 	void Remove_Collider(CCollider* collider);
 	void Add_ParticleRenderer(CParticle* particle);
+	void Add_Effect(CEffect* effect);
 
 	void Add_UI(CUI* ui);
 	void Remove_UI(CUI* ui);
@@ -36,6 +38,7 @@ private:
 	vector<CCollider*> m_vCol;
 	vector<CUI*> m_vUI;
 	vector<CParticle*> m_vParticles;
+	vector<CEffect*> m_vEffect;
 
 private:
 	virtual void Free() override;

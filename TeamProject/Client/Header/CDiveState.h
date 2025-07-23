@@ -17,5 +17,8 @@ private:
     DivePhase m_eDPhase = DivePhase::Ready;
     _float m_fSearch = 0.f;
     int m_iCnt = 0;
+
+    _float m_fSpeed = 0.f;
+    _float m_fPartRatio = 0.f;
 };
 
