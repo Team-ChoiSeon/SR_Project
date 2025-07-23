@@ -25,6 +25,7 @@ public:
 	void Set_Follow(_bool bFollow);
 	void Set_MirrorPlane(const _vec3& vPlanePos, const _vec3& vPlaneNormal);
 
+	_bool Get_Follow() { return m_bFollow; }
 private:
 	void MirrorFollow(const _float& fTimeDelta);
 	
@@ -34,6 +35,9 @@ private:
 
 	_vec3 m_vPlanePos = { 0.f, 0.f, 0.f };
 	_vec3 m_vPlaneNorm = { 1.f, 0.f, 0.f }; // X√‡ ±‚¡ÿ 
+	_vec3 m_vPrevPos = { 0.f,0.f,0.f };
 
 	_float m_fMoveSpeed = 10.f;
+
+	
 };

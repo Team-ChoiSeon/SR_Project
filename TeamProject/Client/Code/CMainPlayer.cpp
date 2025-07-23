@@ -41,7 +41,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 	m_pTransform->Ready_Component();
 
-	m_pTransform->Set_Scale({ .8f, 4.f, .8f });
+	m_pTransform->Set_Scale({ .8f, 2.f, .8f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
@@ -73,6 +73,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 {
+	m_vPrevPlayerPos = m_pTransform->Get_Pos();
 
 	//wchar_t buf1[128];
 	//swprintf_s(buf1, 128, L"Player Hp : %d\n", m_iHP);
@@ -215,25 +216,25 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		moveDir -= camRight;
 	}
 
-	if (D3DXVec3Length(&moveDir) > 0.f) {
-		D3DXVec3Normalize(&moveDir, &moveDir);
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + moveDir * m_fMoveSpeed * fTimeDelta);
+		if (D3DXVec3Length(&moveDir) > 0.f) {
+			D3DXVec3Normalize(&moveDir, &moveDir);
+			m_pTransform->Set_Pos(m_pTransform->Get_Pos() + moveDir * m_fMoveSpeed * fTimeDelta);
 
-		if (!m_bWalkingSound)
-		{
-			if (m_pRigid->Get_OnGround()) {
-				CSoundMgr::Get_Instance()->Play("Walking1", "SFX", true);
-				m_bWalkingSound = true;
+			if (!m_bWalkingSound)
+			{
+				if (m_pRigid->Get_OnGround()) {
+					CSoundMgr::Get_Instance()->Play("Walking1", "SFX", true);
+					m_bWalkingSound = true;
+				}
 			}
 		}
-	}
-	else {
-		if (m_bWalkingSound)
-		{
-			CSoundMgr::Get_Instance()->Stop("Walking1");
-			m_bWalkingSound = false;
+		else {
+			if (m_bWalkingSound)
+			{
+				CSoundMgr::Get_Instance()->Stop("Walking1");
+				m_bWalkingSound = false;
+			}
 		}
-	}
 
 	// ?˜ì¤‘???? œ
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q)) {
