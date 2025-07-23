@@ -140,7 +140,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>ENGINE_EXPORTS;IMGUI_API=__declspec(dllexport);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../ThirdParty;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;y;;../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../ThirdParty;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;y;../../ThirdParty/Imgui/;../../ThirdParty/FMOD;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
