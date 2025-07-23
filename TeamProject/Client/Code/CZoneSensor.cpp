@@ -87,21 +87,25 @@ void CZoneSensor::Free()
 
 _bool CZoneSensor::Detect()
 {
-    const AABB& aabb = m_pCollider->Get_AABBW();
+    if (m_bNewCol) {
+        const AABB& aabb = m_pCollider->Get_AABBW();
 
-    const _vec3  targetPos = m_pDetectTarget->Get_Component<CTransform>()->Get_Pos();
+        const _vec3  targetPos = m_pDetectTarget->Get_Component<CTransform>()->Get_Pos();
 
-    return  (targetPos.x >= aabb.vMin.x && targetPos.x <= aabb.vMax.x) && 
-        (targetPos.y >= aabb.vMin.y && targetPos.y <= aabb.vMax.y) &&
-        (targetPos.z >= aabb.vMin.z && targetPos.z <= aabb.vMax.z);
+        return  (targetPos.x >= aabb.vMin.x && targetPos.x <= aabb.vMax.x) &&
+            (targetPos.y >= aabb.vMin.y && targetPos.y <= aabb.vMax.y) &&
+            (targetPos.z >= aabb.vMin.z && targetPos.z <= aabb.vMax.z);
+    }
 
     //Get_OtherÀÌ º¤ÅÍ·Î ¹Ù²î¸é ¹Ù²ð¿¹Á¤
-    //if (auto othercol = m_pCollider->Get_Other())
-    //{
-    //    if (typeid(*(othercol->m_pOwner)) == typeid(CMainPlayer))
-    //        return true;
-    //}
-    //return false;
+    else {
+        if (auto othercol = m_pCollider->Get_Other())
+        {
+            if (typeid(*(othercol->m_pOwner)) == typeid(CMainPlayer))
+                return true;
+        }
+        return false;
+    }
 }
 
 

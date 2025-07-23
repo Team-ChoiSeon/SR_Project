@@ -54,7 +54,7 @@ HRESULT SceneBG::Ready_Scene()
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
 	pCam->Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
-	pCam->Get_Component<CSkyBox>()->Set_Texture(L"Sky_Test3.dds");
+	pCam->Get_Component<CSkyBox>()->Set_Texture(L"Sky_Test2.dds");
 	pCam->Get_Component<CTransform>()->Set_Scale({500,500,500 });
 	SlotSet();
 	return S_OK;

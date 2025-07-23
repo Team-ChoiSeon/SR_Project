@@ -96,7 +96,7 @@ _int SceneLoding::Update_Scene(const _float& fTimeDelta)
 		Load_Layer();
 		break;
 	case SceneLoding::LOADING_STEP::LOAD_OBJ:
-		if(m_fProgressTimer > .1f) 
+		if(m_fProgressTimer > .0001f) 
 			LoadObject();
 		break;
 	case SceneLoding::LOADING_STEP::CHANGE_SCENE:

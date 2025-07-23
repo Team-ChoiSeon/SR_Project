@@ -641,7 +641,6 @@
     <ClCompile Include="..\Code\CDeadState.cpp">
       <Filter>04. GameObjects\Vellum\State\DEAD</Filter>
     </ClCompile>  
-    </ClCompile>
     <ClCompile Include="..\Code\CSlotCube_Auto.cpp">
       <Filter>04. GameObjects\Cube\SlotCube\SlotCube_Auto</Filter>
     </ClCompile>

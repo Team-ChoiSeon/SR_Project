@@ -16,6 +16,7 @@
 #include "CSceneTestHS.h"
 #include "SceneStage1.h"
 #include "SceneStage2.h"
+#include "SceneStage3.h"
 #include "SceneLoding.h"
 #include "CLogoPanel.h"
 Logo::Logo(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -68,7 +69,7 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 	{
 		//CScene* pScene = CSceneTestHS::Create(m_pGraphicDev);
 		//CScene* pScene = SceneLoding::Create(m_pGraphicDev);
-		CScene* pScene = SceneStage2::Create(m_pGraphicDev);
+		CScene* pScene = SceneStage3::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 	}
 	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F7))

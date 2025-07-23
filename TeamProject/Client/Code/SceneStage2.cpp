@@ -29,7 +29,7 @@
 #include "CPickSwitch.h"
 #include "CSlotCube_Auto.h"
 
-#include "SceneSB.h"
+#include "SceneStage3.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -87,7 +87,7 @@ _int SceneStage2::Update_Scene(const _float& fTimeDelta)
 {
 
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate_1")->Get_InGate()) {
-		CScene* pScene = SceneSB::Create(m_pGraphicDev);
+		CScene* pScene = SceneStage3::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 		CCollisionMgr::Get_Instance()->Clear();
 		CRenderMgr::Get_Instance()->Clear();

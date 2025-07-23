@@ -133,9 +133,9 @@
     <Filter Include="01. Managers\13. GUISystem">
       <UniqueIdentifier>{a1b3818c-4b5e-40b3-bd66-ff3461c7e8b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Managers\13. GUISystem\Imgui">
-      <UniqueIdentifier>{6748df94-7294-4d42-897e-4a5c26276cb0}</UniqueIdentifier>
-    </Filter
+	<Filter Include="01. Managers\13. GUISystem\Imgui">
+	   <UniqueIdentifier>{6748df94-7294-4d42-897e-4a5c26276cb0}</UniqueIdentifier>
+	</Filter>
     <Filter Include="02. Components\06. UI\UIQuad">
       <UniqueIdentifier>{ade73681-3b15-402a-a03a-3f4b3536b2af}</UniqueIdentifier>
     </Filter>

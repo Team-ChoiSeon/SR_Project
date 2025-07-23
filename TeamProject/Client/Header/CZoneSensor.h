@@ -22,9 +22,11 @@ public:
 
 	//Getter, Setter Function
 	void Set_DetectTarget(CGameObject* target) { m_pDetectTarget = target; }
+	void Set_NewCol() { m_bNewCol = true; }
 
 private:
 	CGameObject* m_pDetectTarget;
+	_bool m_bNewCol = false;
 
 };
 

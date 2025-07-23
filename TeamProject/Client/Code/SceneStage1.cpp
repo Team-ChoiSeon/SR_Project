@@ -283,6 +283,15 @@ void SceneStage1::SensorSet()
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room5_ZoneSensor2")->Set_DetectTarget(m_pPlayer);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Set_DetectTarget(m_pPlayer);
 
+
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room1_DoorSensor1")->Set_NewCol();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path1_DoorSensor")->Set_NewCol();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Set_NewCol();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path2_FloatingSensor1")->Set_NewCol();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path2_DoorSensor")->Set_NewCol();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room5_ZoneSensor1")->Set_NewCol();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room5_ZoneSensor2")->Set_NewCol();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Set_NewCol();
 }
 
 void SceneStage1::SoundSet()
