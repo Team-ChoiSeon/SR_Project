@@ -63,7 +63,8 @@ HRESULT BossScene::Ready_Scene()
 	// 6. 카메라 타겟은 플레이어
 	pCam->Set_Target(pPlayer);  // 1인칭 시점
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
-
+	CSoundMgr::Get_Instance()->Load_Sound("Boss", "../Bin/Resource/Sound/BossScene.mp3");
+	CSoundMgr::Get_Instance()->Play("Boss", "BGM", true);
 	return S_OK;
 }
 

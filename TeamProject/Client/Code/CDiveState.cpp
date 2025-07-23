@@ -67,6 +67,10 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
 
      // 도달 체크 → phase = Wait;
     case DivePhase::In:
+        if (pVellum->Get_Component<CCollider>()->Get_ColState()==ColliderState::ENTER)
+        {
+            CSoundMgr::Get_Instance()->Play("In");
+        }
         if (pTransform->Get_Pos().y < -m_iCnt * 4.f)
         {
             pRigid->Stop_Motion();
@@ -101,7 +105,12 @@ void CDiveState::Update(const _float fTimeDelta, CVellum* pVellum)
 
      // 상승 
     case DivePhase::Out:
-
+        if (pVellum->Get_Component<CCollider>()->Get_ColState() == ColliderState::ENTER &&
+            pTransform->Get_Pos().y > -20.1f)
+        {
+            CSoundMgr::Get_Instance()->Play("Out");
+        }
+        
         if (pTransform->Get_Pos().y > m_iCnt * 4.f)
         {
             pRigid->Stop_Motion();

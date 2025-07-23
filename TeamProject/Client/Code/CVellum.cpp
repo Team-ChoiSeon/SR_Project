@@ -11,6 +11,7 @@
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
 #include "CResourceMgr.h"
+#include "CSoundMgr.h"
 
 #include "CIdleState.h"
 #include "CIntroState.h"
@@ -76,7 +77,7 @@ HRESULT CVellum::Ready_GameObject()
     m_pEffect->Set_SpriteSheet(L"AOE1.png", 3, 1, 1.f);
     m_pEffect->Set_YOffset(0.1f);
     m_pEffect->Set_EffectProperties(9.f * D3DX_PI, false);
-    m_pEffect->Set_Color(D3DCOLOR_ARGB(255, 255, 0, 0));
+    m_pEffect->Set_Color(D3DCOLOR_ARGB(255, 0, 0, 0));
 
 
     m_pTransform->Set_Pos(VSTART);
@@ -226,6 +227,14 @@ void CVellum::Load_Resource()
     CResourceMgr::Get_Instance()->Load_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
     CResourceMgr::Get_Instance()->Load_Texture(L"blackSmoke00.png");
     CResourceMgr::Get_Instance()->Load_Texture(L"AOE1.png");
+
+    CSoundMgr::Get_Instance()->Load_Sound("Intro", "../Bin/Resource/Sound/Vellum_Intro.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Fire", "../Bin/Resource/Sound/Vellum_Fire.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Charge", "../Bin/Resource/Sound/Vellum_Charge.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Dead", "../Bin/Resource/Sound/Vellum_Dead.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("In", "../Bin/Resource/Sound/Vellum_In.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Out", "../Bin/Resource/Sound/Vellum_Out.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Spread", "../Bin/Resource/Sound/Vellum_Spread.mp3");
 }
 
 
@@ -288,6 +297,7 @@ void CVellum::Organize_Chain(CMonsterPart* pPart)
 
     Safe_Release(*iter);
     m_vPart.erase(iter);
+    CSoundMgr::Get_Instance()->Play("Dead");
 
     for (size_t i = 0; i < m_vPart.size(); ++i)
         m_vPart[i]->Set_Index(i, m_vPart.size());

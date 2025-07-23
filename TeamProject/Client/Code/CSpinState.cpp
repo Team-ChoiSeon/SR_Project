@@ -95,13 +95,13 @@ void CSpinState::Update(const _float fTimeDelta, CVellum* pVellum)
         pParts[i]->Get_Component<CTransform>()->Set_Look(vLookDir);
     }
 
-    const float fFireInterval = 2.f;
+    const float fFireInterval = 1.8f;
     m_fFireDelay += fTimeDelta;
     
     if (m_fFireDelay >= fFireInterval)
     {
         m_fFireDelay = 0.f;
-
+        CSoundMgr::Get_Instance()->Play("Spread");
         for (auto pPart : pParts)
         {
             _vec3 vPartPos = pPart->Get_Component<CTransform>()->Get_Pos();

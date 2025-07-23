@@ -52,6 +52,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         }
         else
         {
+            CSoundMgr::Get_Instance()->Play("Charge");
             m_ePhase = FirePhase::Charge;
             m_fPhaseTime = 0.f;
             pRigid->Stop_Motion();
@@ -113,6 +114,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
                 m_fFireDelay += fTimeDelta;
                 if (m_fFireDelay > 1.f)
                 {
+                    CSoundMgr::Get_Instance()->Play("Fire");
                     _vec3 vFireDir = Get_TargetDir(pVellum);
                     pTransform->Set_Look(vFireDir);
 

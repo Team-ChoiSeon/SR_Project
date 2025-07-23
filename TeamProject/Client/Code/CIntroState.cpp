@@ -71,7 +71,7 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
                 m_vBase = pTransform->Get_Pos();
 
                 m_ePhase = IntroPhase::Charge;
-                
+                CSoundMgr::Get_Instance()->Play("Intro");
                 
             }
         }

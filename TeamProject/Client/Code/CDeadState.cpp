@@ -63,6 +63,7 @@ void CDeadState::Update(const _float fTimeDelta, CVellum* pVellum)
                 fAngle += 12.f;
             }
             m_bFire = true;
+            CSoundMgr::Get_Instance()->Play("Dead");
         }
     }
     else 
@@ -80,4 +81,5 @@ void CDeadState::Exit(CVellum* pVellum)
     pVellum->Get_Component<CCollider>()->Set_Active(false);
     pVellum->Get_Component<CModel>()->Set_Active(false);
 	pVellum->Set_Dead(true);
+    
 }

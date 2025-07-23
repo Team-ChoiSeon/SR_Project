@@ -9,7 +9,7 @@ public:
 
 private:
 	_float m_fDeadTime = 0.f; // 누적시간
-	_float m_fDuration = 5.f; // 지속시간
+	_float m_fDuration = 3.f; // 지속시간
 	bool m_bFire = false;
 
 };

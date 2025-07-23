@@ -72,19 +72,42 @@ HRESULT CProjectile::Ready_GameObject()
 	m_pPickTarget = Get_Component<CPickTarget>();
 	m_pPickTarget->Set_Active(false);
 
+	m_fLifeTime = 7.f + rand() % 6 * 1.1f;
 	CFactory::Save_Prefab(this, "CProjectile");
 	return CGameObject::Ready_GameObject();
 }
 
 _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 {
+	m_fLifeTime -= fTimeDelta;
+	if (m_fLifeTime <= 5.f)
+	{
+		if (m_pModel)
+		{
+			const _float fBlinkingDuration = 5.f;
+			const _float fTimeElapsedInBlink = fBlinkingDuration - m_fLifeTime;
+			const _float fSpeed = 10.f;
+			_float alpha = 1.f - (fTimeElapsedInBlink / fBlinkingDuration);
+			alpha *= (0.5f + 0.5f * sinf(fTimeElapsedInBlink * fSpeed * D3DX_PI));
+			if (alpha < 0.f)
+				alpha = 0.f;
+			m_pModel->Set_Alpha(alpha);
+		}
+	}
+	else
+	{
+		if (m_pModel)
+			m_pModel->Set_Alpha(1.f);
+	}
+
+	if (m_fLifeTime <= 0.f)
+		return 1;
+
 	switch (m_eState)
 	{
 	case EProjectileState::MSHOT:
 	case EProjectileState::PSHOT:
-		m_fLifeTime -= fTimeDelta;
-		if (m_fLifeTime <= 0.f)
-			return 1;
+		
 
 		if (m_pCol->Get_ColState() == ColliderState::ENTER)
 		{
