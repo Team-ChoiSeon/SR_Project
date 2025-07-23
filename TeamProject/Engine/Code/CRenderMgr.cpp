@@ -1,8 +1,10 @@
 #include "CRenderMgr.h"
+#include "CGraphicDev.h"
 #include "CCollisionMgr.h"
 #include "CParticle.h"
 #include "CSkyBox.h"
 #include "CEffect.h"
+#include "CPostProcess.h"
 
 IMPLEMENT_SINGLETON(CRenderMgr)
 
@@ -18,6 +20,8 @@ CRenderMgr::~CRenderMgr()
 HRESULT CRenderMgr::Ready_RenderMgr()
 {
 	m_vModellist.resize(static_cast<int>(RENDER_PASS::RP_END));
+
+	m_pPostProcess = CPostProcess::Create(CGraphicDev::Get_Instance()->Get_GraphicDev());
 	Clear();
 	return S_OK;
 }
@@ -49,6 +53,8 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_SHADOW)])
 		renderer->Render(pDevice);
 
+	m_pPostProcess->BeginScene();
+
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_OPAQUE)])
 	{
 		renderer->Render(pDevice);
@@ -72,6 +78,8 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 		pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 		pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	}
+
+	m_pPostProcess->EndScene();
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_UI)])
 		renderer->Render(pDevice);
@@ -199,4 +207,6 @@ void CRenderMgr::Clear()
 
 void CRenderMgr::Free()
 {
+	Safe_Release(m_pPostProcess);
 }
+

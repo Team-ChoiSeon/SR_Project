@@ -9,6 +9,7 @@ BEGIN(Engine)
 class CParticle;
 class CSkyBox;
 class CEffect;
+class CPostProcess;
 
 class ENGINE_DLL CRenderMgr : public CBase
 {
@@ -42,7 +43,8 @@ private:
 	vector<CParticle*> m_vParticles;
 	CSkyBox* m_pSkyBox;
 	vector<CEffect*> m_vEffect;
-  
+	CPostProcess* m_pPostProcess;
+
 private:
 	virtual void Free() override;
 
