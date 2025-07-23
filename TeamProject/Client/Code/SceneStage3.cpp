@@ -148,9 +148,9 @@ void SceneStage3::FloatingSet()
 	}
 
 	CFloatingCube* CFloatingCube2_1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1_1");
-	CFloatingCube2_1_1->Set_Info(CFloatingCube2_1_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, -1.f, 0.f }, 30.f, 3.f, 0.5f);
-	//CFloatingCube2_1_1->Set_Loop();
-	//CFloatingCube2_1_1->SetTrigger(true);
+	CFloatingCube2_1_1->Set_Info(CFloatingCube2_1_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, -1.f, 0.f }, 27.f, 3.f, 0.5f);
+	CFloatingCube2_1_1->Set_Loop();
+	CFloatingCube2_1_1->SetTrigger(true);
 
 
 	CFloatingCube* CDoor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor3_1");
@@ -295,8 +295,8 @@ void SceneStage3::Set_Triggers()
 	//플레이어 미러 큐브 등록
 
 	_bool bSlotSensor1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor1_4")->Get_SensorState();
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor2_1")->SetTrigger(bSlotSensor1_4);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor2_1")->SetTrigger(true);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor2_1")->SetTrigger(bSlotSensor1_4);
+	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor2_1")->SetTrigger(true);
 
 	_bool bMirrorTriggerCube1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPlayerTriggerCube>(L"CMirrorTriggerCube1_1")->Get_InGate();
 	CMirrorSlotCube* CMirrorSlotCube1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CMirrorSlotCube>(L"CMirrorSlotCube1_1");
@@ -336,12 +336,49 @@ void SceneStage3::Set_Triggers()
 	_bool bSlotSensor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_1")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor3_1")->SetTrigger(bSlotSensor3_1);
 
+	//임시
+	//2번째 가림막
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_5")->SetTrigger(bSlotSensor3_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_6")->SetTrigger(bSlotSensor3_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_7")->SetTrigger(bSlotSensor3_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_8")->SetTrigger(bSlotSensor3_1);
+
 	//3번째 퀘스트방
 	//입구 문
 	_bool bDoorTrigger1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_4")->Get_SensorState();
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_7")->Set_GoBack(!bDoorTrigger1_4);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_8")->Set_GoBack(!bDoorTrigger1_4);
+
+	// 클리어 스위치
+	_bool bPickSwitch4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch4_1")->Get_SwitchState();
+	//3번째 가림막
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1")->SetTrigger(bPickSwitch4_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_2")->SetTrigger(bPickSwitch4_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_3")->SetTrigger(bPickSwitch4_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_4")->SetTrigger(bPickSwitch4_1);
+
+
+	_bool bSlotSensor2_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor2_1")->Get_SensorState();
+	_bool bZoneSensor5_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneSensor5_1")->Get_SensorState();
+	_bool bLast = false;
+
+	if (bSlotSensor2_1)
+	{
+		if (bZoneSensor5_1) {
+			bLast = false;
+		}
+		else {
+			bLast = true;
+		}
+	}
+	else {
+		bLast = false;
+	}
+
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1_1")->Set_GoBack(!bLast);
+	
+	
 
 }
 
