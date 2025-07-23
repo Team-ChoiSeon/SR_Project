@@ -74,9 +74,9 @@ HRESULT CMainPlayer::Ready_GameObject()
 int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 
-	wchar_t buf1[128];
-	swprintf_s(buf1, 128, L"Player Hp : %d\n", m_iHP);
-	OutputDebugStringW(buf1);
+	//wchar_t buf1[128];
+	//swprintf_s(buf1, 128, L"Player Hp : %d\n", m_iHP);
+	//OutputDebugStringW(buf1);
 
 	if (m_pCollider->Get_ColState() == ColliderState::ENTER || m_pCollider->Get_ColState() == ColliderState::STAY)
 	{
