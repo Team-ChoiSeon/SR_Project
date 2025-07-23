@@ -7,6 +7,7 @@
 
 BEGIN(Engine)
 class CParticle;
+class CSkyBox;
 class CEffect;
 
 class ENGINE_DLL CRenderMgr : public CBase
@@ -30,6 +31,7 @@ public:
 	void Add_Effect(CEffect* effect);
 
 	void Add_UI(CUI* ui);
+	void Add_SkyBox(CSkyBox* skyBox);
 	void Remove_UI(CUI* ui);
 	void Clear();
 
@@ -38,8 +40,9 @@ private:
 	vector<CCollider*> m_vCol;
 	vector<CUI*> m_vUI;
 	vector<CParticle*> m_vParticles;
+	CSkyBox* m_pSkyBox;
 	vector<CEffect*> m_vEffect;
-
+  
 private:
 	virtual void Free() override;
 

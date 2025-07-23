@@ -104,6 +104,7 @@ CFirstviewFollowingCamera* CFirstviewFollowingCamera::Create(LPDIRECT3DDEVICE9 p
 }
 void CFirstviewFollowingCamera::Free()
 {
+	CGameObject::Free();
 	Safe_Release(m_pCamera);
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pGraphicDev);

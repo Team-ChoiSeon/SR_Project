@@ -39,6 +39,7 @@ private:
 
 private:
 	_uint m_fProgress = 0;
+	_uint m_fMaxProgress = 0;
 	_float m_fProgressTimer = 0.f;
 
 private:

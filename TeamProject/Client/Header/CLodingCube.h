@@ -5,6 +5,7 @@
 #include "CModel.h"
 #include "CCollider.h"
 #include "CRigidBody.h"
+#include "CParticle.h"
 
 class CLodingCube : public Engine::CGameObject
 {
@@ -25,6 +26,9 @@ private:
     CModel* m_pModel;
     CCollider* m_pCollider;
     CRigidBody* m_pRigid;
-
+    CParticle* m_pParticle;
     _vec3 m_vAxis;
+
+    _float m_fElapsedTime = 0.f;
+    _float m_fScaleTime = 0.f;
 };

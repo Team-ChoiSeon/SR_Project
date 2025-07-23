@@ -194,6 +194,7 @@
     <ClInclude Include="..\Header\CScene.h" />
     <ClInclude Include="..\Header\CSceneMgr.h" />
     <ClInclude Include="..\Header\CShaderMgr.h" />
+    <ClInclude Include="..\Header\CSkyBox.h" />
     <ClInclude Include="..\Header\CSoundMgr.h" />
     <ClInclude Include="..\Header\CTexture.h" />
     <ClInclude Include="..\Header\CTimeMgr.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\CUiImage.h" />
     <ClInclude Include="..\Header\CUiMgr.h" />
+    <ClInclude Include="..\Header\CUiQuad.h" />
     <ClInclude Include="..\Header\CVIBuffer.h" />
     <ClInclude Include="..\Header\Engine_Define.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
@@ -253,6 +255,7 @@
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSceneMgr.cpp" />
     <ClCompile Include="..\Code\CShaderMgr.cpp" />
+    <ClCompile Include="..\Code\CSkyBox.cpp" />
     <ClCompile Include="..\Code\CSoundMgr.cpp" />
     <ClCompile Include="..\Code\CTexture.cpp" />
     <ClCompile Include="..\Code\CTimeMgr.cpp" />
@@ -261,6 +264,7 @@
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\CUiImage.cpp" />
     <ClCompile Include="..\Code\CUiMgr.cpp" />
+    <ClCompile Include="..\Code\CUiQuad.cpp" />
     <ClCompile Include="..\Code\CVIBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

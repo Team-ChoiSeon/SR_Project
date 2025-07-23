@@ -112,5 +112,5 @@ void CGameObject::Free()
             Safe_Release(comp);
         m_umComponent[i].clear();
     }
-    
+    Safe_Release(m_pGraphicDev);
 }

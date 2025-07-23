@@ -43,14 +43,14 @@ void CUiMgr::AddUI(CGameObject* pUI)
 
 void CUiMgr::UpdateUI(const _float& fTimeDelta)
 {
-	for (auto& ui : m_vecUI)
-		ui->Update_GameObject(fTimeDelta);
+	//for (auto& ui : m_vecUI)
+	//	ui->Update_GameObject(fTimeDelta);
 }
 
 void CUiMgr::LateUpdateUI(const _float& fTimeDelta)
 {
-	for (auto& ui : m_vecUI)
-		ui->LateUpdate_GameObject(fTimeDelta);
+	//for (auto& ui : m_vecUI)
+	//	ui->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CUiMgr::RenderUI()

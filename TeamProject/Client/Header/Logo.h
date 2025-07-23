@@ -1,5 +1,9 @@
 #pragma once
 #include "CScene.h"
+namespace  Engine{
+	class CGameObject;
+}
+
 class Logo : public CScene
 {
 private:
@@ -15,6 +19,8 @@ public:
 	virtual			_int		Update_Scene(const _float& fTimeDelta)override;
 	virtual			void		LateUpdate_Scene(const _float& fTimeDelta)override;
 
+private:
+	CGameObject* m_pBackground;
 public:
 	virtual void Free();
 };

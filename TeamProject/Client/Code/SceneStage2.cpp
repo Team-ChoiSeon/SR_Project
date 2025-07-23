@@ -33,6 +33,8 @@
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
+#include "CSkyBox.h"
+#include "CScenePanel.h"
 
 SceneStage2::SceneStage2(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
@@ -59,6 +61,9 @@ HRESULT SceneStage2::Ready_Scene()
 	pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+
+	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
+	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
 
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);
