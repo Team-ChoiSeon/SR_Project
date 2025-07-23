@@ -3,6 +3,10 @@
 #include "UIPanel.h"
 
 class CMainPlayer;
+class CInfoSlot;
+class CObjCapture;
+class CDialogue;
+
 
 namespace Engine {
 	class CTransform;
@@ -22,12 +26,23 @@ public:
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 
-private://component Caching
+private:
+	void OpenPanel(const _float& fTimeDelta);
+private:
+	_bool m_bOpen;
 	CTransform* m_pTransform = nullptr;
 	CUiQuad* m_pQuad = nullptr;
 
 	CMainPlayer* m_pPlayer = nullptr;
 	UIPanel m_tPanel;
+
+private:
+	//childeren ui
+	CInfoSlot* m_pSlot = nullptr;
+	CObjCapture* m_pCapture = nullptr;
+	CDialogue* m_pDialogue = nullptr;
+	CGameObject* m_pPicked = nullptr;
+
 private:
 	void Free();
 };

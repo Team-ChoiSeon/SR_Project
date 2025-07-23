@@ -4,6 +4,7 @@
 #include "CResourceMgr.h"
 #include "CResourceMgr.h"
 #include "CHealthPanel.h"
+#include "CObjectInfo.h"
 
 CScenePanel::CScenePanel(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev)
@@ -29,7 +30,9 @@ CScenePanel* CScenePanel::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CScenePanel::Ready_GameObject()
 {
     CHealthPanel* CHealthPanel = CHealthPanel::Create(m_pGraphicDev);
+    CObjectInfo* CObjectInfo = CObjectInfo::Create(m_pGraphicDev);
     m_umUI.insert({ L"Health_UI",CHealthPanel});
+    m_umUI.insert({ L"ObjectInfo_UI",CObjectInfo });
     return S_OK;
 }
 

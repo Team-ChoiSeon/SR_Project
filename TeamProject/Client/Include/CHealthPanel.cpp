@@ -71,13 +71,9 @@ _int CHealthPanel::Update_GameObject(const _float& fTimeDelta)
 
 	m_pHealthBar->Update_GameObject(fTimeDelta);
 	m_pHealthIcon->Update_GameObject(fTimeDelta);
-	//m_pHealthLine->Update_GameObject(fTimeDelta);
-	//
+	m_pHealthLine->Update_GameObject(fTimeDelta);
+	m_pHealthBar->Set_Ratio(m_pPlayer->Get_Hp());
 
-	//if(CInputMgr::Get_Instance()->Key_Tap(DIK_I)){
-	//	tmpHealth -= 0.1f;
-	//	m_pHealthBar->Set_Ratio(tmpHealth);
-	//}
 
 	return 0;
 }

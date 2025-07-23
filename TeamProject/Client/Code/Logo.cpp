@@ -1,6 +1,8 @@
 #pragma once
 #include "pch.h"
+#include "Engine_Define.h"
 #include "Logo.h" 
+#include "CGameObject.h" 
 
 #include "CSceneMgr.h"
 #include "CInputMgr.h"
@@ -14,7 +16,7 @@
 #include "CSceneTestHS.h"
 #include "SceneStage2.h"
 #include "SceneLoding.h"
-
+#include "CLogoPanel.h"
 Logo::Logo(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
 {
@@ -27,6 +29,9 @@ Logo::~Logo()
 
 HRESULT Logo::Ready_Scene()
 {
+	Init_Layers();
+	m_pBackground = CLogoPanel::Create(m_pGraphicDev);
+	Get_Layer(LAYER_UI)->Add_GameObject(L"Back", m_pBackground);
 	return S_OK;
 }
 

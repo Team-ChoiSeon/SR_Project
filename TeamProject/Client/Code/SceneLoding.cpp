@@ -24,7 +24,7 @@
 #include "CProgressBar.h"
 #include "CLodingCube.h"
 
-#include "SceneHW.h"
+#include "CSkyBox.h"
 #include "CScene.h"
 #include "CCamera.h"
 #include "CFactory.h"
@@ -67,6 +67,10 @@ HRESULT SceneLoding::Ready_Scene()
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"DummyCam", m_pCam);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"DummyTarget", m_pTarget);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pCam);
+
+	m_pCam->Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	m_pCam->Get_Component<CSkyBox>()->Set_Texture(L"Sky_Test2.dds");
+	m_pCam->Get_Component<CTransform>()->Set_Scale({ 100,100,100 });
 
 	return S_OK;
 }

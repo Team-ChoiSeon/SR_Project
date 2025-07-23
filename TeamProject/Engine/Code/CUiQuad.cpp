@@ -116,8 +116,14 @@ void CUiQuad::Render(LPDIRECT3DDEVICE9 pDevice)
 		_vec4 ClipRatio = { m_fRatio.x,m_fRatio.y,1.f,1.f };
 		m_pEffect->SetVector(hRatio, &ClipRatio);
 
-		if (m_pTexture)
-			m_pEffect->SetTexture(hDiffuse, m_pTexture->Get_Texture());
+		if (hDiffuse)
+		{
+			if (m_pTexHandle)
+				m_pEffect->SetTexture(hDiffuse, m_pTexHandle);
+			else if (m_pTexture)
+				m_pEffect->SetTexture(hDiffuse, m_pTexture->Get_Texture());
+		}
+
 
 		m_pEffect->SetFloat(hAlpha, m_fAlpha); // 혹은 UI 알파값
 		m_pEffect->Begin(0, 0);

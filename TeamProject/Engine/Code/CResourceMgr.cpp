@@ -31,7 +31,7 @@ HRESULT CResourceMgr::Ready_Resource()
 	Load_Texture(L"T_SciFi_Greebles_Vol01_Panels_09_BC.PNG");
 	Load_Texture(L"T_SciFi_Greebles_Vol01_Panels_07_BC.PNG");
 
-
+	PreLoad_Font();
 }
 
 CTexture* CResourceMgr::Load_Texture(const wstring& texturePath)
@@ -85,7 +85,7 @@ ID3DXFont* CResourceMgr::Load_Font(const wstring& key, const wstring& path)
 
 	AddFontResourceExW(path.c_str(), FR_PRIVATE, 0);
 
-	D3DXCreateFontW(m_pGraphicDev, 24, 0, FW_NORMAL, 1, FALSE,
+	D3DXCreateFontW(m_pGraphicDev, 18, 0, FW_NORMAL, 1, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE, key.c_str(), &g_pFont);
 

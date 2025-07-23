@@ -378,6 +378,8 @@ void CParticle::PreSet_Fire(int MaxCount, float Interval, float lifeTime)
 	Set_MaxParticle(MaxCount);
 	m_fSpawnInterval = Interval;
 	m_fLifeTime = lifeTime;
+	m_EmitCount = MaxCount / 3;
+
 }
 
 void CParticle::PreSet_Breath(_vec3 dir, int MaxCount, float Interval, float lifeTime, float speed)

@@ -205,6 +205,18 @@
     <Filter Include="04. GameObjects\TestUI\ScenePanel">
       <UniqueIdentifier>{4b99c9e3-3af6-4694-a8fb-26dd557e874b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\TestUI\Logo">
+      <UniqueIdentifier>{44b9f2bd-b667-40d0-ab7f-2559ae84b02f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\ObjectInfo\Slot">
+      <UniqueIdentifier>{e0640e55-1284-4566-ab81-bae5bef0ea2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\ObjectInfo\Capture">
+      <UniqueIdentifier>{277394d4-b489-44cd-b025-cf3d310827d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\ObjectInfo\Dialogue">
+      <UniqueIdentifier>{73464a15-52c3-4688-aed4-d5c700d7965f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -384,9 +396,6 @@
     <ClInclude Include="..\Header\SceneStage3.h">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CDialogue.h">
-      <Filter>04. GameObjects\TestUI\ScenePanel</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CScenePanel.h">
       <Filter>04. GameObjects\TestUI\ScenePanel</Filter>
     </ClInclude>
@@ -411,14 +420,20 @@
     <ClInclude Include="..\Header\CMirrorSlotCube.h">
       <Filter>04. GameObjects\Cube\SlotCube\SlotCube_Auto\MirrorSlotCube</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CInfoSlot.h">
-      <Filter>04. GameObjects\TestUI\ObjectInfo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CObjCapture.h">
-      <Filter>04. GameObjects\TestUI\ObjectInfo</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CObjectInfo.h">
       <Filter>04. GameObjects\TestUI\ObjectInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLogoPanel.h">
+      <Filter>04. GameObjects\TestUI\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CInfoSlot.h">
+      <Filter>04. GameObjects\TestUI\ObjectInfo\Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CObjCapture.h">
+      <Filter>04. GameObjects\TestUI\ObjectInfo\Capture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDialogue.h">
+      <Filter>04. GameObjects\TestUI\ObjectInfo\Dialogue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -587,9 +602,6 @@
     <ClCompile Include="..\Code\SceneStage3.cpp">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage3</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CDialogue.cpp">
-      <Filter>04. GameObjects\TestUI\ScenePanel</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CScenePanel.cpp">
       <Filter>04. GameObjects\TestUI\ScenePanel</Filter>
     </ClCompile>
@@ -614,14 +626,20 @@
     <ClCompile Include="..\Code\CMirrorSlotCube.cpp">
       <Filter>04. GameObjects\Cube\SlotCube\SlotCube_Auto\MirrorSlotCube</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CInfoSlot.cpp">
-      <Filter>04. GameObjects\TestUI\ObjectInfo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CObjCapture.cpp">
-      <Filter>04. GameObjects\TestUI\ObjectInfo</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CObjectInfo.cpp">
       <Filter>04. GameObjects\TestUI\ObjectInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLogoPanel.cpp">
+      <Filter>04. GameObjects\TestUI\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CInfoSlot.cpp">
+      <Filter>04. GameObjects\TestUI\ObjectInfo\Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CObjCapture.cpp">
+      <Filter>04. GameObjects\TestUI\ObjectInfo\Capture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDialogue.cpp">
+      <Filter>04. GameObjects\TestUI\ObjectInfo\Dialogue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -74,9 +74,6 @@ HRESULT SceneStage2::Ready_Scene()
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
 	pCam->Set_Target(pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
-	pCam->Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
-	pCam->Get_Component<CSkyBox>()->Set_Texture(L"burger1.dds");
-	pCam->Get_Component<CTransform>()->Set_Scale({ 1,1,1 });
 
 	FloatingSet();
 	DirectionSet();
