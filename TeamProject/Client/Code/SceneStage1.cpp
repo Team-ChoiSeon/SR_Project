@@ -78,7 +78,7 @@ HRESULT SceneStage1::Ready_Scene()
 
 	CSoundMgr::Get_Instance()->Mute_Group("SFX", true);
 	m_bSfxMuted = true;
-	m_fMuteTimer = 1.5f;
+	m_fMuteTimer = 2.f;
 
 
 	return S_OK;
@@ -124,14 +124,30 @@ int SceneStage1::Update_Scene(const _float& fTimeDelta)
 	//===========================================================================================================//
 	//Debugging Codes
 
-	_bool switchon = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Room3_Switch1")->Get_SwitchState();
-	 CGuiSystem::Get_Instance()->RegisterPanel("state", [switchon]() {
-			// 간단한 GUI 창 하나 출력
-			ImGui::SetNextWindowSize(ImVec2{ 200,200 });
-		if (switchon)
-			ImGui::Begin("TRUE");
-		else
-			ImGui::Begin("FALSE");
+	//auto zs = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor");
+	//auto playerpos = m_pPlayer->Get_Component<CTransform>()->Get_Pos();
+	//auto aabb = zs->Get_Component<CCollider>()->Get_AABBW();
+	//bool on = zs->Get_SensorState();
+
+	//CGuiSystem::Get_Instance()->RegisterPanel("Z3_Debug", [=]() {
+
+	//	ImGui::Text("PlayerPos: (%.1f, %.1f, %.1f)",
+	//		playerpos.x, playerpos.y, playerpos.z);
+	//	ImGui::Text("Room3 AABB Min: (%.1f, %.1f, %.1f)",
+	//		aabb.vMin.x, aabb.vMin.y, aabb.vMin.z);
+	//	ImGui::Text("Room3 AABB Max: (%.1f, %.1f, %.1f)",
+	//		aabb.vMax.x, aabb.vMax.y, aabb.vMax.z);
+	//	ImGui::Text("SensorOn: %s", on ? "TRUE" : "FALSE");
+	//	});
+
+	//_bool switchon = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Room3_Switch1")->Get_SwitchState();
+	// CGuiSystem::Get_Instance()->RegisterPanel("state", [switchon]() {
+	//		// 간단한 GUI 창 하나 출력
+	//		ImGui::SetNextWindowSize(ImVec2{ 200,200 });
+	//	if (switchon)
+	//		ImGui::Begin("TRUE");
+	//	else
+	//		ImGui::Begin("FALSE");
 	//	 //switch (state)
 	//	 //{
 	//	 //case METAL_STATE::IDLE:
@@ -151,8 +167,8 @@ int SceneStage1::Update_Scene(const _float& fTimeDelta)
 	//	 //else if (!m_pRigid->Get_OnGround())
 	//	 //    ImGui::Begin("Not On Ground");
 
- 		ImGui::End();
-  		});
+ 		//ImGui::End();
+  	//	});
 	//===========================================================================================================//
 
 
@@ -265,6 +281,8 @@ void SceneStage1::SensorSet()
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path2_DoorSensor")->Set_DetectTarget(m_pPlayer);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room5_ZoneSensor1")->Set_DetectTarget(m_pPlayer);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room5_ZoneSensor2")->Set_DetectTarget(m_pPlayer);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Set_DetectTarget(m_pPlayer);
+
 }
 
 void SceneStage1::SoundSet()
@@ -284,6 +302,9 @@ void SceneStage1::SoundSet()
 	CSoundMgr::Get_Instance()->Load_Sound("DoorClose1", "../Bin/Resource/Sound/Cube/DoorClose_1.wav");
 	
 	CSoundMgr::Get_Instance()->Load_Sound("CubeDrag", "../Bin/Resource/Sound/Cube/MetalDrag_5.wav");
+	CSoundMgr::Get_Instance()->Load_Sound("ElevatorStart", "../Bin/Resource/Sound/Cube/ElevatorStart_1.wav");
+	CSoundMgr::Get_Instance()->Load_Sound("ElevatorMove", "../Bin/Resource/Sound/Cube/ElevatorMove_2.wav");
+	CSoundMgr::Get_Instance()->Set_Volume("ElevatorMove", 0.5f);
 
 	CSoundMgr::Get_Instance()->Load_Sound("Correct", "../Bin/Resource/Sound/Puzzle/Correct_3.wav");
 	CSoundMgr::Get_Instance()->Load_Sound("Wrong", "../Bin/Resource/Sound/Puzzle/Wrong_2.mp3");
@@ -355,28 +376,40 @@ void SceneStage1::Room2Update(const _float& fTimeDelta)
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_SlidingDoor1")->
 		PlayDoorSound(Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room2_SlotSensor1")->Get_OnEdge() && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Get_SensorState(),
 			Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Get_OffEdge());
+
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_Floating1")->PlayElevatorSound();
 }
 
 void SceneStage1::Room3Update(const _float& fTimeDelta)
 {	
 	////Room3
 	//Switch
-	_bool room3Switch1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Room3_Switch1")->Get_SwitchState();
+	_bool room3Switch1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Room3_Switch1")->Get_SwitchState() &&
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->SetTrigger(room3Switch1);
 
 	//Slot1
 	_bool room3SlotPuzzle1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor1")->Get_SensorState() &&
-		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor2")->Get_SensorState();
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor2")->Get_SensorState() &&
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating2")->SetTrigger(room3SlotPuzzle1);
 
 	//Slot2
-	_bool room3SlotPuzzle2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor3")->Get_SensorState();
+	_bool room3SlotPuzzle2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor3")->Get_SensorState() &&
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->SetGoBack(!room3SlotPuzzle2);
 
 	//PlaySound
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->
-		PlayDoorSound(Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor3")->Get_OnEdge(),
-			false);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_SlidingDoor1")->PlayDoorSound
+	(Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor3")->Get_OnEdge(),
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Get_OffEdge());
+
+	//if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Get_SensorState())
+	{
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->PlayElevatorSound();
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating2")->PlayElevatorSound();
+	}
+
 
 }
 
@@ -385,6 +418,7 @@ void SceneStage1::Path2Update(const _float& fTimeDelta)
 	////Path2
 	_bool path2Elevtor1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path2_FloatingSensor1")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_Floating1")->SetTrigger(path2Elevtor1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_Floating1")->PlayElevatorSound();
 
 	_bool path2Door1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path2_DoorSensor")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path2_SlidingDoor1")->SetGoBack(!path2Door1);

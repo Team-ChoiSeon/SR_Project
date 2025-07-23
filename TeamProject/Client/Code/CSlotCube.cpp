@@ -40,6 +40,7 @@ HRESULT CSlotCube::Ready_GameObject()
 
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
 	m_pModel = Get_Component<CModel>();
+	m_pModel->Set_Alpha(0.5f);
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();

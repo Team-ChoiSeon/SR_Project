@@ -21,7 +21,7 @@ public:
 	static SceneStage1* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	void	Free();
 
-	virtual const wstring Get_ScenePath() { return L"../../Scene/Stage_hw_2.json"; }
+	virtual const wstring Get_ScenePath() { return L"../../Scene/Stage_1.json"; }
 private:
 	//Setting
 	void FloatingSet();

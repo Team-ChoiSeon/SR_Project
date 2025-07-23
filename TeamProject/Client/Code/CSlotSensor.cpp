@@ -44,6 +44,10 @@ HRESULT CSlotSensor::Ready_GameObject()
     m_pCollider->Set_ColType(ColliderType::TRIGGER);
     m_pCollider->Set_BoundType(BoundingType::AABB);
 
+    Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
+    m_pModel = Get_Component < CModel>();
+    m_pModel->Set_Alpha(0.1f);
+
     m_bSensorOn = false;
     m_bPreSensorOn = false;
 
@@ -60,6 +64,9 @@ _int CSlotSensor::Update_GameObject(const _float& fTimeDelta)
     m_bOnEdge = !m_bPreSensorOn && m_bSensorOn;
     m_bOffEdge = m_bPreSensorOn && !m_bSensorOn;
     m_bPreSensorOn = m_bSensorOn;
+
+    if (m_bOffEdge)
+        m_bAlphaLerp = false;
     return _int();
 }
 
@@ -79,7 +86,7 @@ void CSlotSensor::LateUpdate_GameObject(const _float& fTimeDelta)
             m_bWrong = true;
         }
     }
-    if(m_bAlphaLerp)
+    if(m_bAlphaLerp && m_pSlotted)
         AlphaUp(fTimeDelta);
     CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
@@ -101,6 +108,7 @@ void CSlotSensor::Free()
     Safe_Release(m_pTransform);
     Safe_Release(m_pRigid);
     Safe_Release(m_pCollider);
+    Safe_Release(m_pModel);
 }
 
 _bool CSlotSensor::Detect()

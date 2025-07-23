@@ -40,10 +40,12 @@ public:
 
 	_bool Get_Loop() { return m_bBackward; }
 	_float Get_SleepTime() { return m_fTime; }
+	_bool Get_MoveState() { return m_bOn; }
+	_bool Get_Stop() { return m_bSleep; }
 
 	//Utility Function
 	void PlayDoorSound(const _bool& OnTrigger, const _bool& OffTrigger);
-	void PlayElevatorSound(const _bool& OnTrigger, const _bool& OffTrigger);
+	void PlayElevatorSound();
 
 private:
 	//Compute Function
@@ -73,5 +75,8 @@ private:
 	_bool m_bSleep = false;
 	_bool m_bGoBack = false;
 	_bool m_bBackward = false;
+
+	_bool m_bPreMove = false;
+	_bool m_bEleSound = false;
 };
 

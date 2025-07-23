@@ -62,6 +62,8 @@ HRESULT CFloatingCube::Ready_GameObject()
 
 _int CFloatingCube::Update_GameObject(const _float& fTimeDelta)
 {
+	
+
 
 	if (m_bOn) {
 		if (m_bBackward)
@@ -95,6 +97,8 @@ _int CFloatingCube::Update_GameObject(const _float& fTimeDelta)
 	}
 	else
 		Stop(fTimeDelta);
+
+
 
 	SyncVelPlayer(fTimeDelta);
 
@@ -171,8 +175,20 @@ void CFloatingCube::PlayDoorSound(const _bool& OnTrigger, const _bool& OffTrigge
 	}
 }
 
-void CFloatingCube::PlayElevatorSound(const _bool& OnTrigger, const _bool& OffTrigger)
+void CFloatingCube::PlayElevatorSound()
 {
+	const bool isMoving = (m_bOn && !m_bSleep);
+
+	if (isMoving && !m_bEleSound)
+	{
+		CSoundMgr::Get_Instance()->Play("ElevatorMove", "SFX",true);
+		m_bEleSound = true;
+	}
+	else if (!isMoving && m_bEleSound)
+	{
+		CSoundMgr::Get_Instance()->Stop("ElevatorMove");
+		m_bEleSound = false;
+	}
 }
 
 void CFloatingCube::SyncVelPlayer(const _float& fTimeDelta)

@@ -1,10 +1,16 @@
 #pragma once
 #include "CSensor.h"
 #include "CTransform.h"
+
+
 struct DetectZone {
 	_vec3 _min;
 	_vec3 _max;
 };
+
+namespace Engine {
+	class CModel;
+}
 class CMainPlayer;
 class CSlotCube;
 class CSlotCube_Auto;
@@ -45,6 +51,8 @@ private:
 	void AlphaUp(const _float& fTimeDelta);
 
 	//Variables
+	CModel* m_pModel;
+
 	DetectZone		m_Zone;
 	_int			m_iPuzzleID;
 	_int			m_iSlotID;

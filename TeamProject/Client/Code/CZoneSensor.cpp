@@ -91,7 +91,8 @@ _bool CZoneSensor::Detect()
 
     const _vec3  targetPos = m_pDetectTarget->Get_Component<CTransform>()->Get_Pos();
 
-    return  (targetPos.x >= aabb.vMin.x && targetPos.x <= aabb.vMax.x) &&
+    return  (targetPos.x >= aabb.vMin.x && targetPos.x <= aabb.vMax.x) && 
+        (targetPos.y >= aabb.vMin.y && targetPos.y <= aabb.vMax.y) &&
         (targetPos.z >= aabb.vMin.z && targetPos.z <= aabb.vMax.z);
 
     //Get_OtherÀÌ º¤ÅÍ·Î ¹Ù²î¸é ¹Ù²ð¿¹Á¤
