@@ -52,5 +52,11 @@ private:
 	_float			m_fCurDistance;
 
 	_bool			m_bOneway;
+
+
+private: //√‡∞Ì¡§
+	_bool m_bLockX;
+	_bool m_bLockY;
+	_bool m_bLockZ;
 };
 

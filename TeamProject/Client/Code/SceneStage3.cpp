@@ -106,10 +106,10 @@ void SceneStage3::LateUpdate_Scene(const _float& fTimeDelta)
 
 void SceneStage3::FloatingSet()
 {
-	for (int i = 1; i < 5; i++) {
+	for (int i = 1; i < 9; i++) {
 		wstring name = L"CDoor1_" + to_wstring(i);
 		CFloatingCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(name);
-		if (i == 1 || i == 3)
+		if (i == 1 || i == 3 || i == 5 || i == 7)
 		{
 			cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { -1.f, 0.f, 0.f }, 5.f, 5.f, 0.5f);
 		}
@@ -144,17 +144,58 @@ void SceneStage3::FloatingSet()
 	for (int i = 1; i < 13; i++) {
 		wstring name = L"CFloatingCube2_" + to_wstring(i);
 		CFloatingCube* cube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(name);
-		cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 20.f, 5.f, 0.5f);
+		cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 25.f, 5.f, 0.5f);
 	}
 
 	CFloatingCube* CFloatingCube2_1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1_1");
 	CFloatingCube2_1_1->Set_Info(CFloatingCube2_1_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, -1.f, 0.f }, 30.f, 3.f, 0.5f);
-	CFloatingCube2_1_1->Set_Loop();
-	CFloatingCube2_1_1->SetTrigger(true);
+	//CFloatingCube2_1_1->Set_Loop();
+	//CFloatingCube2_1_1->SetTrigger(true);
+
+
+	CFloatingCube* CDoor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor3_1");
+	CDoor3_1->Set_Info(CDoor3_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, -1.f, 0.f }, 30.f, 3.f, 0.5f);
+
 }
 
 void SceneStage3::DirectionSet()
 {
+	CDirectionalCube* CDCube3_1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube3_1_1");
+	CDCube3_1_1->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	CDCube3_1_1->Set_Info({ 0.f, 0.f, 1.f }, 0.f, 8.f);
+
+	CDirectionalCube* CDCube3_1_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube3_1_2");
+	CDCube3_1_2->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	CDCube3_1_2->Set_Info({ 0.f, 0.f, 1.f }, -4.f, 2.f);
+
+	CDirectionalCube* CDCube3_1_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube3_1_3");
+	CDCube3_1_3->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	CDCube3_1_3->Set_Info({ 0.f, 0.f, 1.f }, -4.f, 4.f);
+	
+	CDirectionalCube* CDCube3_1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube3_1_4");
+	CDCube3_1_4->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	CDCube3_1_4->Set_Info({ 0.f, 0.f, 1.f }, 0.f, 12.f);
+	
+	CDirectionalCube* CDCube3_1_5 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube3_1_5");
+	CDCube3_1_5->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	CDCube3_1_5->Set_Info({ 0.f, 0.f, 1.f }, -6.f, 0.f);
+	
+	CDirectionalCube* CDCube3_1_6 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube3_1_6");
+	CDCube3_1_6->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	CDCube3_1_6->Set_Info({ 0.f, 0.f, 1.f }, -2.f, 6.f);
+
+	CDirectionalCube* CDCube3_2_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube3_2_1");
+	CDCube3_2_1->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	CDCube3_2_1->Set_Info({ 1.f, 0.f, 0.f }, -6.f, 2.f);
+
+	CDirectionalCube* CDCube3_2_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube3_2_2");
+	CDCube3_2_2->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	CDCube3_2_2->Set_Info({ 1.f, 0.f, 0.f }, -2.f, 6.f);
+
+	CDirectionalCube* CDCube3_2_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube3_2_3");
+	CDCube3_2_3->Get_Component<CCollider>()->Set_ColType(ColliderType::ACTIVE);
+	CDCube3_2_3->Set_Info({ 1.f, 0.f, 0.f }, -4.f, 4.f);
+
 
 }
 
@@ -186,6 +227,13 @@ void SceneStage3::SlotSet()
 
 	CSlotSensor* CSlotSensor2_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor2_1");
 	CSlotSensor2_1->Set_Info(pPlayer, 5, 5);
+
+	CSlotSensor* CSlotSensor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_1");
+	CSlotSensor3_1->Set_Info(pPlayer, 5, 5);
+	CSlotSensor3_1->Set_PlayerPick(false);
+
+	CSlotCube_Auto* CSlotCube_Auto3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotCube_Auto>(L"CSlotCube_Auto3_1");
+	CSlotCube_Auto3_1->Set_Info(5, 5);
 }
 
 void SceneStage3::StairSet()
@@ -247,28 +295,53 @@ void SceneStage3::Set_Triggers()
 	//플레이어 미러 큐브 등록
 
 	_bool bSlotSensor1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor1_4")->Get_SensorState();
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor2_1")->SetTrigger(bSlotSensor1_4);
+	//Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor2_1")->SetTrigger(bSlotSensor1_4);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor2_1")->SetTrigger(true);
 
 	_bool bMirrorTriggerCube1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPlayerTriggerCube>(L"CMirrorTriggerCube1_1")->Get_InGate();
 	CMirrorSlotCube* CMirrorSlotCube1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CMirrorSlotCube>(L"CMirrorSlotCube1_1");
-	if (!bSlotSensor1_4)
-	{
-		if (bMirrorTriggerCube1_1) {
+	if (bMirrorTriggerCube1_1) {
+		if (!bSlotSensor1_4)
+		{
 			CMirrorSlotCube1_1->Set_Follow(true);
 		}
 		else {
 			CMirrorSlotCube1_1->Set_Follow(false);
 		}
 	}
+	else {
+		CMirrorSlotCube1_1->Set_Follow(false);
+	}
+
 
 
 	// 3개 가림막 풀기
 	// 1번째 가림막
 	_bool CPickSwitch2_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch2_1")->Get_SwitchState();
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_9")->Set_GoBack(!CPickSwitch2_1);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_10")->Set_GoBack(!CPickSwitch2_1);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_11")->Set_GoBack(!CPickSwitch2_1);
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_12")->Set_GoBack(!CPickSwitch2_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_9")->SetTrigger(CPickSwitch2_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_10")->SetTrigger(CPickSwitch2_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_11")->SetTrigger(CPickSwitch2_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_12")->SetTrigger(CPickSwitch2_1);
+
+
+
+	//2번째 퀘스트방
+	//입구 문
+	_bool bDoorTrigger1_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_3")->Get_SensorState();
+
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_5")->Set_GoBack(!bDoorTrigger1_3);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_6")->Set_GoBack(!bDoorTrigger1_3);
+
+	//첫번째 슬롯
+	_bool bSlotSensor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_1")->Get_SensorState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor3_1")->SetTrigger(bSlotSensor3_1);
+
+	//3번째 퀘스트방
+	//입구 문
+	_bool bDoorTrigger1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_4")->Get_SensorState();
+
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_7")->Set_GoBack(!bDoorTrigger1_4);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_8")->Set_GoBack(!bDoorTrigger1_4);
 
 }
 
