@@ -35,6 +35,7 @@ public:
 	void Pick(CTransform* pTransform);
 	void Throw(const _vec3& vDir, const _float& fSpeed);
 	EProjectileState Get_State() const { return m_eState; }
+	void Set_LifeTime(_float fTime) { m_fLifeTime = fTime; }
 
 private:
 	bool Check_Ray(_float& fDist);
@@ -51,7 +52,7 @@ private:
 	CPickTarget* m_pPickTarget = nullptr;
 	CTransform* m_pPickerTransform = nullptr;
 
-	_float m_fLifeTime = 30.f;
+	_float m_fLifeTime = 10.f;
 
 	EProjectileState m_eState = EProjectileState::MSHOT;
 	bool m_bGrab = false;

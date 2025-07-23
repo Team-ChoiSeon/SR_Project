@@ -50,7 +50,7 @@ HRESULT CPickSwitch::Ready_GameObject()
 
     m_bGrab = false;                        //picking 확인
     m_bReusable = true;                     //여러번 상호작용 가능한지
-    m_bButtonOn = false;                   //켜져있는지
+    m_bSwitchOn = false;                   //켜져있는지
     m_bPressed = false;
     m_bInit = false;
 
@@ -65,6 +65,13 @@ _int CPickSwitch::Update_GameObject(const _float& fTimeDelta)
     CGameObject::Update_GameObject(fTimeDelta);
     Init();
     SwitchOn(m_bGrab);
+    m_bOnEdge = !m_bPreSwitchOn && m_bSwitchOn;
+    m_bOffEdge = m_bPreSwitchOn && !m_bSwitchOn;
+
+    if (m_bPreSwitchOn != m_bSwitchOn)
+        CSoundMgr::Get_Instance()->Play("Switch", "SFX", false);
+
+    m_bPreSwitchOn = m_bSwitchOn;
     Pressing(fTimeDelta);
 	return _int();
 }

@@ -11,6 +11,7 @@
 #include "CPickingMgr.h"
 #include "CCameraMgr.h"
 #include "CInputMgr.h"
+#include "CSoundMgr.h"
 
 CMagneticCube::CMagneticCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -47,11 +48,13 @@ HRESULT CMagneticCube::Ready_GameObject()
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCollider = Get_Component<CCollider>();
     m_pCollider->Set_ColTag(ColliderTag::NONE);
-    m_pCollider->Set_ColType(ColliderType::PASSIVE);
+    m_pCollider->Set_ColType(ColliderType::ACTIVE);
     m_pCollider->Set_BoundType(BoundingType::AABB);
 
     Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
     m_pPick = Get_Component<CPickTarget>();
+
+    m_fColSoundCooldown = 0.f;
 
     CFactory::Save_Prefab(this, "CMagneticCube");
 	return S_OK;
@@ -59,19 +62,28 @@ HRESULT CMagneticCube::Ready_GameObject()
 
 _int CMagneticCube::Update_GameObject(const _float& fTimeDelta)
 {
+    if (m_fColSoundCooldown > 0.f)
+        m_fColSoundCooldown -= fTimeDelta;
     PickMove();
 
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_LEFT))
-        m_pRigid->Set_Torque({ 0.f, 45.f, 0.f });
-    if (CInputMgr::Get_Instance()->Key_Down(DIK_RIGHT))
-        m_pRigid->Add_Torque({ 0.f, -45.f, 0.f });
-
-    if(m_pRigid->Get_OnGround())
-        m_pCollider->Set_ColType(ColliderType::PASSIVE);
+    if (m_pRigid->Get_OnGround()) {
+    }
     else {
         m_pCollider->Set_ColType(ColliderType::ACTIVE);
         m_pRigid->Set_UseGravity(true);
+        if (m_pCollider->Get_ColState() == ColliderState::ENTER
+            && m_fColSoundCooldown <= 0.f)
+        {
+            if (typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMetalCube))
+            {
+                PlayColSound(5);
+                m_fColSoundCooldown = 0.1f;
+            }
+        }
     }
+    /*if (m_pCollider->Get_ColState() == ColliderState::ENTER)
+        PlayColSound(5);*/
+
     CGameObject::Update_GameObject(fTimeDelta);
 
 	return _int();
@@ -109,9 +121,17 @@ void CMagneticCube::Free()
 
 void CMagneticCube::PickMove()
 {
+    if (m_bCurGrab && !m_bPreGrab) {
+        CSoundMgr::Get_Instance()->Set_Volume("MagnetField", 0.5f);
+        CSoundMgr::Get_Instance()->Play("MagnetField", "SFX", true);
+    }
+    else if (!m_bCurGrab && m_bPreGrab) {
+        CSoundMgr::Get_Instance()->Stop("MagnetField");
+    }
+    m_bPreGrab = m_bCurGrab;
     if (m_bCurGrab)
     {
-        m_pCollider->Set_ColType(ColliderType::PASSIVE);
+        m_pCollider->Set_ColType(ColliderType::ACTIVE);
         m_pRigid->Set_UseGravity(false);
         m_pRigid->Set_OnGround(true);
         m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });

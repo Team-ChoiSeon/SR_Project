@@ -157,6 +157,7 @@
     <ClInclude Include="..\Header\CChaseState.h" />
     <ClInclude Include="..\Header\CCinematicCamera.h" />
     <ClInclude Include="..\Header\CDialogue.h" />
+    <ClInclude Include="..\Header\CDeadState.h" />
     <ClInclude Include="..\Header\CDollyCamera.h" />
     <ClInclude Include="..\Header\CDiveState.h" />
     <ClInclude Include="..\Header\CFireState.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="..\Header\CVellum.h" />
     <ClInclude Include="..\Header\CTestTile.h" />
     <ClInclude Include="..\Header\DummyCube.h" />
+    <ClInclude Include="..\Header\IVellumState.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\CMainPlayer.h" />
     <ClInclude Include="..\Header\CMagneticCube.h" />
@@ -212,6 +214,7 @@
     <ClInclude Include="..\Header\SceneHW.h" />
     <ClInclude Include="..\Header\SceneLoding.h" />
     <ClInclude Include="..\Header\SceneSB.h" />
+    <ClInclude Include="..\Header\SceneStage1.h" />
     <ClInclude Include="..\Header\SceneStage2.h" />
     <ClInclude Include="..\Header\SceneStage3.h" />
     <ClInclude Include="..\Header\TestSceneHW.h" />
@@ -220,7 +223,6 @@
     <ClInclude Include="CHealthPanel.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="IVellumState.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -230,6 +232,7 @@
     <ClCompile Include="..\Code\CChaseState.cpp" />
     <ClCompile Include="..\Code\CCinematicCamera.cpp" />
     <ClCompile Include="..\Code\CDialogue.cpp" />
+    <ClCompile Include="..\Code\CDeadState.cpp" />
     <ClCompile Include="..\Code\CDollyCamera.cpp" />
     <ClCompile Include="..\Code\CDiveState.cpp" />
     <ClCompile Include="..\Code\CFireState.cpp" />
@@ -285,6 +288,7 @@
     <ClCompile Include="..\Code\SceneHW.cpp" />
     <ClCompile Include="..\Code\SceneLoding.cpp" />
     <ClCompile Include="..\Code\SceneSB.cpp" />
+    <ClCompile Include="..\Code\SceneStage1.cpp" />
     <ClCompile Include="..\Code\SceneStage2.cpp" />
     <ClCompile Include="..\Code\SceneStage3.cpp" />
     <ClCompile Include="..\Code\TestSceneHW.cpp" />

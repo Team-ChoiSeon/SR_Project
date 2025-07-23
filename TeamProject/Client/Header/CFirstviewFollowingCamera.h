@@ -32,6 +32,8 @@ public:
 	virtual _matrix	Get_ViewMatrix() { return *m_pCamera->Get_ViewMatrix(); }
 	virtual _matrix	Get_ProjectionMatrix() { return *m_pCamera->Get_ProjectionMatrix(); }
 
+	void Start_Shake(const _float fDuration, const _float fMagnitude);
+
 protected:
 
 private:
@@ -40,6 +42,11 @@ private:
 	CCamera*				m_pCamera;
 
 	bool					m_bCursorMove = false;
+
+	// 카메라 흔들기
+	_float m_fShakeDuration = 0.f;  
+	_float m_fShakeMagnitude = 0.f;
+	_float m_fShakeTime = 0.f;     
 	
 }FFCam;
 

@@ -14,7 +14,7 @@
 #include "Engine_GUI.h"
 #include "CGuiSystem.h"
 #include "CCameraMgr.h"
-CSlotCube* CSlotCube::s_pPickedCube = nullptr;
+#include "CZoneSensor.h"
 CSlotCube::CSlotCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
 {
@@ -40,6 +40,7 @@ HRESULT CSlotCube::Ready_GameObject()
 
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
 	m_pModel = Get_Component<CModel>();
+	m_pModel->Set_Alpha(0.5f);
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
@@ -69,21 +70,6 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 {
 	if (m_bCurGrab)
 	{
-		if (s_pPickedCube == nullptr) {
-			s_pPickedCube = this;
-		}
-		else if (s_pPickedCube != this) {
-			m_bCurGrab = false;
-		}
-	}
-	else
-	{
-		if (s_pPickedCube == this)
-			s_pPickedCube = nullptr;
-	}
-
-	if (m_bCurGrab)
-	{
 		PickMove();
 	}	
 	else
@@ -94,7 +80,27 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 		else if (m_FitSlot != nullptr)
 			m_FitSlot->Set_SlottedCube(nullptr);
 		m_pRigid->Set_UseGravity(true);
+
+		//if (m_pCollider->Get_ColState() == ColliderState::ENTER)
+		//{
+		//	auto otherOwner = m_pCollider->Get_Other()->m_pOwner;
+
+		//	// CZoneSensor는 무시, 나머지 GROUND만
+		//	if (typeid(*otherOwner) != typeid(CZoneSensor)
+		//		&& m_pCollider->Get_Other()->Get_ColTag() == ColliderTag::GROUND)
+		//	{
+		//		PlayColSound(1);
+		//	}
+		//}
+
+		bool isOnGround = m_pRigid->Get_OnGround();
+		if (isOnGround && !m_bPreOnground) {
+			// 방금 착지했을 때
+			PlayColSound(1);
+		}
+		m_bPreOnground = isOnGround;
 	}
+	Update_Cube(fTimeDelta);
 	CGameObject::Update_GameObject(fTimeDelta);
 	
 
@@ -149,7 +155,7 @@ void CSlotCube::Insert_Overlap(CSlotSensor* sensor, _float dist)
 
 void CSlotCube::PickMove()
 {
-	//m_pRigid->Set_UseGravity(false);
+	m_pRigid->Set_UseGravity(false);
 	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f }); 
 	m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vCursorDelta);
 	m_vCursorDelta = {0,0,0};

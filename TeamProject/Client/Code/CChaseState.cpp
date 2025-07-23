@@ -13,10 +13,13 @@ void CChaseState::Enter(CVellum* pVellum)
 	OutputDebugString(L"Chase : Enter\n");
 	m_fPatternTime = 0.f;
 	pVellum->Get_HCol()->Set_ColType(ColliderType::PASSIVE);
+	m_fSpeed = 20.f;
+	m_fPartRatio = 1.f;
 }
 
 void CChaseState::Update(const _float fTimeDelta, CVellum* pVellum)
 {
+	m_fPartRatio = pVellum->Get_PartCnt() / (pVellum->Get_PartCnt() - pVellum->Get_Part().size() +1 );
 
 	_vec3 dir = pVellum->Get_Target()->Get_Component<CTransform>()->Get_Pos()
 			  - pVellum->Get_HTransform()->Get_Pos();
@@ -25,8 +28,8 @@ void CChaseState::Update(const _float fTimeDelta, CVellum* pVellum)
 	if (D3DXVec3LengthSq(&dir) > 0.001f)	pVellum->Get_HTransform()->Set_Look(dir);
 	
 
-	pVellum->Get_HRigid()->Add_Torque(dir * 30.f);
-	pVellum->Get_HRigid()->Add_Force(dir * 5.f);
+	pVellum->Get_HRigid()->Add_Torque(dir * m_fSpeed * sqrtf(1.f+m_fPartRatio));
+	pVellum->Get_HRigid()->Add_Force(dir * 5.f * sqrtf(1.f + m_fPartRatio));
 
 	m_fPatternTime += fTimeDelta;
 	if (m_fPatternTime >= m_fSwitchTime / 2.f)

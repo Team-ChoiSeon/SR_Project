@@ -22,8 +22,7 @@ public:
 
 	// Follow Control
 	void Set_Player(CMainPlayer* pPlayer) { m_pPlayer = pPlayer; }
-	void Set_Follow(_bool bFollow) { m_bFollow = bFollow; }
-
+	void Set_Follow(_bool bFollow);
 	void Set_MirrorPlane(const _vec3& vPlanePos, const _vec3& vPlaneNormal);
 
 private:
@@ -36,5 +35,5 @@ private:
 	_vec3 m_vPlanePos = { 0.f, 0.f, 0.f };
 	_vec3 m_vPlaneNorm = { 1.f, 0.f, 0.f }; // X√‡ ±‚¡ÿ 
 
-
+	_float m_fMoveSpeed = 10.f;
 };

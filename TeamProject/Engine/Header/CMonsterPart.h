@@ -30,9 +30,12 @@ public:
 	void Follow_Target(_float fDeltaTime);
 	void Set_Target(CGameObject* pTarget) { m_pTarget = pTarget; }
 	void Set_Index(int idx, int max) { m_iIdx = idx, m_iMax = max; }
+	void Set_Follow(bool follow) { m_bFollow = follow; }
 
 	CGameObject* Get_Owner();
 	CGameObject* Get_Target() { return m_pTarget; }
+	int Get_Index() { return m_iIdx; }
+	bool Get_Follow() { return m_bFollow; }
 
 
 public:
@@ -51,6 +54,8 @@ private:
 
 	int m_iIdx = 0;
 	int m_iMax = 0;
+
+	bool m_bFollow = true;
 
 };
 
