@@ -8,6 +8,7 @@
 
 #include "CVellum.h"
 #include "CCinematicCamera.h"
+#include "CFirstviewFollowingCamera.h"
 
 #include "CSceneMgr.h"
 #include "CInputMgr.h"
@@ -119,6 +120,9 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
 
     case IntroPhase::Roar:
     {
+        CSceneMgr::Get_Instance()->Get_Scene()->Get_Layer(LAYER_CAMERA)
+            ->Get_GameObject<CFirstviewFollowingCamera>(L"MyCamera")->Start_Shake(m_fRoarTime-1.5f, 1.f);
+
         pVellum->Get_Component<CModel>()->Set_Model(L"Head_Fire.obj", L"Head_Fire.mtl");
         // Lunge
         float fLungeDuration = 0.25f;

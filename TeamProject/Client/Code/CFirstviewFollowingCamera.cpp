@@ -57,6 +57,23 @@ int CFirstviewFollowingCamera::Update_GameObject(const _float& fTimeDelta)
 	m_pTransform->Set_Angle(m_pTargetTransform->Get_Angle());
 	m_pTransform->Set_Look(m_pTargetTransform->Get_Info(INFO_LOOK));
 
+	// 카메라 흔들기
+	if (m_fShakeTime < m_fShakeDuration)
+	{
+		m_fShakeTime += fTimeDelta;
+
+		_float fCurrentMagnitude = m_fShakeMagnitude * (1.f - (m_fShakeTime / m_fShakeDuration));
+		if (fCurrentMagnitude < 0.f) fCurrentMagnitude = 0.f;
+
+		_float fOffsetX = ((rand() % 100) / 50.f - 1.f) * fCurrentMagnitude;
+		_float fOffsetY = ((rand() % 100) / 50.f - 1.f) * fCurrentMagnitude;
+
+		_vec3 vCurrentPos = m_pTransform->Get_Pos();
+		vCurrentPos.x += fOffsetX;
+		vCurrentPos.y += fOffsetY;
+		m_pTransform->Set_Pos(vCurrentPos);
+	}
+
 	m_pCamera->AngleClamping();
 
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
@@ -90,6 +107,13 @@ void CFirstviewFollowingCamera::Free()
 	Safe_Release(m_pCamera);
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pGraphicDev);
+}
+
+void CFirstviewFollowingCamera::Start_Shake(const _float fDuration, const _float fMagnitude)
+{
+	m_fShakeDuration = fDuration;
+	m_fShakeMagnitude = fMagnitude;
+	m_fShakeTime = 0.f;
 }
 
 REGISTER_GAMEOBJECT(CFirstviewFollowingCamera)
