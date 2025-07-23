@@ -22,4 +22,5 @@ private:
 
     _vec3       m_vBase;
     _vec3       m_vDir;                // 발사 방향
+    _vec3 m_vPlayerStartPos;
 };
