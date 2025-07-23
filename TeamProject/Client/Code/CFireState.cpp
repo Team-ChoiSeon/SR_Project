@@ -121,6 +121,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
                     CProjectile* pProjectile = CProjectile::Create(pVellum->Get_Dev());
                     pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + vFireDir * 5.f);
                     pProjectile->Get_Component<CRigidBody>()->Add_Velocity(vFireDir * m_fSpeed * sqrtf(1.f + m_fPartRatio));
+
                     CSceneMgr::Get_Instance()->Get_Scene()->
                         Get_Layer(LAYER_OBJECT)->Add_GameObject(L"projectile" + to_wstring(m_iFireCnt), pProjectile);
 

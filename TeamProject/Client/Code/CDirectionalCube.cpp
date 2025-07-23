@@ -61,6 +61,20 @@ _int CDirectionalCube::Update_GameObject(const _float& fTimeDelta)
 void CDirectionalCube::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+	_vec3 pos = m_pTransform->Get_Pos();
+
+	if (m_bLockX) pos.x = m_vStartPos.x;
+	if (m_bLockY) pos.y = m_vStartPos.y;
+	if (m_bLockZ) pos.z = m_vStartPos.z;
+
+	m_pTransform->Set_Pos(pos);
+
+	// velocity도 차단
+	_vec3 velocity = m_pRigid->Get_Velocity();
+	if (m_bLockX) velocity.x = 0.f;
+	if (m_bLockY) velocity.y = 0.f;
+	if (m_bLockZ) velocity.z = 0.f;
+	m_pRigid->Set_Velocity(velocity);
 }
 
 CDirectionalCube* CDirectionalCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -95,6 +109,10 @@ void CDirectionalCube::Set_Info(const _vec3& axis, const _float& mindistance, co
 	m_bOneway = false;
 	ComputeMinMaxPos();
 
+	// 축 고정
+	m_bLockX = (fabs(m_vDefaultAxis.x) < 0.0001f);
+	m_bLockY = (fabs(m_vDefaultAxis.y) < 0.0001f);
+	m_bLockZ = (fabs(m_vDefaultAxis.z) < 0.0001f);
 }
 
 void CDirectionalCube::Set_Info( const _vec3& axis, const _float& maxdistance)
@@ -106,6 +124,11 @@ void CDirectionalCube::Set_Info( const _vec3& axis, const _float& maxdistance)
 	m_vCursorDelta = { 0.f, 0.f, 0.f };
 	m_bOneway = true;
 	ComputeEndPos();
+
+	// 축 고정
+	m_bLockX = (fabs(m_vDefaultAxis.x) < 0.0001f);
+	m_bLockY = (fabs(m_vDefaultAxis.y) < 0.0001f);
+	m_bLockZ = (fabs(m_vDefaultAxis.z) < 0.0001f);
 }
 
 void CDirectionalCube::Set_Info(const _vec3& start, const _vec3& axis, const _float& mindistance, const _float& maxdistance)
@@ -119,6 +142,11 @@ void CDirectionalCube::Set_Info(const _vec3& start, const _vec3& axis, const _fl
 	m_vCursorDelta = { 0.f, 0.f, 0.f };
 	m_bOneway = false;
 	ComputeMinMaxPos();
+
+	// 축 고정
+	m_bLockX = (fabs(m_vDefaultAxis.x) < 0.0001f);
+	m_bLockY = (fabs(m_vDefaultAxis.y) < 0.0001f);
+	m_bLockZ = (fabs(m_vDefaultAxis.z) < 0.0001f);
 }
 
 void CDirectionalCube::Set_Info(const _vec3& start, const _vec3& axis, const _float& maxdistance)
@@ -131,6 +159,11 @@ void CDirectionalCube::Set_Info(const _vec3& start, const _vec3& axis, const _fl
 	m_vCursorDelta = { 0.f, 0.f, 0.f };
 	m_bOneway = true;
 	ComputeEndPos();
+
+	// 축 고정
+	m_bLockX = (fabs(m_vDefaultAxis.x) < 0.0001f);
+	m_bLockY = (fabs(m_vDefaultAxis.y) < 0.0001f);
+	m_bLockZ = (fabs(m_vDefaultAxis.z) < 0.0001f);
 }
 
 
@@ -222,7 +255,14 @@ void CDirectionalCube::Move()
 		}
 	}
 
-	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
+	//m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });
+
+	_vec3 velocity = m_pRigid->Get_Velocity();
+	if (m_bLockX) velocity.x = 0.f;
+	if (m_bLockY) velocity.y = 0.f;
+	if (m_bLockZ) velocity.z = 0.f;
+
+	m_pRigid->Set_Velocity(velocity);
 }
 
 void CDirectionalCube::ComputeMoveVecIntoAxisMoveVec()

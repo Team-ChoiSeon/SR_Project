@@ -53,5 +53,11 @@ private:
 
 	_bool			m_bOneway;
 	_bool			m_bSoundPlayed = false;
+
+
+private: //Ãà°íÁ¤
+	_bool m_bLockX;
+	_bool m_bLockY;
+	_bool m_bLockZ;
 };
 
