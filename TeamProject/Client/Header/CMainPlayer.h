@@ -63,6 +63,7 @@ private:
 	void Hold_Picking();
 	void Away_Picking();
 
+	void Player_CheckHit();
 	void Playr_Hiting();
 	void Playr_Dieing();
 
