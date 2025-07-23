@@ -100,9 +100,9 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 			m_pModel->Set_Alpha(1.f);
 	}
 
-	if (m_fLifeTime <= 0.f)
+	if (m_fLifeTime <= 0.f || m_pTransform->Get_Pos().y < -20.f)
 		return 1;
-
+	
 	switch (m_eState)
 	{
 	case EProjectileState::MSHOT:
@@ -153,6 +153,8 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 
 	case EProjectileState::HOLD:
 	{
+
+		m_fLifeTime = FLT_MAX;
 		m_pRigid->Set_UseGravity(false);
 		if (D3DXVec3LengthSq(&m_vCursorDelta) > 0.f)
 		{
