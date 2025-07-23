@@ -1,3 +1,4 @@
+#pragma once
 #include "pch.h"
 #include "CMainPlayer.h"
 #include "CCubeTex.h"
@@ -10,6 +11,7 @@
 #include "CVIBuffer.h"
 #include "CTransform.h"
 #include "CCollider.h"
+#include "CSkyBox.h"
 
 #include "CInputMgr.h"
 #include "CCameraMgr.h"
@@ -39,6 +41,9 @@ HRESULT CMainPlayer::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 
+	Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	m_pSkyBox = Get_Component<CSkyBox>();
+
 	m_pTransform->Ready_Component();
 
 	m_pTransform->Set_Scale({ .8f, 4.f, .8f });
@@ -62,6 +67,8 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_fPickPointDist = 0.f;
 	m_vPickObjDist = { 0.f, 0.f, 0.f };
 	m_vPickPointDist = { 0.f, 0.f, 0.f };
+
+	m_pSkyBox->Set_Texture(L"Sky_Test2.dds");
 
 	CSoundMgr::Get_Instance()->Load_Sound("jump", "../Bin/Resource/Sound/Jump1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Walking1", "../Bin/Resource/Sound/Walking_Wood1.mp3");
@@ -164,6 +171,7 @@ void CMainPlayer::Free()
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pRigid);
+	Safe_Release(m_pSkyBox);
 
 }
 

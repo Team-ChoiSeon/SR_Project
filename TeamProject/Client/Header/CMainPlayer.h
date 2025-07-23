@@ -8,6 +8,7 @@
 namespace Engine {
 	class CModel;
 	class CCollider;
+	class CSkyBox;
 }
 
 class CCube;
@@ -75,6 +76,7 @@ private:
 	CGameObject* m_pPickedObj = nullptr;
 
 	CCrosshairUIObject* m_pCrosshair = nullptr;
+	CSkyBox* m_pSkyBox = nullptr;
 
 	float m_fMoveSpeed;
 	float m_fJumpPower = 20.f;

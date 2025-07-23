@@ -192,12 +192,9 @@
     </Filter>
     <Filter Include="04. GameObjects\TestUI\HealthPanel\Icon">
       <UniqueIdentifier>{bb0710ec-bb01-43bd-9617-ebf55c1b0a2b}</UniqueIdentifier>
-    </Filter>  
+    </Filter>
     <Filter Include="03. Scene\ReleaseScene\02. StageScene\Stage1">
       <UniqueIdentifier>{88bc52bb-939c-417e-8167-6f306b37579f}</UniqueIdentifier>
-     </Filter>
-    <Filter Include="04. GameObjects\Vellum\State\DEAD">
-      <UniqueIdentifier>{93b122dc-323f-4bbc-be50-a677d87297df}</UniqueIdentifier>
     </Filter>
     <Filter Include="04. GameObjects\Cube\SlotCube\SlotCube_Auto">
       <UniqueIdentifier>{07a671ae-1485-43c2-8f8e-6eb91d72083f}</UniqueIdentifier>
@@ -351,9 +348,6 @@
     <ClInclude Include="..\Header\CDollyCamera.h">
       <Filter>04. GameObjects\CameraObejct\DollyCamera</Filter>
     </ClInclude>
-    <ClInclude Include="IVellumState.h">
-      <Filter>Vellum\State</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CIdleState.h">
       <Filter>Vellum\State\IDLE</Filter>
     </ClInclude>
@@ -423,12 +417,6 @@
     <ClInclude Include="..\Header\SceneStage1.h">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage1</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\IVellumState.h">
-      <Filter>04. GameObjects\Vellum\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CDeadState.h">
-      <Filter>04. GameObjects\Vellum\State\DEAD</Filter>
-     </ClInclude>
     <ClInclude Include="..\Header\CSlotCube_Auto.h">
       <Filter>04. GameObjects\Cube\SlotCube\SlotCube_Auto</Filter>
     </ClInclude>
@@ -450,6 +438,8 @@
     <ClInclude Include="..\Header\CDialogue.h">
       <Filter>04. GameObjects\TestUI\ObjectInfo\Dialogue</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDeadState.h" />
+    <ClInclude Include="..\Header\IVellumState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -638,9 +628,6 @@
     <ClCompile Include="..\Code\SceneStage1.cpp">
       <Filter>03. Scene\ReleaseScene\02. StageScene\Stage1</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CDeadState.cpp">
-      <Filter>04. GameObjects\Vellum\State\DEAD</Filter>
-    </ClCompile>  
     <ClCompile Include="..\Code\CSlotCube_Auto.cpp">
       <Filter>04. GameObjects\Cube\SlotCube\SlotCube_Auto</Filter>
     </ClCompile>
@@ -662,6 +649,7 @@
     <ClCompile Include="..\Code\CDialogue.cpp">
       <Filter>04. GameObjects\TestUI\ObjectInfo\Dialogue</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CDeadState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">

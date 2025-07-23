@@ -141,7 +141,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;../../ThirdParty/Imgui/;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui/;../../ThirdParty/FMOD;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,7 +151,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;Engine.lib;../../ThirdParty/FMOD/fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../Reference/Library</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../Reference/Library;../../ThirdParty/FMOD</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
