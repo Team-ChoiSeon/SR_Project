@@ -22,17 +22,19 @@ public:
 
 	// Follow Control
 	void Set_Player(CMainPlayer* pPlayer) { m_pPlayer = pPlayer; }
-	void Set_Follow(bool bFollow) { m_bFollow = bFollow; }
-	void Set_InvertX(bool bInvert) { m_bInvertX = bInvert; }
-	void Set_InvertZ(bool bInvert) { m_bInvertZ = bInvert; }
+	void Set_Follow(_bool bFollow) { m_bFollow = bFollow; }
+
+	void Set_MirrorPlane(const _vec3& vPlanePos, const _vec3& vPlaneNormal);
 
 private:
 	void MirrorFollow(const _float& fTimeDelta);
-
+	
 private:
 	CMainPlayer* m_pPlayer = nullptr;
-	bool m_bFollow = true;
-	bool m_bInvertX = true;
-	bool m_bInvertZ = true;
+	_bool m_bFollow = true;
+
+	_vec3 m_vPlanePos = { 0.f, 0.f, 0.f };
+	_vec3 m_vPlaneNorm = { 1.f, 0.f, 0.f }; // X√‡ ±‚¡ÿ 
+
 
 };

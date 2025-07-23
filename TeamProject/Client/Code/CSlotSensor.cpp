@@ -143,7 +143,7 @@ void CSlotSensor::Insert_Slot()
                 }
             }
         }
-        else if (m_pPickSlot_Auto){
+        if (m_pPickSlot_Auto){
             if (m_pPickSlot_Auto->Get_PuzzleID() == m_iPuzzleID &&
                 m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos().x > m_Zone._min.x &&
                 m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos().y > m_Zone._min.y &&
