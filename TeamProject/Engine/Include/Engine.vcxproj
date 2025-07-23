@@ -188,6 +188,7 @@
     <ClInclude Include="..\Header\CParticle.h" />
     <ClInclude Include="..\Header\CPickingMgr.h" />
     <ClInclude Include="..\Header\CPickTarget.h" />
+    <ClInclude Include="..\Header\CPostProcess.h" />
     <ClInclude Include="..\Header\CRcCube.h" />
     <ClInclude Include="..\Header\CRenderMgr.h" />
     <ClInclude Include="..\Header\CResource.h" />
@@ -249,6 +250,7 @@
     <ClCompile Include="..\Code\CParticle.cpp" />
     <ClCompile Include="..\Code\CPickingMgr.cpp" />
     <ClCompile Include="..\Code\CPickTarget.cpp" />
+    <ClCompile Include="..\Code\CPostProcess.cpp" />
     <ClCompile Include="..\Code\CRcCube.cpp" />
     <ClCompile Include="..\Code\CRenderMgr.cpp" />
     <ClCompile Include="..\Code\CResource.cpp" />

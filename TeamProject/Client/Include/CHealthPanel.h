@@ -4,6 +4,7 @@
 class CHealthBar;
 class CHealthIcon;
 class CHealthLine;
+class CBloodEffect;
 class CMainPlayer;
 
 namespace Engine {
@@ -40,6 +41,8 @@ private:
 	CHealthBar* m_pHealthBar = nullptr;
 	CHealthIcon* m_pHealthIcon = nullptr;
 	CHealthLine* m_pHealthLine = nullptr;
+	vector<CBloodEffect*> m_vecBlood;
+
 private:
 	void Free();
 };

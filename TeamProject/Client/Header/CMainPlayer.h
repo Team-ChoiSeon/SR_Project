@@ -64,8 +64,8 @@ private:
 	void Hold_Picking();
 	void Away_Picking();
 
-	void Playr_Hiting();
-	void Playr_Dieing();
+	void Player_Hiting();
+	void Player_Dieing();
 
 
 	CTransform* m_pTransform = nullptr;

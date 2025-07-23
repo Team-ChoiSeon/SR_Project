@@ -162,8 +162,8 @@ void CSkyBox::Render(LPDIRECT3DDEVICE9 pDevice)
 
     pDevice->SetFVF(FVF_CUBE);
 
-    pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VTXCUBE));
     pDevice->SetTexture(0, m_pCubeTexture);
+    pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VTXCUBE));
     pDevice->SetIndices(m_pIB);
     pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
 

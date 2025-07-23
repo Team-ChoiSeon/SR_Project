@@ -12,9 +12,16 @@ public:
     HRESULT Ready_Process();
     void BeginScene();  // 렌더 타겟 설정
     void EndScene();    // 후처리하고 백버퍼에 출력
+
 public:
+    void Start_Glitch(_float duration);
+    void Start_Dead(_float duration);
 
 private:
+    _float m_fTotal = 2.f;
+    _float m_fDuration = 2.f;
+    _bool m_bEffect = false;
+
     LPDIRECT3DDEVICE9 m_pDevice = nullptr;
 
     LPDIRECT3DTEXTURE9 m_pRenderTexture = nullptr;
@@ -26,7 +33,6 @@ private:
 
     LPD3DXEFFECT m_pEffect = nullptr;
     int m_iEffectType = 0;
-
 private:
     void Free() override;
 };

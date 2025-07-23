@@ -1,6 +1,7 @@
 #include "Engine_Define.h"
 #include "CPostProcess.h"
-
+#include "CShaderMgr.h"
+#include "CTimeMgr.h"
 
 CPostProcess::CPostProcess(LPDIRECT3DDEVICE9 pDevice)
 	:m_pDevice(pDevice)
@@ -35,7 +36,6 @@ HRESULT CPostProcess::Ready_Process()
 		NULL
 	);
 
-
 	m_pRenderTexture->GetSurfaceLevel(0, &m_pRenderSurf);
 
 	HRESULT hr = m_pDevice->CreateVertexBuffer(
@@ -46,17 +46,21 @@ HRESULT CPostProcess::Ready_Process()
 		&m_pVB,
 		nullptr);
 
+	VTXTEX* pV = nullptr;
 
-	VTXTEX* pVertices = nullptr;
+	float w = float(WINCX);
+	float h = float(WINCY);
 
-	m_pVB->Lock(0, 0, (void**)&pVertices, D3DLOCK_DISCARD);
+	m_pVB->Lock(0, 0, (void**)&pV, D3DLOCK_DISCARD);
 
-	pVertices[0] = { { -1, -1, 0 }, {0.f, 1.f} };  // LB
-	pVertices[1] = { { -1 , 1, 0},  {0.f, 0.f} };  // LT
-	pVertices[2] = { { 1, 1, 0},  {1.f, 0.f} };  // RT
-	pVertices[3] = { { 1, -1 , 0},  {1.f, 1.f} };  // RB
+	pV[0] = { {-1.f,    -1.f,     0.0f},   {0.0f, 1.0f } };          // LB
+	pV[1] = { { -1.f,    1.f,   0.0f},  { 0.0f, 0.0f} };          // LT
+	pV[2] = { { 1.f,   -1.f,     0.0f },{  1.0f, 1.0f } };          // RB
+	pV[3] = { {1.f,   1.f,   0.0f},{ 1.0f, 0.0f} };          // RT
 
 	m_pVB->Unlock();
+
+	m_pEffect = CShaderMgr::Get_Instance()->GetShader(L"g_PostShader.fx");
 	return S_OK;
 }
 
@@ -69,26 +73,71 @@ void CPostProcess::BeginScene()
 
 void CPostProcess::EndScene()
 {
-	// 백버퍼로 다시 전환
+	// 백버퍼로 
 	m_pDevice->SetRenderTarget(0, m_pBackBuffer);
-
-	// 후처리 셰이더에 씬 텍스처 전달
 	m_pEffect->SetTexture("g_SceneTex", m_pRenderTexture);
 	m_pEffect->SetInt("g_EffectType", m_iEffectType);
 
+	float dt = CTimeMgr::Get_Instance()->Get_TimeDelta(L"Timer_FPS");
+
+	if (m_bEffect) {
+		m_pEffect->SetFloat("g_Time", dt);
+		m_pEffect->SetFloat("g_EffectTime", m_fDuration);
+		m_pEffect->SetFloat("g_TotalTime", m_fTotal);
+		m_fDuration -= dt*1.5;
+	}
+
+	if (m_fDuration < 0) {
+		m_fDuration = 0;
+		m_iEffectType = 0;
+		m_bEffect = false;
+	}
+
+	_matrix identity;
+	D3DXMatrixIdentity(&identity);
+	m_pEffect->SetMatrix("g_matIdentity", &identity);
+
 	// 풀스크린 쿼드로 출력
+
+
+	m_pDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT);
+	m_pDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
+	m_pDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_NONE);
+
+	m_pDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+	m_pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	m_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+	m_pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	m_pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
 	m_pDevice->SetFVF(FVF_TEX);
 	m_pDevice->SetStreamSource(0, m_pVB, 0, sizeof(VTXTEX));
 
 	UINT passCount = 0;
 	m_pEffect->Begin(&passCount, 0);
-	for (UINT i = 0; i < passCount; ++i)
-	{
-		m_pEffect->BeginPass(i);
-		m_pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, 2);
-		m_pEffect->EndPass();
-	}
+	m_pEffect->BeginPass(m_iEffectType);
+	m_pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+	m_pEffect->EndPass();
 	m_pEffect->End();
+
+	m_pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+	m_pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+	m_pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+}
+
+void CPostProcess::Start_Glitch(_float duration)
+{
+	m_fDuration = duration;
+	m_bEffect = true;
+	m_iEffectType = 0;
+}
+
+void CPostProcess::Start_Dead(_float duration)
+{
+	m_fDuration = duration;
+	m_bEffect = true;
+	m_iEffectType = 1;
+	m_fTotal = duration;
 }
 
 void CPostProcess::Free()

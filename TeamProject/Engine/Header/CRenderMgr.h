@@ -36,6 +36,7 @@ public:
 	void Remove_UI(CUI* ui);
 	void Clear();
 
+	CPostProcess* Get_PostProcessing() {return m_pPostProcess;};
 private:
 	vector<list<CModel*>> m_vModellist;
 	vector<CCollider*> m_vCol;

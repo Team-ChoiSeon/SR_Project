@@ -532,10 +532,10 @@ void CMainPlayer::Update_State(const _float& fTimeDelta)
 	case PLAYER_STATE::PLAYER_FALL:
 		break;
 	case PLAYER_STATE::PLAYER_HIT:
-		Playr_Hiting();
+		Player_Hiting();
 		break;
 	case PLAYER_STATE::PLAYER_DEAD:
-		Playr_Dieing();
+		Player_Dieing();
 		break;
 	case PLAYER_STATE::PLAYER_RESPAWN:
 		break;
@@ -554,7 +554,7 @@ void CMainPlayer::Change_State(PLAYER_STATE eNewState)
 
 
 
-void  CMainPlayer::Playr_Hiting()
+void  CMainPlayer::Player_Hiting()
 {
 	if (m_bInvincible)
 		return;
@@ -573,7 +573,7 @@ void  CMainPlayer::Playr_Hiting()
 	}
 }
 
-void  CMainPlayer::Playr_Dieing()
+void  CMainPlayer::Player_Dieing()
 {
 	// 죽음 처리
 }

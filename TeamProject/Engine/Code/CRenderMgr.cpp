@@ -28,6 +28,7 @@ HRESULT CRenderMgr::Ready_RenderMgr()
 
 void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 {
+
 	//렌더 스테이트 설정
 	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
@@ -46,6 +47,8 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
 	//pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	
+	m_pPostProcess->BeginScene();
 
 	if (m_pSkyBox)
 		m_pSkyBox->Render(pDevice);
@@ -53,7 +56,6 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_SHADOW)])
 		renderer->Render(pDevice);
 
-	m_pPostProcess->BeginScene();
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_OPAQUE)])
 	{
@@ -79,10 +81,10 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 		pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	}
 
-	m_pPostProcess->EndScene();
-
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_UI)])
 		renderer->Render(pDevice);
+
+	m_pPostProcess->EndScene();
 
 	for (auto& renderer : m_vUI)
 		renderer->Render(pDevice);
@@ -92,7 +94,6 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	
 	//for (auto& renderer : m_vCol)
 		//renderer->Render(pDevice);
-
 	
 	Clear();
 }
