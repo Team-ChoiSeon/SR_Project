@@ -49,6 +49,7 @@ SceneStage3::~SceneStage3()
 
 HRESULT SceneStage3::Ready_Scene()
 {
+	CSoundMgr::Get_Instance()->Load_Sound("LowGravity", "../Bin/Resource/Sound/Cube/LowGravity_3.wav");
 
 	//CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
 	//CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
@@ -63,6 +64,7 @@ HRESULT SceneStage3::Ready_Scene()
 	pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 10.f, 120.f });
 
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);

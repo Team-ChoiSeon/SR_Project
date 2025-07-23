@@ -77,7 +77,6 @@ void CSlotSensor::LateUpdate_GameObject(const _float& fTimeDelta)
     {
         if (m_bOnEdge) {
             CSoundMgr::Get_Instance()->Play("Correct"); 
-            m_fOriginAlpah = m_pSlotted->Get_Component<CModel>()->Get_Alpha();
             m_bAlphaLerp = true;
         }
          else if (!m_bCheckID && !m_bWrong)
@@ -148,6 +147,8 @@ void CSlotSensor::Insert_Slot()
                 _vec3 vDist = m_pPickSlot->Get_Component<CTransform>()->Get_Pos() - m_pTransform->Get_Pos();
                 _float fDist = D3DXVec3Length(&vDist);
                 m_pPickSlot->Insert_Overlap(this, fDist);
+
+                m_fOriginAlpah = m_pPickSlot->Get_Component<CModel>()->Get_Alpha();
             }
             m_pPickObj = nullptr;
             m_pPickSlot = nullptr;

@@ -38,6 +38,7 @@ private:
 
 	_bool m_bFirstCol = true;
 	_float m_fColGravity;
+	_bool m_bSoundPlay = false;
 
 };
 

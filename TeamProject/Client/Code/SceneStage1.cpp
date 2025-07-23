@@ -318,7 +318,7 @@ void SceneStage1::SoundSet()
 	CSoundMgr::Get_Instance()->Load_Sound("Correct", "../Bin/Resource/Sound/Puzzle/Correct_3.wav");
 	CSoundMgr::Get_Instance()->Load_Sound("Wrong", "../Bin/Resource/Sound/Puzzle/Wrong_2.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Switch", "../Bin/Resource/Sound/Switch/Pick_1.mp3");
-
+	CSoundMgr::Get_Instance()->Load_Sound("LowGravity", "../Bin/Resource/Sound/Cube/LowGravity_3.wav");
 
 	CSoundMgr::Get_Instance()->Load_Sound("BGM", "../Bin/Resource/Sound/BGM1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("SpaceHowl", "../Bin/Resource/Sound/BackGround/Space_3.wav");
