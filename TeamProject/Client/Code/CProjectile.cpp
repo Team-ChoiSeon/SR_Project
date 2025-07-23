@@ -106,10 +106,7 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 	switch (m_eState)
 	{
 	case EProjectileState::MSHOT:
-
 	case EProjectileState::PSHOT:
-		
-
 		if (m_pCol->Get_ColState() == ColliderState::ENTER)
 		{
 			CCollider* pOther = m_pCol->Get_Other();
@@ -131,6 +128,7 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 					}
 					return 1;
 				}
+
 
 				if (pOther->Get_ColTag() == ColliderTag::GROUND)
 				{

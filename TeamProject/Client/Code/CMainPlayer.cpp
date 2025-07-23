@@ -78,8 +78,21 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 	swprintf_s(buf1, 128, L"Player Hp : %d\n", m_iHP);
 	OutputDebugStringW(buf1);
 
+	if (m_pCollider->Get_ColState() == ColliderState::ENTER || m_pCollider->Get_ColState() == ColliderState::STAY)
+	{
+		CCollider* pOther = m_pCollider->Get_Other();
+		if (pOther && pOther->Get_ColTag() == ColliderTag::MONSTER)
+		{
+			Change_State(PLAYER_STATE::PLAYER_HIT);
+			CProjectile* pProjectile = dynamic_cast<CProjectile*>(pOther->m_pOwner);
+			if (pProjectile)
+			{
+				pProjectile->Set_LifeTime(0.f);
+			}
+		}
+	}
+
 	m_fJumpTime += fTimeDelta;
-	Player_CheckHit();
 	Update_State(fTimeDelta);
 
 	if (m_bInvincible)
@@ -531,20 +544,7 @@ void CMainPlayer::Change_State(PLAYER_STATE eNewState)
 	m_eCurState = eNewState;
 }
 
-void CMainPlayer::Player_CheckHit()
-{
-	if (m_pCollider->Get_ColState() == ColliderState::ENTER)
-	{
-		CCollider* pOther = m_pCollider->Get_Other();
-		if (pOther)
-		{
-			if (pOther->Get_ColTag() == ColliderTag::MONSTER)
-			{
-				Change_State(PLAYER_STATE::PLAYER_HIT);
-			}
-		}
-	}
-}
+
 
 void  CMainPlayer::Playr_Hiting()
 {

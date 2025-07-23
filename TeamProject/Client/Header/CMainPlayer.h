@@ -63,7 +63,6 @@ private:
 	void Hold_Picking();
 	void Away_Picking();
 
-	void Player_CheckHit();
 	void Playr_Hiting();
 	void Playr_Dieing();
 
@@ -121,7 +120,7 @@ private:
 	_int m_iMaxHp = 10;
 	bool m_bInvincible = false; // ���� ����
 	_float m_fInvincibleTime = 0.f;
-	const _float m_fMaxInvincibleTime = 5.0f;
+	const _float m_fMaxInvincibleTime = 1.0f;
 
 	_bool m_bWalkingSound = false; // �ȴ���
 	_bool m_bOnGroundFirst = false;
