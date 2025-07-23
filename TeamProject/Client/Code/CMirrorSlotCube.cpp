@@ -54,6 +54,20 @@ void CMirrorSlotCube::LateUpdate_GameObject(const _float& fTimeDelta)
 	CSlotCube_Auto::LateUpdate_GameObject(fTimeDelta);
 }
 
+void CMirrorSlotCube::Set_Follow(_bool bFollow) 
+{ 
+	m_bFollow = bFollow; 
+	if (m_vPlaneNorm == _vec3(0.f, 1.f, 0.f)) 
+	{ 
+		if (bFollow) {
+			m_pPlayer->Set_MirrorCube(this); 
+		}
+		else {
+
+			m_pPlayer->Set_MirrorCube(nullptr);
+		}
+	} 
+}
 
 void CMirrorSlotCube::Set_MirrorPlane(const _vec3& vPlanePos, const _vec3& vPlaneNormal)
 {
@@ -69,6 +83,57 @@ void CMirrorSlotCube::MirrorFollow(const _float& fTimeDelta)
 
 	CTransform* pPlayerTrans = m_pPlayer->Get_Component<CTransform>();
 	_vec3 playerPos = pPlayerTrans->Get_Pos();
+
+	if (m_vPlaneNorm == _vec3(0.f, 1.f, 0.f))
+	{
+		_vec3 vTargetPos = playerPos + _vec3(0.f, 10.f, 0.f);  // 플레이어보다 위
+		m_pTransform->Set_Pos(vTargetPos);
+
+		if (CInputMgr::Get_Instance()->Key_Hold(DIK_LSHIFT)) {
+			m_fMoveSpeed = 30.f;
+		}
+
+		if (CInputMgr::Get_Instance()->Key_Away(DIK_LSHIFT))
+		{
+			m_fMoveSpeed = 10.f;
+		}
+
+		CTransform* pCamTransform = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>();
+		if (!pCamTransform)
+			return;
+
+		_vec3 camLook = pCamTransform->Get_Info(INFO_LOOK);
+		_vec3 camRight = pCamTransform->Get_Info(INFO_RIGHT);
+
+		camLook.y = 0.f;
+		camRight.y = 0.f;
+		D3DXVec3Normalize(&camLook, &camLook);
+		D3DXVec3Normalize(&camRight, &camRight);
+
+		_vec3 moveDir = { 0.f, 0.f, 0.f };
+
+		if (CInputMgr::Get_Instance()->Key_Down(DIK_W)) {
+			moveDir += camLook;
+		}
+		if (CInputMgr::Get_Instance()->Key_Down(DIK_S)) {
+			moveDir -= camLook;
+		}
+		if (CInputMgr::Get_Instance()->Key_Down(DIK_D)) {
+			moveDir += camRight;
+		}
+		if (CInputMgr::Get_Instance()->Key_Down(DIK_A)) {
+			moveDir -= camRight;
+		}
+
+		if (D3DXVec3Length(&moveDir) > 0.f) {
+			D3DXVec3Normalize(&moveDir, &moveDir);
+			m_pTransform->Set_Pos(m_pTransform->Get_Pos() + moveDir * m_fMoveSpeed * fTimeDelta);
+		}
+
+		return;
+	}
+
+
 	_vec3 toPlane = playerPos - m_vPlanePos;
 	
 	float projLen = D3DXVec3Dot(&toPlane, &m_vPlaneNorm);
@@ -77,7 +142,9 @@ void CMirrorSlotCube::MirrorFollow(const _float& fTimeDelta)
 	
 	m_pTransform->Set_Pos(mirrorPos);
 	m_pTransform->Set_PosY(playerPos.y);
+
 }
+
 
 
 
@@ -108,3 +175,4 @@ REGISTER_GAMEOBJECT(CMirrorSlotCube)
 // cMirrorSlotCube->Set_MirrorPlane(_vec3(-15.f, 0.f, 0.f), _vec3(1.f, 0.f, 0.f)); 
 					//첫번째는 반사 평면위치 플레이어 위치 기준으로 - 는 왼쪽 +는 오른쪽 앞뒤도 동일
 					//두번째는 반사 할 방향 _vec3(1.f, 0.f, 0.f)); X축 기반, _vec3(0.f, 0.f, 1.f)); Z축 기반
+//임시방편으로 y축일때는 무조건 플레이어가 CMirrorSlotCube 따라 가도록

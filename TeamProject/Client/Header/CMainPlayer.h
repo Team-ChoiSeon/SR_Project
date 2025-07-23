@@ -3,6 +3,7 @@
 #include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCrosshairUIObject.h"
+#include "CMirrorSlotCube.h"
 
 namespace Engine {
 	class CModel;
@@ -16,7 +17,7 @@ class CProjectile;
 class CMainPlayer : public CGameObject
 {
 public:
-	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_HIT, PLAYER_DEAD, PLAYER_RESPAWN, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL, PLAYER_END };  // �ʿ�ÿ� �� �߰�
+	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_HIT, PLAYER_DEAD, PLAYER_RESPAWN, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL, PLAYER_END };  // �ʿ�ÿ�?�� �߰�
 private:
 	CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CMainPlayer();
@@ -44,7 +45,9 @@ public:
 	_int Get_Hp() { return m_iHP; }
 
 	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; }
+	void Set_MirrorCube(CMirrorSlotCube* pmirrorcube) { m_pMirrorCube = pmirrorcube; }
 	void Set_Hp(_int iHp) { m_iHP = iHp; if (m_iHP > m_iMaxHp) { m_iHP = m_iMaxHp; } }
+	
 
 protected:
 	//Utility Function
@@ -117,9 +120,11 @@ private:
 	_int m_iMaxHp = 10;
 	bool m_bInvincible = false; // ���� ����
 	_float m_fInvincibleTime = 0.f;
-	const _float m_fMaxInvincibleTime = 5.0f;
+	const _float m_fMaxInvincibleTime = 1.0f;
 
 	_bool m_bWalkingSound = false; // �ȴ���
 	_bool m_bOnGroundFirst = false;
 
+
+	CMirrorSlotCube* m_pMirrorCube = nullptr;
 };

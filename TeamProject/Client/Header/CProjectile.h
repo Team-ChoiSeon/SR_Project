@@ -35,6 +35,7 @@ public:
 	void Pick(CTransform* pTransform);
 	void Throw(const _vec3& vDir, const _float& fSpeed);
 	EProjectileState Get_State() const { return m_eState; }
+	void Set_LifeTime(_float fTime) { m_fLifeTime = fTime; }
 
 private:
 	bool Check_Ray(_float& fDist);
