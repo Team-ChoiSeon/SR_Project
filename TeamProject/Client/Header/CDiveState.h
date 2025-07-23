@@ -1,7 +1,7 @@
 #pragma once
 #include "IVellumState.h"
 
-enum class DivePhase { Ready, In, Wait, Out, End };
+enum class DivePhase { Rise, Ready, In, Wait, Out, End };
 class CTestTile;
 
 class CDiveState : public IVellumState
