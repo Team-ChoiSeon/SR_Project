@@ -94,7 +94,8 @@ HRESULT CMonsterPart::Ready_GameObject()
 
 _int CMonsterPart::Update_GameObject(const _float& fTimeDelta)
 {
-    Follow_Target(fTimeDelta);
+    if(m_bFollow)
+        Follow_Target(fTimeDelta);
     CGameObject::Update_GameObject(fTimeDelta);
     return 0;
 }

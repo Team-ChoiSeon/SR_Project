@@ -1,6 +1,7 @@
 #include "CRenderMgr.h"
 #include "CCollisionMgr.h"
 #include "CParticle.h"
+#include "CEffect.h"
 
 IMPLEMENT_SINGLETON(CRenderMgr)
 
@@ -54,6 +55,9 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 
 	for (auto& renderer : m_vParticles)
 		renderer->Render_Particle();
+
+	for (auto& renderer : m_vEffect)
+		renderer->Render_Effect();
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_TRANSPARENT)]) {
 		pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
@@ -136,6 +140,17 @@ void CRenderMgr::Add_ParticleRenderer(CParticle* particle)
 		m_vParticles.push_back(particle);
 }
 
+void CRenderMgr::Add_Effect(CEffect* effect)
+{
+	auto iter = find_if(m_vEffect.begin(), m_vEffect.end(),
+		[&effect](CEffect* data)->bool {
+			return data == effect;
+		});
+
+	if (iter == m_vEffect.end())
+		m_vEffect.push_back(effect);
+}
+
 void CRenderMgr::Add_UI(CUI* ui)
 {
 	auto iter = find_if(m_vUI.begin(), m_vUI.end(),
@@ -167,6 +182,7 @@ void CRenderMgr::Clear()
 	m_vCol.clear();
 	m_vUI.clear();
 	m_vParticles.clear();
+	m_vEffect.clear();
 
 }
 

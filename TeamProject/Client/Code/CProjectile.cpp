@@ -13,7 +13,11 @@
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
 #include "CCameraMgr.h"
+#include "CResourceMgr.h"
+
 #include "CMainPlayer.h"
+#include "CVellum.h"
+#include "CMonsterPart.h"
 
 #include "CFactory.h"
 
@@ -33,6 +37,8 @@ CProjectile::~CProjectile()
 
 HRESULT CProjectile::Ready_GameObject()
 {
+	CResourceMgr::Get_Instance()->Load_Texture(L"projectile.png");
+
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
 	m_pModel = Get_Component<CModel>();
 
@@ -66,34 +72,72 @@ HRESULT CProjectile::Ready_GameObject()
 	m_pPickTarget = Get_Component<CPickTarget>();
 	m_pPickTarget->Set_Active(false);
 
+	m_fLifeTime = 7.f + rand() % 6 * 1.1f;
 	CFactory::Save_Prefab(this, "CProjectile");
 	return CGameObject::Ready_GameObject();
 }
 
 _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 {
+	m_fLifeTime -= fTimeDelta;
+	if (m_fLifeTime <= 5.f)
+	{
+		if (m_pModel)
+		{
+			const _float fBlinkingDuration = 5.f;
+			const _float fTimeElapsedInBlink = fBlinkingDuration - m_fLifeTime;
+			const _float fSpeed = 10.f;
+			_float alpha = 1.f - (fTimeElapsedInBlink / fBlinkingDuration);
+			alpha *= (0.5f + 0.5f * sinf(fTimeElapsedInBlink * fSpeed * D3DX_PI));
+			if (alpha < 0.f)
+				alpha = 0.f;
+			m_pModel->Set_Alpha(alpha);
+		}
+	}
+	else
+	{
+		if (m_pModel)
+			m_pModel->Set_Alpha(1.f);
+	}
+
+	if (m_fLifeTime <= 0.f)
+		return 1;
+
 	switch (m_eState)
 	{
 	case EProjectileState::MSHOT:
 	case EProjectileState::PSHOT:
-		m_fLifeTime -= fTimeDelta;
-		if (m_fLifeTime <= 0.f)
-			return 1;
+		
 
-		if (m_pCol->Get_ColState() == ColliderState::ENTER || m_pCol->Get_ColState() == ColliderState::STAY)
+		if (m_pCol->Get_ColState() == ColliderState::ENTER)
 		{
 			CCollider* pOther = m_pCol->Get_Other();
-			if (m_eState == EProjectileState::PSHOT && pOther->Get_ColTag() == ColliderTag::MONSTER)
+			if (pOther)
 			{
-				pOther->Set_ColState(ColliderState::ENTER);
-				return 1; 
-			}
+				if (m_eState == EProjectileState::PSHOT && pOther->Get_ColTag() == ColliderTag::MONSTER)
+				{
+					CGameObject* pOtherObject = pOther->m_pOwner;
+					CMonsterPart* pPart = dynamic_cast<CMonsterPart*>(pOtherObject);
 
-			if (pOther && pOther->Get_ColTag() == ColliderTag::GROUND)
-			{
-				m_eState = EProjectileState::GROUND;
-				m_pRigid->Stop_Motion();
-				m_pPickTarget->Set_Active(true);
+					if (pPart)
+					{
+						CVellum* pVellum = CSceneMgr::Get_Instance()->Get_Scene()->
+						Get_Layer(LAYER_OBJECT)->Get_GameObject<CVellum>(L"Vellum");
+						if (pVellum)
+						{
+							pVellum->Organize_Chain(pPart);
+						}
+					}
+					return 1;
+				}
+
+				if (pOther->Get_ColTag() == ColliderTag::GROUND)
+				{
+					m_eState = EProjectileState::GROUND;
+					m_pRigid->Stop_Motion();
+					m_pRigid->Set_OnGround(true);
+					m_pPickTarget->Set_Active(true);
+				}
 			}
 		}
 		break;

@@ -10,6 +10,7 @@
 #include "CTestTile.h"
 #include "CVellum.h"
 #include "CImpulseCube.h"
+#include "CCinematicCamera.h"
 
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
@@ -29,7 +30,6 @@ BossScene::~BossScene()
 
 HRESULT BossScene::Ready_Scene()
 {
-
 	//CScene::Ready_Scene();
 	Init_Layers();
 
@@ -43,6 +43,9 @@ HRESULT BossScene::Ready_Scene()
 	CUiMgr::Get_Instance()->AddUI(cross);
 	pPlayer->Set_Crosshair(cross);
 
+	CCinematicCamera* pCine = CCinematicCamera::Create(m_pGraphicDev);
+	pCine->Set_Target(pPlayer);
+
 	// 3-2. 벨룸
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
 
@@ -52,6 +55,7 @@ HRESULT BossScene::Ready_Scene()
 	// 5. 플레이어 → 타겟 오브젝트
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"Cinematic", pCine);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
 
 
@@ -59,11 +63,8 @@ HRESULT BossScene::Ready_Scene()
 	// 6. 카메라 타겟은 플레이어
 	pCam->Set_Target(pPlayer);  // 1인칭 시점
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
-
-	CResourceMgr::Get_Instance()->Load_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
-	CResourceMgr::Get_Instance()->Load_Texture(L"blackSmoke00.png");
-	CResourceMgr::Get_Instance()->Load_Texture(L"projectile.png");
-
+	CSoundMgr::Get_Instance()->Load_Sound("Boss", "../Bin/Resource/Sound/BossScene.mp3");
+	CSoundMgr::Get_Instance()->Play("Boss", "BGM", true);
 	return S_OK;
 }
 

@@ -6,13 +6,19 @@
 #include "CRigidBody.h"
 #include "CCollider.h"
 #include "CParticle.h"
+#include "CEffect.h"
 
 #include "CInputMgr.h"
 #include "CSceneMgr.h"
+#include "CResourceMgr.h"
+#include "CSoundMgr.h"
 
 #include "CIdleState.h"
 #include "CIntroState.h"
+#include "CDeadState.h"
+#include "CSpinState.h"
 
+#include "CGuiSystem.h"
 #include "CFactory.h"
 
 
@@ -43,8 +49,12 @@ CVellum* CVellum::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CVellum::Ready_GameObject()
 {
+    Load_Resource();
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
+    m_pModel->Set_Model(L"Head_Smile.obj", L"Head_Smile.mtl");
+    m_pModel->Set_UVScale({ 1,1,1,1 });
+    m_pModel->Get_Material()->Set_Shader(L"g_UVScale.fx");
 
     Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
     m_pTransform = Get_Component<CTransform>();
@@ -61,6 +71,13 @@ HRESULT CVellum::Ready_GameObject()
     m_pParticle->PreSet_Radial(300, 3.f, 1.f, m_pTransform->Get_Info(INFO_LOOK));
     m_pParticle->Set_Speed(9.f);
     m_pParticle->Set_Size(2.f);
+
+    Add_Component<CEffect>(ID_DYNAMIC, m_pGraphicDev);
+    m_pEffect = Get_Component<CEffect>();
+    m_pEffect->Set_SpriteSheet(L"AOE1.png", 3, 1, 1.f);
+    m_pEffect->Set_YOffset(0.1f);
+    m_pEffect->Set_EffectProperties(9.f * D3DX_PI, false);
+    m_pEffect->Set_Color(D3DCOLOR_ARGB(255, 0, 0, 0));
 
 
     m_pTransform->Set_Pos(VSTART);
@@ -107,50 +124,67 @@ HRESULT CVellum::Ready_GameObject()
 
 int CVellum::Update_GameObject(const _float& fTimeDelta)
 {
-    if (m_vPart.empty()) return -1;
+    //CGuiSystem::Get_Instance()->RegisterPanel("test effect",
+    //	[this]() {
+    //		ImGui::Begin("effect", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+    //        ImGui::Text("pos %1.1f, %1.1f, %1.1f", m_pEffect->m_vPosXZ.x, m_pEffect->m_fOffsetY, m_pEffect->m_vPosXZ.y);
+    //		ImGui::End();
+    //	}
+    //);
 
-    m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
-
-    // 매번 플레이어 바라보게
-    _vec3 TargetPos;
-    if(m_pTarget)
-        TargetPos = m_pTarget->Get_Component<CTransform>()->Get_Pos();
-    _vec3 vDiff = TargetPos - m_pTransform->Get_Pos();
-    _vec3 vDir;
-    D3DXVec3Normalize(&vDir, &vDiff);
-    m_pTransform->Set_Look(vDir);
-
-
-    m_pParticle->PreSet_Radial(300, 2.f, 1.f, m_pTransform->Get_Info(INFO_LOOK));
-
-    CMonsterPart* pPartToDestroy = nullptr;
-
-    for (CMonsterPart* pPart : m_vPart)
+    if (m_bDead) return 1;
+    if (m_vPart.empty())
     {
-        CCollider* pCollider = pPart->Get_Component<CCollider>();
-        if (pCollider->Get_ColState() == Engine::ColliderState::ENTER ||
-            pCollider->Get_ColState() == Engine::ColliderState::STAY)
+        if (m_pCol->Get_ColState() == ColliderState::ENTER ||
+            m_pCol->Get_ColState() == ColliderState::STAY)
         {
-            CCollider* pOther = pCollider->Get_Other();
-            if (pOther && pOther->Get_ColTag() == Engine::ColliderTag::ATTACK)
+            CCollider* pOther = m_pCol->Get_Other();
+            if (pOther && pOther->Get_ColTag() == ColliderTag::ATTACK)
             {
-                pPartToDestroy = pPart;
-                break;
+                if (dynamic_cast<CDeadState*>(m_pState) == nullptr)
+                    Change_Pattern(new CDeadState());
             }
         }
     }
 
+    m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
 
-    if (pPartToDestroy)
+    // 매번 플레이어 바라보게
+    if(dynamic_cast<CSpinState*>(m_pState) == nullptr)
     {
-        Organize_Chain(pPartToDestroy);
+        _vec3 TargetPos;
+        if (m_pTarget)
+            TargetPos = m_pTarget->Get_Component<CTransform>()->Get_Pos();
+        _vec3 vDiff = TargetPos - m_pTransform->Get_Pos();
+        _vec3 vDir;
+        D3DXVec3Normalize(&vDir, &vDiff);
+        m_pTransform->Set_Look(vDir);
     }
 
+    m_pParticle->PreSet_Radial(300, 2.f, 1.f, m_pTransform->Get_Info(INFO_LOOK));
 
-    if (m_pState)
-        m_pState->Update(fTimeDelta, this);
+    
 
     Key_Input(fTimeDelta);
+
+    if (dynamic_cast<CIntroState*>(m_pState) != nullptr)
+    {
+        m_pState->Update(fTimeDelta, this);
+
+    }
+    else
+    {
+        CTransform* pTransform = m_pTarget->Get_Component<CTransform>();
+        _float X = pTransform->Get_Pos().x;
+        _float Z = pTransform->Get_Pos().z;
+        if ((X > -60.f && X < 60.f)
+            && (Z > -60.f && Z < 60.f))
+        {
+            if (m_pState)
+                m_pState->Update(fTimeDelta, this);
+        }
+    }
+    
 
 	CGameObject::Update_GameObject(fTimeDelta);
     for (auto* pPart : m_vPart)
@@ -166,6 +200,41 @@ void CVellum::LateUpdate_GameObject(const _float& fTimeDelta)
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
     for (auto* pPart : m_vPart)
         pPart->LateUpdate_GameObject(fTimeDelta);
+}
+
+void CVellum::Load_Resource()
+{
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Smile.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Smile.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Smile.png");
+
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Fire.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Fire.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Fire.png");
+
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Dead.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Dead.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Dead.png");
+
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Hit.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Hit.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Hit.png");
+
+    CResourceMgr::Get_Instance()->Load_Mesh(m_pGraphicDev, L"Head_Sleep.obj");
+    CResourceMgr::Get_Instance()->Load_Material(L"Head_Sleep.mtl");
+    CResourceMgr::Get_Instance()->Load_Texture(L"Head_Sleep.png");
+
+    CResourceMgr::Get_Instance()->Load_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
+    CResourceMgr::Get_Instance()->Load_Texture(L"blackSmoke00.png");
+    CResourceMgr::Get_Instance()->Load_Texture(L"AOE1.png");
+
+    CSoundMgr::Get_Instance()->Load_Sound("Intro", "../Bin/Resource/Sound/Vellum_Intro.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Fire", "../Bin/Resource/Sound/Vellum_Fire.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Charge", "../Bin/Resource/Sound/Vellum_Charge.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Dead", "../Bin/Resource/Sound/Vellum_Dead.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("In", "../Bin/Resource/Sound/Vellum_In.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Out", "../Bin/Resource/Sound/Vellum_Out.mp3");
+    CSoundMgr::Get_Instance()->Load_Sound("Spread", "../Bin/Resource/Sound/Vellum_Spread.mp3");
 }
 
 
@@ -202,6 +271,7 @@ void CVellum::Change_Pattern(IVellumState* pState)
 
 void CVellum::Organize_Chain(CMonsterPart* pPart)
 {
+    m_pModel->Set_Model(L"Head_Hit.obj", L"Head_Hit.mtl");
     auto iter = find(m_vPart.begin(), m_vPart.end(), pPart);
     if (iter == m_vPart.end())
         return;
@@ -227,6 +297,7 @@ void CVellum::Organize_Chain(CMonsterPart* pPart)
 
     Safe_Release(*iter);
     m_vPart.erase(iter);
+    CSoundMgr::Get_Instance()->Play("Dead");
 
     for (size_t i = 0; i < m_vPart.size(); ++i)
         m_vPart[i]->Set_Index(i, m_vPart.size());
@@ -276,7 +347,7 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     if (CInputMgr::Get_Instance()->Key_Down(DIK_NUMPAD7)) // -Z
         pos.z -= speed * fTimeDelta;
 
-    // 임시 삭제 코든
+    // 임시 삭제 코드
     if (CInputMgr::Get_Instance()->Key_Away(DIK_1))
     {
         if (!m_vPart.empty() && m_vPart.size() > 1)
@@ -285,9 +356,14 @@ void CVellum::Key_Input(const _float& fTimeDelta)
             Organize_Chain(pTargetPart);
         }
     }
+    if (CInputMgr::Get_Instance()->Key_Away(DIK_GRAVE))
+    {
+        Change_Pattern(new CDeadState());
+    }
  
 
     m_pTransform->Set_Pos(pos); // ?곸슜
 }
+
 
 REGISTER_GAMEOBJECT(CVellum)
