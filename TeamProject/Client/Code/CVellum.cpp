@@ -362,7 +362,7 @@ void CVellum::Key_Input(const _float& fTimeDelta)
     }
  
 
-    m_pTransform->Set_Pos(pos); // ?ìš©
+    m_pTransform->Set_Pos(pos); // 
 }
 
 
