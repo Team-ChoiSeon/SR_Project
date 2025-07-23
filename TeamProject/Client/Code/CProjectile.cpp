@@ -106,6 +106,7 @@ _int CProjectile::Update_GameObject(const _float& fTimeDelta)
 	switch (m_eState)
 	{
 	case EProjectileState::MSHOT:
+
 	case EProjectileState::PSHOT:
 		
 

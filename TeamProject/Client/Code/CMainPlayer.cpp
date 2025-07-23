@@ -73,7 +73,13 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 {
+
+	wchar_t buf1[128];
+	swprintf_s(buf1, 128, L"Player Hp : %d\n", m_iHP);
+	OutputDebugStringW(buf1);
+
 	m_fJumpTime += fTimeDelta;
+	Player_CheckHit();
 	Update_State(fTimeDelta);
 
 	if (m_bInvincible)
@@ -90,11 +96,6 @@ int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 	if (m_eCurState == PLAYER_STATE::PLAYER_DEAD) {
 		return S_OK;
 	}
-
-
-
-
-
 
 	KeyInput(fTimeDelta);
 	CGameObject::Update_GameObject(fTimeDelta);
@@ -528,6 +529,21 @@ void CMainPlayer::Change_State(PLAYER_STATE eNewState)
 
 	m_ePrevState = m_eCurState;
 	m_eCurState = eNewState;
+}
+
+void CMainPlayer::Player_CheckHit()
+{
+	if (m_pCollider->Get_ColState() == ColliderState::ENTER)
+	{
+		CCollider* pOther = m_pCollider->Get_Other();
+		if (pOther)
+		{
+			if (pOther->Get_ColTag() == ColliderTag::MONSTER)
+			{
+				Change_State(PLAYER_STATE::PLAYER_HIT);
+			}
+		}
+	}
 }
 
 void  CMainPlayer::Playr_Hiting()
