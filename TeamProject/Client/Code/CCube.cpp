@@ -80,8 +80,17 @@ void CCube::Set_Away(bool Trigger)
 
 void CCube::PlayColSound(int i)
 {
+	_float fVelClamp = 0.f;
+	if (Get_Component<CRigidBody>()->Get_Velocity().y > 0)
+		fVelClamp = Get_Component<CRigidBody>()->Get_Velocity().y / 50.f;
+
+	
 	string ColSound = "Collision" + to_string(i);
+	CSoundMgr::Get_Instance()->Set_Volume(ColSound, fVelClamp);
+
+
 	CSoundMgr::Get_Instance()->Play(ColSound, "SFX", false);
+
 }
 
 void CCube::PlayDragSound()

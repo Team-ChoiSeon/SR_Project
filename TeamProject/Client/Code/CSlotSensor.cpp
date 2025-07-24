@@ -85,6 +85,18 @@ void CSlotSensor::LateUpdate_GameObject(const _float& fTimeDelta)
             m_bWrong = true;
         }
     }
+    if (m_pSlotted_Auto)
+    {
+        if (m_bOnEdge) {
+            CSoundMgr::Get_Instance()->Play("Correct");
+            m_bAlphaLerp = true;
+        }
+        else if (!m_bCheckID && !m_bWrong)
+        {
+            CSoundMgr::Get_Instance()->Play("Wrong");
+            m_bWrong = true;
+        }
+    }
     if(m_bAlphaLerp && m_pSlotted)
         AlphaUp(fTimeDelta);
     CGameObject::LateUpdate_GameObject(fTimeDelta);
@@ -183,6 +195,8 @@ void CSlotSensor::Insert_Slot()
                 _vec3 vDist = m_pPickSlot_Auto->Get_Component<CTransform>()->Get_Pos() - m_pTransform->Get_Pos();
                 _float fDist = D3DXVec3Length(&vDist);
                 m_pPickSlot_Auto->Insert_Overlap(this, fDist);
+
+                m_fOriginAlpah = m_pPickSlot_Auto->Get_Component<CModel>()->Get_Alpha();
             }
             m_pPickSlot_Auto = nullptr;
         }
@@ -217,9 +231,12 @@ bool CSlotSensor::Check_Slot()
             if (pos.x < m_Zone._min.x || pos.y < m_Zone._min.y || pos.z < m_Zone._min.z ||
                 pos.x > m_Zone._max.x || pos.y > m_Zone._max.y || pos.z > m_Zone._max.z)
             {
+                m_pSlotted_Auto->Get_Component<CModel>()->Set_Alpha(m_fOriginAlpah);
                 m_pSlotted_Auto = nullptr;
+                m_bWrong = false;
                 return false;
             }
+            m_bCheckID = m_pSlotted_Auto->Get_SlotID() == m_iSlotID;
             return dynamic_cast<CSlotCube_Auto*>(m_pSlotted_Auto)->Get_SlotID() == m_iSlotID;
         }
     }

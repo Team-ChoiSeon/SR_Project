@@ -68,6 +68,8 @@ HRESULT CSlotCube::Ready_GameObject()
 
 _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 {
+	if (m_fSoundInterval > 0.f)
+		m_fSoundInterval -= fTimeDelta;
 	if (m_bCurGrab)
 	{
 		PickMove();
@@ -81,28 +83,19 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 			m_FitSlot->Set_SlottedCube(nullptr);
 		m_pRigid->Set_UseGravity(true);
 
-		//if (m_pCollider->Get_ColState() == ColliderState::ENTER)
-		//{
-		//	auto otherOwner = m_pCollider->Get_Other()->m_pOwner;
-
-		//	// CZoneSensor는 무시, 나머지 GROUND만
-		//	if (typeid(*otherOwner) != typeid(CZoneSensor)
-		//		&& m_pCollider->Get_Other()->Get_ColTag() == ColliderTag::GROUND)
-		//	{
-		//		PlayColSound(1);
-		//	}
-		//}
-
+	
 		bool isOnGround = m_pRigid->Get_OnGround();
 		if (isOnGround && !m_bPreOnground) {
-			// 방금 착지했을 때
+			if(m_fSoundInterval <= 0.f)
 			PlayColSound(1);
+			m_fSoundInterval = 0.2f;
 		}
 		m_bPreOnground = isOnGround;
+
+
 	}
-	Update_Cube(fTimeDelta);
 	CGameObject::Update_GameObject(fTimeDelta);
-	
+
 
 
 	return _int();
