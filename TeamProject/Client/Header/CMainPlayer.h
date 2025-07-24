@@ -48,7 +48,7 @@ public:
 
 	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; }
 	void Set_Hp(_int iHp) { m_iHP = iHp; if (m_iHP > m_iMaxHp) { m_iHP = m_iMaxHp; } }
-	
+	void Set_ResponPos(_vec3 Responpos) { m_vResponPos = Responpos; }
 
 protected:
 	//Utility Function
@@ -65,7 +65,7 @@ private:
 	void Away_Picking();
 
 	void Player_Hiting();
-	void Player_Dieing();
+	void Player_Dieing(const _float& fTimeDelta);
 
 
 	CTransform* m_pTransform = nullptr;
@@ -128,4 +128,6 @@ private:
 	_bool m_bOnGroundFirst = false;
 
 	_vec3 m_vPrevPlayerPos = {0.f,0.f,0.f};
+	_vec3 m_vResponPos = { 0.f,0.f,0.f };
+	_float m_fDeadTime = 0.f;
 };

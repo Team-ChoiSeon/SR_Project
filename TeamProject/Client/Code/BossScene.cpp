@@ -36,6 +36,7 @@ HRESULT BossScene::Ready_Scene()
 	// 1. 플레이어 (시점 고정)
 	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 30.f, -75.f });
+	pPlayer->Set_ResponPos({ 0.f, 30.f, -75.f });
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);

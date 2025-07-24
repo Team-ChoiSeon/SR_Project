@@ -538,7 +538,7 @@ void CMainPlayer::Update_State(const _float& fTimeDelta)
 		Player_Hiting();
 		break;
 	case PLAYER_STATE::PLAYER_DEAD:
-		Player_Dieing();
+		Player_Dieing(fTimeDelta);
 		break;
 	case PLAYER_STATE::PLAYER_RESPAWN:
 		break;
@@ -577,9 +577,17 @@ void  CMainPlayer::Player_Hiting()
 	}
 }
 
-void  CMainPlayer::Player_Dieing()
+void  CMainPlayer::Player_Dieing(const _float& fTimeDelta)
 {
-	// 죽음 처리
+	m_fDeadTime += fTimeDelta;
+
+	if (m_fDeadTime >= 5.f)
+	{
+		m_pTransform->Set_Pos(m_vResponPos);
+		Set_Hp(10);
+		m_fDeadTime = 0.f;
+		Change_State(PLAYER_STATE::PLAYER_IDLE);
+	}
 }
 
 
