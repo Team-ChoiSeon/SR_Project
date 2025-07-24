@@ -6,6 +6,7 @@
 #include "CGuiSystem.h"
 #include "Engine_GUI.h"
 #include "CTransform.h"
+#include "CMetalCube.h"
 
 CCube::CCube(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev), m_pModel(nullptr), m_pTransform(nullptr)
@@ -83,6 +84,8 @@ void CCube::PlayColSound(int i)
 	_float fVelClamp = 0.f;
 	if (Get_Component<CRigidBody>()->Get_Velocity().y > 0)
 		fVelClamp = Get_Component<CRigidBody>()->Get_Velocity().y / 50.f;
+	if (fVelClamp < 0.2f)
+		fVelClamp = 0.2f;
 
 	
 	string ColSound = "Collision" + to_string(i);

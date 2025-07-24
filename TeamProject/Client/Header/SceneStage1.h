@@ -47,5 +47,7 @@ private:
 	float m_fMuteTimer = 2.0f;  // 2√ ∞£ mute
 	bool  m_bSfxMuted = false;
 
+	_bool m_bSceneFirst = true;
+
 };
 

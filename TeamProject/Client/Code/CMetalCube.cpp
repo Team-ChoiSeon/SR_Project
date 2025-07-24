@@ -59,20 +59,18 @@ _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
         m_fColSoundCooldown -= fTimeDelta;
     
     if (m_pRigid->Get_OnGround()) {
+        if (m_pCollider->Get_ColState() == ColliderState::ENTER
+            && m_fColSoundCooldown <= 0.f)
+        {
+            CSoundMgr::Get_Instance()->Set_Volume("Collision4", 0.8f);
+            CSoundMgr::Get_Instance()->Play("Collision4");
+            m_fColSoundCooldown = 0.1f;
+        }
     }
     else {
         m_pCollider->Set_ColType(ColliderType::ACTIVE);
         m_pRigid->Set_UseGravity(true);
-        if (m_pCollider->Get_ColState() == ColliderState::ENTER
-            && m_fColSoundCooldown <= 0.f)
-        {
-            if (typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMetalCube)&&
-                typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMagneticCube))
-            {
-                PlayColSound(4);
-                m_fColSoundCooldown = 0.1f;
-            }
-        }
+
     }
     CGameObject::Update_GameObject(fTimeDelta);    
     
@@ -163,8 +161,10 @@ void CMetalCube::ApproachtoMagnetic(const _float& fTimeDelta)
             (m_pCollider->Get_Other()->m_pOwner == m_pParentMagnet ||
                 typeid(*col) == typeid(CMetalCube)))
         {
-            PlayColSound(2);
-            PlayColSound(3);
+            CSoundMgr::Get_Instance()->Play("Collision2", "SFX", false);
+            CSoundMgr::Get_Instance()->Play("Collision3", "SFX", false);
+            //PlayColSound(2);
+            //PlayColSound(3);
             m_vSyncGap = m_vParentPos - m_pTransform->Get_Pos();
             m_eState = METAL_STATE::SYNC;
             return;
