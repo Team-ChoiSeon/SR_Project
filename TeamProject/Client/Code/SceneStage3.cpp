@@ -50,7 +50,6 @@ SceneStage3::~SceneStage3()
 
 HRESULT SceneStage3::Ready_Scene()
 {
-
 	//CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
 	//CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
 	//CSoundMgr::Get_Instance()->Play("BGM1", "SFX", true);
