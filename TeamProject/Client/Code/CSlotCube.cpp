@@ -159,7 +159,7 @@ void CSlotCube::PickMove()
 
 _bool CSlotCube::Check_Overlap()
 {
-	//�������� ���� ����Ʈ�� �� �Ÿ��� ���� ª�� ������ Set_Axis ȣ��
+	//오버랩된 센서 리스트들 중 거리가 가장 짧은 센서의 Set_Axis 호출
 	if (m_vecDetected_Slot.empty())
 		return false;
 
@@ -196,23 +196,23 @@ void CSlotCube::Fit(const _float& fTimeDelta)
 
 
 
-	 //���Ͱ� ���� ��ġ(Ȥ�� �ݴ�)�� ��� ó��
+	 //벡터가 거의 일치(혹은 반대)인 경우 처리
 	float axisLen2 = D3DXVec3LengthSq(&axis);
 	if (axisLen2 < 1e-6f)
 		return;
 	D3DXVec3Normalize(&axis, &axis);
 
-	// �ڻ������κ��� ȸ�� ���� ���ϱ�
+	// 코사인으로부터 회전 각도 구하기
 	float cosA = D3DXVec3Dot(&CubeLook, &SensorLook);
 	cosA = cosf(max(-1.f, min(1.f, cosA)));  // clamp
 	float fullAngle = acosf(cosA);
 
-	// ���� ������ ȸ���� (step)
+	// 실제 적용할 회전량 (step)
 	float step = AllignSpeed * fTimeDelta;
 	if (step > fullAngle)
 		step = fullAngle;
 
-	// Transform�� ��ȸ�� ���� ����
+	// Transform에 축회전 누적 적용
 	m_pTransform->Rotate_Axis(axis, step);
 
 
