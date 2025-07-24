@@ -20,12 +20,13 @@
 #include "DummyCube.h"
 #include "CDirectionalCube.h"
 #include "CTestTile.h"
+#include "CCinematicCamera.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
 
 CSceneTestHS::CSceneTestHS(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CScene(pGraphicDev)
+    :CScene(pGraphicDev)
 {
 
 }
@@ -36,102 +37,106 @@ CSceneTestHS::~CSceneTestHS()
 
 HRESULT CSceneTestHS::Ready_Scene()
 {
-	Init_Layers();
-	//CFactory::DeSerializeScene(L"../../Scene/SampleScene1.json", this);
-	//CTestTile_1
-	
-	Get_Layer(LAYER_OBJECT)->Get_GameObject(L"CTestTile_1")->Get_Component<CRigidBody>()->Set_OnGround(true);
-	//Get_Layer(LAYER_OBJECT)->Get_GameObject(L"CTestTile_1")->Get_Component<CRigidBody>()->Set_UseGravity(false);
+    Init_Layers();
 
-	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", CMainPlayer::Create(m_pGraphicDev));
-	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
-	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"ffcam", CFirstviewFollowingCamera::Create(m_pGraphicDev));
-	Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam")->Set_Target(Get_Layer(LAYER_PLAYER)->Get_GameObject(L"Player"));
+    CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
+    pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 30.f, -75.f });
+    pPlayer->Set_ResponPos({ 0.f, 30.f, -75.f });
+    CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
-	Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1")->Set_Info({ 1, 0, 0 }, -5.f, 5.f);
+    for (auto& tile : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
+        tile.pObj->Get_Component<CRigidBody>()->Set_UseGravity(false);
+    }
 
-	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
-	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
-	CCameraMgr::Get_Instance()->Set_MainCamera(Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam"));
+    auto pSetCameraObj = Get_Layer(LAYER_OBJECT)->Get_GameObject<CTestTile>(L"CSetCamera");
 
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->Ready_Layer();
+    CCinematicCamera* pCine = CCinematicCamera::Create(m_pGraphicDev);
+    pCine->Set_Target(pSetCameraObj);
 
-	return S_OK;
+    Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
+    Get_Layer(LAYER_CAMERA)->Add_GameObject(L"Cinematic", pCine);
+
+    CCameraMgr::Get_Instance()->Set_MainCamera(pCine);
+
+    pCine->Start_Cinematic();
+
+    return S_OK;
 }
 
 _int CSceneTestHS::Update_Scene(const _float& fTimeDelta)
 {
-	CPickingMgr::Get_Instance()->Update_Picking(fTimeDelta);
+    CScene::Update_Scene(fTimeDelta);
+    StartEnding(fTimeDelta);
 
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->Update_Layer(fTimeDelta);
-
-
-
-
-
-	CGameObject* PickObj = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_PickObj();
-	auto* pPickCubeObj = dynamic_cast<CDirectionalCube*>(PickObj);
-
-	if (pPickCubeObj) {
-		pPickCubeObj->Set_Grab(false);
-	}
-
-	if (PickObj)
-	{
-		if (Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Hold()) {
-			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOLD);
-
-
-
-			if (pPickCubeObj) {
-				pPickCubeObj->Set_Grab(true);
-				pPickCubeObj->Set_CursorVec(Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_DragDistance());
-			}
-		}
-		else {
-			Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-				Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_HOVER);
-		}
-	}
-	else {
-		Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair")->
-			Set_State(CCrosshairUIObject::CROSSHAIR_STATE::CROSS_DEFAULT);
-	}
-
-	CCollisionMgr::Get_Instance()->Update_Collision();
-	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
-
-	//Debugging Codes
-	_vec3 dcubepos = Get_Layer(LAYER_OBJECT)->Get_GameObject(L"CDirectionalCube_1")->Get_Component<CTransform>()->Get_Pos();
-
-	wchar_t dcposbuf[128];
-	swprintf_s(dcposbuf, 128, L"DCube Pos : %.3f, %.3f, %.3f\n", dcubepos.x, dcubepos.y, dcubepos.z);
-	OutputDebugStringW(dcposbuf);
-
-
-	return 0;
+    return 0;
 }
 
 void CSceneTestHS::LateUpdate_Scene(const _float& fTimeDelta)
 {
-	CPickingMgr::Get_Instance()->LateUpdate_Picking(fTimeDelta);
-
-	for (auto& pLayer : m_umLayer)
-		pLayer.second->LateUpdate_Layer(fTimeDelta);
-
-	CCameraMgr::Get_Instance()->LateUpdate_Camera(fTimeDelta);
+    CScene::LateUpdate_Scene(fTimeDelta);
 }
+
+void CSceneTestHS::StartEnding(const _float& fTimeDelta)
+{
+    auto pSetCameraObj = Get_Layer(LAYER_OBJECT)->Get_GameObject<CTestTile>(L"CSetCamera");
+    if (!pSetCameraObj) return;
+
+    auto pTransform = pSetCameraObj->Get_Component<CTransform>();
+    auto pRigid = pSetCameraObj->Get_Component<CRigidBody>();
+    if (!pTransform || !pRigid) return;
+
+    if (!bLaunched)
+    {
+        pRigid->Set_UseGravity(false);
+        pRigid->Set_Mass(1.f);
+        bLaunched = true;
+    }
+
+    if (fElapsed < 3.f)
+    {
+        pTransform->Rotate_Axis(_vec3(0.f, 1.f, 0.f), D3DXToRadian(-15.f * fTimeDelta));
+
+        _vec3 vBack = -pTransform->Get_Info(INFO_LOOK);
+        D3DXVec3Normalize(&vBack, &vBack);
+
+        _float fSpeed = fElapsed * 120.f;
+        pTransform->Move_Pos(&vBack, fSpeed, fTimeDelta);
+
+    }
+    else if (fElapsed < 3.5f)
+    {
+
+    }
+    else if (!bReadyToLaunch)
+    {
+
+        if (fElapsed < 6.5f)
+        {
+            pTransform->Rotate_Axis(_vec3(0.f, 1.f, 0.f), D3DXToRadian(-20.f * fTimeDelta));
+        }
+        _vec3 vDir = pTransform->Get_Info(INFO_LOOK);
+        D3DXVec3Normalize(&vDir, &vDir);
+
+        _float fLaunchSpeed = 200.f;
+        pTransform->Move_Pos(&vDir, fLaunchSpeed, fTimeDelta);
+
+        //bReadyToLaunch = true;
+    }
+    fElapsed += fTimeDelta;
+}
+
+
+
+
 
 CSceneTestHS* CSceneTestHS::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CSceneTestHS* pScene = new CSceneTestHS(pGraphicDev);
+    CSceneTestHS* pScene = new CSceneTestHS(pGraphicDev);
 
-	return pScene;
+    return pScene;
 }
 
 void CSceneTestHS::Free()
 {
-	CScene::Free();
-}	
+    CScene::Free();
+}
