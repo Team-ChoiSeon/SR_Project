@@ -318,7 +318,7 @@ void SceneStage1::SoundSet()
 	CSoundMgr::Get_Instance()->Load_Sound("Switch", "../Bin/Resource/Sound/Switch/Pick_1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("LowGravity", "../Bin/Resource/Sound/Cube/LowGravity_3.wav");
 
-	CSoundMgr::Get_Instance()->Load_Sound("BGM", "../Bin/Resource/Sound/BGM1.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("BGM", "../Bin/Resource/Sound/background.wav");
 	CSoundMgr::Get_Instance()->Load_Sound("SpaceHowl", "../Bin/Resource/Sound/BackGround/Space_3.wav");
 	CSoundMgr::Get_Instance()->Load_Sound("Spaceship", "../Bin/Resource/Sound/BackGround/Spaceship_1.wav");
 	CSoundMgr::Get_Instance()->Set_Volume("BGM", 0.5f);
@@ -357,7 +357,6 @@ void SceneStage1::Room1Update(const _float& fTimeDelta)
 	if (m_bSceneFirst)
 	{
 		auto uiPanel = Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel");
-		uiPanel->Set_StageHint(L"Tutorial");
 		uiPanel->Set_StageHint(L"앞으로 나아가세요");
 		m_bSceneFirst = false;
 	}
@@ -481,10 +480,14 @@ void SceneStage1::Room4Update(const _float& fTimeDelta)
 	//Panel
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path2_DoorSensor")->Get_OffEdge())
 	{
-		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"주황색 큐브를 잡아당겨 계단을 만들고");
-		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"보라색 자석큐브로 파란색 큐브를 끌어당겨 길을 만드세요");
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"주황색 큐브를 잡아당겨 계단을 만드세요");
 	}
 
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"Room4_Driectional4")->Get_Component<CTransform>()->Get_Pos().x >= 73.f && m_bDrag)
+	{
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"분홍색 자석큐브로 파란색 큐브를 끌어당겨 길을 만드세요");
+		m_bDrag = false;
+	}
 
 
 }

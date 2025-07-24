@@ -48,11 +48,15 @@ SceneStage2::~SceneStage2()
 
 HRESULT SceneStage2::Ready_Scene()
 {
+
 	for (int i = 0; i < 15; i++)
 	{
 		m_vbPanels.push_back(false);
 	}
-	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
+
+
+	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/background.wav");
+
 	CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
 	CSoundMgr::Get_Instance()->Play("BGM1", "BGM", true);
 	
@@ -66,8 +70,6 @@ HRESULT SceneStage2::Ready_Scene()
 	pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
-	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
-	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
 
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);
@@ -79,6 +81,9 @@ HRESULT SceneStage2::Ready_Scene()
 	pCam->Set_Target(pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
+	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
+	uiPanel->Set_ObjectInfo(false);
+	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
 
 	FloatingSet();
 	DirectionSet();
@@ -293,6 +298,15 @@ void SceneStage2::Set_Triggers()
 			++iMainQuest;
 		}
 	}
+
+	////Panel
+	//if (m_bSceneFirst)
+	//{
+	//	auto uiPanel = Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel");
+	//	uiPanel->Set_StageHint(L"문을 끌어당ru 올려보세요");
+	//	m_bSceneFirst = false;
+	//}
+
 	CFloatingCube* pMainQuestMove_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_1");
 	CFloatingCube* pMainQuestMove_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_2");
 	CSlotSensor* CSlotQuest_5 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotQuest_5");

@@ -73,10 +73,10 @@ ID3DXFont* CResourceMgr::Get_Font(const wstring& key)
 
 void CResourceMgr::PreLoad_Font()
 {
-	m_umFont.insert({ L"나눔", Load_Font(L"NanumSquareNeo-bRg", L"../..ThirdParty/NanumSquareNeo-bRg.ttf", 18) });
+	m_umFont.insert({ L"나눔", Load_Font(L"NanumSquareNeo-bRg", L"../..ThirdParty/NanumSquareNeo-bRg.ttf", 16) });
 	m_umFont.insert({ L"나눔큰", Load_Font(L"NanumSquareNeo-eHv", L"../..ThirdParty/NanumSquareNeo-eHv.ttf", 24) });
 	m_umFont.insert({ L"프리텐다드", Load_Font(L"Pretendard-Regular",L"../..ThirdParty/Pretendard-Regular.ttf", 18) });
-	m_umFont.insert({ L"여주", Load_Font(L"여주도자체 TTF",L"../..ThirdParty/YeojuCeramic TTF", 28) });
+	m_umFont.insert({ L"여주", Load_Font(L"YeojuCeramic TTF",L"../..ThirdParty/YeojuCeramic TTF", 36) });
 }
 
 

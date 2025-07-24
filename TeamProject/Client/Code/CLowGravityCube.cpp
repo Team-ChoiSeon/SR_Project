@@ -111,8 +111,11 @@ void CLowGravityCube::Push()
 		if (typeid(*m_pColTarget) == typeid(CMainPlayer))
 		{
 			if (m_bFirstCol) {
-				m_pColTarget->Get_Component<CRigidBody>()->Set_Gravity(2.5f);
+				m_pColTarget->Get_Component<CRigidBody>()->Set_Gravity(2.f);
+				m_bFirstCol = false;
 			}
+
+
 
 			if (!m_bSoundPlay)
 			{
@@ -120,10 +123,9 @@ void CLowGravityCube::Push()
 				m_bSoundPlay = true;
 			}
 
-			m_pColTarget->Get_Component<CRigidBody>()->Set_Velocity({ 0.f, 33.f, 0.f });
+			m_pColTarget->Get_Component<CRigidBody>()->Set_Velocity({ 0.f, 30.f, 0.f });
 			m_pPreColTarget = m_pColTarget;
 			m_pColTarget = nullptr;
-			m_bFirstCol = false;
 			return;
 		}
 		if (m_bFirstCol) {

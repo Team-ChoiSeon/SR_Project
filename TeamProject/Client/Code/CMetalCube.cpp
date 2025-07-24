@@ -62,9 +62,13 @@ _int CMetalCube::Update_GameObject(const _float& fTimeDelta)
         if (m_pCollider->Get_ColState() == ColliderState::ENTER
             && m_fColSoundCooldown <= 0.f)
         {
-            CSoundMgr::Get_Instance()->Set_Volume("Collision4", 0.8f);
-            CSoundMgr::Get_Instance()->Play("Collision4");
-            m_fColSoundCooldown = 0.1f;
+            if (typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMetalCube) &&
+                typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMagneticCube))
+            {
+                CSoundMgr::Get_Instance()->Set_Volume("Collision4", 0.8f);
+                CSoundMgr::Get_Instance()->Play("Collision4");
+                m_fColSoundCooldown = 0.1f;
+            }
         }
     }
     else {
@@ -114,7 +118,7 @@ CMetalCube* CMetalCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
         Safe_Release(meCube);
         MSG_BOX("MeCube Create Failed");
         return nullptr;
-    }
+        }
     return meCube;
 }
 

@@ -32,6 +32,8 @@ public:
 	const D3DXVECTOR2& Get_Scale() const { return m_vScale; }
 	const _bool& IsVisible() const { return m_bVisible; }
 
+	_bool& Get_Post() { return m_bPostProcess; }
+		void  Set_Post(_bool _bool) {  m_bPostProcess = _bool; }
 protected:
 	virtual void Free()override;
 
@@ -41,7 +43,7 @@ protected:
 	D3DXVECTOR2		m_vScale{1.f,1.f};
 	_bool			m_bVisible = true;
 	_matrix			m_matOrtho{};
-
+	_bool m_bPostProcess = false;
 };
 
 END

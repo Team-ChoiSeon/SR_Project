@@ -107,7 +107,6 @@ void CFirstviewFollowingCamera::Free()
 	CGameObject::Free();
 	Safe_Release(m_pCamera);
 	Safe_Release(m_pTransform);
-	Safe_Release(m_pGraphicDev);
 }
 
 void CFirstviewFollowingCamera::Start_Shake(const _float fDuration, const _float fMagnitude)

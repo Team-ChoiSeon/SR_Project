@@ -53,10 +53,17 @@ HRESULT CZoneSensor::Ready_GameObject()
 
 _int CZoneSensor::Update_GameObject(const _float& fTimeDelta)
 {
-    m_bSensorOn = Detect();
-    m_bOnEdge = (m_bSensorOn && !m_bPreSensorOn);
-    m_bOffEdge = !m_bSensorOn && m_bPreSensorOn;
-    m_bPreSensorOn = m_bSensorOn;
+    if (m_bFirstFrame) {
+        m_bFirstFrame = false;
+        m_bPreSensorOn = m_bSensorOn;
+    }
+    else
+    {
+        m_bSensorOn = Detect();
+        m_bOnEdge = (m_bSensorOn && !m_bPreSensorOn);
+        m_bOffEdge = !m_bSensorOn && m_bPreSensorOn;
+        m_bPreSensorOn = m_bSensorOn;
+    }
 	CGameObject::Update_GameObject(fTimeDelta);
 	return _int();
 }

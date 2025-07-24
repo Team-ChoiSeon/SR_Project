@@ -36,7 +36,9 @@ private:
 	float m_fMuteTimer = 0.f;
 	bool  m_bSfxMuted = false;
 
+
 	vector<bool> m_vbPanels;
+	_bool m_bSceneFirst = true;
 
 };
 

@@ -83,18 +83,18 @@ void CPostProcess::EndScene()
 	m_pEffect->SetInt("g_EffectType", m_iEffectType);
 
 	float dt = CTimeMgr::Get_Instance()->Get_TimeDelta(L"Timer_FPS");
-
 	if (m_bEffect) {
 		m_pEffect->SetFloat("g_Time", dt);
 		m_pEffect->SetFloat("g_EffectTime", m_fDuration);
 		m_pEffect->SetFloat("g_TotalTime", m_fTotal);
-		m_fDuration -= dt*1.5;
+		m_fDuration -= dt * 1.5;
 	}
-
-	if (m_fDuration < 0) {
-		m_fDuration = 0;
-		m_iEffectType = 0;
-		m_bEffect = false;
+	if (!m_bLoop) {
+		if (m_fDuration < 0) {
+			m_fDuration = 0;
+			m_iEffectType = 0;
+			m_bEffect = false;
+		}
 	}
 
 	_matrix identity;
@@ -143,6 +143,38 @@ void CPostProcess::Start_Dead(_float duration)
 	m_bEffect = true;
 	m_iEffectType = 1;
 	m_fTotal = duration;
+}
+
+void CPostProcess::Start_Alive(_float duration)
+{
+	m_fDuration = duration;
+	m_bEffect = true;
+	m_iEffectType = 2;
+	m_fTotal = duration;
+}
+
+void CPostProcess::Do_Assemble(_bool Assemble)
+{
+	if (Assemble) {
+		m_iEffectType = 4;
+		m_bEffect = true;
+		m_bLoop = true;
+	}
+	else {
+		m_iEffectType = 4;
+		m_fDuration = 1.f;
+		m_fTotal = 1.f;
+		m_bLoop = false;
+	}
+}
+
+void CPostProcess::Set_Assemble()
+{
+	m_iEffectType = 3;
+	m_fDuration = 8.f;
+	m_fTotal = 8.f;
+	m_bLoop = false;
+	m_bEffect = true;
 }
 
 void CPostProcess::Free()
