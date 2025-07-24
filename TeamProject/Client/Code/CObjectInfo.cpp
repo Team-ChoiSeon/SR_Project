@@ -98,6 +98,7 @@ void CObjectInfo::OpenPanel(const _float& fTimeDelta)
 			m_pCapture->Set_Object(m_pPicked);
 			m_pDialogue->Set_Open(true);
 			m_pDialogue->Set_Pos({ m_tPanel.LB().x + 5, m_tPanel.LB().y });
+			m_pDialogue->Set_Object(m_pPicked);
 		}
 	}
 	else {

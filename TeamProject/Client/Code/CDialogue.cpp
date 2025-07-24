@@ -103,6 +103,10 @@ void CDialogue::Set_Pos(_vec2 pos)
 	m_tPanel.Set_Anchor(UIPanel::Anchor::Bottom, pos);
 }
 
+void CDialogue::Set_Object(CGameObject* Obj)
+{
+}
+
 void CDialogue::Free()
 {
 	CGameObject::Free();

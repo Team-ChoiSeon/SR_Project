@@ -22,6 +22,7 @@ public:
 public:
 	void Set_Pos(_vec2 pos);
 	void Set_Open(_bool open) { m_bOpen = open; };
+	void Set_Object(CGameObject* Obj);
 	UIPanel& Get_Panel() { return m_tPanel; };
 
 private:

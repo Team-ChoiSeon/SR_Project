@@ -10,6 +10,8 @@
 #include "CHealthLine.h"
 #include "CInputMgr.h"
 #include "CMainPlayer.h"
+#include "CBloodEffect.h"
+
 CHealthPanel::CHealthPanel(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev)
 {
@@ -37,6 +39,11 @@ HRESULT CHealthPanel::Ready_GameObject()
 	m_pHealthIcon = CHealthIcon::Create(m_pGraphicDev);
 	m_pHealthLine = CHealthLine::Create(m_pGraphicDev);
 
+	for (int i = 0; i < 5; ++i) {
+		CBloodEffect* blood = CBloodEffect::Create(m_pGraphicDev);
+		m_vecBlood.push_back(blood);
+	}
+
 	m_pTransform = Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pQuad = Add_Component<CUiQuad>(ID_DYNAMIC, m_pGraphicDev);
 	m_pQuad->Set_Texture(L"UI/CinematicBar.png");
@@ -47,6 +54,7 @@ HRESULT CHealthPanel::Ready_GameObject()
 	m_tPanel.Set_Anchor(UIPanel::Anchor::Bottom, { 0,WINCY-10 });
 	m_pTransform->Rotate_Axis({ 0,0,1 }, D3DXToRadian(3.f));
 
+	
 	return S_OK;
 }
 
@@ -57,6 +65,7 @@ _int CHealthPanel::Update_GameObject(const _float& fTimeDelta)
 			m_pPlayer = static_cast<CMainPlayer*>(obj);
 		}
 	}
+
 	m_pTransform->Set_Scale(m_tPanel.Get_WorldScale());
 	m_pTransform->Set_Pos({ m_tPanel.Get_WorldPos(WINCX, WINCY) });
 
@@ -66,21 +75,37 @@ _int CHealthPanel::Update_GameObject(const _float& fTimeDelta)
 	m_pHealthIcon->Set_Pivot(tmp);
 
 	tmp = m_tPanel.LC()+_vec2(55, 0);
+
 	m_pHealthBar->Set_Pivot(tmp);
 	m_pHealthLine->Set_Pivot(m_pHealthBar->Get_Panel().LC());
 
 	m_pHealthBar->Update_GameObject(fTimeDelta);
 	m_pHealthIcon->Update_GameObject(fTimeDelta);
 	m_pHealthLine->Update_GameObject(fTimeDelta);
+
+	
+	//만약 플레이어가 다쳤다면. 이벤트 발생하는 형태로 가야 할 듯.
 	m_pHealthBar->Set_Ratio(m_pPlayer->Get_Hp());
 
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_O)) {
 
+		for (auto& effect : m_vecBlood) {
+			effect->SetRand_Transform();
+			effect->Active_Blood( 3.f);
+		}
+	}
+	for (auto& effect : m_vecBlood) {
+		effect->Update_GameObject(fTimeDelta);
+	}
 	return 0;
 }
 
 void CHealthPanel::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+	for (auto& effect : m_vecBlood) {
+		effect->LateUpdate_GameObject(fTimeDelta);
+	}
 	m_pHealthIcon->LateUpdate_GameObject(fTimeDelta);
 	m_pHealthBar->LateUpdate_GameObject(fTimeDelta);
 	m_pHealthLine->LateUpdate_GameObject(fTimeDelta);
@@ -89,6 +114,9 @@ void CHealthPanel::LateUpdate_GameObject(const _float& fTimeDelta)
 void CHealthPanel::Free()
 {
 	CGameObject::Free();
+	for (auto& effect : m_vecBlood) {
+		Safe_Release(effect);
+	}
 	Safe_Release(m_pHealthIcon);
 	Safe_Release(m_pHealthBar);
 	Safe_Release(m_pHealthLine);

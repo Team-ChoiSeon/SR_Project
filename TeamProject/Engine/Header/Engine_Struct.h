@@ -18,6 +18,12 @@ namespace Engine {
 	}VTXTEX;
 	const _ulong	FVF_TEX = D3DFVF_XYZ | D3DFVF_TEX1;
 
+	typedef struct tagVertexMyTexture {
+		_vec4   vPosition;
+		_vec2   u, v;
+	} VTXMYTEX;
+	const _ulong	FVF_MYTEX = D3DFVF_XYZRHW | D3DFVF_TEX1;
+
 
 	typedef struct tagVertexCubeTexture
 	{
