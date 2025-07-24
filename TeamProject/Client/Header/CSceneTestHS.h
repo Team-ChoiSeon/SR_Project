@@ -18,7 +18,21 @@ public:
 
 public:
 	virtual void Free();
-	virtual const wstring Get_ScenePath() { return L"../../Scene/SampleScene1.json"; };
+	virtual const wstring Get_ScenePath() { return L"../../Scene/Ending.json"; };
 
+
+private:
+	_float fElapsedTime = 0.f;
+	void StartEnding(const _float& fTimeDelta);
+
+	//bool bLaunched = false;
+	float fElapsed = 0.f;
+	bool bReadyToLaunch = false;
+
+	bool bLaunched = false;
+	bool bShakeStarted = false;
+	_float fShakeTime = 0.f;
+	const _float fShakeDuration = 3.f;
+	const _float fShakeMagnitude = 0.15f;
 };
 
