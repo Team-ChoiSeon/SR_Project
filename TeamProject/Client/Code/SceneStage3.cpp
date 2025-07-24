@@ -62,7 +62,6 @@ HRESULT SceneStage3::Ready_Scene()
 	pPlayer->Get_Component<CRigidBody>()->Set_UseGravity(true);
 	pPlayer->Get_Component<CRigidBody>()->Set_OnGround(true);
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
-	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 10.f, 120.f });
 
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);
