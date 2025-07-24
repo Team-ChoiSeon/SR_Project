@@ -21,6 +21,9 @@
 #include "CGuiSystem.h"
 #include "CFactory.h"
 
+#include "CTestTile.h"
+#include "CFirstviewFollowingCamera.h"
+
 
 
 CVellum::CVellum(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -148,6 +151,20 @@ int CVellum::Update_GameObject(const _float& fTimeDelta)
     }
 
     m_pTarget = CSceneMgr::Get_Instance()->Get_Player();
+    // 땅에 부딪혔을때 카메라 흔들림
+    if (m_pCol->Get_ColState() == ColliderState::ENTER)
+    {
+        CCollider* pOther = m_pCol->Get_Other();
+        if (pOther && pOther->Get_ColTag() == ColliderTag::GROUND)
+        {
+            CTestTile* pTestile = dynamic_cast<CTestTile*>(pOther->m_pOwner);
+            if (pTestile)
+            {
+                CSceneMgr::Get_Instance()->Get_Scene()->Get_Layer(LAYER_CAMERA)
+                    ->Get_GameObject<CFirstviewFollowingCamera>(L"MyCamera")->Start_Shake(1.f, 0.5f);
+            }
+        }
+    }
 
     // 매번 플레이어 바라보게
     if(dynamic_cast<CSpinState*>(m_pState) == nullptr)

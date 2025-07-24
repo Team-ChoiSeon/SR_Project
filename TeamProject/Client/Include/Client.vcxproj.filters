@@ -223,6 +223,9 @@
     <Filter Include="04. GameObjects\TestUI\Blood">
       <UniqueIdentifier>{703ac796-bb0f-448d-912f-c7fe3b27140a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vellum\State\DEAD">
+      <UniqueIdentifier>{71cf4fcc-ea08-442f-bb0e-495c030958a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -441,10 +444,12 @@
     <ClInclude Include="..\Header\CDialogue.h">
       <Filter>04. GameObjects\TestUI\ObjectInfo\Dialogue</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CDeadState.h" />
     <ClInclude Include="..\Header\IVellumState.h" />
     <ClInclude Include="..\Header\CBloodEffect.h">
       <Filter>04. GameObjects\TestUI\Blood</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDeadState.h">
+      <Filter>Vellum\State\DEAD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -655,9 +660,11 @@
     <ClCompile Include="..\Code\CDialogue.cpp">
       <Filter>04. GameObjects\TestUI\ObjectInfo\Dialogue</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CDeadState.cpp" />
     <ClCompile Include="..\Code\CBloodEffect.cpp">
       <Filter>04. GameObjects\TestUI\Blood</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDeadState.cpp">
+      <Filter>Vellum\State\DEAD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

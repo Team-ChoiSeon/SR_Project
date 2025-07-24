@@ -21,7 +21,6 @@
 
 #include "CMainPlayer.h"
 #include "CFirstviewFollowingCamera.h"
-#include "CLogoDirector.h"
 #include "CTransform.h"
 
 Logo::Logo(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -37,30 +36,6 @@ Logo::~Logo()
 HRESULT Logo::Ready_Scene()
 {
 	Init_Layers();
-
-	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
-	if (pPlayer)
-	{
-		// 카메라를 로고가 잘 보일 만한 거리로 미리 이동시킵니다.
-		pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 5.f, -50.f });
-		Get_Layer(LAYER_PLAYER)->Add_GameObject(L"DummyPlayer", pPlayer);
-
-		// 3. 플레이어를 따라다니는 1인칭 카메라를 생성하고 부착합니다.
-		CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
-		if (pCam)
-		{
-			pCam->Set_Target(pPlayer);
-			Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MainCamera", pCam);
-		}
-	}
-
-	// 4. 마지막으로 로고 연출을 담당할 디렉터를 생성합니다.
-	CGameObject* pDirector = CLogoDirector::Create(m_pGraphicDev);
-	if (pDirector)
-	{
-		Get_Layer(LAYER_OBJECT)->Add_GameObject(L"LogoDirector", pDirector);
-	}
-
 	return S_OK;
 }
 
