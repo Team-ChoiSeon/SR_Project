@@ -89,6 +89,9 @@ _int SceneStage2::Update_Scene(const _float& fTimeDelta)
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate_1")->Get_InGate()) {
 		CScene* pScene = SceneStage3::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+		CSoundMgr::Get_Instance()->Stop_Group("BGM");
+		CSoundMgr::Get_Instance()->Stop_Group("SFX");
+		CSoundMgr::Get_Instance()->Stop_Group("ENV");
 		CCollisionMgr::Get_Instance()->Clear();
 		CRenderMgr::Get_Instance()->Clear();
 	}

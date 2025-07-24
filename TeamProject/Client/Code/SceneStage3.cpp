@@ -51,9 +51,9 @@ SceneStage3::~SceneStage3()
 HRESULT SceneStage3::Ready_Scene()
 {
 
-	//CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
-	//CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
-	//CSoundMgr::Get_Instance()->Play("BGM1", "SFX", true);
+	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
+	CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
+	CSoundMgr::Get_Instance()->Play("BGM1", "SFX", true);
 
 	Init_Layers();
 	for (auto& tile : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
@@ -90,6 +90,9 @@ _int SceneStage3::Update_Scene(const _float& fTimeDelta)
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate")->Get_InGate()) {
 		CScene* pScene = SceneSB::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+		CSoundMgr::Get_Instance()->Stop_Group("BGM");
+		CSoundMgr::Get_Instance()->Stop_Group("SFX");
+		CSoundMgr::Get_Instance()->Stop_Group("ENV");
 		CCollisionMgr::Get_Instance()->Clear();
 		CRenderMgr::Get_Instance()->Clear();
 	}
@@ -421,6 +424,15 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 			}
 		}
 	}
+	
+	if (CMirrorSlotCube5_1->Get_HitWall())
+	{
+		CMirrorSlotCube5_1->Set_Reset();
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch5_1")->Set_SwitchState(false);
+		CMirrorSlotCube5_1->Set_Follow(false);
+	}
+
+
 
 	//3번째 퀘스트방
 	//입구 문

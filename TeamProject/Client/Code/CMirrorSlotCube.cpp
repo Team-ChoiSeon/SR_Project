@@ -60,6 +60,19 @@ void CMirrorSlotCube::Set_Follow(_bool bFollow)
 	{
 		_vec3 targetPos = m_pPlayer->Get_Component<CTransform>()->Get_Pos() + _vec3(0.f, -9.f, 0.f);
 		m_pTransform->Set_Pos(targetPos);
+
+		m_vFirstStartP = m_pPlayer->Get_Component<CTransform>()->Get_Pos();
+		m_vFirstStartM = targetPos;
+	}
+}
+
+void CMirrorSlotCube::Set_Reset()
+{
+	if (m_vPlaneNorm.y > 0.f)
+	{
+		m_pPlayer->Get_Component<CTransform>()->Set_Pos(m_vFirstStartP);
+		m_pTransform->Set_Pos(m_vFirstStartM);
+		b_HitWall = false;
 	}
 }
 
@@ -90,6 +103,7 @@ void CMirrorSlotCube::MirrorFollow(const _float& fTimeDelta)
 	
 		if (dist < 0.01f) {
 			m_pRigid->Set_Velocity(_vec3(0.f, 0.f, 0.f));
+			b_HitWall = false;
 			return;
 		}
 	
@@ -102,6 +116,8 @@ void CMirrorSlotCube::MirrorFollow(const _float& fTimeDelta)
 			m_pRigid->Set_Velocity(_vec3(0.f, 0.f, 0.f));
 			if (pPlayerRigid)
 				pPlayerRigid->Set_Velocity(_vec3(0.f, pPlayerRigid->Get_Velocity().y, 0.f));
+
+			b_HitWall = true;
 			return;
 		}
 	
@@ -117,6 +133,7 @@ void CMirrorSlotCube::MirrorFollow(const _float& fTimeDelta)
 		if (pPlayerRigid)
 			pPlayerRigid->Set_Velocity(_vec3(velocity.x, pPlayerRigid->Get_Velocity().y, velocity.z));
 	
+		b_HitWall = false;
 		return;
 	}
 
