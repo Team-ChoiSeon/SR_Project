@@ -49,6 +49,9 @@ HRESULT CMainApp::Ready_MainApp()
 
 	CInputMgr::Get_Instance()->Ready_InputDev(g_HInst, g_hWnd);
 	CResourceMgr::Get_Instance()->Ready_Resource();
+
+	// CameraMgr, LightMgr, CollisionMgr 초기화는 필요시 추가
+	CSoundMgr::Get_Instance()->Ready_Sound();
 	CShaderMgr::Get_Instance()->Ready_Shader(m_pGraphicDev);
 	CRenderMgr::Get_Instance()->Ready_RenderMgr();
 
@@ -56,8 +59,6 @@ HRESULT CMainApp::Ready_MainApp()
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
 	CLightMgr::Get_Instance()->Ready_Light(m_pGraphicDev);
 
-	// CameraMgr, LightMgr, CollisionMgr 초기화는 필요시 추가
-	CSoundMgr::Get_Instance()->Ready_Sound();
 
 	//CSoundMgr::Get_Instance()->Play("test", "BGM");
 
