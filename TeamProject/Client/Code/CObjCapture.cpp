@@ -139,11 +139,11 @@ void CObjCapture::RenderModel(CModel* model)
 		_vec3 MakeWorld = CamCam->Get_Look();
 		D3DXVec3Normalize(&MakeWorld, &MakeWorld);
 
-		MakeWorld *=3.5;
+		MakeWorld *=5;
 		MakeWorld += CamPos;
 		D3DXMATRIX scaleMat;
-		D3DXMatrixScaling(&scaleMat, 0.8f, 0.8f, 0.8f);
-		TargetWorld = scaleMat * TargetWorld;
+		//D3DXMatrixScaling(&scaleMat, 0.8f, 0.8f, 0.8f);
+		TargetWorld =  TargetWorld;
 
 		TargetWorld._41 = MakeWorld.x;
 		TargetWorld._42 = MakeWorld.y;
