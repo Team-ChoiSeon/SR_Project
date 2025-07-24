@@ -75,6 +75,7 @@ HRESULT SceneStage2::Ready_Scene()
 	pCam->Set_Target(pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
+
 	FloatingSet();
 	DirectionSet();
 	SlotSet();

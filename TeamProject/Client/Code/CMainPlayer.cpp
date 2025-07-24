@@ -502,6 +502,8 @@ void CMainPlayer::Away_Picking()
 
 void CMainPlayer::CursorRotate()
 {
+
+	//dx dy Áß°£°ª
 	//Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ShowCursor(false);
 	float cx = WINCX / 2.f;
@@ -514,14 +516,16 @@ void CMainPlayer::CursorRotate()
 	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X);
 	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y);
 
+	m_fPrevDX = (m_fPrevDX + dx) * 0.2f;
+	m_fPrevDY = (m_fPrevDY + dy) * 0.2f;
+	
 	float sensitivity = 300.f;
-	float rx = dx / sensitivity;
-	float ry = dy / sensitivity;
+	float rx = m_fPrevDX / sensitivity;
+	float ry = m_fPrevDY / sensitivity;
 
 	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ ry, rx, 0.f });
 
 }
-
 
 
 void CMainPlayer::Update_State(const _float& fTimeDelta)

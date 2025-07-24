@@ -33,7 +33,7 @@
 #include "CZoneSensor.h"
 #include "CMetalCube.h"
 
-#include "SceneSB.h"
+#include "BossScene.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -87,7 +87,7 @@ _int SceneStage3::Update_Scene(const _float& fTimeDelta)
 {
 
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate")->Get_InGate()) {
-		CScene* pScene = SceneSB::Create(m_pGraphicDev);
+		CScene* pScene = BossScene::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 		CSoundMgr::Get_Instance()->Stop_Group("BGM");
 		CSoundMgr::Get_Instance()->Stop_Group("SFX");

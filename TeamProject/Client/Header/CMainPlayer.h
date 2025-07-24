@@ -130,4 +130,8 @@ private:
 	_vec3 m_vPrevPlayerPos = {0.f,0.f,0.f};
 	_vec3 m_vResponPos = { 0.f,0.f,0.f };
 	_float m_fDeadTime = 0.f;
+
+	float m_fPrevDX = 0.f;
+	float m_fPrevDY = 0.f;
+
 };
