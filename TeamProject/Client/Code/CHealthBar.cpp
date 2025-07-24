@@ -56,7 +56,10 @@ void CHealthBar::Set_Pivot(_vec2 vCriteria)
 
 void CHealthBar::Set_Ratio(_float ratio)
 {
-	m_pQuad->Set_RatioX(ratio);
+	if (ratio <= 9) {
+		int i = 0;
+	}
+	m_pQuad->Set_RatioX(ratio * 0.1f);
 }
 
 void CHealthBar::Free()

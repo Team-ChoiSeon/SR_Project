@@ -15,6 +15,7 @@
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
 #include "CUiMgr.h"
+#include "CScenePanel.h"
 #include "CResourceMgr.h"
 
 
@@ -59,6 +60,8 @@ HRESULT BossScene::Ready_Scene()
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"Cinematic", pCine);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
 
+	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
+	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
 
 
 	// 6. 카메라 타겟은 플레이어
@@ -71,6 +74,13 @@ HRESULT BossScene::Ready_Scene()
 
 _int BossScene::Update_Scene(const _float& fTimeDelta)
 {
+	CMainPlayer* pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player");
+
+	if (pPlayer->GetPos().y < -10.f)
+	{
+		pPlayer->Change_State(CMainPlayer::PLAYER_STATE::PLAYER_DEAD);
+	}
+
 	CScene::Update_Scene(fTimeDelta);
 	return 0;
 }
