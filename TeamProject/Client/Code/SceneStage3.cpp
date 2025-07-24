@@ -50,9 +50,9 @@ SceneStage3::~SceneStage3()
 
 HRESULT SceneStage3::Ready_Scene()
 {
-	//CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
-	//CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
-	//CSoundMgr::Get_Instance()->Play("BGM1", "SFX", true);
+	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
+	CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
+	CSoundMgr::Get_Instance()->Play("BGM1", "SFX", true);
 
 	Init_Layers();
 	for (auto& tile : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
@@ -89,6 +89,9 @@ _int SceneStage3::Update_Scene(const _float& fTimeDelta)
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate")->Get_InGate()) {
 		CScene* pScene = SceneSB::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
+		CSoundMgr::Get_Instance()->Stop_Group("BGM");
+		CSoundMgr::Get_Instance()->Stop_Group("SFX");
+		CSoundMgr::Get_Instance()->Stop_Group("ENV");
 		CCollisionMgr::Get_Instance()->Clear();
 		CRenderMgr::Get_Instance()->Clear();
 	}
@@ -268,25 +271,25 @@ void SceneStage3::MagnetSet()
 
 void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 {
-	// Ã¹¹øÂ° ¹®
+	// ì²«ë²ˆì§¸ ë¬¸
 	_bool bDoorTrigger1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_1")->Get_SensorState();
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_1")->Set_GoBack(!bDoorTrigger1_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_2")->Set_GoBack(!bDoorTrigger1_1);
 
-	//¿¤¸®º£ÀÌÅÍ
+	//ì—˜ë¦¬ë² ì´í„°
 	_bool bZoneSensor0_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneSensor0_1")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube0_1")->SetTrigger(bZoneSensor0_1);
 
-	// µÎ¹øÂ° ¹® 
+	// ë‘ë²ˆì§¸ ë¬¸ 
 	_bool bDoorTrigger1_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_2")->Get_SensorState();
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_3")->Set_GoBack(!bDoorTrigger1_2);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_4")->Set_GoBack(!bDoorTrigger1_2);
 
-	///-----Ã¹¹øÂ° ¹æ
+	///-----ì²«ë²ˆì§¸ ë°©
 
-	// ºí·° ½½·Ô ÆÛÁñ
+	// ë¸”ëŸ­ ìŠ¬ë¡¯ í¼ì¦
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor1_1")->Get_SensorState() &&
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor1_2")->Get_SensorState() &&
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor1_3")->Get_SensorState())
@@ -294,7 +297,7 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1")->SetTrigger(true);
 	}
 	
-	// ÆÄ¶õ ¹öÆ°
+	// íŒŒëž€ ë²„íŠ¼
 	_bool CPickSwitch1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_1")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_1")->Set_GoBack(!CPickSwitch1_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_2")->Set_GoBack(!CPickSwitch1_1);
@@ -304,7 +307,7 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_2_2")->Set_GoBack(!CPickSwitch1_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_2_3")->Set_GoBack(!CPickSwitch1_1);
 	
-	// »¡°£ ¹öÆ°
+	// ë¹¨ê°„ ë²„íŠ¼
 	_bool CPickSwitch1_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_2")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_4")->Set_GoBack(!CPickSwitch1_2);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_5")->Set_GoBack(!CPickSwitch1_2);
@@ -314,13 +317,13 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_2_5")->Set_GoBack(!CPickSwitch1_2);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_2_6")->Set_GoBack(!CPickSwitch1_2);
 	
-	// ºÐÈ« ¹öÆ°
+	// ë¶„í™ ë²„íŠ¼
 	_bool CPickSwitch1_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_3")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_7")->Set_GoBack(!CPickSwitch1_3);
 	
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_2_7")->Set_GoBack(!CPickSwitch1_3);
 
-	//ÇÃ·¹ÀÌ¾î ¹Ì·¯ Å¥ºê µî·Ï
+	//í”Œë ˆì´ì–´ ë¯¸ëŸ¬ íë¸Œ ë“±ë¡
 
 	_bool bSlotSensor1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor1_4")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor2_1")->SetTrigger(bSlotSensor1_4);
@@ -341,7 +344,7 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 		CMirrorSlotCube1_1->Set_Follow(false);
 	}
 
-	//°Å¿ï Ã³¸®
+	//ê±°ìš¸ ì²˜ë¦¬
 	_bool bMirror1_1 = false;
 	_bool bPickSwitch1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_4")->Get_SwitchState();
 	if (!bSlotSensor1_4)
@@ -363,8 +366,8 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 
 
 
-	// 3°³ °¡¸²¸· Ç®±â
-	// 1¹øÂ° °¡¸²¸·
+	// 3ê°œ ê°€ë¦¼ë§‰ í’€ê¸°
+	// 1ë²ˆì§¸ ê°€ë¦¼ë§‰
 	_bool CPickSwitch2_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch2_1")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_9")->SetTrigger(CPickSwitch2_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_10")->SetTrigger(CPickSwitch2_1);
@@ -373,18 +376,18 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 
 
 
-	//2¹øÂ° Äù½ºÆ®¹æ
-	//ÀÔ±¸ ¹®
+	//2ë²ˆì§¸ í€˜ìŠ¤íŠ¸ë°©
+	//ìž…êµ¬ ë¬¸
 	_bool bDoorTrigger1_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_3")->Get_SensorState();
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_5")->Set_GoBack(!bDoorTrigger1_3);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_6")->Set_GoBack(!bDoorTrigger1_3);
 
-	//Ã¹¹øÂ° ½½·Ô
+	//ì²«ë²ˆì§¸ ìŠ¬ë¡¯
 	_bool bSlotSensor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_1")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor3_1")->SetTrigger(bSlotSensor3_1);
 
-	//µÎ¹øÂ° ¹Ì·Î
+	//ë‘ë²ˆì§¸ ë¯¸ë¡œ
 	_bool bSlotSensor5_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor5_1")->Get_SensorState();
 	_bool bZoneSensor5_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneSensor5_3")->Get_SensorState();
 	_bool bZoneSensor5_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneSensor5_2")->Get_SensorState();
@@ -395,7 +398,7 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 	{
 		CMirrorSlotCube5_1->Set_Follow(false);
 
-		//2¹øÂ° °¡¸²¸·
+		//2ë²ˆì§¸ ê°€ë¦¼ë§‰
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_5")->SetTrigger(bSlotSensor5_1);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_6")->SetTrigger(bSlotSensor5_1);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_7")->SetTrigger(bSlotSensor5_1);
@@ -420,23 +423,32 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 			}
 		}
 	}
+	
+	if (CMirrorSlotCube5_1->Get_HitWall())
+	{
+		CMirrorSlotCube5_1->Set_Reset();
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch5_1")->Set_SwitchState(false);
+		CMirrorSlotCube5_1->Set_Follow(false);
+	}
 
-	//3¹øÂ° Äù½ºÆ®¹æ
-	//ÀÔ±¸ ¹®
+
+
+	//3ë²ˆì§¸ í€˜ìŠ¤íŠ¸ë°©
+	//ìž…êµ¬ ë¬¸
 	_bool bDoorTrigger1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_4")->Get_SensorState();
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_7")->Set_GoBack(!bDoorTrigger1_4);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_8")->Set_GoBack(!bDoorTrigger1_4);
 
-	// Å¬¸®¾î ½ºÀ§Ä¡
+	// í´ë¦¬ì–´ ìŠ¤ìœ„ì¹˜
 	_bool bPickSwitch4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch4_1")->Get_SwitchState();
-	//3¹øÂ° °¡¸²¸·
+	//3ë²ˆì§¸ ê°€ë¦¼ë§‰
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1")->SetTrigger(bPickSwitch4_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_2")->SetTrigger(bPickSwitch4_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_3")->SetTrigger(bPickSwitch4_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_4")->SetTrigger(bPickSwitch4_1);
 
-	// ¸¶Áö¸· ½½·Ô ¿¤¸®º£ÀÌÅÍ 
+	// ë§ˆì§€ë§‰ ìŠ¬ë¡¯ ì—˜ë¦¬ë² ì´í„° 
 	_bool bSlotSensor2_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor2_1")->Get_SensorState();
 	_bool bZoneSensor5_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneSensor5_1")->Get_SensorState();
 	_bool bLast = false;

@@ -24,8 +24,10 @@ public:
 	void Set_Player(CMainPlayer* pPlayer) { m_pPlayer = pPlayer; }
 	void Set_Follow(_bool bFollow);
 	void Set_MirrorPlane(const _vec3& vPlanePos, const _vec3& vPlaneNormal);
+	void Set_Reset();
 
 	_bool Get_Follow() { return m_bFollow; }
+	_bool Get_HitWall() { return b_HitWall; }
 private:
 	void MirrorFollow(const _float& fTimeDelta);
 	
@@ -36,6 +38,9 @@ private:
 	_vec3 m_vPlanePos = { 0.f, 0.f, 0.f };
 	_vec3 m_vPlaneNorm = { 1.f, 0.f, 0.f }; // X√‡ ±‚¡ÿ 
 	_vec3 m_vPrevPos = { 0.f,0.f,0.f };
+	_vec3 m_vFirstStartP = { 0.f,0.f,0.f };
+	_vec3 m_vFirstStartM = { 0.f,0.f,0.f };
+	_bool b_HitWall = false;
 
 	_float m_fMoveSpeed = 10.f;
 
