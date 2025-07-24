@@ -226,6 +226,9 @@
     <Filter Include="Vellum\State\DEAD">
       <UniqueIdentifier>{71cf4fcc-ea08-442f-bb0e-495c030958a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\LogoDirector">
+      <UniqueIdentifier>{58954849-2775-477f-ba3e-bd772729a51f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -451,6 +454,9 @@
     <ClInclude Include="..\Header\CDeadState.h">
       <Filter>Vellum\State\DEAD</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLogoDirector.h">
+      <Filter>04. GameObjects\LogoDirector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -665,6 +671,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDeadState.cpp">
       <Filter>Vellum\State\DEAD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLogoDirector.cpp">
+      <Filter>04. GameObjects\LogoDirector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
