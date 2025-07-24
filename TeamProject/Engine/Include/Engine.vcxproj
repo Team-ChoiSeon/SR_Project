@@ -140,7 +140,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>ENGINE_EXPORTS;IMGUI_API=__declspec(dllexport);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./;../Header;../../Base;../../ThirdParty;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;y;;../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/backends;%(AdditionalIncludeDirectories);../../ThirdParty/Imgui/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../Header;../../Base;../../ThirdParty;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui;y;../../ThirdParty/Imgui/;../../ThirdParty/FMOD;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -186,6 +188,7 @@
     <ClInclude Include="..\Header\CParticle.h" />
     <ClInclude Include="..\Header\CPickingMgr.h" />
     <ClInclude Include="..\Header\CPickTarget.h" />
+    <ClInclude Include="..\Header\CPostProcess.h" />
     <ClInclude Include="..\Header\CRcCube.h" />
     <ClInclude Include="..\Header\CRenderMgr.h" />
     <ClInclude Include="..\Header\CResource.h" />
@@ -247,6 +250,7 @@
     <ClCompile Include="..\Code\CParticle.cpp" />
     <ClCompile Include="..\Code\CPickingMgr.cpp" />
     <ClCompile Include="..\Code\CPickTarget.cpp" />
+    <ClCompile Include="..\Code\CPostProcess.cpp" />
     <ClCompile Include="..\Code\CRcCube.cpp" />
     <ClCompile Include="..\Code\CRenderMgr.cpp" />
     <ClCompile Include="..\Code\CResource.cpp" />

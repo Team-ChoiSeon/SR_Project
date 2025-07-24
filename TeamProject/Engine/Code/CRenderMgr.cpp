@@ -1,8 +1,10 @@
 #include "CRenderMgr.h"
+#include "CGraphicDev.h"
 #include "CCollisionMgr.h"
 #include "CParticle.h"
 #include "CSkyBox.h"
 #include "CEffect.h"
+#include "CPostProcess.h"
 
 IMPLEMENT_SINGLETON(CRenderMgr)
 
@@ -18,12 +20,15 @@ CRenderMgr::~CRenderMgr()
 HRESULT CRenderMgr::Ready_RenderMgr()
 {
 	m_vModellist.resize(static_cast<int>(RENDER_PASS::RP_END));
+
+	m_pPostProcess = CPostProcess::Create(CGraphicDev::Get_Instance()->Get_GraphicDev());
 	Clear();
 	return S_OK;
 }
 
 void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 {
+
 	//렌더 스테이트 설정
 	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
@@ -42,12 +47,15 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
 	//pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	
+	m_pPostProcess->BeginScene();
 
 	if (m_pSkyBox)
 		m_pSkyBox->Render(pDevice);
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_SHADOW)])
 		renderer->Render(pDevice);
+
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_OPAQUE)])
 	{
@@ -76,6 +84,8 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_UI)])
 		renderer->Render(pDevice);
 
+	m_pPostProcess->EndScene();
+
 	for (auto& renderer : m_vUI)
 		renderer->Render(pDevice);
 
@@ -84,7 +94,6 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	
 	//for (auto& renderer : m_vCol)
 		//renderer->Render(pDevice);
-
 	
 	Clear();
 }
@@ -199,4 +208,6 @@ void CRenderMgr::Clear()
 
 void CRenderMgr::Free()
 {
+	Safe_Release(m_pPostProcess);
 }
+

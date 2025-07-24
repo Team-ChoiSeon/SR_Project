@@ -39,18 +39,18 @@ HRESULT CScenePanel::Ready_GameObject()
 _int CScenePanel::Update_GameObject(const _float& fTimeDelta)
 {
     CGameObject::Update_GameObject(fTimeDelta);
-    for (auto& ui : m_umUI) {
-            ui.second->Update_GameObject(fTimeDelta);
-    }
+    m_umUI[L"Health_UI"]->Update_GameObject(fTimeDelta);
+    if(m_bInfo)
+        m_umUI[L"ObjectInfo_UI"]->Update_GameObject(fTimeDelta);
     return 0;
 }
 
 void CScenePanel::LateUpdate_GameObject(const _float& fTimeDelta)
 {
     CGameObject::LateUpdate_GameObject(fTimeDelta);
-    for (auto& ui : m_umUI) {
-        ui.second->LateUpdate_GameObject(fTimeDelta);
-    }
+    m_umUI[L"Health_UI"]->LateUpdate_GameObject(fTimeDelta);
+    if (m_bInfo)
+        m_umUI[L"ObjectInfo_UI"]->LateUpdate_GameObject(fTimeDelta);
 }
 
 void CScenePanel::Free()

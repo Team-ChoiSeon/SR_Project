@@ -1,3 +1,4 @@
+#pragma once
 #include "pch.h"
 #include "CMainPlayer.h"
 #include "CCubeTex.h"
@@ -10,6 +11,7 @@
 #include "CVIBuffer.h"
 #include "CTransform.h"
 #include "CCollider.h"
+#include "CSkyBox.h"
 
 #include "CInputMgr.h"
 #include "CCameraMgr.h"
@@ -39,9 +41,12 @@ HRESULT CMainPlayer::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 
+	Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	m_pSkyBox = Get_Component<CSkyBox>();
+
 	m_pTransform->Ready_Component();
 
-	m_pTransform->Set_Scale({ .8f, 4.f, .8f });
+	m_pTransform->Set_Scale({ .8f, 2.f, .8f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
@@ -63,6 +68,8 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_vPickObjDist = { 0.f, 0.f, 0.f };
 	m_vPickPointDist = { 0.f, 0.f, 0.f };
 
+	m_pSkyBox->Set_Texture(L"Sky_Test2.dds");
+
 	CSoundMgr::Get_Instance()->Load_Sound("jump", "../Bin/Resource/Sound/Jump1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Walking1", "../Bin/Resource/Sound/Walking_Wood1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Landing1", "../Bin/Resource/Sound/Landing_Wood1.mp3");
@@ -73,6 +80,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 
 int CMainPlayer::Update_GameObject(const _float& fTimeDelta)
 {
+	m_vPrevPlayerPos = m_pTransform->Get_Pos();
 
 	//wchar_t buf1[128];
 	//swprintf_s(buf1, 128, L"Player Hp : %d\n", m_iHP);
@@ -164,6 +172,7 @@ void CMainPlayer::Free()
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pRigid);
+	Safe_Release(m_pSkyBox);
 
 }
 
@@ -215,25 +224,25 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 		moveDir -= camRight;
 	}
 
-	if (D3DXVec3Length(&moveDir) > 0.f) {
-		D3DXVec3Normalize(&moveDir, &moveDir);
-		m_pTransform->Set_Pos(m_pTransform->Get_Pos() + moveDir * m_fMoveSpeed * fTimeDelta);
+		if (D3DXVec3Length(&moveDir) > 0.f) {
+			D3DXVec3Normalize(&moveDir, &moveDir);
+			m_pTransform->Set_Pos(m_pTransform->Get_Pos() + moveDir * m_fMoveSpeed * fTimeDelta);
 
-		if (!m_bWalkingSound)
-		{
-			if (m_pRigid->Get_OnGround()) {
-				CSoundMgr::Get_Instance()->Play("Walking1", "SFX", true);
-				m_bWalkingSound = true;
+			if (!m_bWalkingSound)
+			{
+				if (m_pRigid->Get_OnGround()) {
+					CSoundMgr::Get_Instance()->Play("Walking1", "SFX", true);
+					m_bWalkingSound = true;
+				}
 			}
 		}
-	}
-	else {
-		if (m_bWalkingSound)
-		{
-			CSoundMgr::Get_Instance()->Stop("Walking1");
-			m_bWalkingSound = false;
+		else {
+			if (m_bWalkingSound)
+			{
+				CSoundMgr::Get_Instance()->Stop("Walking1");
+				m_bWalkingSound = false;
+			}
 		}
-	}
 
 	// ?òÏ§ë????†ú
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q)) {
@@ -524,10 +533,10 @@ void CMainPlayer::Update_State(const _float& fTimeDelta)
 	case PLAYER_STATE::PLAYER_FALL:
 		break;
 	case PLAYER_STATE::PLAYER_HIT:
-		Playr_Hiting();
+		Player_Hiting();
 		break;
 	case PLAYER_STATE::PLAYER_DEAD:
-		Playr_Dieing();
+		Player_Dieing();
 		break;
 	case PLAYER_STATE::PLAYER_RESPAWN:
 		break;
@@ -546,7 +555,7 @@ void CMainPlayer::Change_State(PLAYER_STATE eNewState)
 
 
 
-void  CMainPlayer::Playr_Hiting()
+void  CMainPlayer::Player_Hiting()
 {
 	if (m_bInvincible)
 		return;
@@ -565,7 +574,7 @@ void  CMainPlayer::Playr_Hiting()
 	}
 }
 
-void  CMainPlayer::Playr_Dieing()
+void  CMainPlayer::Player_Dieing()
 {
 	// Ï£ΩÏùå Ï≤òÎ¶¨
 }

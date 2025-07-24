@@ -15,7 +15,10 @@ public:
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject() {};
 
+public: 
+	void Set_ObjectInfo(_bool boolean) { m_bInfo = boolean; }
 private:
+	_bool m_bInfo = false;
 	unordered_map<wstring,CGameObject*> m_umUI;
 public:
 	virtual void Free();

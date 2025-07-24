@@ -8,6 +8,7 @@
 namespace Engine {
 	class CModel;
 	class CCollider;
+	class CSkyBox;
 }
 
 class CCube;
@@ -43,9 +44,9 @@ public:
 	CGameObject* Get_PickObj() { return m_pPickedObj; }
 	CGameObject* Get_PrevPickObj() { return m_pPickedObj; }
 	_int Get_Hp() { return m_iHP; }
+	_vec3 Get_PrevPos() { return m_vPrevPlayerPos; }
 
 	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; }
-	void Set_MirrorCube(CMirrorSlotCube* pmirrorcube) { m_pMirrorCube = pmirrorcube; }
 	void Set_Hp(_int iHp) { m_iHP = iHp; if (m_iHP > m_iMaxHp) { m_iHP = m_iMaxHp; } }
 	
 
@@ -63,8 +64,8 @@ private:
 	void Hold_Picking();
 	void Away_Picking();
 
-	void Playr_Hiting();
-	void Playr_Dieing();
+	void Player_Hiting();
+	void Player_Dieing();
 
 
 	CTransform* m_pTransform = nullptr;
@@ -75,6 +76,7 @@ private:
 	CGameObject* m_pPickedObj = nullptr;
 
 	CCrosshairUIObject* m_pCrosshair = nullptr;
+	CSkyBox* m_pSkyBox = nullptr;
 
 	float m_fMoveSpeed;
 	float m_fJumpPower = 20.f;
@@ -125,6 +127,5 @@ private:
 	_bool m_bWalkingSound = false; // �ȴ���
 	_bool m_bOnGroundFirst = false;
 
-
-	CMirrorSlotCube* m_pMirrorCube = nullptr;
+	_vec3 m_vPrevPlayerPos = {0.f,0.f,0.f};
 };

@@ -15,6 +15,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type1.PNG",
                             "matKey": "Cube_A.mtl",
                             "mesh": "Cube_A.obj",
                             "shader": "g_UVScale.fx",
@@ -99,6 +101,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_B.mtl",
                             "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
@@ -183,6 +187,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -267,6 +273,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_D.mtl",
                             "mesh": "Cube_D.obj",
                             "shader": "g_UVScale.fx",
@@ -351,6 +359,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type1.PNG",
                             "matKey": "Cube_F.mtl",
                             "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
@@ -424,6 +434,264 @@
                         }
                     },
                     "name": "CQuest_5"
+                },
+                {
+                    "Layer": "DEFAULT",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.4909999966621399,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_G.mtl",
+                            "mesh": "Cube_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -94.66000366210938,
+                                -7.976924896240234,
+                                -7.710000038146973
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_87"
+                },
+                {
+                    "Layer": "DEFAULT",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.3970000147819519,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_G.mtl",
+                            "mesh": "Cube_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -94.72000122070313,
+                                -8.067672729492188,
+                                6.210000038146973
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                2.0,
+                                2.0,
+                                2.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_88"
+                },
+                {
+                    "Layer": "DEFAULT",
+                    "class": "CDirectionalCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "Default_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": true
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.10000000149011612,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -94.72000122070313,
+                                -9.041584014892578,
+                                12.206645011901855
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                4.0,
+                                0.5,
+                                4.0
+                            ]
+                        }
+                    },
+                    "name": "CDirectionalCube_1"
                 }
             ]
         },
@@ -880,6 +1148,8 @@
                             "ColType": 1
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type1.PNG",
                             "matKey": "Cube_A.mtl",
                             "mesh": "Cube_A.obj",
                             "shader": "g_UVScale.fx",
@@ -964,6 +1234,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -1048,6 +1320,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -1132,6 +1406,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -1216,6 +1492,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -1300,6 +1578,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -1384,6 +1664,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -1468,6 +1750,8 @@
                             "ColType": 1
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_B.mtl",
                             "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
@@ -1552,6 +1836,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Block_d.mtl",
                             "mesh": "Block_d.obj",
                             "shader": "g_UVScale.fx",
@@ -1636,6 +1922,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -1720,6 +2008,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -1804,6 +2094,8 @@
                             "ColType": 1
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
@@ -1888,6 +2180,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Block_f.mtl",
                             "mesh": "Block_f.obj",
                             "shader": "g_UVScale.fx",
@@ -1972,6 +2266,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Block_f.mtl",
                             "mesh": "Block_f.obj",
                             "shader": "g_UVScale.fx",
@@ -2056,6 +2352,8 @@
                             "ColType": 1
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_D.mtl",
                             "mesh": "Cube_D.obj",
                             "shader": "g_UVScale.fx",
@@ -2140,6 +2438,8 @@
                             "ColType": 1
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type1.PNG",
                             "matKey": "Cube_F.mtl",
                             "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
@@ -2224,6 +2524,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -2308,6 +2610,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_B.mtl",
                             "mesh": "Tile_B.obj",
                             "shader": "g_UVScale.fx",
@@ -2392,6 +2696,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_B.mtl",
                             "mesh": "Tile_B.obj",
                             "shader": "g_UVScale.fx",
@@ -2476,8 +2782,10 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "Default_A.obj",
+                            "Alpha": 0.7120000123977661,
+                            "Normal": "Cube_Type1.PNG",
+                            "matKey": "Cube_A.mtl",
+                            "mesh": "Cube_A.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -2560,8 +2868,10 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "Default_A.obj",
+                            "Alpha": 0.7400000095367432,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_B.mtl",
+                            "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -2644,8 +2954,10 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "Default_A.obj",
+                            "Alpha": 0.7229999899864197,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_C.mtl",
+                            "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -2728,8 +3040,10 @@
                             "ColType": 0
                         },
                         "CModel": {
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "Default_A.obj",
+                            "Alpha": 0.7559999823570251,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_D.mtl",
+                            "mesh": "Cube_D.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -2812,6 +3126,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -2896,6 +3212,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
@@ -2980,6 +3298,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -3137,6 +3457,8 @@
                             "ColType": 1
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Block_A.mtl",
                             "mesh": "Block_A.obj",
                             "shader": "g_UVScale.fx",
@@ -3221,6 +3543,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -3305,6 +3629,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -3389,6 +3715,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
@@ -3473,6 +3801,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_B.mtl",
                             "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
@@ -3557,6 +3887,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type1.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -3641,6 +3973,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
@@ -3725,6 +4059,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
@@ -3882,6 +4218,8 @@
                             "ColType": 1
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_H.mtl",
                             "mesh": "Cube_H.obj",
                             "shader": "g_UVScale.fx",
@@ -3966,6 +4304,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -4050,6 +4390,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -4134,6 +4476,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -4218,6 +4562,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -4302,6 +4648,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -4386,8 +4734,10 @@
                             "ColType": 1
                         },
                         "CModel": {
-                            "matKey": "Cube_H.mtl",
-                            "mesh": "Default_A.obj",
+                            "Alpha": 0.5519999861717224,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_G.mtl",
+                            "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -4516,7 +4866,7 @@
                         "CTransform": {
                             "position": [
                                 -94.71863555908203,
-                                -6.532428741455078,
+                                -4.015012741088867,
                                 6.211893081665039
                             ],
                             "rotation": [
@@ -4525,9 +4875,9 @@
                                 0.0
                             ],
                             "scale": [
-                                1.9999219179153442,
+                                1.9998316764831543,
                                 2.0,
-                                1.9999219179153442
+                                1.9998316764831543
                             ]
                         }
                     },
@@ -4543,8 +4893,10 @@
                             "ColType": 1
                         },
                         "CModel": {
-                            "matKey": "Cube_H.mtl",
-                            "mesh": "Cube_H.obj",
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
+                            "matKey": "Cube_G.mtl",
+                            "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
                             "uvScale": [
                                 1.0,
@@ -4672,9 +5024,9 @@
                         },
                         "CTransform": {
                             "position": [
-                                -97.17564392089844,
-                                -3.5587971210479736,
-                                -7.698410511016846
+                                -94.66429901123047,
+                                -5.419561386108398,
+                                -7.7093682289123535
                             ],
                             "rotation": [
                                 0.0,
@@ -4682,9 +5034,9 @@
                                 0.0
                             ],
                             "scale": [
-                                0.9999633431434631,
+                                0.9999426603317261,
                                 1.0,
-                                0.9999633431434631
+                                0.9999426603317261
                             ]
                         }
                     },
@@ -4700,6 +5052,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Block_c.mtl",
                             "mesh": "Block_c.obj",
                             "shader": "g_UVScale.fx",
@@ -4788,6 +5142,8 @@
                             "ColType": 1
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -4876,6 +5232,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -4964,16 +5322,16 @@
                             "fov": 45.0,
                             "look": [
                                 0.0,
-                                4.719505159300752e-05,
-                                -25.932403564453125
+                                1.8199257283413317e-06,
+                                -0.9999999403953552
                             ],
                             "near": 0.10000000149011612,
                             "pitch": 0.0,
                             "roll": 0.0,
                             "up": [
                                 0.0,
-                                0.9999999403953552,
-                                1.8199257283413317e-06
+                                -1.0,
+                                -1.8199258420281694e-06
                             ],
                             "yaw": 0.0
                         },
@@ -4983,6 +5341,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -5067,6 +5427,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -5151,6 +5513,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -5235,6 +5599,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -5319,6 +5685,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -5403,6 +5771,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -5487,6 +5857,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -5571,6 +5943,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -5655,6 +6029,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -5739,6 +6115,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -5823,6 +6201,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -5907,6 +6287,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -5991,6 +6373,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -6075,6 +6459,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -6159,6 +6545,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -6243,6 +6631,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -6327,6 +6717,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -6411,6 +6803,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -6495,6 +6889,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -6579,6 +6975,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -6663,6 +7061,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -6747,6 +7147,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -6831,6 +7233,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -6915,6 +7319,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -6999,6 +7405,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -7083,6 +7491,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -7167,6 +7577,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -7251,6 +7663,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Cat.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -7335,6 +7749,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Cat.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -7419,6 +7835,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Cat.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -7503,6 +7921,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Cat.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -7587,6 +8007,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Cat.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -7671,6 +8093,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Cat.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -7755,6 +8179,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Cat.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -7839,6 +8265,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Cat.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -7923,6 +8351,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -8007,6 +8437,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -8091,6 +8523,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -8175,6 +8609,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Block.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -8259,6 +8695,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Block.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -8343,6 +8781,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -8427,6 +8867,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -8511,6 +8953,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -8595,6 +9039,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -8679,6 +9125,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Concrete_Block.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -8763,6 +9211,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -8847,6 +9297,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -8931,6 +9383,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_E.obj",
                             "shader": "g_UVScale.fx",
@@ -9015,6 +9469,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Default_A.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -9099,6 +9555,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -9183,6 +9641,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -9267,6 +9727,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -9351,6 +9813,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_F.PNG",
                             "matKey": "Tile_F.mtl",
                             "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
@@ -9435,6 +9899,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_H.PNG",
                             "matKey": "Tile_H.mtl",
                             "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
@@ -9519,6 +9985,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -9603,6 +10071,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -9687,6 +10157,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_H.PNG",
                             "matKey": "Tile_H.mtl",
                             "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
@@ -9771,6 +10243,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_H.PNG",
                             "matKey": "Tile_H.mtl",
                             "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
@@ -9855,6 +10329,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -9939,6 +10415,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -10023,6 +10501,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -10107,6 +10587,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_H.PNG",
                             "matKey": "Tile_H.mtl",
                             "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
@@ -10191,6 +10673,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -10275,6 +10759,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_H.PNG",
                             "matKey": "Tile_H.mtl",
                             "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
@@ -10359,6 +10845,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_H.PNG",
                             "matKey": "Tile_H.mtl",
                             "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
@@ -10443,6 +10931,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_H.PNG",
                             "matKey": "Tile_H.mtl",
                             "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
@@ -10527,6 +11017,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_H.PNG",
                             "matKey": "Tile_H.mtl",
                             "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
@@ -10611,6 +11103,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -10695,6 +11189,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_005.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -10779,6 +11275,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Rock_Cliff.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -10863,6 +11361,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_005.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -10947,6 +11447,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_007.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -11031,6 +11533,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Sand_005.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -11115,6 +11619,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_H.PNG",
                             "matKey": "Tile_H.mtl",
                             "mesh": "Tile_H.obj",
                             "shader": "g_UVScale.fx",
@@ -11199,6 +11705,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -11283,6 +11791,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -11367,6 +11877,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -11451,6 +11963,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_B.mtl",
                             "mesh": "Tile_B.obj",
                             "shader": "g_UVScale.fx",
@@ -11535,6 +12049,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_F.PNG",
                             "matKey": "Tile_F.mtl",
                             "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
@@ -11619,6 +12135,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_E.PNG",
                             "matKey": "Tile_E.mtl",
                             "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
@@ -11703,6 +12221,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_F.PNG",
                             "matKey": "Tile_F.mtl",
                             "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
@@ -11787,6 +12307,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_D.PNG",
                             "matKey": "Tile_D.mtl",
                             "mesh": "Tile_D.obj",
                             "shader": "g_UVScale.fx",
@@ -11871,6 +12393,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_F.PNG",
                             "matKey": "Tile_F.mtl",
                             "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
@@ -11955,6 +12479,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -12039,6 +12565,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -12123,6 +12651,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Block_f.mtl",
                             "mesh": "Block_f.obj",
                             "shader": "g_UVScale.fx",
@@ -12207,6 +12737,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Block_f.mtl",
                             "mesh": "Block_f.obj",
                             "shader": "g_UVScale.fx",
@@ -12291,6 +12823,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Block_f.mtl",
                             "mesh": "Block_f.obj",
                             "shader": "g_UVScale.fx",
@@ -12375,6 +12909,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_F.PNG",
                             "matKey": "Tile_F.mtl",
                             "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
@@ -12459,6 +12995,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_F.PNG",
                             "matKey": "Tile_F.mtl",
                             "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
@@ -12543,6 +13081,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_F.PNG",
                             "matKey": "Tile_F.mtl",
                             "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
@@ -12627,6 +13167,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -12711,6 +13253,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -12795,6 +13339,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -12879,6 +13425,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -12963,6 +13511,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -13047,6 +13597,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_F.PNG",
                             "matKey": "Tile_F.mtl",
                             "mesh": "Tile_F.obj",
                             "shader": "g_UVScale.fx",
@@ -13131,6 +13683,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_F.PNG",
                             "matKey": "Tile_F.mtl",
                             "mesh": "Cube_F.obj",
                             "shader": "g_UVScale.fx",
@@ -13215,6 +13769,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
@@ -13299,6 +13855,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_B.mtl",
                             "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
@@ -13383,6 +13941,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type1.PNG",
                             "matKey": "Cube_E.mtl",
                             "mesh": "Cube_E.obj",
                             "shader": "g_UVScale.fx",
@@ -13467,6 +14027,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type3.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
@@ -13551,6 +14113,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -13635,6 +14199,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -13719,6 +14285,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -13803,6 +14371,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -13887,6 +14457,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_G.PNG",
                             "matKey": "Tile_G.mtl",
                             "mesh": "Tile_G.obj",
                             "shader": "g_UVScale.fx",
@@ -13971,6 +14543,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Tile_C.PNG",
                             "matKey": "Tile_C.mtl",
                             "mesh": "Tile_C.obj",
                             "shader": "g_UVScale.fx",
@@ -14055,6 +14629,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -14139,6 +14715,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14223,6 +14801,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14307,6 +14887,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14391,6 +14973,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14475,6 +15059,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 0.6520000100135803,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14559,6 +15145,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14643,6 +15231,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14727,6 +15317,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14811,6 +15403,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14895,6 +15489,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",
@@ -14979,6 +15575,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "DirtObj.mtl",
                             "mesh": "Default_A.obj",
                             "shader": "g_UVScale.fx",
@@ -15063,6 +15661,8 @@
                             "ColType": 0
                         },
                         "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
                             "matKey": "Tile_J.mtl",
                             "mesh": "Tile_J.obj",
                             "shader": "g_UVScale.fx",

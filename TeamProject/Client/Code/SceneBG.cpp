@@ -16,9 +16,11 @@
 #include "CSlotCube.h"
 #include "CSceneMgr.h"
 #include "CParticle.h"
-#include "CParticle.h"
+#include "CInputMgr.h"
 #include "CScenePanel.h"
 #include "CSkyBox.h"
+#include "CRenderMgr.h"
+#include "CPostProcess.h"
 
 SceneBG::SceneBG(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev), m_pPlayer(nullptr)
@@ -41,6 +43,7 @@ HRESULT SceneBG::Ready_Scene()
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 	
 	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
+	uiPanel->Set_ObjectInfo(true);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
 
 	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
@@ -63,6 +66,13 @@ HRESULT SceneBG::Ready_Scene()
 _int SceneBG::Update_Scene(const _float& fTimeDelta)
 {
 	CScene::Update_Scene(fTimeDelta);
+
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_O)) {
+		CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Glitch(1.f);
+	}
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_P)) {
+		CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Dead(5.f);
+	}
 	return 0;
 }
 

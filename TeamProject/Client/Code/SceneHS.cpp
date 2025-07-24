@@ -60,8 +60,8 @@ HRESULT SceneHS::Ready_Scene()
 	pTile->Get_Component<CRigidBody>()->Set_UseGravity(false);
 
 	CTestTile* pWall = CTestTile::Create(m_pGraphicDev);
-	pWall->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 10.f });
-	pWall->Get_Component<CTransform>()->Set_Pos({ -10.f, 0.f, 100.f });
+	pWall->Get_Component<CTransform>()->Set_Scale({ 50.f, 7.f, 10.f });
+	pWall->Get_Component<CTransform>()->Set_Pos({ 0.f, 6.f, 5.f });
 	pWall->Get_Component<CRigidBody>()->Set_OnGround(true);
 	pWall->Get_Component<CRigidBody>()->Set_UseGravity(false);
 
@@ -149,8 +149,8 @@ HRESULT SceneHS::Ready_Scene()
 	cMirrorSlotCube->Get_Component<CTransform>()->Set_Pos({ -14.f, 20.f, -10.f });
 	cMirrorSlotCube->Set_Info(2, 2);
 	cMirrorSlotCube->Set_Player(pPlayer);
+	cMirrorSlotCube->Set_MirrorPlane(_vec3(0.f, 5.f, 0.f), _vec3(0.f, 1.f, 0.f));
 	cMirrorSlotCube->Set_Follow(true);
-	cMirrorSlotCube->Set_MirrorPlane(_vec3(-15.f, 0.f, 0.f), _vec3(1.f, 0.f, 0.f));
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"MirrorSlotCube", cMirrorSlotCube);
 
 	CSlotSensor* m_pSlotSensor3 = CSlotSensor::Create(m_pGraphicDev);
@@ -193,10 +193,13 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 
 	// m_pLightObject->Update_GameObject(fTimeDelta);
 	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
-	// _vec3 playerpos = Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam")->Get_Component<CTransform>()->Get_Pos();
-	// wchar_t buf1[128];
-	// swprintf_s(buf1, 128, L"Player Pos : %.3f, %.3f, %.3f\n", playerpos.x, playerpos.y, playerpos.z);
-	// OutputDebugStringW(buf1);
+	_vec3 playerpos = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Component<CTransform>()->Get_Pos();
+	_vec3 mirrorpos = Get_Layer(LAYER_OBJECT)->Get_GameObject<CMirrorSlotCube>(L"MirrorSlotCube")->Get_Component<CTransform>()->Get_Pos();
+	wchar_t buf1[128];
+	swprintf_s(buf1, 128, L"Player Pos : %.3f, %.3f, %.3f  Mirror Pos : %.3f, %.3f, %.3f\n"
+		, playerpos.x, playerpos.y, playerpos.z
+		, mirrorpos.x, mirrorpos.y, mirrorpos.z);
+	OutputDebugStringW(buf1);
 
 	return 0;
 }

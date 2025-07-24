@@ -196,6 +196,11 @@ void SceneStage2::DirectionSet()
 
 		cube->Set_Info(cube->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 0.f, 4.3f);
 	}
+
+	CDirectionalCube* CDirectionalCube_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CDirectionalCube>(L"CDirectionalCube_1");
+
+	CDirectionalCube_1->Set_Info(CDirectionalCube_1->Get_Component<CTransform>()->Get_Pos(), { 0.f, 1.f, 0.f }, 0.f, 4.f);
+	
 }
 
 void SceneStage2::SlotSet()
