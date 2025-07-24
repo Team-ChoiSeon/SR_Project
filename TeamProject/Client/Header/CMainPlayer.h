@@ -44,9 +44,9 @@ public:
 	CGameObject* Get_PickObj() { return m_pPickedObj; }
 	CGameObject* Get_PrevPickObj() { return m_pPickedObj; }
 	_int Get_Hp() { return m_iHP; }
+	_vec3 Get_PrevPos() { return m_vPrevPlayerPos; }
 
 	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; }
-	void Set_MirrorCube(CMirrorSlotCube* pmirrorcube) { m_pMirrorCube = pmirrorcube; }
 	void Set_Hp(_int iHp) { m_iHP = iHp; if (m_iHP > m_iMaxHp) { m_iHP = m_iMaxHp; } }
 	
 
@@ -127,6 +127,5 @@ private:
 	_bool m_bWalkingSound = false; // �ȴ���
 	_bool m_bOnGroundFirst = false;
 
-
-	CMirrorSlotCube* m_pMirrorCube = nullptr;
+	_vec3 m_vPrevPlayerPos = {0.f,0.f,0.f};
 };

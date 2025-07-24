@@ -27,8 +27,9 @@ private:
 	void DirectionSet();
 	void SlotSet();
 	void StairSet();
+	void MagnetSet();
 
-	void Set_Triggers();
+	void Set_Triggers(const _float& fTimeDelta);
 
 };
 

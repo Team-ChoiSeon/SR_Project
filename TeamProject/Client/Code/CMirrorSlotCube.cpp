@@ -31,9 +31,7 @@ HRESULT CMirrorSlotCube::Ready_GameObject()
 	m_pTransform->Set_Up({ 0.f, 1.f, 0.f });
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 
-	m_pRigid->Set_Mass(6.f);
-	m_pRigid->Set_Friction(10.f);
-	m_pRigid->Set_Gravity(5.f);
+	m_pCollider->Set_ColType(ColliderType::ACTIVE);
 
 	CFactory::Save_Prefab(this, "CMirrorSlotCube");
 	return S_OK;
@@ -57,16 +55,12 @@ void CMirrorSlotCube::LateUpdate_GameObject(const _float& fTimeDelta)
 void CMirrorSlotCube::Set_Follow(_bool bFollow) 
 { 
 	m_bFollow = bFollow; 
-	if (m_vPlaneNorm == _vec3(0.f, 1.f, 0.f)) 
-	{ 
-		if (bFollow) {
-			m_pPlayer->Set_MirrorCube(this); 
-		}
-		else {
 
-			m_pPlayer->Set_MirrorCube(nullptr);
-		}
-	} 
+	if (m_vPlaneNorm.y > 0.f)
+	{
+		_vec3 targetPos = m_pPlayer->Get_Component<CTransform>()->Get_Pos() + _vec3(0.f, -9.f, 0.f);
+		m_pTransform->Set_Pos(targetPos);
+	}
 }
 
 void CMirrorSlotCube::Set_MirrorPlane(const _vec3& vPlanePos, const _vec3& vPlaneNormal)
@@ -82,71 +76,61 @@ void CMirrorSlotCube::MirrorFollow(const _float& fTimeDelta)
 		return;
 
 	CTransform* pPlayerTrans = m_pPlayer->Get_Component<CTransform>();
+	CRigidBody* pPlayerRigid = m_pPlayer->Get_Component<CRigidBody>();
 	_vec3 playerPos = pPlayerTrans->Get_Pos();
-
-	if (m_vPlaneNorm == _vec3(0.f, 1.f, 0.f))
+	_vec3 curPos = m_pTransform->Get_Pos();
+	
+	if (m_vPlaneNorm.y > 0.f) // y축 미러만 따라감
 	{
-		_vec3 vTargetPos = playerPos + _vec3(0.f, 10.f, 0.f);  // 플레이어보다 위
-		m_pTransform->Set_Pos(vTargetPos);
-
-		if (CInputMgr::Get_Instance()->Key_Hold(DIK_LSHIFT)) {
-			m_fMoveSpeed = 30.f;
-		}
-
-		if (CInputMgr::Get_Instance()->Key_Away(DIK_LSHIFT))
-		{
-			m_fMoveSpeed = 10.f;
-		}
-
-		CTransform* pCamTransform = CCameraMgr::Get_Instance()->Get_MainCamera()->Get_Component<CTransform>();
-		if (!pCamTransform)
+		m_pRigid->Set_UseGravity(false);
+	
+		_vec3 targetPos = playerPos + _vec3(0.f, -9.f, 0.f);
+		_vec3 diff = targetPos - curPos;
+		float dist = D3DXVec3Length(&diff);
+	
+		if (dist < 0.01f) {
+			m_pRigid->Set_Velocity(_vec3(0.f, 0.f, 0.f));
 			return;
-
-		_vec3 camLook = pCamTransform->Get_Info(INFO_LOOK);
-		_vec3 camRight = pCamTransform->Get_Info(INFO_RIGHT);
-
-		camLook.y = 0.f;
-		camRight.y = 0.f;
-		D3DXVec3Normalize(&camLook, &camLook);
-		D3DXVec3Normalize(&camRight, &camRight);
-
-		_vec3 moveDir = { 0.f, 0.f, 0.f };
-
-		if (CInputMgr::Get_Instance()->Key_Down(DIK_W)) {
-			moveDir += camLook;
 		}
-		if (CInputMgr::Get_Instance()->Key_Down(DIK_S)) {
-			moveDir -= camLook;
+	
+		D3DXVec3Normalize(&diff, &diff);
+		_vec3 velocity = diff * 5.f;
+		_vec3 nextPos = curPos + velocity * fTimeDelta;
+	
+		// 충돌되었으면 아예 이동 안함
+		if (m_pCollider->Get_Other()) {
+			m_pRigid->Set_Velocity(_vec3(0.f, 0.f, 0.f));
+			if (pPlayerRigid)
+				pPlayerRigid->Set_Velocity(_vec3(0.f, pPlayerRigid->Get_Velocity().y, 0.f));
+			return;
 		}
-		if (CInputMgr::Get_Instance()->Key_Down(DIK_D)) {
-			moveDir += camRight;
-		}
-		if (CInputMgr::Get_Instance()->Key_Down(DIK_A)) {
-			moveDir -= camRight;
-		}
-
-		if (D3DXVec3Length(&moveDir) > 0.f) {
-			D3DXVec3Normalize(&moveDir, &moveDir);
-			m_pTransform->Set_Pos(m_pTransform->Get_Pos() + moveDir * m_fMoveSpeed * fTimeDelta);
-		}
-
+	
+		// 충돌 없으면 이동
+		m_pTransform->Set_Pos(nextPos);
+		m_pRigid->Set_Velocity(velocity);
+	
+		// 플레이어 위치 조정 (y 유지)
+		_vec3 newPlayerPos = nextPos;
+		newPlayerPos.y = playerPos.y;
+		pPlayerTrans->Set_Pos(newPlayerPos);
+	
+		if (pPlayerRigid)
+			pPlayerRigid->Set_Velocity(_vec3(velocity.x, pPlayerRigid->Get_Velocity().y, velocity.z));
+	
 		return;
 	}
 
 
 	_vec3 toPlane = playerPos - m_vPlanePos;
-	
+
 	float projLen = D3DXVec3Dot(&toPlane, &m_vPlaneNorm);
 	_vec3 projVec = m_vPlaneNorm * projLen;
 	_vec3 mirrorPos = playerPos - projVec * 2.f;
-	
+
 	m_pTransform->Set_Pos(mirrorPos);
 	m_pTransform->Set_PosY(playerPos.y);
 
 }
-
-
-
 
 CMirrorSlotCube* CMirrorSlotCube::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
