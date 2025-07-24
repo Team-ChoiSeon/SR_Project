@@ -15,7 +15,9 @@ public:
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject() {};
 
+	
 public: 
+	void Set_StageHint(const wstring& Hint) {};
 	void Set_ObjectInfo(_bool boolean) { m_bInfo = boolean; }
 private:
 	_bool m_bInfo = false;
