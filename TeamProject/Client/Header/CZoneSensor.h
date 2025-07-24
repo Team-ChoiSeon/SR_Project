@@ -27,6 +27,7 @@ public:
 private:
 	CGameObject* m_pDetectTarget;
 	_bool m_bNewCol = false;
+	_bool m_bFirstFrame = true;
 
 };
 

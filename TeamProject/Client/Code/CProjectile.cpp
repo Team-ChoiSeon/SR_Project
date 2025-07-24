@@ -190,12 +190,6 @@ CProjectile* CProjectile::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CProjectile::Free()
 {
-	Safe_Release(m_pModel);
-	Safe_Release(m_pTransform);
-	Safe_Release(m_pRigid);
-	Safe_Release(m_pCol);
-	Safe_Release(m_pParticle);
-	Safe_Release(m_pPickTarget);
 	CGameObject::Free();
 }
 
