@@ -31,7 +31,7 @@ HRESULT CHints::Ready_GameObject()
 
 	m_pQuad = Add_Component<CUiQuad>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-	m_tPanel.Set_Size({ WINCX,50 });
+	m_tPanel.Set_Size({ WINCX - 100,50 });
 	m_tPanel.Set_Pos({ WINCX * 0.5f,WINCY * 0.5f });
 
 	m_pQuad->Set_Texture(L"UI/square_gradient.png");
@@ -48,8 +48,8 @@ HRESULT CHints::Ready_GameObject()
 	);
 
 	m_sHint = L"여기에 힌트가 들어가게 됩니다.";
-	m_fLifeTime = 3.5f;
-	 m_fSpeed = 50.5f;
+	m_fLifeTime = 4.5f;
+	 m_fSpeed = 40.5f;
 	return S_OK;
 }
 
@@ -79,13 +79,25 @@ _int CHints::Update_GameObject(const _float& fTimeDelta)
 
 	// 텍스트 렌더링 준비
 	m_pGraphicDev->SetRenderTarget(0, m_pNewSurf);
-	m_pGraphicDev->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0);
+	//m_pGraphicDev->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0);
+	m_pGraphicDev->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(180, 0, 0, 0), 1.0f, 0);
 
 	// 텍스트 출력
-	RECT rc = { 0, 0, (LONG)m_tPanel.Get_Size().x, (LONG)m_tPanel.Get_Size().y };
+	RECT rcText = { 0, 0, (LONG)m_tPanel.Get_Size().x, (LONG)m_tPanel.Get_Size().y };
 
-	m_pFont->DrawTextW(nullptr, m_sHint.c_str(), -1, &rc,
-		DT_CENTER|DT_WORDBREAK,
+	// 1. 실제 텍스트 높이 측정 (DT_CALCRECT)
+	RECT rcCalc = rcText;
+	m_pFont->DrawTextW(nullptr, m_sHint.c_str(), -1, &rcCalc,
+		DT_WORDBREAK | DT_CENTER | DT_CALCRECT,
+		D3DCOLOR_ARGB(0, 0, 0, 0)); // 이건 그리지 않음
+
+	// 2. 세로 가운데 정렬을 위해 수직 offset 계산
+	LONG offsetY = (rcText.bottom - rcText.top - (rcCalc.bottom - rcCalc.top)) / 2;
+	OffsetRect(&rcText, 0, offsetY);
+
+	// 3. 실제 텍스트 그리기
+	m_pFont->DrawTextW(nullptr, m_sHint.c_str(), -1, &rcText,
+		DT_WORDBREAK | DT_CENTER,
 		D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	// 원래대로 복원

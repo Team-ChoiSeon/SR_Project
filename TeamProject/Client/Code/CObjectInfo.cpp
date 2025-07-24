@@ -40,7 +40,7 @@ HRESULT CObjectInfo::Ready_GameObject()
 
 	m_pQuad->Set_Texture(L"UI/CinematicBar.png");
 	m_pQuad->Set_Shader(L"g_UIShader.fx");
-	m_pQuad->Set_Alpha(0.8);
+	m_pQuad->Set_Alpha(0.6);
 
 	m_pSlot = CInfoSlot::Create(m_pGraphicDev);
 	m_pCapture = CObjCapture::Create(m_pGraphicDev);
@@ -93,10 +93,10 @@ void CObjectInfo::OpenPanel(const _float& fTimeDelta)
 	UIPanel& slotPanel = m_pSlot->Get_Panel();
 	UIPanel& capturePanel = m_pCapture->Get_Panel();
 	_vec2 iconPos = { m_tPanel.LT() + slotPanel.Get_hSize() + offset };
-	_vec2 SlotPos = { m_tPanel.LT() + slotPanel.Get_Size() + offset };
+	_vec2 SlotPos = { m_tPanel.LT() + slotPanel.Get_Size() + offset};
 
 	if (m_bOpen) {
-		if (m_tPanel.Open_While({ 250,200 }, fTimeDelta * 550)) {
+		if (m_tPanel.Open_While({ 150,200 }, fTimeDelta * 750)) {
 			m_pCapture->Set_Open(true);
 			m_pCapture->Set_Pos(SlotPos);
 			m_pCapture->Set_Object(m_pPicked);

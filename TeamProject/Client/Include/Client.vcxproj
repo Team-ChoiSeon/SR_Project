@@ -144,6 +144,7 @@
       <AdditionalIncludeDirectories>./;../Header;../../Base;../../Reference/Header;../../ThirdParty;../../ThirdParty/Imgui;../../ThirdParty/Imgui/backends;../../ThirdParty/Imgui/;../../ThirdParty/FMOD;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -170,8 +171,10 @@
     <ClInclude Include="..\Header\CHints.h" />
     <ClInclude Include="..\Header\CIdleState.h" />
     <ClInclude Include="..\Header\CInfoSlot.h" />
+    <ClInclude Include="..\Header\CLogoBack.h" />
     <ClInclude Include="..\Header\CLogoDirector.h" />
     <ClInclude Include="..\Header\CLogoPanel.h" />
+    <ClInclude Include="..\Header\CLogoTitle.h" />
     <ClInclude Include="..\Header\CLowGravityCube.h" />
     <ClInclude Include="..\Header\CIntroState.h" />
     <ClInclude Include="..\Header\CMetalCube.h" />
@@ -249,8 +252,10 @@
     <ClCompile Include="..\Code\CHints.cpp" />
     <ClCompile Include="..\Code\CIdleState.cpp" />
     <ClCompile Include="..\Code\CInfoSlot.cpp" />
+    <ClCompile Include="..\Code\CLogoBack.cpp" />
     <ClCompile Include="..\Code\CLogoDirector.cpp" />
     <ClCompile Include="..\Code\CLogoPanel.cpp" />
+    <ClCompile Include="..\Code\CLogoTitle.cpp" />
     <ClCompile Include="..\Code\CLowGravityCube.cpp" />
     <ClCompile Include="..\Code\CIntroState.cpp" />
     <ClCompile Include="..\Code\CMetalCube.cpp" />

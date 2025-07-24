@@ -34,6 +34,7 @@ private:
 	UIPanel m_tPanel;
 	CGameObject* m_pRenderTarget = nullptr;
 	LPDIRECT3DTEXTURE9 m_pTargetTex = nullptr;
+	_vec2 vRatio;
 private:
 	void Free();
 };

@@ -69,6 +69,7 @@ HRESULT CMainApp::Ready_MainApp()
 	//Loading Scene Setting
 	CSceneMgr::Get_Instance()->Set_LoadingScene(loadingScene);
 	CGuiSystem::Get_Instance()->Ready_GUI(g_hWnd);
+
 	return S_OK;
 }
 

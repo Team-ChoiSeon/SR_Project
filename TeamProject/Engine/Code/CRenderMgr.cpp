@@ -84,10 +84,18 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_UI)])
 		renderer->Render(pDevice);
 
+
+	for (auto& renderer : m_vUI) {
+		if(renderer->Get_Post())
+		renderer->Render(pDevice);
+	}
+
 	m_pPostProcess->EndScene();
 
-	for (auto& renderer : m_vUI)
+	for (auto& renderer : m_vUI) {
+		if (!renderer->Get_Post())
 		renderer->Render(pDevice);
+	}
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_POSTPROCESS)])
 		renderer->Render(pDevice);

@@ -1,5 +1,7 @@
 #pragma once
 #include "CSceneMgr.h"
+#include "CRenderMgr.h"
+#include "CPostProcess.h"
 
 IMPLEMENT_SINGLETON(CSceneMgr)
 
@@ -15,6 +17,7 @@ CSceneMgr::~CSceneMgr()
 HRESULT CSceneMgr::Ready_SceneManager(CScene* pScene)
 {
     m_pCurScene = pScene;
+
     return S_OK;
 }
 
@@ -61,6 +64,8 @@ void CSceneMgr::Set_CurrentScene(CScene* pScene)
 {
     m_pCurScene = pScene;
     m_pCurScene->Ready_Scene();
+    CRenderMgr::Get_Instance()->Get_PostProcessing()->Do_Assemble(false);
+
 }
 
 _int CSceneMgr::Update_Scene(const _float& fTimeDelta)

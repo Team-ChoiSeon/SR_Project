@@ -7,7 +7,7 @@
 #include "CCameraMgr.h"
 #include "CLightMgr.h"
 #include "CCamera.h"
-
+#include "CShaderMgr.h"
 
 CObjCapture::CObjCapture(LPDIRECT3DDEVICE9 pGraphicDev)
 :  CGameObject(pGraphicDev)
@@ -34,16 +34,16 @@ HRESULT CObjCapture::Ready_GameObject()
 {
 	m_pQuad = Add_Component<CUiQuad>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-	_vec2 Ratio = { WINCX,WINCY };
-	Ratio /= 8.f;
-	m_tPanel.Set_Size(Ratio);
+	vRatio = { WINCX,WINCY };
+	vRatio /= 8.f;
+	m_tPanel.Set_Size(vRatio);
 
 	m_pQuad->Set_Texture(L"UI/TXUI_Storage.png");
 	m_pQuad->Set_Shader(L"g_UIShader.fx");
 	//m_pQuad->Set_Alpha(0.4f);
 
 	m_pGraphicDev->CreateTexture(
-		Ratio.x, Ratio.y+30,
+		vRatio.x, vRatio.y+30,
 		1, D3DUSAGE_RENDERTARGET,
 		D3DFMT_A8R8G8B8,
 		D3DPOOL_DEFAULT,
@@ -56,8 +56,7 @@ HRESULT CObjCapture::Ready_GameObject()
 _int CObjCapture::Update_GameObject(const _float& fTimeDelta)
 {
 	if (!m_bOpen) return 0;
-	m_tPanel.Open_While({ 150,150 }, fTimeDelta * 150);
-
+	m_tPanel.Set_Size(vRatio);
 	RenderTarget();
 	CGameObject::Update_GameObject(fTimeDelta);
 	m_pTransform->Set_Scale(m_tPanel.Get_WorldScale());
@@ -83,7 +82,7 @@ void CObjCapture::RenderTarget()
 	m_pTargetTex->GetSurfaceLevel(0, &pDestSurface);
 
 	m_pGraphicDev->SetRenderTarget(0, pDestSurface);
-	m_pGraphicDev->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0);
+	m_pGraphicDev->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(55, 255, 255, 255), 1.0f, 0);
 
 	if (targetModel)
 		RenderModel(targetModel);
@@ -106,7 +105,6 @@ void CObjCapture::Free()
 }
 
 
-
 void CObjCapture::RenderModel(CModel* model)
 {
 	if (!model->Get_Mesh() || !model->Get_Material())
@@ -121,10 +119,14 @@ void CObjCapture::RenderModel(CModel* model)
 	}
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, pTransform->Get_WorldMatrix());
+	//LPD3DXEFFECT shader = CShaderMgr::Get_Instance()->GetShader(L"g_Target.fx");
 	LPD3DXEFFECT shader = model->Get_Material()->Get_Effect();
 
 	UINT passCount = 0;
 	model->Get_Material()->Apply(m_pGraphicDev); // 내부에서 텍스처를 Bind
+	//m_pGraphicDev->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT);
+	//m_pGraphicDev->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
+	//m_pGraphicDev->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_POINT);
 
 	if (shader)
 	{
@@ -155,6 +157,7 @@ void CObjCapture::RenderModel(CModel* model)
 		shader->SetMatrix("g_matWorld", &TargetWorld);
 		shader->SetMatrix("g_matView", &view);
 		shader->SetMatrix("g_matProj", &proj);
+		//shader->SetBool("g_usingLight", true);
 
 		D3DLIGHT9 pLight = CLightMgr::Get_Instance()->Get_MainLight();
 		_vec3 vLightDir = pLight.Direction;

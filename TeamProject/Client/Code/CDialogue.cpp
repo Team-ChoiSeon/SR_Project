@@ -10,8 +10,8 @@
 #include "CPickSwitch.h"
 #include "CProjectile.h"
 
-constexpr int width = 220;
-constexpr int height = 50;
+constexpr int width = 130;
+constexpr int height = 80;
 
 CDialogue::CDialogue(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev)
@@ -79,7 +79,7 @@ _int CDialogue::Update_GameObject(const _float& fTimeDelta)
 
 	// 텍스트 렌더링 준비
 	m_pGraphicDev->SetRenderTarget(0, newSurf);
-	m_pGraphicDev->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0);
+	m_pGraphicDev->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 255, 255, 255), 1.0f, 0);
 
 	// 텍스트 출력
 	RECT rc = { 0, 0, width,height };  // 텍스처 내 영역
