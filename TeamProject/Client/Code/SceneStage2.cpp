@@ -50,7 +50,7 @@ HRESULT SceneStage2::Ready_Scene()
 
 	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
 	CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
-	CSoundMgr::Get_Instance()->Play("BGM1", "SFX", true);
+	CSoundMgr::Get_Instance()->Play("BGM1", "BGM", true);
 	
 	Init_Layers();
 	for (auto& tile : Get_Layer(LAYER_TILE)->Get_ObjVec()) {
@@ -79,12 +79,23 @@ HRESULT SceneStage2::Ready_Scene()
 	DirectionSet();
 	SlotSet();
 	StairSet();
+
+	CSoundMgr::Get_Instance()->Mute_Group("SFX", true);
+	m_bSfxMuted = true;
+	m_fMuteTimer = 3.f;
 	
 	return S_OK;
 }
 
 _int SceneStage2::Update_Scene(const _float& fTimeDelta)
 {
+	if (m_bSfxMuted) {
+		m_fMuteTimer -= fTimeDelta;
+		if (m_fMuteTimer <= 0.0f) {
+			CSoundMgr::Get_Instance()->Mute_Group("SFX", false);
+			m_bSfxMuted = false;
+		}
+	}
 
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate_1")->Get_InGate()) {
 		CScene* pScene = SceneStage3::Create(m_pGraphicDev);
