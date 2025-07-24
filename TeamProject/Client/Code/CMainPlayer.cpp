@@ -73,7 +73,9 @@ HRESULT CMainPlayer::Ready_GameObject()
 	CSoundMgr::Get_Instance()->Load_Sound("jump", "../Bin/Resource/Sound/Jump1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Walking1", "../Bin/Resource/Sound/Walking_Wood1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Landing1", "../Bin/Resource/Sound/Landing_Wood1.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("hit", "../Bin/Resource/Sound/PlayerHit.mp3");
 
+	
 	CFactory::Save_Prefab(this, "CMainPlayer");
 	return S_OK;
 }
@@ -568,6 +570,7 @@ void  CMainPlayer::Player_Hiting()
 	}
 	else
 	{
+		CSoundMgr::Get_Instance()->Play("hit", "SFX", false);
 		Change_State(PLAYER_STATE::PLAYER_HIT);
 		m_bInvincible = true;
 		m_fInvincibleTime = 0.f;
