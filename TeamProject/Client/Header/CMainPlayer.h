@@ -85,7 +85,7 @@ private:
 	float m_fWidth;
 	float m_fDepth;
 
-	bool m_bCursorMove;
+	bool m_bCursorMove = true;
 	bool m_bObjHold = false;
 	bool m_bMouseTap = false;
 	bool m_bMouseAway = false;

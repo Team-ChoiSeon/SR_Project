@@ -49,7 +49,7 @@ HRESULT CHints::Ready_GameObject()
 
 	m_sHint = L"여기에 힌트가 들어가게 됩니다.";
 	m_fLifeTime = 3.5f;
-	 m_fSpeed = 80.5f;
+	 m_fSpeed = 50.5f;
 	return S_OK;
 }
 

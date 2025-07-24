@@ -38,8 +38,8 @@ protected:
 	// Variables
 	_bool			m_bSensorOn;
 	_bool			m_bPreSensorOn;
-	_bool			m_bOnEdge;
-	_bool			m_bOffEdge;
+	_bool			m_bOnEdge = false;
+	_bool			m_bOffEdge = false;
 	CGameObject*	m_pDetectedGameObject;
 
 	CTransform*		m_pTransform;

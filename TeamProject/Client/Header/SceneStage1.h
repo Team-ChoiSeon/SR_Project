@@ -48,6 +48,7 @@ private:
 	bool  m_bSfxMuted = false;
 
 	_bool m_bSceneFirst = true;
+	_bool m_bDrag = true;
 
 };
 

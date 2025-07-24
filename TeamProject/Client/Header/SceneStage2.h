@@ -35,5 +35,7 @@ private:
 
 	float m_fMuteTimer = 0.f;
 	bool  m_bSfxMuted = false;
+
+	_bool m_bSceneFirst = true;
 };
 
