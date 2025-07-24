@@ -19,6 +19,8 @@
 
 #include "CGuiSystem.h"
 #include "CFactory.h"
+#include "CRenderMgr.h"
+#include "CPostProcess.h"
 CMainPlayer::CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
@@ -572,6 +574,7 @@ void  CMainPlayer::Player_Hiting()
 	{
 		CSoundMgr::Get_Instance()->Play("hit", "SFX", false);
 		Change_State(PLAYER_STATE::PLAYER_HIT);
+		CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Glitch(1.f);
 		m_bInvincible = true;
 		m_fInvincibleTime = 0.f;
 	}
@@ -580,6 +583,7 @@ void  CMainPlayer::Player_Hiting()
 void  CMainPlayer::Player_Dieing()
 {
 	// 죽음 처리
+	CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Dead(5.f);
 }
 
 

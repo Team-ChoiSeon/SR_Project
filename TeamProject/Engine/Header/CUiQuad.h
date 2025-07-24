@@ -27,6 +27,7 @@ public:
     void Set_RatioY(float _ratio) { m_fRatio.y = _ratio; };
     void Set_Ratio(_vec2 _ratio) { m_fRatio= _ratio; };
     void Set_Alpha(float alpha) { m_fAlpha = alpha; };
+
     void Set_TextureHandle(LPDIRECT3DBASETEXTURE9 tex);
 public:
     _float Get_Alpha() { return m_fAlpha; }

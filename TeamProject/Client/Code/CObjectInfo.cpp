@@ -8,6 +8,7 @@
 #include "CInfoSlot.h"
 #include "CObjCapture.h"
 #include "CDialogue.h"
+#include "CPickingMgr.h"
 
 CObjectInfo::CObjectInfo(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev)
@@ -60,8 +61,11 @@ _int CObjectInfo::Update_GameObject(const _float& fTimeDelta)
 		}
 	}
 	m_bOpen = m_pPlayer->Get_PickObj();
-	m_pPicked = m_pPlayer->Get_PickObj();
 
+	m_pPicked = m_pPlayer->Get_PickObj();
+	if (!m_pPicked) {
+		m_pPicked = CPickingMgr::Get_Instance()->Get_HitNearObject(40.f);
+	}
 
 	OpenPanel(fTimeDelta);
 	CGameObject::Update_GameObject(fTimeDelta);

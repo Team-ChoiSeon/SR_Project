@@ -38,6 +38,7 @@
 
 #include "SceneStage2.h"
 #include "CRenderMgr.h"
+#include "CScenePanel.h"
 
 SceneStage1::SceneStage1(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CScene(pGraphicDev)
@@ -67,6 +68,9 @@ HRESULT SceneStage1::Ready_Scene()
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
 	m_pPlayer->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
+	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
+	uiPanel->Set_ObjectInfo(true);
+	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
 
 	//Object Setting
 	FloatingSet();
