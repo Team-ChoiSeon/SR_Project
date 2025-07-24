@@ -6,6 +6,7 @@
 #include "CGuiSystem.h"
 #include "Engine_GUI.h"
 #include "CTransform.h"
+#include "CMetalCube.h"
 
 CCube::CCube(LPDIRECT3DDEVICE9 pGraphicDev)
     : CGameObject(pGraphicDev), m_pModel(nullptr), m_pTransform(nullptr)
@@ -80,29 +81,48 @@ void CCube::Set_Away(bool Trigger)
 
 void CCube::PlayColSound(int i)
 {
+	_float fVelClamp = 0.f;
+	if (Get_Component<CRigidBody>()->Get_Velocity().y > 0)
+		fVelClamp = Get_Component<CRigidBody>()->Get_Velocity().y / 50.f;
+	if (fVelClamp < 0.2f)
+		fVelClamp = 0.2f;
+
+	
 	string ColSound = "Collision" + to_string(i);
+	CSoundMgr::Get_Instance()->Set_Volume(ColSound, fVelClamp);
+
+
 	CSoundMgr::Get_Instance()->Play(ColSound, "SFX", false);
+
 }
 
-void CCube::PlayDragSound()
+void CCube::PlayPullSound()
 {
-	const float EPSILON = 0.001f;
-	_vec3 pos = Get_Component<CTransform>()->Get_Pos();
-	_vec3 Gap = (pos - m_vPrePos);
-	float dist = D3DXVec3Length(&Gap);
-	_bool onground = Get_Component<CRigidBody>()->Get_OnGround();
-	if (!m_bCurGrab && dist>EPSILON && onground && m_bMoveEdge)
+
+	if (!m_bCurGrab)
 	{
-		CSoundMgr::Get_Instance()->Set_Volume("CubeDrag", 0.3f);
-		CSoundMgr::Get_Instance()->Play("CubeDrag", "SFX", false);
-		m_bMoveEdge = false;
+
+		_vec3 pos = Get_Component<CTransform>()->Get_Pos();
+		if (pos.x != m_vPrePos.x || pos.z != m_vPrePos.z)
+		{
+			if (Get_Component<CRigidBody>()->Get_OnGround() && !m_bMoveEdge)
+			{
+				CSoundMgr::Get_Instance()->Play("CubeDrag", "ENV", true);
+				m_bMoveEdge = true;
+			}
+		}
+		else
+		{
+			if (m_bMoveEdge)
+			{
+				CSoundMgr::Get_Instance()->Stop("CubeDrag");
+				CSoundMgr::Get_Instance()->Stop_Group("ENV");
+				m_bMoveEdge = false;
+			}
+		}
+
+		m_vPrePos = pos;
+
 	}
-	else
-	{
-		CSoundMgr::Get_Instance()->Stop("CubeDrag");
-		m_bMoveEdge = true;
-	}
-	m_vPrePos = pos;
-	m_bPreGround = onground;
 
 }

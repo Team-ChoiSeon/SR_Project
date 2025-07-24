@@ -122,7 +122,7 @@ void CMagneticCube::Free()
 void CMagneticCube::PickMove()
 {
     if (m_bCurGrab && !m_bPreGrab) {
-        CSoundMgr::Get_Instance()->Set_Volume("MagnetField", 0.5f);
+        CSoundMgr::Get_Instance()->Set_Volume("MagnetField", 0.6f);
         CSoundMgr::Get_Instance()->Play("MagnetField", "SFX", true);
     }
     else if (!m_bCurGrab && m_bPreGrab) {

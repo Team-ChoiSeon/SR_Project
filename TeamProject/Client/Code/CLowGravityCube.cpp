@@ -120,7 +120,7 @@ void CLowGravityCube::Push()
 				m_bSoundPlay = true;
 			}
 
-			m_pColTarget->Get_Component<CRigidBody>()->Set_Velocity({ 0.f, 25.f, 0.f });
+			m_pColTarget->Get_Component<CRigidBody>()->Set_Velocity({ 0.f, 33.f, 0.f });
 			m_pPreColTarget = m_pColTarget;
 			m_pColTarget = nullptr;
 			m_bFirstCol = false;

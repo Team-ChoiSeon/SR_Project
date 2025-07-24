@@ -32,7 +32,7 @@ void CChaseState::Update(const _float fTimeDelta, CVellum* pVellum)
 	pVellum->Get_HRigid()->Add_Force(dir * 5.f * sqrtf(1.f + m_fPartRatio));
 
 	m_fPatternTime += fTimeDelta;
-	if (m_fPatternTime >= m_fSwitchTime / 2.f)
+	if (m_fPatternTime >= m_fSwitchTime / 6.f)
 	{
 		pVellum->Get_HCol()->Set_ColType(ColliderType::ACTIVE);
 	}

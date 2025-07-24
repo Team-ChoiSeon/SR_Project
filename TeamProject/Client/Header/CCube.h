@@ -36,7 +36,7 @@ public:
 protected:
 	//Compute Function
 	void PlayColSound(int i);
-	void PlayDragSound();
+	void PlayPullSound();
 	//Variables
 	CModel* m_pModel;
 	CTransform* m_pTransform;
@@ -52,5 +52,6 @@ protected:
 	_vec3			m_vPrePos = { 0, 0, 0 };
 	_bool			m_bPreGround = false;
 	_bool			m_bMoveEdge = false;
+	
 };
 

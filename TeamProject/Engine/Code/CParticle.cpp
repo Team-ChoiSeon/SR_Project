@@ -118,7 +118,8 @@ void CParticle::LateUpdate_Component(const _float& dt)
 	if (m_eNowState == PARTICLE_STATE::STOPPING && Particle_Count() == 0)
 		m_eNowState = PARTICLE_STATE::NONEACTIVE;
 
-	CRenderMgr::Get_Instance()->Add_ParticleRenderer(this);
+	if(m_bActive)
+		CRenderMgr::Get_Instance()->Add_ParticleRenderer(this);
 }
 
 void CParticle::Render_Particle()

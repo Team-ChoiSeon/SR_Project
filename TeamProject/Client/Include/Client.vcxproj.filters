@@ -229,6 +229,12 @@
     <Filter Include="04. GameObjects\TestUI\StageHint\Hints">
       <UniqueIdentifier>{6edbd6e7-5631-4225-90ad-46c2f09fb0e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vellum\State\DEAD">
+      <UniqueIdentifier>{71cf4fcc-ea08-442f-bb0e-495c030958a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\LogoDirector">
+      <UniqueIdentifier>{58954849-2775-477f-ba3e-bd772729a51f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -447,7 +453,6 @@
     <ClInclude Include="..\Header\CDialogue.h">
       <Filter>04. GameObjects\TestUI\ObjectInfo\Dialogue</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CDeadState.h" />
     <ClInclude Include="..\Header\IVellumState.h" />
     <ClInclude Include="..\Header\CBloodEffect.h">
       <Filter>04. GameObjects\TestUI\Blood</Filter>
@@ -457,6 +462,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\CHints.h">
       <Filter>04. GameObjects\TestUI\StageHint\Hints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDeadState.h">
+      <Filter>Vellum\State\DEAD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLogoDirector.h">
+      <Filter>04. GameObjects\LogoDirector</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -667,7 +678,6 @@
     <ClCompile Include="..\Code\CDialogue.cpp">
       <Filter>04. GameObjects\TestUI\ObjectInfo\Dialogue</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CDeadState.cpp" />
     <ClCompile Include="..\Code\CBloodEffect.cpp">
       <Filter>04. GameObjects\TestUI\Blood</Filter>
     </ClCompile>
@@ -676,6 +686,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHints.cpp">
       <Filter>04. GameObjects\TestUI\StageHint\Hints</Filter>
+     </ClCompile>
+    <ClCompile Include="..\Code\CDeadState.cpp">
+      <Filter>Vellum\State\DEAD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLogoDirector.cpp">
+      <Filter>04. GameObjects\LogoDirector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

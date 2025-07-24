@@ -53,6 +53,7 @@ HRESULT CSlotCube_Auto::Ready_GameObject()
 
 _int CSlotCube_Auto::Update_GameObject(const _float& fTimeDelta)
 {
+	CCube::PlayPullSound();
 	if (Check_Overlap())
 	{
 		Fit(fTimeDelta);
