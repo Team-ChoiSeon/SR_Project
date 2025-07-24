@@ -36,7 +36,7 @@ public:
 protected:
 	//Compute Function
 	void PlayColSound(int i);
-	void PlayDragSound();
+	void PlayPullSound();
 	//Variables
 	CModel* m_pModel;
 	CTransform* m_pTransform;

@@ -68,6 +68,7 @@ HRESULT CSlotCube::Ready_GameObject()
 
 _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 {
+	CCube::PlayPullSound();
 	if (m_bCurGrab)
 	{
 		PickMove();
