@@ -128,11 +128,11 @@ void CLogoDirector::Spawn_Projectile(const _vec3& vTargetPos)
 
     // 불필요한 컴포넌트 비활성화
     pProjectile->Get_Component<CParticle>()->Set_Active(false);
-    pProjectile->Get_Component<CCollider>()->Set_ColType(ColliderType::PASSIVE);
+    pProjectile->Get_Component<CCollider>()->Set_Active(false);
 
     // 시작 위치 설정
     float fAngle = (rand() % 360) * D3DX_PI / 180.f;
-    _vec3 vStartPos = { cosf(fAngle) * m_fSpawnRadius, vTargetPos.y, sinf(fAngle) * m_fSpawnRadius };
+    _vec3 vStartPos = vTargetPos + _vec3(0.f, 0.f, +10.f);
     CTransform* pTransform = pProjectile->Get_Component<CTransform>();
     pTransform->Set_Pos(vStartPos);
     pProjectile->Set_LifeTime(999.f);
@@ -143,14 +143,22 @@ void CLogoDirector::Spawn_Projectile(const _vec3& vTargetPos)
     info.pRigidBody = pProjectile->Get_Component<CRigidBody>();
     info.vTargetPos = vTargetPos;
     info.bArrived = false;
+
+    info.pRigidBody->Set_Velocity({ 0.f, 0.f, 0.f });
+    info.pTransform->Set_Pos(vTargetPos);
+
     m_vecManagedProjectiles.push_back(info);
+
+    //char buf[128];
+    //sprintf_s(buf, "Target Count: %d\n", m_vecAllTargetPoints.size());
+    //OutputDebugStringA(buf);
 }
 
 void CLogoDirector::Generate_LogoPoints()
 {
     m_vecAllTargetPoints.clear();
-    const _vec3 TOP_LINE_START_POS = { 0.f, LINE_SPACING / 2.f, 0.f };
-    const _vec3 BOTTOM_LINE_START_POS = { 0.f, -LINE_SPACING / 2.f, 0.f };
+    const _vec3 TOP_LINE_START_POS = { 0.f, LINE_SPACING / 2.f, -60.f };
+    const _vec3 BOTTOM_LINE_START_POS = { 0.f, -LINE_SPACING / 2.f, -60.f };
 
     auto calculate_raw_width = [&](const std::string& text) -> float {
         float totalWidth = 0.f;

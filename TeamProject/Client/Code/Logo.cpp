@@ -46,27 +46,18 @@ HRESULT Logo::Ready_Scene()
 	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 5.f, -50.f });
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
 
-	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
-	pTile->Get_Component<CTransform>()->Set_Pos({ 0.f,0.f,50.f });
-
-	
-	
-	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
-	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);
-	CUiMgr::Get_Instance()->AddUI(cross);
-	pPlayer->Set_Crosshair(cross);
-
 	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
 	pCam->Set_Target(pPlayer);
-	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
-	// 4. 마지막으로 로고 연출을 담당할 디렉터를 생성합니다.
-	CGameObject* pDirector = CLogoDirector::Create(m_pGraphicDev);
 
+
+	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
+
+	// 4. 마지막으로 로고 연출을 담당할 디렉터를 생성합니다.
+	CLogoDirector* pDirector = CLogoDirector::Create(m_pGraphicDev);
 
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"DummyPlayer", pPlayer);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MainCamera", pCam);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"LogoDirector", pDirector);
-	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Tile1", pTile);
 	return S_OK;
 }
 
