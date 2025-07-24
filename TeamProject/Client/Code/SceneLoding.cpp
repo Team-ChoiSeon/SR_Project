@@ -54,7 +54,7 @@ HRESULT SceneLoding::Ready_Scene()
 	CLodingCube* m_pRotateCube = CLodingCube::Create(m_pGraphicDev);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"RotateCube", m_pRotateCube);
 
-	//Ä«¸Ş¶ó Å¸°Ù
+	//ì¹´ë©”ë¼ íƒ€ê²Ÿ
 	m_pTarget = CTestTile::Create(m_pGraphicDev);
 	_vec3 vCubePos = m_pRotateCube->Get_Component<CTransform>()->Get_Pos();
 	DummyPos = vCubePos + _vec3(-1.38f, -0.12f, -3.3f);
@@ -140,7 +140,7 @@ SceneLoding* SceneLoding::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pScene;
 }
 
-//¿ì¼± ¾ÀÀÇ ÆÄÀÏÀ» ÀĞ°í
+//ìš°ì„  ì”¬ì˜ íŒŒì¼ì„ ì½ê³ 
 HRESULT SceneLoding::LoadScene(CScene* from, CScene* to)
 {
 	m_eNowStep = LOADING_STEP::READ_SCENE;
@@ -152,7 +152,7 @@ HRESULT SceneLoding::LoadScene(CScene* from, CScene* to)
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	if (hFile == INVALID_HANDLE_VALUE) {
-		MessageBoxW(nullptr, L" ¾À ÆÄÀÏ ¿­±â ½ÇÆĞ", L"Error", MB_OK);
+		MessageBoxW(nullptr, L" ì”¬ íŒŒì¼ ì—´ê¸° ì‹¤íŒ¨", L"Error", MB_OK);
 		m_eNowStep = LOADING_STEP::NONE;
 		return E_FAIL;
 	}
@@ -172,7 +172,7 @@ HRESULT SceneLoding::LoadScene(CScene* from, CScene* to)
 		m_fMaxProgress += static_cast<float>(jObjects.size());
 	}
 
-	currentLayerIter = jLayers.begin(); // Ã³À½ºÎÅÍ
+	currentLayerIter = jLayers.begin(); // ì²˜ìŒë¶€í„°
 	layerCount = jLayers.size();
 
 	m_pFrom = from;
@@ -184,13 +184,13 @@ HRESULT SceneLoding::LoadScene(CScene* from, CScene* to)
 }
 
 
-//¿ì¼± ¾ÀÀÇ °¢ ·¹ÀÌ¾î¿¡ ³Ö¾îÁÜ
+//ìš°ì„  ì”¬ì˜ ê° ë ˆì´ì–´ì— ë„£ì–´ì¤Œ
 void SceneLoding::Load_Layer()
 {
 	if (currentLayerIter == jLayers.end())
 		return; 
 
-	// ´ë»ó ¾À¿¡ ·¹ÀÌ¾î ¾ò±â
+	// ëŒ€ìƒ ì”¬ì— ë ˆì´ì–´ ì–»ê¸°
 	string layerName = currentLayerIter.key();
 	LAYERID eID = CFactory::stringToLayer(layerName);
 	m_ReadingLayer = m_pTo->Get_Layer(eID);
@@ -217,7 +217,7 @@ void SceneLoding::LoadObject()
 		return;
 	}
 
-	// ÇÏ³ªÀÇ ¿ÀºêÁ§Æ®¸¸ Ã³¸®
+	// í•˜ë‚˜ì˜ ì˜¤ë¸Œì íŠ¸ë§Œ ì²˜ë¦¬
 	CGameObject* obj = CFactory::DeSerializeObject(*currentObjectIter);
 	if (obj)
 	{

@@ -99,7 +99,7 @@ void CCube::PlayColSound(int i)
 void CCube::PlayPullSound()
 {
 
-	if (!m_bCurGrab)
+	if (m_bPull && !m_bCurGrab)
 	{
 
 		_vec3 pos = Get_Component<CTransform>()->Get_Pos();

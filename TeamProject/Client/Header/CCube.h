@@ -37,6 +37,7 @@ protected:
 	//Compute Function
 	void PlayColSound(int i);
 	void PlayPullSound();
+
 	//Variables
 	CModel* m_pModel;
 	CTransform* m_pTransform;
@@ -53,5 +54,6 @@ protected:
 	_bool			m_bPreGround = false;
 	_bool			m_bMoveEdge = false;
 	
+	_bool			m_bPull = true;
 };
 

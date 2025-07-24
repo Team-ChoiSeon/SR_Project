@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "pch.h"
 #include "SceneStage2.h"
 #include "CFactory.h"
@@ -28,6 +28,7 @@
 #include "CSceneGate.h"
 #include "CPickSwitch.h"
 #include "CSlotCube_Auto.h"
+#include "CZoneSensor.h"
 
 #include "SceneStage3.h"
 
@@ -48,7 +49,14 @@ SceneStage2::~SceneStage2()
 HRESULT SceneStage2::Ready_Scene()
 {
 
+	for (int i = 0; i < 15; i++)
+	{
+		m_vbPanels.push_back(false);
+	}
+
+
 	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/background.wav");
+
 	CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
 	CSoundMgr::Get_Instance()->Play("BGM1", "BGM", true);
 	
@@ -273,7 +281,6 @@ void SceneStage2::StairSet()
 
 void SceneStage2::Set_Triggers()
 {
-	/// ���� ���� (���� 5�� ������) - �� ���ڸ��� �������� ��� ����
 	_int iMainQuest = 0;
 	for (int i = 1; i < 6; i++) {
 		wstring name = L"CSlotQuest_" + to_wstring(i);
@@ -315,18 +322,17 @@ void SceneStage2::Set_Triggers()
 		pMainQuestMove_2->SetTrigger(false);
 	}
 	///
-	/// 3��°�� Ʈ�� ����
-	// 1�ܰ� ����ġ
+
 	_bool bPickSwitch3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch_3_1")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_1")->SetTrigger(bPickSwitch3_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_1")->PlayElevatorSound();
-	// 2�ܰ� ���� �б�
+
 	CSlotSensor* CSlotSensor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_1");
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_2")->SetTrigger(CSlotSensor3_1->Get_SensorState());
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_1")->SetTrigger(CSlotSensor3_1->Get_SensorState());
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_2")->PlayElevatorSound();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_1")->PlayElevatorSound();
-	// 3�ܰ� ���� ����ġ ���� ���߱�
+
 	for (int i = 1; i < 5; ++i)
 	{
 		wstring name = L"CPickSwitch3_2_" + to_wstring(i);
@@ -359,7 +365,7 @@ void SceneStage2::Set_Triggers()
 		InputSwitch3_1.clear();
 	}
 
-	// 4�ܰ� ���� ť�� ������ ��ư
+	// 
 	_bool bPickSwitch3_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch3_3")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_2")->SetTrigger(bPickSwitch3_3);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_2")->PlayElevatorSound();
@@ -367,7 +373,7 @@ void SceneStage2::Set_Triggers()
 	CSlotSensor* CSlotSensor3_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_2");
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_4")->SetTrigger(CSlotSensor3_2->Get_SensorState());
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_4")->PlayElevatorSound();
-	// 4��° �� �̷�
+	// 
 
 	_bool bSlotSensor4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor4_1")->Get_SensorState();
 	_bool bSlotSensor4_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor4_2")->Get_SensorState();
@@ -378,6 +384,80 @@ void SceneStage2::Set_Triggers()
 	}
 
 	/// 
+
+	auto puiPanel = Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel");
+	if (!m_vbPanels[0]&& Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_1")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"문을 끌어당겨 올려보세요");
+		m_vbPanels[0] = true;
+	}
+
+	if (!m_vbPanels[1] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_2")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"큐브를 들어 올바른 색의 위치에 배치해보세요");
+		m_vbPanels[1] = true;
+	}
+
+	CSlotSensor* CSlotQuest_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotQuest_1");
+	if (!m_vbPanels[2] && CSlotQuest_1->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"이제 남은 색깔 큐브를 찾아오세요");
+		m_vbPanels[2] = true;
+	}
+
+	if (!m_vbPanels[3] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_4")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"녹슨 발판을 밟아 노란색 색깔 큐브를 찾으세요");
+		m_vbPanels[3] = true;
+	}
+
+	if (!m_vbPanels[4] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_5")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"검은 발판을 끌어서 길을 만들어 초록색 색깔 큐브를 찾으세요");
+		m_vbPanels[4] = true;
+	}
+
+	if (!m_vbPanels[5] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_6")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"미로에서 큐브 방의 문을 열수 있는 장치를 찾으세요");
+		m_vbPanels[5] = true;
+	}
+
+	if (!m_vbPanels[6] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_7")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"큐브를 밀어 올바른 위치에 배치하세요");
+		m_vbPanels[6] = true;
+	}
+
+	if (!m_vbPanels[7] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_8")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"큐브를 잡아 올바른 위치에 배치하세요");
+		m_vbPanels[7] = true;
+	}
+
+	if (!m_vbPanels[8] && bSlotSensor4_1 && bSlotSensor4_2) {
+		puiPanel->Set_StageHint(L"이제 하늘색 색깔 큐브를 찾으세요");
+		m_vbPanels[8] = true;
+	}
+
+	if (!m_vbPanels[9] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_10")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"퍼즐을 풀어 핑크색 색깔 큐브를 찾으세요 \n문을 열수 있는 버튼 누르기");
+		m_vbPanels[9] = true;
+	}
+
+	if (!m_vbPanels[10] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_11")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"눈앞의 거대한 녹슨 큐브를 밀어보세요");
+		m_vbPanels[10] = true;
+	}
+	if (!m_vbPanels[11] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_12")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"힌트를 찾아 버튼을 순서에 맞게 누르세요");
+		m_vbPanels[11] = true;
+	}
+	if (!m_vbPanels[12] && Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneP_13")->Get_SensorState()) {
+		puiPanel->Set_StageHint(L"검은 큐브를 막고있는 장치를 풀 버튼을 찾아 누르세요");
+		m_vbPanels[12] = true;
+	}
+	if (!m_vbPanels[13] && bPickSwitch3_3) {
+		puiPanel->Set_StageHint(L"검은 큐브를 밀고 바닥을 끌어 올려 길을 만들어 검은 큐브를 가장위에 배치하세요");
+		m_vbPanels[13] = true;
+	}
+	if (!m_vbPanels[14] && iMainQuest == 5) {
+		puiPanel->Set_StageHint(L"다음 장소로 갈 수 있는 문을 통해 이동하세요.");
+		m_vbPanels[14] = true;
+	}
+	
 }
 
 SceneStage2* SceneStage2::Create(LPDIRECT3DDEVICE9 pGraphicDev)

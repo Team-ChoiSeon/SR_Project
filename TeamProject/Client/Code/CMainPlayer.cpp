@@ -55,7 +55,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_pTransform->Set_Right({ 1.f, 0.f, 0.f });
 	m_fMoveSpeed = 10.f;
 
-	// �ӽ��߰� 
+	// ï¿½Ó½ï¿½ï¿½ß°ï¿½ 
 	m_pRigid->Set_Mass(6.f);
 	m_pRigid->Set_Friction(10.f);
 	m_pRigid->Set_Gravity(5.f);
@@ -246,7 +246,7 @@ void CMainPlayer::KeyInput(const _float& fTimeDelta)
 			}
 		}
 
-	// ?�중????��
+	// ?˜ì¤‘???? œ
 	if (CInputMgr::Get_Instance()->Key_Down(DIK_Q)) {
 		m_pTransform->Move(DIR_UP, m_fMoveSpeed, fTimeDelta);
 	}
@@ -325,7 +325,7 @@ void CMainPlayer::Check_Picking()
 			_vec3 nowPt = CPickingMgr::Get_Instance()->CalcRayPlaneIntersection(*pRay, m_vPlanePt, m_vPlaneNorm);
 			_vec3 myPos = pCamTransform->Get_Pos();
 
-			distancePos = myPos - m_vLastPos;  // ?�전 ?�치?�??거리 차이
+			distancePos = myPos - m_vLastPos;  // ?´ì „ ?„ì¹˜?€??ê±°ë¦¬ ì°¨ì´
 			_vec3 vNewDir = nowPt - myPos;
 			D3DXVec3Normalize(&vNewDir, &vNewDir);
 
@@ -335,7 +335,7 @@ void CMainPlayer::Check_Picking()
 			m_vDragDistance = (vDest - m_vLastPt);
 
 			m_vLastPt = vDest;
-			m_vLastPos = myPos; // ??�??�레??갱신
+			m_vLastPos = myPos; // ??ë§??„ë ˆ??ê°±ì‹ 
 
 			if (pPickCubeObj) {
 				pPickCubeObj->Set_Grab(true);
@@ -393,14 +393,14 @@ void CMainPlayer::Check_Picking()
 
 void CMainPlayer::Picking_Init()
 {
-	m_bMouseTap = false;													//??초기??
-	m_bMouseAway = false;													//?�웨??초기??
-	m_bObjHold = false;														//?�??초기??		//문제????��
-	m_pRay = CPickingMgr::Get_Instance()->Get_Ray();						//ray 계산
-	m_pHitObject = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);		//Pickobj 계산
+	m_bMouseTap = false;													//??ì´ˆê¸°??
+	m_bMouseAway = false;													//?´ì›¨??ì´ˆê¸°??
+	m_bObjHold = false;														//?€??ì´ˆê¸°??		//ë¬¸ì œ???? œ
+	m_pRay = CPickingMgr::Get_Instance()->Get_Ray();						//ray ê³„ì‚°
+	m_pHitObject = CPickingMgr::Get_Instance()->Get_HitNearObject(100.f);		//Pickobj ê³„ì‚°
 
 
-	m_PickedCube = dynamic_cast<CCube*>(m_pHitObject);						//?�브?��? ?�인
+	m_PickedCube = dynamic_cast<CCube*>(m_pHitObject);						//?ë¸Œ?¸ì? ?•ì¸
 	if (m_PickedCube) {
 		m_PickedCube->Set_Grab(false);
 		m_PickedCube->Set_Tap(false);
@@ -408,7 +408,7 @@ void CMainPlayer::Picking_Init()
 
 	}
 
-	m_PickedSwitch = dynamic_cast<CSwitch*>(m_pHitObject);					//?�위치인지 ?�인
+	m_PickedSwitch = dynamic_cast<CSwitch*>(m_pHitObject);					//?¤ìœ„ì¹˜ì¸ì§€ ?•ì¸
 	if (m_PickedSwitch) {
 		m_PickedSwitch->Set_Grab(false);
 		m_PickedSwitch->Set_Tap(false);
@@ -421,7 +421,7 @@ void CMainPlayer::Tap_Picking()
 	CTransform* pPickTrans = m_pHitObject->Get_Component<CTransform>();
 	CGameObject* pMainCam = CCameraMgr::Get_Instance()->Get_MainCamera();
 
-	//카메???�치???�이 ?�렉??곱함
+	//ì¹´ë©”???„ì¹˜???ˆì´ ?”ë ‰??ê³±í•¨
 	m_vPickPoint = pMainCam->Get_Component<CTransform>()->Get_Pos() +
 		(m_pRay->_direction * CPickingMgr::Get_Instance()->Get_HitTargetList().front()._distance);
 
@@ -501,8 +501,8 @@ void CMainPlayer::Away_Picking()
 void CMainPlayer::CursorRotate()
 {
 
-	//dx dy �߰���
-	//Ŀ�� ����
+	//dx dy Áß°£°ª
+	//Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ShowCursor(false);
 	float cx = WINCX / 2.f;
 	float cy = WINCY / 2.f;
@@ -510,7 +510,7 @@ void CMainPlayer::CursorRotate()
 	ClientToScreen(g_hWnd, &cursor);
 	SetCursorPos(cursor.x, cursor.y);
 
-	//ȭ�� ȸ��
+	//È­ï¿½ï¿½ È¸ï¿½ï¿½
 	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X);
 	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y);
 
@@ -589,8 +589,8 @@ void  CMainPlayer::Player_Dieing(const _float& fTimeDelta)
 	CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Dead(4.f);
 	if (m_fDeadTime >= 5.f)
 	{
-		CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Alive(4.f);
 
+		CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Alive(4.f);
 		m_pTransform->Set_Pos(m_vResponPos);
 		Set_Hp(10);
 		m_fDeadTime = 0.f;
