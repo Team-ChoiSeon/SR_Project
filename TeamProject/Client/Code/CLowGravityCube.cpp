@@ -100,26 +100,57 @@ void CLowGravityCube::Detect()
 			m_pColTarget = colObj;
 		}
 	}
+	else
+		m_bSoundPlay = false;
 }
 
 void CLowGravityCube::Push()
 {
-	if (m_pColTarget) {
+	if (m_pColTarget)
+	{
+		if (typeid(*m_pColTarget) == typeid(CMainPlayer))
+		{
+			if (m_bFirstCol) {
+				m_pColTarget->Get_Component<CRigidBody>()->Set_Gravity(2.5f);
+			}
+
+			if (!m_bSoundPlay)
+			{
+				CSoundMgr::Get_Instance()->Play("LowGravity");
+				m_bSoundPlay = true;
+			}
+
+			m_pColTarget->Get_Component<CRigidBody>()->Set_Velocity({ 0.f, 25.f, 0.f });
+			m_pPreColTarget = m_pColTarget;
+			m_pColTarget = nullptr;
+			m_bFirstCol = false;
+			return;
+		}
 		if (m_bFirstCol) {
 			m_fColGravity = m_pColTarget->Get_Component<CRigidBody>()->Get_Gravity();
-			m_pColTarget->Get_Component<CRigidBody>()->Set_Gravity(m_pColTarget->Get_Component<CRigidBody>()->Get_Gravity() * 0.5f);
+			m_pColTarget->Get_Component<CRigidBody>()->Set_Gravity(m_fColGravity * 0.5f);
 		}
-		m_pColTarget->Get_Component<CRigidBody>()->Add_Velocity({ 0.f, 5.f, 0.f });
+		m_pColTarget->Get_Component<CRigidBody>()->Set_Velocity({ 0.f, 15.f, 0.f });
 		m_pPreColTarget = m_pColTarget;
 		m_pColTarget = nullptr;
 		m_bFirstCol = false;
 	}
+
 }
 
 void CLowGravityCube::Restoration()
 {
-	if (m_pPreColTarget)
-	{
+	if (m_pPreColTarget) {
+		
+		if (typeid(*m_pPreColTarget) == typeid(CMainPlayer))
+		{
+			if (m_pPreColTarget->Get_Component<CRigidBody>()->Get_OnGround()) {
+				m_pPreColTarget->Get_Component<CRigidBody>()->Set_Gravity(5.f);
+				m_pPreColTarget = nullptr;
+				m_bFirstCol = true;
+				return;
+			}
+		}
 		if (m_pPreColTarget->Get_Component<CRigidBody>()->Get_OnGround()) {
 			m_pPreColTarget->Get_Component<CRigidBody>()->Set_Gravity(m_pPreColTarget->Get_Component<CRigidBody>()->Get_Gravity() * 2);
 			m_pPreColTarget = nullptr;

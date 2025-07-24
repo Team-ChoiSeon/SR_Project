@@ -2,6 +2,7 @@
 #include "CPostProcess.h"
 #include "CShaderMgr.h"
 #include "CTimeMgr.h"
+#include "CSoundMgr.h"
 
 CPostProcess::CPostProcess(LPDIRECT3DDEVICE9 pDevice)
 	:m_pDevice(pDevice)
@@ -61,6 +62,9 @@ HRESULT CPostProcess::Ready_Process()
 	m_pVB->Unlock();
 
 	m_pEffect = CShaderMgr::Get_Instance()->GetShader(L"g_PostShader.fx");
+
+	CSoundMgr::Get_Instance()->Load_Sound("glitch", "../Bin/Resource/Sound/camera.wav");
+
 	return S_OK;
 }
 
@@ -130,6 +134,7 @@ void CPostProcess::Start_Glitch(_float duration)
 	m_fDuration = duration;
 	m_bEffect = true;
 	m_iEffectType = 0;
+	CSoundMgr::Get_Instance()->Play("glitch");
 }
 
 void CPostProcess::Start_Dead(_float duration)
