@@ -18,7 +18,16 @@
 #include "SceneStage2.h"
 #include "SceneStage3.h"
 #include "SceneLoding.h"
-#include "CLogoPanel.h"
+
+#include "CMainPlayer.h"
+#include "CTestTile.h"
+#include "CFirstviewFollowingCamera.h"
+#include "CLogoDirector.h"
+
+#include "CCameraMgr.h"
+#include "CUiMgr.h"
+#include "CTransform.h"
+
 Logo::Logo(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
 {
@@ -32,8 +41,23 @@ Logo::~Logo()
 HRESULT Logo::Ready_Scene()
 {
 	Init_Layers();
-	m_pBackground = CLogoPanel::Create(m_pGraphicDev);
-	Get_Layer(LAYER_UI)->Add_GameObject(L"Back", m_pBackground);
+
+	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
+	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 5.f, -50.f });
+	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+
+	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
+	pCam->Set_Target(pPlayer);
+
+
+	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
+
+	// 4. 마지막으로 로고 연출을 담당할 디렉터를 생성합니다.
+	CLogoDirector* pDirector = CLogoDirector::Create(m_pGraphicDev);
+
+	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"DummyPlayer", pPlayer);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MainCamera", pCam);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"LogoDirector", pDirector);
 	return S_OK;
 }
 

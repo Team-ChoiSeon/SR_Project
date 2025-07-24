@@ -169,6 +169,7 @@
     <ClInclude Include="..\Header\CHealthLine.h" />
     <ClInclude Include="..\Header\CIdleState.h" />
     <ClInclude Include="..\Header\CInfoSlot.h" />
+    <ClInclude Include="..\Header\CLogoDirector.h" />
     <ClInclude Include="..\Header\CLogoPanel.h" />
     <ClInclude Include="..\Header\CLowGravityCube.h" />
     <ClInclude Include="..\Header\CIntroState.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="..\Code\CHealthLine.cpp" />
     <ClCompile Include="..\Code\CIdleState.cpp" />
     <ClCompile Include="..\Code\CInfoSlot.cpp" />
+    <ClCompile Include="..\Code\CLogoDirector.cpp" />
     <ClCompile Include="..\Code\CLogoPanel.cpp" />
     <ClCompile Include="..\Code\CLowGravityCube.cpp" />
     <ClCompile Include="..\Code\CIntroState.cpp" />

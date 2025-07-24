@@ -92,7 +92,7 @@ void CIntroState::Update(const _float fTimeDelta, CVellum* pVellum)
             m_fAngle += m_fASpeed * fTimeDelta;
             fRadian = D3DXToRadian(m_fAngle);
             fX = 0.f + m_fRad * cosf(fRadian) * 1.7f;
-            fZ = 60.f + m_fRad * sinf(fRadian) * 1.2f;
+            fZ = 45.f + m_fRad * sinf(fRadian) * 1.2f;
             fY = 33.f + m_fAmp * sinf(fRadian * m_fFreq);
             m_vDir = { fX, fY, fZ };
             D3DXVec3Normalize(&m_vDir, &m_vDir);

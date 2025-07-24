@@ -69,6 +69,8 @@ public:
     void Set_LifeTime(float lifeTime) { m_fLifeTime = lifeTime; };
     void Request_Emit();
 
+    void Set_Active(bool bActive) { m_bActive = bActive; }
+
 public:
     // Pre-configurations for particle types
     void PreSet_Dust(int MaxCount, float Interval, float lifeTime);
@@ -116,6 +118,8 @@ private:
     PARTICLE_STATE m_eNowState = EMITTING;
 
     CTexture* m_pTexture = nullptr;
+
+    bool m_bActive = true;
 
 private:
     void Free() override;
