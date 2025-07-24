@@ -235,6 +235,12 @@
     <Filter Include="04. GameObjects\LogoDirector">
       <UniqueIdentifier>{58954849-2775-477f-ba3e-bd772729a51f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene\DebugScene\Logo\LogoBack">
+      <UniqueIdentifier>{15ed724a-08a0-4659-bd16-848e47577ee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\DebugScene\Logo\LogoTitle">
+      <UniqueIdentifier>{9e0c2eb1-87e7-4ea9-8ceb-6a37c9b48036}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -471,6 +477,12 @@
     <ClInclude Include="..\Header\IVellumState.h">
       <Filter>Vellum\State</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLogoBack.h">
+      <Filter>03. Scene\DebugScene\Logo\LogoBack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLogoTitle.h">
+      <Filter>03. Scene\DebugScene\Logo\LogoTitle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -694,6 +706,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CLogoDirector.cpp">
       <Filter>04. GameObjects\LogoDirector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLogoBack.cpp">
+      <Filter>03. Scene\DebugScene\Logo\LogoBack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLogoTitle.cpp">
+      <Filter>03. Scene\DebugScene\Logo\LogoTitle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

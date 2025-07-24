@@ -63,6 +63,7 @@ private:
 	_vec3 DummyPos;
 	CFirstviewFollowingCamera* m_pCam;
 	CTestTile* m_pTarget;
+	_bool m_bChange = false;
 public:
 	virtual void Free();
 };

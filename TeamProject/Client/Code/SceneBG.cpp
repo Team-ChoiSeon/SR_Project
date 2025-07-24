@@ -73,6 +73,12 @@ _int SceneBG::Update_Scene(const _float& fTimeDelta)
 	if (CInputMgr::Get_Instance()->Key_Tap(DIK_P)) {
 		CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Dead(5.f);
 	}
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_I)) {
+		CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Alive(5.f);
+	}
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_U)) {
+		CRenderMgr::Get_Instance()->Get_PostProcessing()->Do_Assemble(true);
+	}
 	if (CInputMgr::Get_Instance()->Key_Tap(DIK_H)) {
 		auto panel = Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel");
 		panel->Set_StageHint(L"힌트가 이렇게 나타날 예정입니다. \n 길이는 어느정도일지 생각 못했어요 꽤 크게 나올 듯");

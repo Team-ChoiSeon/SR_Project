@@ -16,8 +16,12 @@ public:
 public:
     void Start_Glitch(_float duration);
     void Start_Dead(_float duration);
+    void Start_Alive(_float duration);
+    void Do_Assemble(_bool Assemble);
+    void Set_Assemble();
 
 private:
+    _bool m_bLoop = false;
     _float m_fTotal = 2.f;
     _float m_fDuration = 2.f;
     _bool m_bEffect = false;

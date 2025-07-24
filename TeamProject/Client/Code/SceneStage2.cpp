@@ -48,7 +48,7 @@ SceneStage2::~SceneStage2()
 HRESULT SceneStage2::Ready_Scene()
 {
 
-	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/BGM1.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("BGM1", "../Bin/Resource/Sound/background.wav");
 	CSoundMgr::Get_Instance()->Set_Volume("BGM1", 0.5f);
 	CSoundMgr::Get_Instance()->Play("BGM1", "BGM", true);
 	
@@ -74,7 +74,7 @@ HRESULT SceneStage2::Ready_Scene()
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
 	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
-	uiPanel->Set_ObjectInfo(true);
+	uiPanel->Set_ObjectInfo(false);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
 
 	FloatingSet();

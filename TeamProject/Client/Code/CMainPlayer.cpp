@@ -43,8 +43,8 @@ HRESULT CMainPlayer::Ready_GameObject()
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
 
-	Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
-	m_pSkyBox = Get_Component<CSkyBox>();
+	//Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	//m_pSkyBox = Get_Component<CSkyBox>();
 
 	m_pTransform->Ready_Component();
 
@@ -70,7 +70,7 @@ HRESULT CMainPlayer::Ready_GameObject()
 	m_vPickObjDist = { 0.f, 0.f, 0.f };
 	m_vPickPointDist = { 0.f, 0.f, 0.f };
 
-	m_pSkyBox->Set_Texture(L"Sky_Test2.dds");
+	//m_pSkyBox->Set_Texture(L"Sky_Test2.dds");
 
 	CSoundMgr::Get_Instance()->Load_Sound("jump", "../Bin/Resource/Sound/Jump1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Walking1", "../Bin/Resource/Sound/Walking_Wood1.mp3");
@@ -176,8 +176,6 @@ void CMainPlayer::Free()
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pRigid);
-	Safe_Release(m_pSkyBox);
-
 }
 
 void CMainPlayer::KeyInput(const _float& fTimeDelta)
@@ -591,6 +589,8 @@ void  CMainPlayer::Player_Dieing(const _float& fTimeDelta)
 	CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Dead(4.f);
 	if (m_fDeadTime >= 5.f)
 	{
+		CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Alive(4.f);
+
 		m_pTransform->Set_Pos(m_vResponPos);
 		Set_Hp(10);
 		m_fDeadTime = 0.f;
