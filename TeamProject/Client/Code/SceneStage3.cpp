@@ -33,7 +33,7 @@
 #include "CZoneSensor.h"
 #include "CMetalCube.h"
 
-#include "SceneSB.h"
+#include "BossScene.h"
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
@@ -87,7 +87,7 @@ _int SceneStage3::Update_Scene(const _float& fTimeDelta)
 {
 
 	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSceneGate>(L"CSceneGate")->Get_InGate()) {
-		CScene* pScene = SceneSB::Create(m_pGraphicDev);
+		CScene* pScene = BossScene::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 		CSoundMgr::Get_Instance()->Stop_Group("BGM");
 		CSoundMgr::Get_Instance()->Stop_Group("SFX");
@@ -272,21 +272,27 @@ void SceneStage3::MagnetSet()
 void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 {
 	// 첫번째 문
-	_bool bDoorTrigger1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_1")->Get_SensorState();
+	auto* CDoorTrigger1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_1");
+	_bool bDoorTrigger1_1 = CDoorTrigger1_1->Get_SensorState();
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_1")->Set_GoBack(!bDoorTrigger1_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_2")->Set_GoBack(!bDoorTrigger1_1);
-
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_1")->PlayDoorSound(CDoorTrigger1_1->Get_OnEdge(), CDoorTrigger1_1->Get_OffEdge());
+	
 	//엘리베이터
 	_bool bZoneSensor0_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CZoneSensor0_1")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube0_1")->SetTrigger(bZoneSensor0_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube0_1")->PlayElevatorSound();
 
 	// 두번째 문 
-	_bool bDoorTrigger1_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_2")->Get_SensorState();
+	auto* CDoorTrigger1_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_2");
+
+	_bool bDoorTrigger1_2 = CDoorTrigger1_2->Get_SensorState();
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_3")->Set_GoBack(!bDoorTrigger1_2);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_4")->Set_GoBack(!bDoorTrigger1_2);
-
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_3")->PlayDoorSound(CDoorTrigger1_2->Get_OnEdge(), CDoorTrigger1_1->Get_OffEdge());
+	
 	///-----첫번째 방
 
 	// 블럭 슬롯 퍼즐
@@ -295,10 +301,13 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor1_3")->Get_SensorState())
 	{
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1")->SetTrigger(true);
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1")->PlayElevatorSound();
 	}
 	
 	// 파란 버튼
-	_bool CPickSwitch1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_1")->Get_SwitchState();
+	auto* PickSwitch1_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_1");
+	_bool CPickSwitch1_1 = PickSwitch1_1->Get_SwitchState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_1")->PlayDoorSound(PickSwitch1_1->Get_OnEdge(), PickSwitch1_1->Get_OffEdge());
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_1")->Set_GoBack(!CPickSwitch1_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_2")->Set_GoBack(!CPickSwitch1_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_3")->Set_GoBack(!CPickSwitch1_1);
@@ -308,7 +317,10 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_2_3")->Set_GoBack(!CPickSwitch1_1);
 	
 	// 빨간 버튼
-	_bool CPickSwitch1_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_2")->Get_SwitchState();
+	auto* PickSwitch1_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_2");
+	_bool CPickSwitch1_2 = PickSwitch1_2->Get_SwitchState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_4")->PlayDoorSound(PickSwitch1_2->Get_OnEdge(), PickSwitch1_2->Get_OffEdge());
+
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_4")->Set_GoBack(!CPickSwitch1_2);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_5")->Set_GoBack(!CPickSwitch1_2);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_6")->Set_GoBack(!CPickSwitch1_2);
@@ -318,7 +330,9 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_2_6")->Set_GoBack(!CPickSwitch1_2);
 	
 	// 분홍 버튼
-	_bool CPickSwitch1_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_3")->Get_SwitchState();
+	auto* PickSwitch1_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch1_3");
+	_bool CPickSwitch1_3 = PickSwitch1_3->Get_SwitchState();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_7")->PlayDoorSound(PickSwitch1_3->Get_OnEdge(), PickSwitch1_3->Get_OffEdge());
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_1_7")->Set_GoBack(!CPickSwitch1_3);
 	
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube1_2_7")->Set_GoBack(!CPickSwitch1_3);
@@ -374,18 +388,22 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_11")->SetTrigger(CPickSwitch2_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_12")->SetTrigger(CPickSwitch2_1);
 
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_9")->PlayElevatorSound();
 
 
 	//2번째 퀘스트방
 	//입구 문
-	_bool bDoorTrigger1_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_3")->Get_SensorState();
+	auto* CDoorTrigger1_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_3");
+	_bool bDoorTrigger1_3 = CDoorTrigger1_3->Get_SensorState();
 
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_5")->PlayDoorSound(CDoorTrigger1_3->Get_OnEdge(), CDoorTrigger1_3->Get_OffEdge());
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_5")->Set_GoBack(!bDoorTrigger1_3);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_6")->Set_GoBack(!bDoorTrigger1_3);
 
 	//첫번째 슬롯
 	_bool bSlotSensor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_1")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor3_1")->SetTrigger(bSlotSensor3_1);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor3_1")->PlayElevatorSound();
 
 	//두번째 미로
 	_bool bSlotSensor5_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor5_1")->Get_SensorState();
@@ -404,6 +422,7 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_7")->SetTrigger(bSlotSensor5_1);
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_8")->SetTrigger(bSlotSensor5_1);
 
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_5")->PlayElevatorSound();
 	}
 	else {
 		if (CMirrorSlotCube5_1->Get_Follow()) {
@@ -435,14 +454,17 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 
 	//3번째 퀘스트방
 	//입구 문
+	auto* CDoorTrigger1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_4");
 	_bool bDoorTrigger1_4 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"CDoorTrigger1_4")->Get_SensorState();
 
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_7")->PlayDoorSound(CDoorTrigger1_4->Get_OnEdge(), CDoorTrigger1_4->Get_OffEdge());
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_7")->Set_GoBack(!bDoorTrigger1_4);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoor1_8")->Set_GoBack(!bDoorTrigger1_4);
 
 	// 클리어 스위치
 	_bool bPickSwitch4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch4_1")->Get_SwitchState();
 	//3번째 가림막
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1")->PlayElevatorSound();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1")->SetTrigger(bPickSwitch4_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_2")->SetTrigger(bPickSwitch4_1);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_3")->SetTrigger(bPickSwitch4_1);
@@ -467,7 +489,7 @@ void SceneStage3::Set_Triggers(const _float& fTimeDelta)
 	}
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1_1")->Set_GoBack(!bLast);
-	
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CFloatingCube2_1_1")->PlayElevatorSound();
 	
 
 }

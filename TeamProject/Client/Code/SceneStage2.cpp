@@ -75,6 +75,7 @@ HRESULT SceneStage2::Ready_Scene()
 	pCam->Set_Target(pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
+
 	FloatingSet();
 	DirectionSet();
 	SlotSet();
@@ -282,6 +283,7 @@ void SceneStage2::Set_Triggers()
 			{
 				wstring DoorName = L"CStageDoorMove_" + to_wstring(i);
 				CFloatingCube* DoorCube = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(DoorName);
+				DoorCube->PlayElevatorSound();
 				DoorCube->SetTrigger(true);
 			}
 
@@ -290,6 +292,9 @@ void SceneStage2::Set_Triggers()
 	}
 	CFloatingCube* pMainQuestMove_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_1");
 	CFloatingCube* pMainQuestMove_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMainQuestMove_2");
+	CSlotSensor* CSlotQuest_5 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotQuest_5");
+	pMainQuestMove_1->PlayElevatorSound();
+	pMainQuestMove_2->PlayElevatorSound();
 
 	if (iMainQuest == 5) {
 		pMainQuestMove_1->SetTrigger(true);
@@ -304,12 +309,13 @@ void SceneStage2::Set_Triggers()
 	// 1�ܰ� ����ġ
 	_bool bPickSwitch3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch_3_1")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_1")->SetTrigger(bPickSwitch3_1);
-	
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_1")->PlayElevatorSound();
 	// 2�ܰ� ���� �б�
 	CSlotSensor* CSlotSensor3_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_1");
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_2")->SetTrigger(CSlotSensor3_1->Get_SensorState());
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_1")->SetTrigger(CSlotSensor3_1->Get_SensorState());
-
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_2")->PlayElevatorSound();
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_1")->PlayElevatorSound();
 	// 3�ܰ� ���� ����ġ ���� ���߱�
 	for (int i = 1; i < 5; ++i)
 	{
@@ -328,7 +334,9 @@ void SceneStage2::Set_Triggers()
 	{
 		if (InputSwitch3_1 == AnswerSwitch3_1)
 		{
+			auto* pSwitch = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch3_2_4");
 			Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_3")->SetTrigger(true);
+			Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_3")->PlayElevatorSound();
 		}
 		else
 		{
@@ -344,10 +352,11 @@ void SceneStage2::Set_Triggers()
 	// 4�ܰ� ���� ť�� ������ ��ư
 	_bool bPickSwitch3_3 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"CPickSwitch3_3")->Get_SwitchState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_2")->SetTrigger(bPickSwitch3_3);
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CMoveCube3_2")->PlayElevatorSound();
 
 	CSlotSensor* CSlotSensor3_2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor3_2");
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_4")->SetTrigger(CSlotSensor3_2->Get_SensorState());
-
+	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove3_4")->PlayElevatorSound();
 	// 4��° �� �̷�
 
 	_bool bSlotSensor4_1 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"CSlotSensor4_1")->Get_SensorState();
@@ -355,7 +364,7 @@ void SceneStage2::Set_Triggers()
 
 	if (bSlotSensor4_1 && bSlotSensor4_2) {
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove4_1")->SetTrigger(true);
-
+		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"CDoorMove4_1")->PlayElevatorSound();
 	}
 
 	/// 

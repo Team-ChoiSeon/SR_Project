@@ -70,6 +70,7 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 {
 	if (m_fSoundInterval > 0.f)
 		m_fSoundInterval -= fTimeDelta;
+	CCube::PlayPullSound();
 	if (m_bCurGrab)
 	{
 		PickMove();
@@ -158,7 +159,7 @@ void CSlotCube::PickMove()
 
 _bool CSlotCube::Check_Overlap()
 {
-	//¿À¹ö·¦µÈ ¼¾¼­ ¸®½ºÆ®µé Áß °Å¸®°¡ °¡Àå ÂªÀº ¼¾¼­ÀÇ Set_Axis È£Ãâ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Âªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Set_Axis È£ï¿½ï¿½
 	if (m_vecDetected_Slot.empty())
 		return false;
 
@@ -195,23 +196,23 @@ void CSlotCube::Fit(const _float& fTimeDelta)
 
 
 
-	 //º¤ÅÍ°¡ °ÅÀÇ ÀÏÄ¡(È¤Àº ¹Ý´ë)ÀÎ °æ¿ì Ã³¸®
+	 //ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡(È¤ï¿½ï¿½ ï¿½Ý´ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 	float axisLen2 = D3DXVec3LengthSq(&axis);
 	if (axisLen2 < 1e-6f)
 		return;
 	D3DXVec3Normalize(&axis, &axis);
 
-	// ÄÚ»çÀÎÀ¸·ÎºÎÅÍ È¸Àü °¢µµ ±¸ÇÏ±â
+	// ï¿½Ú»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 	float cosA = D3DXVec3Dot(&CubeLook, &SensorLook);
 	cosA = cosf(max(-1.f, min(1.f, cosA)));  // clamp
 	float fullAngle = acosf(cosA);
 
-	// ½ÇÁ¦ Àû¿ëÇÒ È¸Àü·® (step)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ (step)
 	float step = AllignSpeed * fTimeDelta;
 	if (step > fullAngle)
 		step = fullAngle;
 
-	// Transform¿¡ ÃàÈ¸Àü ´©Àû Àû¿ë
+	// Transformï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_pTransform->Rotate_Axis(axis, step);
 
 

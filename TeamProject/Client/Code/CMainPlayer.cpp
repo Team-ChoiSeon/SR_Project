@@ -502,6 +502,8 @@ void CMainPlayer::Away_Picking()
 
 void CMainPlayer::CursorRotate()
 {
+
+	//dx dy Áß°£°ª
 	//Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ShowCursor(false);
 	float cx = WINCX / 2.f;
@@ -514,14 +516,16 @@ void CMainPlayer::CursorRotate()
 	float dx = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X);
 	float dy = CInputMgr::Get_Instance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMD_Y);
 
+	m_fPrevDX = (m_fPrevDX + dx) * 0.2f;
+	m_fPrevDY = (m_fPrevDY + dy) * 0.2f;
+	
 	float sensitivity = 300.f;
-	float rx = dx / sensitivity;
-	float ry = dy / sensitivity;
+	float rx = m_fPrevDX / sensitivity;
+	float ry = m_fPrevDY / sensitivity;
 
 	m_pTransform->Set_Angle(m_pTransform->Get_Angle() + _vec3{ ry, rx, 0.f });
 
 }
-
 
 
 void CMainPlayer::Update_State(const _float& fTimeDelta)
@@ -540,7 +544,7 @@ void CMainPlayer::Update_State(const _float& fTimeDelta)
 		Player_Hiting();
 		break;
 	case PLAYER_STATE::PLAYER_DEAD:
-		Player_Dieing();
+		Player_Dieing(fTimeDelta);
 		break;
 	case PLAYER_STATE::PLAYER_RESPAWN:
 		break;
@@ -580,10 +584,18 @@ void  CMainPlayer::Player_Hiting()
 	}
 }
 
-void  CMainPlayer::Player_Dieing()
+void  CMainPlayer::Player_Dieing(const _float& fTimeDelta)
 {
-	// ì£½ìŒ ì²˜ë¦¬
-	CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Dead(5.f);
+	m_fDeadTime += fTimeDelta;
+
+	CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Dead(4.f);
+	if (m_fDeadTime >= 5.f)
+	{
+		m_pTransform->Set_Pos(m_vResponPos);
+		Set_Hp(10);
+		m_fDeadTime = 0.f;
+		Change_State(PLAYER_STATE::PLAYER_IDLE);
+	}
 }
 
 
