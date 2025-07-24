@@ -68,9 +68,11 @@ HRESULT SceneStage1::Ready_Scene()
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
 	CUiMgr::Get_Instance()->AddUI(Get_Layer(LAYER_UI)->Get_GameObject(L"Crosshair"));
 	m_pPlayer->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
+	
 	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
 	uiPanel->Set_ObjectInfo(true);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
+
 
 	//Object Setting
 	FloatingSet();
@@ -294,7 +296,7 @@ void SceneStage1::SoundSet()
 {
 	//Sound Setting
 
-	CSoundMgr::Get_Instance()->Load_Sound("Collision1", "../Bin/Resource/Sound/Cube/MetalCollision_1.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("Collision1", "../Bin/Resource/Sound/Cube/MetalCollision_6.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Collision2", "../Bin/Resource/Sound/Cube/MetalCollision_2.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Collision3", "../Bin/Resource/Sound/Cube/MetalCollision_3.ogg");
 	CSoundMgr::Get_Instance()->Load_Sound("Collision4", "../Bin/Resource/Sound/Cube/MetalCollision_7.wav");
@@ -350,6 +352,15 @@ void SceneStage1::Room1Update(const _float& fTimeDelta)
 	//PlaySound
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room1_SlidingDoor1")->PlayDoorSound(Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room1_DoorSensor1")->Get_OnEdge(),
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room1_DoorSensor1")->Get_OffEdge());
+
+	//Panel
+	if (m_bSceneFirst)
+	{
+		auto uiPanel = Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel");
+		uiPanel->Set_StageHint(L"Tutorial");
+		uiPanel->Set_StageHint(L"앞으로 나아가세요");
+		m_bSceneFirst = false;
+	}
 }
 
 void SceneStage1::Path1Update(const _float& fTimeDelta)
@@ -358,6 +369,9 @@ void SceneStage1::Path1Update(const _float& fTimeDelta)
 	_bool door2 = Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Path1_DoorSwitch1")->Get_SwitchState() &&
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path1_DoorSensor")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->SetGoBack(!door2);
+
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path1_DoorSensor")->Get_OnEdge())
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"오른쪽에 버튼을 눌러 문을 여세요");
 
 	//PlaySound
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Path1_SlidingDoor1")->PlayDoorSound
@@ -383,6 +397,16 @@ void SceneStage1::Room2Update(const _float& fTimeDelta)
 			Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Get_OffEdge());
 
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room2_Floating1")->PlayElevatorSound();
+
+
+
+	//Panel
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room2_ZoneSensor")->Get_OnEdge())
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"정면의 버튼을 눌러 큐브를 떨어뜨리세요");
+
+	if(Get_Layer(LAYER_OBJECT)->Get_GameObject<CPickSwitch>(L"Room2_Switch1")->Get_OnEdge())
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"큐브를 올바른 위치에 맞추어 문을 여세요");
+
 }
 
 void SceneStage1::Room3Update(const _float& fTimeDelta)
@@ -409,11 +433,20 @@ void SceneStage1::Room3Update(const _float& fTimeDelta)
 	(Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor3")->Get_OnEdge(),
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Get_OffEdge());
 
-	//if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Get_SensorState())
 	{
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating1")->PlayElevatorSound();
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room3_Floating2")->PlayElevatorSound();
 	}
+
+	//Panel
+	if(Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room3_ZoneSensor")->Get_OnEdge())
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"좌측의 무중력 큐브를 밟고 노란색 큐브를 원위치에 놓으세요");
+
+	if(Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor1")->Get_OnEdge())
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"버튼을 눌러 엘레베이터를 타고 초록색 큐브를 원위치에 놓으세요 ");
+
+	if(Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"Room3_SlotSensor2")->Get_OnEdge())
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"파란색 큐브를 원위치에 놓으세요");
 }
 
 void SceneStage1::Path2Update(const _float& fTimeDelta)
@@ -445,6 +478,15 @@ void SceneStage1::Room4Update(const _float& fTimeDelta)
 		Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room4_DoorSensor")->Get_OffEdge());
 
 
+	//Panel
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Path2_DoorSensor")->Get_OffEdge())
+	{
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"주황색 큐브를 잡아당겨 계단을 만들고");
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"보라색 자석큐브로 파란색 큐브를 끌어당겨 길을 만드세요");
+	}
+
+
+
 }
 
 void SceneStage1::Room5Update(const _float& fTimeDelta)
@@ -454,6 +496,12 @@ void SceneStage1::Room5Update(const _float& fTimeDelta)
 	_bool room5Elevator = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room5_ZoneSensor1")->Get_SensorState();
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room5_Elevator1")->SetTrigger(room5Elevator);
 	Get_Layer(LAYER_OBJECT)->Get_GameObject<CFloatingCube>(L"Room5_Elevator1")->PlayElevatorSound();
+
+	//Panel
+	if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room4_DoorSensor")->Get_OffEdge())
+	{
+		Get_Layer(LAYER_UI)->Get_GameObject<CScenePanel>(L"uiPanel")->Set_StageHint(L"엘레베이터를 타고 다음 장소로 향하세요");
+	}
 
 	//StageChange	
 	_bool room5NextStage = Get_Layer(LAYER_OBJECT)->Get_GameObject<CZoneSensor>(L"Room5_ZoneSensor2")->Get_SensorState();

@@ -52,5 +52,6 @@ protected:
 	_vec3			m_vPrePos = { 0, 0, 0 };
 	_bool			m_bPreGround = false;
 	_bool			m_bMoveEdge = false;
+	
 };
 

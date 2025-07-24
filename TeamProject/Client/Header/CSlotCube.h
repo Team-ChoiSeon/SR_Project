@@ -58,6 +58,9 @@ private:
 	_bool		m_bSlotted;
 	_bool		m_bPreOnground = false;
 
+	_float		m_vyPrev;
+	_float		m_fSoundInterval = 0.2f;
+
 	static CSlotCube* s_pPickedCube;
 };
 

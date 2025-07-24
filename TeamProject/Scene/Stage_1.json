@@ -923,7 +923,7 @@
                         "CCollider": {
                             "BoundType": 0,
                             "ColTag": 1,
-                            "ColType": 0
+                            "ColType": 2
                         },
                         "CModel": {
                             "Alpha": 1.0,
@@ -1009,7 +1009,7 @@
                         "CCollider": {
                             "BoundType": 0,
                             "ColTag": 1,
-                            "ColType": 0
+                            "ColType": 2
                         },
                         "CModel": {
                             "Alpha": 1.0,
@@ -1095,7 +1095,7 @@
                         "CCollider": {
                             "BoundType": 0,
                             "ColTag": 1,
-                            "ColType": 0
+                            "ColType": 2
                         },
                         "CModel": {
                             "Alpha": 1.0,
@@ -1181,7 +1181,7 @@
                         "CCollider": {
                             "BoundType": 0,
                             "ColTag": 1,
-                            "ColType": 0
+                            "ColType": 2
                         },
                         "CModel": {
                             "Alpha": 1.0,
