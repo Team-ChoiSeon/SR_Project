@@ -31,5 +31,6 @@ private:
 
 	void Set_Triggers(const _float& fTimeDelta);
 
+	vector<bool> m_vbPanels;
 };
 

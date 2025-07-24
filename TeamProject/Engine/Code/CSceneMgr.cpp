@@ -61,6 +61,7 @@ void CSceneMgr::Set_CurrentScene(CScene* pScene)
 {
     m_pCurScene = pScene;
     m_pCurScene->Ready_Scene();
+    //
 }
 
 _int CSceneMgr::Update_Scene(const _float& fTimeDelta)

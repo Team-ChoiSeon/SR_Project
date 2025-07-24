@@ -591,6 +591,7 @@ void  CMainPlayer::Player_Dieing(const _float& fTimeDelta)
 	CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Dead(4.f);
 	if (m_fDeadTime >= 5.f)
 	{
+		// 여기서  rander 역순 한번더 
 		m_pTransform->Set_Pos(m_vResponPos);
 		Set_Hp(10);
 		m_fDeadTime = 0.f;

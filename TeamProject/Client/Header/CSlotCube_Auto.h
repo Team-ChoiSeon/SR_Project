@@ -28,6 +28,7 @@ public:
 
 	//Getter, Setter Function
 	void Set_Info( const _int puzzleID, const _int slotID);
+	void Set_Pullsound(_bool bpull) { CCube::m_bPull = bpull; };
 
 	_int Get_PuzzleID() { return m_iPuzzleID; }
 	_int Get_SlotID() { return m_iSlotID; }

@@ -24,6 +24,7 @@ CMirrorSlotCube::~CMirrorSlotCube()
 
 HRESULT CMirrorSlotCube::Ready_GameObject()
 {
+	CCube::m_bPull = false;
 	CSlotCube_Auto::Ready_GameObject();
 	m_pTransform->Set_Scale({ .8f, 2.f, .8f });
 	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });

@@ -4,696 +4,7 @@
             "objects": []
         },
         "DEFAULT": {
-            "objects": [
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Cube_Type1.PNG",
-                            "matKey": "Cube_A.mtl",
-                            "mesh": "Cube_A.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                4.272490501403809,
-                                -9.0,
-                                31.558208465576172
-                            ],
-                            "rotation": [
-                                0.0,
-                                -0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CQuest_1"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
-                            "matKey": "Cube_B.mtl",
-                            "mesh": "Cube_B.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                0.5612664222717285,
-                                -9.0,
-                                28.55084228515625
-                            ],
-                            "rotation": [
-                                0.0,
-                                -0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CQuest_2"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
-                            "matKey": "Cube_C.mtl",
-                            "mesh": "Tile_C.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                -3.737290382385254,
-                                -9.0,
-                                31.642162322998047
-                            ],
-                            "rotation": [
-                                0.0,
-                                -0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CQuest_3"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Cube_Type2.PNG",
-                            "matKey": "Cube_D.mtl",
-                            "mesh": "Cube_D.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                -2.0735607147216797,
-                                -9.0,
-                                35.785064697265625
-                            ],
-                            "rotation": [
-                                0.0,
-                                -0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CQuest_4"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Cube_Type1.PNG",
-                            "matKey": "Cube_F.mtl",
-                            "mesh": "Cube_F.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                2.6595492362976074,
-                                -9.0,
-                                35.74407196044922
-                            ],
-                            "rotation": [
-                                0.0,
-                                -0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CQuest_5"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 0.4909999966621399,
-                            "Normal": "Cube_Type3.PNG",
-                            "matKey": "Cube_G.mtl",
-                            "mesh": "Cube_G.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                -94.66000366210938,
-                                -7.976924896240234,
-                                -7.710000038146973
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_87"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CTestTile",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 0.3970000147819519,
-                            "Normal": "Cube_Type3.PNG",
-                            "matKey": "Cube_G.mtl",
-                            "mesh": "Cube_G.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.0,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 1.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                -94.72000122070313,
-                                -8.067672729492188,
-                                6.210000038146973
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                2.0,
-                                2.0,
-                                2.0
-                            ]
-                        }
-                    },
-                    "name": "CTestTile_88"
-                },
-                {
-                    "Layer": "DEFAULT",
-                    "class": "CDirectionalCube",
-                    "components": {
-                        "CCollider": {
-                            "BoundType": 0,
-                            "ColTag": 1,
-                            "ColType": 0
-                        },
-                        "CModel": {
-                            "Alpha": 1.0,
-                            "Normal": "Default_A.PNG",
-                            "matKey": "DirtObj.mtl",
-                            "mesh": "Default_A.obj",
-                            "shader": "g_UVScale.fx",
-                            "uvScale": [
-                                1.0,
-                                1.0,
-                                0.0,
-                                0.0
-                            ]
-                        },
-                        "CPickable": {
-                            "validInGame": true
-                        },
-                        "CRigidBody": {
-                            "Accelator": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleAccel": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "AngleVelocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Bounciness": 0.10000000149011612,
-                            "ExternalForce": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Friction": 0.0,
-                            "Inertia": [
-                                1.0,
-                                1.0,
-                                1.0
-                            ],
-                            "Mass": 10.0,
-                            "Torque": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "Velocity": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "m_bGravity": false
-                        },
-                        "CTransform": {
-                            "position": [
-                                -94.72000122070313,
-                                -9.041584014892578,
-                                12.206645011901855
-                            ],
-                            "rotation": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "scale": [
-                                4.0,
-                                0.5,
-                                4.0
-                            ]
-                        }
-                    },
-                    "name": "CDirectionalCube_1"
-                }
-            ]
+            "objects": []
         },
         "LIGHT": {
             "objects": []
@@ -710,7 +21,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -783,7 +94,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -856,7 +167,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -929,7 +240,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1002,7 +313,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1075,7 +386,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1149,7 +460,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type1.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_A.mtl",
                             "mesh": "Cube_A.obj",
                             "shader": "g_UVScale.fx",
@@ -1161,7 +472,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1247,7 +558,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1333,7 +644,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1419,7 +730,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1505,7 +816,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1591,7 +902,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1677,7 +988,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1751,7 +1062,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_B.mtl",
                             "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
@@ -1763,7 +1074,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1849,7 +1160,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -1935,7 +1246,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2021,7 +1332,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2095,7 +1406,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
@@ -2107,7 +1418,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2193,7 +1504,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2279,7 +1590,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2365,7 +1676,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2451,7 +1762,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2537,7 +1848,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2623,7 +1934,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2709,7 +2020,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2783,7 +2094,7 @@
                         },
                         "CModel": {
                             "Alpha": 0.7120000123977661,
-                            "Normal": "Cube_Type1.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_A.mtl",
                             "mesh": "Cube_A.obj",
                             "shader": "g_UVScale.fx",
@@ -2795,7 +2106,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2869,7 +2180,7 @@
                         },
                         "CModel": {
                             "Alpha": 0.7400000095367432,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_B.mtl",
                             "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
@@ -2881,7 +2192,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -2955,7 +2266,7 @@
                         },
                         "CModel": {
                             "Alpha": 0.7229999899864197,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
@@ -2967,7 +2278,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3053,7 +2364,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3139,7 +2450,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3213,7 +2524,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
@@ -3225,7 +2536,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3311,7 +2622,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3384,7 +2695,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3470,7 +2781,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3556,7 +2867,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3642,7 +2953,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3716,7 +3027,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
@@ -3728,7 +3039,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3802,7 +3113,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_B.mtl",
                             "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
@@ -3814,7 +3125,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3900,7 +3211,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -3974,7 +3285,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
@@ -3986,7 +3297,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4060,7 +3371,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
@@ -4072,7 +3383,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4145,7 +3456,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4231,7 +3542,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4317,7 +3628,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4403,7 +3714,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4489,7 +3800,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4575,7 +3886,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4661,7 +3972,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4735,7 +4046,7 @@
                         },
                         "CModel": {
                             "Alpha": 0.5519999861717224,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
@@ -4747,7 +4058,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4820,7 +4131,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4894,7 +4205,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
@@ -4906,7 +4217,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -4951,9 +4262,9 @@
                         },
                         "CTransform": {
                             "position": [
-                                -96.67281341552734,
-                                0.0,
-                                11.42117691040039
+                                -18.207998275756836,
+                                -7.000809669494629,
+                                8.205879211425781
                             ],
                             "rotation": [
                                 0.0,
@@ -4979,7 +4290,7 @@
                             "ColType": 2
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5065,7 +4376,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5127,6 +4438,895 @@
                         }
                     },
                     "name": "CDoorMove4_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CDirectionalCube",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Default_A.PNG",
+                            "matKey": "DirtObj.mtl",
+                            "mesh": "Default_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.10000000149011612,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 10.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -94.72000122070313,
+                                -9.041584014892578,
+                                12.206645011901855
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                4.0,
+                                0.5,
+                                4.0
+                            ]
+                        }
+                    },
+                    "name": "CDirectionalCube_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                1.2220137119293213,
+                                3.4782514572143555,
+                                61.96588897705078
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                5.096340656280518,
+                                4.189502239227295,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_1"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                0.0,
+                                -3.882697343826294,
+                                48.06797409057617
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                5.0,
+                                3.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_2"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                24.265966415405273,
+                                -2.1405348777770996,
+                                25.44453239440918
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                5.0,
+                                5.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_4"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                24.901859283447266,
+                                -2.889545440673828,
+                                40.01140213012695
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                5.0,
+                                5.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_5"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -24.38715171813965,
+                                -0.58915114402771,
+                                25.695449829101563
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                5.0,
+                                5.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_6"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -94.47492218017578,
+                                -2.272225856781006,
+                                -36.4612922668457
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                6.399118900299072,
+                                6.326874256134033,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_7"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -17.72062110900879,
+                                -2.0236151218414307,
+                                0.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                8.0,
+                                6.761839389801025,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_8"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -24.33730125427246,
+                                -1.107316017150879,
+                                40.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                5.0,
+                                5.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_10"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -46.172706604003906,
+                                -0.8211988806724548,
+                                42.891361236572266
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                5.0,
+                                9.400002479553223
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_11"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -34.111976623535156,
+                                0.0,
+                                55.46025466918945
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                8.90000057220459,
+                                5.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_12"
+                },
+                {
+                    "Layer": "OBJECT",
+                    "class": "CZoneSensor",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 2
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -34.11000061035156,
+                                0.0,
+                                77.86203002929688
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                8.899999618530273,
+                                5.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CZoneP_13"
                 }
             ]
         },
@@ -5155,7 +5355,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5202,7 +5402,7 @@
                             "position": [
                                 1.283430814743042,
                                 3.3105268478393555,
-                                69.06999969482422
+                                75.4510726928711
                             ],
                             "rotation": [
                                 0.0,
@@ -5245,7 +5445,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5354,7 +5554,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5440,7 +5640,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5526,7 +5726,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5612,7 +5812,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5698,7 +5898,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5784,7 +5984,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5870,7 +6070,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -5956,7 +6156,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6042,7 +6242,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6128,7 +6328,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6214,7 +6414,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6300,7 +6500,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6386,7 +6586,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6472,7 +6672,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6558,7 +6758,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6644,7 +6844,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6730,7 +6930,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6816,7 +7016,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6902,7 +7102,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -6988,7 +7188,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7074,7 +7274,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7160,7 +7360,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7246,7 +7446,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7332,7 +7532,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7418,7 +7618,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7504,7 +7704,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7590,7 +7790,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7676,7 +7876,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7762,7 +7962,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7848,7 +8048,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -7934,7 +8134,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8020,7 +8220,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8106,7 +8306,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8192,7 +8392,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8278,7 +8478,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8364,7 +8564,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8450,7 +8650,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8536,7 +8736,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8622,7 +8822,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8708,7 +8908,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8794,7 +8994,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8880,7 +9080,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -8966,7 +9166,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9052,7 +9252,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9138,7 +9338,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9224,7 +9424,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9310,7 +9510,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9396,7 +9596,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9482,7 +9682,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9568,7 +9768,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9654,7 +9854,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9740,7 +9940,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9826,7 +10026,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9912,7 +10112,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -9998,7 +10198,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10084,7 +10284,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10170,7 +10370,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10256,7 +10456,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10342,7 +10542,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10428,7 +10628,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10514,7 +10714,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10600,7 +10800,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10686,7 +10886,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10772,7 +10972,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10858,7 +11058,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -10944,7 +11144,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11030,7 +11230,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11116,7 +11316,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11202,7 +11402,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11288,7 +11488,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11374,7 +11574,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11460,7 +11660,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11546,7 +11746,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11632,7 +11832,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11718,7 +11918,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11804,7 +12004,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11890,7 +12090,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -11976,7 +12176,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12062,7 +12262,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12148,7 +12348,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12234,7 +12434,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12320,7 +12520,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12406,7 +12606,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12492,7 +12692,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12578,7 +12778,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12664,7 +12864,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12750,7 +12950,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12836,7 +13036,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -12922,7 +13122,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13008,7 +13208,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13094,7 +13294,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13180,7 +13380,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13266,7 +13466,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13352,7 +13552,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13438,7 +13638,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13524,7 +13724,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13610,7 +13810,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13696,7 +13896,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13770,7 +13970,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_C.mtl",
                             "mesh": "Cube_C.obj",
                             "shader": "g_UVScale.fx",
@@ -13782,7 +13982,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13856,7 +14056,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type4.PNG",
                             "matKey": "Cube_B.mtl",
                             "mesh": "Cube_B.obj",
                             "shader": "g_UVScale.fx",
@@ -13868,7 +14068,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -13954,7 +14154,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14028,7 +14228,7 @@
                         },
                         "CModel": {
                             "Alpha": 1.0,
-                            "Normal": "Cube_Type3.PNG",
+                            "Normal": "Cube_Type2.PNG",
                             "matKey": "Cube_G.mtl",
                             "mesh": "Cube_G.obj",
                             "shader": "g_UVScale.fx",
@@ -14040,7 +14240,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14126,7 +14326,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14212,7 +14412,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14298,7 +14498,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14384,7 +14584,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14470,7 +14670,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14556,7 +14756,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14642,7 +14842,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14728,7 +14928,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14814,7 +15014,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14900,7 +15100,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -14986,7 +15186,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -15072,7 +15272,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -15158,7 +15358,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -15244,7 +15444,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -15330,7 +15530,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -15416,7 +15616,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -15502,7 +15702,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -15588,7 +15788,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -15643,7 +15843,7 @@
                                 0.0
                             ],
                             "scale": [
-                                45.799251556396484,
+                                47.99921798706055,
                                 1.0,
                                 57.17047119140625
                             ]
@@ -15674,7 +15874,7 @@
                             ]
                         },
                         "CPickable": {
-                            "validInGame": true
+                            "validInGame": false
                         },
                         "CRigidBody": {
                             "Accelator": [
@@ -15736,6 +15936,608 @@
                         }
                     },
                     "name": "CTestTile_83"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type4.PNG",
+                            "matKey": "Cube_A.mtl",
+                            "mesh": "Cube_A.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                4.272490501403809,
+                                -9.0,
+                                31.558208465576172
+                            ],
+                            "rotation": [
+                                0.0,
+                                -0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CQuest_1"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type4.PNG",
+                            "matKey": "Cube_B.mtl",
+                            "mesh": "Cube_B.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                0.5612664222717285,
+                                -9.0,
+                                28.55084228515625
+                            ],
+                            "rotation": [
+                                0.0,
+                                -0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CQuest_2"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type4.PNG",
+                            "matKey": "Cube_C.mtl",
+                            "mesh": "Tile_C.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -3.737290382385254,
+                                -9.0,
+                                31.642162322998047
+                            ],
+                            "rotation": [
+                                0.0,
+                                -0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CQuest_3"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_D.mtl",
+                            "mesh": "Cube_D.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -2.0735607147216797,
+                                -9.0,
+                                35.785064697265625
+                            ],
+                            "rotation": [
+                                0.0,
+                                -0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CQuest_4"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 1.0,
+                            "Normal": "Cube_Type1.PNG",
+                            "matKey": "Cube_F.mtl",
+                            "mesh": "Cube_F.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                2.6595492362976074,
+                                -9.0,
+                                35.74407196044922
+                            ],
+                            "rotation": [
+                                0.0,
+                                -0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CQuest_5"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.4909999966621399,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_G.mtl",
+                            "mesh": "Cube_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -94.66000366210938,
+                                -7.976924896240234,
+                                -7.710000038146973
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_87"
+                },
+                {
+                    "Layer": "TILE",
+                    "class": "CTestTile",
+                    "components": {
+                        "CCollider": {
+                            "BoundType": 0,
+                            "ColTag": 1,
+                            "ColType": 0
+                        },
+                        "CModel": {
+                            "Alpha": 0.3970000147819519,
+                            "Normal": "Cube_Type2.PNG",
+                            "matKey": "Cube_G.mtl",
+                            "mesh": "Cube_G.obj",
+                            "shader": "g_UVScale.fx",
+                            "uvScale": [
+                                1.0,
+                                1.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        "CPickable": {
+                            "validInGame": false
+                        },
+                        "CRigidBody": {
+                            "Accelator": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleAccel": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "AngleVelocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Bounciness": 0.0,
+                            "ExternalForce": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Friction": 0.0,
+                            "Inertia": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ],
+                            "Mass": 1.0,
+                            "Torque": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "Velocity": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "m_bGravity": false
+                        },
+                        "CTransform": {
+                            "position": [
+                                -94.72000122070313,
+                                -8.067672729492188,
+                                6.210000038146973
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                2.0,
+                                2.0,
+                                2.0
+                            ]
+                        }
+                    },
+                    "name": "CTestTile_88"
                 }
             ]
         },
@@ -15743,5 +16545,5 @@
             "objects": []
         }
     },
-    "scene_name": "Merge_Scene"
+    "scene_name": "Scene2"
 }
