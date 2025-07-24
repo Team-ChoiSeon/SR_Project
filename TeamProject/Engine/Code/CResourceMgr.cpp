@@ -73,19 +73,20 @@ ID3DXFont* CResourceMgr::Get_Font(const wstring& key)
 
 void CResourceMgr::PreLoad_Font()
 {
-	m_umFont.insert({ L"나눔", Load_Font(L"NanumSquareNeo-bRg", L"../..ThirdParty/NanumSquareNeo-bRg.ttf") });
-	m_umFont.insert({ L"프리텐다드", Load_Font(L"Pretendard-Regular",L"../..ThirdParty/Pretendard-Regular.ttf") });
-	m_umFont.insert({ L"여주", Load_Font(L"YeojuCeramic TTF",L"../..ThirdParty/YeojuCeramic TTF") });
+	m_umFont.insert({ L"나눔", Load_Font(L"NanumSquareNeo-bRg", L"../..ThirdParty/NanumSquareNeo-bRg.ttf", 18) });
+	m_umFont.insert({ L"나눔큰", Load_Font(L"NanumSquareNeo-eHv", L"../..ThirdParty/NanumSquareNeo-eHv.ttf", 24) });
+	m_umFont.insert({ L"프리텐다드", Load_Font(L"Pretendard-Regular",L"../..ThirdParty/Pretendard-Regular.ttf", 18) });
+	m_umFont.insert({ L"여주", Load_Font(L"여주도자체 TTF",L"../..ThirdParty/YeojuCeramic TTF", 28) });
 }
 
 
-ID3DXFont* CResourceMgr::Load_Font(const wstring& key, const wstring& path)
+ID3DXFont* CResourceMgr::Load_Font(const wstring& key, const wstring& path,_float size)
 {
 	ID3DXFont* g_pFont = nullptr;
 
 	AddFontResourceExW(path.c_str(), FR_PRIVATE, 0);
 
-	D3DXCreateFontW(m_pGraphicDev, 18, 0, FW_NORMAL, 1, FALSE,
+	D3DXCreateFontW(m_pGraphicDev, size, 0, FW_NORMAL, 1, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE, key.c_str(), &g_pFont);
 

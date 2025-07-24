@@ -49,10 +49,10 @@ _bool UIPanel::Close_While(_vec2 targetSize, _float dt)
 RECT& UIPanel::Get_ByRect()
 {
 
-	m_tRect.left = LT().x;
-	m_tRect.top = LT().y;
-	m_tRect.right = RB().x;
-	m_tRect.bottom = RB().y;
+	m_tRect.left = static_cast<LONG>(LT().x);
+	m_tRect.top = static_cast<LONG>(LT().y);
+	m_tRect.right = static_cast<LONG>(RB().x);
+	m_tRect.bottom = static_cast<LONG>(RB().y);
 
 	return m_tRect;
 }

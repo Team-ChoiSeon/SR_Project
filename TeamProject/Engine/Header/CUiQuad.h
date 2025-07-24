@@ -31,6 +31,7 @@ public:
     void Set_TextureHandle(LPDIRECT3DBASETEXTURE9 tex);
 public:
     _float Get_Alpha() { return m_fAlpha; }
+    void Add_Alpha(_float alpha) { m_fAlpha += alpha; m_fAlpha = min(1, max(0, m_fAlpha)); }
 private:
     CTransform* m_pTransform = nullptr;
     CTexture* m_pTexture = nullptr;

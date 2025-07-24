@@ -67,7 +67,7 @@ public:
 
 
 private:
-	ID3DXFont* Load_Font(const wstring& key, const wstring& path);
+	ID3DXFont* Load_Font(const wstring& key, const wstring& path, _float size);
 
 	virtual void Free();
 

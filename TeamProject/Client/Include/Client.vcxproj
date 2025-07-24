@@ -167,6 +167,7 @@
     <ClInclude Include="..\Header\CHealthBar.h" />
     <ClInclude Include="..\Header\CHealthIcon.h" />
     <ClInclude Include="..\Header\CHealthLine.h" />
+    <ClInclude Include="..\Header\CHints.h" />
     <ClInclude Include="..\Header\CIdleState.h" />
     <ClInclude Include="..\Header\CInfoSlot.h" />
     <ClInclude Include="..\Header\CLogoPanel.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="..\Header\CSlotCube_Auto.h" />
     <ClInclude Include="..\Header\CSlotSensor.h" />
     <ClInclude Include="..\Header\CSpinState.h" />
+    <ClInclude Include="..\Header\CStageHint.h" />
     <ClInclude Include="..\Header\CZoneSensor.h" />
     <ClInclude Include="..\Header\CSensor.h" />
     <ClInclude Include="..\Header\CSlotCube.h" />
@@ -243,6 +245,7 @@
     <ClCompile Include="..\Code\CHealthBar.cpp" />
     <ClCompile Include="..\Code\CHealthIcon.cpp" />
     <ClCompile Include="..\Code\CHealthLine.cpp" />
+    <ClCompile Include="..\Code\CHints.cpp" />
     <ClCompile Include="..\Code\CIdleState.cpp" />
     <ClCompile Include="..\Code\CInfoSlot.cpp" />
     <ClCompile Include="..\Code\CLogoPanel.cpp" />
@@ -261,6 +264,7 @@
     <ClCompile Include="..\Code\CSlotCube_Auto.cpp" />
     <ClCompile Include="..\Code\CSlotSensor.cpp" />
     <ClCompile Include="..\Code\CSpinState.cpp" />
+    <ClCompile Include="..\Code\CStageHint.cpp" />
     <ClCompile Include="..\Code\CZoneSensor.cpp" />
     <ClCompile Include="..\Code\CSensor.cpp" />
     <ClCompile Include="..\Code\CSlotCube.cpp" />

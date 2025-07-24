@@ -96,7 +96,7 @@ void CObjectInfo::OpenPanel(const _float& fTimeDelta)
 	_vec2 SlotPos = { m_tPanel.LT() + slotPanel.Get_Size() + offset };
 
 	if (m_bOpen) {
-		if (m_tPanel.Open_While({ 250,250 }, fTimeDelta * 550)) {
+		if (m_tPanel.Open_While({ 250,200 }, fTimeDelta * 550)) {
 			m_pCapture->Set_Open(true);
 			m_pCapture->Set_Pos(SlotPos);
 			m_pCapture->Set_Object(m_pPicked);
