@@ -3,9 +3,15 @@
 #include "CDialogue.h"
 #include "CResourceMgr.h"
 #include "CUiQuad.h"
+#include "CSlotCube.h"
+#include "CMagneticCube.h"
+#include "CDirectionalCube.h"
+#include "CFloatingCube.h"
+#include "CPickSwitch.h"
+#include "CProjectile.h"
 
 constexpr int width = 220;
-constexpr int height = 80;
+constexpr int height = 50;
 
 CDialogue::CDialogue(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev)
@@ -105,6 +111,31 @@ void CDialogue::Set_Pos(_vec2 pos)
 
 void CDialogue::Set_Object(CGameObject* Obj)
 {
+		if (auto pNpc = dynamic_cast<CSlotCube*>(Obj))
+		{
+			m_sDialogue = L"같은 색의 큐브를 찾아 그 위에 올려놓으세요";
+		}
+		else if (auto pMonster = dynamic_cast<CMagneticCube*>(Obj))
+		{
+			m_sDialogue = L"들고 움직이면서 끌려오는 자성 물체를 찾아보세요";
+		}
+		else if (auto pItem = dynamic_cast<CDirectionalCube*>(Obj))
+		{
+			m_sDialogue = L"정해진 방향으로 끌어서 움직이세요";
+		}
+		else if (auto pItem = dynamic_cast<CPickSwitch*>(Obj))
+		{
+			m_sDialogue = L"눌러서 동작시키세요";
+		}
+		else if (auto pItem = dynamic_cast<CProjectile*>(Obj))
+		{
+			m_sDialogue = L"보스를 향해서 던지세요";
+		}
+		else
+		{
+			m_sDialogue = L"";
+		}
+
 }
 
 void CDialogue::Free()

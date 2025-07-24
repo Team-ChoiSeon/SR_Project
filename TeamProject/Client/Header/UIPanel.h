@@ -11,6 +11,9 @@ public:
 	void Set_Pos(_vec2 pos) { vPos = pos; };
 	void Set_Size(_vec2 size) { vSize = size; };
 	void Add_Size(_vec2 size) { vSize += size; };
+	void Add_Pos(_vec2 pos) { vPos += pos; };
+	void Add_PosX(_float pos) { vPos.x += pos; };
+	void Add_PosY(_float pos) { vPos.y += pos; };
 
 	_bool Open_While(_vec2 targetSize, _float dt);
 	_bool Close_While(_vec2 targetSize, _float dt);

@@ -223,6 +223,12 @@
     <Filter Include="04. GameObjects\TestUI\Blood">
       <UniqueIdentifier>{703ac796-bb0f-448d-912f-c7fe3b27140a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObjects\TestUI\StageHint">
+      <UniqueIdentifier>{f587dfe3-56fb-4d38-a671-8e483301c895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObjects\TestUI\StageHint\Hints">
+      <UniqueIdentifier>{6edbd6e7-5631-4225-90ad-46c2f09fb0e8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Vellum\State\DEAD">
       <UniqueIdentifier>{71cf4fcc-ea08-442f-bb0e-495c030958a3}</UniqueIdentifier>
     </Filter>
@@ -451,6 +457,12 @@
     <ClInclude Include="..\Header\CBloodEffect.h">
       <Filter>04. GameObjects\TestUI\Blood</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CStageHint.h">
+      <Filter>04. GameObjects\TestUI\StageHint</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHints.h">
+      <Filter>04. GameObjects\TestUI\StageHint\Hints</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CDeadState.h">
       <Filter>Vellum\State\DEAD</Filter>
     </ClInclude>
@@ -669,6 +681,12 @@
     <ClCompile Include="..\Code\CBloodEffect.cpp">
       <Filter>04. GameObjects\TestUI\Blood</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CStageHint.cpp">
+      <Filter>04. GameObjects\TestUI\StageHint</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHints.cpp">
+      <Filter>04. GameObjects\TestUI\StageHint\Hints</Filter>
+     </ClCompile>
     <ClCompile Include="..\Code\CDeadState.cpp">
       <Filter>Vellum\State\DEAD</Filter>
     </ClCompile>
