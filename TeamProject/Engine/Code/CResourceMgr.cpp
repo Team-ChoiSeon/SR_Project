@@ -75,7 +75,8 @@ void CResourceMgr::PreLoad_Font()
 {
 	m_umFont.insert({ L"³ª´®", Load_Font(L"NanumSquareNeo-bRg", L"../..ThirdParty/NanumSquareNeo-bRg.ttf", 16) });
 	m_umFont.insert({ L"³ª´®Å«", Load_Font(L"NanumSquareNeo-eHv", L"../..ThirdParty/NanumSquareNeo-eHv.ttf", 24) });
-	m_umFont.insert({ L"ÇÁ¸®ÅÙ´Ùµå", Load_Font(L"Pretendard-Regular",L"../..ThirdParty/Pretendard-Regular.ttf", 18) });
+	m_umFont.insert({ L"ÇÁ¸®ÅÙ´Ùµå", Load_FontBold(L"Pretendard-Bold",L"../..ThirdParty/Pretendard-Bold.ttf", 36) });
+	//m_umFont.insert({ L"ÇÁ¸®ÅÙ´Ùµå", Load_Font(L"Pretendard-Regular",L"../..ThirdParty/Pretendard-Regular.ttf", 36) });
 	m_umFont.insert({ L"¿©ÁÖ", Load_Font(L"YeojuCeramic TTF",L"../..ThirdParty/YeojuCeramic TTF", 36) });
 }
 
@@ -87,6 +88,19 @@ ID3DXFont* CResourceMgr::Load_Font(const wstring& key, const wstring& path,_floa
 	AddFontResourceExW(path.c_str(), FR_PRIVATE, 0);
 
 	D3DXCreateFontW(m_pGraphicDev, size, 0, FW_NORMAL, 1, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE, key.c_str(), &g_pFont);
+
+	return g_pFont;
+}
+
+ID3DXFont* CResourceMgr::Load_FontBold(const wstring& key, const wstring& path, _float size)
+{
+	ID3DXFont* g_pFont = nullptr;
+
+	AddFontResourceExW(path.c_str(), FR_PRIVATE, 0);
+
+	D3DXCreateFontW(m_pGraphicDev, size, 0, FW_BOLD, 1, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE, key.c_str(), &g_pFont);
 

@@ -68,7 +68,7 @@ HRESULT CMainApp::Ready_MainApp()
 	SceneLoding* loadingScene = SceneLoding::Create(m_pGraphicDev);
 	//Loading Scene Setting
 	CSceneMgr::Get_Instance()->Set_LoadingScene(loadingScene);
-	CGuiSystem::Get_Instance()->Ready_GUI(g_hWnd);
+	//CGuiSystem::Get_Instance()->Ready_GUI(g_hWnd);
 
 	return S_OK;
 }
@@ -105,7 +105,7 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f,0.f, 1.f, 1.f));
 	CRenderMgr::Get_Instance()->Render(m_pGraphicDev);
-	CGuiSystem::Get_Instance()->Render_GUI();
+	//CGuiSystem::Get_Instance()->Render_GUI();
 	
 	m_pDeviceClass->Render_End();
 }

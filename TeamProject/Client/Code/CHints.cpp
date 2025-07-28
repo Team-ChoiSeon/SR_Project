@@ -48,7 +48,7 @@ HRESULT CHints::Ready_GameObject()
 	);
 
 	m_sHint = L"여기에 힌트가 들어가게 됩니다.";
-	m_fLifeTime = 4.5f;
+	m_fLifeTime = 5.5f;
 	 m_fSpeed = 40.5f;
 	return S_OK;
 }
@@ -66,7 +66,7 @@ _int CHints::Update_GameObject(const _float& fTimeDelta)
 
 	m_fAge += fTimeDelta;
 	m_tPanel.Add_PosY(-fTimeDelta * m_fSpeed);
-	m_pQuad->Add_Alpha(-fTimeDelta*0.5f);
+	m_pQuad->Add_Alpha(-fTimeDelta*0.2f);
 
 	m_pTransform->Set_Scale(m_tPanel.Get_WorldScale());
 	m_pTransform->Set_Pos({ m_tPanel.Get_WorldPos(WINCX, WINCY) });

@@ -25,11 +25,11 @@ CLogoTitle* CLogoTitle::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CLogoTitle::Ready_GameObject()
 {
-	m_pFont = CResourceMgr::Get_Instance()->Get_Font(L"여주");
+	m_pFont = CResourceMgr::Get_Instance()->Get_Font(L"프리텐다드");
 
 	m_pQuad = Add_Component<CUiQuad>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
-	m_tPanel.Set_Size({ WINCX ,40 });
+	m_tPanel.Set_Size({ WINCX-200 ,40 });
 	m_tPanel.Set_Pos({ WINCX * 0.5f,WINCY * 0.5f });
 
 	m_pQuad->Set_Texture(L"UI/square_gradient.png");
@@ -63,7 +63,7 @@ _int CLogoTitle::Update_GameObject(const _float& fTimeDelta)
 
 	// 텍스트 렌더링 준비
 	m_pGraphicDev->SetRenderTarget(0, m_pNewSurf);
-	m_pGraphicDev->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0);
+	m_pGraphicDev->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(110, 0, 0, 0), 1.0f, 0);
 
 	// 텍스트 출력
 	RECT rcText = { 0, 0, (LONG)m_tPanel.Get_Size().x, (LONG)m_tPanel.Get_Size().y };

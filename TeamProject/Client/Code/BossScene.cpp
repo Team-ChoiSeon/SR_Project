@@ -17,6 +17,7 @@
 #include "CUiMgr.h"
 #include "CScenePanel.h"
 #include "CResourceMgr.h"
+#include "CSkyBox.h"
 
 
 BossScene::BossScene(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -53,6 +54,11 @@ HRESULT BossScene::Ready_Scene()
 
 	// 4. 카메라 (플레이어 시점)
 	CFirstviewFollowingCamera* pCam = CFirstviewFollowingCamera::Create(m_pGraphicDev);
+
+
+	pCam->Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	pCam->Get_Component<CSkyBox>()->Set_Texture(L"Sky_Test2.dds");
+	pCam->Get_Component<CTransform>()->Set_Scale({ 500,500,500 });
 
 	// 5. 플레이어 → 타겟 오브젝트
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
