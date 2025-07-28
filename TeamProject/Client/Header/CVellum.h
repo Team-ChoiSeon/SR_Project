@@ -4,6 +4,9 @@
 
 #include "IVellumState.h"
 
+#include "CEffect.h"
+
+#define VSTART _vec3{ 0.f, 33.f, 60.f }
 
 namespace Engine
 {
@@ -22,8 +25,11 @@ public:
 	int Update_GameObject(const _float& fTimeDelta) override;
 	void LateUpdate_GameObject(const _float& fTimeDelta) override;
 
+	void Load_Resource();
+
 	void Organize_Chain(CMonsterPart* pPart);
 	void Key_Input(const _float& fTimeDelta);
+
 
 
 	static CVellum* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -39,16 +45,17 @@ public:
 	
 	CGameObject*	Get_Target()		{ return m_pTarget; }
 	const vector<CMonsterPart*>& Get_Part() const { return m_vPart; }
+	const int Get_PartCnt() const { return m_iPartCnt; }
 
 	LPDIRECT3DDEVICE9 Get_Dev() { return m_pGraphicDev; }
+
+	void Set_Dead(bool bDead) { m_bDead = bDead; }
 
 public:
 	void Change_Pattern(IVellumState* pState);
 
 private:
-	int m_iHP = 100;			// 체력
-	_float m_fInvTime = 1.f;	// 무적 타이머
-	int m_iPartCnt = 9;			// 머리 제외 파츠 개수
+	int m_iPartCnt = 14;			// 머리 제외 파츠 개수
 	vector<CMonsterPart*> m_vPart;
 
 	IVellumState* m_pState = nullptr;
@@ -62,8 +69,11 @@ private:
 	CRigidBody* m_pRigid = nullptr;
 	CCollider*	m_pCol = nullptr;
 	CParticle* m_pParticle = nullptr;
+	CEffect* m_pEffect = nullptr;
 
 	int m_iIdx = 0;
+
+	bool m_bDead = false;
 
 
 

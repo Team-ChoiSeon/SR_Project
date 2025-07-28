@@ -10,6 +10,8 @@
 #include "CMainPlayer.h"
 #include "CPickingMgr.h"
 #include "CCameraMgr.h"
+#include "CInputMgr.h"
+#include "CSoundMgr.h"
 
 CMagneticCube::CMagneticCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
@@ -31,8 +33,6 @@ HRESULT CMagneticCube::Ready_GameObject()
     m_pTransform = Get_Component<CTransform>();
     m_pTransform->Ready_Component();
     m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
-    m_pTransform->Set_Angle({ 0.f, 0.f, 0.f });
-    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
 
     Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
     m_pModel = Get_Component<CModel>();
@@ -48,11 +48,13 @@ HRESULT CMagneticCube::Ready_GameObject()
     Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
     m_pCollider = Get_Component<CCollider>();
     m_pCollider->Set_ColTag(ColliderTag::NONE);
-    m_pCollider->Set_ColType(ColliderType::PASSIVE);
+    m_pCollider->Set_ColType(ColliderType::ACTIVE);
     m_pCollider->Set_BoundType(BoundingType::AABB);
 
     Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
     m_pPick = Get_Component<CPickTarget>();
+
+    m_fColSoundCooldown = 0.f;
 
     CFactory::Save_Prefab(this, "CMagneticCube");
 	return S_OK;
@@ -60,12 +62,29 @@ HRESULT CMagneticCube::Ready_GameObject()
 
 _int CMagneticCube::Update_GameObject(const _float& fTimeDelta)
 {
-    CGameObject::Update_GameObject(fTimeDelta);
+    if (m_fColSoundCooldown > 0.f)
+        m_fColSoundCooldown -= fTimeDelta;
     PickMove();
-    if(m_pRigid->Get_OnGround())
-        m_pCollider->Set_ColType(ColliderType::PASSIVE);
-    else
+
+    if (m_pRigid->Get_OnGround()) {
+    }
+    else {
         m_pCollider->Set_ColType(ColliderType::ACTIVE);
+        m_pRigid->Set_UseGravity(true);
+        if (m_pCollider->Get_ColState() == ColliderState::ENTER
+            && m_fColSoundCooldown <= 0.f)
+        {
+            if (typeid(*m_pCollider->Get_Other()->m_pOwner) != typeid(CMetalCube))
+            {
+                PlayColSound(5);
+                m_fColSoundCooldown = 0.1f;
+            }
+        }
+    }
+    /*if (m_pCollider->Get_ColState() == ColliderState::ENTER)
+        PlayColSound(5);*/
+
+    CGameObject::Update_GameObject(fTimeDelta);
 
 	return _int();
 }
@@ -98,14 +117,21 @@ void CMagneticCube::Free()
     Safe_Release(m_pRigid);
     Safe_Release(m_pCollider);
     Safe_Release(m_pPick);
-    Safe_Release(m_pGraphicDev);
 }
 
 void CMagneticCube::PickMove()
 {
+    if (m_bCurGrab && !m_bPreGrab) {
+        CSoundMgr::Get_Instance()->Set_Volume("MagnetField", 0.6f);
+        CSoundMgr::Get_Instance()->Play("MagnetField", "SFX", true);
+    }
+    else if (!m_bCurGrab && m_bPreGrab) {
+        CSoundMgr::Get_Instance()->Stop("MagnetField");
+    }
+    m_bPreGrab = m_bCurGrab;
     if (m_bCurGrab)
     {
-        m_pCollider->Set_ColType(ColliderType::PASSIVE);
+        m_pCollider->Set_ColType(ColliderType::ACTIVE);
         m_pRigid->Set_UseGravity(false);
         m_pRigid->Set_OnGround(true);
         m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f });

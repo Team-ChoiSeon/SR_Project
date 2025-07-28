@@ -109,8 +109,9 @@ void CGameObject::Free()
     for (_uint i = 0; i < ID_END; ++i)
     {
         for (auto& [tag, comp] : m_umComponent[i])
-            Safe_Release(comp);
+            if(comp != nullptr)
+                Safe_Release(comp);
         m_umComponent[i].clear();
     }
-    
+    Safe_Release(m_pGraphicDev);
 }

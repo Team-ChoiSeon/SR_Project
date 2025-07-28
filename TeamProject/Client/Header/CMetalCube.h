@@ -39,6 +39,7 @@ public:
 
 	//Getter, Setter Function
 
+	METAL_STATE				m_eState;
 private:
 
 	//Variables
@@ -54,9 +55,9 @@ private:
 	_vec3					m_vParentPrePos;
 	_vec3					m_vParentPos;
 	_vec3					m_vGap;
-	_float					m_fGap;
 	_vec3					m_vSyncGap;
-	_float					m_fSyncGap;
-	METAL_STATE				m_eState;
+	_int					m_iColCount = 1;
+
+	_float					m_fColSoundCooldown;
 };
 

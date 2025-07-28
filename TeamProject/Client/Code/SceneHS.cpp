@@ -13,7 +13,6 @@
 #include "CSceneMgr.h"
 #include "CRenderMgr.h"
 
-#include "CPlayer.h"
 #include "CMainPlayer.h"
 #include "CLightObject.h"
 #include "CTestLightMeshObject.h"
@@ -24,6 +23,10 @@
 #include "CSceneGate.h"
 #include "CCinematicCamera.h"
 #include "CDollyCamera.h"
+#include "CSlotCube.h"
+#include "CSlotCube_Auto.h"
+#include "CSlotSensor.h"
+#include "CMirrorSlotCube.h"
 
 #include "SceneHW.h"
 #include "SceneBG.h"
@@ -47,8 +50,9 @@ HRESULT SceneHS::Ready_Scene()
 	Init_Layers();
 
 	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
-	pPlayer->Get_Component<CTransform>()->Set_Pos({ -20.f, 20.f, -20.f });
-
+	//pPlayer->Get_Component<CTransform>()->Set_Pos({ -20.f, 20.f, -20.f });
+	pPlayer->Get_Component<CTransform>()->Set_Pos({ -10.f, 20.f, -10.f });
+	
 	CTestTile* pTile = CTestTile::Create(m_pGraphicDev);
 	pTile->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 50.f });
 	pTile->Get_Component<CTransform>()->Set_PosY(-20.f);
@@ -56,13 +60,13 @@ HRESULT SceneHS::Ready_Scene()
 	pTile->Get_Component<CRigidBody>()->Set_UseGravity(false);
 
 	CTestTile* pWall = CTestTile::Create(m_pGraphicDev);
-	pWall->Get_Component<CTransform>()->Set_Scale({ 50.f, 10.f, 10.f });
-	pWall->Get_Component<CTransform>()->Set_Pos({ -10.f, 0.f, 100.f });
+	pWall->Get_Component<CTransform>()->Set_Scale({ 50.f, 7.f, 10.f });
+	pWall->Get_Component<CTransform>()->Set_Pos({ 0.f, 6.f, 5.f });
 	pWall->Get_Component<CRigidBody>()->Set_OnGround(true);
 	pWall->Get_Component<CRigidBody>()->Set_UseGravity(false);
 
 	CDirectionalCube* pOnewayCube = CDirectionalCube::Create(m_pGraphicDev);
-	pOnewayCube->Set_Info({ -10.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, 20.f);
+	pOnewayCube->Set_Info({ 1.f, 0.f, 0.f }, 20.f);
 	pOnewayCube->Get_Component<CRigidBody>()->Set_Friction(0.f);
 	pOnewayCube->Get_Component<CRigidBody>()->Set_Mass(10.f);
 	pOnewayCube->Get_Component<CRigidBody>()->Set_Bounce(0.1f);
@@ -70,7 +74,7 @@ HRESULT SceneHS::Ready_Scene()
 	pOnewayCube->Get_Component<CRigidBody>()->Set_UseGravity(false);
 	
 	CDirectionalCube* pDirectionalCube = CDirectionalCube::Create(m_pGraphicDev);
-	pDirectionalCube->Set_Info({ 5.f, 0.f, 0.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
+	pDirectionalCube->Set_Info({ 1.f, 0.f, 0.f }, -10.f, 10.f);
 	pDirectionalCube->Set_Grab(true);
 
 	CCrosshairUIObject* pCrosshair = CCrosshairUIObject::Create(m_pGraphicDev);
@@ -117,6 +121,48 @@ HRESULT SceneHS::Ready_Scene()
 	//CCameraMgr::Get_Instance()->Set_MainCamera(pDollyCam);
 	//CCameraMgr::Get_Instance()->Set_MainCamera(pCineCam);
 
+	CSlotCube* m_pSlotCube = CSlotCube::Create(m_pGraphicDev);
+	CSlotCube_Auto* m_pSlotCube2 = CSlotCube_Auto::Create(m_pGraphicDev);
+	CSlotSensor* m_pSlotSensor = CSlotSensor::Create(m_pGraphicDev);
+	CSlotSensor* m_pSlotSensor2 = CSlotSensor::Create(m_pGraphicDev);
+
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor", m_pSlotSensor);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor2", m_pSlotSensor2);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube", m_pSlotCube);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotCube2", m_pSlotCube2);
+
+	m_pSlotCube->Get_Component<CTransform>()->Set_Pos({ 0.f, -0.f, -10.f });
+	m_pSlotCube->Set_Info(pPlayer, 0, 0);
+	m_pSlotCube2->Get_Component<CTransform>()->Set_Pos({ -3.f, 0.f, -10.f });
+	m_pSlotCube2->Set_Info( 0, 1);
+
+	//m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -10.f, -8.f, -10.f });
+	m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -20.f, 20.f, -20.f });
+	m_pSlotSensor->Set_Info(pPlayer, 0, 0);
+	//m_pSlotSensor2->Get_Component<CTransform>()->Set_Pos({ -12.f, -8.f, -10.f });
+	m_pSlotSensor2->Get_Component<CTransform>()->Set_Pos({ -22.f, 20.f, -20.f });
+	m_pSlotSensor2->Set_Info(pPlayer, 0, 1);
+	m_pSlotSensor2->Set_PlayerPick(false);
+
+	
+	CMirrorSlotCube* cMirrorSlotCube = CMirrorSlotCube::Create(m_pGraphicDev);
+	cMirrorSlotCube->Get_Component<CTransform>()->Set_Pos({ -14.f, 20.f, -10.f });
+	cMirrorSlotCube->Set_Info(2, 2);
+	cMirrorSlotCube->Set_Player(pPlayer);
+	cMirrorSlotCube->Set_MirrorPlane(_vec3(0.f, 5.f, 0.f), _vec3(0.f, 1.f, 0.f));
+	cMirrorSlotCube->Set_Follow(true);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"MirrorSlotCube", cMirrorSlotCube);
+
+	CSlotSensor* m_pSlotSensor3 = CSlotSensor::Create(m_pGraphicDev);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwSlotSensor3", m_pSlotSensor3);
+	m_pSlotSensor3->Get_Component<CTransform>()->Set_Pos({ -10.f, -3.f, 10.f });
+	m_pSlotSensor3->Get_Component<CTransform>()->Set_Scale({ .8f, 2.f, .8f });
+	m_pSlotSensor3->Set_Info(pPlayer, 2, 2);
+	m_pSlotSensor3->Set_PlayerPick(false);
+
+
+
+
 	return S_OK;
 }
 
@@ -137,15 +183,23 @@ _int SceneHS::Update_Scene(const _float& fTimeDelta)
 		CRenderMgr::Get_Instance()->Clear();
 	}
 	else {
+
+		if (Get_Layer(LAYER_OBJECT)->Get_GameObject<CSlotSensor>(L"hwSlotSensor3")->Get_SensorState()) {
+			Get_Layer(LAYER_OBJECT)->Get_GameObject<CMirrorSlotCube>(L"MirrorSlotCube")->Set_Follow(false);
+		}
+
 		CScene::Update_Scene(fTimeDelta);
 	}
 
 	// m_pLightObject->Update_GameObject(fTimeDelta);
 	// m_pTestLightMesh->Update_GameObject(fTimeDelta);
-	// _vec3 playerpos = Get_Layer(LAYER_CAMERA)->Get_GameObject<CFirstviewFollowingCamera>(L"ffcam")->Get_Component<CTransform>()->Get_Pos();
-	// wchar_t buf1[128];
-	// swprintf_s(buf1, 128, L"Player Pos : %.3f, %.3f, %.3f\n", playerpos.x, playerpos.y, playerpos.z);
-	// OutputDebugStringW(buf1);
+	_vec3 playerpos = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player")->Get_Component<CTransform>()->Get_Pos();
+	_vec3 mirrorpos = Get_Layer(LAYER_OBJECT)->Get_GameObject<CMirrorSlotCube>(L"MirrorSlotCube")->Get_Component<CTransform>()->Get_Pos();
+	wchar_t buf1[128];
+	swprintf_s(buf1, 128, L"Player Pos : %.3f, %.3f, %.3f  Mirror Pos : %.3f, %.3f, %.3f\n"
+		, playerpos.x, playerpos.y, playerpos.z
+		, mirrorpos.x, mirrorpos.y, mirrorpos.z);
+	OutputDebugStringW(buf1);
 
 	return 0;
 }

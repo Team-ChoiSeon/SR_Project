@@ -30,6 +30,7 @@ HRESULT CTestTile::Ready_GameObject()
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
+	m_pRigid->Set_UseGravity(false);
 
 	Add_Component<CCollider>(ID_DYNAMIC, m_pGraphicDev, m_pRigid);
 	m_pCollider = Get_Component<CCollider>();
@@ -49,9 +50,60 @@ HRESULT CTestTile::Ready_GameObject()
 
 int CTestTile::Update_GameObject(const _float& fTimeDelta)
 {
+	float blinkSpeed = 10.f; // 깜빡이는 속도
+	float alpha = 0.f;
+
+	switch (m_eState)
+	{
+	case ETileState::IDLE:
+		// 아무것도 하지 않음
+		break;
+	case ETileState::DESTROYING:
+		m_fETimer += fTimeDelta;
+		// 파괴 전 깜빡임 효과
+		alpha = 1.f - (m_fETimer / m_fEDuration);
+		alpha *= (0.5f + 0.5f * sin(m_fETimer * blinkSpeed * D3DX_PI)); // 깜빡임
+		if (m_pModel) m_pModel->Set_Alpha(alpha < 0.f ? 0.f : alpha);
+		// 효과 시간이 끝나면 완전 파괴 상태로 전환
+		if (m_fETimer >= m_fEDuration)
+		{
+			m_eState = ETileState::DESTROYED;
+			m_fRTimer = 0.f;
+			if (m_pModel)    m_pModel->Set_Active(false);
+			if (m_pCollider) m_pCollider->Set_Active(false);
+		}
+		break;
+	case ETileState::DESTROYED:
+		m_fRTimer += fTimeDelta;
+		// 복구 대기 시간이 끝나면 복구 시작
+		if (m_fRTimer >= m_fRDuration)
+		{
+			m_eState = ETileState::RESTORING;
+			m_fETimer = 0.f;
+			if (m_pModel)    m_pModel->Set_Active(true);
+			if (m_pCollider) m_pCollider->Set_Active(true);
+		}
+		break;
+	case ETileState::RESTORING:
+		m_fETimer += fTimeDelta;
+
+		// 복구 시 깜빡임 효과
+		alpha = m_fETimer / m_fEDuration; // 점점 진해지며
+		alpha *= (0.5f + 0.5f * sin(m_fETimer * blinkSpeed * D3DX_PI)); // 깜빡임
+		if (m_pModel) m_pModel->Set_Alpha(alpha > 1.f ? 1.f : alpha);
+		// 효과 시간이 끝나면 평상시 상태로 전환
+		if (m_fETimer >= m_fEDuration)
+		{
+			m_eState = ETileState::IDLE;
+			if (m_pModel) m_pModel->Set_Alpha(1.f); // 알파 값을 1로 완전히 복구
+		}
+		break;
+	}
+
+
+
 	for (auto& pComponent : m_umComponent[ID_DYNAMIC])
 		pComponent.second->Update_Component(fTimeDelta);
-
 
 	return 0;
 }
@@ -82,5 +134,16 @@ void CTestTile::Free()
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pTransform);
 }
+
+void CTestTile::Set_Destroy(bool bDestroy)
+{
+	if (bDestroy && m_eState == ETileState::IDLE)
+	{
+		m_eState = ETileState::DESTROYING;
+		m_fETimer = 0.f;
+	}
+}
+
+
 
 REGISTER_GAMEOBJECT(CTestTile)

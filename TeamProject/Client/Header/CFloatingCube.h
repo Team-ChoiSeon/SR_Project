@@ -24,6 +24,7 @@ public:
 	void Free() override;
 
 	void SetTrigger(bool Trigger) { m_bOn = Trigger; }
+	void SetGoBack(bool GoBack) { m_bGoBack = GoBack; }
 
 	//Getter, Setter Function
 	void Set_StartPos(const _vec3& vStartPos) { m_vStartPos = vStartPos; }
@@ -32,11 +33,19 @@ public:
 	void Set_MaxDistance(const _float& fMaxDistance) { m_fMaxDistance = fMaxDistance; }
 	void Set_Speed(const _float& speed) { m_fSpeed = speed; }
 	void Set_SleepTime(const _float& SleepTime) { m_fSleepTime = SleepTime; }
-	void Set_Info(const _vec3& vStartPos, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime);
+	void Set_Info(const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime);
+	void Set_Info(const _vec3& vStart, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime);
 	void Set_Loop() { m_bBackward = true; }
+	void Set_GoBack(_bool bGoBack) { m_bGoBack = bGoBack; }
 
 	_bool Get_Loop() { return m_bBackward; }
 	_float Get_SleepTime() { return m_fTime; }
+	_bool Get_MoveState() { return m_bOn; }
+	_bool Get_Stop() { return m_bSleep; }
+
+	//Utility Function
+	void PlayDoorSound(const _bool& OnTrigger, const _bool& OffTrigger);
+	void PlayElevatorSound();
 
 private:
 	//Compute Function
@@ -66,5 +75,8 @@ private:
 	_bool m_bSleep = false;
 	_bool m_bGoBack = false;
 	_bool m_bBackward = false;
+
+	_bool m_bPreMove = false;
+	_bool m_bEleSound = false;
 };
 

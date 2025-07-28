@@ -136,6 +136,18 @@
     <Filter Include="01. Managers\13. GUISystem\Imgui">
       <UniqueIdentifier>{6748df94-7294-4d42-897e-4a5c26276cb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Components\06. UI\UIQuad">
+      <UniqueIdentifier>{ade73681-3b15-402a-a03a-3f4b3536b2af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\10. SkyBox">
+      <UniqueIdentifier>{7215942b-f3a6-48ae-9c69-8c44fd153005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Components\10. Effect">
+      <UniqueIdentifier>{5b61609f-d728-4ce4-bf16-657fba654603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Managers\04. RenderMgr\PostProcess">
+      <UniqueIdentifier>{28315f09-721f-4368-a60a-f07a806b954e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -303,6 +315,18 @@
     <ClInclude Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.h">
       <Filter>01. Managers\13. GUISystem\Imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CUiQuad.h">
+      <Filter>02. Components\06. UI\UIQuad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSkyBox.h">
+      <Filter>02. Components\10. SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEffect.h">
+      <Filter>02. Components\10. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPostProcess.h">
+      <Filter>01. Managers\04. RenderMgr\PostProcess</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -386,9 +410,6 @@
     <ClCompile Include="..\Code\CUiMgr.cpp">
       <Filter>01. Managers\08. UiMgr</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CUI.cpp">
-      <Filter>02. Components\06. UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CUiImage.cpp">
       <Filter>02. Components\06. UI\UiImage</Filter>
     </ClCompile>
@@ -448,6 +469,21 @@
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\Imgui\backends\imgui_impl_win32.cpp">
       <Filter>01. Managers\13. GUISystem\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUiQuad.cpp">
+      <Filter>02. Components\06. UI\UIQuad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUI.cpp">
+      <Filter>02. Components\06. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSkyBox.cpp">
+      <Filter>02. Components\10. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEffect.cpp">
+      <Filter>02. Components\10. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPostProcess.cpp">
+      <Filter>01. Managers\04. RenderMgr\PostProcess</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -33,6 +33,9 @@ void CPickTarget::Update_Component(const _float& fTimeDelta)
 
 void CPickTarget::LateUpdate_Component(const _float& fTimeDelta)
 {
+	if (!m_bActive)
+		return;
+
 	if (Check_Collision())
 		Add_HitInfo();
 }
@@ -54,7 +57,6 @@ CPickTarget* CPickTarget::Create(LPDIRECT3DDEVICE9 pGraphicDev, RAYCHECKTYPE bou
 
 void CPickTarget::Free()
 {
-	Safe_Release(m_pCollider);
 }
 
 bool CPickTarget::Check_Collision()

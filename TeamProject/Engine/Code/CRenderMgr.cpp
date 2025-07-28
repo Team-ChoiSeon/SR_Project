@@ -1,6 +1,10 @@
 #include "CRenderMgr.h"
+#include "CGraphicDev.h"
 #include "CCollisionMgr.h"
 #include "CParticle.h"
+#include "CSkyBox.h"
+#include "CEffect.h"
+#include "CPostProcess.h"
 
 IMPLEMENT_SINGLETON(CRenderMgr)
 
@@ -16,12 +20,15 @@ CRenderMgr::~CRenderMgr()
 HRESULT CRenderMgr::Ready_RenderMgr()
 {
 	m_vModellist.resize(static_cast<int>(RENDER_PASS::RP_END));
+
+	m_pPostProcess = CPostProcess::Create(CGraphicDev::Get_Instance()->Get_GraphicDev());
 	Clear();
 	return S_OK;
 }
 
 void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 {
+
 	//렌더 스테이트 설정
 	pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
@@ -41,8 +48,14 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
 	//pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	
+	m_pPostProcess->BeginScene();
+
+	if (m_pSkyBox)
+		m_pSkyBox->Render(pDevice);
+
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_SHADOW)])
 		renderer->Render(pDevice);
+
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_OPAQUE)])
 	{
@@ -55,22 +68,41 @@ void CRenderMgr::Render(LPDIRECT3DDEVICE9 pDevice)
 	for (auto& renderer : m_vParticles)
 		renderer->Render_Particle();
 
-	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_TRANSPARENT)])
+	for (auto& renderer : m_vEffect)
+		renderer->Render_Effect();
+
+	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_TRANSPARENT)]) {
+		pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+		pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+		pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 		renderer->Render(pDevice);
+		pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+		pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+	}
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_UI)])
 		renderer->Render(pDevice);
 
-	for (auto& renderer : m_vUI)
+
+	for (auto& renderer : m_vUI) {
+		if(renderer->Get_Post())
 		renderer->Render(pDevice);
+	}
+
+	m_pPostProcess->EndScene();
+
+	for (auto& renderer : m_vUI) {
+		if (!renderer->Get_Post())
+		renderer->Render(pDevice);
+	}
 
 	for (auto& renderer : m_vModellist[static_cast<int>(RENDER_PASS::RP_POSTPROCESS)])
 		renderer->Render(pDevice);
 	
-	for (auto& renderer : m_vCol)
-		renderer->Render(pDevice);
-
-
+	//for (auto& renderer : m_vCol)
+		//renderer->Render(pDevice);
+	
 	Clear();
 }
 
@@ -129,6 +161,17 @@ void CRenderMgr::Add_ParticleRenderer(CParticle* particle)
 		m_vParticles.push_back(particle);
 }
 
+void CRenderMgr::Add_Effect(CEffect* effect)
+{
+	auto iter = find_if(m_vEffect.begin(), m_vEffect.end(),
+		[&effect](CEffect* data)->bool {
+			return data == effect;
+		});
+
+	if (iter == m_vEffect.end())
+		m_vEffect.push_back(effect);
+}
+
 void CRenderMgr::Add_UI(CUI* ui)
 {
 	auto iter = find_if(m_vUI.begin(), m_vUI.end(),
@@ -138,6 +181,11 @@ void CRenderMgr::Add_UI(CUI* ui)
 
 	if (iter == m_vUI.end())
 		m_vUI.push_back(ui);
+}
+
+void CRenderMgr::Add_SkyBox(CSkyBox* skyBox)
+{
+	m_pSkyBox = skyBox;
 }
 
 void CRenderMgr::Remove_UI(CUI* ui)
@@ -160,11 +208,14 @@ void CRenderMgr::Clear()
 	m_vCol.clear();
 	m_vUI.clear();
 	m_vParticles.clear();
-
+	m_pSkyBox = nullptr;
+	m_vEffect.clear();
 }
 
 
 
 void CRenderMgr::Free()
 {
+	Safe_Release(m_pPostProcess);
 }
+

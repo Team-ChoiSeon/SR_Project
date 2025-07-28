@@ -48,7 +48,6 @@ private:
     CTexture* m_pNormal = nullptr;
     CTexture* m_pRoughness = nullptr;
 
-
     LPD3DXEFFECT m_pEffect = nullptr; // ºŒ¿Ã¥ı ∞¥√º
     wstring m_wShaderKey; //ºŒ¿Ã¥ı ≈∞
 };

@@ -6,6 +6,7 @@
 #include "CParticle.h"
 
 
+
 CMonsterPart::CMonsterPart(LPDIRECT3DDEVICE9 pGraphicDev)
     :CGameObject(pGraphicDev)
 {
@@ -73,14 +74,14 @@ HRESULT CMonsterPart::Ready_GameObject()
     m_pParticle = Get_Component<CParticle>();
     m_pParticle->Set_Texture(L"vecteezy_smoke-effect-transparent_21104616.png");
     m_pParticle->Set_Type(PARTICLE_MOVE_TYPE::BREATH);
-    m_pParticle->Set_MaxParticle(200);
+    m_pParticle->Set_MaxParticle(300);
     m_pParticle->Set_SpawnInterval(0.1f);
 
-    m_pCol->Set_ColTag(ColliderTag::NONE);
+    m_pCol->Set_ColTag(ColliderTag::MONSTER);
     m_pCol->Set_ColType(ColliderType::PASSIVE);
     m_pCol->Set_BoundType(BoundingType::OBB);
 
-    m_pTransform->Set_Scale({ 1.f, 1.f, 1.f });
+    m_pTransform->Set_Scale({ 2.f, 2.f, 2.f });
 
     m_pRigid->Set_OnGround(false);
     m_pRigid->Set_UseGravity(false);
@@ -94,7 +95,10 @@ HRESULT CMonsterPart::Ready_GameObject()
 
 _int CMonsterPart::Update_GameObject(const _float& fTimeDelta)
 {
-    Follow_Target(fTimeDelta);
+    if(m_bFollow)
+        Follow_Target(fTimeDelta);
+
+
     CGameObject::Update_GameObject(fTimeDelta);
     return 0;
 }
@@ -120,7 +124,7 @@ void CMonsterPart::Follow_Target(_float fDeltaTime)
 
 
     //  타겟의 위치에서 dir 방향으로 baseDist만큼 떨어진 지점
-    float baseDist = 2.0f;
+    float baseDist = 3.7f;
     _vec3 movePos = myPos;
 
     // 밀어내기

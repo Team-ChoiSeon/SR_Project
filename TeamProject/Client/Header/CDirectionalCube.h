@@ -24,8 +24,10 @@ public:
 	void Free() override;
 
 	//Getter, Setter Function
-	void Set_Info(const _vec3& startpos,  const _vec3& axis, const _float& mindistance, const _float& maxdistance);
-	void Set_Info(const _vec3& startpos, const _vec3& direction, const _float& maxdistance);
+	void Set_Info(const _vec3& axis, const _float& mindistance, const _float& maxdistance);
+	void Set_Info(const _vec3& direction, const _float& maxdistance);
+	void Set_Info(const _vec3& start, const _vec3& axis, const _float& mindistance, const _float& maxdistance);
+	void Set_Info(const _vec3& start, const _vec3& direction, const _float& maxdistance);
 	
 private:
 	//Compute Function
@@ -50,6 +52,12 @@ private:
 	_float			m_fCurDistance;
 
 	_bool			m_bOneway;
-	
+	_bool			m_bSoundPlayed = false;
+
+
+private: //Ãà°íÁ¤
+	_bool m_bLockX;
+	_bool m_bLockY;
+	_bool m_bLockZ;
 };
 

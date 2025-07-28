@@ -12,8 +12,8 @@
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
 #include "CRenderMgr.h"
+#include "CPostProcess.h"
 
-#include "CPlayer.h"
 #include "CMainPlayer.h"
 #include "CLightObject.h"
 #include "CTestLightMeshObject.h"
@@ -25,7 +25,7 @@
 #include "CProgressBar.h"
 #include "CLodingCube.h"
 
-#include "SceneHW.h"
+#include "CSkyBox.h"
 #include "CScene.h"
 #include "CCamera.h"
 #include "CFactory.h"
@@ -54,7 +54,7 @@ HRESULT SceneLoding::Ready_Scene()
 	CLodingCube* m_pRotateCube = CLodingCube::Create(m_pGraphicDev);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"RotateCube", m_pRotateCube);
 
-	//ƒ´∏ﬁ∂Û ≈∏∞Ÿ
+	//Ïπ¥Î©îÎùº ÌÉÄÍ≤ü
 	m_pTarget = CTestTile::Create(m_pGraphicDev);
 	_vec3 vCubePos = m_pRotateCube->Get_Component<CTransform>()->Get_Pos();
 	DummyPos = vCubePos + _vec3(-1.38f, -0.12f, -3.3f);
@@ -69,6 +69,10 @@ HRESULT SceneLoding::Ready_Scene()
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"DummyTarget", m_pTarget);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pCam);
 
+	m_pCam->Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	m_pCam->Get_Component<CSkyBox>()->Set_Texture(L"Sky_Test2.dds");
+	m_pCam->Get_Component<CTransform>()->Set_Scale({ 100,100,100 });
+
 	return S_OK;
 }
 
@@ -76,8 +80,10 @@ _int SceneLoding::Update_Scene(const _float& fTimeDelta)
 {
 	m_fProgressTimer += fTimeDelta;
 
-	m_fProgress = min(m_fProgress, layerCount);
-	float ProgressPer = static_cast<float>(m_fProgress) / layerCount;
+	m_fProgress = min(m_fProgress, m_fMaxProgress);
+	float ProgressPer = static_cast<float>(m_fProgress) / m_fMaxProgress;
+
+
 	Get_Layer(LAYER_UI)->Get_GameObject<CProgressBar>(L"ProgressBar")->Set_Progress(ProgressPer);
 
 	if (currentLayerIter == jLayers.end())
@@ -93,8 +99,9 @@ _int SceneLoding::Update_Scene(const _float& fTimeDelta)
 		Load_Layer();
 		break;
 	case SceneLoding::LOADING_STEP::LOAD_OBJ:
-		if(m_fProgressTimer > .1f) 
+		if(m_fProgressTimer > .0001f) 
 			LoadObject();
+
 		break;
 	case SceneLoding::LOADING_STEP::CHANGE_SCENE:
 		Change_Scene();
@@ -117,7 +124,6 @@ void SceneLoding::Set_Cam()
 {
 	m_pCam->Set_Target(m_pTarget);
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pCam);
-
 }
 
 SceneLoding* SceneLoding::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -134,7 +140,7 @@ SceneLoding* SceneLoding::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pScene;
 }
 
-//øÏº± æ¿¿« ∆ƒ¿œ¿ª ¿–∞Ì
+//Ïö∞ÏÑ† Ïî¨Ïùò ÌååÏùºÏùÑ ÏùΩÍ≥†
 HRESULT SceneLoding::LoadScene(CScene* from, CScene* to)
 {
 	m_eNowStep = LOADING_STEP::READ_SCENE;
@@ -146,7 +152,7 @@ HRESULT SceneLoding::LoadScene(CScene* from, CScene* to)
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	if (hFile == INVALID_HANDLE_VALUE) {
-		MessageBoxW(nullptr, L" æ¿ ∆ƒ¿œ ø≠±‚ Ω«∆–", L"Error", MB_OK);
+		MessageBoxW(nullptr, L" Ïî¨ ÌååÏùº Ïó¥Í∏∞ Ïã§Ìå®", L"Error", MB_OK);
 		m_eNowStep = LOADING_STEP::NONE;
 		return E_FAIL;
 	}
@@ -158,8 +164,15 @@ HRESULT SceneLoding::LoadScene(CScene* from, CScene* to)
 	CloseHandle(hFile);
 
 	json jScene = json::parse(jsonText);
+	
 	jLayers = jScene["layers"];
-	currentLayerIter = jLayers.begin(); // √≥¿Ω∫Œ≈Õ
+
+	for (auto& layer : jLayers) {
+		auto& jObjects = layer["objects"];
+		m_fMaxProgress += static_cast<float>(jObjects.size());
+	}
+
+	currentLayerIter = jLayers.begin(); // Ï≤òÏùåÎ∂ÄÌÑ∞
 	layerCount = jLayers.size();
 
 	m_pFrom = from;
@@ -171,13 +184,13 @@ HRESULT SceneLoding::LoadScene(CScene* from, CScene* to)
 }
 
 
-//øÏº± æ¿¿« ∞¢ ∑π¿ÃæÓø° ≥÷æÓ¡‹
+//Ïö∞ÏÑ† Ïî¨Ïùò Í∞Å Î†àÏù¥Ïñ¥Ïóê ÎÑ£Ïñ¥Ï§å
 void SceneLoding::Load_Layer()
 {
 	if (currentLayerIter == jLayers.end())
 		return; 
 
-	// ¥ÎªÛ æ¿ø° ∑π¿ÃæÓ æÚ±‚
+	// ÎåÄÏÉÅ Ïî¨Ïóê Î†àÏù¥Ïñ¥ ÏñªÍ∏∞
 	string layerName = currentLayerIter.key();
 	LAYERID eID = CFactory::stringToLayer(layerName);
 	m_ReadingLayer = m_pTo->Get_Layer(eID);
@@ -195,8 +208,6 @@ void SceneLoding::LoadObject()
 	if (currentObjectIter == jObjects.end()) {
 		m_eNowStep = LOADING_STEP::LOAD_LAYER;
 		++currentLayerIter;
-		m_fProgress += 1.f;
-		m_fProgressTimer = 0.f;
 		layerCount++;
 		return;
 	}
@@ -206,12 +217,14 @@ void SceneLoding::LoadObject()
 		return;
 	}
 
-	// «œ≥™¿« ø¿∫Í¡ß∆Æ∏∏ √≥∏Æ
+	// ÌïòÎÇòÏùò Ïò§Î∏åÏ†ùÌä∏Îßå Ï≤òÎ¶¨
 	CGameObject* obj = CFactory::DeSerializeObject(*currentObjectIter);
 	if (obj)
 	{
 		string nameStr = currentObjectIter->value("name", "");
 		m_ReadingLayer->Add_GameObject(CFactory::ToWString(nameStr), obj);
+		m_fProgress += 1.f;
+		m_fProgressTimer = 0.f;
 	}
 
 	++currentObjectIter;
@@ -220,9 +233,10 @@ void SceneLoding::LoadObject()
 
 void SceneLoding::Change_Scene()
 {
+	CRenderMgr::Get_Instance()->Get_PostProcessing()->Do_Assemble(true);
 	CSceneMgr::Get_Instance()->Set_CurrentScene(m_pTo);
 	m_pFrom->Exit_Scene();
-	Safe_Release(m_pFrom);
+	//Safe_Release(m_pFrom);
 
 	m_pTo = nullptr;
 	m_pFrom = nullptr;
@@ -230,8 +244,9 @@ void SceneLoding::Change_Scene()
 	ObjectsCount = 0;
 	jLayers = nullptr;
 	jObjects = nullptr;
-
+	m_fMaxProgress = 0;
 	m_fProgressTimer = 0;
+	m_bChange = false;
 }
 
 void SceneLoding::Free()

@@ -2,10 +2,11 @@
 float4x4 g_matWorld;
 float4x4 g_matView;
 float4x4 g_matProj;
-
+float g_Alpha = 1.f;
 texture g_DiffuseTex;
 texture g_NormalTex;
 
+bool g_usingLight;
 float3 g_LightDir;
 float4 g_LightColor;
 float4 g_Ambient;
@@ -36,12 +37,12 @@ VS_OUT VS_Main(VS_IN input)
 
     float4x4 g_matWorldViewProj = mul(mul(g_matWorld, g_matView), g_matProj);
     output.pos = mul(input.pos, g_matWorldViewProj);
-    output.uv = input.uv * g_UVScale.xy;//래핑 용도
+    output.uv = input.uv * g_UVScale.xy; //래핑 용도
 
     //정점의 법선을 월드로
-    float3 T = normalize(mul(input.tangent, (float3x3) g_matWorld));    //탄젠트 곱 월드
-    float3 B = normalize(mul(input.binormal, (float3x3) g_matWorld));  //바이노말 곱 월드
-    float3 N = normalize(mul(input.normal, (float3x3) g_matWorld));     //노말 곱 월드
+    float3 T = normalize(mul(input.tangent, (float3x3) g_matWorld)); //탄젠트 곱 월드
+    float3 B = normalize(mul(input.binormal, (float3x3) g_matWorld)); //바이노말 곱 월드
+    float3 N = normalize(mul(input.normal, (float3x3) g_matWorld)); //노말 곱 월드
     //여기까지는 기존 다렉 머티리얼과 같은 방식
     //그러나 정점의 TBN을 구해줘야, 그 면의 요철(픽셀 노멀)을 적절히 적용할 수 있기 때문
     output.TBN = float3x3(T, B, N);
@@ -96,14 +97,34 @@ float4 PS_Main(VS_OUT input) : COLOR0
 
     //(조명 색 + ambient) * 텍스처 색
     float3 litColor = g_Ambient.rgb + g_LightColor.rgb * diff;
-    return float4(baseColor * litColor, 1.0f);
+    if (g_usingLight)
+    {
+        return float4(baseColor, 1.f);
+    }
+    return float4(baseColor * litColor, g_Alpha);
 }
 
 // ===== 기법 정의 =====
-technique Default
+technique Opaque
 {
     pass P0
     {
+        CullMode = CCW; // 기본 컬링 모드 사용
+        VertexShader = compile vs_2_0 VS_Main();
+        PixelShader = compile ps_2_0 PS_Main();
+    }
+}
+
+technique Transparent
+{
+    pass P0
+    {
+        CullMode = NONE; // 컬링 끄기
+        ZWriteEnable = FALSE; // Z버퍼 쓰기 끄기 (순서 문제 방지)
+        AlphaBlendEnable = TRUE;
+        SrcBlend = SrcAlpha;
+        DestBlend = InvSrcAlpha;
+
         VertexShader = compile vs_2_0 VS_Main();
         PixelShader = compile ps_2_0 PS_Main();
     }

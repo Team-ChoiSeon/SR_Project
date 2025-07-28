@@ -10,9 +10,13 @@
 #include "CTestTile.h"
 #include "CVellum.h"
 #include "CImpulseCube.h"
+#include "CCinematicCamera.h"
 
 #include "CCollisionMgr.h"
 #include "CSceneMgr.h"
+#include "CUiMgr.h"
+#include "CScenePanel.h"
+#include "CResourceMgr.h"
 
 
 BossScene::BossScene(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -27,14 +31,22 @@ BossScene::~BossScene()
 
 HRESULT BossScene::Ready_Scene()
 {
-
 	//CScene::Ready_Scene();
 	Init_Layers();
 
 	// 1. 플레이어 (시점 고정)
 	CMainPlayer* pPlayer = CMainPlayer::Create(m_pGraphicDev);
-	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 100.f, -20.f });
+	pPlayer->Get_Component<CTransform>()->Set_Pos({ 0.f, 30.f, -75.f });
+	pPlayer->Set_ResponPos({ 0.f, 30.f, -75.f });
 	CSceneMgr::Get_Instance()->Set_Player(pPlayer);
+
+	CCrosshairUIObject* cross = CCrosshairUIObject::Create(m_pGraphicDev);
+	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", cross);
+	CUiMgr::Get_Instance()->AddUI(cross);
+	pPlayer->Set_Crosshair(cross);
+
+	CCinematicCamera* pCine = CCinematicCamera::Create(m_pGraphicDev);
+	pCine->Set_Target(pPlayer);
 
 	// 3-2. 벨룸
 	CVellum* pVellum = CVellum::Create(m_pGraphicDev);
@@ -45,21 +57,30 @@ HRESULT BossScene::Ready_Scene()
 	// 5. 플레이어 → 타겟 오브젝트
 	Get_Layer(LAYER_PLAYER)->Add_GameObject(L"Player", pPlayer);
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
+	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"Cinematic", pCine);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"Vellum", pVellum);
 
+	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
+	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);
 
 
 	// 6. 카메라 타겟은 플레이어
 	pCam->Set_Target(pPlayer);  // 1인칭 시점
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
-
-
-
+	CSoundMgr::Get_Instance()->Load_Sound("Boss", "../Bin/Resource/Sound/BossScene.mp3");
+	CSoundMgr::Get_Instance()->Play("Boss", "BGM", true);
 	return S_OK;
 }
 
 _int BossScene::Update_Scene(const _float& fTimeDelta)
 {
+	CMainPlayer* pPlayer = Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"Player");
+
+	if (pPlayer->GetPos().y < -10.f)
+	{
+		pPlayer->Change_State(CMainPlayer::PLAYER_STATE::PLAYER_DEAD);
+	}
+
 	CScene::Update_Scene(fTimeDelta);
 	return 0;
 }

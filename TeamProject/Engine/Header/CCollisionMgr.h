@@ -17,7 +17,7 @@ public:
 	void Add_Collider(CCollider* collider);
 	void Remove_Collider(CCollider* collider);
 	void Update_Collision();
-	void LateUpdate_Collision() {}
+	void LateUpdate_Collision() {};
 	void Clear();
 
 private:

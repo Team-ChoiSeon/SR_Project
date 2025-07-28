@@ -49,6 +49,9 @@ HRESULT CMainApp::Ready_MainApp()
 
 	CInputMgr::Get_Instance()->Ready_InputDev(g_HInst, g_hWnd);
 	CResourceMgr::Get_Instance()->Ready_Resource();
+
+	// CameraMgr, LightMgr, CollisionMgr 초기화는 필요시 추가
+	CSoundMgr::Get_Instance()->Ready_Sound();
 	CShaderMgr::Get_Instance()->Ready_Shader(m_pGraphicDev);
 	CRenderMgr::Get_Instance()->Ready_RenderMgr();
 
@@ -56,8 +59,6 @@ HRESULT CMainApp::Ready_MainApp()
 	CPickingMgr::Get_Instance()->Ready_Picking(m_pGraphicDev, g_hWnd);
 	CLightMgr::Get_Instance()->Ready_Light(m_pGraphicDev);
 
-	// CameraMgr, LightMgr, CollisionMgr 초기화는 필요시 추가
-	CSoundMgr::Get_Instance()->Ready_Sound();
 
 	//CSoundMgr::Get_Instance()->Play("test", "BGM");
 
@@ -68,6 +69,7 @@ HRESULT CMainApp::Ready_MainApp()
 	//Loading Scene Setting
 	CSceneMgr::Get_Instance()->Set_LoadingScene(loadingScene);
 	CGuiSystem::Get_Instance()->Ready_GUI(g_hWnd);
+
 	return S_OK;
 }
 
@@ -77,10 +79,11 @@ int CMainApp::Update_MainApp(_float& fTimeDelta)
 	CPickingMgr::Get_Instance()->Update_Picking(fTimeDelta);
 
 	CCameraMgr::Get_Instance()->Update_Camera(m_pGraphicDev, fTimeDelta);
-	CCollisionMgr::Get_Instance()->Update_Collision();
-	CLightMgr::Get_Instance()->UpdateLights(fTimeDelta);
+	
 	CSceneMgr::Get_Instance()->Update_Scene(fTimeDelta);
+	CCollisionMgr::Get_Instance()->Update_Collision();
 
+	CLightMgr::Get_Instance()->UpdateLights(fTimeDelta);
 	CSoundMgr::Get_Instance()->Update_Sound();
 
 	return 0;

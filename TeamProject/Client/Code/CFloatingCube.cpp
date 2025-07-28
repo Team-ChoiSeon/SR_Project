@@ -30,14 +30,13 @@ HRESULT CFloatingCube::Ready_GameObject()
 
 	Add_Component<CTransform>(ID_DYNAMIC, m_pGraphicDev);
 	m_pTransform = Get_Component<CTransform>();
-	m_pTransform->Set_Scale({ 1.f, 0.3f, 1.f });
-	m_pTransform->Set_Pos({ 0.f, 0.f, 0.f });
+	m_pTransform->Ready_Component();
 	m_pTransform->Set_Look({ 0.f, 0.f, 1.f });
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
 	m_pRigid->Set_Friction(0.f);
-	m_pRigid->Set_Mass(10.f);
+	m_pRigid->Set_Mass(1.f);
 	m_pRigid->Set_Bounce(0.f);
 	m_pRigid->Set_OnGround(true);
 	m_pRigid->Set_UseGravity(false);
@@ -63,7 +62,6 @@ HRESULT CFloatingCube::Ready_GameObject()
 
 _int CFloatingCube::Update_GameObject(const _float& fTimeDelta)
 {
-
 	if (m_bOn) {
 		if (m_bBackward)
 		{
@@ -90,10 +88,14 @@ _int CFloatingCube::Update_GameObject(const _float& fTimeDelta)
 		{
 			if (!m_bSleep)
 				Move(fTimeDelta);
+			else
+				Sleep(fTimeDelta);
 		}
 	}
 	else
 		Stop(fTimeDelta);
+
+
 
 	SyncVelPlayer(fTimeDelta);
 
@@ -127,21 +129,62 @@ void CFloatingCube::Free()
 	Safe_Release(m_pTransform);
 	Safe_Release(m_pModel);
 	Safe_Release(m_pCollider);
-	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pRigid);
 }
 
-void CFloatingCube::Set_Info(const _vec3& vStartPos, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime)
+void CFloatingCube::Set_Info(const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime)
 {
-	m_vStartPos = vStartPos;
+	m_vStartPos = m_pTransform->Get_Pos();
+	m_vDirection = vDirection;
+	m_fMaxDistance = fMax;
+	m_fSpeed = fSpeed;
+	m_fSleepTime = SleepTime;
+	m_bBackward = false;
+	m_bSleep = true;
+	ComputeEndPos();
+
+}
+
+void CFloatingCube::Set_Info(const _vec3& vStart, const _vec3& vDirection, const _float& fMax, const _float& fSpeed, const _float& SleepTime)
+{
+	m_vStartPos = vStart;
 	m_pTransform->Set_Pos(m_vStartPos);
 	m_vDirection = vDirection;
 	m_fMaxDistance = fMax;
 	m_fSpeed = fSpeed;
 	m_fSleepTime = SleepTime;
 	m_bBackward = false;
+	m_bSleep = true;
 	ComputeEndPos();
+}
 
+void CFloatingCube::PlayDoorSound(const _bool& OnTrigger, const _bool& OffTrigger)
+{
+	if (OnTrigger)
+	{
+		CSoundMgr::Get_Instance()->Play("DoorOpen1");
+		CSoundMgr::Get_Instance()->Play("DoorOpen2");
+	}
+	if (OffTrigger)
+	{
+		CSoundMgr::Get_Instance()->Play("DoorClose1");
+		CSoundMgr::Get_Instance()->Play("DoorOpen2");
+	}
+}
+
+void CFloatingCube::PlayElevatorSound()
+{
+	if (m_bOn && !m_bSleep && !m_bEleSound)
+	{
+		CSoundMgr::Get_Instance()->Play("ElevatorMove", "ENV",true);
+		m_bEleSound = true;
+	}
+	else if ((m_bSleep || !m_bOn) && (m_bEleSound))
+	{
+		CSoundMgr::Get_Instance()->Stop("ElevatorMove");
+		CSoundMgr::Get_Instance()->Stop_Group("ENV");
+		m_bEleSound = false;
+	}
 }
 
 void CFloatingCube::SyncVelPlayer(const _float& fTimeDelta)
@@ -183,7 +226,7 @@ void CFloatingCube::Move(const _float& fTimeDelta)
 	_float fTravelDist = D3DXVec3Length(&vNowStartGap);
 	_float fTotalDist = D3DXVec3Length(&vEndStartGap);
 
-	//=============================== Move by Transfrom===============================//
+	//=============================== Move by Transfrom ===============================//
 	if (fTravelDist < fTotalDist)
 	{
 		m_pTransform->Move_Pos(&m_vDirection, m_fSpeed, fTimeDelta);
@@ -237,7 +280,7 @@ void CFloatingCube::MoveBack(const _float& fTimeDelta)
 	_float fTravelDist = D3DXVec3Length(&vNowStartGap);
 	_float fTotalDist = D3DXVec3Length(&vEndStartGap);
 
-	//=============================== Move by Transfrom===============================//
+	//=============================== Move by Transfrom ===============================//
 
 	if (fTravelDist < fTotalDist)
 	{

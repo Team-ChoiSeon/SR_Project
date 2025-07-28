@@ -3,18 +3,22 @@
 #include "CTransform.h"
 #include "CRigidBody.h"
 #include "CCrosshairUIObject.h"
+#include "CMirrorSlotCube.h"
 
 namespace Engine {
 	class CModel;
 	class CCollider;
+	class CSkyBox;
 }
 
 class CCube;
 class CSwitch;
+class CProjectile;
+
 class CMainPlayer : public CGameObject
 {
 public:
-	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL  };  // ÇÊ¿ä½Ã¿¡ ´õ Ãß°¡
+	enum class PLAYER_STATE { PLAYER_IDLE, PLAYER_HIT, PLAYER_DEAD, PLAYER_RESPAWN, PLAYER_MOVE, PLAYER_JUMP, PLAYER_FALL, PLAYER_END };  // ï¿½Ê¿ï¿½Ã¿ï¿?ï¿½ï¿½ ï¿½ß°ï¿½
 private:
 	CMainPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CMainPlayer();
@@ -33,14 +37,18 @@ public:
 
 	//Gettter, Setter Function
 	_vec3 GetPos() { return Get_Component<CTransform>()->Get_Pos(); }
-	bool Get_Hold() { return m_bObjHold;  }
+	bool Get_Hold() { return m_bObjHold; }
 	bool Get_MouseTap() { return m_bMouseTap; }
 	bool Get_MouseAway() { return m_bMouseAway; }
 	_vec3 Get_DragDistance() { return m_vDragDistance; }
 	CGameObject* Get_PickObj() { return m_pPickedObj; }
 	CGameObject* Get_PrevPickObj() { return m_pPickedObj; }
+	_int Get_Hp() { return m_iHP; }
+	_vec3 Get_PrevPos() { return m_vPrevPlayerPos; }
 
-	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; };
+	void Set_Crosshair(CCrosshairUIObject* crosshair) { m_pCrosshair = crosshair; }
+	void Set_Hp(_int iHp) { m_iHP = iHp; if (m_iHP > m_iMaxHp) { m_iHP = m_iMaxHp; } }
+	void Set_ResponPos(_vec3 Responpos) { m_vResponPos = Responpos; }
 
 protected:
 	//Utility Function
@@ -56,6 +64,9 @@ private:
 	void Hold_Picking();
 	void Away_Picking();
 
+	void Player_Hiting();
+	void Player_Dieing(const _float& fTimeDelta);
+
 
 	CTransform* m_pTransform = nullptr;
 	CModel* m_pModel = nullptr;
@@ -65,6 +76,7 @@ private:
 	CGameObject* m_pPickedObj = nullptr;
 
 	CCrosshairUIObject* m_pCrosshair = nullptr;
+	CSkyBox* m_pSkyBox = nullptr;
 
 	float m_fMoveSpeed;
 	float m_fJumpPower = 20.f;
@@ -73,7 +85,7 @@ private:
 	float m_fWidth;
 	float m_fDepth;
 
-	bool m_bCursorMove;
+	bool m_bCursorMove = true;
 	bool m_bObjHold = false;
 	bool m_bMouseTap = false;
 	bool m_bMouseAway = false;
@@ -94,13 +106,32 @@ private:
 	_vec3 m_vPrePickPoint;
 
 	_vec3 m_vLastPos;
-	_vec3 distancePos;//ÀÓ½Ã
+	_vec3 distancePos;
 	_vec3 vDistance;
 
 	CCube* m_PickedCube;
 	CSwitch* m_PickedSwitch;
+	CProjectile* m_PickedProjectile = nullptr;
+
 	Ray* m_pRay;
 
 	PLAYER_STATE m_eCurState = PLAYER_STATE::PLAYER_IDLE;
 	PLAYER_STATE m_ePrevState = PLAYER_STATE::PLAYER_IDLE;
+
+	_int m_iHP = 10; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ HP
+	_int m_iMaxHp = 10;
+	bool m_bInvincible = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	_float m_fInvincibleTime = 0.f;
+	const _float m_fMaxInvincibleTime = 1.0f;
+
+	_bool m_bWalkingSound = false; // ï¿½È´ï¿½ï¿½ï¿½
+	_bool m_bOnGroundFirst = false;
+
+	_vec3 m_vPrevPlayerPos = {0.f,0.f,0.f};
+	_vec3 m_vResponPos = { 0.f,0.f,0.f };
+	_float m_fDeadTime = 0.f;
+
+	float m_fPrevDX = 0.f;
+	float m_fPrevDY = 0.f;
+
 };

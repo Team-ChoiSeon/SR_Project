@@ -18,14 +18,9 @@ public:
 	virtual			HRESULT		Ready_Scene()override;
 	virtual			_int		Update_Scene(const _float& fTimeDelta)override;
 	virtual			void		LateUpdate_Scene(const _float& fTimeDelta)override;
-	void Test_Panel();
+	void SlotSet();
 	virtual const wstring Get_ScenePath() { return L"../../Scene/Merge_Scene.json"; };
 
-private:
-	void TileLayer_Set();
-	void Step_StoneSet();
-	void Moving_StoneSet();
-	void Stair_Set();
 private:
 	CMainPlayer* m_pPlayer;
 public:

@@ -36,83 +36,83 @@ CGameObject* CFactory::Create(const wstring& className, LPDIRECT3DDEVICE9 pGraph
 
 void CFactory::Save_Prefab(CGameObject* object, const string& className)
 {
-	if (!object)
-		return;
-
-	json jObj;
-	jObj["class"] = className;
-
-	json jComponents;
-
-	if (CTransform* comp = object->Get_Component<CTransform>()) {
-		json jTrans;
-		Serialize_Transform(jTrans, comp);
-		jComponents["CTransform"] = jTrans;
-	}
-	if (CCamera* comp = object->Get_Component<CCamera>()) {
-		json jCam;
-		Serialize_Camera(jCam, comp);
-		jComponents["CCamera"] = jCam;
-	}
-	if (CModel* comp = object->Get_Component<CModel>()) {
-		json jModel;
-		Serialize_Model(jModel, comp);
-		jComponents["CModel"] = jModel;
-	}
-	if (CLight* comp = object->Get_Component<CLight>()) {
-		json jLight;
-		Serialize_Light(jLight, comp);
-		jComponents["CLight"] = jLight;
-	}
-	if (CPickTarget* comp = object->Get_Component<CPickTarget>()) {
-		json jPick;
-		Serialize_PickTarget(jPick, comp);
-		jComponents["CPickable"] = jPick;
-	}
-	if (CCollider* comp = object->Get_Component<CCollider>()) {
-		json jCol;
-		Serialize_Collider(jCol, comp);
-		jComponents["CCollider"] = jCol;
-	}
-	if (CRigidBody* comp = object->Get_Component<CRigidBody>()) {
-		json jRigid;
-		Serialize_RigidBody(jRigid, comp);
-		jComponents["CRigidBody"] = jRigid;
-	}
-	if (CParticle* comp = object->Get_Component<CParticle>()) {
-		json jParticle;
-		Serialize_Particle(jParticle, comp);
-		jComponents["CParticle"] = jParticle;
-	}
-
-	jObj["components"] = jComponents;
-
-	// 저장 경로 준비
-	string dir = "../Bin/Resource/Data/";
-	CreateDirectoryA(dir.c_str(), NULL);
-
-	string path = dir + className + ".json";
-	string jsonText = jObj.dump(4);
-
-	HANDLE hFile = ::CreateFileA(
-		path.c_str(),
-		GENERIC_WRITE,
-		0,
-		NULL,
-		CREATE_ALWAYS,
-		FILE_ATTRIBUTE_NORMAL,
-		NULL);
-
-	if (hFile != INVALID_HANDLE_VALUE)
-	{
-		DWORD written = 0;
-		::WriteFile(hFile, jsonText.c_str(), (DWORD)jsonText.length(), &written, NULL);
-		::CloseHandle(hFile);
-	}
-	else
-	{
-		MessageBoxW(nullptr, L"파일 저장 실패", L"Error", MB_OK);
-	}
+	//if (!object)
+	//	return;
+	//
+	//json jObj;
+	//jObj["class"] = className;
+	//
+	//json jComponents;
+	//
+	//if (CTransform* comp = object->Get_Component<CTransform>()) {
+	//	json jTrans;
+	//	Serialize_Transform(jTrans, comp);
+	//	jComponents["CTransform"] = jTrans;
+	//}
+	//if (CCamera* comp = object->Get_Component<CCamera>()) {
+	//	json jCam;
+	//	Serialize_Camera(jCam, comp);
+	//	jComponents["CCamera"] = jCam;
+	//}
+	//if (CModel* comp = object->Get_Component<CModel>()) {
+	//	json jModel;
+	//	Serialize_Model(jModel, comp);
+	//	jComponents["CModel"] = jModel;
+	//}
+	//if (CLight* comp = object->Get_Component<CLight>()) {
+	//	json jLight;
+	//	Serialize_Light(jLight, comp);
+	//	jComponents["CLight"] = jLight;
+	//}
+	//if (CPickTarget* comp = object->Get_Component<CPickTarget>()) {
+	//	json jPick;
+	//	Serialize_PickTarget(jPick, comp);
+	//	jComponents["CPickable"] = jPick;
+	//}
+	//if (CCollider* comp = object->Get_Component<CCollider>()) {
+	//	json jCol;
+	//	Serialize_Collider(jCol, comp);
+	//	jComponents["CCollider"] = jCol;
+	//}
+	//if (CRigidBody* comp = object->Get_Component<CRigidBody>()) {
+	//	json jRigid;
+	//	Serialize_RigidBody(jRigid, comp);
+	//	jComponents["CRigidBody"] = jRigid;
+	//}
+	//if (CParticle* comp = object->Get_Component<CParticle>()) {
+	//	json jParticle;
+	//	Serialize_Particle(jParticle, comp);
+	//	jComponents["CParticle"] = jParticle;
+	//}
+	//
+	//jObj["components"] = jComponents;
+	//
+	//// 저장 경로 준비
+	//string dir = "../Bin/Resource/Data/";
+	//CreateDirectoryA(dir.c_str(), NULL);
+	//
+	//string path = dir + className + ".json";
+	//string jsonText = jObj.dump(4);
+	//
+	//HANDLE hFile = ::CreateFileA(
+	//	path.c_str(),
+	//	GENERIC_WRITE,
+	//	0,
+	//	NULL,
+	//	CREATE_ALWAYS,
+	//	FILE_ATTRIBUTE_NORMAL,
+	//	NULL);
+	//
+	//if (hFile != INVALID_HANDLE_VALUE)
+	//{
+	//	DWORD written = 0;
+	//	::WriteFile(hFile, jsonText.c_str(), (DWORD)jsonText.length(), &written, NULL);
+	//	::CloseHandle(hFile);
+	//}
+	//else
+	//{
+	//	MessageBoxW(nullptr, L"파일 저장 실패", L"Error", MB_OK);
+	//}
 }
 
 void CFactory::DeSerializeScene(const wstring& SceneData, CScene* scene)
@@ -221,9 +221,10 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 	// 3. CModel
 	if (jComponents.contains("CModel")) {
 		CModel* model = obj->Get_Component<CModel>();
+		const auto& jModel = jComponents["CModel"];
 		if (model) {
-			wstring meshKey = L"DirtObj.obj";
-			wstring matKey = L"DirtObj.mtl";
+			wstring meshKey = L"Default_A.obj";
+			wstring matKey = L"Default_A.mtl";
 			wstring shaderPath = L"g_UVScale.fx";
 
 			if (jComponents["CModel"].contains("mesh"))
@@ -254,6 +255,10 @@ CGameObject* CFactory::DeSerializeObject(const nlohmann::json& inJson)
 				model->Set_UVScale(uvScale);
 			}
 
+			if (jComponents["CModel"].contains("Alpha") )
+			{
+				model->Set_Alpha(jModel["Alpha"]);
+			}
 		}
 	}
 
@@ -409,13 +414,13 @@ void CFactory::Serialize_Camera(nlohmann::json& outJson, CCamera* comp)
 	outJson["znear"] = zNear;
 	outJson["zfar"] = zFar;
 }
-
 void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 {
 	if (!comp) {
 		// nullptr이면 기본값 지정
-		outJson["mesh"] = "Brick_Wall_009.obj";
-		outJson["matKey"] = "Brick_Wall_009.mtl";
+		outJson["mesh"] = "Defualt_A.obj";
+		outJson["matKey"] = "Defualt_A.mtl";
+		outJson["shader"] = "g_UVScale.fx";
 		return;
 	}
 
@@ -426,15 +431,23 @@ void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 	if (mesh)
 		outJson["mesh"] = ToString(mesh->Get_Key());
 	else
-		outJson["mesh"] = "Brick_Wall_009.obj";
+		outJson["mesh"] = "Defualt_A.obj";
 
 	// material 없으면 기본값
 	if (material)
 		outJson["matKey"] = ToString(material->Get_MatrialKey());
 	else
-		outJson["matKey"] = "Brick_Wall_009.mtl";
+		outJson["matKey"] = "Defualt_A.mtl";
 
-	// 머티리얼 내부 텍스처 키
+	// shader 키도 CModel 아래로 직접 넣기 (역직렬화에 맞춤)
+	if (material && material->Get_Effect()) {
+		outJson["shader"] = ToString(material->Get_ShaderKey());
+	}
+	else {
+		outJson["shader"] = "g_UVScale.fx"; // 기본값
+	}
+	outJson["Alpha"] = comp->Get_Alpha(); // float 값
+	// 머티리얼 내부 텍스처 키들만 material 블록에
 	if (material)
 	{
 		json jMat;
@@ -449,10 +462,6 @@ void CFactory::Serialize_Model(nlohmann::json& outJson, CModel* comp)
 
 		if (CTexture* tex = material->Get_Roughness()) {
 			jMat["roughness"] = ToString(tex->Get_Key());
-		}
-
-		if (LPD3DXEFFECT effect = material->Get_Effect()) {
-			jMat["shader"] = ToString(material->Get_ShaderKey());
 		}
 
 		outJson["material"] = jMat;

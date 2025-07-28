@@ -27,5 +27,18 @@ private:
 	void DirectionSet();
 	void SlotSet();
 	void StairSet();
+	
+	void Set_Triggers();
+
+	vector<int> AnswerSwitch3_1 = { 1, 2, 3, 4 };
+	vector<int> InputSwitch3_1;
+
+	float m_fMuteTimer = 0.f;
+	bool  m_bSfxMuted = false;
+
+
+	vector<bool> m_vbPanels;
+	_bool m_bSceneFirst = true;
+
 };
 

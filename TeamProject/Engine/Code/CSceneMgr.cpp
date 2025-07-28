@@ -1,5 +1,7 @@
 #pragma once
 #include "CSceneMgr.h"
+#include "CRenderMgr.h"
+#include "CPostProcess.h"
 
 IMPLEMENT_SINGLETON(CSceneMgr)
 
@@ -15,6 +17,7 @@ CSceneMgr::~CSceneMgr()
 HRESULT CSceneMgr::Ready_SceneManager(CScene* pScene)
 {
     m_pCurScene = pScene;
+
     return S_OK;
 }
 
@@ -33,7 +36,7 @@ HRESULT CSceneMgr::Set_Scene(CScene* pScene)
     HRESULT hr = m_pLoading->LoadScene(prevScene,pScene);
 
     if (FAILED(hr)) {
-        MessageBoxW(0, L"¾À ·Îµù °æ·Î ¼³Á¤ ÀçÈ®ÀÎ ÇÊ¿ä", L"I told you so", MB_OK);
+        MessageBoxW(0, L"ì”¬ ë¡œë”© ê²½ë¡œ ì„¤ì • ìž¬í™•ì¸ í•„ìš”", L"I told you so", MB_OK);
         m_pCurScene = prevScene;
         Safe_Release(pScene);
 
@@ -61,6 +64,7 @@ void CSceneMgr::Set_CurrentScene(CScene* pScene)
 {
     m_pCurScene = pScene;
     m_pCurScene->Ready_Scene();
+    CRenderMgr::Get_Instance()->Get_PostProcessing()->Do_Assemble(false);
 }
 
 _int CSceneMgr::Update_Scene(const _float& fTimeDelta)

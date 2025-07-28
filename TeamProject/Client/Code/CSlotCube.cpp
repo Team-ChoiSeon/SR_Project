@@ -14,7 +14,7 @@
 #include "Engine_GUI.h"
 #include "CGuiSystem.h"
 #include "CCameraMgr.h"
-CSlotCube* CSlotCube::s_pPickedCube = nullptr;
+#include "CZoneSensor.h"
 CSlotCube::CSlotCube(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CCube(pGraphicDev)
 {
@@ -40,6 +40,7 @@ HRESULT CSlotCube::Ready_GameObject()
 
 	Add_Component<CModel>(ID_DYNAMIC, m_pGraphicDev);
 	m_pModel = Get_Component<CModel>();
+	m_pModel->Set_Alpha(0.5f);
 
 	Add_Component<CRigidBody>(ID_DYNAMIC, m_pGraphicDev, m_pTransform);
 	m_pRigid = Get_Component<CRigidBody>();
@@ -57,31 +58,19 @@ HRESULT CSlotCube::Ready_GameObject()
 
 	Add_Component<CPickTarget>(ID_DYNAMIC, m_pGraphicDev, RAY_AABB);
 	m_pPick = Get_Component<CPickTarget>();
+
+
 	m_FitSlot = nullptr;
 	
-	m_bFirstPick = true;
-
 	CFactory::Save_Prefab(this, "CSlotCube");
 	return S_OK;
 }
 
 _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 {
-	if (m_bCurGrab)
-	{
-		if (s_pPickedCube == nullptr) {
-			s_pPickedCube = this;
-		}
-		else if (s_pPickedCube != this) {
-			m_bCurGrab = false;
-		}
-	}
-	else
-	{
-		if (s_pPickedCube == this)
-			s_pPickedCube = nullptr;
-	}
-
+	if (m_fSoundInterval > 0.f)
+		m_fSoundInterval -= fTimeDelta;
+	CCube::PlayPullSound();
 	if (m_bCurGrab)
 	{
 		PickMove();
@@ -94,11 +83,20 @@ _int CSlotCube::Update_GameObject(const _float& fTimeDelta)
 		else if (m_FitSlot != nullptr)
 			m_FitSlot->Set_SlottedCube(nullptr);
 		m_pRigid->Set_UseGravity(true);
-		//m_pRigid->Set_OnGround(false);
-		m_bFirstPick = true;
+
+	
+		bool isOnGround = m_pRigid->Get_OnGround();
+		if (isOnGround && !m_bPreOnground) {
+			if(m_fSoundInterval <= 0.f)
+			PlayColSound(1);
+			m_fSoundInterval = 0.2f;
+		}
+		m_bPreOnground = isOnGround;
+
+
 	}
 	CGameObject::Update_GameObject(fTimeDelta);
-	
+
 
 
 	return _int();
@@ -128,14 +126,19 @@ void CSlotCube::Free()
 	Safe_Release(m_pRigid);
 	Safe_Release(m_pCollider);
 	Safe_Release(m_pPick);
-	Safe_Release(m_pGraphicDev);
 }
 
-void CSlotCube::Set_Info(CMainPlayer* mainplayer, const _int puzzleID, const _int slotID)
+void CSlotCube::Set_Info(const _int puzzleID, const _int slotID)
 {
-	m_pPlayer = mainplayer;
 	m_iPuzzleID = puzzleID;
 	m_iSlotID = slotID;
+}
+
+void CSlotCube::Set_Info(CMainPlayer* player, const _int ID, const _int Seuqence)
+{
+	m_pPlayer = player;
+	m_iPuzzleID = ID;
+	m_iSlotID = Seuqence;
 }
 
 
@@ -146,7 +149,7 @@ void CSlotCube::Insert_Overlap(CSlotSensor* sensor, _float dist)
 
 void CSlotCube::PickMove()
 {
-	//m_pRigid->Set_UseGravity(false);
+	m_pRigid->Set_UseGravity(false);
 	m_pRigid->Set_Velocity({ 0.f, 0.f, 0.f }); 
 	m_pTransform->Set_Pos(m_pTransform->Get_Pos() + m_vCursorDelta);
 	m_vCursorDelta = {0,0,0};
@@ -156,7 +159,7 @@ void CSlotCube::PickMove()
 
 _bool CSlotCube::Check_Overlap()
 {
-	//¿À¹ö·¦µÈ ¼¾¼­ ¸®½ºÆ®µé Áß °Å¸®°¡ °¡Àå ÂªÀº ¼¾¼­ÀÇ Set_Axis È£Ãâ
+	//ì˜¤ë²„ë©ëœ ì„¼ì„œ ë¦¬ìŠ¤íŠ¸ë“¤ ì¤‘ ê±°ë¦¬ê°€ ê°€ì¥ ì§§ì€ ì„¼ì„œì˜ Set_Axis í˜¸ì¶œ
 	if (m_vecDetected_Slot.empty())
 		return false;
 
@@ -193,23 +196,23 @@ void CSlotCube::Fit(const _float& fTimeDelta)
 
 
 
-	 //º¤ÅÍ°¡ °ÅÀÇ ÀÏÄ¡(È¤Àº ¹İ´ë)ÀÎ °æ¿ì Ã³¸®
+	 //ë²¡í„°ê°€ ê±°ì˜ ì¼ì¹˜(í˜¹ì€ ë°˜ëŒ€)ì¸ ê²½ìš° ì²˜ë¦¬
 	float axisLen2 = D3DXVec3LengthSq(&axis);
 	if (axisLen2 < 1e-6f)
 		return;
 	D3DXVec3Normalize(&axis, &axis);
 
-	// ÄÚ»çÀÎÀ¸·ÎºÎÅÍ È¸Àü °¢µµ ±¸ÇÏ±â
+	// ì½”ì‚¬ì¸ìœ¼ë¡œë¶€í„° íšŒì „ ê°ë„ êµ¬í•˜ê¸°
 	float cosA = D3DXVec3Dot(&CubeLook, &SensorLook);
 	cosA = cosf(max(-1.f, min(1.f, cosA)));  // clamp
 	float fullAngle = acosf(cosA);
 
-	// ½ÇÁ¦ Àû¿ëÇÒ È¸Àü·® (step)
+	// ì‹¤ì œ ì ìš©í•  íšŒì „ëŸ‰ (step)
 	float step = AllignSpeed * fTimeDelta;
 	if (step > fullAngle)
 		step = fullAngle;
 
-	// Transform¿¡ ÃàÈ¸Àü ´©Àû Àû¿ë
+	// Transformì— ì¶•íšŒì „ ëˆ„ì  ì ìš©
 	m_pTransform->Rotate_Axis(axis, step);
 
 

@@ -20,12 +20,15 @@ void CFireState::Enter(CVellum* pVellum)
     m_fPhaseTime = 0.f;
 
     // 공격 위치 설정
-    m_vPos = { 0.f, 10.f, 0.f };
+    m_vPos = { 0.f, 25.f, 0.f };
+    m_fSpeed = 20.f;
 }
 
 void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
 {
     m_fPhaseTime += fTimeDelta; 
+    m_fPartRatio = pVellum->Get_PartCnt() / (pVellum->Get_PartCnt() - pVellum->Get_Part().size() +1 );
+
     CTransform* pTransform = pVellum->Get_HTransform();
     CRigidBody* pRigid = pVellum->Get_HRigid();
     CGameObject* pTarget = pVellum->Get_Target();
@@ -38,18 +41,23 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         _vec3 diff = m_vPos - pTransform->Get_Pos();
         if (D3DXVec3LengthSq(&diff) > 1.f)
         {
-            _vec3 dir = diff;
-            D3DXVec3Normalize(&dir, &dir);
-            pTransform->Set_Look(dir);
-            pRigid->Add_Force(dir * 20.f);
+            _vec3 dir;
+            D3DXVec3Normalize(&dir, &diff);
+            // 튀어나가지 않기 위한 제동
+            _vec3 vVel = pRigid->Get_Velocity();
+            _vec3 vBreak = -vVel;
+            pRigid->Add_Force(dir * 20.f + vBreak);
+            if (D3DXVec3LengthSq(&vVel) > 0.001f)
+                pTransform->Set_Look(vVel);
         }
         else
         {
+            CSoundMgr::Get_Instance()->Play("Charge");
             m_ePhase = FirePhase::Charge;
             m_fPhaseTime = 0.f;
             pRigid->Stop_Motion();
             
-            m_vBasePos = pTransform->Get_Pos();
+            m_vBase = pTransform->Get_Pos();
         }
         break;
     }
@@ -59,7 +67,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         
         if (m_fPhaseTime <= fTimeDelta)
         {
-            _vec3 diff = pTarget->Get_Component<CTransform>()->Get_Pos() - m_vBasePos;
+            _vec3 diff = pTarget->Get_Component<CTransform>()->Get_Pos() - m_vBase;
             D3DXVec3Normalize(&m_vDir, &diff);
         }
 
@@ -69,7 +77,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         float fRatio = m_fPhaseTime / m_fChargeTime;
         if (fRatio > 1.f) fRatio = 1.f;
 
-        _vec3 vPos = m_vBasePos - (m_vDir * fMaxlDist * fRatio);
+        _vec3 vPos = m_vBase - (m_vDir * fMaxlDist * fRatio);
         pTransform->Set_Pos(vPos);
 
         if (m_fPhaseTime >= m_fChargeTime)
@@ -88,9 +96,9 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         {
             float fLungeDist = 2.0f;
             // 시작점: 뒤로 최대로 물러난 위치
-            _vec3 vStartPos = m_vBasePos - (m_vDir * 2.f);
+            _vec3 vStartPos = m_vBase - (m_vDir * 2.f);
             // 목표점: 기준 위치보다 더 앞으로 나간 위치
-            _vec3 vTargetPos = m_vBasePos + (m_vDir * fLungeDist);
+            _vec3 vTargetPos = m_vBase + (m_vDir * fLungeDist);
 
             _vec3 vCurrentPos;
             float fRatio = m_fPhaseTime / fLungeDuration;
@@ -100,17 +108,20 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
         }
         else
         {
-            if (m_iFireCnt < 7)
+            if (m_iFireCnt < 5)
             {
+                pVellum->Get_Component<CModel>()->Set_Model(L"Head_Fire.obj", L"Head_Fire.mtl");
                 m_fFireDelay += fTimeDelta;
-                if (m_fFireDelay > 0.3f)
+                if (m_fFireDelay > 1.f)
                 {
+                    CSoundMgr::Get_Instance()->Play("Fire");
                     _vec3 vFireDir = Get_TargetDir(pVellum);
                     pTransform->Set_Look(vFireDir);
 
                     CProjectile* pProjectile = CProjectile::Create(pVellum->Get_Dev());
-                    pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + vFireDir * 3.f);
-                    pProjectile->Get_Component<CRigidBody>()->Add_Velocity(vFireDir * 20.f);
+                    pProjectile->Get_Component<CTransform>()->Set_Pos(pTransform->Get_Pos() + vFireDir * 5.f);
+                    pProjectile->Get_Component<CRigidBody>()->Add_Velocity(vFireDir * m_fSpeed * sqrtf(1.f + m_fPartRatio));
+
                     CSceneMgr::Get_Instance()->Get_Scene()->
                         Get_Layer(LAYER_OBJECT)->Add_GameObject(L"projectile" + to_wstring(m_iFireCnt), pProjectile);
 
@@ -136,6 +147,7 @@ void CFireState::Update(const _float fTimeDelta, CVellum* pVellum)
 
     case FirePhase::Cooldown:
     {
+        pVellum->Get_Component<CModel>()->Set_Model(L"Head_Smile.obj", L"Head_Smile.mtl");
         if (m_fPhaseTime >= m_fCoolTime)
         {
             pVellum->Change_Pattern(new CIdleState());

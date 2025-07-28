@@ -36,7 +36,7 @@ public:
     void Set_OrbitMatrix(const _matrix* pMat) { m_matOrbit = *pMat; }
     void Set_Right(const _vec3& vRight) { m_vInfo[INFO_RIGHT] = vRight; }
     void Set_Up(const _vec3& vUp) { m_vInfo[INFO_UP] = vUp; }
-    void Set_Look(const _vec3& vLook) { m_vInfo[INFO_LOOK] = vLook; }
+    void Set_Look(const _vec3& vLook);
     
 
     const _vec3& Get_Pos() const { return m_vPosition; }

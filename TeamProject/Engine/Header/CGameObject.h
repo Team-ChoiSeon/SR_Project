@@ -3,6 +3,7 @@
 #include "CComponent.h"
 #include "CModel.h"
 #include "CCamera.h"
+#include "CTransform.h"
 #include "CUI.h"
 #include "CSoundMgr.h"
 
@@ -22,6 +23,8 @@ public:
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject() {};
+
+	virtual const char* Get_Type() const { return typeid(*this).name(); }
 	/*virtual			void		Deserialize(const json& j);*/
 
 public:
@@ -37,7 +40,7 @@ public:
 	*	Add_Component<CRenderer>(ID_STATIC, m_pGraphicDev);
 	*/
 	template<typename T, typename... Args>
-	void Add_Component(COMPONENTID eID = ID_DYNAMIC, Args&&... args);
+	T* Add_Component(COMPONENTID eID = ID_DYNAMIC, Args&&... args);
 
 	template<typename T>
 	bool Has_Component();
@@ -68,13 +71,15 @@ T* CGameObject::Get_Component()
 }
 
 template<typename T, typename... Args>
-void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
+T* CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 {
 	const std::type_index tag = typeid(T);
-	if (m_umComponent[eID].find(tag) != m_umComponent[eID].end())
+	auto iter = m_umComponent[eID].find(tag);
+
+	if (iter != m_umComponent[eID].end())
 	{
 		//MSG_BOX("[GameObject] Add_Component : ");
-		return;
+		return static_cast<T*>(iter->second);
 	}
   
   
@@ -82,11 +87,13 @@ void CGameObject::Add_Component(COMPONENTID eID, Args&&... args)
 	if (pComp == nullptr)
 	{
 		MSG_BOX("[GameObject] Add_Component : ");
-		return;
+		return nullptr;
 	}
   
 	pComp->m_pOwner = this;
 	m_umComponent[eID].emplace(tag, pComp);
+
+	return pComp;
 }
 
 

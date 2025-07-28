@@ -16,7 +16,7 @@
 #include "CMonster.h"
 #include "CTestTile.h"
 #include "CCollisionMgr.h"
-#include "CPlayer.h"
+
 #include "CRigidBody.h"
 #include "CCrosshairUIObject.h"
 #include "CUiMgr.h"
@@ -28,6 +28,7 @@
 #include "CMetalCube.h"
 #include "CGuiSystem.h"
 #include "Engine_GUI.h"
+#include "CLowGravityCube.h"
 
 
 SceneHW::SceneHW(LPDIRECT3DDEVICE9 pGraphicDev) 
@@ -65,6 +66,8 @@ HRESULT SceneHW::Ready_Scene()
 	auto TestFloat = CFloatingCube::Create(m_pGraphicDev);
 	auto TestMagnet = CMagneticCube::Create(m_pGraphicDev);
 	auto TestMetal = CMetalCube::Create(m_pGraphicDev);
+	m_pLowGravityCube = CLowGravityCube::Create(m_pGraphicDev);
+	auto testlow = CLowGravityCube::Create(m_pGraphicDev);
 	//m_pWeightButton = CWeightButton::Create(m_pGraphicDev);
 	//m_pTimerButton = CTimerButton::Create(m_pGraphicDev);
 
@@ -95,6 +98,8 @@ HRESULT SceneHW::Ready_Scene()
 	Get_Layer(LAYER_PLAYER)->Get_GameObject<CMainPlayer>(L"hwPlayer")->Set_Crosshair(Get_Layer(LAYER_UI)->Get_GameObject<CCrosshairUIObject>(L"Crosshair"));
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwTestMagnet", TestMagnet);
 	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwTestMetal", TestMetal);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwLowGravityCube", m_pLowGravityCube);
+	Get_Layer(LAYER_OBJECT)->Add_GameObject(L"hwLowGravityCube2", testlow);
 
 	//======================================== Set Obejct Initial Informations ===================================================================//
 
@@ -104,31 +109,31 @@ HRESULT SceneHW::Ready_Scene()
 	m_pPlayer->Get_Component<CTransform>()->Set_Scale({ 1.f, 1.f, 1.f });
 	m_pFFCam->Set_Target(m_pPlayer);
 
-	m_pFloatingCube->Set_Info({ -20.f, 0.f, 50.f }, { 1.f, 0.f, 0.f }, 40.f, 20.f, 1.5f);
+	m_pFloatingCube->Set_Info({ 1.f, 0.f, 0.f }, 40.f, 20.f, 1.5f);
 	m_pFloatingCube->SetTrigger(true);
 	m_pFloatingCube->Set_Loop();
-	m_pFloatingCube2->Set_Info({ 20.f, 10.f, 30.f }, { 0.f, 1.f, 0.f }, 20.f, 10.f, 1.5f);
+	m_pFloatingCube2->Set_Info({ 0.f, 1.f, 0.f }, 20.f, 10.f, 1.5f);
 	m_pFloatingCube2->Set_Loop();
-	TestFloat->Set_Info({ 20.f, -10.f ,0.f }, { 0.f, 0.f, -1.f }, 10.f, 5.f, 0.f);
+	TestFloat->Set_Info({ 0.f, 0.f, -1.f }, 10.f, 5.f, 0.f);
 	TestFloat->SetTrigger(false);
 	TestFloat->Set_Loop();
 
 	pGround->Get_Component<CTransform>()->Set_Scale({ 100.f, 5.f, 100.f });
 	pGround->Get_Component<CTransform>()->Set_Pos({ 0.f, -20.f, 0.f });
 
-	m_pDirectionalCube->Set_Info({ 0.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, -10.f, 10.f);
-	m_pOnewayCube->Set_Info({ -10.f, 0.f, 30.f }, { 1.f, 0.f, 0.f }, 20.f);
+	m_pDirectionalCube->Set_Info({ 1.f, 0.f, 0.f }, -10.f, 10.f);
+	m_pOnewayCube->Set_Info({ 1.f, 0.f, 0.f }, 20.f);
 
 	m_pImpulseCube->Set_Info({ 0.f, 0.f, 20.f });
 
 	m_pPickSwitch->Get_Component<CTransform>()->Set_Pos({ 50.f, -15.f, 10.f });
 
 	m_pSlotCube->Get_Component<CTransform>()->Set_Pos({ 0.f, -0.f, -10.f });
-	m_pSlotCube->Set_Info(m_pPlayer, 0, 0);
+	m_pSlotCube->Set_Info( 0, 0);
 	m_pSlotCube2->Get_Component<CTransform>()->Set_Pos({ -3.f, 0.f, -10.f });
-	m_pSlotCube2->Set_Info(m_pPlayer, 0, 1);
+	m_pSlotCube2->Set_Info( 0, 1);
 	m_pSlotCube3->Get_Component<CTransform>()->Set_Pos({ -6.f, 0.f, -10.f });
-	m_pSlotCube3->Set_Info(m_pPlayer, 1, 0);
+	m_pSlotCube3->Set_Info( 1, 0);
 
 	m_pSlotSensor->Get_Component<CTransform>()->Set_Pos({ -10.f, -15.f, -10.f });
 	m_pSlotSensor->Set_Info(m_pPlayer, 0, 0);
@@ -142,6 +147,9 @@ HRESULT SceneHW::Ready_Scene()
 	TestMagnet->Get_Component<CTransform>()->Set_Pos({ 0, -13, 50 });
 	TestMagnet->Set_Info();
 	
+	m_pLowGravityCube->Get_Component<CTransform>()->Set_Pos({ -30.f, -13, -30.f });
+	testlow->Get_Component<CTransform>()->Set_Pos({ -25.f, -10.f, -25.f });
+
 
 	//=================================================== Manager Setteings ========================================================//
 
@@ -150,6 +158,17 @@ HRESULT SceneHW::Ready_Scene()
 	//
 	// ::Get_Instance()->Load_Sound("Zelda", "../Bin/Resource/Sound/Zelda.wav");
 	//CSoundMgr::Get_Instance()->Play("Zelda", "BGM", true);
+
+
+	CSoundMgr::Get_Instance()->Load_Sound("Collision1", "../Bin/Resource/Sound/Cube/MetalCollision_1.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("Collision2", "../Bin/Resource/Sound/Cube/MetalCollision_2.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("Collision3", "../Bin/Resource/Sound/Cube/MetalCollision_3.ogg");
+	CSoundMgr::Get_Instance()->Load_Sound("Collision4", "../Bin/Resource/Sound/Cube/MetalCollision_7.wav");
+	CSoundMgr::Get_Instance()->Load_Sound("Collision5", "../Bin/Resource/Sound/Cube/MetalCollision_8.wav");
+	CSoundMgr::Get_Instance()->Load_Sound("MagnetField", "../Bin/Resource/Sound/Cube/Magnet_1.wav");
+	CSoundMgr::Get_Instance()->Load_Sound("CubeDrag", "../Bin/Resource/Sound/Cube/DoorOpen_2.wav");
+
+
 
 	return S_OK;
 }
@@ -228,9 +247,9 @@ int SceneHW::Update_Scene(const _float& fTimeDelta)
 	//	OutputDebugStringW(L"slot3 : True \n");
 	//else
 	//	OutputDebugStringW(L"slot3 : False\n");
-	wchar_t buf1[128];
-	swprintf_s(buf1, 128, L"Player Pos : %.3f, %.3f, %.3f\n", playerpos.x, playerpos.y, playerpos.z);
-	OutputDebugStringW(buf1);
+	//wchar_t buf1[128];
+	//swprintf_s(buf1, 128, L"Player Pos : %.3f, %.3f, %.3f\n", playerpos.x, playerpos.y, playerpos.z);
+	//OutputDebugStringW(buf1);
 
 	//wchar_t buf2[128];
 	//swprintf_s(buf2, 128, L"SCube Pos : %.3f, %.3f, %.3f\n", scubepos.x, scubepos.y, scubepos.z);
