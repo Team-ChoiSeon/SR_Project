@@ -162,8 +162,8 @@ void CPostProcess::Do_Assemble(_bool Assemble)
 	}
 	else {
 		m_iEffectType = 4;
-		m_fDuration = 1.f;
-		m_fTotal = 1.f;
+		m_fDuration = .8f;
+		m_fTotal = .8f;
 		m_bLoop = false;
 	}
 }

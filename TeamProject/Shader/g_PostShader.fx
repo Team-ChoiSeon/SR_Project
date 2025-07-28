@@ -135,11 +135,11 @@ float4 PS_DISASSEMBLE(VS_OUT input) : COLOR0
 {
     float2 uv = input.uv;
 
-    float blockWidth = 0.03f;
+    float blockWidth = 0.01f;
     int xIndex = int(uv.x / blockWidth); // 0~4
     int yIndex = int(uv.y / blockWidth); // 0~4
     float hTime = g_TotalTime * 0.5f;
-    int dir = 1;
+    int dir =4;
 
     if (xIndex % 2 == 1)
     {

@@ -31,7 +31,7 @@ HRESULT CLightMgr::Ready_Light(LPDIRECT3DDEVICE9 pDevice)
     m_BaseLight.Direction = dir;
     m_BaseLight.Diffuse = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);  // 흰색 디퓨즈
     m_BaseLight.Specular = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.f);
-    m_BaseLight.Ambient = D3DXCOLOR(0.6f, 0.6f, 0.6f, 1.f); // 약한 앰비언트
+    m_BaseLight.Ambient = D3DXCOLOR(1.f, 1.f, 1.f, 1.f); // 약한 앰비언트
 
     // 0번 라이트로 적용
     m_pDevice->SetLight(0, &m_BaseLight);

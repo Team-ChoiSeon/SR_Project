@@ -38,6 +38,7 @@
 
 #include "CCamera.h"
 #include "CFirstviewFollowingCamera.h"
+#include "CSkyBox.h"
 
 SceneStage3::SceneStage3(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev)
@@ -73,7 +74,7 @@ HRESULT SceneStage3::Ready_Scene()
 	CSoundMgr::Get_Instance()->Load_Sound("Switch", "../Bin/Resource/Sound/Switch/Pick_1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("LowGravity", "../Bin/Resource/Sound/Cube/LowGravity_3.wav");
 
-	CSoundMgr::Get_Instance()->Load_Sound("BGM", "../Bin/Resource/Sound/BGM1.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("BGM", "../Bin/Resource/Sound/background.wav");
 	CSoundMgr::Get_Instance()->Load_Sound("SpaceHowl", "../Bin/Resource/Sound/BackGround/Space_3.wav");
 	CSoundMgr::Get_Instance()->Load_Sound("Spaceship", "../Bin/Resource/Sound/BackGround/Spaceship_1.wav");
 	CSoundMgr::Get_Instance()->Set_Volume("BGM", 0.5f);
@@ -114,6 +115,10 @@ HRESULT SceneStage3::Ready_Scene()
 	Get_Layer(LAYER_CAMERA)->Add_GameObject(L"MyCamera", pCam);
 	pCam->Set_Target(pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
+
+	pCam->Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	pCam->Get_Component<CSkyBox>()->Set_Texture(L"Sky_Test2.dds");
+	pCam->Get_Component<CTransform>()->Set_Scale({ 500,500,500 });
 
 	FloatingSet();
 	DirectionSet();

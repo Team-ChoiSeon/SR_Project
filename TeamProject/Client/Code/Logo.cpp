@@ -14,9 +14,9 @@
 /*
 #include "SceneHS.h"
 #include "SceneHW.h"
-#include "CSceneTestHS.h"
 #include "SceneSB.h"*/
 
+#include "CSceneTestHS.h"
 #include "BossScene.h"
 #include "SceneStage1.h"
 #include "SceneStage2.h"
@@ -46,7 +46,6 @@ HRESULT Logo::Ready_Scene()
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Background", m_pLogo);
 	CLogoTitle* m_pTitle = CLogoTitle::Create(m_pGraphicDev);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Title", m_pTitle);
-	CRenderMgr::Get_Instance()->Get_PostProcessing()->Set_Assemble();
 
 	return S_OK;
 }
@@ -55,9 +54,13 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 {
 	
 
+	if (CInputMgr::Get_Instance()->Key_Tap(DIK_U))
+	{
+		CRenderMgr::Get_Instance()->Get_PostProcessing()->Set_Assemble();
+	}
 	if (CInputMgr::Get_Instance()->Key_Tap(DIK_F1))
 	{
-		CScene* pScene = SceneBG::Create(m_pGraphicDev);
+		CScene* pScene = CSceneTestHS::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 	}
 
@@ -71,12 +74,12 @@ _int Logo::Update_Scene(const _float& fTimeDelta)
 		CScene* pScene = SceneStage2::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 	}
-	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F6))
+	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F4))
 	{
 		CScene* pScene = SceneStage3::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);
 	}
-	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F7))
+	else if (CInputMgr::Get_Instance()->Key_Tap(DIK_F5))
 	{
 		CScene* pScene = BossScene::Create(m_pGraphicDev);
 		CSceneMgr::Get_Instance()->Set_Scene(pScene);

@@ -76,8 +76,9 @@ HRESULT CMainPlayer::Ready_GameObject()
 	CSoundMgr::Get_Instance()->Load_Sound("Walking1", "../Bin/Resource/Sound/Walking_Wood1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("Landing1", "../Bin/Resource/Sound/Landing_Wood1.mp3");
 	CSoundMgr::Get_Instance()->Load_Sound("hit", "../Bin/Resource/Sound/PlayerHit.mp3");
+	CSoundMgr::Get_Instance()->Load_Sound("dead", "../Bin/Resource/Sound/sci-fi 1_2.wav");
+	CSoundMgr::Get_Instance()->Load_Sound("fall", "../Bin/Resource/Sound/garble1-1.wav");
 
-	
 	CFactory::Save_Prefab(this, "CMainPlayer");
 	return S_OK;
 }
@@ -585,11 +586,12 @@ void  CMainPlayer::Player_Hiting()
 void  CMainPlayer::Player_Dieing(const _float& fTimeDelta)
 {
 	m_fDeadTime += fTimeDelta;
+	CSoundMgr::Get_Instance()->Play("fall", "SFX", false);
 
 	CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Dead(4.f);
 	if (m_fDeadTime >= 5.f)
 	{
-
+		CSoundMgr::Get_Instance()->Play("dead", "SFX", false);
 		CRenderMgr::Get_Instance()->Get_PostProcessing()->Start_Alive(4.f);
 		m_pTransform->Set_Pos(m_vResponPos);
 		Set_Hp(10);

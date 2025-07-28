@@ -39,6 +39,7 @@
 #include "SceneStage2.h"
 #include "CRenderMgr.h"
 #include "CScenePanel.h"
+#include "CSkyBox.h"
 
 SceneStage1::SceneStage1(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CScene(pGraphicDev)
@@ -63,6 +64,9 @@ HRESULT SceneStage1::Ready_Scene()
 	CCameraMgr::Get_Instance()->Set_MainCamera(m_pFFCam);
 	m_pFFCam->Get_Component<CCamera>()->Set_Far(1000.f);
 
+	m_pFFCam->Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	m_pFFCam->Get_Component<CSkyBox>()->Set_Texture(L"Sky_Test2.dds");
+	m_pFFCam->Get_Component<CTransform>()->Set_Scale({ 500,500,500 });
 	//UI Setting
 	CUiMgr::Get_Instance()->Ready_UiMgr();
 	Get_Layer(LAYER_UI)->Add_GameObject(L"Crosshair", CCrosshairUIObject::Create(m_pGraphicDev));
@@ -319,8 +323,8 @@ void SceneStage1::SoundSet()
 	CSoundMgr::Get_Instance()->Load_Sound("LowGravity", "../Bin/Resource/Sound/Cube/LowGravity_3.wav");
 
 	CSoundMgr::Get_Instance()->Load_Sound("BGM", "../Bin/Resource/Sound/background.wav");
-	CSoundMgr::Get_Instance()->Load_Sound("SpaceHowl", "../Bin/Resource/Sound/BackGround/Space_3.wav");
-	CSoundMgr::Get_Instance()->Load_Sound("Spaceship", "../Bin/Resource/Sound/BackGround/Spaceship_1.wav");
+	//CSoundMgr::Get_Instance()->Load_Sound("SpaceHowl", "../Bin/Resource/Sound/BackGround/Space_3.wav");
+	//CSoundMgr::Get_Instance()->Load_Sound("Spaceship", "../Bin/Resource/Sound/BackGround/Spaceship_1.wav");
 	CSoundMgr::Get_Instance()->Set_Volume("BGM", 0.5f);
 	CSoundMgr::Get_Instance()->Set_Volume("SpaceHowl", 0.3f);
 	CSoundMgr::Get_Instance()->Set_Volume("Spaceship", 0.3f);

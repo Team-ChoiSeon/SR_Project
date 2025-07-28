@@ -81,6 +81,10 @@ HRESULT SceneStage2::Ready_Scene()
 	pCam->Set_Target(pPlayer);
 	CCameraMgr::Get_Instance()->Set_MainCamera(pCam);
 
+	pCam->Add_Component<CSkyBox>(ID_DYNAMIC, m_pGraphicDev);
+	pCam->Get_Component<CSkyBox>()->Set_Texture(L"Sky_Test2.dds");
+	pCam->Get_Component<CTransform>()->Set_Scale({ 500,500,500 });
+
 	CScenePanel* uiPanel = CScenePanel::Create(m_pGraphicDev);
 	uiPanel->Set_ObjectInfo(false);
 	Get_Layer(LAYER_UI)->Add_GameObject(L"uiPanel", uiPanel);

@@ -12,7 +12,7 @@ void CLayer::Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject)
 {
 	if (pGameObject == nullptr)
 	{
-		MSG_BOX("[Layer] Add_GameObject : nullptr ");
+		//MSG_BOX("[Layer] Add_GameObject : nullptr ");
 		return;
 	}
 
@@ -23,7 +23,7 @@ void CLayer::Add_GameObject(const wstring& wObjTag, CGameObject* pGameObject)
 		});
 	if (it != m_ObjectList.end())
 	{
-		MSG_BOX("[Layer] Add_GameObject : tag");
+		//MSG_BOX("[Layer] Add_GameObject : tag");
 		return;
 	}
 
